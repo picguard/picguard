@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "rangeStrategy": "bump",
+  "prHourlyLimit": 0,
+  "ignoreDeps": [
+    "flutter_localizations",
+    "flutter_test"
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["flutter", "dart"],
+      "groupName": "flutter"
+    },
+    {
+      "matchPackagePatterns": ["androidx.window"],
+      "groupName": "androidx.window"
+    }
+  ]
+}

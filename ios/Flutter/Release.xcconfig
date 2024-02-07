@@ -1,1 +1,2 @@
+#include? "Pods/Target Support Files/Pods-WatermarkAssistant/Pods-WatermarkAssistant.release.xcconfig"
 #include "Generated.xcconfig"
