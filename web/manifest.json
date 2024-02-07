@@ -1,6 +1,6 @@
 {
-    "name": "watermark_assistant",
-    "short_name": "watermark_assistant",
+    "name": "Watermark Assistant",
+    "short_name": "Watermark Assistant",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
