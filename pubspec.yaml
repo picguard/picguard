@@ -30,6 +30,9 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.6
   file_picker: ^6.1.1
+  firebase_analytics: ^10.8.5
+  firebase_core: ^2.25.4
+  firebase_crashlytics: ^3.4.14
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.3.10
