@@ -1,8 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { MdOutlineDashboardCustomize } from "react-icons/md";
-import { Github } from "@/components/shared/icons";
+import { FaRegPlayCircle } from "react-icons/fa";
 import useScroll from "@/lib/hooks/use-scroll";
 import LngDropdown from "./lng-dropdown";
 import ThemeDropdown from "./theme-dropdown";
@@ -50,11 +49,11 @@ export default function Header(props: LngProps) {
             <li className="h-8 w-8 sm:h-9 sm:w-9">
               <div className="relative inline-block text-left">
                 <Link
-                  href="https://github.com/alisoft/watermark_assistant"
+                  href="https://kjxbyz.com/watermark-assistant/play/"
                   target="_blank"
                   className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full transition-all duration-75 focus:outline-none active:scale-95 sm:h-9 sm:w-9"
                 >
-                  <Github className="h-5 w-5" />
+                  <FaRegPlayCircle className="h-5 w-5" />
                 </Link>
               </div>
             </li>
