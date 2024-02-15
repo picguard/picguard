@@ -7,7 +7,7 @@ if [[ "$VERCEL_ENV" == "preview" ]] ; then
   flutter/bin/flutter build web --no-tree-shake-icons --web-renderer canvaskit;
 else
   echo "🔥Building web app in production environment"
-  flutter/bin/flutter build web --no-tree-shake-icons --web-renderer canvaskit --base-href /watermark-assistant/;
+  flutter/bin/flutter build web --no-tree-shake-icons --web-renderer canvaskit --base-href /watermark-assistant/play/;
 fi
 
 exit 0
