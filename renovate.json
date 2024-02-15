@@ -1,15 +1,22 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base"
-  ],
+  "extends": ["config:base"],
   "rangeStrategy": "bump",
   "prHourlyLimit": 0,
-  "ignoreDeps": [
-    "flutter_localizations",
-    "flutter_test"
-  ],
+  "ignoreDeps": ["flutter_localizations", "flutter_test", "node"],
   "packageRules": [
+    {
+      "allowedVersions": "18",
+      "matchPackageNames": ["@types/node"]
+    },
+    {
+      "allowedVersions": "7",
+      "matchPackageNames": ["query-string"]
+    },
+    {
+      "allowedVersions": "2",
+      "matchPackageNames": ["tsparticles"]
+    },
     {
       "matchPackageNames": ["flutter", "dart"],
       "groupName": "flutter"
