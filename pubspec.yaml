@@ -36,6 +36,8 @@ dependencies:
   firebase_crashlytics: ^3.4.14
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_native_splash: ^2.3.10
   json_annotation: ^4.8.1
   permission_handler: ^11.3.0
@@ -69,6 +71,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
