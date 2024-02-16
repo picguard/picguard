@@ -45,22 +45,18 @@ ios_adhoc:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd ios && xcodebuild clean && cd ..
 	echo "╠ Releasing to adhoc..."
-	bash build-darwin.sh && flutter build ipa --export-options-plist=ios/ExportOptions-debug.plist --dart-define-from-file=versioning.json
+	bash build-ios.sh && flutter build ipa --export-options-plist=ios/ExportOptions-debug.plist
 
 ios_appstore:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd ios && xcodebuild clean && cd ..
+	echo "╠ Removing BuildConfig.xcconfig..."
+	rm -f ios/Flutter/BuildConfig.xcconfig
 	echo "╠ Releasing to app store..."
 	flutter build ipa --export-options-plist=ios/ExportOptions-release.plist
 
-macos_adhoc:
+macos:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd macos && xcodebuild clean && cd ..
-	echo "╠ Releasing to adhoc..."
-	bash build-darwin.sh && flutter build macos --dart-define-from-file=versioning.json
-
-macos_appstore:
-	echo "╠ Removing build products and intermediate files from the build root..."
-	cd macos && xcodebuild clean && cd ..
-	echo "╠ Releasing to app store..."
+	echo "╠ Releasing bundle..."
 	flutter build macos
