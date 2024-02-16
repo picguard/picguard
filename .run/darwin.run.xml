@@ -2,6 +2,8 @@
   <configuration default="false" name="darwin" type="FlutterRunConfigurationType" factoryName="Flutter">
     <option name="additionalArgs" value="--dart-define-from-file=versioning.json" />
     <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
-    <method v="2" />
+    <method v="2">
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="build-darwin" run_configuration_type="ShConfigurationType" />
+    </method>
   </configuration>
 </component>
