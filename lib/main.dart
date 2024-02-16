@@ -3,15 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:watermark_assistant/constrants/get.dart';
 
 import 'package:watermark_assistant/firebase_options.dart';
-
-/// 是否支持Firebase
-bool get isFirebaseSupported {
-  return !kIsWeb &&
-      [TargetPlatform.android, TargetPlatform.iOS, TargetPlatform.macOS]
-          .contains(defaultTargetPlatform);
-}
+import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +23,16 @@ Future<void> main() async {
       FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
       return true;
     };
+  }
+
+  if (isDesktop) {
+    await WindowManager.instance.ensureInitialized();
+    await windowManager.waitUntilReadyToShow().then((_) async {
+      await windowManager.center();
+      await windowManager.show();
+      await windowManager.setPreventClose(true);
+      await windowManager.setSkipTaskbar(false);
+    });
   }
 
   runApp(const MyApp());
@@ -67,8 +72,20 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WindowListener {
   int _counter = 0;
+
+  @override
+  void initState() {
+    windowManager.addListener(this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    super.dispose();
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -107,5 +124,37 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  @override
+  Future<void> onWindowClose() async {
+    final isPreventClose = await windowManager.isPreventClose();
+    if (isDesktop && isPreventClose) {
+      if (!mounted) return;
+      await showDialog<void>(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            title: const Text('Confirm close'),
+            content: const Text('Are you sure you want to close this window?'),
+            actions: [
+              TextButton(
+                child: const Text('Yes'),
+                onPressed: () {
+                  Navigator.pop(context);
+                  windowManager.destroy();
+                },
+              ),
+              TextButton(
+                child: const Text('No'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }
