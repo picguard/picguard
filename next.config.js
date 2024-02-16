@@ -1,9 +1,7 @@
 const { withContentlayer } = require("next-contentlayer");
 
 const basePath =
-  process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
-    ? "/watermark-assistant"
-    : "";
+  process.env.NEXT_PUBLIC_VERCEL_ENV === "production" ? "/picguard" : "";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
