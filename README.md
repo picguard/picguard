@@ -1,3 +1,3 @@
-# watermark_assistant
+# PicGuard
 
-Watermark Assistant.
+This app can add watermarks to pictures to prevent them from being used maliciously.
