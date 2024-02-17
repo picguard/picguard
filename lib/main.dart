@@ -3,9 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:watermark_assistant/constrants/get.dart';
-
-import 'package:watermark_assistant/firebase_options.dart';
+import 'package:picguard/constrants/get.dart';
+import 'package:picguard/firebase_options.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
@@ -96,13 +95,13 @@ class _MyHomePageState extends State<MyHomePage> with WindowListener {
   @override
   Widget build(BuildContext context) {
     return Title(
-      title: 'Watermark Assistant',
+      title: 'PicGuard',
       color: Colors.black,
       child: Scaffold(
-        appBar: AppBar(
+        appBar: !kIsWeb ? AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.title),
-        ),
+        ) : null,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

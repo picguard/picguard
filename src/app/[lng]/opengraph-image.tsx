@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 import { basePath } from "@/constants";
 
 export const runtime = "edge";
-export const alt = "水印助手,Watermark Assistant";
+export const alt = "PicGuard";
 export const contentType = "image/png";
 
 export default async function OG() {

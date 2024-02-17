@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.kjxbyz.watermarkassistant" "\0"
-            VALUE "FileDescription", "Watermark Assistant" "\0"
+            VALUE "FileDescription", "PicGuard" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "Watermark Assistant" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 Watermark Assistant. All rights reserved." "\0"
-            VALUE "OriginalFilename", "watermark_assistant.exe" "\0"
-            VALUE "ProductName", "Watermark Assistant" "\0"
+            VALUE "InternalName", "PicGuard" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 PicGuard. All rights reserved." "\0"
+            VALUE "OriginalFilename", "PicGuard.exe" "\0"
+            VALUE "ProductName", "PicGuard" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

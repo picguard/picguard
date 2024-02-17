@@ -30,10 +30,9 @@ export async function generateMetadata({
   params: { lng: string };
 }): Promise<Metadata | undefined> {
   return {
-    title: params.lng === "en" ? "Watermark Assistant" : "水印助手",
-    description: `${
-      params.lng === "en" ? "Watermark Assistant" : "水印助手"
-    } - 童话镇里一枝花, 人美歌甜陈一发.`,
+    title: "PicGuard",
+    description:
+      "PicGuard - This app can add watermarks to pictures to prevent them from being used maliciously.",
     metadataBase: new URL(`${host}${basePath}`),
     icons: {
       icon: `${basePath}/logo.png`,
