@@ -2,6 +2,8 @@
 get:
 	echo "╠ Installing dependencies..."
 	flutter pub get
+	make install
+	make macos_install
 
 outdated:
 	echo "╠ Resolving dependencies..."
@@ -11,11 +13,15 @@ clean: ## Cleans the environment
 	echo "╠ Cleaning the project..."
 	flutter clean
 	echo "╠ Installing dependencies..."
-	flutter pub get
+	make get
 
 install: ## Installing ios dependencies
 	echo "╠ Resolving ios dependencies..."
 	cd ios && pod install && cd ..
+
+macos_install: ## Installing ios dependencies
+	echo "╠ Resolving macos dependencies..."
+	cd macos && pod install && cd ..
 
 icon: ## Generate icons
 	echo "╠ Generate icons..."

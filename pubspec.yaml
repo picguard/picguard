@@ -29,19 +29,33 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  app_settings: ^5.1.1
   cupertino_icons: ^1.0.6
+  device_info_plus: ^9.1.2
   file_picker: ^6.1.1
   firebase_analytics: ^10.8.5
   firebase_core: ^2.25.4
   firebase_crashlytics: ^3.4.14
   flutter:
     sdk: flutter
+  flutter_file_dialog: ^3.0.2
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.3.10
+  fluttertoast: ^8.2.4
+  freezed_annotation: ^2.2.0
+  image_picker: ^1.0.7
   json_annotation: ^4.8.1
+  keyboard_dismisser: ^3.0.0
+  mime: ^1.0.5
+  package_info_plus: ^5.0.1
+  path: ^1.9.0
   permission_handler: ^11.3.0
   photo_view: ^0.14.0
+  shared_preferences: ^2.2.2
+  synchronized: ^3.1.0+1
+  url_launcher: ^6.2.4
+  uuid: ^4.3.3
   wechat_assets_picker: ^9.0.0-dev.2
   wechat_camera_picker: ^4.2.0-dev.3
   window_manager: ^0.3.8
