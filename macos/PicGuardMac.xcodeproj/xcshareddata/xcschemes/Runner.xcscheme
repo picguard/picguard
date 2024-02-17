@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "97C146ED1CF9000F007C117D"
-               BuildableName = "Watermark Assistant.app"
-               BlueprintName = "WatermarkAssistant"
-               ReferencedContainer = "container:WatermarkAssistant.xcodeproj">
+               BlueprintIdentifier = "33CC10EC2044A3C60003C045"
+               BuildableName = "PicGuard.app"
+               BlueprintName = "PicGuardMac"
+               ReferencedContainer = "container:PicGuardMac.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -30,10 +30,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "97C146ED1CF9000F007C117D"
-            BuildableName = "Watermark Assistant.app"
-            BlueprintName = "WatermarkAssistant"
-            ReferencedContainer = "container:WatermarkAssistant.xcodeproj">
+            BlueprintIdentifier = "33CC10EC2044A3C60003C045"
+            BuildableName = "PicGuard.app"
+            BlueprintName = "PicGuardMac"
+            ReferencedContainer = "container:PicGuardMac.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -42,10 +42,10 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "331C8080294A63A400263BE5"
-               BuildableName = "WatermarkAssistantTests.xctest"
-               BlueprintName = "WatermarkAssistantTests"
-               ReferencedContainer = "container:WatermarkAssistant.xcodeproj">
+               BlueprintIdentifier = "331C80D4294CF70F00263BE5"
+               BuildableName = "PicGuardMacTests.xctest"
+               BlueprintName = "PicGuardMacTests"
+               ReferencedContainer = "container:PicGuardMac.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -64,10 +64,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "97C146ED1CF9000F007C117D"
-            BuildableName = "Watermark Assistant.app"
-            BlueprintName = "WatermarkAssistant"
-            ReferencedContainer = "container:WatermarkAssistant.xcodeproj">
+            BlueprintIdentifier = "33CC10EC2044A3C60003C045"
+            BuildableName = "PicGuard.app"
+            BlueprintName = "PicGuardMac"
+            ReferencedContainer = "container:PicGuardMac.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -81,10 +81,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "97C146ED1CF9000F007C117D"
-            BuildableName = "Watermark Assistant.app"
-            BlueprintName = "WatermarkAssistant"
-            ReferencedContainer = "container:WatermarkAssistant.xcodeproj">
+            BlueprintIdentifier = "33CC10EC2044A3C60003C045"
+            BuildableName = "PicGuard.app"
+            BlueprintName = "PicGuardMac"
+            ReferencedContainer = "container:PicGuardMac.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

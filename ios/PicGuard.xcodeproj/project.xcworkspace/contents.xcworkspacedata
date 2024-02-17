@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:WatermarkAssistant.xcodeproj">
+      location = "self:/Users/ying/workspace/kjxbyz/picguard/ios/PicGuard.xcodeproj">
    </FileRef>
 </Workspace>

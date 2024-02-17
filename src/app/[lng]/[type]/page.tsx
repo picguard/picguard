@@ -15,7 +15,7 @@ export async function generateMetadata({
     title: params.lng === "en" ? "Blog" : "博客",
     description: `${
       params.lng === "en" ? "Blog" : "博客"
-    } - 童话镇里一枝花, 人美歌甜陈一发.`,
+    } - This app can add watermarks to pictures to prevent them from being used maliciously.`,
     metadataBase: new URL(`${host}${basePath}`),
     icons: {
       icon: `${basePath}/logo.png`,

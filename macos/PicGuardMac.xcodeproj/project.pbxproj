@@ -21,7 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		17F19D313D62CE47F99437AF /* Pods_WatermarkAssistantMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 710AD11659A2E87422564957 /* Pods_WatermarkAssistantMac.framework */; };
+		0E13B91AEFE3F5F9F5D2C8B9 /* Pods_PicGuardMacTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A532AA14BBA069A38249606D /* Pods_PicGuardMacTests.framework */; };
 		2EAEF5DE2B7496D900DDCB69 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EAEF5DD2B7496D900DDCB69 /* GoogleService-Info.plist */; };
 		331C80D8294CF71000263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C80D7294CF71000263BE5 /* RunnerTests.swift */; };
 		335BBD1B22A9A15E00E9071D /* GeneratedPluginRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */; };
@@ -29,7 +29,7 @@
 		33CC10F32044A3C60003C045 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33CC10F22044A3C60003C045 /* Assets.xcassets */; };
 		33CC10F62044A3C60003C045 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33CC10F42044A3C60003C045 /* MainMenu.xib */; };
 		33CC11132044BFA00003C045 /* MainFlutterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC11122044BFA00003C045 /* MainFlutterWindow.swift */; };
-		AB1E6FD07F6AD8B9A71F3534 /* Pods_WatermarkAssistantMacTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0760813EFEFEBBA620ED15A /* Pods_WatermarkAssistantMacTests.framework */; };
+		A2207862E048793884CF7A5E /* Pods_PicGuardMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D32C4970278FA4EB7F6A4A /* Pods_PicGuardMac.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,13 +63,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0420BC1DB2EC35A2F2879F72 /* Pods-PicGuardMacTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.profile.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.profile.xcconfig"; sourceTree = "<group>"; };
+		11BAB1DE7B2EC7F479C0E1CA /* Pods-PicGuardMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.release.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.release.xcconfig"; sourceTree = "<group>"; };
 		1625F6FA4405163B2B2028BC /* Pods-WatermarkAssistantMacTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatermarkAssistantMacTests.debug.xcconfig"; path = "Target Support Files/Pods-WatermarkAssistantMacTests/Pods-WatermarkAssistantMacTests.debug.xcconfig"; sourceTree = "<group>"; };
+		25D32C4970278FA4EB7F6A4A /* Pods_PicGuardMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicGuardMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EAEF5DD2B7496D900DDCB69 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		331C80D5294CF71000263BE5 /* WatermarkAssistantMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatermarkAssistantMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		331C80D5294CF71000263BE5 /* PicGuardMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PicGuardMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		331C80D7294CF71000263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		333000ED22D3DE5D00554162 /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
 		335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedPluginRegistrant.swift; sourceTree = "<group>"; };
-		33CC10ED2044A3C60003C045 /* Watermark Assistant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Watermark Assistant.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		33CC10ED2044A3C60003C045 /* PicGuard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicGuard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33CC10F02044A3C60003C045 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33CC10F22044A3C60003C045 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Runner/Assets.xcassets; sourceTree = "<group>"; };
 		33CC10F52044A3C60003C045 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -82,13 +85,16 @@
 		33E51914231749380026EE4D /* Release.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Release.entitlements; sourceTree = "<group>"; };
 		33E5194F232828860026EE4D /* AppInfo.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppInfo.xcconfig; sourceTree = "<group>"; };
 		41DC603A79F3C6D525F3E947 /* Pods-WatermarkAssistantMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatermarkAssistantMac.release.xcconfig"; path = "Target Support Files/Pods-WatermarkAssistantMac/Pods-WatermarkAssistantMac.release.xcconfig"; sourceTree = "<group>"; };
-		710AD11659A2E87422564957 /* Pods_WatermarkAssistantMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WatermarkAssistantMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		536DDE790A34442CB26CCA81 /* Pods-PicGuardMacTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.debug.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6ED2609233C76846568B8C6C /* Pods-PicGuardMacTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.release.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.release.xcconfig"; sourceTree = "<group>"; };
 		7617B2791BF202131AAB8BD7 /* Pods-WatermarkAssistantMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatermarkAssistantMac.debug.xcconfig"; path = "Target Support Files/Pods-WatermarkAssistantMac/Pods-WatermarkAssistantMac.debug.xcconfig"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		A0760813EFEFEBBA620ED15A /* Pods_WatermarkAssistantMacTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WatermarkAssistantMacTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A07844C63D18881A889A430C /* Pods-WatermarkAssistantMac.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatermarkAssistantMac.profile.xcconfig"; path = "Target Support Files/Pods-WatermarkAssistantMac/Pods-WatermarkAssistantMac.profile.xcconfig"; sourceTree = "<group>"; };
+		A532AA14BBA069A38249606D /* Pods_PicGuardMacTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicGuardMacTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3FF7C67EC0FEA417172E84B /* Pods-PicGuardMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.debug.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.debug.xcconfig"; sourceTree = "<group>"; };
 		C69119D666ED7FC9CEE46A21 /* Pods-WatermarkAssistantMacTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatermarkAssistantMacTests.release.xcconfig"; path = "Target Support Files/Pods-WatermarkAssistantMacTests/Pods-WatermarkAssistantMacTests.release.xcconfig"; sourceTree = "<group>"; };
+		D2C5B7D91E959D2A01CA328A /* Pods-PicGuardMac.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.profile.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.profile.xcconfig"; sourceTree = "<group>"; };
 		F7F19157AD8EF7939DF6BDCC /* Pods-WatermarkAssistantMacTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatermarkAssistantMacTests.profile.xcconfig"; path = "Target Support Files/Pods-WatermarkAssistantMacTests/Pods-WatermarkAssistantMacTests.profile.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,7 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB1E6FD07F6AD8B9A71F3534 /* Pods_WatermarkAssistantMacTests.framework in Frameworks */,
+				0E13B91AEFE3F5F9F5D2C8B9 /* Pods_PicGuardMacTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,7 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17F19D313D62CE47F99437AF /* Pods_WatermarkAssistantMac.framework in Frameworks */,
+				A2207862E048793884CF7A5E /* Pods_PicGuardMac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,8 +152,8 @@
 		33CC10EE2044A3C60003C045 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				33CC10ED2044A3C60003C045 /* Watermark Assistant.app */,
-				331C80D5294CF71000263BE5 /* WatermarkAssistantMacTests.xctest */,
+				33CC10ED2044A3C60003C045 /* PicGuard.app */,
+				331C80D5294CF71000263BE5 /* PicGuardMacTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -191,8 +197,8 @@
 		D73912EC22F37F3D000D13A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				710AD11659A2E87422564957 /* Pods_WatermarkAssistantMac.framework */,
-				A0760813EFEFEBBA620ED15A /* Pods_WatermarkAssistantMacTests.framework */,
+				25D32C4970278FA4EB7F6A4A /* Pods_PicGuardMac.framework */,
+				A532AA14BBA069A38249606D /* Pods_PicGuardMacTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -206,6 +212,12 @@
 				1625F6FA4405163B2B2028BC /* Pods-WatermarkAssistantMacTests.debug.xcconfig */,
 				C69119D666ED7FC9CEE46A21 /* Pods-WatermarkAssistantMacTests.release.xcconfig */,
 				F7F19157AD8EF7939DF6BDCC /* Pods-WatermarkAssistantMacTests.profile.xcconfig */,
+				B3FF7C67EC0FEA417172E84B /* Pods-PicGuardMac.debug.xcconfig */,
+				11BAB1DE7B2EC7F479C0E1CA /* Pods-PicGuardMac.release.xcconfig */,
+				D2C5B7D91E959D2A01CA328A /* Pods-PicGuardMac.profile.xcconfig */,
+				536DDE790A34442CB26CCA81 /* Pods-PicGuardMacTests.debug.xcconfig */,
+				6ED2609233C76846568B8C6C /* Pods-PicGuardMacTests.release.xcconfig */,
+				0420BC1DB2EC35A2F2879F72 /* Pods-PicGuardMacTests.profile.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -213,9 +225,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		331C80D4294CF70F00263BE5 /* WatermarkAssistantMacTests */ = {
+		331C80D4294CF70F00263BE5 /* PicGuardMacTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 331C80DE294CF71000263BE5 /* Build configuration list for PBXNativeTarget "WatermarkAssistantMacTests" */;
+			buildConfigurationList = 331C80DE294CF71000263BE5 /* Build configuration list for PBXNativeTarget "PicGuardMacTests" */;
 			buildPhases = (
 				68930BC413BE04C3300348BE /* [CP] Check Pods Manifest.lock */,
 				331C80D1294CF70F00263BE5 /* Sources */,
@@ -227,14 +239,14 @@
 			dependencies = (
 				331C80DA294CF71000263BE5 /* PBXTargetDependency */,
 			);
-			name = WatermarkAssistantMacTests;
+			name = PicGuardMacTests;
 			productName = RunnerTests;
-			productReference = 331C80D5294CF71000263BE5 /* WatermarkAssistantMacTests.xctest */;
+			productReference = 331C80D5294CF71000263BE5 /* PicGuardMacTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		33CC10EC2044A3C60003C045 /* WatermarkAssistantMac */ = {
+		33CC10EC2044A3C60003C045 /* PicGuardMac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 33CC10FB2044A3C60003C045 /* Build configuration list for PBXNativeTarget "WatermarkAssistantMac" */;
+			buildConfigurationList = 33CC10FB2044A3C60003C045 /* Build configuration list for PBXNativeTarget "PicGuardMac" */;
 			buildPhases = (
 				01958A13782EE1192B7E5D9F /* [CP] Check Pods Manifest.lock */,
 				33CC10E92044A3C60003C045 /* Sources */,
@@ -249,9 +261,9 @@
 			dependencies = (
 				33CC11202044C79F0003C045 /* PBXTargetDependency */,
 			);
-			name = WatermarkAssistantMac;
+			name = PicGuardMac;
 			productName = Runner;
-			productReference = 33CC10ED2044A3C60003C045 /* Watermark Assistant.app */;
+			productReference = 33CC10ED2044A3C60003C045 /* PicGuard.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -283,7 +295,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 33CC10E82044A3C60003C045 /* Build configuration list for PBXProject "WatermarkAssistantMac" */;
+			buildConfigurationList = 33CC10E82044A3C60003C045 /* Build configuration list for PBXProject "PicGuardMac" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -296,8 +308,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				33CC10EC2044A3C60003C045 /* WatermarkAssistantMac */,
-				331C80D4294CF70F00263BE5 /* WatermarkAssistantMacTests */,
+				33CC10EC2044A3C60003C045 /* PicGuardMac */,
+				331C80D4294CF70F00263BE5 /* PicGuardMacTests */,
 				33CC111A2044C6BA0003C045 /* Flutter Assemble */,
 			);
 		};
@@ -339,7 +351,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WatermarkAssistantMac-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-PicGuardMac-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -399,7 +411,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WatermarkAssistantMacTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-PicGuardMacTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -412,15 +424,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WatermarkAssistantMac/Pods-WatermarkAssistantMac-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WatermarkAssistantMac/Pods-WatermarkAssistantMac-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WatermarkAssistantMac/Pods-WatermarkAssistantMac-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -449,7 +461,7 @@
 /* Begin PBXTargetDependency section */
 		331C80DA294CF71000263BE5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 33CC10EC2044A3C60003C045 /* WatermarkAssistantMac */;
+			target = 33CC10EC2044A3C60003C045 /* PicGuardMac */;
 			targetProxy = 331C80D9294CF71000263BE5 /* PBXContainerItemProxy */;
 		};
 		33CC11202044C79F0003C045 /* PBXTargetDependency */ = {
@@ -474,7 +486,7 @@
 /* Begin XCBuildConfiguration section */
 		331C80DB294CF71000263BE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1625F6FA4405163B2B2028BC /* Pods-WatermarkAssistantMacTests.debug.xcconfig */;
+			baseConfigurationReference = 536DDE790A34442CB26CCA81 /* Pods-PicGuardMacTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -483,13 +495,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Watermark Assistant.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Watermark Assistant";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
 			};
 			name = Debug;
 		};
 		331C80DC294CF71000263BE5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C69119D666ED7FC9CEE46A21 /* Pods-WatermarkAssistantMacTests.release.xcconfig */;
+			baseConfigurationReference = 6ED2609233C76846568B8C6C /* Pods-PicGuardMacTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -498,13 +510,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Watermark Assistant.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Watermark Assistant";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
 			};
 			name = Release;
 		};
 		331C80DD294CF71000263BE5 /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7F19157AD8EF7939DF6BDCC /* Pods-WatermarkAssistantMacTests.profile.xcconfig */;
+			baseConfigurationReference = 0420BC1DB2EC35A2F2879F72 /* Pods-PicGuardMacTests.profile.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -513,7 +525,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Watermark Assistant.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Watermark Assistant";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
 			};
 			name = Profile;
 		};
@@ -577,7 +589,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 43V9N6VW8L;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Watermark Assistant";
+				INFOPLIST_KEY_CFBundleDisplayName = PicGuard;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -586,7 +598,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = "Watermark Assistant";
+				PRODUCT_NAME = PicGuard;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = watermark_assistant_mac_appstore;
 				SWIFT_VERSION = 5.0;
@@ -714,7 +726,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 43V9N6VW8L;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Watermark Assistant";
+				INFOPLIST_KEY_CFBundleDisplayName = PicGuard;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -723,7 +735,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = "Watermark Assistant";
+				PRODUCT_NAME = PicGuard;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = watermark_assistant_mac_dev;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -745,7 +757,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 43V9N6VW8L;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Watermark Assistant";
+				INFOPLIST_KEY_CFBundleDisplayName = PicGuard;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -754,7 +766,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = "Watermark Assistant";
+				PRODUCT_NAME = PicGuard;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = watermark_assistant_mac_appstore;
 				SWIFT_VERSION = 5.0;
@@ -780,7 +792,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		331C80DE294CF71000263BE5 /* Build configuration list for PBXNativeTarget "WatermarkAssistantMacTests" */ = {
+		331C80DE294CF71000263BE5 /* Build configuration list for PBXNativeTarget "PicGuardMacTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				331C80DB294CF71000263BE5 /* Debug */,
@@ -790,7 +802,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		33CC10E82044A3C60003C045 /* Build configuration list for PBXProject "WatermarkAssistantMac" */ = {
+		33CC10E82044A3C60003C045 /* Build configuration list for PBXProject "PicGuardMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				33CC10F92044A3C60003C045 /* Debug */,
@@ -800,7 +812,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		33CC10FB2044A3C60003C045 /* Build configuration list for PBXNativeTarget "WatermarkAssistantMac" */ = {
+		33CC10FB2044A3C60003C045 /* Build configuration list for PBXNativeTarget "PicGuardMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				33CC10FC2044A3C60003C045 /* Debug */,

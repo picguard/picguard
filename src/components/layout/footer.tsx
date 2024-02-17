@@ -18,7 +18,7 @@ function Footer(props: LngProps) {
       {/*  {t("footer")}{" "}*/}
       {/*  <a*/}
       {/*    className="font-medium text-gray-800 underline transition-colors dark:text-white/90"*/}
-      {/*    href="https://github.com/alisoft/watermark_assistant"*/}
+      {/*    href="https://github.com/alisoft/picguard"*/}
       {/*    target="_blank"*/}
       {/*    rel="noopener noreferrer"*/}
       {/*  >*/}
@@ -51,7 +51,7 @@ function Footer(props: LngProps) {
         {VERCEL_GIT_COMMIT_SHA && (
           <p className="flex items-center justify-center">
             <a
-              href={`https://github.com/alisoft/watermark_assistant/commit/${VERCEL_GIT_COMMIT_SHA}`}
+              href={`https://github.com/alisoft/picguard/commit/${VERCEL_GIT_COMMIT_SHA}`}
               target="_blank"
               className="hover:underline"
               rel="noreferrer"

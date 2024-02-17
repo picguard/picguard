@@ -1,7 +1,7 @@
 import { SystemOS } from "@/types/common";
 
-export const cacheLngKey: string = "__watermark_assistant_lng__";
-export const cacheThemeKey: string = "__watermark_assistant_theme__";
+export const cacheLngKey: string = "__picguard_lng__";
+export const cacheThemeKey: string = "__picguard_theme__";
 export const host =
   process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
     ? "https://www.kjxbyz.com"
