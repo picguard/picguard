@@ -1,5 +1,6 @@
 "use client";
 import { useCallback } from "react";
+import Image from "next/image";
 import { FaDownload } from "react-icons/fa6";
 import GithubPkg from "@/components/home/github-pkg";
 import { Release } from "@/types/github";
@@ -67,10 +68,10 @@ export default function Release({
         <div className="flex -space-x-0.5">
           <dt className="sr-only">Commenters</dt>
           <dd key={release.author?.id}>
-            <img
+            <Image
               className="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
-              src={release.author?.avatar_url}
-              alt={release.author?.login}
+              src={release.author?.avatar_url || ""}
+              alt={release.author?.login || ""}
             />
           </dd>
         </div>
