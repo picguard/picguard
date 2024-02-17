@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"./**/*.{css,js,json,jsx,ts,tsx}\"",
-    "prepare": "husky"
+    "prepare": "cd .. && husky docs/.husky"
   },
   "dependencies": {
     "@octokit/rest": "^20.0.2",
