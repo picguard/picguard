@@ -3,8 +3,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constrants/get.dart';
 import 'package:picguard/firebase_options.dart';
+import 'package:picguard/i18n/strings.g.dart';
+import 'package:picguard/pages/home_page.dart';
+import 'package:picguard/theme/theme.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
@@ -27,133 +32,40 @@ Future<void> main() async {
   if (isDesktop) {
     await WindowManager.instance.ensureInitialized();
     await windowManager.waitUntilReadyToShow().then((_) async {
-      await windowManager.center();
       await windowManager.show();
+      await windowManager.center();
+      await windowManager.setSize(const Size(1200, 800));
       await windowManager.setPreventClose(true);
       await windowManager.setSkipTaskbar(false);
     });
   }
 
-  runApp(const MyApp());
+  LocaleSettings.useDeviceLocale(); // initialize with the right locale
+  runApp(TranslationProvider(child: const MainApp(),));
 }
 
 ///
-class MyApp extends StatelessWidget {
+class MainApp extends StatelessWidget {
   ///
-  const MyApp({super.key});
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      debugShowCheckedModeBanner: false,
+      navigatorKey: AppNavigator.key,
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
       navigatorObservers: isFirebaseSupported
           ? <NavigatorObserver>[
               FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
             ]
           : [],
-      home: const MyHomePage(title: 'Home Page'),
+      locale: TranslationProvider.of(context).flutterLocale,
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      home: const HomePage(),
     );
-  }
-}
-
-///
-class MyHomePage extends StatefulWidget {
-  ///
-  const MyHomePage({required this.title, super.key});
-
-  ///
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> with WindowListener {
-  int _counter = 0;
-
-  @override
-  void initState() {
-    windowManager.addListener(this);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    windowManager.removeListener(this);
-    super.dispose();
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Title(
-      title: 'PicGuard',
-      color: Colors.black,
-      child: Scaffold(
-        appBar: !kIsWeb ? AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
-        ) : null,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'You have pushed the button this many times:',
-              ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Future<void> onWindowClose() async {
-    final isPreventClose = await windowManager.isPreventClose();
-    if (isDesktop && isPreventClose) {
-      if (!mounted) return;
-      await showDialog<void>(
-        context: context,
-        builder: (_) {
-          return AlertDialog(
-            title: const Text('Confirm close'),
-            content: const Text('Are you sure you want to close this window?'),
-            actions: [
-              TextButton(
-                child: const Text('Yes'),
-                onPressed: () {
-                  Navigator.pop(context);
-                  windowManager.destroy();
-                },
-              ),
-              TextButton(
-                child: const Text('No'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
   }
 }

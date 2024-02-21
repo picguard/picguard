@@ -1,0 +1,17 @@
+{
+  "homePage": {
+    "title": "PicGuard",
+    "description": "This app will not upload any pictures to the server, all operations are completed locally",
+    "textLabel": "Text",
+    "textLabelDescription": "Text will be added to the image as a watermark",
+    "textInput": "This certificate is only used for handling xx business, and is invalid for other purposes.",
+    "colorLabel": "Color",
+    "transparencyLabel": "Transparency",
+    "preview": "Preview",
+    "save": "Save"
+  },
+  "locales(map)": {
+    "en": "English",
+    "zh": "中文"
+  }
+}
