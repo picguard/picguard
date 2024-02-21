@@ -7,7 +7,7 @@ import 'package:picguard/theme/colors.dart';
 typedef BaseFormItemCallback = void Function();
 
 ///
-class BaseFormItem extends StatelessWidget {
+class BaseFormItem extends StatefulWidget {
   ///
   const BaseFormItem({
     required this.child,
@@ -33,38 +33,45 @@ class BaseFormItem extends StatelessWidget {
   final BaseFormItemCallback? onTipTap;
 
   @override
+  State<BaseFormItem> createState() => _BaseFormItemState();
+}
+
+class _BaseFormItemState extends State<BaseFormItem> {
+  @override
   Widget build(BuildContext context) {
-    return title != null
+    return widget.title != null
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: mainAxisSize,
+            mainAxisSize: widget.mainAxisSize,
             children: [
-              if (!showTip)
+              if (!widget.showTip)
                 content
               else
                 content
                     .addWidgetAsList(
-                      tipWidget == null
+                      widget.tipWidget == null
                           ? tips
-                          : tipWidget!.nestedTap(() {
-                              onTipTap?.call();
+                          : widget.tipWidget!.nestedTap(() {
+                              widget.onTipTap?.call();
                             }),
                     )
-                    .nestedRow(mainAxisAlignment: mainAxisAlignment),
-              child,
+                    .nestedRow(mainAxisAlignment: widget.mainAxisAlignment),
+              widget.child,
             ],
-          ).nestedPadding(padding: padding)
+          ).nestedPadding(padding: widget.padding)
         : Padding(
-            padding: padding,
-            child: child,
+            padding: widget.padding,
+            child: widget.child,
           );
   }
 
   Widget get content {
+    final brightness = Theme.of(context).brightness;
+    final isDark = brightness == Brightness.dark;
     return RichText(
       text: TextSpan(
         children: [
-          if (required)
+          if (widget.required)
             const TextSpan(
               text: '*',
               style: TextStyle(
@@ -74,9 +81,9 @@ class BaseFormItem extends StatelessWidget {
               ),
             ),
           TextSpan(
-            text: title,
-            style: const TextStyle(
-              color: primaryTextColor,
+            text: widget.title,
+            style: TextStyle(
+              color: isDark ? Colors.white: primaryTextColor,
               fontSize: 14,
               fontWeight: FontWeight.w400,
             ),
@@ -95,7 +102,7 @@ class BaseFormItem extends StatelessWidget {
           padding: const EdgeInsets.only(left: 4),
         )
         .nestedTap(() {
-      onTipTap?.call();
+      widget.onTipTap?.call();
     });
   }
 }

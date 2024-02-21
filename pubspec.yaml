@@ -37,7 +37,6 @@ dependencies:
   file_picker: ^6.1.1
   firebase_analytics: ^10.8.6
   firebase_core: ^2.25.4
-  firebase_crashlytics: ^3.4.15
   flutter:
     sdk: flutter
   flutter_file_dialog: ^3.0.2

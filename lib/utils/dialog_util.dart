@@ -147,9 +147,9 @@ class DialogUtil {
       builder: (context) => PhotoView.customChild(
         backgroundDecoration: const BoxDecoration(color: Colors.black45),
         heroAttributes: PhotoViewHeroAttributes(tag: id),
-        initialScale: 1,
+        initialScale: 1.0,
         minScale: 0.5,
-        maxScale: 2,
+        maxScale: 2.0,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
