@@ -56,13 +56,13 @@ appbundle: ## Release Appbundle
 	echo "╠ Releasing Appbundle..."
 	flutter build appbundle --no-tree-shake-icons --flavor production
 
-ios_adhoc:
+adhoc:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd ios && xcodebuild clean && cd ..
 	echo "╠ Releasing to adhoc..."
 	bash build-ios.sh && flutter build ipa --export-options-plist=ios/ExportOptions-debug.plist
 
-ios_appstore:
+appstore:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd ios && xcodebuild clean && cd ..
 	echo "╠ Removing BuildConfig.xcconfig..."
