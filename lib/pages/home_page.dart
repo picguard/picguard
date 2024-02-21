@@ -68,6 +68,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
+    final brightness = Theme.of(context).brightness;
+    final isDark = brightness == Brightness.dark;
     final languageCode = LocaleSettings.currentLocale.languageCode;
     log('languageCode: $languageCode');
     const spacing = 8.0;
@@ -78,6 +80,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     final items = _fileWrappers
         .mapIndexed(
           (index, element) {
+            log(element.file.path);
             final image = kIsWeb
                 ? Image.network(
                     element.file.path,
@@ -98,14 +101,20 @@ class _HomePageState extends State<HomePage> with WindowListener {
                     ),
                   );
 
+            Widget child = image;
+
+            if (kIsWeb || isDesktop) {
+              child = SingleChildScrollView(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: child,
+                ),
+              );
+            }
+
             return Stack(
               children: [
-                SingleChildScrollView(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: image,
-                  ),
-                )
+                child
                     .nestedSizedBox(width: itemWidth, height: itemWidth)
                     .nestedTap(() {
                   DialogUtil.showImagePreviewDialog(
@@ -151,7 +160,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
             .nestedCenter()
             .nestedDecoratedBox(
               decoration: BoxDecoration(
-                color: secondaryGrayColor,
+                color: isDark ? Colors.black54 : secondaryGrayColor,
                 border: Border.all(color: borderColor),
               ),
             )
@@ -163,7 +172,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     return KeyboardDismisser(
       child: Title(
         title: 'PicGuard',
-        color: Colors.black,
+        color: isDark ? Colors.white : Colors.black,
         child: Scaffold(
           appBar:
               !kIsWeb ? PGAppBar(titleWidget: Text(t.homePage.title)) : null,
@@ -218,7 +227,12 @@ class _HomePageState extends State<HomePage> with WindowListener {
                                 initialValue: field.value,
                                 cursorColor: primaryColor,
                                 autocorrect: false,
-                                style: const TextStyle(color: primaryTextColor),
+                                style: TextStyle(
+                                  color:
+                                      isDark ? Colors.white : primaryTextColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 onChanged: (value) {
                                   field
                                     ..didChange(value)
@@ -227,7 +241,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                                 decoration: InputDecoration(
                                   isDense: true,
                                   contentPadding:
-                                      const EdgeInsets.fromLTRB(10, 5, 5, 10),
+                                      const EdgeInsets.fromLTRB(10, 10, 5, 10),
                                   enabledBorder: hasError
                                       ? OutlineInputBorder(
                                           borderRadius:
@@ -379,8 +393,10 @@ class _HomePageState extends State<HomePage> with WindowListener {
                                         languageCode == 'zh'
                                             ? color.zhText
                                             : color.enText,
-                                        style: const TextStyle(
-                                          color: primaryTextColor,
+                                        style: TextStyle(
+                                          color: isDark
+                                              ? Colors.white
+                                              : primaryTextColor,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
                                         ),
@@ -410,7 +426,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                                   width: width - 20,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(4),
-                                    color: Colors.white,
+                                    color: isDark ? Colors.black : Colors.white,
                                   ),
                                 ),
                                 menuItemStyleData: const MenuItemStyleData(
@@ -426,8 +442,10 @@ class _HomePageState extends State<HomePage> with WindowListener {
                                     color: errorTextColor,
                                   ),
                                 ).nestedPadding(
-                                  padding:
-                                      const EdgeInsets.only(top: 8, left: 8),
+                                  padding: const EdgeInsets.only(
+                                    top: 8,
+                                    left: 8,
+                                  ),
                                 ),
                             ],
                           );
@@ -586,7 +604,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
         final deviceInfo = DeviceInfoPlugin();
         final androidInfo = await deviceInfo.androidInfo;
         if (androidInfo.version.sdkInt >= 33) {
-          statuses = await [Permission.photos, Permission.videos].request();
+          statuses = await [Permission.photos].request();
         } else {
           statuses = await [Permission.storage].request();
         }
@@ -636,6 +654,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
               .toList(),
         ),
       );
+
       if (assets != null && assets.isNotEmpty) {
         final fileWrapperFutures = assets.map((asset) async {
           final file = await asset.originFile;

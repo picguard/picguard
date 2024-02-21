@@ -146,8 +146,8 @@ class AppTheme {
       scaffoldBackgroundColor: Colors.black,
       brightness: Brightness.dark,
       appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
+        backgroundColor: Colors.black,
+        surfaceTintColor: Colors.black,
       ),
       bottomSheetTheme: BottomSheetThemeData(
         surfaceTintColor: primaryColor,
