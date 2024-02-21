@@ -1,0 +1,17 @@
+{
+  "homePage": {
+    "title": "PicGuard",
+    "description": "本app不会上传任何图片到服务器, 所有操作均在本地完成",
+    "textLabel": "文本",
+    "textLabelDescription": "文本会以水印添加到图片上",
+    "textInput": "此证件仅用于办理xx业务, 其他用途无效",
+    "colorLabel": "颜色",
+    "transparencyLabel": "透明度",
+    "preview": "预览",
+    "save": "保存"
+  },
+  "locales(map)": {
+    "en": "English",
+    "zh": "中文"
+  }
+}
