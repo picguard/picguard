@@ -48,8 +48,8 @@ dependencies:
     specifier: ^1.2.0
     version: 1.2.0
   joi:
-    specifier: ^17.12.1
-    version: 17.12.1
+    specifier: ^17.12.2
+    version: 17.12.2
   lodash:
     specifier: ^4.17.21
     version: 4.17.21
@@ -75,8 +75,8 @@ dependencies:
     specifier: ^18.2.0
     version: 18.2.0
   react-big-calendar:
-    specifier: ^1.10.2
-    version: 1.10.2(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^1.10.3
+    version: 1.10.3(react-dom@18.2.0)(react@18.2.0)
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
@@ -4444,8 +4444,8 @@ packages:
     hasBin: true
     dev: true
 
-  /joi@17.12.1:
-    resolution: {integrity: sha512-vtxmq+Lsc5SlfqotnfVjlViWfOL9nt/avKNbKYizwf6gsCfq9NYY/ceYRMFD8XDdrjJ9abJyScWmhmIiy+XRtQ==}
+  /joi@17.12.2:
+    resolution: {integrity: sha512-RonXAIzCiHLc8ss3Ibuz45u28GOsWE1UpfDXLbN/9NKbL4tCJf8TWYVKsoYuuh+sAUt7fsSNpA+r2+TBA6Wjmw==}
     dependencies:
       '@hapi/hoek': 9.3.0
       '@hapi/topo': 5.1.0
@@ -6100,8 +6100,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /react-big-calendar@1.10.2(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-GfOgbJiDFJNF/HwA5NitPW3K2kPLYu0JraLbFuRKwEuZkG3658CUKf2s7sNGI9OHpFh/WsEOzD5BkP9DAaU70A==}
+  /react-big-calendar@1.10.3(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-LmIWlFfGUn8yt4RxcVkGNmjM3GcWynr1bfDwKrrz4KKj517+DH3OGmQzErURN6Zb0OB88HF4oH2dvDHpBQJgIw==}
     peerDependencies:
       react: ^16.14.0 || ^17 || ^18
       react-dom: ^16.14.0 || ^17 || ^18
