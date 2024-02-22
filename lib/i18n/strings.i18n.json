@@ -1,11 +1,14 @@
 {
   "homePage": {
     "title": "PicGuard",
+    "imageDescription": "Please upload pictures.",
     "description": "This app will not upload any pictures to the server, all operations are completed locally",
     "textLabel": "Text",
     "textLabelDescription": "Text will be added to the image as a watermark",
+    "textValidator": "Please enter text.",
     "textInput": "This certificate is only used for handling xx business, and is invalid for other purposes.",
     "colorLabel": "Color",
+    "colorValidator": "Please select a color.",
     "transparencyLabel": "Transparency",
     "preview": "Preview",
     "save": "Save"

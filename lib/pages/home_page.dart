@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -48,6 +49,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with WindowListener {
   final _formKey = GlobalKey<FormBuilderState>();
   final colorNotifier = ValueNotifier<int>(0xFF9E9E9E);
+  final transparencyNotifier = ValueNotifier<double>(1);
   List<FileWrapper> _fileWrappers = [];
 
   @override
@@ -225,7 +227,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
                             children: [
                               TextFormField(
                                 initialValue: field.value,
-                                cursorColor: primaryColor,
+                                cursorColor:
+                                    hasError ? errorTextColor : primaryColor,
                                 autocorrect: false,
                                 style: TextStyle(
                                   color:
@@ -311,7 +314,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                         },
                         validator: (value) {
                           if (StringUtil.isBlank(value)) {
-                            return 'Please enter text.';
+                            return t.homePage.textValidator;
                           }
                           return null;
                         },
@@ -389,37 +392,95 @@ class _HomePageState extends State<HomePage> with WindowListener {
                                   (color) {
                                     return DropdownMenuItem<int>(
                                       value: color.value,
-                                      child: Text(
-                                        languageCode == 'zh'
-                                            ? color.zhText
-                                            : color.enText,
-                                        style: TextStyle(
-                                          color: isDark
-                                              ? Colors.white
-                                              : primaryTextColor,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
+                                      child: TextButton(
+                                        style: ButtonStyle(
+                                          tapTargetSize:
+                                              MaterialTapTargetSize.padded,
+                                          fixedSize: MaterialStateProperty.all(
+                                            Size.fromWidth(width),
+                                          ),
+                                          padding: MaterialStateProperty.all(
+                                            const EdgeInsets.symmetric(
+                                              vertical: 10,
+                                              horizontal: 10,
+                                            ),
+                                          ),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                            Colors.transparent,
+                                          ),
+                                          overlayColor:
+                                              MaterialStateProperty.all(
+                                            primaryBackgroundColor,
+                                          ),
+                                          elevation:
+                                              MaterialStateProperty.all(0),
+                                        ),
+                                        onPressed: () {
+                                          NavigatorUtil.pop();
+                                          colorNotifier.value = color.value;
+                                          field
+                                            ..didChange(color.value)
+                                            ..validate();
+                                        },
+                                        child: Text(
+                                          languageCode == 'zh'
+                                              ? color.zhText
+                                              : color.enText,
+                                          style: TextStyle(
+                                            color: isDark
+                                                ? Colors.white
+                                                : primaryTextColor,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ).nestedAlign(
+                                          alignment: Alignment.centerLeft,
                                         ),
                                       ),
                                     );
                                   },
                                 ).toList(),
-                                onChanged: (value) {
-                                  colorNotifier.value = value!;
-                                  field
-                                    ..didChange(value)
-                                    ..validate();
+                                selectedItemBuilder: (context) {
+                                  final color = colors.firstWhereOrNull(
+                                    (color) => color.value == field.value,
+                                  );
+                                  return colors.map(
+                                    (item) {
+                                      return Container(
+                                        alignment: AlignmentDirectional.center,
+                                        child: Text(
+                                          StringUtil.getValue(
+                                            languageCode == 'zh'
+                                                ? color?.zhText
+                                                : color?.enText,
+                                          ),
+                                          style: TextStyle(
+                                            color: isDark
+                                                ? Colors.white
+                                                : primaryTextColor,
+                                            fontSize: 14,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          maxLines: 1,
+                                        ),
+                                      );
+                                    },
+                                  ).toList();
                                 },
+                                onChanged: (value) {},
                                 onSaved: (value) {},
                                 buttonStyleData: const ButtonStyleData(
                                   padding: EdgeInsets.only(right: 4),
                                   width: 0,
                                 ),
-                                iconStyleData: const IconStyleData(
+                                iconStyleData: IconStyleData(
                                   icon: Icon(
-                                    Icons.arrow_drop_down_sharp,
-                                    color: secondaryTextColor,
-                                    size: 14,
+                                    Icons.arrow_downward_sharp,
+                                    color: isDark
+                                        ? Colors.white
+                                        : secondaryTextColor,
+                                    size: 16,
                                   ),
                                 ),
                                 dropdownStyleData: DropdownStyleData(
@@ -431,7 +492,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                                 ),
                                 menuItemStyleData: const MenuItemStyleData(
                                   height: 36,
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  padding: EdgeInsets.zero,
                                 ),
                               ),
                               if (hasError)
@@ -450,6 +511,12 @@ class _HomePageState extends State<HomePage> with WindowListener {
                             ],
                           );
                         },
+                        validator: (value) {
+                          if (value == null) {
+                            return t.homePage.colorValidator;
+                          }
+                          return null;
+                        },
                       ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
                     ),
                     const SizedBox(height: 5),
@@ -459,35 +526,60 @@ class _HomePageState extends State<HomePage> with WindowListener {
                       showTip: false,
                       child: FormBuilderField<double>(
                         name: 'transparency',
-                        initialValue: 1,
+                        initialValue: transparencyNotifier.value,
                         builder: (FormFieldState<double> field) {
                           final hasError =
                               StringUtil.isNotBlank(field.errorText);
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SfSliderTheme(
-                                data: SfSliderThemeData(
-                                  inactiveTrackHeight: 4,
-                                  activeTrackHeight: 4,
-                                  activeTrackColor: primaryColor,
-                                  thumbRadius: 6,
-                                  thumbColor: primaryColor,
-                                  overlayRadius: 0,
-                                ),
-                                child: SfSlider(
-                                  min: 0,
-                                  max: 1,
-                                  stepSize: 0.1,
-                                  value: field.value,
-                                  enableTooltip: true,
-                                  onChanged: (dynamic value) {
-                                    field
-                                      ..didChange(value as double? ?? 0.0)
-                                      ..validate();
-                                  },
-                                ),
-                              ).nestedAlign().nestedSizedBox(height: 30),
+                              Row(
+                                children: [
+                                  SfSliderTheme(
+                                    data: SfSliderThemeData(
+                                      inactiveTrackHeight: 4,
+                                      activeTrackHeight: 4,
+                                      activeTrackColor: primaryColor,
+                                      thumbRadius: 6,
+                                      thumbColor: primaryColor,
+                                      overlayRadius: 0,
+                                    ),
+                                    child: SfSlider(
+                                      min: 0,
+                                      max: 1,
+                                      stepSize: 0.1,
+                                      value: field.value,
+                                      enableTooltip: true,
+                                      onChanged: (dynamic value) {
+                                        transparencyNotifier.value =
+                                            value as double? ?? 0.0;
+                                        field
+                                          ..didChange(value ?? 0.0)
+                                          ..validate();
+                                      },
+                                    ),
+                                  )
+                                      .nestedAlign()
+                                      .nestedSizedBox(height: 30)
+                                      .nestedExpanded(),
+                                  ValueListenableBuilder(
+                                    valueListenable: transparencyNotifier,
+                                    builder: (
+                                      BuildContext context,
+                                      double value,
+                                      Widget? child,
+                                    ) =>
+                                        Text(
+                                      value.toString(),
+                                      textAlign: TextAlign.center,
+                                    ).nestedSizedBox(width: 28).nestedPadding(
+                                              padding: const EdgeInsets.only(
+                                                left: 4,
+                                              ),
+                                            ),
+                                  ),
+                                ],
+                              ),
                               if (hasError)
                                 Text(
                                   field.errorText!,
@@ -540,7 +632,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 child: Text(
                   t.homePage.preview,
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -575,7 +667,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 child: Text(
                   t.homePage.save,
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -593,9 +685,25 @@ class _HomePageState extends State<HomePage> with WindowListener {
     );
   }
 
-  void _preview() {}
+  void _preview() {
+    if (_formKey.currentState!.validate()) {
+      final values = _formKey.currentState!.instantValue;
+      log(json.encode(values));
+      final text = values['text'] as String;
+      final color = values['color'] as int;
+      final transparency = values['transparency'] as double;
+    }
+  }
 
-  void _save() {}
+  void _save() {
+    if (_formKey.currentState!.validate()) {
+      final values = _formKey.currentState!.instantValue;
+      log(json.encode(values));
+      final text = values['text'] as String;
+      final color = values['color'] as int;
+      final transparency = values['transparency'] as double;
+    }
+  }
 
   Future<void> _pickImages() async {
     if (isMobile) {
@@ -667,22 +775,18 @@ class _HomePageState extends State<HomePage> with WindowListener {
         final fileWrappers =
             (await Future.wait(fileWrapperFutures)).whereNotNull().toList();
 
-        setState(() => _fileWrappers = _fileWrappers + fileWrappers);
+        setState(() => _fileWrappers = fileWrappers);
       }
     } else {
       final picker = ImagePicker();
-      final images = await picker.pickMultiImage();
-      if (images.isNotEmpty) {
-        final fileWrapperFutures = images.map((image) async {
-          final file = File(image.path);
-          final name = image.name;
-          return FileWrapper(file: file, name: name);
-        }).toList();
-
-        final fileWrappers =
-            (await Future.wait(fileWrapperFutures)).whereNotNull().toList();
-
-        setState(() => _fileWrappers = _fileWrappers + fileWrappers);
+      final image = await picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        final file = File(image.path);
+        final name = image.name;
+        setState(
+          () => _fileWrappers =
+              _fileWrappers + [FileWrapper(file: file, name: name)],
+        );
       }
     }
   }
@@ -763,7 +867,13 @@ class FileWrapper {
 class PGColor {
   ///
   const PGColor(this.value, this.enText, this.zhText);
+
+  /// 颜色值
   final int value;
+
+  /// 英文文案
   final String enText;
+
+  /// 中文文案
   final String zhText;
 }
