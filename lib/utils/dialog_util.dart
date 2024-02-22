@@ -6,7 +6,6 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/extensions/single.dart';
-import 'package:picguard/gen/assets.gen.dart';
 import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/navigator_util.dart';
 import 'package:picguard/utils/string_util.dart';
@@ -158,7 +157,7 @@ class DialogUtil {
             ),
             image: DecorationImage(
               image: (kIsWeb ? NetworkImage(file.path) : FileImage(file))
-              as ImageProvider,
+                  as ImageProvider,
               fit: BoxFit.contain,
             ),
           ),
@@ -176,10 +175,14 @@ class DialogUtil {
   }) {
     final context = AppNavigator.key.currentContext!;
     final bottom = MediaQuery.of(context).padding.bottom;
+    final platformBrightness = MediaQuery.of(context).platformBrightness;
+    final isDark = platformBrightness == Brightness.dark;
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: backgroundColor,
       barrierColor: barrierColor,
+      isDismissible: false,
+      enableDrag: false,
       builder: (BuildContext context) => SingleChildScrollView(
         controller: ModalScrollController.of(context),
         child: Column(
@@ -192,25 +195,38 @@ class DialogUtil {
                 Text(
                   title,
                   textAlign: TextAlign.start,
-                  style: const TextStyle(
-                    color: primaryTextColor,
+                  style: TextStyle(
+                    color: isDark ? Colors.white : primaryTextColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ).nestedExpanded(),
-                Assets.icons.close
-                    .image(width: 20, height: 20)
-                    .nestedTap(NavigatorUtil.pop),
+                IconButton(
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.grey[300]),
+                    foregroundColor:
+                        MaterialStateProperty.all(secondaryTextColor),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    minimumSize: MaterialStateProperty.all(Size.zero),
+                    padding: MaterialStateProperty.all(const EdgeInsets.all(2)),
+                    overlayColor:
+                        MaterialStateProperty.all(primaryBackgroundColor),
+                    elevation: MaterialStateProperty.all(0),
+                  ),
+                  onPressed: NavigatorUtil.pop,
+                  icon: const Icon(Icons.close, size: 12),
+                ),
               ],
             ).nestedPadding(
               padding: const EdgeInsets.only(bottom: 20),
             ),
             Text(
               content,
-              style: const TextStyle(
-                color: secondaryTextColor,
+              style: TextStyle(
+                color: isDark ? Colors.white : secondaryTextColor,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 height: 1.43,
@@ -227,7 +243,7 @@ class DialogUtil {
               bottom: 20 + bottom,
             ),
           )
-          .nestedColoredBox(color: Colors.white),
+          .nestedColoredBox(color: isDark ? Colors.black54 : Colors.white),
     );
   }
 }
