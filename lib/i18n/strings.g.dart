@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 22 (11 per locale)
+/// Strings: 28 (14 per locale)
 ///
-/// Built on 2024-02-21 at 07:46 UTC
+/// Built on 2024-02-22 at 13:19 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -163,11 +163,14 @@ class _StringsHomePageEn {
 
 	// Translations
 	String get title => 'PicGuard';
+	String get imageDescription => 'Please upload pictures.';
 	String get description => 'This app will not upload any pictures to the server, all operations are completed locally';
 	String get textLabel => 'Text';
 	String get textLabelDescription => 'Text will be added to the image as a watermark';
+	String get textValidator => 'Please enter text.';
 	String get textInput => 'This certificate is only used for handling xx business, and is invalid for other purposes.';
 	String get colorLabel => 'Color';
+	String get colorValidator => 'Please select a color.';
 	String get transparencyLabel => 'Transparency';
 	String get preview => 'Preview';
 	String get save => 'Save';
@@ -212,11 +215,14 @@ class _StringsHomePageZh implements _StringsHomePageEn {
 
 	// Translations
 	@override String get title => 'PicGuard';
+	@override String get imageDescription => '请上传图片';
 	@override String get description => '本app不会上传任何图片到服务器, 所有操作均在本地完成';
 	@override String get textLabel => '文本';
 	@override String get textLabelDescription => '文本会以水印添加到图片上';
+	@override String get textValidator => '请输入文本.';
 	@override String get textInput => '此证件仅用于办理xx业务, 其他用途无效';
 	@override String get colorLabel => '颜色';
+	@override String get colorValidator => '请选择颜色.';
 	@override String get transparencyLabel => '透明度';
 	@override String get preview => '预览';
 	@override String get save => '保存';
@@ -229,11 +235,14 @@ extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'homePage.title': return 'PicGuard';
+			case 'homePage.imageDescription': return 'Please upload pictures.';
 			case 'homePage.description': return 'This app will not upload any pictures to the server, all operations are completed locally';
 			case 'homePage.textLabel': return 'Text';
 			case 'homePage.textLabelDescription': return 'Text will be added to the image as a watermark';
+			case 'homePage.textValidator': return 'Please enter text.';
 			case 'homePage.textInput': return 'This certificate is only used for handling xx business, and is invalid for other purposes.';
 			case 'homePage.colorLabel': return 'Color';
+			case 'homePage.colorValidator': return 'Please select a color.';
 			case 'homePage.transparencyLabel': return 'Transparency';
 			case 'homePage.preview': return 'Preview';
 			case 'homePage.save': return 'Save';
@@ -248,11 +257,14 @@ extension on _StringsZh {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'homePage.title': return 'PicGuard';
+			case 'homePage.imageDescription': return '请上传图片';
 			case 'homePage.description': return '本app不会上传任何图片到服务器, 所有操作均在本地完成';
 			case 'homePage.textLabel': return '文本';
 			case 'homePage.textLabelDescription': return '文本会以水印添加到图片上';
+			case 'homePage.textValidator': return '请输入文本.';
 			case 'homePage.textInput': return '此证件仅用于办理xx业务, 其他用途无效';
 			case 'homePage.colorLabel': return '颜色';
+			case 'homePage.colorValidator': return '请选择颜色.';
 			case 'homePage.transparencyLabel': return '透明度';
 			case 'homePage.preview': return '预览';
 			case 'homePage.save': return '保存';
