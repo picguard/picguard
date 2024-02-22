@@ -22,7 +22,7 @@
     "focus-trap-react": "^10.2.3",
     "framer-motion": "^11.0.5",
     "http-status": "^1.7.3",
-    "i18next": "^23.9.0",
+    "i18next": "^23.10.0",
     "i18next-browser-languagedetector": "^7.2.0",
     "i18next-resources-to-backend": "^1.2.0",
     "joi": "^17.12.2",
