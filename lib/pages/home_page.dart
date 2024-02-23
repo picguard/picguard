@@ -173,11 +173,11 @@ class _HomePageState extends State<HomePage> with WindowListener {
 
     return KeyboardDismisser(
       child: Title(
-        title: 'PicGuard',
+        title: t.homePage.title,
         color: isDark ? Colors.white : Colors.black,
         child: Scaffold(
           appBar:
-              !kIsWeb ? PGAppBar(titleWidget: Text(t.homePage.title)) : null,
+              isMobile ? PGAppBar(titleWidget: Text(t.homePage.title)) : null,
           body: ListView(
             padding:
                 const EdgeInsets.symmetric(horizontal: padding, vertical: 20),
@@ -401,7 +401,6 @@ class _HomePageState extends State<HomePage> with WindowListener {
                                           ),
                                           padding: MaterialStateProperty.all(
                                             const EdgeInsets.symmetric(
-                                              // vertical: 10,
                                               horizontal: 10,
                                             ),
                                           ),
@@ -409,12 +408,31 @@ class _HomePageState extends State<HomePage> with WindowListener {
                                               MaterialStateProperty.all(
                                             Colors.transparent,
                                           ),
+                                          foregroundColor:
+                                              MaterialStateProperty.resolveWith(
+                                            (Set<MaterialState> states) {
+                                              if (states.contains(
+                                                MaterialState.hovered,
+                                              )) {
+                                                return Colors.black;
+                                              }
+                                              return isDark
+                                                  ? Colors.white
+                                                  : primaryTextColor;
+                                            },
+                                          ),
                                           overlayColor:
                                               MaterialStateProperty.all(
                                             primaryBackgroundColor,
                                           ),
                                           elevation:
                                               MaterialStateProperty.all(0),
+                                          shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(0),
+                                            ),
+                                          ),
                                         ),
                                         onPressed: () {
                                           NavigatorUtil.pop();
@@ -427,10 +445,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                                           languageCode == 'zh'
                                               ? color.zhText
                                               : color.enText,
-                                          style: TextStyle(
-                                            color: isDark
-                                                ? Colors.white
-                                                : primaryTextColor,
+                                          style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w400,
                                           ),
@@ -692,6 +707,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
       final text = values['text'] as String;
       final color = values['color'] as int;
       final transparency = values['transparency'] as double;
+      log('text: $text, color: $color, transparency: $transparency');
     }
   }
 
@@ -702,6 +718,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
       final text = values['text'] as String;
       final color = values['color'] as int;
       final transparency = values['transparency'] as double;
+      log('text: $text, color: $color, transparency: $transparency');
     }
   }
 
