@@ -401,7 +401,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                                           ),
                                           padding: MaterialStateProperty.all(
                                             const EdgeInsets.symmetric(
-                                              vertical: 10,
+                                              // vertical: 10,
                                               horizontal: 10,
                                             ),
                                           ),
