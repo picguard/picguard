@@ -1,17 +1,11 @@
 {
   "name": "picguard",
   "private": true,
-  "description": "",
+  "description": "Generate beautiful DMG-images for your OS X applications.",
   "scripts": {
     "build": "appdmg ./appdmg.json ./PicGuard.dmg"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/appdmg": "^0.5.5",
-    "@types/node": "^18.19.18"
-  },
+  "license": "MIT",
   "dependencies": {
     "appdmg": "^0.6.6"
   },
