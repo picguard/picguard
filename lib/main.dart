@@ -24,15 +24,15 @@ Future<void> main() async {
     await WindowManager.instance.ensureInitialized();
     await windowManager.waitUntilReadyToShow().then((_) async {
       await windowManager.show();
-      await windowManager.center();
       await windowManager.setSize(const Size(1200, 800));
+      await windowManager.center();
       await windowManager.setPreventClose(true);
       await windowManager.setSkipTaskbar(false);
     });
   }
 
   LocaleSettings.useDeviceLocale(); // initialize with the right locale
-  runApp(TranslationProvider(child: const MainApp(),));
+  runApp(TranslationProvider(child: const MainApp()));
 }
 
 ///

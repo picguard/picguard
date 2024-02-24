@@ -95,6 +95,7 @@ class AppTheme {
       dialogTheme: DialogTheme(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.transparent,
+        elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -112,7 +113,7 @@ class AppTheme {
         ),
       ),
       textButtonTheme: TextButtonThemeData(
-        style: ElevatedButton.styleFrom(
+        style: TextButton.styleFrom(
           backgroundColor: Colors.white,
           foregroundColor: primaryBackgroundColor,
           padding: EdgeInsets.zero,
@@ -122,14 +123,14 @@ class AppTheme {
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
-        style: ElevatedButton.styleFrom(
+        style: FilledButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
-        style: ElevatedButton.styleFrom(
+        style: OutlinedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
@@ -219,9 +220,11 @@ class AppTheme {
         tabAlignment: TabAlignment.start,
       ),
       dialogTheme: DialogTheme(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         surfaceTintColor: Colors.transparent,
+        elevation: 0,
         shape: RoundedRectangleBorder(
+          side: const BorderSide(color: placeholderTextColor),
           borderRadius: BorderRadius.circular(20),
         ),
       ),
@@ -238,7 +241,7 @@ class AppTheme {
         ),
       ),
       textButtonTheme: TextButtonThemeData(
-        style: ElevatedButton.styleFrom(
+        style: TextButton.styleFrom(
           backgroundColor: Colors.white,
           foregroundColor: primaryBackgroundColor,
           padding: EdgeInsets.zero,
@@ -248,14 +251,14 @@ class AppTheme {
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
-        style: ElevatedButton.styleFrom(
+        style: FilledButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
-        style: ElevatedButton.styleFrom(
+        style: OutlinedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
