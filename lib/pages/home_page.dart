@@ -816,6 +816,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
 
   @override
   Future<void> onWindowClose() async {
+    final brightness = Theme.of(context).brightness;
+    final isDark = brightness == Brightness.dark;
     final isPreventClose = await windowManager.isPreventClose();
     if (isDesktop && isPreventClose) {
       if (!mounted) return;
@@ -828,6 +830,11 @@ class _HomePageState extends State<HomePage> with WindowListener {
             content: const Text('Are you sure you want to close this window?'),
             actions: [
               TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    isDark ? Colors.black : Colors.white,
+                  ),
+                ),
                 child: const Text(
                   'Yes',
                   style: TextStyle(color: errorTextColor),
@@ -838,6 +845,11 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 },
               ),
               TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    isDark ? Colors.black : Colors.white,
+                  ),
+                ),
                 child: const Text(
                   'No',
                   style: TextStyle(color: primaryColor),
