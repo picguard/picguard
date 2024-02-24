@@ -3,7 +3,7 @@
   "private": true,
   "description": "Generate beautiful DMG-images for your OS X applications.",
   "scripts": {
-    "build": "appdmg ./appdmg.json ./PicGuard.dmg"
+    "build": "rm -f ./PicGuard.dmg && appdmg ./appdmg.json ./PicGuard.dmg"
   },
   "license": "MIT",
   "dependencies": {
