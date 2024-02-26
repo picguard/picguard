@@ -20,15 +20,15 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/app/*": ["src/app/*"],
-      "@/components/*": ["src/components/*"],
-      "@/constants/*": ["src/constants/*"],
-      "@/i18n/*": ["src/i18n/*"],
-      "@/lib/*": ["src/lib/*"],
-      "@/request/*": ["src/request/*"],
-      "@/schema/*": ["src/schema/*"],
-      "@/theme/*": ["src/theme/*"],
+      "@/*": ["./*"],
+      "@/app/*": ["app/*"],
+      "@/components/*": ["components/*"],
+      "@/constants/*": ["constants/*"],
+      "@/i18n/*": ["i18n/*"],
+      "@/lib/*": ["lib/*"],
+      "@/request/*": ["request/*"],
+      "@/schema/*": ["schema/*"],
+      "@/theme/*": ["theme/*"],
       "contentlayer/generated": ["./.contentlayer/generated"]
     }
   },
