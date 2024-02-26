@@ -8,10 +8,11 @@ import { LngProps } from "@/types/i18next-lng";
 
 export default function Release({
   release,
+  first,
   lng,
-}: { release: Release } & LngProps) {
+}: { release: Release; first: boolean } & LngProps) {
   const Badge = useCallback(() => {
-    if (!release.prerelease && !release.draft) {
+    if (!release.prerelease && !release.draft && first) {
       return (
         <span className="h-[22px] max-w-[91px] rounded-[2rem] border-[1px] border-[#3fb950] px-[10px] text-[0.75rem] leading-[20px] text-[#3fb950] dark:border-[#3fb950] dark:text-[#3fb950]">
           Latest
