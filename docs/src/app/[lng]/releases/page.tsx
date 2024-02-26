@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 import ReleaseComp from "@/components/home/release";
+import { Loading } from "@/components/shared/icons";
 import { useTranslation } from "@/i18n/client";
 import { pageSize } from "@/constants";
 import { getReleases } from "@/request";
@@ -15,7 +16,7 @@ export default function Releases({
 }) {
   const { t } = useTranslation(params.lng, "common");
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [releases, setReleases] = useState<Release[]>([]);
   const [page, setPage] = useState<number>(1);
   const [error, setError] = useState<boolean>(false);
@@ -56,16 +57,38 @@ export default function Releases({
 
   return (
     <>
-      <div className="min-h-[calc(100vh-8rem)] w-full max-w-screen-xl flex-1 px-5 xl:px-0">
+      <div className="flex min-h-[calc(100vh-8rem)] w-full max-w-screen-xl flex-1 flex-col px-5 xl:px-0">
         <div className="mb-4 text-3xl text-black dark:text-white">Release</div>
-        <ul
-          role="list"
-          className="w-full divide-y divide-gray-300 dark:divide-gray-500"
-        >
-          {releases.map((release: Release) => (
-            <ReleaseComp key={release.id} lng={params.lng} release={release} />
-          ))}
-        </ul>
+        <ShowContent isShow={releases.length === 0 && loading}>
+          <div className="mx-0 my-auto text-center">
+            <div role="status">
+              <Loading className="inline h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>
+        </ShowContent>
+        <ShowContent isShow={releases.length === 0 && !loading}>
+          <div className="mx-0 my-auto text-center">
+            <span className="text-2xl text-gray-600 dark:text-gray-100">
+              No Data
+            </span>
+          </div>
+        </ShowContent>
+        <ShowContent isShow={releases.length >= 0}>
+          <ul
+            role="list"
+            className="w-full divide-y divide-gray-300 dark:divide-gray-500"
+          >
+            {releases.map((release: Release, index: number) => (
+              <ReleaseComp
+                key={release.id}
+                lng={params.lng}
+                release={release}
+                first={index === 0}
+              />
+            ))}
+          </ul>
+        </ShowContent>
         <ShowContent isShow={!(releases.length < page * pageSize)}>
           <button
             onClick={() => setPage(page + 1)}

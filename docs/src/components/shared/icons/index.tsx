@@ -12,3 +12,4 @@ export { default as LoadingSpinner } from "./loading-spinner";
 export { default as Microsoft } from "./microsoft";
 export { default as Test } from "./test";
 export { default as Twitter } from "./twitter";
+export { default as Loading } from "./loading";
