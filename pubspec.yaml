@@ -61,12 +61,12 @@ dependencies:
   shared_preferences: ^2.2.2
   slang: ^3.29.0
   slang_flutter: ^3.29.0
-  syncfusion_flutter_core: ^24.2.7
-  syncfusion_flutter_sliders: ^24.2.7
+  syncfusion_flutter_core: ^24.2.8
+  syncfusion_flutter_sliders: ^24.2.8
   synchronized: ^3.1.0+1
   url_launcher: ^6.2.5
   uuid: ^4.3.3
-  wechat_assets_picker: ^9.0.0-dev.2
+  wechat_assets_picker: ^9.0.0
   window_manager: ^0.3.8
 
 dev_dependencies:
