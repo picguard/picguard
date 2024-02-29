@@ -35,8 +35,8 @@ dependencies:
   device_info_plus: ^9.1.2
   dropdown_button2: ^2.3.9
   file_picker: ^6.1.1
-  firebase_analytics: ^10.8.6
-  firebase_core: ^2.25.4
+  firebase_analytics: ^10.8.7
+  firebase_core: ^2.25.5
   flutter:
     sdk: flutter
   flutter_file_dialog: ^3.0.2
