@@ -60,7 +60,7 @@ dependencies:
   reorderables: ^0.6.0
   shared_preferences: ^2.2.2
   slang: ^3.29.0
-  slang_flutter: ^3.29.0
+  slang_flutter: ^3.30.0
   syncfusion_flutter_core: ^24.2.8
   syncfusion_flutter_sliders: ^24.2.8
   synchronized: ^3.1.0+1
