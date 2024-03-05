@@ -317,10 +317,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "4e42aacde3b993c5947467ab640882c56947d9d27342a5b6f2895b23956954a6"
+      sha256: caa6bc229eab3e32eb2f37b53a5f9d22a6981474afd210c512a7546c1e1a04f6
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.1"
+    version: "6.2.0"
   file_selector_linux:
     dependency: transitive
     description:
@@ -1190,18 +1190,18 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_core
-      sha256: "0db4e83b4ceef9a3c97ba5cfe087d364b5278c8154b859be8accedc1d31fc195"
+      sha256: "7666506885ebc8f62bb928ad4588a73e20caaff2b2cf2b2b56f67d98f4113525"
       url: "https://pub.dev"
     source: hosted
-    version: "24.2.8"
+    version: "24.2.9"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "84e993f5d8d1487274279abb7642263946643848371ea3a57d5ca6141da9603a"
+      sha256: "54e159dc3cc12c4517ca2b5b0fc78da085edd728adc40c5df949d75fba1af9c2"
       url: "https://pub.dev"
     source: hosted
-    version: "24.2.8"
+    version: "24.2.9"
   synchronized:
     dependency: "direct main"
     description:
