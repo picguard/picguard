@@ -59,7 +59,7 @@
     "@types/node": "^18.19.21",
     "@types/react": "^18.2.63",
     "@types/react-big-calendar": "^1.8.9",
-    "@types/react-dom": "^18.2.19",
+    "@types/react-dom": "^18.2.20",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.18",
     "eslint": "^8.57.0",
