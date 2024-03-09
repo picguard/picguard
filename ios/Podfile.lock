@@ -44,11 +44,11 @@ PODS:
     - FirebaseAnalytics (~> 10.22.0)
   - Firebase/CoreOnly (10.22.0):
     - FirebaseCore (= 10.22.0)
-  - firebase_analytics (10.8.8):
+  - firebase_analytics (10.8.9):
     - Firebase/Analytics (= 10.22.0)
     - firebase_core
     - Flutter
-  - firebase_core (2.26.0):
+  - firebase_core (2.27.0):
     - Firebase/CoreOnly (= 10.22.0)
     - Flutter
   - FirebaseAnalytics (10.22.0):
@@ -247,8 +247,8 @@ SPEC CHECKSUMS:
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 15fd9539e4eb735dc54bae8c0534a7a9511a03de
   Firebase: 797fd7297b7e1be954432743a0b3f90038e45a71
-  firebase_analytics: d00f42e1cfb2a75e62150e6a1e03236dc949f0d3
-  firebase_core: 8e100adc478919c6f3224f854ce8fa0bd98e36fd
+  firebase_analytics: b9ce200bfc2c54629076bb22d6a510f31c296ab8
+  firebase_core: 100945864b4aedce3cfef0c62ab864858bf013cf
   FirebaseAnalytics: 8d0ff929c63b7f72260f332b86ccf569776b75d3
   FirebaseCore: 0326ec9b05fbed8f8716cddbf0e36894a13837f7
   FirebaseCoreInternal: bca337352024b18424a61e478460547d46c4c753
@@ -275,4 +275,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 047e3f69f72e0923b8df6963a0429858a95deafe
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.2

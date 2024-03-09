@@ -5,7 +5,7 @@ import { RoughNotation } from "react-rough-notation";
 import { FaBlog } from "react-icons/fa";
 import Image from "next/image";
 // import dynamic from "next/dynamic";
-import Release from "@/components/home/github-release";
+import GithubRelease from "@/components/home/github-release";
 import { useTranslation } from "@/i18n/client";
 import { allPosts } from "contentlayer/generated";
 import { basePath } from "@/constants";
@@ -76,7 +76,7 @@ export default function Home({
           </Balancer>
         </p>
       </div>
-      <Release lng={params.lng} />
+      <GithubRelease lng={params.lng} />
     </>
   );
 }
