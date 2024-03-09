@@ -21,7 +21,8 @@ export default function Home({
     lng: string;
   };
 }) {
-  const { t } = useTranslation(params.lng, "header");
+  const { t } = useTranslation(params.lng, "common");
+  const { t: th } = useTranslation(params.lng, "header");
 
   const post = allPosts
     .filter((post) => post.slug.startsWith(`${params.lng}/blog`))
@@ -56,7 +57,7 @@ export default function Home({
           className="animate-fade-up bg-clip-text text-center font-display text-4xl font-bold tracking-[-0.02em] text-black/80 opacity-0 drop-shadow-sm dark:text-white/80 md:text-7xl md:leading-[5rem]"
           style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
         >
-          <Balancer>{t("title")}</Balancer>
+          <Balancer>{th("title")}</Balancer>
         </h1>
         <p
           className="mt-6 animate-fade-up text-center text-red-400 opacity-0 md:text-xl"
@@ -71,7 +72,7 @@ export default function Home({
               animationDelay={1000}
               animationDuration={2500}
             >
-              该app可给图片添加水印, 防止图片被恶意使用.
+              {t("slogan")}
             </RoughNotation>
           </Balancer>
         </p>
