@@ -52,7 +52,7 @@ dependencies:
   json_annotation: ^4.8.1
   keyboard_dismisser: ^3.0.0
   mime: ^1.0.5
-  modal_bottom_sheet: ^3.0.0-pre
+  modal_bottom_sheet: ^3.0.0
   package_info_plus: ^5.0.1
   path: ^1.9.0
   permission_handler: ^11.3.0
