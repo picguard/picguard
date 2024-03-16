@@ -1190,18 +1190,18 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_core
-      sha256: "7666506885ebc8f62bb928ad4588a73e20caaff2b2cf2b2b56f67d98f4113525"
+      sha256: eac3cbf2278fa4993d9b97d92d050973025deebfbff970109843640dc770888c
       url: "https://pub.dev"
     source: hosted
-    version: "24.2.9"
+    version: "25.1.35"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "54e159dc3cc12c4517ca2b5b0fc78da085edd728adc40c5df949d75fba1af9c2"
+      sha256: "8879cc5f3b343d3c402704f783d2bdb5c800b29c8d8cf6654cb041f5a3641830"
       url: "https://pub.dev"
     source: hosted
-    version: "24.2.9"
+    version: "25.1.35"
   synchronized:
     dependency: "direct main"
     description:
@@ -1422,10 +1422,10 @@ packages:
     dependency: "direct main"
     description:
       name: wechat_assets_picker
-      sha256: "6e52853f7dbc6f7aec10675d0064167eb7fc65f636ed22e55c38c450f5b75918"
+      sha256: "3d5cfcebbcbe21d6a4f91927423d437d3c8b441b0d9cc5318bc2632b05c1cddf"
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.1"
+    version: "9.0.2"
   wechat_picker_library:
     dependency: transitive
     description:
