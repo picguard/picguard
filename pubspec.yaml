@@ -44,7 +44,7 @@ dependencies:
   flutter_gen: ^5.4.0
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: ^2.3.10
+  flutter_native_splash: ^2.4.0
   fluttertoast: ^8.2.4
   form_builder_validators: ^9.1.0
   freezed_annotation: ^2.4.1
