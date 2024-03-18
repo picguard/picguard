@@ -161,7 +161,7 @@ export default function GithubRelease({ lng }: LngProps) {
               {t("latest")}:{" "}
               <span
                 className="text-red-400"
-                // href={`https://github.com/alisoft/picguard/releases/tag/${data?.tag_name}`}
+                // href={`https://github.com/picguard/picguard/releases/tag/${data?.tag_name}`}
                 // target="_blank"
               >
                 {data?.tag_name}
