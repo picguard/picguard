@@ -551,8 +551,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                               Row(
                                 children: [
                                   SfSliderTheme(
-                                    data: SfSliderThemeData(
-                                      inactiveTrackHeight: 4,
+                                    data: const SfSliderThemeData(
                                       activeTrackHeight: 4,
                                       activeTrackColor: primaryColor,
                                       thumbRadius: 6,
