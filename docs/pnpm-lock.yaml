@@ -69,8 +69,8 @@ dependencies:
     specifier: ^0.3.0
     version: 0.3.0(react-dom@18.2.0)(react@18.2.0)
   nextjs-toploader:
-    specifier: ^1.6.6
-    version: 1.6.6(next@14.1.3)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^1.6.11
+    version: 1.6.11(next@14.1.3)(react-dom@18.2.0)(react@18.2.0)
   query-string:
     specifier: ^7.1.3
     version: 7.1.3
@@ -5557,8 +5557,8 @@ packages:
       - babel-plugin-macros
     dev: false
 
-  /nextjs-toploader@1.6.6(next@14.1.3)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-LKow/aV28/DLhj4yH1E8ydF/I5QDNsb5NqlbsXBaIVFrmZ9/OGHyxPLdumvPE2IOYoQdvJ4XWoaCA1v7aivYBg==}
+  /nextjs-toploader@1.6.11(next@14.1.3)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-2mt+YDj3I7s8JGv136TRdJo9amd2BBeb2u1U4tyvZpR08eqeBgqp3xsw2Yu1AUT7C3NZQhbQN11EXwnlqsPEIA==}
     peerDependencies:
       next: '>= 6.0.0'
       react: '>= 16.0.0'
