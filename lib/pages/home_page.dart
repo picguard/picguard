@@ -24,7 +24,6 @@ import 'package:picguard/widgets/base_form_item.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:window_manager/window_manager.dart';
 
 /// colors
@@ -767,43 +766,15 @@ class _HomePageState extends State<HomePage> with WindowListener {
   }
 
   Future<void> _gotoPickImages() async {
-    if (isMobile) {
-      final assets = await AssetPicker.pickAssets(
-        context,
-        pickerConfig: AssetPickerConfig(
-          requestType: RequestType.image,
-          selectedAssets: _fileWrappers
-              .map((fileWrapper) => fileWrapper.asset)
-              .whereNotNull()
-              .toList(),
-        ),
+    final picker = ImagePicker();
+    final image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      final file = File(image.path);
+      final name = image.name;
+      setState(
+        () => _fileWrappers =
+            _fileWrappers + [FileWrapper(file: file, name: name)],
       );
-
-      if (assets != null && assets.isNotEmpty) {
-        final fileWrapperFutures = assets.map((asset) async {
-          final file = await asset.originFile;
-          final name = await asset.titleAsync;
-          return file != null
-              ? FileWrapper(asset: asset, file: file, name: name)
-              : null;
-        }).toList();
-
-        final fileWrappers =
-            (await Future.wait(fileWrapperFutures)).whereNotNull().toList();
-
-        setState(() => _fileWrappers = fileWrappers);
-      }
-    } else {
-      final picker = ImagePicker();
-      final image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        final file = File(image.path);
-        final name = image.name;
-        setState(
-          () => _fileWrappers =
-              _fileWrappers + [FileWrapper(file: file, name: name)],
-        );
-      }
     }
   }
 
@@ -878,11 +849,7 @@ class FileWrapper {
   const FileWrapper({
     required this.file,
     required this.name,
-    this.asset,
   });
-
-  ///
-  final AssetEntity? asset;
 
   ///
   final File file;
