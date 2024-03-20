@@ -10,11 +10,11 @@ PODS:
     - FirebaseAnalytics (~> 10.22.0)
   - Firebase/CoreOnly (10.22.0):
     - FirebaseCore (= 10.22.0)
-  - firebase_analytics (10.8.9):
+  - firebase_analytics (10.8.10):
     - Firebase/Analytics (= 10.22.0)
     - firebase_core
     - FlutterMacOS
-  - firebase_core (2.27.0):
+  - firebase_core (2.27.1):
     - Firebase/CoreOnly (~> 10.22.0)
     - FlutterMacOS
   - FirebaseAnalytics (10.22.0):
@@ -102,12 +102,6 @@ PODS:
   - nanopb/encode (2.30910.0)
   - package_info_plus (0.0.1):
     - FlutterMacOS
-  - path_provider_foundation (0.0.1):
-    - Flutter
-    - FlutterMacOS
-  - photo_manager (2.0.0):
-    - Flutter
-    - FlutterMacOS
   - PromisesObjC (2.4.0)
   - screen_retriever (0.0.1):
     - FlutterMacOS
@@ -115,9 +109,6 @@ PODS:
     - Flutter
     - FlutterMacOS
   - url_launcher_macos (0.0.1):
-    - FlutterMacOS
-  - video_player_avfoundation (0.0.1):
-    - Flutter
     - FlutterMacOS
   - window_manager (0.2.0):
     - FlutterMacOS
@@ -129,12 +120,9 @@ DEPENDENCIES:
   - firebase_core (from `Flutter/ephemeral/.symlinks/plugins/firebase_core/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
-  - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
-  - photo_manager (from `Flutter/ephemeral/.symlinks/plugins/photo_manager/macos`)
   - screen_retriever (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos`)
   - shared_preferences_foundation (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
-  - video_player_avfoundation (from `Flutter/ephemeral/.symlinks/plugins/video_player_avfoundation/darwin`)
   - window_manager (from `Flutter/ephemeral/.symlinks/plugins/window_manager/macos`)
 
 SPEC REPOS:
@@ -162,27 +150,21 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral
   package_info_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos
-  path_provider_foundation:
-    :path: Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin
-  photo_manager:
-    :path: Flutter/ephemeral/.symlinks/plugins/photo_manager/macos
   screen_retriever:
     :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos
   shared_preferences_foundation:
     :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin
   url_launcher_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
-  video_player_avfoundation:
-    :path: Flutter/ephemeral/.symlinks/plugins/video_player_avfoundation/darwin
   window_manager:
     :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
 
 SPEC CHECKSUMS:
-  device_info_plus: 5401765fde0b8d062a2f8eb65510fb17e77cf07f
+  device_info_plus: ce1b7762849d3ec103d0e0517299f2db7ad60720
   file_selector_macos: 468fb6b81fac7c0e88d71317f3eec34c3b008ff9
   Firebase: 797fd7297b7e1be954432743a0b3f90038e45a71
-  firebase_analytics: d3b627594fb80567824609e9c2622bd4f48aee81
-  firebase_core: 94cef1d79e26747286a4808b2345c1ecb8501b11
+  firebase_analytics: 0c4828b46e9ccaa4598721abf366bedd9b2e9b45
+  firebase_core: cb81862138b1b98a890bcf3ee59ec820dad075b9
   FirebaseAnalytics: 8d0ff929c63b7f72260f332b86ccf569776b75d3
   FirebaseCore: 0326ec9b05fbed8f8716cddbf0e36894a13837f7
   FirebaseCoreInternal: bca337352024b18424a61e478460547d46c4c753
@@ -191,14 +173,11 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: ccefe3eac9b0aa27f96066809fb1a7fe4b462626
   GoogleUtilities: d053d902a8edaa9904e1bd00c37535385b8ed152
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
-  package_info_plus: 02d7a575e80f194102bef286361c6c326e4c29ce
-  path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
-  photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
+  package_info_plus: fa739dd842b393193c5ca93c26798dff6e3d0e0c
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
   shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
   url_launcher_macos: d2691c7dd33ed713bf3544850a623080ec693d95
-  video_player_avfoundation: 02011213dab73ae3687df27ce441fbbcc82b5579
   window_manager: 3a1844359a6295ab1e47659b1a777e36773cd6e8
 
 PODFILE CHECKSUM: 00ac3ab17f1d4d800c76c8c321239ed4e100e648
