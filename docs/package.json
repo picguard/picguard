@@ -21,7 +21,7 @@
     "date-fns": "^3.6.0",
     "email-validator": "^2.0.4",
     "focus-trap-react": "^10.2.3",
-    "framer-motion": "^11.0.19",
+    "framer-motion": "^11.0.20",
     "http-status": "^1.7.4",
     "i18next": "^23.10.1",
     "i18next-browser-languagedetector": "^7.2.0",
