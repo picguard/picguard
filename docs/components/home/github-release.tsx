@@ -172,7 +172,7 @@ export default function GithubRelease({ lng }: LngProps) {
             href={`/${lng}/releases`}
             className="ml-2 text-sm text-gray-500 hover:underline dark:text-gray-400"
           >
-            More releases
+            {t("more-version")}
           </Link>
         </Balancer>
       </p>
