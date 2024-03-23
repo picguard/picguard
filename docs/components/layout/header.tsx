@@ -5,9 +5,9 @@ import { FaRegPlayCircle } from "react-icons/fa";
 import useScroll from "@/lib/hooks/use-scroll";
 import LngDropdown from "./lng-dropdown";
 import ThemeDropdown from "./theme-dropdown";
-import { LngProps } from "@/types/i18next-lng";
 import { useTranslation } from "@/i18n/client";
 import { basePath } from "@/constants";
+import type { LngProps } from "@/types/i18next-lng";
 
 export default function Header(props: LngProps) {
   const { t } = useTranslation(props.lng, "header");
@@ -30,7 +30,7 @@ export default function Header(props: LngProps) {
       <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
         <Link
           href={`/${props.lng}`}
-          className="flex items-center font-display text-2xl"
+          className="font-display flex items-center text-2xl"
         >
           <Image
             src={`${basePath}/logo.png`}
