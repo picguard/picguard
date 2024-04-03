@@ -51,7 +51,7 @@
     "i18next": "^23.10.1",
     "i18next-browser-languagedetector": "^7.2.1",
     "i18next-resources-to-backend": "^1.2.0",
-    "joi": "^17.12.2",
+    "joi": "^17.12.3",
     "lodash": "^4.17.21",
     "lucide-react": "^0.363.0",
     "ms": "^2.1.3",
