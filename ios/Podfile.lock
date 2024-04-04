@@ -44,11 +44,11 @@ PODS:
     - FirebaseAnalytics (~> 10.22.0)
   - Firebase/CoreOnly (10.22.0):
     - FirebaseCore (= 10.22.0)
-  - firebase_analytics (10.9.0):
+  - firebase_analytics (10.10.0):
     - Firebase/Analytics (= 10.22.0)
     - firebase_core
     - Flutter
-  - firebase_core (2.27.2):
+  - firebase_core (2.28.0):
     - Firebase/CoreOnly (= 10.22.0)
     - Flutter
   - FirebaseAnalytics (10.22.0):
@@ -224,8 +224,8 @@ SPEC CHECKSUMS:
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 09aa5ec1ab24135ccd7a1621c46c84134bfd6655
   Firebase: 797fd7297b7e1be954432743a0b3f90038e45a71
-  firebase_analytics: 2bf19b4d020f0e3f4f8ef73ce03b4d0b2768fc9c
-  firebase_core: cc49b6648d6dd7570d9273a616cb1205260db91e
+  firebase_analytics: 3170fe7d05cf0cda05b06f6255d2e6fcf432796e
+  firebase_core: d955499180c3c8ef355adf46b8752c4c01d09e0a
   FirebaseAnalytics: 8d0ff929c63b7f72260f332b86ccf569776b75d3
   FirebaseCore: 0326ec9b05fbed8f8716cddbf0e36894a13837f7
   FirebaseCoreInternal: bca337352024b18424a61e478460547d46c4c753
