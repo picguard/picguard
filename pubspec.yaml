@@ -62,7 +62,7 @@ dependencies:
   syncfusion_flutter_sliders: ^25.1.38
   synchronized: ^3.1.0+1
   url_launcher: ^6.2.5
-  uuid: ^4.3.3
+  uuid: ^4.4.0
   window_manager: ^0.3.8
 
 dev_dependencies:
