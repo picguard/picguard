@@ -3,7 +3,7 @@ import { SystemOS } from "@/types/common";
 export const cacheLngKey: string = "__picguard_lng__";
 export const cacheThemeKey: string = "__picguard_theme__";
 export const host =
-  process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
+  process.env.NODE_ENV === "production"
     ? "https://www.kjxbyz.com"
     : "http://localhost:3000";
 export const basePath =
