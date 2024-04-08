@@ -50,7 +50,7 @@ dependencies:
   keyboard_dismisser: ^3.0.0
   mime: ^1.0.5
   modal_bottom_sheet: ^3.0.0
-  package_info_plus: ^6.0.0
+  package_info_plus: ^7.0.0
   path: ^1.9.0
   permission_handler: ^11.3.1
   photo_view: ^0.14.0
