@@ -32,7 +32,7 @@ dependencies:
   app_settings: ^5.1.1
   collection: ^1.18.0
   cupertino_icons: ^1.0.6
-  device_info_plus: ^10.0.1
+  device_info_plus: ^10.1.0
   dropdown_button2: ^2.3.9
   file_picker: ^8.0.0+1
   firebase_analytics: ^10.10.0
@@ -50,7 +50,7 @@ dependencies:
   keyboard_dismisser: ^3.0.0
   mime: ^1.0.5
   modal_bottom_sheet: ^3.0.0
-  package_info_plus: ^6.0.0
+  package_info_plus: ^7.0.0
   path: ^1.9.0
   permission_handler: ^11.3.1
   photo_view: ^0.14.0
@@ -58,11 +58,11 @@ dependencies:
   shared_preferences: ^2.2.2
   slang: ^3.30.2
   slang_flutter: ^3.30.0
-  syncfusion_flutter_core: ^25.1.38
-  syncfusion_flutter_sliders: ^25.1.38
+  syncfusion_flutter_core: ^25.1.39
+  syncfusion_flutter_sliders: ^25.1.39
   synchronized: ^3.1.0+1
   url_launcher: ^6.2.5
-  uuid: ^4.3.3
+  uuid: ^4.4.0
   window_manager: ^0.3.8
 
 dev_dependencies:
