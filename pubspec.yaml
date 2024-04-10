@@ -35,8 +35,8 @@ dependencies:
   device_info_plus: ^10.1.0
   dropdown_button2: ^2.3.9
   file_picker: ^8.0.0+1
-  firebase_analytics: ^10.10.0
-  firebase_core: ^2.28.0
+  firebase_analytics: ^10.10.1
+  firebase_core: ^2.29.0
   flutter:
     sdk: flutter
   flutter_form_builder: ^9.2.1
