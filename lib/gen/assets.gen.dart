@@ -12,11 +12,14 @@ import 'package:flutter/widgets.dart';
 class $LogoGen {
   const $LogoGen();
 
+  /// File path: logo/logo.icns
+  String get logoIcns => 'logo/logo.icns';
+
   /// File path: logo/logo.png
-  AssetGenImage get logo => const AssetGenImage('logo/logo.png');
+  AssetGenImage get logoPng => const AssetGenImage('logo/logo.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [logo];
+  List<dynamic> get values => [logoIcns, logoPng];
 }
 
 class $AssetsIconsGen {

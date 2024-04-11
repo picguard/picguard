@@ -13,6 +13,14 @@
     "preview": "预览",
     "save": "保存"
   },
+  "dialogs": {
+    "exitConfirm": {
+      "exit": "退出",
+      "cancel": "取消",
+      "title": "关闭确认",
+      "description": "您确定要关闭此窗口吗?"
+    }
+  },
   "locales(map)": {
     "en": "English",
     "zh": "中文"
