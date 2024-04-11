@@ -4,10 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:picguard/app/navigator.dart';
-import 'package:picguard/constrants/get.dart';
+import 'package:picguard/constraints/constraints.dart';
 import 'package:picguard/firebase_options.dart';
-import 'package:picguard/i18n/strings.g.dart';
-import 'package:picguard/pages/home_page.dart';
+import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/pages/pages.dart';
 import 'package:picguard/theme/theme.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -56,6 +56,14 @@ class MainApp extends StatelessWidget {
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       home: const HomePage(),
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: TextScaler.noScaling,
+          ),
+          child: child!,
+        );
+      },
     );
   }
 }

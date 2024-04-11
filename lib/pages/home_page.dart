@@ -5,22 +5,19 @@ import 'dart:io';
 import 'package:app_settings/app_settings.dart';
 import 'package:collection/collection.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:picguard/constrants/get.dart';
+import 'package:picguard/constraints/constraints.dart';
 import 'package:picguard/extensions/extensions.dart';
-import 'package:picguard/i18n/strings.g.dart';
+import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/models/models.dart';
 import 'package:picguard/theme/colors.dart';
-import 'package:picguard/utils/dialog_util.dart';
-import 'package:picguard/utils/navigator_util.dart';
-import 'package:picguard/utils/string_util.dart';
-import 'package:picguard/widgets/app_bar.dart';
-import 'package:picguard/widgets/base_form_item.dart';
+import 'package:picguard/utils/utils.dart';
+import 'package:picguard/widgets/widgets.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -178,8 +175,10 @@ class _HomePageState extends State<HomePage> with WindowListener {
           appBar:
               isMobile ? PGAppBar(titleWidget: Text(t.homePage.title)) : null,
           body: ListView(
-            padding:
-                const EdgeInsets.symmetric(horizontal: padding, vertical: 20),
+            padding: const EdgeInsets.symmetric(
+              horizontal: padding,
+              vertical: 20,
+            ),
             children: [
               ReorderableWrap(
                 spacing: spacing,
@@ -317,7 +316,9 @@ class _HomePageState extends State<HomePage> with WindowListener {
                           }
                           return null;
                         },
-                      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
+                      ).nestedPadding(
+                        padding: const EdgeInsets.only(top: 8.5),
+                      ),
                     ),
                     const SizedBox(height: 5),
                     BaseFormItem(
@@ -326,18 +327,25 @@ class _HomePageState extends State<HomePage> with WindowListener {
                       showTip: false,
                       child: FormBuilderField<int>(
                         name: 'color',
-                        initialValue: 0xFF9E9E9E,
+                        initialValue: colors.elementAt(1).value,
                         builder: (FormFieldState<int> field) {
                           final hasError =
                               StringUtil.isNotBlank(field.errorText);
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              DropdownButtonFormField2<int>(
+                              DropdownButtonFormField<int>(
                                 value: field.value,
-                                style: const TextStyle(
-                                  color: primaryTextColor,
+                                onTap: () => onColorTap(field),
+                                style: TextStyle(
+                                  color:
+                                      isDark ? Colors.white : primaryTextColor,
                                   overflow: TextOverflow.ellipsis,
+                                ),
+                                icon: const Icon(
+                                  Icons.arrow_drop_down,
+                                  color: borderColor,
+                                  size: 20,
                                 ),
                                 decoration: InputDecoration(
                                   isDense: true,
@@ -391,123 +399,21 @@ class _HomePageState extends State<HomePage> with WindowListener {
                                   (color) {
                                     return DropdownMenuItem<int>(
                                       value: color.value,
-                                      child: TextButton(
-                                        style: ButtonStyle(
-                                          tapTargetSize:
-                                              MaterialTapTargetSize.padded,
-                                          fixedSize: MaterialStateProperty.all(
-                                            Size.fromWidth(width),
-                                          ),
-                                          padding: MaterialStateProperty.all(
-                                            const EdgeInsets.symmetric(
-                                              horizontal: 10,
-                                            ),
-                                          ),
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                            Colors.transparent,
-                                          ),
-                                          foregroundColor:
-                                              MaterialStateProperty.resolveWith(
-                                            (Set<MaterialState> states) {
-                                              if (states.contains(
-                                                MaterialState.hovered,
-                                              )) {
-                                                return Colors.black;
-                                              }
-                                              return isDark
-                                                  ? Colors.white
-                                                  : primaryTextColor;
-                                            },
-                                          ),
-                                          overlayColor:
-                                              MaterialStateProperty.all(
-                                            primaryBackgroundColor,
-                                          ),
-                                          elevation:
-                                              MaterialStateProperty.all(0),
-                                          shape: MaterialStateProperty.all(
-                                            RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(0),
-                                            ),
-                                          ),
+                                      child: Text(
+                                        languageCode == 'zh'
+                                            ? color.zhText
+                                            : color.enText,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
                                         ),
-                                        onPressed: () {
-                                          NavigatorUtil.pop();
-                                          colorNotifier.value = color.value;
-                                          field
-                                            ..didChange(color.value)
-                                            ..validate();
-                                        },
-                                        child: Text(
-                                          languageCode == 'zh'
-                                              ? color.zhText
-                                              : color.enText,
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ).nestedAlign(
-                                          alignment: Alignment.centerLeft,
-                                        ),
+                                      ).nestedAlign(
+                                        alignment: Alignment.centerLeft,
                                       ),
                                     );
                                   },
                                 ).toList(),
-                                selectedItemBuilder: (context) {
-                                  final color = colors.firstWhereOrNull(
-                                    (color) => color.value == field.value,
-                                  );
-                                  return colors.map(
-                                    (item) {
-                                      return Container(
-                                        alignment: AlignmentDirectional.center,
-                                        child: Text(
-                                          StringUtil.getValue(
-                                            languageCode == 'zh'
-                                                ? color?.zhText
-                                                : color?.enText,
-                                          ),
-                                          style: TextStyle(
-                                            color: isDark
-                                                ? Colors.white
-                                                : primaryTextColor,
-                                            fontSize: 14,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          maxLines: 1,
-                                        ),
-                                      );
-                                    },
-                                  ).toList();
-                                },
                                 onChanged: (value) {},
-                                onSaved: (value) {},
-                                buttonStyleData: const ButtonStyleData(
-                                  padding: EdgeInsets.only(right: 4),
-                                  width: 0,
-                                ),
-                                iconStyleData: IconStyleData(
-                                  icon: Icon(
-                                    Icons.arrow_downward_sharp,
-                                    color: isDark
-                                        ? Colors.white
-                                        : secondaryTextColor,
-                                    size: 16,
-                                  ),
-                                ),
-                                dropdownStyleData: DropdownStyleData(
-                                  width: width - 20,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: isDark ? Colors.black : Colors.white,
-                                  ),
-                                ),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  height: 36,
-                                  padding: EdgeInsets.zero,
-                                ),
                               ),
                               if (hasError)
                                 Text(
@@ -531,7 +437,9 @@ class _HomePageState extends State<HomePage> with WindowListener {
                           }
                           return null;
                         },
-                      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
+                      ).nestedPadding(
+                        padding: const EdgeInsets.only(top: 8.5),
+                      ),
                     ),
                     const SizedBox(height: 5),
                     BaseFormItem(
@@ -784,51 +692,106 @@ class _HomePageState extends State<HomePage> with WindowListener {
     );
   }
 
+  void onColorTap(FormFieldState<int> field) {
+    // DO NOT REMOVE THIS LINE: 消除下拉选择默认弹窗
+    NavigatorUtil.pop();
+    showPGColorModal(
+      items: colors,
+      callback: (PGColor value) {
+        if (kDebugMode) {
+          log('id: ${value.value}, name: ${value.enText}');
+        }
+
+        field
+          ..didChange(value.value)
+          ..validate();
+
+        NavigatorUtil.pop();
+      },
+    );
+  }
+
   @override
   Future<void> onWindowClose() async {
-    final brightness = Theme.of(context).brightness;
-    final isDark = brightness == Brightness.dark;
     final isPreventClose = await windowManager.isPreventClose();
     if (isDesktop && isPreventClose) {
       if (!mounted) return;
       await showDialog<void>(
         context: context,
         barrierDismissible: false,
-        builder: (_) {
+        builder: (ctx) {
+          final t = Translations.of(context);
           return AlertDialog(
-            title: const Text('Confirm close'),
-            content: const Text('Are you sure you want to close this window?'),
+            title: Text(
+              t.dialogs.exitConfirm.title,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w500,
+                height: 1.44,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            content: Text(
+              t.dialogs.exitConfirm.description,
+              style: const TextStyle(fontSize: 14, height: 1.44),
+              textAlign: TextAlign.center,
+            ),
             actions: [
               TextButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                    isDark ? Colors.black : Colors.white,
+                  backgroundColor: MaterialStateProperty.all(errorTextColor),
+                  elevation: MaterialStateProperty.all(0),
+                  minimumSize: MaterialStateProperty.all(Size.zero),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  padding: MaterialStateProperty.all(EdgeInsets.zero),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                   ),
                 ),
-                child: const Text(
-                  'Yes',
-                  style: TextStyle(color: errorTextColor),
+                child: Text(
+                  t.dialogs.exitConfirm.exit,
+                  style: const TextStyle(color: Colors.white),
+                ).nestedPadding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 6,
+                  ),
                 ),
                 onPressed: () {
-                  Navigator.pop(context);
+                  NavigatorUtil.pop();
                   windowManager.destroy();
                 },
               ),
               TextButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                    isDark ? Colors.black : Colors.white,
+                  backgroundColor:
+                      MaterialStateProperty.all(primaryBackgroundColor),
+                  elevation: MaterialStateProperty.all(0),
+                  minimumSize: MaterialStateProperty.all(Size.zero),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  padding: MaterialStateProperty.all(EdgeInsets.zero),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      side: const BorderSide(color: primaryColor),
+                    ),
                   ),
                 ),
-                child: const Text(
-                  'No',
-                  style: TextStyle(color: primaryColor),
+                onPressed: NavigatorUtil.pop,
+                child: Text(
+                  t.dialogs.exitConfirm.cancel,
+                  style: const TextStyle(color: primaryColor),
+                ).nestedPadding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 6,
+                  ),
                 ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
               ),
             ],
+            actionsAlignment: MainAxisAlignment.center,
           );
         },
       );
@@ -841,34 +804,4 @@ class _HomePageState extends State<HomePage> with WindowListener {
     setState(() {});
     // do something
   }
-}
-
-///
-class FileWrapper {
-  ///
-  const FileWrapper({
-    required this.file,
-    required this.name,
-  });
-
-  ///
-  final File file;
-
-  ///
-  final String name;
-}
-
-///
-class PGColor {
-  ///
-  const PGColor(this.value, this.enText, this.zhText);
-
-  /// 颜色值
-  final int value;
-
-  /// 英文文案
-  final String enText;
-
-  /// 中文文案
-  final String zhText;
 }

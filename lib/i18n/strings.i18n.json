@@ -13,6 +13,14 @@
     "preview": "Preview",
     "save": "Save"
   },
+  "dialogs": {
+    "exitConfirm": {
+      "exit": "Exit",
+      "cancel": "Cancel",
+      "title": "Close confirmation",
+      "description": "Are you sure you want to close this window?"
+    }
+  },
   "locales(map)": {
     "en": "English",
     "zh": "中文"

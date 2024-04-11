@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 28 (14 per locale)
+/// Strings: 36 (18 per locale)
 ///
-/// Built on 2024-02-22 at 13:19 UTC
+/// Built on 2024-04-11 at 14:38 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -149,6 +149,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final _StringsHomePageEn homePage = _StringsHomePageEn._(_root);
+	late final _StringsDialogsEn dialogs = _StringsDialogsEn._(_root);
 	Map<String, String> get locales => {
 		'en': 'English',
 		'zh': '中文',
@@ -176,6 +177,29 @@ class _StringsHomePageEn {
 	String get save => 'Save';
 }
 
+// Path: dialogs
+class _StringsDialogsEn {
+	_StringsDialogsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final _StringsDialogsExitConfirmEn exitConfirm = _StringsDialogsExitConfirmEn._(_root);
+}
+
+// Path: dialogs.exitConfirm
+class _StringsDialogsExitConfirmEn {
+	_StringsDialogsExitConfirmEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get exit => 'Exit';
+	String get cancel => 'Cancel';
+	String get title => 'Close confirmation';
+	String get description => 'Are you sure you want to close this window?';
+}
+
 // Path: <root>
 class _StringsZh implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
@@ -201,6 +225,7 @@ class _StringsZh implements Translations {
 
 	// Translations
 	@override late final _StringsHomePageZh homePage = _StringsHomePageZh._(_root);
+	@override late final _StringsDialogsZh dialogs = _StringsDialogsZh._(_root);
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'zh': '中文',
@@ -228,6 +253,29 @@ class _StringsHomePageZh implements _StringsHomePageEn {
 	@override String get save => '保存';
 }
 
+// Path: dialogs
+class _StringsDialogsZh implements _StringsDialogsEn {
+	_StringsDialogsZh._(this._root);
+
+	@override final _StringsZh _root; // ignore: unused_field
+
+	// Translations
+	@override late final _StringsDialogsExitConfirmZh exitConfirm = _StringsDialogsExitConfirmZh._(_root);
+}
+
+// Path: dialogs.exitConfirm
+class _StringsDialogsExitConfirmZh implements _StringsDialogsExitConfirmEn {
+	_StringsDialogsExitConfirmZh._(this._root);
+
+	@override final _StringsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get exit => '退出';
+	@override String get cancel => '取消';
+	@override String get title => '关闭确认';
+	@override String get description => '您确定要关闭此窗口吗?';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 
@@ -246,6 +294,10 @@ extension on Translations {
 			case 'homePage.transparencyLabel': return 'Transparency';
 			case 'homePage.preview': return 'Preview';
 			case 'homePage.save': return 'Save';
+			case 'dialogs.exitConfirm.exit': return 'Exit';
+			case 'dialogs.exitConfirm.cancel': return 'Cancel';
+			case 'dialogs.exitConfirm.title': return 'Close confirmation';
+			case 'dialogs.exitConfirm.description': return 'Are you sure you want to close this window?';
 			case 'locales.en': return 'English';
 			case 'locales.zh': return '中文';
 			default: return null;
@@ -268,6 +320,10 @@ extension on _StringsZh {
 			case 'homePage.transparencyLabel': return '透明度';
 			case 'homePage.preview': return '预览';
 			case 'homePage.save': return '保存';
+			case 'dialogs.exitConfirm.exit': return '退出';
+			case 'dialogs.exitConfirm.cancel': return '取消';
+			case 'dialogs.exitConfirm.title': return '关闭确认';
+			case 'dialogs.exitConfirm.description': return '您确定要关闭此窗口吗?';
 			case 'locales.en': return 'English';
 			case 'locales.zh': return '中文';
 			default: return null;

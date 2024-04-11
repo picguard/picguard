@@ -33,7 +33,6 @@ dependencies:
   collection: ^1.18.0
   cupertino_icons: ^1.0.6
   device_info_plus: ^10.1.0
-  dropdown_button2: ^2.3.9
   file_picker: ^8.0.0+1
   firebase_analytics: ^10.10.1
   firebase_core: ^2.29.0

@@ -136,7 +136,6 @@ class AppTheme {
           ),
         ),
       ),
-      fontFamily: 'Normal',
     );
   }
 
@@ -220,11 +219,11 @@ class AppTheme {
         tabAlignment: TabAlignment.start,
       ),
       dialogTheme: DialogTheme(
-        backgroundColor: Colors.black,
+        backgroundColor: primaryTextColor,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         shape: RoundedRectangleBorder(
-          side: const BorderSide(color: placeholderTextColor),
+          // side: const BorderSide(color: placeholderTextColor),
           borderRadius: BorderRadius.circular(20),
         ),
       ),
@@ -264,7 +263,6 @@ class AppTheme {
           ),
         ),
       ),
-      fontFamily: 'Normal',
     );
   }
 }
