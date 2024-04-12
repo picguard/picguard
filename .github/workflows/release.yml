@@ -300,7 +300,7 @@ jobs:
           CERT_DEV_PATH=$RUNNER_TEMP/development.cer
           PP_PATH=$RUNNER_TEMP/watermark_assistant_appstore.mobileprovision
           PP_DEV_PATH=$RUNNER_TEMP/watermark_assistant_dev.mobileprovision
-          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+          KEYCHAIN_PATH=$RUNNER_TEMP/pg-signing.keychain-db
 
           # import certificate and provisioning profile from secrets
           echo -n "$P12_BASE64" | base64 --decode --output $CERTIFICATE_PATH
@@ -369,8 +369,8 @@ jobs:
       - name: Clean up
         if: ${{ always() }}
         run: |
-          if [ -f "$RUNNER_TEMP/app-signing.keychain-db" ]; then
-            echo "$RUNNER_TEMP/app-signing.keychain-db"
-            security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
+          if [ -f "$RUNNER_TEMP/pg-signing.keychain-db" ]; then
+            echo "$RUNNER_TEMP/pg-signing.keychain-db"
+            security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
           fi
-          rm -f ~/Library/MobileDevice/Provisioning\ Profiles/*.mobileprovision
+          rm -f ~/Library/MobileDevice/Provisioning\ Profiles/watermark_assistant_*.mobileprovision
