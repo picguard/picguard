@@ -10,7 +10,7 @@ dependencies:
     version: 1.2.2
   '@hookform/resolvers':
     specifier: ^3.3.4
-    version: 3.3.4(react-hook-form@7.51.2)
+    version: 3.3.4(react-hook-form@7.51.3)
   '@octokit/rest':
     specifier: ^20.1.0
     version: 20.1.0
@@ -108,8 +108,8 @@ dependencies:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
   react-hook-form:
-    specifier: ^7.51.2
-    version: 7.51.2(react@18.2.0)
+    specifier: ^7.51.3
+    version: 7.51.3(react@18.2.0)
   react-i18next:
     specifier: ^14.1.0
     version: 14.1.0(i18next@23.11.1)(react-dom@18.2.0)(react@18.2.0)
@@ -931,12 +931,12 @@ packages:
       '@hapi/hoek': 9.3.0
     dev: false
 
-  /@hookform/resolvers@3.3.4(react-hook-form@7.51.2):
+  /@hookform/resolvers@3.3.4(react-hook-form@7.51.3):
     resolution: {integrity: sha512-o5cgpGOuJYrd+iMKvkttOclgwRW86EsWJZZRC23prf0uU2i48Htq4PuT73AVb9ionFyZrwYEITuOFGF+BydEtQ==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
-      react-hook-form: 7.51.2(react@18.2.0)
+      react-hook-form: 7.51.3(react@18.2.0)
     dev: false
 
   /@humanwhocodes/config-array@0.11.14:
@@ -7312,7 +7312,7 @@ packages:
       esbuild: ^0.17.3
     dependencies:
       '@faker-js/faker': 8.4.1
-      '@hookform/resolvers': 3.3.4(react-hook-form@7.51.2)
+      '@hookform/resolvers': 3.3.4(react-hook-form@7.51.3)
       '@radix-ui/react-accessible-icon': 1.0.3(@types/react-dom@18.2.25)(@types/react@18.2.77)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-accordion': 1.1.2(@types/react-dom@18.2.25)(@types/react@18.2.77)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-alert-dialog': 1.0.5(@types/react-dom@18.2.25)(@types/react@18.2.77)(react-dom@18.2.0)(react@18.2.0)
@@ -7365,7 +7365,7 @@ packages:
       react: 18.2.0
       react-day-picker: 8.10.0(date-fns@2.30.0)(react@18.2.0)
       react-dom: 18.2.0(react@18.2.0)
-      react-hook-form: 7.51.2(react@18.2.0)
+      react-hook-form: 7.51.3(react@18.2.0)
       react-resizable-panels: 0.0.55(react-dom@18.2.0)(react@18.2.0)
       react-wrap-balancer: 0.4.1(react@18.2.0)
       recharts: 2.12.4(react-dom@18.2.0)(react@18.2.0)
@@ -8183,8 +8183,8 @@ packages:
       scheduler: 0.23.0
     dev: false
 
-  /react-hook-form@7.51.2(react@18.2.0):
-    resolution: {integrity: sha512-y++lwaWjtzDt/XNnyGDQy6goHskFualmDlf+jzEZvjvz6KWDf7EboL7pUvRCzPTJd0EOPpdekYaQLEvvG6m6HA==}
+  /react-hook-form@7.51.3(react@18.2.0):
+    resolution: {integrity: sha512-cvJ/wbHdhYx8aviSWh28w9ImjmVsb5Y05n1+FW786vEZQJV5STNM0pW6ujS+oiBecb0ARBxJFyAnXj9+GHXACQ==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
