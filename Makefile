@@ -74,4 +74,4 @@ macos_build:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd macos && xcodebuild clean && cd ..
 	echo "╠ Releasing bundle..."
-	flutter build macos
+	flutter build macos && bash build-dmg.sh
