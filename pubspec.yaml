@@ -54,7 +54,7 @@ dependencies:
   permission_handler: ^11.3.1
   photo_view: ^0.14.0
   reorderables: ^0.6.0
-  shared_preferences: ^2.2.2
+  shared_preferences: ^2.2.3
   slang: ^3.30.2
   slang_flutter: ^3.30.0
   syncfusion_flutter_core: ^25.1.39
