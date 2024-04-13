@@ -320,10 +320,6 @@ jobs:
         run: |
           rm -f ./PicGuard.dmg && pnpm -c -s dlx appdmg ./appdmg.json ./PicGuard.dmg
 
-      # Package the build.
-      - name: Copy build for macOS
-        run: cp ./PicGuard.dmg $GITHUB_WORKSPACE/
-
       - name: Clean up
         if: ${{ always() }}
         run: |
