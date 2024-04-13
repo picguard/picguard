@@ -452,7 +452,7 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
 
       - name: Code Signing
-        run: /usr/bin/codesign --force -s "$SIGNING_IDENTITY" --options runtime PicGuard.app -v
+        run: /usr/bin/codesign --deep --force -s "$SIGNING_IDENTITY" --options runtime PicGuard.app -v
         working-directory: build/macos/Build/Products/Release
         env:
           SIGNING_IDENTITY: ${{ secrets.SIGNING_IDENTITY }}
