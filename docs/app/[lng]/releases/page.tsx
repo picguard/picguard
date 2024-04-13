@@ -62,7 +62,7 @@ export default function Releases({
         <ShowContent isShow={releases.length === 0 && loading}>
           <div className="mx-0 my-auto text-center">
             <div role="status">
-              <Loading className="inline h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600" />
+              <Loading className="inline h-8 w-8 animate-spin fill-[#3e8fc8] text-gray-200 dark:text-gray-600" />
               <span className="sr-only">Loading...</span>
             </div>
           </div>
