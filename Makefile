@@ -70,8 +70,16 @@ appstore:
 	echo "╠ Releasing to app store..."
 	flutter build ipa --export-options-plist=ios/ExportOptions-release.plist
 
-macos_build:
+macos_adhoc:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd macos && xcodebuild clean && cd ..
+	echo "╠ Releasing bundle..."
+	bash build-macos.sh && flutter build macos && bash build-dmg.sh
+
+macos_appstore:
+	echo "╠ Removing build products and intermediate files from the build root..."
+	cd macos && xcodebuild clean && cd ..
+	echo "╠ Removing BuildConfig.xcconfig..."
+	rm -f macos/Flutter/BuildConfig.xcconfig
 	echo "╠ Releasing bundle..."
 	flutter build macos && bash build-dmg.sh
