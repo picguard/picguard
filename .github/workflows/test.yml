@@ -322,7 +322,7 @@ jobs:
 
       # Package the build.
       - name: Copy build for macOS
-        run: cp *.dmg $GITHUB_WORKSPACE/
+        run: cp ./PicGuard.dmg $GITHUB_WORKSPACE/
 
       - name: Clean up
         if: ${{ always() }}

@@ -86,6 +86,7 @@ jobs:
         - apk
         - aab
         - ios
+        - macos
       steps:
         - uses: actions/checkout@v4
 
@@ -384,6 +385,8 @@ jobs:
   macos:
     name: Create macos
     runs-on: self-hosted
+    needs:
+      - create_release
     steps:
       - uses: actions/checkout@v4
 
@@ -502,7 +505,25 @@ jobs:
 
       # Package the build.
       - name: Copy build for macOS
-        run: cp *.dmg $GITHUB_WORKSPACE/
+        run: cp ./PicGuard.dmg $GITHUB_WORKSPACE/
+
+      - name: Install gh
+        run: |
+          if ! command -v gh >/dev/null 2>&1; then
+            echo "gh not exists"
+            brew install gh
+          fi
+          gh --version
+
+      - name: Upload assets
+        run: |
+          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          gh release upload "$RELEASE" ./*.dmg
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
         if: ${{ always() }}
