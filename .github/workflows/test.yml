@@ -2,22 +2,22 @@ name: Test
 
 on:
   workflow_dispatch:
-#  pull_request:
-#    paths-ignore:
-#      - 'docs/**'
-#      - 'LICENSE'
-#      - 'README.md'
-#      - 'Makefile'
-#    branches:
-#      - main
-#  push:
-#    paths-ignore:
-#      - 'docs/**'
-#      - 'LICENSE'
-#      - 'README.md'
-#      - 'Makefile'
-#    branches:
-#      - main
+  pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - 'LICENSE'
+      - 'README.md'
+      - 'Makefile'
+    branches:
+      - main
+  push:
+    paths-ignore:
+      - 'docs/**'
+      - 'LICENSE'
+      - 'README.md'
+      - 'Makefile'
+    branches:
+      - main
 
 # Declare default permissions as readonly.
 permissions: read-all
@@ -60,7 +60,7 @@ jobs:
         working-directory: android
 
       - name: Build Apk
-        run: flutter build apk --no-tree-shake-icons
+        run: bash build-android.sh && flutter build apk --no-tree-shake-icons --flavor staging
 
       # Package the build.
       - name: Copy build for Android
@@ -73,55 +73,55 @@ jobs:
           rm -f android/app/upload-keystore.jks
           rm -f android/key.properties
 
-#  aab:
-#    name: Create appbundle
-#    runs-on: self-hosted
-#    steps:
-#      - uses: actions/checkout@v4
-#      - uses: actions/setup-java@v4
-#        with:
-#          java-version: "17.x"
-#          distribution: 'temurin'
-#
-#      - name: Setup Flutter
-#        uses: subosito/flutter-action@v2
-#        with:
-#          channel: 'stable'
-#          flutter-version: '3.19.5'
-#
-#      - name: Flutter doctor -v
-#        run: flutter doctor -v
-#
-#      - name: Install Deps
-#        run: flutter pub get
-#
-#      - name: Configure Keystore for Android
-#        run: |
-#          echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
-#          echo "storeFile=upload-keystore.jks" >> key.properties
-#          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
-#          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
-#          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
-#        env:
-#          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
-#          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
-#          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-#          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
-#        working-directory: android
-#
-#      - name: Build Appbundle
-#        run: flutter build appbundle --no-tree-shake-icons
-#
-#      # Package the build.
-#      - name: Copy build for Android
-#        run: cp *.aab $GITHUB_WORKSPACE/
-#        working-directory: build/app/outputs/bundle/release
-#
-#      - name: Clean up
-#        if: ${{ always() }}
-#        run: |
-#          rm -f android/app/upload-keystore.jks
-#          rm -f android/key.properties
+  aab:
+    name: Create appbundle
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: "17.x"
+          distribution: 'temurin'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.5'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install Deps
+        run: flutter pub get
+
+      - name: Configure Keystore for Android
+        run: |
+          echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
+          echo "storeFile=upload-keystore.jks" >> key.properties
+          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
+          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
+          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
+        env:
+          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
+          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+        working-directory: android
+
+      - name: Build Appbundle
+        run: bash build-android.sh && flutter build appbundle --no-tree-shake-icons --flavor staging
+
+      # Package the build.
+      - name: Copy build for Android
+        run: cp *.aab $GITHUB_WORKSPACE/
+        working-directory: build/app/outputs/bundle/stagingRelease
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f android/app/upload-keystore.jks
+          rm -f android/key.properties
 
   ios:
     name: Create ios
@@ -194,7 +194,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build ipa --export-options-plist=ios/ExportOptions-release.plist
+          bash build-ios.sh && flutter build ipa --export-options-plist=ios/ExportOptions-debug.plist
 
       # Package the build.
       - name: Copy build for iOS
