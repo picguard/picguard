@@ -35,8 +35,8 @@ export default function Home({
             rel="noreferrer"
             className="mx-auto mb-12 flex max-w-fit animate-fade-up items-center justify-center space-x-2 overflow-hidden rounded-full bg-blue-100 px-7 py-2 transition-colors hover:bg-blue-200"
           >
-            <FaBlog className="h-5 w-5 text-[#1d9bf0]" />
-            <p className="text-sm font-semibold text-[#1d9bf0]">{post.title}</p>
+            <FaBlog className="h-5 w-5 text-[#3e8fc8]" />
+            <p className="text-sm font-semibold text-[#3e8fc8]">{post.title}</p>
           </Link>
         )}
         <div className="mb-8 flex items-center justify-center space-x-20">
@@ -55,7 +55,7 @@ export default function Home({
           <Balancer>{th("title")}</Balancer>
         </h1>
         <p
-          className="mt-6 animate-fade-up text-center text-red-400 opacity-0 md:text-xl"
+          className="mt-6 animate-fade-up text-center text-[#3e8fc8] opacity-0 md:text-xl"
           style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
         >
           <Balancer>
@@ -63,7 +63,7 @@ export default function Home({
               animate
               type="highlight"
               show={true}
-              color="rgb(36, 54, 110)"
+              color="#f1f2f6"
               animationDelay={1000}
               animationDuration={2500}
             >

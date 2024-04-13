@@ -55,7 +55,7 @@ export default function PostItem({ ...props }: Record<string, any> & LngProps) {
       <Link href={`/${props.slug}`} className="ml-6 block shrink-0">
         <span className="sr-only">Read more</span>
         <svg
-          className="h-4 w-4 fill-current text-blue-600"
+          className="h-4 w-4 fill-current text-[#3e8fc8]"
           viewBox="0 0 16 16"
           xmlns="http://www.w3.org/2000/svg"
         >
