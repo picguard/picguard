@@ -15,4 +15,4 @@ export const platforms: Record<SystemOS, string[]> = {
   windows: [".exe", ".nsis.zip"],
   linux: [".AppImage", ".AppImage.tar.gz", ".deb"],
 };
-export const pageSize: number = 15;
+export const pageSize: number = 10;
