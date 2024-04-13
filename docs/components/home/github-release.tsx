@@ -23,17 +23,6 @@ export default function GithubRelease({ lng }: LngProps) {
   const [data, setData] = useState<Release>({});
   const [error, setError] = useState<any>(null);
 
-  const assets = useMemo(() => {
-    if (data) {
-      return (
-        data.assets?.filter(
-          ({ name }) => !(name?.includes("x86_64") || name?.endsWith(".sig")),
-        ) || []
-      );
-    }
-    return [];
-  }, [data]);
-
   const { ios, android, macos, windows, linux } = useMemo(() => {
     const packages: Record<SystemOS, Asset[]> = {
       ios: [],
@@ -48,10 +37,10 @@ export default function GithubRelease({ lng }: LngProps) {
           name.endsWith(platform),
         );
       packages[key as SystemOS] =
-        assets.filter(({ name }) => name && matcher(name)) || [];
+        data.assets?.filter(({ name }) => name && matcher(name)) || [];
     });
     return packages;
-  }, [assets]);
+  }, [data.assets]);
 
   const loadData = () => {
     setLoading(true);
