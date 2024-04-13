@@ -148,11 +148,11 @@ jobs:
       # Build the application.
       - name: Build apk
         if: github.event.inputs.env == 'development'
-        run: bash build-android.sh && flutter build apk --no-tree-shake-icons
+        run: bash build-android.sh && flutter build apk --no-tree-shake-icons --flavor staging
 
       - name: Build apk
         if: github.event.inputs.env == 'production'
-        run: flutter build apk --no-tree-shake-icons
+        run: flutter build apk --no-tree-shake-icons --flavor production
 
       # Package the build.
       - name: Copy build for Android
@@ -224,16 +224,22 @@ jobs:
       # Build the application.
       - name: Build appbundle
         if: github.event.inputs.env == 'development'
-        run: bash build-android.sh && flutter build appbundle --no-tree-shake-icons
+        run: bash build-android.sh && flutter build appbundle --no-tree-shake-icons --flavor staging
 
       - name: Build appbundle
         if: github.event.inputs.env == 'production'
-        run: flutter build appbundle --no-tree-shake-icons
+        run: flutter build appbundle --no-tree-shake-icons --flavor production
 
       # Package the build.
       - name: Copy build for Android
+        if: github.event.inputs.env == 'development'
         run: cp *.aab $GITHUB_WORKSPACE/
-        working-directory: build/app/outputs/bundle/release
+        working-directory: build/app/outputs/bundle/stagingRelease
+
+      - name: Copy build for Android
+        if: github.event.inputs.env == 'production'
+        run: cp *.aab $GITHUB_WORKSPACE/
+        working-directory: build/app/outputs/bundle/productionRelease
 
       - name: Install gh
         run: |
