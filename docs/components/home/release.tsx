@@ -2,7 +2,7 @@
 import { useCallback } from "react";
 import Image from "next/image";
 import { FaDownload } from "react-icons/fa6";
-import GithubPkg from "@/components/home/github-pkg";
+import GitHubPkg from "@/components/home/github-pkg";
 import type { Release } from "@/types/github";
 import type { LngProps } from "@/types/i18next-lng";
 
@@ -65,12 +65,12 @@ export default function Release({
           </p>
         </div>
       </div>
-      <dl className="flex w-full flex-none justify-between gap-x-8 sm:w-auto">
+      <dl className="flex w-full flex-none items-center justify-between space-x-4 sm:w-auto">
         <div className="flex -space-x-0.5">
           <dt className="sr-only">Commenters</dt>
           <dd key={release.author?.id}>
             <Image
-              className="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
+              className="h-[26px] w-[26px] rounded-full bg-gray-50 ring-2 ring-white"
               width={0}
               height={0}
               src={release.author?.avatar_url || ""}
@@ -78,15 +78,15 @@ export default function Release({
             />
           </dd>
         </div>
-        <GithubPkg assets={release?.assets || []} lng={lng} disabled={false}>
-          <div className="flex cursor-pointer gap-x-2.5 text-gray-500 hover:text-green-400 dark:text-gray-400 dark:hover:text-green-300">
+        <GitHubPkg assets={release?.assets || []} lng={lng} disabled={false}>
+          <div className="flex cursor-pointer items-center gap-x-2.5 text-gray-500 hover:text-[#3E8FC8] dark:text-gray-400 dark:hover:text-[#3E8FC8]">
             <dt>
               <span className="sr-only">Total assets</span>
               <FaDownload className="h-5 w-5" aria-hidden="true" />
             </dt>
             <dd className="text-sm leading-6">{release?.assets?.length}</dd>
           </div>
-        </GithubPkg>
+        </GitHubPkg>
       </dl>
     </li>
   );
