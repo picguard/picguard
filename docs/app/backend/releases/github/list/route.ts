@@ -45,7 +45,7 @@ export async function GET(request: Request) {
       { status: httpStatus.OK },
     );
   } catch (error: any) {
-    const code = error?.code || httpStatus.INTERNAL_SERVER_ERROR;
+    const code = error?.status || httpStatus.INTERNAL_SERVER_ERROR;
     return Response.json(
       {
         code,
