@@ -17,13 +17,14 @@ export async function GET() {
       { status: httpStatus.OK },
     );
   } catch (error: any) {
+    const code = error?.code || httpStatus.INTERNAL_SERVER_ERROR;
     return Response.json(
       {
-        code: httpStatus.INTERNAL_SERVER_ERROR,
+        code,
         msg: error.message || error.toString(),
         timestamp: Date.now(),
       },
-      { status: httpStatus.INTERNAL_SERVER_ERROR },
+      { status: code },
     );
   }
 }
