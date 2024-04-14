@@ -232,7 +232,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 763814908793c0da14c18b3dcffdec71e29ed55e
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
-  fluttertoast: 31b00dabfa7fb7bacd9e7dbee580d7a2ff4bf265
+  fluttertoast: 9f2f8e81bb5ce18facb9748d7855bf5a756fe3db
   GoogleAppMeasurement: ccefe3eac9b0aa27f96066809fb1a7fe4b462626
   GoogleUtilities: d053d902a8edaa9904e1bd00c37535385b8ed152
   image_picker_ios: 99dfe1854b4fa34d0364e74a78448a0151025425
