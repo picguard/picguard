@@ -204,7 +204,7 @@ export default function GithubRelease({ lng }: LngProps) {
             <>
               {t("latest")}:{" "}
               <Link
-                className="text-red-400"
+                className="text-[#3e8fc8]"
                 href={`https://github.com/picguard/picguard/releases/tag/${tag_name}`}
                 target="_blank"
               >
