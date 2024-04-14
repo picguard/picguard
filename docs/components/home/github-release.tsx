@@ -11,7 +11,7 @@ import {
 } from "@/components/shared/icons";
 import GitHubPkg from "@/components/home/github-pkg";
 import { platforms } from "@/constants";
-import { getLatestRelease } from "@/request";
+import { getLatestRelease, getReleases } from "@/request";
 import { useTranslation } from "@/i18n/client";
 import type { LngProps } from "@/types/i18next-lng";
 import type { Asset, Release } from "@/types/github";
@@ -22,6 +22,26 @@ export default function GithubRelease({ lng }: LngProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<Release>({});
   const [error, setError] = useState<any>(null);
+
+  const [firstLoading, setFirstLoading] = useState<boolean>(false);
+  const [first, setFirstData] = useState<Release>({});
+  const [firstError, setFirstError] = useState<any>(null);
+
+  const assets = useMemo(() => {
+    if (data.assets && data.assets.length) {
+      return data.assets;
+    }
+
+    if (first.assets && first.assets.length) {
+      return first.assets;
+    }
+
+    return [];
+  }, [data.assets, first.assets]);
+
+  const tag_name = useMemo(() => {
+    return data.tag_name || first.tag_name;
+  }, [data.tag_name, first.tag_name]);
 
   const { ios, android, macos, windows, linux } = useMemo(() => {
     const packages: Record<SystemOS, Asset[]> = {
@@ -37,10 +57,10 @@ export default function GithubRelease({ lng }: LngProps) {
           name.endsWith(platform),
         );
       packages[key as SystemOS] =
-        data.assets?.filter(({ name }) => name && matcher(name)) || [];
+        assets.filter(({ name }) => name && matcher(name)) || [];
     });
     return packages;
-  }, [data.assets]);
+  }, [assets]);
 
   const loadData = () => {
     setLoading(true);
@@ -54,15 +74,45 @@ export default function GithubRelease({ lng }: LngProps) {
         }
       })
       .catch((error) => {
+        console.error(error);
         setLoading(false);
         setError(error.message || error.toString());
+      });
+  };
+
+  const loadFirstData = () => {
+    setFirstLoading(true);
+    getReleases(1, 1)
+      .then((res) => {
+        setFirstLoading(false);
+        if (res?.code === 0) {
+          setFirstData(res?.data?.[0] || {});
+        } else {
+          setFirstError(res?.msg);
+        }
+      })
+      .catch((error) => {
         console.error(error);
+        setFirstLoading(false);
+        setFirstError(error.message || error.toString());
       });
   };
 
   useEffect(() => {
     loadData();
   }, []);
+
+  useEffect(() => {
+    if (!data.assets || !data.assets.length) {
+      loadFirstData();
+    }
+  }, [data.assets]);
+
+  const disabled = useMemo(() => {
+    if (loading || firstLoading) return true;
+
+    return !!(error && firstLoading);
+  }, [loading, firstLoading, error, firstError]);
 
   return (
     <>
@@ -71,7 +121,7 @@ export default function GithubRelease({ lng }: LngProps) {
           <div className="grid w-full grid-cols-1 gap-5 px-10 sm:grid-cols-2 sm:px-10 md:grid-cols-4">
             <GitHubPkg
               lng={lng}
-              disabled={loading || error || !android.length}
+              disabled={disabled || !android.length}
               assets={android}
               wrapperClassName="border border-gray-300 hover:border-gray-800 shadow-md"
             >
@@ -82,7 +132,7 @@ export default function GithubRelease({ lng }: LngProps) {
             </GitHubPkg>
             <GitHubPkg
               lng={lng}
-              disabled={loading || error || !ios.length}
+              disabled={disabled || !ios.length}
               assets={ios}
               wrapperClassName="border border-gray-300 hover:border-gray-800 shadow-md"
             >
@@ -93,7 +143,7 @@ export default function GithubRelease({ lng }: LngProps) {
             </GitHubPkg>
             <GitHubPkg
               lng={lng}
-              disabled={loading || error || !macos.length}
+              disabled={disabled || !macos.length}
               assets={macos}
               wrapperClassName="border border-gray-300 hover:border-gray-800 shadow-md"
             >
@@ -104,7 +154,7 @@ export default function GithubRelease({ lng }: LngProps) {
             </GitHubPkg>
             <GitHubPkg
               lng={lng}
-              disabled={loading || error || !windows.length}
+              disabled={disabled || !windows.length}
               assets={windows}
               wrapperClassName="border border-gray-300 hover:border-gray-800 shadow-md"
             >
@@ -115,7 +165,7 @@ export default function GithubRelease({ lng }: LngProps) {
             </GitHubPkg>
             <GitHubPkg
               lng={lng}
-              disabled={loading || error || !linux.length}
+              disabled={disabled || !linux.length}
               assets={linux}
               wrapperClassName="border border-gray-300 hover:border-gray-800 shadow-md"
             >
@@ -150,15 +200,15 @@ export default function GithubRelease({ lng }: LngProps) {
         style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
       >
         <Balancer>
-          {data?.tag_name && (
+          {tag_name && (
             <>
               {t("latest")}:{" "}
               <Link
                 className="text-red-400"
-                href={`https://github.com/picguard/picguard/releases/tag/${data?.tag_name}`}
+                href={`https://github.com/picguard/picguard/releases/tag/${tag_name}`}
                 target="_blank"
               >
-                {data?.tag_name}
+                {tag_name}
               </Link>
             </>
           )}
