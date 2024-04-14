@@ -157,7 +157,7 @@ jobs:
 
       # Package the build.
       - name: Copy build for Android
-        run: cp *.apk $GITHUB_WORKSPACE/
+        run: cp *.apk $GITHUB_WORKSPACE/PicGuard.apk
         working-directory: build/app/outputs/flutter-apk
 
       - name: Install gh
@@ -234,12 +234,12 @@ jobs:
       # Package the build.
       - name: Copy build for Android
         if: github.event.inputs.env == 'development'
-        run: cp *.aab $GITHUB_WORKSPACE/
+        run: cp *.aab $GITHUB_WORKSPACE/PicGuard.aab
         working-directory: build/app/outputs/bundle/stagingRelease
 
       - name: Copy build for Android
         if: github.event.inputs.env == 'production'
-        run: cp *.aab $GITHUB_WORKSPACE/
+        run: cp *.aab $GITHUB_WORKSPACE/PicGuard.aab
         working-directory: build/app/outputs/bundle/productionRelease
 
       - name: Install gh
