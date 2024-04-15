@@ -22,23 +22,9 @@ class $LogoGen {
   List<dynamic> get values => [logoIcns, logoPng];
 }
 
-class $AssetsIconsGen {
-  const $AssetsIconsGen();
-
-  /// File path: assets/icons/close.png
-  AssetGenImage get close => const AssetGenImage('assets/icons/close.png');
-
-  /// File path: assets/icons/info.png
-  AssetGenImage get info => const AssetGenImage('assets/icons/info.png');
-
-  /// List of all assets
-  List<AssetGenImage> get values => [close, info];
-}
-
 class Assets {
   Assets._();
 
-  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $LogoGen logo = $LogoGen();
 }
 

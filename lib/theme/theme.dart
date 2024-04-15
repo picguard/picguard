@@ -219,7 +219,7 @@ class AppTheme {
         tabAlignment: TabAlignment.start,
       ),
       dialogTheme: DialogTheme(
-        backgroundColor: primaryTextColor,
+        backgroundColor: dialogBackgroundColor,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         shape: RoundedRectangleBorder(
