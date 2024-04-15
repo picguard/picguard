@@ -1,9 +1,10 @@
 import 'dart:ui';
 
-const primaryColor = Color(0xFF00A590);
-const primaryHoverColor = Color(0xFF00CBB3);
-const primaryBackgroundColor = Color(0xFFE6FAF7);
+const primaryColor = Color(0xFF1e90ff);
+const primaryHoverColor = Color(0xFF70a1ff);
+const primaryBackgroundColor = Color(0xFFe3ecfc);
 const primaryTextColor = Color(0xFF333333);
+const dialogBackgroundColor = Color(0xFF2f3542);
 const secondaryTextColor = Color(0xFF6F7379);
 const placeholderTextColor = Color(0xFF959595);
 const errorTextColor = Color(0xFFFF5050);

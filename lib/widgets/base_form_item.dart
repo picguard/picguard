@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:picguard/extensions/extensions.dart';
-import 'package:picguard/gen/assets.gen.dart';
 import 'package:picguard/theme/colors.dart';
 
 ///
@@ -83,7 +82,7 @@ class _BaseFormItemState extends State<BaseFormItem> {
           TextSpan(
             text: widget.title,
             style: TextStyle(
-              color: isDark ? Colors.white: primaryTextColor,
+              color: isDark ? Colors.white : primaryTextColor,
               fontSize: 14,
               fontWeight: FontWeight.w400,
             ),
@@ -96,13 +95,19 @@ class _BaseFormItemState extends State<BaseFormItem> {
   }
 
   Widget get tips {
-    return Assets.icons.info
-        .image(height: 12, width: 12)
-        .nestedPadding(
-          padding: const EdgeInsets.only(left: 4),
-        )
-        .nestedTap(() {
-      widget.onTipTap?.call();
-    });
+    return IconButton(
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all(EdgeInsets.zero),
+        elevation: MaterialStateProperty.all(0),
+        minimumSize: MaterialStateProperty.all(Size.zero),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      ),
+      onPressed: widget.onTipTap,
+      icon: const Icon(
+        Icons.info,
+        size: 14,
+        color: primaryColor,
+      ),
+    ).nestedPadding(padding: const EdgeInsets.only(left: 4));
   }
 }
