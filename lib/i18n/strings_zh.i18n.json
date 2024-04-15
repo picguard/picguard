@@ -13,12 +13,37 @@
     "preview": "预览",
     "save": "保存"
   },
+  "buttons": {
+    "agree": "同意",
+    "cancel": "再想想"
+  },
   "dialogs": {
     "exitConfirm": {
       "exit": "退出",
       "cancel": "取消",
       "title": "关闭确认",
       "description": "您确定要关闭此窗口吗?"
+    },
+    "licenseDialog": {
+      "licenseDialogTitle": "隐私条款",
+      "licenseDialogContentContent": "PicGuard非常重视你的隐私保护和个人信息保护.",
+      "licenseDialogContentTip": "以下是该APP所需的权限列表:",
+      "licenseDialogContentPrefix": "在使用APP服务前，请认真阅读 ",
+      "licenseDialogContentUserAgreement": "《隐私政策》",
+      "licenseDialogContentAnd": "和",
+      "licenseDialogContentPrivacyAgreement": "《用户服务协议》",
+      "licenseDialogContentSuffix": ", 你同意并接受全部条款后开始使用我们的服务.",
+      "iosPermissions": [
+        "1. 为了让您拍摄照片, PicGuard 需要访问您的相机. (NSCameraUsageDescription)",
+        "2. 为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)"
+      ],
+      "androidPermissions": [
+        "1. 为了使用 Firebase Analytics 服务，PicGuard 需要访问您的互联网. (android.permission.INTERNET)",
+        "2. 为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)",
+        "3. 为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)",
+        "4. 为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)",
+        "5. 为了让您拍摄照片, PicGuard 需要访问您的相机. (android.permission.CAMERA)"
+      ]
     }
   },
   "locales(map)": {

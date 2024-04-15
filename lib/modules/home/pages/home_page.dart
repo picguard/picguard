@@ -7,6 +7,7 @@ import 'package:collection/collection.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -54,6 +55,10 @@ class _HomePageState extends State<HomePage> with WindowListener {
     windowManager.addListener(this);
     LocaleSettings.getLocaleStream().listen((event) {
       log('locale changed: $event');
+    });
+
+    SchedulerBinding.instance.addPostFrameCallback((timestamp) {
+      DialogUtil.showLicenseDialog();
     });
   }
 

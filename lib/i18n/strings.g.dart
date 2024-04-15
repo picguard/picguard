@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 36 (18 per locale)
+/// Strings: 70 (35 per locale)
 ///
-/// Built on 2024-04-11 at 14:38 UTC
+/// Built on 2024-04-15 at 12:48 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -149,6 +149,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final _StringsHomePageEn homePage = _StringsHomePageEn._(_root);
+	late final _StringsButtonsEn buttons = _StringsButtonsEn._(_root);
 	late final _StringsDialogsEn dialogs = _StringsDialogsEn._(_root);
 	Map<String, String> get locales => {
 		'en': 'English',
@@ -177,6 +178,17 @@ class _StringsHomePageEn {
 	String get save => 'Save';
 }
 
+// Path: buttons
+class _StringsButtonsEn {
+	_StringsButtonsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get agree => 'Agree';
+	String get cancel => 'Cancel';
+}
+
 // Path: dialogs
 class _StringsDialogsEn {
 	_StringsDialogsEn._(this._root);
@@ -185,6 +197,7 @@ class _StringsDialogsEn {
 
 	// Translations
 	late final _StringsDialogsExitConfirmEn exitConfirm = _StringsDialogsExitConfirmEn._(_root);
+	late final _StringsDialogsLicenseDialogEn licenseDialog = _StringsDialogsLicenseDialogEn._(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -198,6 +211,34 @@ class _StringsDialogsExitConfirmEn {
 	String get cancel => 'Cancel';
 	String get title => 'Close confirmation';
 	String get description => 'Are you sure you want to close this window?';
+}
+
+// Path: dialogs.licenseDialog
+class _StringsDialogsLicenseDialogEn {
+	_StringsDialogsLicenseDialogEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get licenseDialogTitle => 'Terms and Conditions';
+	String get licenseDialogContentContent => 'Protecting user\'s privacy and personal information is a fundamental principle of PicGuard.';
+	String get licenseDialogContentTip => 'Below is a list of permissions required by this APP:';
+	String get licenseDialogContentPrefix => 'Before you use this APP\'s services, please carefully read and agree to the ';
+	String get licenseDialogContentUserAgreement => 'User Agreement';
+	String get licenseDialogContentAnd => ' and ';
+	String get licenseDialogContentPrivacyAgreement => 'Privacy Agreement';
+	String get licenseDialogContentSuffix => ', start using our services after you agree and accept all terms.';
+	List<String> get iosPermissions => [
+		'1. For you to take photos, PicGuard needs access to your Camera. (NSCameraUsageDescription)',
+		'2. For you to upload pictures, PicGuard needs access to your Photos. (NSPhotoLibraryUsageDescription)',
+	];
+	List<String> get androidPermissions => [
+		'1. In order to use the Firebase Analytics Service, PicGuard needs access to your Internet. (android.permission.INTERNET)',
+		'2. For you to upload pictures, PicGuard needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)',
+		'3. For you to save pictures, PicGuard needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
+		'4. For you to upload pictures, PicGuard needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)',
+		'5. For you to take photos, PicGuard needs access to your Camera. (android.permission.CAMERA)',
+	];
 }
 
 // Path: <root>
@@ -225,6 +266,7 @@ class _StringsZh implements Translations {
 
 	// Translations
 	@override late final _StringsHomePageZh homePage = _StringsHomePageZh._(_root);
+	@override late final _StringsButtonsZh buttons = _StringsButtonsZh._(_root);
 	@override late final _StringsDialogsZh dialogs = _StringsDialogsZh._(_root);
 	@override Map<String, String> get locales => {
 		'en': 'English',
@@ -253,6 +295,17 @@ class _StringsHomePageZh implements _StringsHomePageEn {
 	@override String get save => '保存';
 }
 
+// Path: buttons
+class _StringsButtonsZh implements _StringsButtonsEn {
+	_StringsButtonsZh._(this._root);
+
+	@override final _StringsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get agree => '同意';
+	@override String get cancel => '再想想';
+}
+
 // Path: dialogs
 class _StringsDialogsZh implements _StringsDialogsEn {
 	_StringsDialogsZh._(this._root);
@@ -261,6 +314,7 @@ class _StringsDialogsZh implements _StringsDialogsEn {
 
 	// Translations
 	@override late final _StringsDialogsExitConfirmZh exitConfirm = _StringsDialogsExitConfirmZh._(_root);
+	@override late final _StringsDialogsLicenseDialogZh licenseDialog = _StringsDialogsLicenseDialogZh._(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -274,6 +328,34 @@ class _StringsDialogsExitConfirmZh implements _StringsDialogsExitConfirmEn {
 	@override String get cancel => '取消';
 	@override String get title => '关闭确认';
 	@override String get description => '您确定要关闭此窗口吗?';
+}
+
+// Path: dialogs.licenseDialog
+class _StringsDialogsLicenseDialogZh implements _StringsDialogsLicenseDialogEn {
+	_StringsDialogsLicenseDialogZh._(this._root);
+
+	@override final _StringsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get licenseDialogTitle => '隐私条款';
+	@override String get licenseDialogContentContent => 'PicGuard非常重视你的隐私保护和个人信息保护.';
+	@override String get licenseDialogContentTip => '以下是该APP所需的权限列表:';
+	@override String get licenseDialogContentPrefix => '在使用APP服务前，请认真阅读 ';
+	@override String get licenseDialogContentUserAgreement => '《隐私政策》';
+	@override String get licenseDialogContentAnd => '和';
+	@override String get licenseDialogContentPrivacyAgreement => '《用户服务协议》';
+	@override String get licenseDialogContentSuffix => ', 你同意并接受全部条款后开始使用我们的服务.';
+	@override List<String> get iosPermissions => [
+		'1. 为了让您拍摄照片, PicGuard 需要访问您的相机. (NSCameraUsageDescription)',
+		'2. 为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)',
+	];
+	@override List<String> get androidPermissions => [
+		'1. 为了使用 Firebase Analytics 服务，PicGuard 需要访问您的互联网. (android.permission.INTERNET)',
+		'2. 为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)',
+		'3. 为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
+		'4. 为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
+		'5. 为了让您拍摄照片, PicGuard 需要访问您的相机. (android.permission.CAMERA)',
+	];
 }
 
 /// Flat map(s) containing all translations.
@@ -294,10 +376,27 @@ extension on Translations {
 			case 'homePage.transparencyLabel': return 'Transparency';
 			case 'homePage.preview': return 'Preview';
 			case 'homePage.save': return 'Save';
+			case 'buttons.agree': return 'Agree';
+			case 'buttons.cancel': return 'Cancel';
 			case 'dialogs.exitConfirm.exit': return 'Exit';
 			case 'dialogs.exitConfirm.cancel': return 'Cancel';
 			case 'dialogs.exitConfirm.title': return 'Close confirmation';
 			case 'dialogs.exitConfirm.description': return 'Are you sure you want to close this window?';
+			case 'dialogs.licenseDialog.licenseDialogTitle': return 'Terms and Conditions';
+			case 'dialogs.licenseDialog.licenseDialogContentContent': return 'Protecting user\'s privacy and personal information is a fundamental principle of PicGuard.';
+			case 'dialogs.licenseDialog.licenseDialogContentTip': return 'Below is a list of permissions required by this APP:';
+			case 'dialogs.licenseDialog.licenseDialogContentPrefix': return 'Before you use this APP\'s services, please carefully read and agree to the ';
+			case 'dialogs.licenseDialog.licenseDialogContentUserAgreement': return 'User Agreement';
+			case 'dialogs.licenseDialog.licenseDialogContentAnd': return ' and ';
+			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return 'Privacy Agreement';
+			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', start using our services after you agree and accept all terms.';
+			case 'dialogs.licenseDialog.iosPermissions.0': return '1. For you to take photos, PicGuard needs access to your Camera. (NSCameraUsageDescription)';
+			case 'dialogs.licenseDialog.iosPermissions.1': return '2. For you to upload pictures, PicGuard needs access to your Photos. (NSPhotoLibraryUsageDescription)';
+			case 'dialogs.licenseDialog.androidPermissions.0': return '1. In order to use the Firebase Analytics Service, PicGuard needs access to your Internet. (android.permission.INTERNET)';
+			case 'dialogs.licenseDialog.androidPermissions.1': return '2. For you to upload pictures, PicGuard needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.2': return '3. For you to save pictures, PicGuard needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.3': return '4. For you to upload pictures, PicGuard needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)';
+			case 'dialogs.licenseDialog.androidPermissions.4': return '5. For you to take photos, PicGuard needs access to your Camera. (android.permission.CAMERA)';
 			case 'locales.en': return 'English';
 			case 'locales.zh': return '中文';
 			default: return null;
@@ -320,10 +419,27 @@ extension on _StringsZh {
 			case 'homePage.transparencyLabel': return '透明度';
 			case 'homePage.preview': return '预览';
 			case 'homePage.save': return '保存';
+			case 'buttons.agree': return '同意';
+			case 'buttons.cancel': return '再想想';
 			case 'dialogs.exitConfirm.exit': return '退出';
 			case 'dialogs.exitConfirm.cancel': return '取消';
 			case 'dialogs.exitConfirm.title': return '关闭确认';
 			case 'dialogs.exitConfirm.description': return '您确定要关闭此窗口吗?';
+			case 'dialogs.licenseDialog.licenseDialogTitle': return '隐私条款';
+			case 'dialogs.licenseDialog.licenseDialogContentContent': return 'PicGuard非常重视你的隐私保护和个人信息保护.';
+			case 'dialogs.licenseDialog.licenseDialogContentTip': return '以下是该APP所需的权限列表:';
+			case 'dialogs.licenseDialog.licenseDialogContentPrefix': return '在使用APP服务前，请认真阅读 ';
+			case 'dialogs.licenseDialog.licenseDialogContentUserAgreement': return '《隐私政策》';
+			case 'dialogs.licenseDialog.licenseDialogContentAnd': return '和';
+			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return '《用户服务协议》';
+			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', 你同意并接受全部条款后开始使用我们的服务.';
+			case 'dialogs.licenseDialog.iosPermissions.0': return '1. 为了让您拍摄照片, PicGuard 需要访问您的相机. (NSCameraUsageDescription)';
+			case 'dialogs.licenseDialog.iosPermissions.1': return '2. 为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)';
+			case 'dialogs.licenseDialog.androidPermissions.0': return '1. 为了使用 Firebase Analytics 服务，PicGuard 需要访问您的互联网. (android.permission.INTERNET)';
+			case 'dialogs.licenseDialog.androidPermissions.1': return '2. 为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.2': return '3. 为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.3': return '4. 为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)';
+			case 'dialogs.licenseDialog.androidPermissions.4': return '5. 为了让您拍摄照片, PicGuard 需要访问您的相机. (android.permission.CAMERA)';
 			case 'locales.en': return 'English';
 			case 'locales.zh': return '中文';
 			default: return null;

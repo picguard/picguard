@@ -7,12 +7,14 @@ import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constraints/constraints.dart';
 import 'package:picguard/firebase_options.dart';
 import 'package:picguard/i18n/i18n.dart';
-import 'package:picguard/pages/pages.dart';
+import 'package:picguard/modules/home/home.dart';
 import 'package:picguard/theme/theme.dart';
+import 'package:picguard/utils/utils.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SpUtil.getInstance();
 
   if (kIsWeb || isFirebaseSupported) {
     await Firebase.initializeApp(
