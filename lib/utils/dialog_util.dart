@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:picguard/app/navigator.dart';
-import 'package:picguard/constraints/keys.dart';
-import 'package:picguard/extensions/single.dart';
+import 'package:picguard/constraints/constraints.dart';
+import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/utils.dart';
@@ -24,8 +24,8 @@ class DialogUtil {
 
     log('isContainsKey: $isContainsKey');
 
-    /// 未同意隐私协议，显示隐私协议页面
-    if (!isContainsKey) {
+    /// 未弹出过隐私协议弹窗
+    if (!isContainsKey && isShowLicenseDialog) {
       final t = Translations.of(context);
       final languageCode = LocaleSettings.currentLocale.languageCode;
 
