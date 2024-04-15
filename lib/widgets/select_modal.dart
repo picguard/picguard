@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:picguard/app/navigator.dart';
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/models/models.dart';
@@ -21,8 +19,7 @@ class PGColorModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final isDark = brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final languageCode = LocaleSettings.currentLocale.languageCode;
     final bottom = MediaQuery.of(context).padding.bottom;
     return Column(
@@ -105,24 +102,4 @@ class PGColorModal extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 10 + bottom),
         );
   }
-}
-
-void showPGColorModal({
-  required List<PGColor> items,
-  required VoidPGColorCallback callback,
-}) {
-  final context = AppNavigator.key.currentContext!;
-  final brightness = Theme.of(context).brightness;
-  final isDark = brightness == Brightness.dark;
-  showMaterialModalBottomSheet<void>(
-    context: context,
-    backgroundColor: isDark ? Colors.black : Colors.white,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10),
-    ),
-    builder: (BuildContext context) => PGColorModal(
-      items: items,
-      callback: callback,
-    ),
-  );
 }
