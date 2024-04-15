@@ -13,7 +13,7 @@ class AppTheme {
         surfaceTintColor: Colors.white,
       ),
       bottomSheetTheme: BottomSheetThemeData(
-        surfaceTintColor: primaryColor,
+        surfaceTintColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -150,8 +150,8 @@ class AppTheme {
         surfaceTintColor: Colors.black,
       ),
       bottomSheetTheme: BottomSheetThemeData(
-        surfaceTintColor: primaryColor,
-        backgroundColor: secondaryGrayColor,
+        surfaceTintColor: dialogBackgroundColor,
+        backgroundColor: dialogBackgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),

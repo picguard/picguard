@@ -700,7 +700,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
   void onColorTap(FormFieldState<int> field) {
     // DO NOT REMOVE THIS LINE: 消除下拉选择默认弹窗
     NavigatorUtil.pop();
-    showPGColorModal(
+    DialogUtil.showPGColorModal(
       items: colors,
       callback: (PGColor value) {
         if (kDebugMode) {

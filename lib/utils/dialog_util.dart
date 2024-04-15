@@ -4,14 +4,15 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constraints/constraints.dart';
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/models/models.dart';
 import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/utils.dart';
+import 'package:picguard/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const double _buttonHeight = 54;
@@ -392,80 +393,97 @@ class DialogUtil {
   static void showBottomSheetDialog(
     String title,
     String content, {
-    Color? backgroundColor,
     Color? barrierColor,
   }) {
     final context = AppNavigator.key.currentContext!;
     final bottom = MediaQuery.of(context).padding.bottom;
-    final platformBrightness = MediaQuery.of(context).platformBrightness;
-    final isDark = platformBrightness == Brightness.dark;
     showModalBottomSheet<void>(
       context: context,
-      backgroundColor: backgroundColor,
       barrierColor: barrierColor,
       isDismissible: false,
       enableDrag: false,
-      builder: (BuildContext context) => SingleChildScrollView(
-        controller: ModalScrollController.of(context),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  title,
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    color: isDark ? Colors.white : primaryTextColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+      builder: (BuildContext context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: isDark ? Colors.white : primaryTextColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ).nestedExpanded(),
+                  IconButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        const EdgeInsets.all(4),
+                      ),
+                      minimumSize: MaterialStateProperty.all(Size.zero),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      elevation: MaterialStateProperty.all(0),
+                      backgroundColor: MaterialStateProperty.all(
+                        isDark ? placeholderTextColor : primaryGrayColor,
+                      ),
+                    ),
+                    onPressed: NavigatorUtil.pop,
+                    icon: Icon(
+                      Icons.close,
+                      color: isDark ? primaryTextColor : secondaryTextColor,
+                      size: 16,
+                    ),
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ).nestedExpanded(),
-                IconButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Colors.grey[300]),
-                    foregroundColor:
-                        MaterialStateProperty.all(secondaryTextColor),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    minimumSize: MaterialStateProperty.all(Size.zero),
-                    padding: MaterialStateProperty.all(const EdgeInsets.all(2)),
-                    overlayColor:
-                        MaterialStateProperty.all(primaryBackgroundColor),
-                    elevation: MaterialStateProperty.all(0),
-                  ),
-                  onPressed: NavigatorUtil.pop,
-                  icon: const Icon(Icons.close, size: 12),
-                ),
-              ],
-            ).nestedPadding(
-              padding: const EdgeInsets.only(bottom: 20),
-            ),
-            Text(
-              content,
-              style: TextStyle(
-                color: isDark ? Colors.white : secondaryTextColor,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                height: 1.43,
+                ],
+              ).nestedPadding(
+                padding: const EdgeInsets.only(bottom: 20),
               ),
-            ),
-          ],
-        ),
-      )
-          .nestedPadding(
-            padding: EdgeInsets.only(
-              left: 16,
-              top: 20,
-              right: 16,
-              bottom: 20 + bottom,
-            ),
-          )
-          .nestedColoredBox(color: isDark ? Colors.black54 : Colors.white),
+              Text(
+                content,
+                style: TextStyle(
+                  color: isDark ? Colors.white : secondaryTextColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  height: 1.43,
+                ),
+              ),
+            ],
+          ),
+        ).nestedPadding(
+          padding: EdgeInsets.only(
+            left: 16,
+            top: 20,
+            right: 16,
+            bottom: 20 + bottom,
+          ),
+        );
+      },
+    );
+  }
+
+  ///
+  static void showPGColorModal({
+    required List<PGColor> items,
+    required VoidPGColorCallback callback,
+  }) {
+    final context = AppNavigator.key.currentContext!;
+    showModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      builder: (BuildContext context) => PGColorModal(
+        items: items,
+        callback: callback,
+      ),
     );
   }
 }
