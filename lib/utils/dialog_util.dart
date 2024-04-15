@@ -32,199 +32,206 @@ class DialogUtil {
       final width = MediaQuery.of(context).size.width;
       final height = MediaQuery.of(context).size.height;
 
-      final androidPermissionTexts = t.dialogs.licenseDialog.androidPermissions
-          .map(
-            (e) => Text(
-              e,
-              style: const TextStyle(
-                color: primaryTextColor,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
-            ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
-          )
-          .toList();
-
-      final iosPermissionTexts = t.dialogs.licenseDialog.iosPermissions
-          .map(
-            (e) => Text(
-              e,
-              style: const TextStyle(
-                color: primaryTextColor,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
-            ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
-          )
-          .toList();
-
       showDialog<void>(
         context: context,
         barrierDismissible: false,
-        builder: (BuildContext context) => AlertDialog(
-          title: Text(
-            t.dialogs.licenseDialog.licenseDialogTitle,
-            style: const TextStyle(
-              color: primaryTextColor,
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                t.dialogs.licenseDialog.licenseDialogContentContent,
-                style: const TextStyle(
-                  color: primaryTextColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              Text(
-                t.dialogs.licenseDialog.licenseDialogContentTip,
-                style: const TextStyle(
-                  color: primaryTextColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
-              ).nestedPadding(padding: const EdgeInsets.only(top: 8)),
-              if (Platform.isAndroid) ...androidPermissionTexts,
-              if (Platform.isIOS) ...iosPermissionTexts,
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: t.dialogs.licenseDialog.licenseDialogContentPrefix,
-                      style: const TextStyle(
-                        color: primaryTextColor,
+        builder: (BuildContext context) {
+          final isDark = Theme.of(context).brightness == Brightness.dark;
+
+          final androidPermissionTexts =
+              t.dialogs.licenseDialog.androidPermissions
+                  .map(
+                    (permissionText) => Text(
+                      permissionText,
+                      style: TextStyle(
+                        color: isDark ? Colors.white : primaryTextColor,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
-                    ),
-                    TextSpan(
-                      text: t.dialogs.licenseDialog
-                          .licenseDialogContentUserAgreement,
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () async {
-                          final uri = Uri.parse(
-                            'https://www.kjxbyz.com/picguard/$languageCode/legal/terms-of-use/',
-                          );
-                          if (await canLaunchUrl(uri)) {
-                            await launchUrl(uri);
-                          }
-                        },
-                      style: const TextStyle(
-                        color: primaryColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    TextSpan(
-                      text: t.dialogs.licenseDialog.licenseDialogContentAnd,
-                      style: const TextStyle(
-                        color: primaryTextColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    TextSpan(
-                      text: t.dialogs.licenseDialog
-                          .licenseDialogContentPrivacyAgreement,
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () async {
-                          final uri = Uri.parse(
-                            'https://www.kjxbyz.com/picguard/$languageCode/legal/privacy/',
-                          );
-                          if (await canLaunchUrl(uri)) {
-                            await launchUrl(uri);
-                          }
-                        },
-                      style: const TextStyle(
-                        color: primaryColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    TextSpan(
-                      text: t.dialogs.licenseDialog.licenseDialogContentSuffix,
-                      style: const TextStyle(
-                        color: primaryTextColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-              ).nestedPadding(padding: const EdgeInsets.only(top: 8)),
-            ],
-          )
-              .nestedSingleChildScrollView()
-              .nestedConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: height * 0.4,
-                ),
+                    ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
+                  )
+                  .toList();
+
+          final iosPermissionTexts = t.dialogs.licenseDialog.iosPermissions
+              .map(
+                (permissionText) => Text(
+                  permissionText,
+                  style: TextStyle(
+                    color: isDark ? Colors.white : primaryTextColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
               )
-              .nestedSizedBox(width: width),
-          actions: [
-            Row(
+              .toList();
+
+          return AlertDialog(
+            title: Text(
+              t.dialogs.licenseDialog.licenseDialogTitle,
+              style: TextStyle(
+                color: isDark ? Colors.white : primaryTextColor,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  t.buttons.cancel,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: secondaryTextColor,
-                    fontSize: 16,
-                    height: 1.375,
+                  t.dialogs.licenseDialog.licenseDialogContentContent,
+                  style: TextStyle(
+                    color: isDark ? Colors.white : primaryTextColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
                   ),
-                )
-                    .nestedPadding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                )
-                    .nestedTap(() {
-                  SpUtil.putBool(Keys.licenseKey, false);
-                  NavigatorUtil.pop();
-                  // exit(0);
-                }).nestedExpanded(),
+                ),
                 Text(
-                  t.buttons.agree,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: primaryColor,
-                    fontSize: 16,
-                    height: 1.375,
+                  t.dialogs.licenseDialog.licenseDialogContentTip,
+                  style: TextStyle(
+                    color: isDark ? Colors.white : primaryTextColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ).nestedPadding(padding: const EdgeInsets.only(top: 8)),
+                if (Platform.isAndroid) ...androidPermissionTexts,
+                if (Platform.isIOS) ...iosPermissionTexts,
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text:
+                            t.dialogs.licenseDialog.licenseDialogContentPrefix,
+                        style: TextStyle(
+                          color: isDark ? Colors.white : primaryTextColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      TextSpan(
+                        text: t.dialogs.licenseDialog
+                            .licenseDialogContentUserAgreement,
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () async {
+                            final uri = Uri.parse(
+                              'https://www.kjxbyz.com/picguard/$languageCode/legal/terms-of-use/',
+                            );
+                            if (await canLaunchUrl(uri)) {
+                              await launchUrl(uri);
+                            }
+                          },
+                        style: const TextStyle(
+                          color: primaryColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      TextSpan(
+                        text: t.dialogs.licenseDialog.licenseDialogContentAnd,
+                        style: TextStyle(
+                          color: isDark ? Colors.white : primaryTextColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      TextSpan(
+                        text: t.dialogs.licenseDialog
+                            .licenseDialogContentPrivacyAgreement,
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () async {
+                            final uri = Uri.parse(
+                              'https://www.kjxbyz.com/picguard/$languageCode/legal/privacy/',
+                            );
+                            if (await canLaunchUrl(uri)) {
+                              await launchUrl(uri);
+                            }
+                          },
+                        style: const TextStyle(
+                          color: primaryColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      TextSpan(
+                        text:
+                            t.dialogs.licenseDialog.licenseDialogContentSuffix,
+                        style: TextStyle(
+                          color: isDark ? Colors.white : primaryTextColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ).nestedPadding(padding: const EdgeInsets.only(top: 8)),
+              ],
+            )
+                .nestedSingleChildScrollView()
+                .nestedConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: height * 0.4,
                   ),
                 )
-                    .nestedPadding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                    )
-                    .nestedDecoratedBox(
-                      decoration: const BoxDecoration(
-                        border: Border(left: BorderSide(color: borderColor)),
-                      ),
-                    )
-                    .nestedTap(() {
-                  SpUtil.putBool(Keys.licenseKey, true);
-                  NavigatorUtil.pop();
-                }).nestedExpanded(),
-              ],
-            ).nestedDecoratedBox(
-              decoration: const BoxDecoration(
-                border: Border(top: BorderSide(color: borderColor)),
+                .nestedSizedBox(width: width),
+            actions: [
+              Row(
+                children: [
+                  Text(
+                    t.buttons.cancel,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: isDark ? Colors.white70 : secondaryTextColor,
+                      fontSize: 16,
+                      height: 1.375,
+                    ),
+                  )
+                      .nestedPadding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  )
+                      .nestedTap(() {
+                    SpUtil.putBool(Keys.licenseKey, false);
+                    NavigatorUtil.pop();
+                    // exit(0);
+                  }).nestedExpanded(),
+                  Text(
+                    t.buttons.agree,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: primaryColor,
+                      fontSize: 16,
+                      height: 1.375,
+                    ),
+                  )
+                      .nestedPadding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                      )
+                      .nestedDecoratedBox(
+                        decoration: const BoxDecoration(
+                          border: Border(left: BorderSide(color: borderColor)),
+                        ),
+                      )
+                      .nestedTap(() {
+                    SpUtil.putBool(Keys.licenseKey, true);
+                    NavigatorUtil.pop();
+                  }).nestedExpanded(),
+                ],
+              ).nestedDecoratedBox(
+                decoration: const BoxDecoration(
+                  border: Border(top: BorderSide(color: borderColor)),
+                ),
               ),
+            ],
+            actionsPadding: EdgeInsets.zero,
+            buttonPadding: EdgeInsets.zero,
+            actionsOverflowButtonSpacing: 0,
+            actionsAlignment: MainAxisAlignment.center,
+            contentPadding: const EdgeInsets.all(20),
+            insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
-          ],
-          actionsPadding: EdgeInsets.zero,
-          buttonPadding: EdgeInsets.zero,
-          actionsOverflowButtonSpacing: 0,
-          actionsAlignment: MainAxisAlignment.center,
-          contentPadding: const EdgeInsets.all(20),
-          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+          );
+        },
       );
     }
   }
