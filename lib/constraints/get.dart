@@ -20,6 +20,16 @@ bool get isMobile {
 }
 
 /// 是否支持Firebase
+bool get isShowLicenseDialog {
+  if (kIsWeb) return false;
+  return [
+    TargetPlatform.android,
+    TargetPlatform.iOS,
+    /// windows
+  ].contains(defaultTargetPlatform);
+}
+
+/// 是否支持Firebase
 bool get isFirebaseSupported {
   if (kIsWeb) return false;
   return [
