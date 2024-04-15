@@ -13,12 +13,37 @@
     "preview": "Preview",
     "save": "Save"
   },
+  "buttons": {
+    "agree": "Agree",
+    "cancel": "Cancel"
+  },
   "dialogs": {
     "exitConfirm": {
       "exit": "Exit",
       "cancel": "Cancel",
       "title": "Close confirmation",
       "description": "Are you sure you want to close this window?"
+    },
+    "licenseDialog": {
+      "licenseDialogTitle": "Terms and Conditions",
+      "licenseDialogContentContent": "Protecting user's privacy and personal information is a fundamental principle of PicGuard.",
+      "licenseDialogContentTip": "Below is a list of permissions required by this APP:",
+      "licenseDialogContentPrefix": "Before you use this APP's services, please carefully read and agree to the ",
+      "licenseDialogContentUserAgreement": "User Agreement",
+      "licenseDialogContentAnd": " and ",
+      "licenseDialogContentPrivacyAgreement": "Privacy Agreement",
+      "licenseDialogContentSuffix": ", start using our services after you agree and accept all terms.",
+      "iosPermissions": [
+        "1. For you to take photos, PicGuard needs access to your Camera. (NSCameraUsageDescription)",
+        "2. For you to upload pictures, PicGuard needs access to your Photos. (NSPhotoLibraryUsageDescription)"
+      ],
+      "androidPermissions": [
+        "1. In order to use the Firebase Analytics Service, PicGuard needs access to your Internet. (android.permission.INTERNET)",
+        "2. For you to upload pictures, PicGuard needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)",
+        "3. For you to save pictures, PicGuard needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)",
+        "4. For you to upload pictures, PicGuard needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)",
+        "5. For you to take photos, PicGuard needs access to your Camera. (android.permission.CAMERA)"
+      ]
     }
   },
   "locales(map)": {

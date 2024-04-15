@@ -47,6 +47,7 @@ dependencies:
   form_builder_validators: ^9.1.0
   image_picker: ^1.0.8
   keyboard_dismisser: ^3.0.0
+  logger: ^2.2.0
   mime: ^1.0.5
   modal_bottom_sheet: ^3.0.0
   package_info_plus: ^7.0.0
