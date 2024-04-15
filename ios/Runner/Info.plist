@@ -31,8 +31,6 @@
 		<string>$(CURRENT_PROJECT_VERSION)</string>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
-		<key>NSCameraUsageDescription</key>
-        <string>For you to take photos, PicGuard needs access to your Camera.</string>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>For you to upload pictures, PicGuard needs access to your Photos.</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
