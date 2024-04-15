@@ -14,9 +14,6 @@
     <!-- Permissions options for the `images` group -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
-    <!-- Permissions options for the `camera` group -->
-    <uses-permission android:name="android.permission.CAMERA"/>
-
     <application
         android:label="PicGuard"
         android:name="${applicationName}"

@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 70 (35 per locale)
+/// Strings: 66 (33 per locale)
 ///
-/// Built on 2024-04-15 at 14:14 UTC
+/// Built on 2024-04-15 at 15:14 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -229,15 +229,13 @@ class _StringsDialogsLicenseDialogEn {
 	String get licenseDialogContentPrivacyAgreement => 'Privacy Agreement';
 	String get licenseDialogContentSuffix => ', start using our services after you agree and accept all terms.';
 	List<String> get iosPermissions => [
-		'1. For you to take photos, PicGuard needs access to your Camera. (NSCameraUsageDescription)',
-		'2. For you to upload pictures, PicGuard needs access to your Photos. (NSPhotoLibraryUsageDescription)',
+		'For you to upload pictures, PicGuard needs access to your Photos. (NSPhotoLibraryUsageDescription)',
 	];
 	List<String> get androidPermissions => [
-		'1. In order to use the Firebase Analytics Service, PicGuard needs access to your Internet. (android.permission.INTERNET)',
-		'2. For you to upload pictures, PicGuard needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)',
-		'3. For you to save pictures, PicGuard needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
-		'4. For you to upload pictures, PicGuard needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)',
-		'5. For you to take photos, PicGuard needs access to your Camera. (android.permission.CAMERA)',
+		'In order to use the Firebase Analytics Service, PicGuard needs access to your Internet. (android.permission.INTERNET)',
+		'For you to upload pictures, PicGuard needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)',
+		'For you to save pictures, PicGuard needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
+		'For you to upload pictures, PicGuard needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)',
 	];
 }
 
@@ -346,15 +344,13 @@ class _StringsDialogsLicenseDialogZh implements _StringsDialogsLicenseDialogEn {
 	@override String get licenseDialogContentPrivacyAgreement => '《用户服务协议》';
 	@override String get licenseDialogContentSuffix => ', 你同意并接受全部条款后开始使用我们的服务.';
 	@override List<String> get iosPermissions => [
-		'1. 为了让您拍摄照片, PicGuard 需要访问您的相机. (NSCameraUsageDescription)',
-		'2. 为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)',
+		'为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)',
 	];
 	@override List<String> get androidPermissions => [
-		'1. 为了使用 Firebase Analytics 服务，PicGuard 需要访问您的互联网. (android.permission.INTERNET)',
-		'2. 为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)',
-		'3. 为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
-		'4. 为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
-		'5. 为了让您拍摄照片, PicGuard 需要访问您的相机. (android.permission.CAMERA)',
+		'为了使用 Firebase Analytics 服务，PicGuard 需要访问您的互联网. (android.permission.INTERNET)',
+		'为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)',
+		'为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
+		'为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
 	];
 }
 
@@ -390,13 +386,11 @@ extension on Translations {
 			case 'dialogs.licenseDialog.licenseDialogContentAnd': return ' and ';
 			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return 'Privacy Agreement';
 			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', start using our services after you agree and accept all terms.';
-			case 'dialogs.licenseDialog.iosPermissions.0': return '1. For you to take photos, PicGuard needs access to your Camera. (NSCameraUsageDescription)';
-			case 'dialogs.licenseDialog.iosPermissions.1': return '2. For you to upload pictures, PicGuard needs access to your Photos. (NSPhotoLibraryUsageDescription)';
-			case 'dialogs.licenseDialog.androidPermissions.0': return '1. In order to use the Firebase Analytics Service, PicGuard needs access to your Internet. (android.permission.INTERNET)';
-			case 'dialogs.licenseDialog.androidPermissions.1': return '2. For you to upload pictures, PicGuard needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.2': return '3. For you to save pictures, PicGuard needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.3': return '4. For you to upload pictures, PicGuard needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)';
-			case 'dialogs.licenseDialog.androidPermissions.4': return '5. For you to take photos, PicGuard needs access to your Camera. (android.permission.CAMERA)';
+			case 'dialogs.licenseDialog.iosPermissions.0': return 'For you to upload pictures, PicGuard needs access to your Photos. (NSPhotoLibraryUsageDescription)';
+			case 'dialogs.licenseDialog.androidPermissions.0': return 'In order to use the Firebase Analytics Service, PicGuard needs access to your Internet. (android.permission.INTERNET)';
+			case 'dialogs.licenseDialog.androidPermissions.1': return 'For you to upload pictures, PicGuard needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.2': return 'For you to save pictures, PicGuard needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.3': return 'For you to upload pictures, PicGuard needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)';
 			case 'locales.en': return 'English';
 			case 'locales.zh': return '中文';
 			default: return null;
@@ -433,13 +427,11 @@ extension on _StringsZh {
 			case 'dialogs.licenseDialog.licenseDialogContentAnd': return '和';
 			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return '《用户服务协议》';
 			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', 你同意并接受全部条款后开始使用我们的服务.';
-			case 'dialogs.licenseDialog.iosPermissions.0': return '1. 为了让您拍摄照片, PicGuard 需要访问您的相机. (NSCameraUsageDescription)';
-			case 'dialogs.licenseDialog.iosPermissions.1': return '2. 为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)';
-			case 'dialogs.licenseDialog.androidPermissions.0': return '1. 为了使用 Firebase Analytics 服务，PicGuard 需要访问您的互联网. (android.permission.INTERNET)';
-			case 'dialogs.licenseDialog.androidPermissions.1': return '2. 为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.2': return '3. 为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.3': return '4. 为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)';
-			case 'dialogs.licenseDialog.androidPermissions.4': return '5. 为了让您拍摄照片, PicGuard 需要访问您的相机. (android.permission.CAMERA)';
+			case 'dialogs.licenseDialog.iosPermissions.0': return '为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)';
+			case 'dialogs.licenseDialog.androidPermissions.0': return '为了使用 Firebase Analytics 服务，PicGuard 需要访问您的互联网. (android.permission.INTERNET)';
+			case 'dialogs.licenseDialog.androidPermissions.1': return '为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.2': return '为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.3': return '为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)';
 			case 'locales.en': return 'English';
 			case 'locales.zh': return '中文';
 			default: return null;

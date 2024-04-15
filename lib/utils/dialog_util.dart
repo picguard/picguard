@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -41,9 +42,9 @@ class DialogUtil {
 
           final androidPermissionTexts =
               t.dialogs.licenseDialog.androidPermissions
-                  .map(
-                    (permissionText) => Text(
-                      permissionText,
+                  .mapIndexed(
+                    (index, permissionText) => Text(
+                      '${index + 1}. $permissionText',
                       style: TextStyle(
                         color: isDark ? Colors.white : primaryTextColor,
                         fontSize: 14,
@@ -54,9 +55,9 @@ class DialogUtil {
                   .toList();
 
           final iosPermissionTexts = t.dialogs.licenseDialog.iosPermissions
-              .map(
-                (permissionText) => Text(
-                  permissionText,
+              .mapIndexed(
+                (index, permissionText) => Text(
+                  '${index + 1}. $permissionText',
                   style: TextStyle(
                     color: isDark ? Colors.white : primaryTextColor,
                     fontSize: 14,

@@ -34,15 +34,13 @@
       "licenseDialogContentPrivacyAgreement": "《用户服务协议》",
       "licenseDialogContentSuffix": ", 你同意并接受全部条款后开始使用我们的服务.",
       "iosPermissions": [
-        "1. 为了让您拍摄照片, PicGuard 需要访问您的相机. (NSCameraUsageDescription)",
-        "2. 为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)"
+        "为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)"
       ],
       "androidPermissions": [
-        "1. 为了使用 Firebase Analytics 服务，PicGuard 需要访问您的互联网. (android.permission.INTERNET)",
-        "2. 为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)",
-        "3. 为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)",
-        "4. 为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)",
-        "5. 为了让您拍摄照片, PicGuard 需要访问您的相机. (android.permission.CAMERA)"
+        "为了使用 Firebase Analytics 服务，PicGuard 需要访问您的互联网. (android.permission.INTERNET)",
+        "为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)",
+        "为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)",
+        "为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)"
       ]
     }
   },
