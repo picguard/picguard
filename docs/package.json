@@ -80,7 +80,7 @@
     "lint-staged": "^15.2.2",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
-    "prettier-plugin-tailwindcss": "^0.5.13",
+    "prettier-plugin-tailwindcss": "^0.5.14",
     "prop-types": "^15.8.1",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
