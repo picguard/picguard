@@ -31,11 +31,11 @@ environment:
 dependencies:
   app_settings: ^5.1.1
   collection: ^1.18.0
-  cupertino_icons: ^1.0.6
+  cupertino_icons: ^1.0.8
   device_info_plus: ^10.1.0
-  file_picker: ^8.0.0+1
-  firebase_analytics: ^10.10.1
-  firebase_core: ^2.29.0
+  file_picker: ^8.0.1
+  firebase_analytics: ^10.10.2
+  firebase_core: ^2.30.0
   flutter:
     sdk: flutter
   flutter_form_builder: ^9.2.1
@@ -45,20 +45,20 @@ dependencies:
   flutter_native_splash: ^2.4.0
   fluttertoast: ^8.2.5
   form_builder_validators: ^9.1.0
-  image_picker: ^1.0.8
+  image_picker: ^1.1.0
   keyboard_dismisser: ^3.0.0
   logger: ^2.2.0
   mime: ^1.0.5
   package_info_plus: ^7.0.0
   path: ^1.9.0
   permission_handler: ^11.3.1
-  photo_view: ^0.14.0
+  photo_view: ^0.15.0
   reorderables: ^0.6.0
   shared_preferences: ^2.2.3
   slang: ^3.30.2
   slang_flutter: ^3.30.0
-  syncfusion_flutter_core: ^25.1.39
-  syncfusion_flutter_sliders: ^25.1.39
+  syncfusion_flutter_core: ^25.1.40
+  syncfusion_flutter_sliders: ^25.1.40
   synchronized: ^3.1.0+1
   url_launcher: ^6.2.6
   uuid: ^4.4.0
