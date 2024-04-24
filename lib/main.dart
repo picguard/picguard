@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:picguard/app/navigator.dart';
-import 'package:picguard/constraints/constraints.dart';
+import 'package:picguard/constants/constants.dart';
 import 'package:picguard/firebase_options.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/modules/home/home.dart';
