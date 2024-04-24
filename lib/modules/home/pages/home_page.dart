@@ -12,7 +12,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:picguard/constraints/constraints.dart';
+import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/models/models.dart';

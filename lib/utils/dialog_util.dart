@@ -7,7 +7,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:picguard/app/navigator.dart';
-import 'package:picguard/constraints/constraints.dart';
+import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/models/models.dart';
