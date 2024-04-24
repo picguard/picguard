@@ -29,7 +29,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  app_settings: ^5.1.1
+  app_settings: # add ios privacy manifest
+    git:
+      url: https://github.com/spencerccf/app_settings
   collection: ^1.18.0
   cupertino_icons: ^1.0.8
   device_info_plus: ^10.1.0
