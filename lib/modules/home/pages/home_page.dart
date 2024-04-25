@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -33,6 +34,10 @@ const colors = <PGColor>[
   PGColor(0xFFFF9800, 'Orange', '橙色'),
   PGColor(0xFF2196F3, 'Blue', '蓝色'),
 ];
+
+const spacing = 8.0;
+const runSpacing = 4.0;
+const padding = 10.0;
 
 ///
 class HomePage extends StatefulWidget {
@@ -71,12 +76,55 @@ class _HomePageState extends State<HomePage> with WindowListener {
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
-    final brightness = Theme.of(context).brightness;
-    final isDark = brightness == Brightness.dark;
-    final languageCode = LocaleSettings.currentLocale.languageCode;
-    log('languageCode: $languageCode');
-    const spacing = 8.0;
-    const padding = 10.0;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return KeyboardDismisser(
+      child: Title(
+        title: t.homePage.title,
+        color: isDark ? Colors.white : Colors.black,
+        child: Scaffold(
+          appBar: isMobile
+              ? PGAppBar(
+                  titleWidget: Text(t.homePage.title),
+                  isDark: isDark,
+                )
+              : null,
+          body: ListView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: padding,
+              vertical: 20,
+            ),
+            children: [
+              imageGroup,
+              const Gap(10),
+              description,
+              const Gap(10),
+              FormBuilder(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    input,
+                    const Gap(5),
+                    colorSelect,
+                    const Gap(5),
+                    transparency,
+                  ],
+                ),
+              ),
+              const Gap(20),
+              previewBtn,
+              const Gap(10),
+              saveBtn,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// 图片组
+  Widget get imageGroup {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final width = MediaQuery.of(context).size.width;
     final contentWidth = width - padding * 2;
     final itemWidth = ((contentWidth - spacing * 2) / 3).floorToDouble();
@@ -172,442 +220,414 @@ class _HomePageState extends State<HomePage> with WindowListener {
       );
     }
 
-    return KeyboardDismisser(
-      child: Title(
-        title: t.homePage.title,
-        color: isDark ? Colors.white : Colors.black,
-        child: Scaffold(
-          appBar:
-              isMobile ? PGAppBar(titleWidget: Text(t.homePage.title)) : null,
-          body: ListView(
-            padding: const EdgeInsets.symmetric(
-              horizontal: padding,
-              vertical: 20,
-            ),
+    return ReorderableWrap(
+      spacing: spacing,
+      runSpacing: runSpacing,
+      onReorder: _onReorder,
+      scrollPhysics: const NeverScrollableScrollPhysics(),
+      alignment:
+          _fileWrappers.isEmpty ? WrapAlignment.center : WrapAlignment.start,
+      children: items,
+    );
+  }
+
+  /// 声明文本
+  Widget get description {
+    final t = Translations.of(context);
+    return Text(
+      t.homePage.description,
+      style: const TextStyle(
+        color: errorTextColor,
+        fontSize: 12,
+        height: 1.5,
+      ),
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      textAlign: TextAlign.center,
+    );
+  }
+
+  /// 输入框
+  Widget get input {
+    final t = Translations.of(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return BaseFormItem(
+      title: t.homePage.textLabel,
+      onTipTap: () {
+        DialogUtil.showBottomSheetDialog(
+          t.homePage.textLabel,
+          t.homePage.textLabelDescription,
+        );
+      },
+      child: FormBuilderField<String>(
+        name: 'text',
+        builder: (FormFieldState<String> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ReorderableWrap(
-                spacing: spacing,
-                runSpacing: 4,
-                onReorder: _onReorder,
-                scrollPhysics: const NeverScrollableScrollPhysics(),
-                alignment: _fileWrappers.isEmpty
-                    ? WrapAlignment.center
-                    : WrapAlignment.start,
-                children: items,
-              ),
-              Text(
-                t.homePage.description,
-                style: const TextStyle(
-                  color: errorTextColor,
-                  fontSize: 12,
-                  height: 1.5,
+              TextFormField(
+                initialValue: field.value,
+                cursorColor: hasError ? errorTextColor : primaryColor,
+                autocorrect: false,
+                style: TextStyle(
+                  color: isDark ? Colors.white : primaryTextColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
                 ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-              ).nestedPadding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-              ),
-              FormBuilder(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    BaseFormItem(
-                      title: t.homePage.textLabel,
-                      onTipTap: () {
-                        DialogUtil.showBottomSheetDialog(
-                          t.homePage.textLabel,
-                          t.homePage.textLabelDescription,
-                        );
-                      },
-                      child: FormBuilderField<String>(
-                        name: 'text',
-                        builder: (FormFieldState<String> field) {
-                          final hasError =
-                              StringUtil.isNotBlank(field.errorText);
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextFormField(
-                                initialValue: field.value,
-                                cursorColor:
-                                    hasError ? errorTextColor : primaryColor,
-                                autocorrect: false,
-                                style: TextStyle(
-                                  color:
-                                      isDark ? Colors.white : primaryTextColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                onChanged: (value) {
-                                  field
-                                    ..didChange(value)
-                                    ..validate();
-                                },
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  contentPadding:
-                                      const EdgeInsets.fromLTRB(10, 10, 5, 10),
-                                  enabledBorder: hasError
-                                      ? OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: const BorderSide(
-                                            color: errorTextColor,
-                                          ),
-                                          // borderSide: BorderSide.none,
-                                          gapPadding: 0,
-                                        )
-                                      : OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: const BorderSide(
-                                            color: borderColor,
-                                          ),
-                                          gapPadding: 0,
-                                        ),
-                                  disabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                      color: borderColor,
-                                    ),
-                                    gapPadding: 0,
-                                  ),
-                                  hintText: t.homePage.textInput,
-                                  hintMaxLines: 2,
-                                  hintStyle: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.grey,
-                                  ),
-                                  focusedBorder: hasError
-                                      ? OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: const BorderSide(
-                                            color: errorTextColor,
-                                          ),
-                                          // borderSide: BorderSide.none,
-                                          gapPadding: 0,
-                                        )
-                                      : OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: const BorderSide(
-                                            color: primaryColor,
-                                          ),
-                                          // borderSide: BorderSide.none,
-                                          gapPadding: 0,
-                                        ),
-                                ),
-                              ),
-                              if (hasError)
-                                Text(
-                                  field.errorText!,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: errorTextColor,
-                                  ),
-                                ).nestedPadding(
-                                  padding:
-                                      const EdgeInsets.only(top: 8, left: 8),
-                                ),
-                            ],
-                          );
-                        },
-                        validator: (value) {
-                          if (StringUtil.isBlank(value)) {
-                            return t.homePage.textValidator;
-                          }
-                          return null;
-                        },
-                      ).nestedPadding(
-                        padding: const EdgeInsets.only(top: 8.5),
-                      ),
+                onChanged: (value) {
+                  field
+                    ..didChange(value)
+                    ..validate();
+                },
+                decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
+                  enabledBorder: hasError
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: errorTextColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: borderColor,
+                          ),
+                          gapPadding: 0,
+                        ),
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(
+                      color: borderColor,
                     ),
-                    const SizedBox(height: 5),
-                    BaseFormItem(
-                      title: t.homePage.colorLabel,
-                      required: false,
-                      showTip: false,
-                      child: FormBuilderField<int>(
-                        name: 'color',
-                        initialValue: colors.elementAt(1).value,
-                        builder: (FormFieldState<int> field) {
-                          final hasError =
-                              StringUtil.isNotBlank(field.errorText);
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              DropdownButtonFormField<int>(
-                                value: field.value,
-                                onTap: () => onColorTap(field),
-                                style: TextStyle(
-                                  color:
-                                      isDark ? Colors.white : primaryTextColor,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                icon: const Icon(
-                                  Icons.arrow_drop_down,
-                                  color: borderColor,
-                                  size: 20,
-                                ),
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  contentPadding:
-                                      const EdgeInsets.fromLTRB(10, 10, 5, 10),
-                                  enabledBorder: hasError
-                                      ? OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: const BorderSide(
-                                            color: errorTextColor,
-                                          ),
-                                          // borderSide: BorderSide.none,
-                                          gapPadding: 0,
-                                        )
-                                      : OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: const BorderSide(
-                                            color: borderColor,
-                                          ),
-                                          gapPadding: 0,
-                                        ),
-                                  disabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                      color: borderColor,
-                                    ),
-                                    gapPadding: 0,
-                                  ),
-                                  focusedBorder: hasError
-                                      ? OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: const BorderSide(
-                                            color: errorTextColor,
-                                          ),
-                                          // borderSide: BorderSide.none,
-                                          gapPadding: 0,
-                                        )
-                                      : OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          borderSide: const BorderSide(
-                                            color: primaryColor,
-                                          ),
-                                          gapPadding: 0,
-                                        ),
-                                ),
-                                items: colors.map(
-                                  (color) {
-                                    return DropdownMenuItem<int>(
-                                      value: color.value,
-                                      child: Text(
-                                        languageCode == 'zh'
-                                            ? color.zhText
-                                            : color.enText,
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ).nestedAlign(
-                                        alignment: Alignment.centerLeft,
-                                      ),
-                                    );
-                                  },
-                                ).toList(),
-                                onChanged: (value) {},
-                              ),
-                              if (hasError)
-                                Text(
-                                  field.errorText!,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: errorTextColor,
-                                  ),
-                                ).nestedPadding(
-                                  padding: const EdgeInsets.only(
-                                    top: 8,
-                                    left: 8,
-                                  ),
-                                ),
-                            ],
-                          );
-                        },
-                        validator: (value) {
-                          if (value == null) {
-                            return t.homePage.colorValidator;
-                          }
-                          return null;
-                        },
-                      ).nestedPadding(
-                        padding: const EdgeInsets.only(top: 8.5),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    BaseFormItem(
-                      title: t.homePage.transparencyLabel,
-                      required: false,
-                      showTip: false,
-                      child: FormBuilderField<double>(
-                        name: 'transparency',
-                        initialValue: transparencyNotifier.value,
-                        builder: (FormFieldState<double> field) {
-                          final hasError =
-                              StringUtil.isNotBlank(field.errorText);
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  SfSliderTheme(
-                                    data: const SfSliderThemeData(
-                                      activeTrackHeight: 4,
-                                      activeTrackColor: primaryColor,
-                                      thumbRadius: 6,
-                                      thumbColor: primaryColor,
-                                      overlayRadius: 0,
-                                    ),
-                                    child: SfSlider(
-                                      min: 0,
-                                      max: 1,
-                                      stepSize: 0.1,
-                                      value: field.value,
-                                      enableTooltip: true,
-                                      onChanged: (dynamic value) {
-                                        transparencyNotifier.value =
-                                            value as double? ?? 0.0;
-                                        field
-                                          ..didChange(value ?? 0.0)
-                                          ..validate();
-                                      },
-                                    ),
-                                  )
-                                      .nestedAlign()
-                                      .nestedSizedBox(height: 30)
-                                      .nestedExpanded(),
-                                  ValueListenableBuilder(
-                                    valueListenable: transparencyNotifier,
-                                    builder: (
-                                      BuildContext context,
-                                      double value,
-                                      Widget? child,
-                                    ) =>
-                                        Text(
-                                      value.toString(),
-                                      textAlign: TextAlign.center,
-                                    ).nestedSizedBox(width: 28).nestedPadding(
-                                              padding: const EdgeInsets.only(
-                                                left: 4,
-                                              ),
-                                            ),
-                                  ),
-                                ],
-                              ),
-                              if (hasError)
-                                Text(
-                                  field.errorText!,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: errorTextColor,
-                                  ),
-                                ).nestedPadding(
-                                  padding:
-                                      const EdgeInsets.only(top: 8, left: 8),
-                                ),
-                            ],
-                          );
-                        },
-                      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
-                    ),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: _fileWrappers.isNotEmpty ? _preview : null,
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                    Colors.white,
+                    gapPadding: 0,
                   ),
-                  foregroundColor: MaterialStateProperty.resolveWith((
-                    Set<MaterialState> states,
-                  ) {
-                    if (states.contains(MaterialState.disabled)) {
-                      return secondaryBorderColor;
-                    }
-                    return primaryColor;
-                  }),
-                  shape: MaterialStateProperty.resolveWith((
-                    Set<MaterialState> states,
-                  ) {
-                    if (states.contains(MaterialState.disabled)) {
-                      return RoundedRectangleBorder(
-                        side: const BorderSide(color: secondaryBorderColor),
-                        borderRadius: BorderRadius.circular(10),
-                      );
-                    }
-                    return RoundedRectangleBorder(
-                      side: const BorderSide(color: primaryColor),
-                      borderRadius: BorderRadius.circular(10),
-                    );
-                  }),
-                  elevation: MaterialStateProperty.all(0),
+                  hintText: t.homePage.textInput,
+                  hintMaxLines: 2,
+                  hintStyle: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey,
+                  ),
+                  focusedBorder: hasError
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: errorTextColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: primaryColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        ),
                 ),
-                child: Text(
-                  t.homePage.preview,
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
                   style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                    color: errorTextColor,
                   ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(top: 8, left: 8),
                 ),
-              )
-                  .nestedSizedBox(
-                    height: 42,
-                  )
-                  .nestedPadding(
-                    padding: const EdgeInsets.only(top: 20),
-                  ),
-              ElevatedButton(
-                onPressed: _fileWrappers.isNotEmpty ? _save : null,
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.resolveWith((
-                    Set<MaterialState> states,
-                  ) {
-                    if (states.contains(MaterialState.disabled)) {
-                      return secondaryGrayColor;
-                    }
-                    return primaryColor;
-                  }),
-                  foregroundColor: MaterialStateProperty.resolveWith((
-                    Set<MaterialState> states,
-                  ) {
-                    if (states.contains(MaterialState.disabled)) {
-                      return placeholderTextColor;
-                    }
-                    return Colors.white;
-                  }),
-                  elevation: MaterialStateProperty.all(0),
-                ),
-                child: Text(
-                  t.homePage.save,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              )
-                  .nestedSizedBox(
-                    height: 42,
-                  )
-                  .nestedPadding(
-                    padding: const EdgeInsets.only(top: 10),
-                  ),
             ],
-          ),
+          );
+        },
+        validator: (value) {
+          if (StringUtil.isBlank(value)) {
+            return t.homePage.textValidator;
+          }
+          return null;
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+
+  /// 颜色选择
+  Widget get colorSelect {
+    final t = Translations.of(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final languageCode = LocaleSettings.currentLocale.languageCode;
+    log('languageCode: $languageCode');
+
+    return BaseFormItem(
+      title: t.homePage.colorLabel,
+      required: false,
+      showTip: false,
+      child: FormBuilderField<int>(
+        name: 'color',
+        initialValue: colors.elementAt(1).value,
+        builder: (FormFieldState<int> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DropdownButtonFormField<int>(
+                value: field.value,
+                onTap: () => onColorTap(field),
+                style: TextStyle(
+                  color: isDark ? Colors.white : primaryTextColor,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                icon: const Icon(
+                  Icons.arrow_drop_down,
+                  color: borderColor,
+                  size: 20,
+                ),
+                decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
+                  enabledBorder: hasError
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: errorTextColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: borderColor,
+                          ),
+                          gapPadding: 0,
+                        ),
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(
+                      color: borderColor,
+                    ),
+                    gapPadding: 0,
+                  ),
+                  focusedBorder: hasError
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: errorTextColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: primaryColor,
+                          ),
+                          gapPadding: 0,
+                        ),
+                ),
+                items: colors.map(
+                  (color) {
+                    return DropdownMenuItem<int>(
+                      value: color.value,
+                      child: Text(
+                        languageCode == 'zh' ? color.zhText : color.enText,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ).nestedAlign(
+                        alignment: Alignment.centerLeft,
+                      ),
+                    );
+                  },
+                ).toList(),
+                onChanged: (value) {},
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: errorTextColor,
+                  ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(
+                    top: 8,
+                    left: 8,
+                  ),
+                ),
+            ],
+          );
+        },
+        validator: (value) {
+          if (value == null) {
+            return t.homePage.colorValidator;
+          }
+          return null;
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+
+  /// 透明度选择
+  Widget get transparency {
+    return BaseFormItem(
+      title: t.homePage.transparencyLabel,
+      required: false,
+      showTip: false,
+      child: FormBuilderField<double>(
+        name: 'transparency',
+        initialValue: transparencyNotifier.value,
+        builder: (FormFieldState<double> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  SfSliderTheme(
+                    data: const SfSliderThemeData(
+                      activeTrackHeight: 4,
+                      activeTrackColor: primaryColor,
+                      thumbRadius: 6,
+                      thumbColor: primaryColor,
+                      overlayRadius: 0,
+                    ),
+                    child: SfSlider(
+                      min: 0,
+                      max: 1,
+                      stepSize: 0.1,
+                      value: field.value,
+                      enableTooltip: true,
+                      onChanged: (dynamic value) {
+                        transparencyNotifier.value = value as double? ?? 0.0;
+                        field
+                          ..didChange(value ?? 0.0)
+                          ..validate();
+                      },
+                    ),
+                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
+                  ValueListenableBuilder(
+                    valueListenable: transparencyNotifier,
+                    builder: (
+                      BuildContext context,
+                      double value,
+                      Widget? child,
+                    ) =>
+                        Text(
+                      value.toString(),
+                      textAlign: TextAlign.center,
+                    ).nestedSizedBox(width: 28).nestedPadding(
+                              padding: const EdgeInsets.only(
+                                left: 4,
+                              ),
+                            ),
+                  ),
+                ],
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: errorTextColor,
+                  ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(top: 8, left: 8),
+                ),
+            ],
+          );
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+
+  /// 预览按钮
+  Widget get previewBtn {
+    return ElevatedButton(
+      onPressed: _fileWrappers.isNotEmpty ? _preview : null,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(
+          Colors.white,
+        ),
+        foregroundColor: MaterialStateProperty.resolveWith((
+          Set<MaterialState> states,
+        ) {
+          if (states.contains(MaterialState.disabled)) {
+            return secondaryBorderColor;
+          }
+          return primaryColor;
+        }),
+        shape: MaterialStateProperty.resolveWith((
+          Set<MaterialState> states,
+        ) {
+          if (states.contains(MaterialState.disabled)) {
+            return RoundedRectangleBorder(
+              side: const BorderSide(color: secondaryBorderColor),
+              borderRadius: BorderRadius.circular(10),
+            );
+          }
+          return RoundedRectangleBorder(
+            side: const BorderSide(color: primaryColor),
+            borderRadius: BorderRadius.circular(10),
+          );
+        }),
+        elevation: MaterialStateProperty.all(0),
+      ),
+      child: Text(
+        t.homePage.preview,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
         ),
       ),
+    ).nestedSizedBox(
+      height: 42,
+    );
+  }
+
+  /// 保存按钮
+  Widget get saveBtn {
+    return ElevatedButton(
+      onPressed: _fileWrappers.isNotEmpty ? _save : null,
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.resolveWith((
+          Set<MaterialState> states,
+        ) {
+          if (states.contains(MaterialState.disabled)) {
+            return secondaryGrayColor;
+          }
+          return primaryColor;
+        }),
+        foregroundColor: MaterialStateProperty.resolveWith((
+          Set<MaterialState> states,
+        ) {
+          if (states.contains(MaterialState.disabled)) {
+            return placeholderTextColor;
+          }
+          return Colors.white;
+        }),
+        elevation: MaterialStateProperty.all(0),
+      ),
+      child: Text(
+        t.homePage.save,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    ).nestedSizedBox(
+      height: 42,
     );
   }
 

@@ -5,10 +5,11 @@ import 'package:picguard/theme/colors.dart';
 class PGAppBar extends AppBar {
   ///
   PGAppBar({
-    super.key,
-    super.actions,
+    required this.isDark,
     this.titleName,
     this.titleWidget,
+    super.key,
+    super.actions,
   }) : super(
           title: titleName == null
               ? titleWidget
@@ -22,7 +23,7 @@ class PGAppBar extends AppBar {
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(0.5),
             child: Container(
-              color: borderColor,
+              color: isDark ? secondaryTextColor : borderColor,
               height: 1,
             ),
           ),
@@ -30,4 +31,5 @@ class PGAppBar extends AppBar {
 
   final String? titleName;
   final Widget? titleWidget;
+  final bool isDark;
 }
