@@ -65,7 +65,7 @@
     "@commitlint/config-conventional": "^19.2.2",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/line-clamp": "^0.4.4",
-    "@tailwindcss/typography": "^0.5.12",
+    "@tailwindcss/typography": "^0.5.13",
     "@types/lodash": "^4.17.0",
     "@types/ms": "^0.7.34",
     "@types/node": "^18.19.31",
