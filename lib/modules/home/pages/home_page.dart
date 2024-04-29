@@ -760,6 +760,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
               t.dialogs.exitConfirm.description,
               style: const TextStyle(fontSize: 14, height: 1.44),
               textAlign: TextAlign.center,
+            ).nestedConstrainedBox(
+              constraints: const BoxConstraints(minWidth: 300),
             ),
             actions: [
               TextButton(
@@ -789,6 +791,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                   windowManager.destroy();
                 },
               ),
+              const SizedBox(width: 20),
               TextButton(
                 style: ButtonStyle(
                   backgroundColor:
