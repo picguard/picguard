@@ -1,0 +1,22 @@
+display_name: PicGuard
+icon: logo/logo.png
+summary: Your pictures, your signature.
+group: Application/Emulator
+vendor: kjxbyz
+packager: kjxbyz
+packagerEmail: kjxbyz@163.com
+license: MIT
+url: https://github.com/picguard/picguard
+
+keywords:
+  - PicGuard
+  - Watermark
+  - Assistant
+  - Watermark Assistant
+
+generic_name: PicGuard
+
+categories:
+  - Utility
+
+startup_notify: true

@@ -1,0 +1,28 @@
+display_name: PicGuard
+package_name: picguard
+maintainer:
+  name: kjxbyz
+  email: kjxbyz@163.com
+priority: optional
+section: x11
+installed_size: 6604
+essential: false
+icon: logo/logo.png
+
+postinstall_scripts:
+  - echo "Installing PicGuard"
+postuninstall_scripts:
+  - echo "PicGuard installed"
+
+keywords:
+  - PicGuard
+  - Watermark
+  - Assistant
+  - Watermark Assistant
+
+generic_name: PicGuard
+
+categories:
+  - Utility
+
+startup_notify: true
