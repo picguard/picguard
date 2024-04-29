@@ -83,6 +83,19 @@ make macos_adhoc
 make macos_appstore
 ```
 
+### Linux
+
+```shell
+# https://distributor.leanflutter.dev/makers/appimage/
+dart run flutter_distributor:main package --platform linux --targets appimage
+
+# https://distributor.leanflutter.dev/makers/deb/
+dart run flutter_distributor:main package --platform linux --targets deb
+
+# https://distributor.leanflutter.dev/makers/rpm/
+dart run flutter_distributor:main package --platform linux --targets rpm
+```
+
 ## Tests
 
 ### app links
