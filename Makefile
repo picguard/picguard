@@ -2,8 +2,6 @@
 get:
 	echo "╠ Installing dependencies..."
 	flutter pub get
-	make ios_install
-	make macos_install
 
 outdated:
 	echo "╠ Resolving dependencies..."
