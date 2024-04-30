@@ -19,6 +19,9 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Install flutter_distributor
+        run: dart pub global activate flutter_distributor
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -27,7 +30,7 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          echo "$LINUX_PASSWORD" | sudo -S apt install locate
+          sudo -S <<< "$LINUX_PASSWORD" apt install locate
           wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
           chmod +x appimagetool && mv appimagetool /usr/local/bin/
         env:
@@ -52,6 +55,9 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: '3.19.6'
+
+      - name: Install flutter_distributor
+        run: dart pub global activate flutter_distributor
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -78,6 +84,9 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: '3.19.6'
+
+      - name: Install flutter_distributor
+        run: dart pub global activate flutter_distributor
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -117,9 +126,9 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          echo "$LINUX_PASSWORD" | sudo -S snap install snapcraft --classic
-          echo "$LINUX_PASSWORD" | sudo -S snap install lxd
-          echo "$LINUX_PASSWORD" | sudo -S lxd init --auto
+          sudo -S <<< "$LINUX_PASSWORD" snap install snapcraft --classic
+          sudo -S <<< "$LINUX_PASSWORD" snap install lxd
+          sudo -S <<< "$LINUX_PASSWORD" lxd init --auto
         env:
           LINUX_PASSWORD: ${{ secrets.LINUX_PASSWORD }}
 
