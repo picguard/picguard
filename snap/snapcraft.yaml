@@ -3,6 +3,12 @@ version: 1.0.0
 summary: Your pictures, your signature.
 description: Your pictures, your signature.
 icon: snap/gui/picguard.png
+title: PicGuard
+contact: kjxbyz@163.com
+license: MIT
+source-code: https://github.com/picguard/picguard
+issues: https://github.com/picguard/picguard/issues
+website: https://www.kjxbyz.com/picguard
 architectures:
   - build-on: [ amd64 ]
   - build-on: [ arm64 ]
