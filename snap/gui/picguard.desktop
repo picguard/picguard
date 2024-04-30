@@ -2,7 +2,8 @@
 Name=PicGuard
 Comment=Your pictures, your signature.
 Exec=picguard
-Icon=${SNAP}/meta/gui/picguard.png # replace name to your app name
+Icon=${SNAP}/meta/gui/picguard.png
 Terminal=false
 Type=Application
-Categories=Utility; #adjust accordingly your snap category
+Categories=Utility;
+StartupNotify=false
