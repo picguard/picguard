@@ -96,8 +96,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       react-big-calendar:
-        specifier: ^1.12.0
-        version: 1.12.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: ^1.12.1
+        version: 1.12.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react-cropper:
         specifier: ^2.3.3
         version: 2.3.3(react@18.2.0)
@@ -4265,8 +4265,8 @@ packages:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
     hasBin: true
 
-  react-big-calendar@1.12.0:
-    resolution: {integrity: sha512-QwF+ZVbjuDuVpaOBcqQmpYFZksZo6cxbfKSE+L45wCPPUpmV2uW5dU05tdlXavXfGs10M73kFlVXt3KmKT6YRw==}
+  react-big-calendar@1.12.1:
+    resolution: {integrity: sha512-MCkuMHv/GrHbLo00eq2ixhiG9aHMD57NYnAQZgG3w2tqiHFwt29CB+hjfNTBdAQmR/F1bklgMILI8NogzbUEVA==}
     peerDependencies:
       react: ^16.14.0 || ^17 || ^18
       react-dom: ^16.14.0 || ^17 || ^18
@@ -9952,7 +9952,7 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  react-big-calendar@1.12.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  react-big-calendar@1.12.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
       '@babel/runtime': 7.24.1
       clsx: 1.2.1
