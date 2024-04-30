@@ -2,6 +2,7 @@ name: picguard
 version: 1.0.0
 summary: Your pictures, your signature.
 description: Your pictures, your signature.
+icon: snap/gui/picguard.png
 architectures:
   - build-on: [ amd64 ]
   - build-on: [ arm64 ]
