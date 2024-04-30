@@ -94,6 +94,13 @@ dart run flutter_distributor:main package --platform linux --targets deb
 
 # https://distributor.leanflutter.dev/makers/rpm/
 dart run flutter_distributor:main package --platform linux --targets rpm
+
+# https://flutter.cn/docs/deployment/linux
+# https://snapcraft.io/docs/snapcraft-yaml-reference
+snapcraft
+
+# Test snap
+sudo snap install ./picguard_1.0.0_amd64.snap --dangerous
 ```
 
 ## Tests
