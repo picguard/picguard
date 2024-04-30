@@ -1,0 +1,132 @@
+name: Test Linux
+
+on:
+  workflow_dispatch:
+
+# Declare default permissions as readonly.
+permissions: read-all
+
+jobs:
+  appimage:
+    name: Create AppImage
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Install dependencies for Linux
+        run: |
+          echo "$LINUX_PASSWORD" | sudo -S apt install locate
+          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          chmod +x appimagetool && mv appimagetool /usr/local/bin/
+        env:
+          LINUX_PASSWORD: ${{ secrets.LINUX_PASSWORD }}
+
+      - name: Build AppImage
+        run: flutter_distributor package --platform linux --targets appimage
+
+      # Package the build.
+      - name: Copy build for AppImage
+        run: ls -la
+        working-directory: dist
+
+  deb:
+    name: Create deb
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build deb
+        run: flutter_distributor package --platform linux --targets deb
+
+      # Package the build.
+      - name: Copy build for deb
+        run: ls -la
+        working-directory: dist
+
+  rpm:
+    name: Create rpm
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Install dependencies for Linux
+        run: |
+          apt install rpm patchelf
+
+      - name: Build RPM
+        run: flutter_distributor package --platform linux --targets rpm
+
+      # Package the build.
+      - name: Copy build for rpm
+        run: ls -la
+        working-directory: dist
+
+  snap:
+    name: Create snap
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Install dependencies for Linux
+        run: |
+          echo "$LINUX_PASSWORD" | sudo -S snap install snapcraft --classic
+          echo "$LINUX_PASSWORD" | sudo -S snap install lxd
+          echo "$LINUX_PASSWORD" | sudo -S lxd init --auto
+        env:
+          LINUX_PASSWORD: ${{ secrets.LINUX_PASSWORD }}
+
+      - name: Build SNAP
+        run: |
+          snapcraft
+
+      # Package the build.
+      - name: Copy build for snap
+        run: ls -la *.snap
