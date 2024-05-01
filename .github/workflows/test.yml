@@ -64,7 +64,7 @@ jobs:
 
       # Package the build.
       - name: Copy build for Android
-        run: cp *.apk $GITHUB_WORKSPACE/PicGuard.apk
+        run: ls -la
         working-directory: build/app/outputs/flutter-apk
 
       - name: Clean up
@@ -114,7 +114,7 @@ jobs:
 
       # Package the build.
       - name: Copy build for Android
-        run: cp *.aab $GITHUB_WORKSPACE/PicGuard.aab
+        run: ls -la
         working-directory: build/app/outputs/bundle/stagingRelease
 
       - name: Clean up
@@ -198,7 +198,7 @@ jobs:
 
       # Package the build.
       - name: Copy build for iOS
-        run: cp *.ipa $GITHUB_WORKSPACE/PicGuard.ipa
+        run: ls -la
         working-directory: build/ios/ipa
 
       - name: Clean up
@@ -323,6 +323,10 @@ jobs:
       - name: Build DMG
         run: |
           bash build-dmg.sh
+
+      # Package the build.
+      - name: Copy build for snap
+        run: ls -la *.dmg
 
       - name: Clean up
         if: ${{ always() }}
