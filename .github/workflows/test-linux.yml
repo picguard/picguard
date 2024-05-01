@@ -9,7 +9,7 @@ permissions: read-all
 jobs:
   appimage:
     name: Create AppImage
-    runs-on: self-hosted
+    runs-on: pg-runner-linux-ubuntu-22-04
     steps:
       - uses: actions/checkout@v4
 
@@ -46,7 +46,7 @@ jobs:
 
   deb:
     name: Create deb
-    runs-on: self-hosted
+    runs-on: pg-runner-linux-ubuntu-22-04
     steps:
       - uses: actions/checkout@v4
 
@@ -75,7 +75,7 @@ jobs:
 
   rpm:
     name: Create rpm
-    runs-on: self-hosted
+    runs-on: pg-runner-linux-ubuntu-22-04
     steps:
       - uses: actions/checkout@v4
 
@@ -108,7 +108,7 @@ jobs:
 
   snap:
     name: Create snap
-    runs-on: self-hosted
+    runs-on: pg-runner-linux-ubuntu-22-04
     steps:
       - uses: actions/checkout@v4
 
