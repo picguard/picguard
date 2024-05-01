@@ -2,11 +2,8 @@
 
 set -e
 
-if [ -f "PicGuard.dmg" ]; then
-    echo "Delete PicGuard.dmg"
-    rm -f ./PicGuard.dmg
-fi
+test -f PicGuard.dmg && rm -f PicGuard.dmg
 
-pnpm -c -s dlx appdmg ./appdmg.json ./PicGuard.dmg
+appdmg ./appdmg.json ./PicGuard.dmg
 
 exit 0
