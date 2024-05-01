@@ -9,9 +9,23 @@ permissions: read-all
 jobs:
   appimage:
     name: Create AppImage
-    runs-on: pg-runner-linux-ubuntu-22-04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt update
+          sudo apt install -y libgtk-3-dev libx11-dev pkg-config cmake clang ninja-build libblkid-dev liblzma-dev
+          sudo apt install locate libfuse2
+          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          chmod +x appimagetool && mv appimagetool /usr/local/bin/
+
+      - name: Install GStreamer
+        # Install libunwind-dev, see https://github.com/actions/runner-images/issues/6399#issuecomment-1285011525
+        run: |
+          sudo apt install -y libunwind-dev
+          sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -28,27 +42,31 @@ jobs:
       - name: Install flutter dependencies
         run: flutter pub get
 
-      - name: Install dependencies for Linux
-        run: |
-          sudo -S <<< "$LINUX_PASSWORD" apt install locate
-          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
-          chmod +x appimagetool && mv appimagetool /usr/local/bin/
-        env:
-          LINUX_PASSWORD: ${{ secrets.LINUX_PASSWORD }}
-
       - name: Build AppImage
         run: flutter_distributor package --platform linux --targets appimage
 
       # Package the build.
       - name: Copy build for AppImage
-        run: ls -la
+        run: ls -laR
         working-directory: dist
 
   deb:
     name: Create deb
-    runs-on: pg-runner-linux-ubuntu-22-04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt update
+          sudo apt install -y libgtk-3-dev libx11-dev pkg-config cmake clang ninja-build libblkid-dev liblzma-dev
+          sudo apt install rpm patchelf
+
+      - name: Install GStreamer
+        # Install libunwind-dev, see https://github.com/actions/runner-images/issues/6399#issuecomment-1285011525
+        run: |
+          sudo apt install -y libunwind-dev
+          sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -70,14 +88,30 @@ jobs:
 
       # Package the build.
       - name: Copy build for deb
-        run: ls -la
+        run: ls -laR
         working-directory: dist
 
   rpm:
     name: Create rpm
-    runs-on: pg-runner-linux-ubuntu-22-04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17.x"
+          distribution: 'temurin'
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt update
+          sudo apt install -y libgtk-3-dev libx11-dev pkg-config cmake clang ninja-build libblkid-dev liblzma-dev
+
+      - name: Install GStreamer
+        # Install libunwind-dev, see https://github.com/actions/runner-images/issues/6399#issuecomment-1285011525
+        run: |
+          sudo apt install -y libunwind-dev
+          sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -94,23 +128,35 @@ jobs:
       - name: Install flutter dependencies
         run: flutter pub get
 
-      - name: Install dependencies for Linux
-        run: |
-          apt install rpm patchelf
-
       - name: Build RPM
         run: flutter_distributor package --platform linux --targets rpm
 
       # Package the build.
       - name: Copy build for rpm
-        run: ls -la
+        run: ls -laR
         working-directory: dist
 
   snap:
     name: Create snap
-    runs-on: pg-runner-linux-ubuntu-22-04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt update
+          sudo apt install -y libgtk-3-dev libx11-dev pkg-config cmake clang ninja-build libblkid-dev liblzma-dev
+
+      - name: Setup LXD
+        uses: canonical/setup-lxd@v0.1.1
+        with:
+          channel: latest/stable
+
+      - name: Install GStreamer
+        # Install libunwind-dev, see https://github.com/actions/runner-images/issues/6399#issuecomment-1285011525
+        run: |
+          sudo apt install -y libunwind-dev
+          sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -124,17 +170,13 @@ jobs:
       - name: Install flutter dependencies
         run: flutter pub get
 
-      - name: Install dependencies for Linux
+      - name: Install snapcraft
         run: |
-          sudo -S <<< "$LINUX_PASSWORD" snap install snapcraft --classic
-          sudo -S <<< "$LINUX_PASSWORD" snap install lxd
-          sudo -S <<< "$LINUX_PASSWORD" lxd init --auto
-        env:
-          LINUX_PASSWORD: ${{ secrets.LINUX_PASSWORD }}
+          sudo snap install snapcraft --classic
 
-      - name: Build SNAP
+      - name: Build snap
         run: |
-          snapcraft
+          snapcraft --verbose
 
       # Package the build.
       - name: Copy build for snap
