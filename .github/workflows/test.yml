@@ -223,7 +223,7 @@ jobs:
 
       - uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: 9
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -316,9 +316,13 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
+      - name: Install appdmg
+        run: |
+          pnpm add -g appdmg
+
       - name: Build DMG
         run: |
-          rm -f ./PicGuard.dmg && pnpm -c -s dlx appdmg ./appdmg.json ./PicGuard.dmg
+          bash build-dmg.sh
 
       - name: Clean up
         if: ${{ always() }}
