@@ -48,7 +48,7 @@ dependencies:
   fluttertoast: ^8.2.5
   form_builder_validators: ^9.1.0
   gap: ^3.0.1
-  image_picker: ^1.1.0
+  image_picker: ^1.1.1
   keyboard_dismisser: ^3.0.0
   logger: ^2.2.0
   mime: ^1.0.5
