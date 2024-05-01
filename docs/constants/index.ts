@@ -13,13 +13,6 @@ export const platforms: Record<SystemOS, string[]> = {
   android: [".apk", ".aab"],
   macos: [".dmg", ".app.tar.gz"],
   windows: [".exe", ".nsis.zip"],
-  linux: [
-    ".AppImage",
-    ".appimage",
-    ".AppImage.tar.gz",
-    ".deb",
-    ".rpm",
-    ".snap",
-  ],
+  linux: [".AppImage", ".AppImage.tar.gz", ".deb", ".rpm", ".snap"],
 };
 export const pageSize: number = 10;

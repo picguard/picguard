@@ -597,7 +597,7 @@ jobs:
       - name: Copy build for AppImage
         run: |
           ls -laR
-          cp ./**/*.appimage $GITHUB_WORKSPACE/
+          cp ./**/*.AppImage $GITHUB_WORKSPACE/
         working-directory: dist
 
       - name: Install gh
@@ -611,7 +611,7 @@ jobs:
       - name: Upload assets
         run: |
           RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
-          gh release upload "$RELEASE" ./*.appimage
+          gh release upload "$RELEASE" ./*.AppImage
         env:
           ENV: ${{ github.event.inputs.env }}
           VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
