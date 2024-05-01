@@ -18,7 +18,7 @@ permissions: read-all
 jobs:
   create_release:
     name: Create release
-    runs-on: pg-runner-mac
+    runs-on: ubuntu-latest
     outputs:
       sha_short: ${{ steps.sha_short_step.outputs.sha_short }}
       timestamp: ${{ steps.timestamp_step.outputs.timestamp }}
@@ -80,7 +80,7 @@ jobs:
   remove_release:
       name: Remove release
       if: ${{ cancelled() || failure() }}
-      runs-on: pg-runner-mac
+      runs-on: ubuntu-latest
       needs:
         - create_release
         - apk
@@ -110,7 +110,7 @@ jobs:
 
   apk:
     name: Create apk
-    runs-on: pg-runner-mac
+    runs-on: ubuntu-latest
     needs:
       - create_release
     steps:
@@ -186,7 +186,7 @@ jobs:
 
   aab:
     name: Create appbundle
-    runs-on: pg-runner-mac
+    runs-on: ubuntu-latest
     needs:
       - create_release
     steps:
@@ -268,7 +268,7 @@ jobs:
 
   ios:
     name: Create ios
-    runs-on: pg-runner-mac
+    runs-on: macos-latest
     needs:
       - create_release
     steps:
@@ -384,7 +384,7 @@ jobs:
 
   macos:
     name: Create macos
-    runs-on: pg-runner-mac
+    runs-on: macos-latest
     needs:
       - create_release
     steps:
