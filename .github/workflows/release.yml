@@ -87,6 +87,10 @@ jobs:
         - aab
         - ios
         - macos
+        - appimage
+        - deb
+        - rpm
+        - snap
       steps:
         - uses: actions/checkout@v4
 
@@ -157,7 +161,9 @@ jobs:
 
       # Package the build.
       - name: Copy build for Android
-        run: cp *.apk $GITHUB_WORKSPACE/PicGuard.apk
+        run: |
+          ls -la
+          cp *.apk $GITHUB_WORKSPACE/PicGuard.apk
         working-directory: build/app/outputs/flutter-apk
 
       - name: Install gh
@@ -234,12 +240,16 @@ jobs:
       # Package the build.
       - name: Copy build for Android
         if: github.event.inputs.env == 'development'
-        run: cp *.aab $GITHUB_WORKSPACE/PicGuard.aab
+        run: |
+          ls -la
+          cp *.aab $GITHUB_WORKSPACE/PicGuard.aab
         working-directory: build/app/outputs/bundle/stagingRelease
 
       - name: Copy build for Android
         if: github.event.inputs.env == 'production'
-        run: cp *.aab $GITHUB_WORKSPACE/PicGuard.aab
+        run: |
+          ls -la
+          cp *.aab $GITHUB_WORKSPACE/PicGuard.aab
         working-directory: build/app/outputs/bundle/productionRelease
 
       - name: Install gh
@@ -352,7 +362,9 @@ jobs:
 
       # Package the build.
       - name: Copy build for iOS
-        run: cp *.ipa $GITHUB_WORKSPACE/PicGuard.ipa
+        run: |
+          ls -la
+          cp *.ipa $GITHUB_WORKSPACE/PicGuard.ipa
         working-directory: build/ios/ipa
 
       - name: Install gh
@@ -507,6 +519,10 @@ jobs:
         run: |
           bash build-dmg.sh
 
+      # Package the build.
+      - name: Copy build for snap
+        run: ls -la *.dmg
+
       - name: Install gh
         run: |
           if ! command -v gh >/dev/null 2>&1; then
@@ -536,3 +552,264 @@ jobs:
             echo "$RUNNER_TEMP/pg-profile-signing.keychain-db"
             security delete-keychain $RUNNER_TEMP/pg-profile-signing.keychain-db
           fi
+
+  appimage:
+    name: Create AppImage
+    runs-on: ubuntu-latest
+    needs:
+      - create_release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt update
+          sudo apt install -y libgtk-3-dev libx11-dev pkg-config cmake clang ninja-build libblkid-dev liblzma-dev
+          sudo apt install locate libfuse2
+          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          chmod +x appimagetool && mv appimagetool /usr/local/bin/
+
+      - name: Install GStreamer
+        # Install libunwind-dev, see https://github.com/actions/runner-images/issues/6399#issuecomment-1285011525
+        run: |
+          sudo apt install -y libunwind-dev
+          sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Install flutter_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build AppImage
+        run: flutter_distributor package --platform linux --targets appimage
+
+      # Package the build.
+      - name: Copy build for AppImage
+        run: |
+          ls -laR
+          cp ./**/*.appimage $GITHUB_WORKSPACE/
+        working-directory: dist
+
+      - name: Install gh
+        run: |
+          if ! command -v gh >/dev/null 2>&1; then
+            echo "gh not exists"
+            brew install gh
+          fi
+          gh --version
+
+      - name: Upload assets
+        run: |
+          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          gh release upload "$RELEASE" ./*.appimage
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+  deb:
+    name: Create deb
+    runs-on: ubuntu-latest
+    needs:
+      - create_release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt update
+          sudo apt install -y libgtk-3-dev libx11-dev pkg-config cmake clang ninja-build libblkid-dev liblzma-dev
+          sudo apt install rpm patchelf
+
+      - name: Install GStreamer
+        # Install libunwind-dev, see https://github.com/actions/runner-images/issues/6399#issuecomment-1285011525
+        run: |
+          sudo apt install -y libunwind-dev
+          sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Install flutter_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build deb
+        run: flutter_distributor package --platform linux --targets deb
+
+      # Package the build.
+      - name: Copy build for deb
+        run: |
+          ls -laR
+          cp ./**/*.deb $GITHUB_WORKSPACE/
+        working-directory: dist
+
+      - name: Install gh
+        run: |
+          if ! command -v gh >/dev/null 2>&1; then
+            echo "gh not exists"
+            brew install gh
+          fi
+          gh --version
+
+      - name: Upload assets
+        run: |
+          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          gh release upload "$RELEASE" ./*.deb
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+  rpm:
+    name: Create rpm
+    runs-on: ubuntu-latest
+    needs:
+      - create_release
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17.x"
+          distribution: 'temurin'
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt update
+          sudo apt install -y libgtk-3-dev libx11-dev pkg-config cmake clang ninja-build libblkid-dev liblzma-dev
+
+      - name: Install GStreamer
+        # Install libunwind-dev, see https://github.com/actions/runner-images/issues/6399#issuecomment-1285011525
+        run: |
+          sudo apt install -y libunwind-dev
+          sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Install flutter_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build RPM
+        run: flutter_distributor package --platform linux --targets rpm
+
+      # Package the build.
+      - name: Copy build for rpm
+        run: |
+          ls -laR
+          cp ./**/*.rpm $GITHUB_WORKSPACE/
+        working-directory: dist
+
+      - name: Install gh
+        run: |
+          if ! command -v gh >/dev/null 2>&1; then
+            echo "gh not exists"
+            brew install gh
+          fi
+          gh --version
+
+      - name: Upload assets
+        run: |
+          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          gh release upload "$RELEASE" ./*.rpm
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+  snap:
+    name: Create snap
+    runs-on: ubuntu-latest
+    needs:
+      - create_release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt update
+          sudo apt install -y libgtk-3-dev libx11-dev pkg-config cmake clang ninja-build libblkid-dev liblzma-dev
+
+      - name: Setup LXD
+        uses: canonical/setup-lxd@v0.1.1
+        with:
+          channel: latest/stable
+
+      - name: Install GStreamer
+        # Install libunwind-dev, see https://github.com/actions/runner-images/issues/6399#issuecomment-1285011525
+        run: |
+          sudo apt install -y libunwind-dev
+          sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Install snapcraft
+        run: |
+          sudo snap install snapcraft --classic
+
+      - name: Build snap
+        run: |
+          snapcraft --verbose
+
+      # Package the build.
+      - name: Copy build for snap
+        run: ls -la *.snap
+
+      - name: Install gh
+        run: |
+          if ! command -v gh >/dev/null 2>&1; then
+            echo "gh not exists"
+            brew install gh
+          fi
+          gh --version
+
+      - name: Upload assets
+        run: |
+          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          gh release upload "$RELEASE" ./*.snap
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
