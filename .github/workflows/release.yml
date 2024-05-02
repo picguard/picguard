@@ -50,18 +50,18 @@ jobs:
 
       - name: Set version
         id: version_step
-        run: echo "version=v$(yq '.version' < pubspec.yaml)" >> $GITHUB_OUTPUT
+        run: | 
+          PUB_VERSION=$(yq '.version' < pubspec.yaml)
+          echo "$PUB_VERSION"
+          VERSION=$(echo "$PUB_VERSION" | sed -e "s/+\(.*\)$//g")
+          echo "$VERSION"
+          echo "version=v$VERSION" >> $GITHUB_OUTPUT
 
       - name: Check version
         run: echo ${{ steps.version_step.outputs.version }}
 
-      - name: Install gh
-        run: |
-          if ! command -v gh >/dev/null 2>&1; then
-            echo "gh not exists"
-            brew install gh
-          fi
-          gh --version
+      - name: Show gh info
+        run: gh --version
 
       - name: Create a release
         run: |
@@ -92,16 +92,12 @@ jobs:
         - rpm
         - zip
         - snap
+        - msix
       steps:
         - uses: actions/checkout@v4
 
-        - name: Install gh
-          run: |
-            if ! command -v gh >/dev/null 2>&1; then
-              echo "gh not exists"
-              brew install gh
-            fi
-            gh --version
+        - name: Show gh info
+          run: gh --version
 
         - name: Remove a release
           run: |
@@ -167,13 +163,8 @@ jobs:
           cp *.apk $GITHUB_WORKSPACE/PicGuard.apk
         working-directory: build/app/outputs/flutter-apk
 
-      - name: Install gh
-        run: |
-          if ! command -v gh >/dev/null 2>&1; then
-            echo "gh not exists"
-            brew install gh
-          fi
-          gh --version
+      - name: Show gh info
+        run: gh --version
 
       - name: Upload assets
         run: |
@@ -253,13 +244,8 @@ jobs:
           cp *.aab $GITHUB_WORKSPACE/PicGuard.aab
         working-directory: build/app/outputs/bundle/productionRelease
 
-      - name: Install gh
-        run: |
-          if ! command -v gh >/dev/null 2>&1; then
-            echo "gh not exists"
-            brew install gh
-          fi
-          gh --version
+      - name: Show gh info
+        run: gh --version
 
       - name: Upload assets
         run: |
@@ -368,13 +354,8 @@ jobs:
           cp *.ipa $GITHUB_WORKSPACE/PicGuard.ipa
         working-directory: build/ios/ipa
 
-      - name: Install gh
-        run: |
-          if ! command -v gh >/dev/null 2>&1; then
-            echo "gh not exists"
-            brew install gh
-          fi
-          gh --version
+      - name: Show gh info
+        run: gh --version
 
       - name: Upload assets
         run: |
@@ -524,13 +505,8 @@ jobs:
       - name: Copy build for snap
         run: ls -la *.dmg
 
-      - name: Install gh
-        run: |
-          if ! command -v gh >/dev/null 2>&1; then
-            echo "gh not exists"
-            brew install gh
-          fi
-          gh --version
+      - name: Show gh info
+        run: gh --version
 
       - name: Upload assets
         run: |
@@ -601,13 +577,8 @@ jobs:
           cp ./**/*.AppImage $GITHUB_WORKSPACE/
         working-directory: dist
 
-      - name: Install gh
-        run: |
-          if ! command -v gh >/dev/null 2>&1; then
-            echo "gh not exists"
-            brew install gh
-          fi
-          gh --version
+      - name: Show gh info
+        run: gh --version
 
       - name: Upload assets
         run: |
@@ -664,13 +635,8 @@ jobs:
           cp ./**/*.deb $GITHUB_WORKSPACE/
         working-directory: dist
 
-      - name: Install gh
-        run: |
-          if ! command -v gh >/dev/null 2>&1; then
-            echo "gh not exists"
-            brew install gh
-          fi
-          gh --version
+      - name: Show gh info
+        run: gh --version
 
       - name: Upload assets
         run: |
@@ -731,13 +697,8 @@ jobs:
           cp ./**/*.rpm $GITHUB_WORKSPACE/
         working-directory: dist
 
-      - name: Install gh
-        run: |
-          if ! command -v gh >/dev/null 2>&1; then
-            echo "gh not exists"
-            brew install gh
-          fi
-          gh --version
+      - name: Show gh info
+        run: gh --version
 
       - name: Upload assets
         run: |
@@ -794,13 +755,8 @@ jobs:
           cp ./**/*.linux.zip $GITHUB_WORKSPACE/
         working-directory: dist
 
-      - name: Install gh
-        run: |
-          if ! command -v gh >/dev/null 2>&1; then
-            echo "gh not exists"
-            brew install gh
-          fi
-          gh --version
+      - name: Show gh info
+        run: gh --version
 
       - name: Upload assets
         run: |
@@ -860,13 +816,8 @@ jobs:
       - name: Copy build for snap
         run: ls -la *.snap
 
-      - name: Install gh
-        run: |
-          if ! command -v gh >/dev/null 2>&1; then
-            echo "gh not exists"
-            brew install gh
-          fi
-          gh --version
+      - name: Show gh info
+        run: gh --version
 
       - name: Upload assets
         run: |
@@ -877,3 +828,66 @@ jobs:
           VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
           VERSION: ${{ needs.create_release.outputs.version }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+  msix:
+    name: Create msix
+    runs-on: windows-latest
+    needs:
+      - create_release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Install flutter_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Install certificates
+        run: |
+          echo $env:RUNNER_TEMP
+          $env:CERTIFICATE_PATH = "$env:RUNNER_TEMP\picguard_windows.pfx"
+          echo $env:WINDOWS_CERTIFICATE | openssl base64 -d -out $env:CERTIFICATE_PATH
+          (get-content windows\packaging\msix\make_config.yaml) -replace 'CERTIFICATE_PATH_PLACEHOLDER', $env:CERTIFICATE_PATH -replace 'CERTIFICATE_PASSWORD_PLACEHOLDER', $env:WINDOWS_CERTIFICATE_PASSWORD | Out-File -encoding ASCII windows\packaging\msix\make_config.yaml
+        env:
+          WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+          WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+
+      - name: Build msix
+        run: flutter_distributor package --platform windows --targets msix --artifact-name picguard.msix
+
+      # Package the build.
+      - name: Copy build for msix
+        run: |
+          ls -R
+          cp .\**\*.msix "$env:GITHUB_WORKSPACE\"
+        working-directory: dist
+
+      - name: Show gh info
+        run: gh --version
+
+      - name: Upload assets
+        run: |
+          $env:RELEASE = $(If ($env:ENV -eq "development") {"$env:VERSION_SUFFIX"} Else {"$env:VERSION"})
+          gh release upload "$env:RELEASE" .\*.msix
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          echo "$env:RUNNER_TEMP\picguard_windows.pfx"
+          remove-item -Path "$env:RUNNER_TEMP\picguard_windows.pfx" -Force -ErrorAction SilentlyContinue
+          remove-item -Path "windows\packaging\msix\make_config.yaml" -Force -ErrorAction SilentlyContinue
