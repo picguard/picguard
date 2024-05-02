@@ -8,4 +8,4 @@ create_desktop_icon: true
 locales:
   - en
   - zh
-script_template: inno_setup.iss
+#script_template: inno_setup.iss

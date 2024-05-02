@@ -19,11 +19,15 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
-      - name: Compile .iss to .exe installer
-        uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
-        with:
-          path: windows/packaging/exe/inno_setup.iss
-          options: /O+
+#      - name: Compile .iss to .exe installer
+#        uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
+#        with:
+#          path: windows/packaging/exe/inno_setup.iss
+#          options: /O+
+
+      - name: Copy ChineseSimplified.isl to C:\Program Files (x86)\Inno Setup 6\Languages\
+        run: |
+          copy-item -Path windows\Languages\Unofficial\*.isl -Destination 'C:\Program Files (x86)\Inno Setup 6\Languages\'
 
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
@@ -35,7 +39,7 @@ jobs:
         run: flutter pub get
 
       - name: Build exe
-        run: flutter_distributor package --platform windows --targets exe
+        run: flutter_distributor package --platform windows --targets exe --artifact-name picguard.exe
 
       # Package the build.
       - name: Copy build for exe
