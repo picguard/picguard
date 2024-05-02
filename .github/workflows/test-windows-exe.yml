@@ -1,0 +1,43 @@
+name: Test Windows exe
+
+on:
+  workflow_dispatch:
+
+# Declare default permissions as readonly.
+permissions: read-all
+
+jobs:
+  exe:
+    name: Create exe
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Compile .iss to .exe installer
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
+        with:
+          path: windows/packaging/exe/inno_setup.iss
+          options: /O+
+
+      - name: Install flutter_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build exe
+        run: flutter_distributor package --platform windows --targets exe
+
+      # Package the build.
+      - name: Copy build for exe
+        run: ls -R
+        working-directory: dist

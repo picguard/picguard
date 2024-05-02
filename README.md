@@ -95,6 +95,14 @@ dart run flutter_distributor:main package --platform linux --targets deb
 # https://distributor.leanflutter.dev/makers/rpm/
 dart run flutter_distributor:main package --platform linux --targets rpm
 
+# https://jrsoftware.org/isinfo.php
+# https://distributor.leanflutter.dev/zh-hans/makers/exe/
+flutter_distributor package --platform windows --targets exe
+
+# https://flutter.cn/docs/platform-integration/windows/building#msix-packaging
+# https://distributor.leanflutter.dev/zh-hans/makers/msix/
+flutter_distributor package --platform windows --targets msix
+
 # https://flutter.cn/docs/deployment/linux
 # https://snapcraft.io/docs/snapcraft-yaml-reference
 snapcraft
