@@ -20,7 +20,7 @@ jobs:
           flutter-version: '3.19.6'
 
       - name: Compile .iss to .exe installer
-        uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
         with:
           path: windows/packaging/exe/inno_setup.iss
           options: /O+
