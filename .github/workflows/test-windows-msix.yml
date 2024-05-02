@@ -1,0 +1,47 @@
+name: Test Windows msix
+
+on:
+  workflow_dispatch:
+
+# Declare default permissions as readonly.
+permissions: read-all
+
+jobs:
+  msix:
+    name: Create msix
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Install flutter_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Install certificates
+        run: |
+          CERTIFICATE_PATH=$RUNNER_TEMP/picguard_windows.pfx
+          echo "$WINDOWS_CERTIFICATE" | base64 --decode > $CERTIFICATE_PATH
+          sed 's/CERTIFICATE_PATH_PLACEHOLDER/$CERTIFICATE_PATH/' windows/packaging/msix/make_config.yaml
+          sed 's/CERTIFICATE_PASSWORD_PLACEHOLDER/$WINDOWS_CERTIFICATE_PASSWORD/' windows/packaging/msix/make_config.yaml
+        env:
+          WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+          WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+
+      - name: Build msix
+        run: flutter_distributor package --platform windows --targets msix
+
+      # Package the build.
+      - name: Copy build for msix
+        run: ls -laR
+        working-directory: dist
