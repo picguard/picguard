@@ -93,6 +93,7 @@ jobs:
         - zip
         - snap
         - msix
+        - exe
       steps:
         - uses: actions/checkout@v4
 
@@ -892,3 +893,60 @@ jobs:
           echo "$env:RUNNER_TEMP\picguard_windows.pfx"
           remove-item -Path "$env:RUNNER_TEMP\picguard_windows.pfx" -Force -ErrorAction SilentlyContinue
           remove-item -Path "windows\packaging\msix\make_config.yaml" -Force -ErrorAction SilentlyContinue
+
+  exe:
+    name: Create exe
+    runs-on: windows-latest
+    needs:
+      - create_release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      #      - name: Compile .iss to .exe installer
+      #        uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
+      #        with:
+      #          path: windows/packaging/exe/inno_setup.iss
+      #          options: /O+
+
+      - name: Copy ChineseSimplified.isl to C:\Program Files (x86)\Inno Setup 6\Languages\
+        run: |
+          copy-item -Path windows\Languages\Unofficial\*.isl -Destination 'C:\Program Files (x86)\Inno Setup 6\Languages\'
+
+      - name: Install flutter_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build exe
+        run: flutter_distributor package --platform windows --targets exe --artifact-name picguard.exe
+
+      # Package the build.
+      - name: Copy build for exe
+        run: |
+          ls -R
+          cp .\**\*.exe "$env:GITHUB_WORKSPACE\"
+        working-directory: dist
+
+      - name: Show gh info
+        run: gh --version
+
+      - name: Upload assets
+        run: |
+          $env:RELEASE = $(If ($env:ENV -eq "development") {"$env:VERSION_SUFFIX"} Else {"$env:VERSION"})
+          # https://github.com/cli/cli/issues/5099
+          gh release upload "$env:RELEASE" (get-item .\*.exe)
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
