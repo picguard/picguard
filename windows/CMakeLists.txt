@@ -106,3 +106,16 @@ install(DIRECTORY "${PROJECT_BUILD_DIR}/${FLUTTER_ASSET_DIR_NAME}"
 install(FILES "${AOT_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_DATA_DIR}"
   CONFIGURATIONS Profile;Release
   COMPONENT Runtime)
+
+# https://github.com/flutter/flutter/issues/131163
+# Copy main flutter dlls from [https://docs.flutter.dev/platform-integration/windows/building]
+# to the same folder where app's executable is located. Remove dlls from their original source path
+# after copying.
+set(SOURCE_FILES
+  "${CMAKE_CURRENT_SOURCE_DIR}/DLLs/msvcp140.dll"
+  "${CMAKE_CURRENT_SOURCE_DIR}/DLLs/vcruntime140.dll"
+  "${CMAKE_CURRENT_SOURCE_DIR}/DLLs/vcruntime140_1.dll"
+)
+install(FILES "${SOURCE_FILES}" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
+  CONFIGURATIONS Debug;Profile;Release
+  COMPONENT Runtime)
