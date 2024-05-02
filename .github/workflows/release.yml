@@ -878,7 +878,8 @@ jobs:
       - name: Upload assets
         run: |
           $env:RELEASE = $(If ($env:ENV -eq "development") {"$env:VERSION_SUFFIX"} Else {"$env:VERSION"})
-          gh release upload "$env:RELEASE" .\*.msix
+          # https://github.com/cli/cli/issues/5099
+          gh release upload "$env:RELEASE" (get-item .\*.msix)
         env:
           ENV: ${{ github.event.inputs.env }}
           VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
