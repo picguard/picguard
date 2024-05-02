@@ -12,7 +12,7 @@ export const platforms: Record<SystemOS, string[]> = {
   ios: [".ipa"],
   android: [".apk", ".aab"],
   macos: [".dmg", ".app.tar.gz"],
-  windows: [".exe", ".nsis.zip"],
+  windows: [".exe", ".msix", ".nsis.zip"],
   linux: [
     ".AppImage",
     ".AppImage.tar.gz",

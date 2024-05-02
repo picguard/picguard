@@ -1,0 +1,11 @@
+msix_config:
+  display_name: PicGuard
+  publisher_display_name: Qingdao INSCO Network Technology Co., Ltd.
+  identity_name: QingdaoINSCONetworkTechno.PicGuard
+  msix_version: 1.0.0.0
+#  logo_path: C:\path\to\logo.png
+  languages: zh, en
+  store: true
+  certificate_path: CERTIFICATE_PATH_PLACEHOLDER
+  certificate_password: CERTIFICATE_PASSWORD_PLACEHOLDER
+  publisher: CN=5585C59A-AF21-4C4B-B1BE-407391662EF6
