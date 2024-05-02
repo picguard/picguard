@@ -29,7 +29,7 @@
     "i18next": "^23.11.3",
     "i18next-browser-languagedetector": "^7.2.1",
     "i18next-resources-to-backend": "^1.2.1",
-    "joi": "^17.13.0",
+    "joi": "^17.13.1",
     "lodash": "^4.17.21",
     "lucide-react": "^0.376.0",
     "ms": "^2.1.3",
