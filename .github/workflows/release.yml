@@ -810,7 +810,7 @@ jobs:
 
       - name: Build snap
         run: |
-          snapcraft --verbose
+          snapcraft --verbose --output picguard.snap
 
       # Package the build.
       - name: Copy build for snap
