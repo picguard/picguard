@@ -856,7 +856,7 @@ jobs:
       - name: Install certificates
         run: |
           echo $env:RUNNER_TEMP
-          $env:CERTIFICATE_PATH = "$env:RUNNER_TEMP\picguard_windows.pfx"
+          $env:CERTIFICATE_PATH = "$env:RUNNER_TEMP\picguard.pfx"
           echo $env:WINDOWS_CERTIFICATE | openssl base64 -d -out $env:CERTIFICATE_PATH
           (get-content windows\packaging\msix\make_config.yaml) -replace 'CERTIFICATE_PATH_PLACEHOLDER', $env:CERTIFICATE_PATH -replace 'CERTIFICATE_PASSWORD_PLACEHOLDER', $env:WINDOWS_CERTIFICATE_PASSWORD | Out-File -encoding ASCII windows\packaging\msix\make_config.yaml
         env:
@@ -890,8 +890,8 @@ jobs:
       - name: Clean up
         if: ${{ always() }}
         run: |
-          echo "$env:RUNNER_TEMP\picguard_windows.pfx"
-          remove-item -Path "$env:RUNNER_TEMP\picguard_windows.pfx" -Force -ErrorAction SilentlyContinue
+          echo "$env:RUNNER_TEMP\picguard.pfx"
+          remove-item -Path "$env:RUNNER_TEMP\picguard.pfx" -Force -ErrorAction SilentlyContinue
           remove-item -Path "windows\packaging\msix\make_config.yaml" -Force -ErrorAction SilentlyContinue
 
   exe:
