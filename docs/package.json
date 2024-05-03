@@ -13,7 +13,7 @@
   "dependencies": {
     "@emotion/is-prop-valid": "^1.2.2",
     "@hookform/resolvers": "^3.3.4",
-    "@octokit/rest": "^20.1.0",
+    "@octokit/rest": "^20.1.1",
     "@tsparticles/engine": "^3.3.0",
     "@tsparticles/react": "^3.0.0",
     "accept-language": "^3.0.18",
