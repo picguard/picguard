@@ -39,7 +39,7 @@ export default function GitHubPkg(
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <div className="w-full min-w-[14rem] overflow-scroll rounded-md bg-white p-2 dark:bg-black max-md:max-h-[60vh] md:max-h-[60vh]">
+          <div className="no-scrollbar w-full min-w-[14rem] overflow-scroll rounded-md bg-white p-2 dark:bg-black max-md:max-h-[60vh] md:max-h-[60vh]">
             {assets.map((asset) => {
               return (
                 <DropdownMenuItem
@@ -70,7 +70,7 @@ export default function GitHubPkg(
           </Button>
         </DrawerTrigger>
         <DrawerContent>
-          <div className="min-w-sm mx-auto w-full overflow-scroll rounded-md p-2 max-md:max-h-[60vh] md:max-h-[60vh]">
+          <div className="min-w-sm no-scrollbar mx-auto w-full overflow-scroll rounded-md p-2 max-md:max-h-[60vh] md:max-h-[60vh]">
             {assets.map((asset) => {
               return (
                 <Link
