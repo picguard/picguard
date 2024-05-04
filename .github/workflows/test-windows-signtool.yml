@@ -15,3 +15,31 @@ jobs:
         run: |
           cd 'C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool'
           ls -R
+
+  msix:
+    name: Crate msix
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install certificates
+        run: |
+          echo $env:RUNNER_TEMP
+          $certificate_path = "$env:RUNNER_TEMP\picguard.pfx"
+          # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
+          # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
+          $bytes = echo $env:WINDOWS_CERTIFICATE | %{[Convert]::FromBase64String($_)}
+          [IO.File]::WriteAllBytes("$certificate_path", $bytes)
+          (get-content windows\packaging\msix\make_config.yaml) -replace 'PUBLISHER_NAME_PLACEHOLDER', $env:WINDOWS_PUBLISHER_NAME -replace 'IDENTITY_NAME_PLACEHOLDER', $env:WINDOWS_IDENTITY_NAME -replace 'CERTIFICATE_PATH_PLACEHOLDER', $certificate_path -replace 'CERTIFICATE_PASSWORD_PLACEHOLDER', $env:WINDOWS_CERTIFICATE_PASSWORD -replace 'PUBLISHER_PLACEHOLDER', $env:WINDOWS_PUBLISHER | Out-File -encoding utf8 windows\packaging\msix\make_config.yaml
+        env:
+          WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
+          WINDOWS_IDENTITY_NAME: ${{ secrets.WINDOWS_IDENTITY_NAME }}
+          WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+          WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+          WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: |
+            windows\packaging\msix\make_config.yaml
