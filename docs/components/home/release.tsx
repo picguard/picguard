@@ -34,6 +34,7 @@ export default function Release({
       );
     }
     return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [release]);
 
   return (
