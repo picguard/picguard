@@ -72,6 +72,7 @@ dev_dependencies:
   flutter_gen_runner: ^5.4.0
   flutter_test:
     sdk: flutter
+  msix: ^3.16.7
   slang_build_runner: ^3.30.0
   very_good_analysis: ^5.1.0
 
@@ -119,6 +120,21 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+msix_config:
+  display_name: PicGuard
+  publisher_display_name: PUBLISHER_NAME_PLACEHOLDER
+  identity_name: IDENTITY_NAME_PLACEHOLDER
+  msix_version: 1.0.0.0
+  logo_path: snap\gui\picguard.png
+  languages: zh, en
+  store: true
+  architecture: x64
+  certificate_path: CERTIFICATE_PATH_PLACEHOLDER
+  certificate_password: CERTIFICATE_PASSWORD_PLACEHOLDER
+  install_certificate: false
+  publisher: PUBLISHER_PLACEHOLDER
+  capabilities: "internetClient,picturesLibrary"
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
