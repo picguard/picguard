@@ -1,10 +1,12 @@
 "use client";
+import React, { useCallback } from "react";
 import Link from "next/link";
 import Balancer from "react-wrap-balancer";
 import { RoughNotation } from "react-rough-notation";
 import { FaBlog } from "react-icons/fa";
 import Image from "next/image";
 import GithubRelease from "@/components/home/github-release";
+import StoreLinks from "@/components/home/store-links";
 import { useTranslation } from "@/i18n/client";
 import { allPosts } from "contentlayer/generated";
 import { basePath } from "@/constants";
@@ -25,6 +27,30 @@ export default function Home({
       return new Date(a.publishedAt) > new Date(b.publishedAt) ? -1 : 1;
     })
     .at(0);
+
+  const Section = useCallback(
+    ({
+      title,
+      children,
+      className,
+    }: {
+      title: string;
+      children: React.ReactNode;
+      className?: string;
+    }) => {
+      return (
+        <div
+          className={`mt-20 w-full max-w-screen-xl animate-fade-up px-5 xl:px-0 ${className || ""}`}
+        >
+          <div className="flex flex-row flex-nowrap items-center justify-center text-center text-3xl before:mr-5 before:h-[1px] before:max-w-xs before:flex-1 before:border-b-[1px] before:border-dashed before:border-b-gray-300 before:content-[''] after:ml-5 after:h-[1px] after:max-w-xs after:flex-1 after:border-b-[1px] after:border-dashed after:border-b-gray-300 after:content-[''] dark:before:border-b-gray-600 dark:after:border-b-gray-600">
+            {title}
+          </div>
+          {children}
+        </div>
+      );
+    },
+    [],
+  );
 
   return (
     <>
@@ -72,7 +98,12 @@ export default function Home({
           </Balancer>
         </p>
       </div>
-      <GithubRelease lng={params.lng} />
+      <Section className="mt-32" title={t("beta")}>
+        <GithubRelease lng={params.lng} />
+      </Section>
+      <Section className="mb-20 mt-32" title={t("store")}>
+        <StoreLinks lng={params.lng} />
+      </Section>
     </>
   );
 }
