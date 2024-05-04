@@ -1,4 +1,4 @@
-name: Test Linux
+name: Test Linux(arm64)
 
 on:
   workflow_dispatch:
@@ -43,7 +43,7 @@ jobs:
         run: flutter pub get
 
       - name: Build AppImage
-        run: flutter_distributor package --platform linux --targets appimage --artifact-name picguard.appimage
+        run: flutter_distributor package --platform linux --targets appimage --build-target-platform linux-arm64 --artifact-name picguard.aarch64.appimage
 
       # Package the build.
       - name: Copy build for AppImage
@@ -84,7 +84,7 @@ jobs:
         run: flutter pub get
 
       - name: Build deb
-        run: flutter_distributor package --platform linux --targets deb --artifact-name picguard.deb
+        run: flutter_distributor package --platform linux --targets deb --build-target-platform linux-arm64 --artifact-name picguard.aarch64.deb
 
       # Package the build.
       - name: Copy build for deb
@@ -129,7 +129,7 @@ jobs:
         run: flutter pub get
 
       - name: Build RPM
-        run: flutter_distributor package --platform linux --targets rpm --artifact-name picguard.rpm
+        run: flutter_distributor package --platform linux --targets rpm --build-target-platform linux-arm64 --artifact-name picguard.aarch64.rpm
 
       # Package the build.
       - name: Copy build for rpm
@@ -170,7 +170,7 @@ jobs:
         run: flutter pub get
 
       - name: Build zip
-        run: flutter_distributor package --platform linux --targets zip --artifact-name picguard.linux.zip
+        run: flutter_distributor package --platform linux --targets zip --build-target-platform linux-arm64 --artifact-name picguard.aarch64.linux.zip
 
       # Package the build.
       - name: Copy build for zip
