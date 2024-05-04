@@ -59,6 +59,7 @@ export default function StoreLinks({ lng }: LngProps) {
             <Link
               className="flex items-center justify-center space-x-2 rounded-full border border-gray-300 px-5 py-2 text-sm text-gray-600 shadow-md transition-colors hover:border-gray-800 dark:text-white/80 max-md:mx-0"
               href="https://play.google.com/store/apps/details?id=com.chenyifaer.homingpigeon"
+              target="_blank"
             >
               <GooglePlay className="h-7 w-7" />
               <p>
@@ -68,6 +69,7 @@ export default function StoreLinks({ lng }: LngProps) {
             <Link
               className="flex items-center justify-center space-x-2 rounded-full border border-gray-300 px-5 py-2 text-sm text-gray-600 shadow-md transition-colors hover:border-gray-800 dark:text-white/80 max-md:mx-0"
               href="https://apps.apple.com/us/app/id6470935922"
+              target="_blank"
             >
               <AppStore className="h-7 w-7" />
               <p>
@@ -77,6 +79,7 @@ export default function StoreLinks({ lng }: LngProps) {
             <Link
               className="flex items-center justify-center space-x-2 rounded-full border border-gray-300 px-5 py-2 text-sm text-gray-600 shadow-md transition-colors hover:border-gray-800 dark:text-white/80 max-md:mx-0"
               href="https://apps.apple.com/us/app/id6477482447"
+              target="_blank"
             >
               <Apple className="h-7 w-7" />
               <p>
@@ -86,6 +89,7 @@ export default function StoreLinks({ lng }: LngProps) {
             <Link
               className="flex items-center justify-center space-x-2 rounded-full border border-gray-300 px-5 py-2 text-sm text-gray-600 shadow-md transition-colors hover:border-gray-800 dark:text-white/80 max-md:mx-0"
               href="https://www.microsoft.com/store/apps/9NCC0LJBG7TB"
+              target="_blank"
             >
               <Microsoft className="h-7 w-7" />
               <p>
@@ -95,6 +99,7 @@ export default function StoreLinks({ lng }: LngProps) {
             <Link
               className="flex items-center justify-center space-x-2 rounded-full border border-gray-300 px-5 py-2 text-sm text-gray-600 shadow-md transition-colors hover:border-gray-800 dark:text-white/80 max-md:mx-0"
               href="https://snapcraft.io/picguard"
+              target="_blank"
             >
               <Linux className="h-7 w-7" />
               <p>
