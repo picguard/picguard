@@ -25,9 +25,6 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Install flutter dependencies
-        run: flutter pub get
-
       - name: Install certificates
         run: |
           echo $env:RUNNER_TEMP
@@ -36,7 +33,7 @@ jobs:
           # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
           $bytes = echo $env:WINDOWS_CERTIFICATE | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$certificate_path", $bytes)
-          (get-content windows\packaging\msix\make_config.yaml) -replace 'PUBLISHER_NAME_PLACEHOLDER', $env:WINDOWS_PUBLISHER_NAME -replace 'IDENTITY_NAME_PLACEHOLDER', $env:WINDOWS_IDENTITY_NAME -replace 'CERTIFICATE_PATH_PLACEHOLDER', $certificate_path -replace 'CERTIFICATE_PASSWORD_PLACEHOLDER', $env:WINDOWS_CERTIFICATE_PASSWORD -replace 'PUBLISHER_PLACEHOLDER', $env:WINDOWS_PUBLISHER | Out-File -encoding utf8 windows\packaging\msix\make_config.yaml
+          (get-content pubspec.yaml) -replace 'PUBLISHER_NAME_PLACEHOLDER', $env:WINDOWS_PUBLISHER_NAME -replace 'IDENTITY_NAME_PLACEHOLDER', $env:WINDOWS_IDENTITY_NAME -replace 'CERTIFICATE_PATH_PLACEHOLDER', $certificate_path -replace 'CERTIFICATE_PASSWORD_PLACEHOLDER', $env:WINDOWS_CERTIFICATE_PASSWORD -replace 'PUBLISHER_PLACEHOLDER', $env:WINDOWS_PUBLISHER | Out-File -encoding utf8 pubspec.yaml
         env:
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
           WINDOWS_IDENTITY_NAME: ${{ secrets.WINDOWS_IDENTITY_NAME }}
@@ -44,13 +41,16 @@ jobs:
           WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
           WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER }}
 
+      - name: Install flutter dependencies
+        run: flutter pub get
+
       - name: Build msix
-        run: flutter_distributor package --platform windows --targets msix --artifact-name picguard.msix
+        run: dart run msix:create
 
       # Package the build.
       - name: Copy build for msix
-        run: ls -R
-        working-directory: dist
+        run: ls
+        working-directory: build\windows\x64\runner\Release
 
       - name: Clean up
         if: ${{ always() }}
@@ -61,11 +61,4 @@ jobs:
             remove-item -Path "$env:RUNNER_TEMP\picguard.pfx" -Force -ErrorAction SilentlyContinue
           } else {
             echo "File($env:RUNNER_TEMP\picguard.pfx) doesn't exist."
-          }
-          
-          if (test-path -Path "windows\packaging\msix\make_config.yaml") {
-            echo "windows\packaging\msix\make_config.yaml"
-            remove-item -Path "windows\packaging\msix\make_config.yaml" -Force -ErrorAction SilentlyContinue
-          } else {
-            echo "File(windows\packaging\msix\make_config.yaml) doesn't exist."
           }
