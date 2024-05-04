@@ -9,3 +9,4 @@ msix_config:
   certificate_path: CERTIFICATE_PATH_PLACEHOLDER
   certificate_password: CERTIFICATE_PASSWORD_PLACEHOLDER
   publisher: PUBLISHER_PLACEHOLDER
+  capabilities: "internetClient,picturesLibrary"
