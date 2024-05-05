@@ -1,0 +1,96 @@
+name: Test macOS pkg
+
+on:
+  workflow_dispatch:
+
+# Declare default permissions as readonly.
+permissions: read-all
+
+jobs:
+  pkg:
+    name: Create pkg
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Resolving flutter dependencies
+        run: flutter pub get
+
+      - name: Resolving macos dependencies
+        run: cd macos && pod install --repo-update && cd ..
+
+      - name: Build macOS
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          cd macos && xcodebuild clean && cd ..
+          echo "╠ Releasing to app store..."
+          bash build-macos.sh && flutter build macos
+
+      - name: Install certificates
+        env:
+          DEVELOPER_ID_INSTALLER_CERT_BASE64_MAC: ${{ secrets.DEVELOPER_ID_INSTALLER_CERT_BASE64_MAC }}
+          DEVELOPER_ID_INSTALLER_P12_BASE64_MAC: ${{ secrets.DEVELOPER_ID_INSTALLER_P12_BASE64_MAC }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          # create variables
+          CERT_PATH=$RUNNER_TEMP/development.cer
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          KEYCHAIN_PATH=$RUNNER_TEMP/pg-signing.keychain-db
+
+          # import certificate and provisioning profile from secrets
+          echo -n "$DEVELOPER_ID_INSTALLER_CERT_BASE64_MAC" | base64 --decode --output $CERT_PATH
+          echo -n "$DEVELOPER_ID_INSTALLER_P12_BASE64_MAC" | base64 --decode --output $CERTIFICATE_PATH
+
+          # create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          # security default-keychain -s $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security import $CERT_PATH -P "$P12_PASSWORD" -A -t cert -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+          # security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+      - name: Build pkg & code signing
+        run: |
+          # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
+          xcrun pkgbuild --component "PicGuard.app" --install-location /Applications --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard.pkg
+        env:
+          DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY }}
+        working-directory: build/macos/Build/Products/Release
+
+      # Package the build.
+      - name: Copy build for pkg
+        run: ls -la *.pkg
+        working-directory: build/macos/Build/Products/Release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pkg-artifact
+          path: |
+            build/macos/Build/Products/Release/*.pkg
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          if [ -f "$RUNNER_TEMP/pg-signing.keychain-db" ]; then
+            echo "$RUNNER_TEMP/pg-signing.keychain-db"
+            security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
+          fi
