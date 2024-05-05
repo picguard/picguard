@@ -41,11 +41,6 @@ jobs:
           bash build-macos.sh && flutter build macos
 
       - name: Install certificates
-        env:
-          DEVELOPER_ID_INSTALLER_P12_BASE64_MAC: ${{ secrets.DEVELOPER_ID_INSTALLER_P12_BASE64_MAC }}
-          DEVELOPER_ID_APPLICATION_P12_BASE64_MAC: ${{ secrets.P12_BASE64_MAC }}
-          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
           # create variables
           DEVELOPER_ID_INSTALLER_CERTIFICATE_PATH=$RUNNER_TEMP/build_developerID_installer_certificate.p12
@@ -58,7 +53,6 @@ jobs:
 
           # create temporary keychain
           security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          # security default-keychain -s $KEYCHAIN_PATH
           security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
 
@@ -66,19 +60,25 @@ jobs:
           security import $DEVELOPER_ID_INSTALLER_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security import $DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
-          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          # security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+        env:
+          DEVELOPER_ID_INSTALLER_P12_BASE64_MAC: ${{ secrets.DEVELOPER_ID_INSTALLER_P12_BASE64_MAC }}
+          DEVELOPER_ID_APPLICATION_P12_BASE64_MAC: ${{ secrets.DEVELOPER_ID_APPLICATION_P12_BASE64_MAC }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
       - name: Code Signing
         run: |
           # https://stackoverflow.com/questions/70991268/how-to-sign-and-notarize-a-pkg-within-a-github-actions-macos-runner
-          bash codesign-pkg.sh $SIGNING_IDENTITY
+          bash codesign-pkg.sh "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY"
         env:
-          SIGNING_IDENTITY: ${{ secrets.SIGNING_IDENTITY }}
+          DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
 
       - name: Build & Sign pkg
         run: |
           # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
-          xcrun pkgbuild --component "./PicGuard.app" --install-location /Applications --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard.pkg
+          xcrun pkgbuild --component "./PicGuard.app" --install-location /Applications --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard-unsigned.pkg
+          xcrun productsign --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard-unsigned.pkg PicGuard.pkg
         env:
           DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY }}
         working-directory: build/macos/Build/Products/Release
