@@ -44,5 +44,6 @@ app.*.map.json
 
 /node_modules
 /*.dmg
+/*.pkg
 dist/
 /*.snap
