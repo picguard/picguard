@@ -1,0 +1,53 @@
+name: Test macOS zip
+
+on:
+  workflow_dispatch:
+
+# Declare default permissions as readonly.
+permissions: read-all
+
+jobs:
+  macos_zip:
+    name: Create macos zip
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Install flutter_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Install p7zip
+        run: brew install p7zip
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Resolving flutter dependencies
+        run: flutter pub get
+
+      - name: Resolving macos dependencies
+        run: cd macos && pod install --repo-update && cd ..
+
+      - name: Build macOS
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          cd macos && xcodebuild clean && cd ..
+          echo "╠ Releasing to app store..."
+          bash build-macos.sh && flutter_distributor package --platform macos --targets zip --artifact-name picguard.macos.zip
+
+      # Package the build.
+      - name: Copy build for zip
+        run: ls -laR
+        working-directory: dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zip-artifact
+          path: |
+            dist/**/*.macos.zip
