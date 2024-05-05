@@ -78,7 +78,7 @@ jobs:
         run: |
           # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
           xcrun pkgbuild --component "./PicGuard.app" --install-location /Applications --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard-unsigned.pkg
-          xcrun productsign --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard-unsigned.pkg PicGuard.pkg
+          xcrun productbuild --package PicGuard-unsigned.pkg --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard.pkg
         env:
           DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY }}
         working-directory: build/macos/Build/Products/Release
