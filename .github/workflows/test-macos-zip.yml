@@ -73,19 +73,6 @@ jobs:
 
       - name: Notarize app
         run: |
-          PROFILE_NAME=pg-profile
-          KEYCHAIN_PROFILE_PATH=$RUNNER_TEMP/pg-profile-signing.keychain-db
-          
-          # create temporary keychain
-          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PROFILE_PATH
-          security set-keychain-settings -lut 21600 $KEYCHAIN_PROFILE_PATH
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PROFILE_PATH
-          
-          # Store the notarization credentials so that we can prevent a UI password dialog
-          # from blocking the CI
-          echo "Create keychain profile"
-          xcrun notarytool store-credentials "$PROFILE_NAME" --keychain "$KEYCHAIN_PROFILE_PATH" --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --password "$APPLE_PASSWORD"
-
           # We can't notarize an app bundle directly, but we need to compress it as an archive.
           # Therefore, we create a zip file containing our app bundle, so that we can send it to the
           # notarization service
@@ -97,7 +84,7 @@ jobs:
           # characteristics. Visit the Notarization docs for more information and strategies on how to optimize it if
           # you're curious
           echo "Notarize app"
-          xcrun notarytool submit "PicGuard.zip" --keychain-profile "$PROFILE_NAME" --keychain "$KEYCHAIN_PROFILE_PATH" --wait
+          xcrun notarytool submit "PicGuard.zip" --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --password "$APPLE_PASSWORD" --wait
 
           # Finally, we need to "attach the staple" to our executable, which will allow our app to be
           # validated by macOS even when an internet connection is not available.
@@ -132,8 +119,4 @@ jobs:
           if [ -f "$RUNNER_TEMP/pg-signing.keychain-db" ]; then
             echo "$RUNNER_TEMP/pg-signing.keychain-db"
             security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
-          fi
-          if [ -f "$RUNNER_TEMP/pg-profile-signing.keychain-db" ]; then
-            echo "$RUNNER_TEMP/pg-profile-signing.keychain-db"
-            security delete-keychain $RUNNER_TEMP/pg-profile-signing.keychain-db
           fi

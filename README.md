@@ -109,6 +109,15 @@ snapcraft
 
 # Test snap
 sudo snap install ./picguard_1.0.0_amd64.snap --dangerous
+
+# build & sign pkg
+# developer id installer
+xcrun pkgbuild --component "./PicGuard.app" --install-location /Applications --sign "" PicGuard.pkg
+
+# Notarize pkg
+xcrun notarytool submit --verbose PicGuard.pkg --apple-id "" --team-id "" --password ""
+xcrun notarytool info <id> --apple-id "" --team-id "" --password ""
+xcrun notarytool log <id> --apple-id "" --team-id "" --password ""
 ```
 
 ## Tests
