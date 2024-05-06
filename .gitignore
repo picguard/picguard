@@ -47,3 +47,4 @@ app.*.map.json
 /*.pkg
 dist/
 /*.snap
+/issues.txt
