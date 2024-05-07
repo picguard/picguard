@@ -5,8 +5,11 @@ ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 project 'PicGuardMac', {
   'Debug' => :debug,
+  'AppStore-Debug' => :debug,
   'Profile' => :release,
+  'AppStore-Profile' => :release,
   'Release' => :release,
+  'AppStore-Release' => :release,
 }
 
 def flutter_root
@@ -32,6 +35,16 @@ target 'PicGuardMac' do
 
   flutter_install_all_macos_pods File.dirname(File.realpath(__FILE__))
   target 'PicGuardMacTests' do
+    inherit! :search_paths
+  end
+end
+
+target 'PicGuardMacAppStore' do
+  use_frameworks!
+  use_modular_headers!
+
+  flutter_install_all_macos_pods File.dirname(File.realpath(__FILE__))
+  target 'PicGuardMacAppStoreTests' do
     inherit! :search_paths
   end
 end
