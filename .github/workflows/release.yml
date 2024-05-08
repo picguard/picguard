@@ -624,7 +624,7 @@ jobs:
       - name: Copy build for pkg
         run: |
           ls -la *.pkg
-          cp *.pkg $GITHUB_WORKSPACE/
+          cp PicGuard.pkg $GITHUB_WORKSPACE/
         working-directory: build/macos/Build/Products/Release
 
       - name: Show gh info
