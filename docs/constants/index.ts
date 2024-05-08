@@ -11,15 +11,8 @@ export const basePath =
 export const platforms: Record<SystemOS, string[]> = {
   ios: [".ipa"],
   android: [".apk", ".aab"],
-  macos: [".dmg", ".app.tar.gz"],
-  windows: [".exe", ".msix", ".nsis.zip"],
-  linux: [
-    ".AppImage",
-    ".AppImage.tar.gz",
-    ".deb",
-    ".rpm",
-    ".snap",
-    ".linux.zip",
-  ],
+  macos: [".dmg", ".pkg", ".macos.zip"],
+  windows: [".exe", ".msix"],
+  linux: [".AppImage", ".deb", ".rpm", ".snap", ".linux.zip"],
 };
 export const pageSize: number = 10;
