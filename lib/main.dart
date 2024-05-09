@@ -1,11 +1,7 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
-import 'package:picguard/firebase_options.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/modules/home/home.dart';
 import 'package:picguard/theme/theme.dart';
@@ -15,12 +11,6 @@ import 'package:window_manager/window_manager.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SpUtil.getInstance();
-
-  if (kIsWeb || isFirebaseSupported) {
-    await Firebase.initializeApp(
-      options: kIsWeb ? DefaultFirebaseOptions.web : null,
-    );
-  }
 
   if (isDesktop) {
     await WindowManager.instance.ensureInitialized();
@@ -49,11 +39,6 @@ class MainApp extends StatelessWidget {
       navigatorKey: AppNavigator.key,
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
-      navigatorObservers: isFirebaseSupported
-          ? <NavigatorObserver>[
-              FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
-            ]
-          : [],
       locale: TranslationProvider.of(context).flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
