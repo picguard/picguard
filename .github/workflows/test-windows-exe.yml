@@ -19,6 +19,14 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          echo "$pwd"
+          $bytes = echo $env:ENV_KEY | %{[Convert]::FromBase64String($_)}
+          [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
+
 #      - name: Compile .iss to .exe installer
 #        uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
 #        with:
@@ -46,7 +54,7 @@ jobs:
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
 
       - name: Build exe
-        run: flutter_distributor package --platform windows --targets exe --artifact-name picguard.exe
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env" --platform windows --targets exe --artifact-name picguard.exe
 
       # Package the build.
       - name: Copy build for exe
@@ -78,4 +86,10 @@ jobs:
             remove-item -Path "$env:RUNNER_TEMP\picguard.pfx" -Force -ErrorAction SilentlyContinue
           } else {
             echo "File($env:RUNNER_TEMP\picguard.pfx) doesn't exist."
+          }
+          if (test-path -Path "$pwd\.env") {
+            echo "Remove file($pwd\.env)"
+            remove-item -Path "$pwd\.env" -Force -ErrorAction SilentlyContinue
+          } else {
+            echo "File($pwd\.env) doesn't exist."
           }

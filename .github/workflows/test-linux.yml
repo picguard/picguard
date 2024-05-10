@@ -33,6 +33,12 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
+
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
@@ -43,12 +49,17 @@ jobs:
         run: flutter pub get
 
       - name: Build AppImage
-        run: flutter_distributor package --platform linux --targets appimage --artifact-name picguard.appimage
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets appimage --artifact-name picguard.appimage
 
       # Package the build.
       - name: Copy build for AppImage
         run: ls -laR
         working-directory: dist
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
 
   deb:
     name: Create deb
@@ -74,6 +85,12 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
+
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
@@ -84,12 +101,17 @@ jobs:
         run: flutter pub get
 
       - name: Build deb
-        run: flutter_distributor package --platform linux --targets deb --artifact-name picguard.deb
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets deb --artifact-name picguard.deb
 
       # Package the build.
       - name: Copy build for deb
         run: ls -laR
         working-directory: dist
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
 
   rpm:
     name: Create rpm
@@ -119,6 +141,12 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
+
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
@@ -129,12 +157,17 @@ jobs:
         run: flutter pub get
 
       - name: Build RPM
-        run: flutter_distributor package --platform linux --targets rpm --artifact-name picguard.rpm
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets rpm --artifact-name picguard.rpm
 
       # Package the build.
       - name: Copy build for rpm
         run: ls -laR
         working-directory: dist
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
 
   zip:
     name: Create zip
@@ -160,6 +193,12 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
+
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
@@ -170,9 +209,14 @@ jobs:
         run: flutter pub get
 
       - name: Build zip
-        run: flutter_distributor package --platform linux --targets zip --artifact-name picguard.linux.zip
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets zip --artifact-name picguard.linux.zip
 
       # Package the build.
       - name: Copy build for zip
         run: ls -laR
         working-directory: dist
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env

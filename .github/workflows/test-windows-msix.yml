@@ -19,6 +19,14 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          echo "$pwd"
+          $bytes = echo $env:ENV_KEY | %{[Convert]::FromBase64String($_)}
+          [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
+
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
@@ -44,8 +52,11 @@ jobs:
       - name: Install flutter dependencies
         run: flutter pub get
 
-      - name: Build msix
-        run: dart run msix:create
+      - name: Build windows
+        run: flutter build windows --dart-define-from-file=.env
+
+      - name: Crate msix
+        run: dart run msix:create --build-windows false
 
       # Package the build.
       - name: Copy build for msix
@@ -61,4 +72,10 @@ jobs:
             remove-item -Path "$env:RUNNER_TEMP\picguard.pfx" -Force -ErrorAction SilentlyContinue
           } else {
             echo "File($env:RUNNER_TEMP\picguard.pfx) doesn't exist."
+          }
+          if (test-path -Path "$pwd\.env") {
+            echo "Remove file($pwd\.env)"
+            remove-item -Path "$pwd\.env" -Force -ErrorAction SilentlyContinue
+          } else {
+            echo "File($pwd\.env) doesn't exist."
           }
