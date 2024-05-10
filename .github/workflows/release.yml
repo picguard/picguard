@@ -7,9 +7,9 @@ on:
         type: choice
         description: "Which environment are you using?"
         required: true
-        default: "development"
+        default: "staging"
         options:
-          - development
+          - staging
           - production
 
 # Declare default permissions as readonly.
@@ -65,7 +65,7 @@ jobs:
 
       - name: Create a release
         run: |
-          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
           if [ "$ENV" == "production" ]; then
             gh release create "$RELEASE" --latest --title "$RELEASE" --notes "Env: $ENV <br /> Version: $RELEASE"
           else
@@ -105,7 +105,7 @@ jobs:
 
         - name: Remove a release
           run: |
-            RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+            RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
             gh release delete -y --cleanup-tag "$RELEASE"
           env:
             ENV: ${{ github.event.inputs.env }}
@@ -131,6 +131,15 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -153,12 +162,12 @@ jobs:
 
       # Build the application.
       - name: Build apk
-        if: github.event.inputs.env == 'development'
-        run: bash build-android.sh && flutter build apk --no-tree-shake-icons --flavor staging
+        if: github.event.inputs.env == 'staging'
+        run: bash build-android.sh && flutter build apk --dart-define-from-file=.env --no-tree-shake-icons --flavor staging
 
       - name: Build apk
         if: github.event.inputs.env == 'production'
-        run: flutter build apk --no-tree-shake-icons --flavor production
+        run: flutter build apk --dart-define-from-file=.env --no-tree-shake-icons --flavor production
 
       # Package the build.
       - name: Copy build for Android
@@ -172,7 +181,7 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
           gh release upload "$RELEASE" ./*.apk
         env:
           ENV: ${{ github.event.inputs.env }}
@@ -185,6 +194,7 @@ jobs:
         run: |
           rm -f android/app/upload-keystore.jks
           rm -f android/key.properties
+          rm -f .env
 
   aab:
     name: Create appbundle
@@ -204,6 +214,15 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -226,16 +245,16 @@ jobs:
 
       # Build the application.
       - name: Build appbundle
-        if: github.event.inputs.env == 'development'
-        run: bash build-android.sh && flutter build appbundle --no-tree-shake-icons --flavor staging
+        if: github.event.inputs.env == 'staging'
+        run: bash build-android.sh && flutter build appbundle --dart-define-from-file=.env --no-tree-shake-icons --flavor staging
 
       - name: Build appbundle
         if: github.event.inputs.env == 'production'
-        run: flutter build appbundle --no-tree-shake-icons --flavor production
+        run: flutter build appbundle --dart-define-from-file=.env --no-tree-shake-icons --flavor production
 
       # Package the build.
       - name: Copy build for Android
-        if: github.event.inputs.env == 'development'
+        if: github.event.inputs.env == 'staging'
         run: |
           ls -la
           cp *.aab $GITHUB_WORKSPACE/PicGuard.aab
@@ -253,7 +272,7 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
           gh release upload "$RELEASE" ./*.aab
         env:
           ENV: ${{ github.event.inputs.env }}
@@ -266,6 +285,7 @@ jobs:
         run: |
           rm -f android/app/upload-keystore.jks
           rm -f android/key.properties
+          rm -f .env
 
   ios:
     name: Create ios
@@ -280,6 +300,15 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: '3.19.6'
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -305,7 +334,7 @@ jobs:
           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
           CERTIFICATE_DEV_PATH=$RUNNER_TEMP/build_certificate_dev.p12
           CERT_PATH=$RUNNER_TEMP/ios_distribution.cer
-          CERT_DEV_PATH=$RUNNER_TEMP/development.cer
+          CERT_DEV_PATH=$RUNNER_TEMP/ios_development.cer
           PP_PATH=$RUNNER_TEMP/watermark_assistant_appstore.mobileprovision
           PP_DEV_PATH=$RUNNER_TEMP/watermark_assistant_dev.mobileprovision
           KEYCHAIN_PATH=$RUNNER_TEMP/pg-signing.keychain-db
@@ -336,12 +365,12 @@ jobs:
           mv $PP_DEV_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
       - name: Build ipa
-        if: github.event.inputs.env == 'development'
+        if: github.event.inputs.env == 'staging'
         run: |
           echo "╠ Removing build products and intermediate files from the build root..."
           cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to adhoc..."
-          bash build-ios.sh && flutter build ipa --export-options-plist=ios/ExportOptions-debug.plist
+          bash build-ios.sh && flutter build ipa --dart-define-from-file=.env --export-options-plist=ios/ExportOptions-debug.plist
 
       - name: Build ipa
         if: github.event.inputs.env == 'production'
@@ -349,7 +378,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build ipa --export-options-plist=ios/ExportOptions-release.plist
+          flutter build ipa --dart-define-from-file=.env --export-options-plist=ios/ExportOptions-release.plist
 
       # Package the build.
       - name: Copy build for iOS
@@ -363,7 +392,7 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
           gh release upload "$RELEASE" ./*.ipa
         env:
           ENV: ${{ github.event.inputs.env }}
@@ -379,6 +408,7 @@ jobs:
             security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
           fi
           rm -f ~/Library/MobileDevice/Provisioning\ Profiles/watermark_assistant_*.mobileprovision
+          rm -f .env
 
   macos_dmg:
     name: Create macos(dmg)
@@ -403,6 +433,15 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -413,12 +452,12 @@ jobs:
         run: cd macos && pod install --repo-update && cd ..
 
       - name: Build macOS
-        if: github.event.inputs.env == 'development'
+        if: github.event.inputs.env == 'staging'
         run: |
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          bash build-macos.sh && flutter build macos
+          bash build-macos.sh && flutter build macos --dart-define-from-file=.env
 
       - name: Build macOS
         if: github.event.inputs.env == 'production'
@@ -426,7 +465,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos
+          flutter build macos --dart-define-from-file=.env
 
       - name: Install certificates
         env:
@@ -501,7 +540,7 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
           gh release upload "$RELEASE" ./*.dmg
         env:
           ENV: ${{ github.event.inputs.env }}
@@ -516,6 +555,7 @@ jobs:
             echo "$RUNNER_TEMP/pg-signing.keychain-db"
             security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
           fi
+          rm -f .env
 
 
   macos_pkg:
@@ -532,6 +572,15 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -542,12 +591,12 @@ jobs:
         run: cd macos && pod install --repo-update && cd ..
 
       - name: Build macOS
-        if: github.event.inputs.env == 'development'
+        if: github.event.inputs.env == 'staging'
         run: |
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          bash build-macos.sh && flutter build macos
+          bash build-macos.sh && flutter build macos --dart-define-from-file=.env
 
       - name: Build macOS
         if: github.event.inputs.env == 'production'
@@ -555,7 +604,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos
+          flutter build macos --dart-define-from-file=.env
 
       - name: Install certificates
         run: |
@@ -632,7 +681,7 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
           gh release upload "$RELEASE" ./*.pkg
         env:
           ENV: ${{ github.event.inputs.env }}
@@ -647,6 +696,7 @@ jobs:
             echo "$RUNNER_TEMP/pg-signing.keychain-db"
             security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
           fi
+          rm -f .env
 
 
   macos_appstore:
@@ -664,6 +714,12 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env for production
+        run: |
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV_KEY: ${{ secrets.ENV_PROD_BASE64 }}
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -678,7 +734,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to mac app store..."
-          flutter build macos --flavor AppStore
+          flutter build macos --dart-define-from-file=.env --flavor AppStore
 
       - name: Install certificates
         run: |
@@ -751,7 +807,7 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
           gh release upload "$RELEASE" ./*.pkg
         env:
           ENV: ${{ github.event.inputs.env }}
@@ -766,6 +822,7 @@ jobs:
             echo "$RUNNER_TEMP/pg-signing.keychain-db"
             security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
           fi
+          rm -f .env
 
 
   macos_zip:
@@ -781,6 +838,15 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: '3.19.6'
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
@@ -798,12 +864,12 @@ jobs:
         run: cd macos && pod install --repo-update && cd ..
 
       - name: Build macOS
-        if: github.event.inputs.env == 'development'
+        if: github.event.inputs.env == 'staging'
         run: |
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          bash build-macos.sh && flutter build macos
+          bash build-macos.sh && flutter build macos --dart-define-from-file=.env
 
       - name: Build macOS
         if: github.event.inputs.env == 'production'
@@ -811,7 +877,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos
+          flutter build macos --dart-define-from-file=.env
 
       - name: Install certificates
         env:
@@ -886,7 +952,7 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
           gh release upload "$RELEASE" ./*.macos.zip
         env:
           ENV: ${{ github.event.inputs.env }}
@@ -901,6 +967,7 @@ jobs:
             echo "$RUNNER_TEMP/pg-signing.keychain-db"
             security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
           fi
+          rm -f .env
 
 
   appimage:
@@ -931,6 +998,15 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
@@ -941,7 +1017,7 @@ jobs:
         run: flutter pub get
 
       - name: Build AppImage
-        run: flutter_distributor package --platform linux --targets appimage --artifact-name picguard.appimage
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets appimage --artifact-name picguard.appimage
 
       # Package the build.
       - name: Copy build for AppImage
@@ -955,13 +1031,18 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
           gh release upload "$RELEASE" ./*.AppImage
         env:
           ENV: ${{ github.event.inputs.env }}
           VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
           VERSION: ${{ needs.create_release.outputs.version }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
 
   deb:
     name: Create deb
@@ -989,6 +1070,15 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
@@ -999,7 +1089,7 @@ jobs:
         run: flutter pub get
 
       - name: Build deb
-        run: flutter_distributor package --platform linux --targets deb --artifact-name picguard.deb
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets deb --artifact-name picguard.deb
 
       # Package the build.
       - name: Copy build for deb
@@ -1013,13 +1103,18 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
           gh release upload "$RELEASE" ./*.deb
         env:
           ENV: ${{ github.event.inputs.env }}
           VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
           VERSION: ${{ needs.create_release.outputs.version }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
 
   rpm:
     name: Create rpm
@@ -1051,6 +1146,15 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
@@ -1061,7 +1165,7 @@ jobs:
         run: flutter pub get
 
       - name: Build RPM
-        run: flutter_distributor package --platform linux --targets rpm --artifact-name picguard.rpm
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets rpm --artifact-name picguard.rpm
 
       # Package the build.
       - name: Copy build for rpm
@@ -1075,13 +1179,18 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
           gh release upload "$RELEASE" ./*.rpm
         env:
           ENV: ${{ github.event.inputs.env }}
           VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
           VERSION: ${{ needs.create_release.outputs.version }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
 
   zip:
     name: Create zip
@@ -1109,6 +1218,15 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
@@ -1119,7 +1237,7 @@ jobs:
         run: flutter pub get
 
       - name: Build zip
-        run: flutter_distributor package --platform linux --targets zip --artifact-name picguard.linux.zip
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets zip --artifact-name picguard.linux.zip
 
       # Package the build.
       - name: Copy build for zip
@@ -1133,13 +1251,18 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
           gh release upload "$RELEASE" ./*.linux.zip
         env:
           ENV: ${{ github.event.inputs.env }}
           VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
           VERSION: ${{ needs.create_release.outputs.version }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
 
   snap:
     name: Create snap
@@ -1171,6 +1294,15 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -1183,6 +1315,7 @@ jobs:
 
       - name: Build snap
         run: |
+          # TODO: add dart-define-from-file to flutter build linux
           snapcraft --verbose --output picguard.snap
 
       # Package the build.
@@ -1194,13 +1327,18 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "development" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX" || echo "$VERSION")"
           gh release upload "$RELEASE" ./*.snap
         env:
           ENV: ${{ github.event.inputs.env }}
           VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.timestamp }}-${{ needs.create_release.outputs.sha_short }}"
           VERSION: ${{ needs.create_release.outputs.version }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
 
   msix:
     name: Create msix
@@ -1215,6 +1353,17 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: '3.19.6'
+
+      - name: Configure .env
+        run: |
+          echo "$pwd"
+          $env_base64 = $(If ($env:ENV -eq "staging") {"$env:ENV_STG_BASE64"} Else {"$env:ENV_PROD_BASE64"})
+          $bytes = echo $env_base64 | %{[Convert]::FromBase64String($_)}
+          [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64_WINDOWS }}
 
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
@@ -1241,8 +1390,11 @@ jobs:
       - name: Install flutter dependencies
         run: flutter pub get
 
-      - name: Build msix
-        run: dart run msix:create
+      - name: Build windows
+        run: flutter build windows --dart-define-from-file=.env
+
+      - name: Crate msix
+        run: dart run msix:create --build-windows false
 
       # Package the build.
       - name: Copy build for msix
@@ -1256,7 +1408,7 @@ jobs:
 
       - name: Upload assets
         run: |
-          $env:RELEASE = $(If ($env:ENV -eq "development") {"$env:VERSION_SUFFIX"} Else {"$env:VERSION"})
+          $env:RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION_SUFFIX"} Else {"$env:VERSION"})
           # https://github.com/cli/cli/issues/5099
           gh release upload "$env:RELEASE" (get-item .\*.msix)
         env:
@@ -1281,6 +1433,13 @@ jobs:
           } else {
             echo "File(windows\packaging\msix\make_config.yaml) doesn't exist."
           }
+          
+          if (test-path -Path "$pwd\.env") {
+            echo "Remove file($pwd\.env)"
+            remove-item -Path "$pwd\.env" -Force -ErrorAction SilentlyContinue
+          } else {
+            echo "File($pwd\.env) doesn't exist."
+          }
 
   exe:
     name: Create exe
@@ -1295,6 +1454,17 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: '3.19.6'
+
+      - name: Configure .env
+        run: |
+          echo "$pwd"
+          $env_base64 = $(If ($env:ENV -eq "staging") {"$env:ENV_STG_BASE64"} Else {"$env:ENV_PROD_BASE64"})
+          $bytes = echo $env_base64 | %{[Convert]::FromBase64String($_)}
+          [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64_WINDOWS }}
 
       #      - name: Compile .iss to .exe installer
       #        uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
@@ -1323,7 +1493,7 @@ jobs:
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
 
       - name: Build exe
-        run: flutter_distributor package --platform windows --targets exe --artifact-name picguard.exe
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env" --platform windows --targets exe --artifact-name picguard.exe
 
       - name: Signing
         run: |
@@ -1353,7 +1523,7 @@ jobs:
 
       - name: Upload assets
         run: |
-          $env:RELEASE = $(If ($env:ENV -eq "development") {"$env:VERSION_SUFFIX"} Else {"$env:VERSION"})
+          $env:RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION_SUFFIX"} Else {"$env:VERSION"})
           # https://github.com/cli/cli/issues/5099
           gh release upload "$env:RELEASE" (get-item .\*.exe)
         env:
@@ -1370,4 +1540,11 @@ jobs:
             remove-item -Path "$env:RUNNER_TEMP\picguard.pfx" -Force -ErrorAction SilentlyContinue
           } else {
             echo "File($env:RUNNER_TEMP\picguard.pfx) doesn't exist."
+          }
+          
+          if (test-path -Path "$pwd\.env") {
+            echo "Remove file($pwd\.env)"
+            remove-item -Path "$pwd\.env" -Force -ErrorAction SilentlyContinue
+          } else {
+            echo "File($pwd\.env) doesn't exist."
           }

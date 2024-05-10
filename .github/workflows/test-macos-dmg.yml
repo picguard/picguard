@@ -28,6 +28,12 @@ jobs:
           channel: 'stable'
           flutter-version: '3.19.6'
 
+      - name: Configure .env
+        run: |
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -42,7 +48,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          bash build-macos.sh && flutter build macos
+          bash build-macos.sh && flutter build macos --dart-define-from-file=.env
 
       - name: Install certificates
         env:
@@ -125,3 +131,4 @@ jobs:
             echo "$RUNNER_TEMP/pg-signing.keychain-db"
             security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
           fi
+          rm -f .env
