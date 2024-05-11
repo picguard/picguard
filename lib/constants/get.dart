@@ -27,3 +27,5 @@ bool get isShowLicenseDialog {
     /// windows
   ].contains(defaultTargetPlatform);
 }
+
+RegExp versionClearfix = RegExp(r'\+[0-9-a-z]+');

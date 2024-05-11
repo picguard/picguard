@@ -465,7 +465,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env
+          rm -f macos/Flutter/BuildConfig.xcconfig && flutter build macos --dart-define-from-file=.env
 
       - name: Install certificates
         env:
@@ -604,7 +604,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env
+          rm -f macos/Flutter/BuildConfig.xcconfig && flutter build macos --dart-define-from-file=.env
 
       - name: Install certificates
         run: |
@@ -877,7 +877,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env
+          rm -f macos/Flutter/BuildConfig.xcconfig && flutter build macos --dart-define-from-file=.env
 
       - name: Install certificates
         env:

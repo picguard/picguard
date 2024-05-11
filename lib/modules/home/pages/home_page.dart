@@ -13,6 +13,7 @@ import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:picguard/app/manager.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/i18n/i18n.dart';
@@ -115,6 +116,15 @@ class _HomePageState extends State<HomePage> with WindowListener {
               previewBtn,
               const Gap(10),
               saveBtn,
+              const Gap(20),
+              Text(
+                'PicGuard ${AppManager.instance.version}',
+                style: const TextStyle(
+                  color: secondaryTextColor,
+                  fontSize: 12,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
