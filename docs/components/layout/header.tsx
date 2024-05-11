@@ -1,7 +1,13 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { FaRegPlayCircle } from "react-icons/fa";
+import { ExternalLink } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "muse-ui";
 import useScroll from "@/lib/hooks/use-scroll";
 import LngDropdown from "./lng-dropdown";
 import ThemeDropdown from "./theme-dropdown";
@@ -48,13 +54,22 @@ export default function Header(props: LngProps) {
           <ul className="flex flex-col items-center rounded-lg border border-gray-100 p-4 font-medium dark:border-gray-700 max-md:space-y-3 md:mt-0 md:flex-row md:space-x-3 md:border-0 md:p-0">
             <li className="h-8 w-8 sm:h-9 sm:w-9">
               <div className="relative inline-block text-left">
-                <Link
-                  href="https://picguard.app"
-                  target="_blank"
-                  className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full transition-all duration-75 focus:outline-none active:scale-95 sm:h-9 sm:w-9"
-                >
-                  <FaRegPlayCircle className="h-5 w-5" />
-                </Link>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Link
+                        href="https://picguard.app"
+                        target="_blank"
+                        className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full transition-all duration-75 focus:outline-none active:scale-95 sm:h-9 sm:w-9"
+                      >
+                        <ExternalLink className="h-5 w-5" />
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t("menus.goto-picguard")}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             </li>
             {/*<li className="h-8 w-8 sm:h-9 sm:w-9">*/}
