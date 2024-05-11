@@ -3,7 +3,8 @@
   "menus": {
     "system": "Auto Mode",
     "dark": "Dark Mode",
-    "light": "Light Mode"
+    "light": "Light Mode",
+    "goto-picguard": "Go to PicGuard"
   },
   "languages": {
     "zh": "Chinese",
