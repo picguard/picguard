@@ -48,7 +48,7 @@ dependencies:
   gap: ^3.0.1
   image_picker: ^1.1.1
   keyboard_dismisser: ^3.0.0
-  logger: ^2.2.0
+  logging: ^1.2.0
   mime: ^1.0.5
   package_info_plus: ^8.0.0
   path: ^1.9.0
@@ -57,6 +57,7 @@ dependencies:
   reorderables: ^0.6.0
   sentry: ^8.1.0
   sentry_flutter: ^8.1.0
+  sentry_logging: ^8.1.0
   shared_preferences: ^2.2.3
   slang: ^3.30.2
   slang_flutter: ^3.30.0

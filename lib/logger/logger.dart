@@ -1,24 +1,15 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-import 'package:logger/logger.dart';
+import 'package:logging/logging.dart';
 
-final logger = Logger(
-  printer: PrettyPrinter(),
-);
+final logger = Logger('PicGuard');
 
 void printDebugLog(Object? object) {
-  if (!kReleaseMode) {
-    final line = object?.toString();
-    logger.d(line);
-  }
+  logger.shout(object);
 }
 
 void printWarningLog(Object? object) {
-  if (!kReleaseMode) {
-    final line = object?.toString();
-    logger.w(line);
-  }
+  logger.warning(object);
 }
 
 void printErrorLog(
@@ -26,15 +17,10 @@ void printErrorLog(
   DateTime? time,
   StackTrace? stackTrace,
 }) {
-  if (!kReleaseMode) {
-    logger.e(null, error: error, stackTrace: stackTrace);
-  }
+  logger.severe(null, error, stackTrace);
 }
 
 FutureOr<bool> printErrorStackLog(dynamic error, StackTrace stackTrace) async {
-  if (!kReleaseMode) {
-    logger.e(null, error: error, stackTrace: stackTrace);
-  }
-
+  logger.severe(null, error, stackTrace);
   return true;
 }
