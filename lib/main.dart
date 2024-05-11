@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:logging/logging.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:picguard/app/manager.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/i18n/i18n.dart';
@@ -28,6 +30,10 @@ FlutterErrorDetails makeErrorDetails(Object error, StackTrace stackTrace) {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // app version / build number
+  await initApp();
+
   await SpUtil.getInstance();
 
   Logger.root.level = kReleaseMode ? Level.OFF : Level.ALL; // defaults to Level.INFO
@@ -129,4 +135,11 @@ class MainApp extends StatelessWidget {
       },
     );
   }
+}
+
+Future<void> initApp() async {
+  final packageInfo = await PackageInfo.fromPlatform();
+  AppManager.instance
+    ..version = packageInfo.version
+    ..buildNumber = packageInfo.buildNumber;
 }
