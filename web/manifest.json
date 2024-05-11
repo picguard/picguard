@@ -5,7 +5,7 @@
   "display": "standalone",
   "background_color": "#0175C2",
   "theme_color": "#0175C2",
-  "description": "PicGuard - This app can add watermarks to pictures to prevent them from being used maliciously.",
+  "description": "PicGuard - Your pictures, your signature.",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "icons": [
