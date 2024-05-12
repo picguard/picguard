@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:picguard/app/manager.dart';
 
 /// Checks if the current environment is a desktop environment.
 bool get isDesktop {
@@ -28,4 +29,16 @@ bool get isShowLicenseDialog {
   ].contains(defaultTargetPlatform);
 }
 
-RegExp versionClearfix = RegExp(r'\+[0-9-a-z]+');
+String? get appVersion {
+  final version = AppManager.instance.version;
+  final buildNumber = AppManager.instance.buildNumber;
+  if (kIsWeb) return '$version+$buildNumber';
+  if ([
+    TargetPlatform.android,
+    TargetPlatform.iOS,
+    TargetPlatform.macOS,
+  ].contains(defaultTargetPlatform)) {
+    return version;
+  }
+  return '$version+$buildNumber';
+}
