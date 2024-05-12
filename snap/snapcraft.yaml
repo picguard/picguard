@@ -36,7 +36,5 @@ parts:
     source: .
     plugin: flutter
     flutter-target: lib/main.dart # The main entry-point file of the application
-#    override-build: | # https://forum.snapcraft.io/t/issue-while-packaging-snap/33693
-#      craftctl default
-#      # WORKAROUND: Use python from search path, the path detected by meson doesn't exist when running the Snap
-#      sed -e '1c#!/usr/bin/env python3' -i "${CRAFT_PART_INSTALL}/usr/bin/picguard"
+    override-build: |
+      cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/

@@ -51,15 +51,24 @@ jobs:
         run: |
           sudo snap install snapcraft --classic
 
+      - name: Build linux
+        run: |
+          flutter build linux --dart-define-from-file=.env --target-platform=linux-arm64
+
       - name: Build snap
         run: |
           # https://snapcraft.io/docs/flutter-applications
-          # TODO: add dart-define-from-file to flutter build linux
-          snapcraft --verbose --output picguard.snap
+          snapcraft --output picguard.snap
 
       # Package the build.
       - name: Copy build for snap
         run: ls -la *.snap
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: snap-artifact
+          path: |
+            ./*.snap
 
       - name: Clean up
         if: ${{ always() }}
