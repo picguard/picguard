@@ -3,16 +3,8 @@
   "extends": ["config:base"],
   "rangeStrategy": "bump",
   "prHourlyLimit": 0,
-  "ignoreDeps": ["flutter_localizations", "flutter_test", "node"],
+  "ignoreDeps": ["flutter_localizations", "flutter_test"],
   "packageRules": [
-    {
-      "allowedVersions": "18",
-      "matchPackageNames": ["@types/node"]
-    },
-    {
-      "allowedVersions": "7",
-      "matchPackageNames": ["query-string"]
-    },
     {
       "matchPackageNames": ["flutter", "dart"],
       "groupName": "flutter"
