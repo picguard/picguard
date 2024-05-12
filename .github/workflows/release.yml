@@ -1313,10 +1313,14 @@ jobs:
         run: |
           sudo snap install snapcraft --classic
 
+      - name: Build linux
+        run: |
+          flutter build linux --dart-define-from-file=.env --target-platform=linux-x64
+
       - name: Build snap
         run: |
-          # TODO: add dart-define-from-file to flutter build linux
-          snapcraft --verbose --output picguard.snap
+          # https://snapcraft.io/docs/flutter-applications
+          snapcraft --output picguard.snap
 
       # Package the build.
       - name: Copy build for snap
