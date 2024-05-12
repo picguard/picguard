@@ -47,12 +47,12 @@ app打包发生变化，这样发布到蒲公英的版本号，会带有commit�
 
 - 如果发布到测试环境, 运行
 ```shell
-make apk
+make ENV=<dev|stg|prod> apk
 ```
 
 - 如果发布到生产环境, 运行
 ```shell
-make appbundle
+make ENV=<dev|stg|prod> appbundle
 ```
 
 ### iOS
@@ -61,12 +61,12 @@ make appbundle
 
 - 如果发布到测试环境, 运行
 ```shell
-make adhoc
+make ENV=<dev|stg|prod> adhoc
 ```
 
 - 如果发布到生产环境, 运行
 ```shell
-make appstore
+make ENV=<dev|stg|prod> appstore
 ```
 
 ### macOS
@@ -75,12 +75,12 @@ make appstore
 
 - 如果发布到测试环境, 运行
 ```shell
-make macos_adhoc
+make ENV=<dev|stg|prod> macos_adhoc
 ```
 
 - 如果发布到生产环境, 运行
 ```shell
-make macos_appstore
+make ENV=<dev|stg|prod> macos_appstore
 ```
 
 ### Linux
