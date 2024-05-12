@@ -56,6 +56,12 @@ jobs:
         run: ls -laR
         working-directory: dist
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: appimage-artifact
+          path: |
+            ./dist/**/*.AppImage
+
       - name: Clean up
         if: ${{ always() }}
         run: |
@@ -107,6 +113,12 @@ jobs:
       - name: Copy build for deb
         run: ls -laR
         working-directory: dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: deb-artifact
+          path: |
+            ./dist/**/*.deb
 
       - name: Clean up
         if: ${{ always() }}
@@ -164,6 +176,12 @@ jobs:
         run: ls -laR
         working-directory: dist
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rpm-artifact
+          path: |
+            ./dist/**/*.rpm
+
       - name: Clean up
         if: ${{ always() }}
         run: |
@@ -215,6 +233,12 @@ jobs:
       - name: Copy build for zip
         run: ls -laR
         working-directory: dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-zip-artifact
+          path: |
+            ./dist/**/*.linux.zip
 
       - name: Clean up
         if: ${{ always() }}

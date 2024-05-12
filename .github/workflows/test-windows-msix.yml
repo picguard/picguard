@@ -63,6 +63,12 @@ jobs:
         run: ls
         working-directory: build\windows\x64\runner\Release
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-msix-artifact
+          path: |
+            .\build\windows\x64\runner\Release\*.msix
+
       - name: Clean up
         if: ${{ always() }}
         run: |
