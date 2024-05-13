@@ -51,10 +51,6 @@ jobs:
         run: |
           sudo snap install snapcraft --classic
 
-      - name: Build linux
-        run: |
-          flutter build linux --dart-define-from-file=.env --target-platform=linux-x64
-
       - name: Build snap
         run: |
           # https://snapcraft.io/docs/flutter-applications
@@ -74,3 +70,4 @@ jobs:
         if: ${{ always() }}
         run: |
           rm -f .env
+          snapcraft clean
