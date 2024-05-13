@@ -51,9 +51,17 @@ jobs:
         run: |
           sudo snap install snapcraft --classic
 
-      - name: Build linux
+      - name: Install yq
         run: |
-          flutter build linux --dart-define-from-file=.env --target-platform=linux-arm64
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            brew install yq
+          fi
+          yq --version
+
+      - name: Update snapcraft.yaml
+        run: |
+          yq -i '.parts.picguard.build-environment[3].TARGET_PLATFORM = "linux-arm64"' snap/snapcraft.yaml
 
       - name: Build snap
         run: |
@@ -74,3 +82,4 @@ jobs:
         if: ${{ always() }}
         run: |
           rm -f .env
+          snapcraft clean

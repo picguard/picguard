@@ -10,19 +10,16 @@ source-code: https://github.com/picguard/picguard
 issues: https://github.com/picguard/picguard/issues
 website: https://www.kjxbyz.com/picguard
 architectures:
-  - build-on: [ amd64 ]
-  - build-on: [ arm64 ]
-
+  - build-on: [amd64]
+  - build-on: [arm64]
 confinement: strict
 base: core22
 grade: stable
-
 slots:
   dbus-picguard: # adjust accordingly to your app name
     interface: dbus
     bus: session
     name: com.kjxbyz.watermarkassistant # adjust accordingly to your app name and
-
 apps:
   picguard:
     command: picguard
@@ -35,6 +32,22 @@ parts:
   picguard:
     source: .
     plugin: flutter
-    flutter-target: lib/main.dart # The main entry-point file of the application
+    # flutter-target: lib/main.dart # The main entry-point file of the application
+    build-environment:
+      - FLUTTER_REPO: https://github.com/flutter/flutter.git
+      - FLUTTER_CHANNEL: stable
+      - FLUTTER_TARGET: lib/main.dart
+      - TARGET_PLATFORM: linux-x64
     override-build: |
+      # https://github.com/canonical/snapcraft/blob/main/snapcraft/parts/plugins/flutter_plugin.py
+      PG_FLUTTER_BUILD_DIR="$CRAFT_PART_BUILD/flutter-distro"
+      if [ -d "$PG_FLUTTER_BUILD_DIR" ]; then
+        echo "$PG_FLUTTER_BUILD_DIR"
+        rm -rf $PG_FLUTTER_BUILD_DIR
+      fi
+      git clone --depth 1 -b $FLUTTER_CHANNEL $FLUTTER_REPO $PG_FLUTTER_BUILD_DIR
+      flutter doctor -v
+      flutter precache --linux
+      flutter pub get
+      flutter build linux --release --dart-define-from-file=.env --target-platform $TARGET_PLATFORM --target $FLUTTER_TARGET
       cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/
