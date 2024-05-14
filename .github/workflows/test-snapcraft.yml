@@ -47,6 +47,18 @@ jobs:
       - name: Install flutter dependencies
         run: flutter pub get
 
+      - name: Install yq
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            brew install yq
+          fi
+          yq --version
+
+      - name: Update snapcraft.yaml
+        run: |
+          yq -i '.parts.picguard.build-environment[1].FLUTTER_VERSION = "3.19.6"' snap/snapcraft.yaml
+
       - name: Install snapcraft
         run: |
           sudo snap install snapcraft --classic
