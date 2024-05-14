@@ -1324,6 +1324,7 @@ jobs:
       - name: Update snapcraft.yaml
         run: |
           yq -i '.version = strenv(VERSION)' snap/snapcraft.yaml
+          yq -i '.parts.picguard.build-environment[1].FLUTTER_VERSION = "3.19.6"' snap/snapcraft.yaml
         env:
           VERSION: ${{ needs.create_release.outputs.version }}
 
