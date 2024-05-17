@@ -1,3 +1,2 @@
 #include? "Pods/Target Support Files/Pods-PicGuard/Pods-PicGuard.release.xcconfig"
 #include "Generated.xcconfig"
-#include? "BuildConfig.xcconfig"

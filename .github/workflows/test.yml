@@ -64,7 +64,7 @@ jobs:
         working-directory: android
 
       - name: Build Apk
-        run: bash build-android.sh && flutter build apk --no-tree-shake-icons --dart-define-from-file=.env --flavor staging
+        run: flutter build apk --no-tree-shake-icons --dart-define-from-file=.env --flavor staging
 
       # Package the build.
       - name: Copy build for Android
@@ -121,7 +121,7 @@ jobs:
         working-directory: android
 
       - name: Build Appbundle
-        run: bash build-android.sh && flutter build appbundle --no-tree-shake-icons --dart-define-from-file=.env --flavor staging
+        run: flutter build appbundle --no-tree-shake-icons --dart-define-from-file=.env --flavor staging
 
       # Package the build.
       - name: Copy build for Android
@@ -212,7 +212,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          bash build-ios.sh && flutter build ipa --dart-define-from-file=.env --export-options-plist=ios/ExportOptions-debug.plist
+          flutter build ipa --dart-define-from-file=.env --export-options-plist=ios/ExportOptions-debug.plist
 
       # Package the build.
       - name: Copy build for iOS
@@ -270,7 +270,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          bash build-macos.sh && flutter build macos --dart-define-from-file=.env
+          flutter build macos --dart-define-from-file=.env
 
       - name: Install certificates
         env:
