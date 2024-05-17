@@ -32,13 +32,5 @@ bool get isShowLicenseDialog {
 String? get appVersion {
   final version = AppManager.instance.version;
   final buildNumber = AppManager.instance.buildNumber;
-  if (kIsWeb) return '$version+$buildNumber';
-  if ([
-    TargetPlatform.android,
-    TargetPlatform.iOS,
-    TargetPlatform.macOS,
-  ].contains(defaultTargetPlatform)) {
-    return version;
-  }
   return '$version+$buildNumber';
 }

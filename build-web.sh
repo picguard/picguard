@@ -2,15 +2,15 @@
 
 set -e
 
-commit_sha="$VERCEL_GIT_COMMIT_SHA"
-echo "${commit_sha:0:8}"
-
 if [[ "$VERCEL_ENV" == "preview" ]] ; then
   echo "🔥Building web app in preview environment"
-  flutter/bin/flutter build web --dart-define SENTRY_DSN="$PG_ENV_STG" --build-number "${commit_sha:0:8}"
+  flutter/bin/flutter build web --dart-define SENTRY_DSN="$PG_ENV_STG"
 else
   echo "🔥Building web app in production environment"
-  flutter/bin/flutter build web --dart-define SENTRY_DSN="$PG_ENV_PROD" --build-number "${commit_sha:0:8}"
+  echo "VERCEL_GIT_COMMIT_SHA: $VERCEL_GIT_COMMIT_SHA"
+  COMMIT_COUNT="$(git rev-list --count $VERCEL_GIT_COMMIT_SHA)"
+  echo "COMMIT_COUNT: $COMMIT_COUNT"
+  flutter/bin/flutter build web --dart-define SENTRY_DSN="$PG_ENV_PROD" --build-number "$COMMIT_COUNT"
 fi
 
 exit 0
