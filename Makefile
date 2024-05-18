@@ -14,15 +14,6 @@ clean: ## Cleans the environment
 	make get
 
 install:
-	make npm_install
-	make ios_install
-	make macos_install
-
-npm_install:
-	echo "╠ Resolving npm dependencies..."
-	cd docs && pnpm i && cd ..
-
-pub_install:
 	make ios_install
 	make macos_install
 
