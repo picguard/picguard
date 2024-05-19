@@ -70,7 +70,7 @@ jobs:
           # apply provisioning profile
           # https://developer.apple.com/documentation/bundleresources/placing_content_in_a_bundle/
           # security cms -D -i watermark_assistant_mac_appstore.provisionprofile
-          mv $THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PP_PATH build/macos/Build/Products/AppStore-Release/PicGuardAppStore.app/Contents/embedded.provisionprofile
+          mv $THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PP_PATH build/macos/Build/Products/AppStore-Release/PicGuard.app/Contents/embedded.provisionprofile
         env:
           THIRD_PARTY_MAC_DEVELOPER_INSTALLER_P12_BASE64_MAC: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_INSTALLER_P12_BASE64_MAC }}
           THIRD_PARTY_MAC_DEVELOPER_APPLICATION_P12_BASE64_MAC: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_APPLICATION_P12_BASE64_MAC }}
@@ -82,15 +82,16 @@ jobs:
         run: |
           # https://stackoverflow.com/questions/70991268/how-to-sign-and-notarize-a-pkg-within-a-github-actions-macos-runner
           # https://developer.apple.com/forums/thread/733942
-          # codesign -dvvv PicGuardAppStore.app
-          /usr/bin/codesign --deep --force -s "$THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY" --entitlements macos/Runner/AppStore-Release.entitlements --options runtime build/macos/Build/Products/AppStore-Release/PicGuardAppStore.app -v
+          # https://stackoverflow.com/questions/60384835/dyld-library-not-loaded-code-signature-invalid
+          # codesign -dvvv PicGuard.app
+          bash codesign-pkg-appstore.sh "$THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY"
         env:
           THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY }}
 
       - name: Build & Sign pkg
         run: |
           # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
-          xcrun productbuild --sign "$THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY" --component PicGuardAppStore.app /Applications PicGuardAppStore.pkg
+          xcrun productbuild --sign "$THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY" --component PicGuard.app /Applications PicGuard.pkg
         env:
           THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY }}
         working-directory: build/macos/Build/Products/AppStore-Release
@@ -104,7 +105,7 @@ jobs:
         with:
           name: pkg-appstore-artifact
           path: |
-            ./build/macos/Build/Products/AppStore-Release/PicGuardAppStore.pkg
+            ./build/macos/Build/Products/AppStore-Release/PicGuard.pkg
 
       - name: Clean up
         if: ${{ always() }}

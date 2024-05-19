@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2EB5177B2BE92E7100B87C88"
-               BuildableName = "PicGuardAppStore.app"
+               BuildableName = "PicGuard.app"
                BlueprintName = "PicGuardMacAppStore"
                ReferencedContainer = "container:PicGuardMac.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2EB5177B2BE92E7100B87C88"
-            BuildableName = "PicGuardAppStore.app"
+            BuildableName = "PicGuard.app"
             BlueprintName = "PicGuardMacAppStore"
             ReferencedContainer = "container:PicGuardMac.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2EB5177B2BE92E7100B87C88"
-            BuildableName = "PicGuardAppStore.app"
+            BuildableName = "PicGuard.app"
             BlueprintName = "PicGuardMacAppStore"
             ReferencedContainer = "container:PicGuardMac.xcodeproj">
          </BuildableReference>
