@@ -111,7 +111,7 @@
 		25D32C4970278FA4EB7F6A4A /* Pods_PicGuardMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicGuardMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BD7A93FA3C0FDCDAAE1027B /* Pods-PicGuardMacTests.appstore-profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.appstore-profile.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.appstore-profile.xcconfig"; sourceTree = "<group>"; };
 		2E22E73F2BEA5ABF0084157E /* AppStore-Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "AppStore-Release.entitlements"; sourceTree = "<group>"; };
-		2EB517902BE92E7100B87C88 /* PicGuardAppStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicGuardAppStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EB517902BE92E7100B87C88 /* PicGuard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicGuard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB5179F2BE9A59D00B87C88 /* PicGuardMacAppStoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PicGuardMacAppStoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB517A22BE9A63700B87C88 /* AppStore-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AppStore-Info.plist"; path = "Runner/AppStore-Info.plist"; sourceTree = "<group>"; };
 		2EB517B52BE9A91D00B87C88 /* AppStore-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "AppStore-Release.xcconfig"; sourceTree = "<group>"; };
@@ -235,7 +235,7 @@
 			children = (
 				33CC10ED2044A3C60003C045 /* PicGuard.app */,
 				331C80D5294CF71000263BE5 /* PicGuardMacTests.xctest */,
-				2EB517902BE92E7100B87C88 /* PicGuardAppStore.app */,
+				2EB517902BE92E7100B87C88 /* PicGuard.app */,
 				2EB5179F2BE9A59D00B87C88 /* PicGuardMacAppStoreTests.xctest */,
 			);
 			name = Products;
@@ -344,7 +344,7 @@
 			);
 			name = PicGuardMacAppStore;
 			productName = Runner;
-			productReference = 2EB517902BE92E7100B87C88 /* PicGuardAppStore.app */;
+			productReference = 2EB517902BE92E7100B87C88 /* PicGuard.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2EB517922BE9A59D00B87C88 /* PicGuardMacAppStoreTests */ = {
@@ -781,7 +781,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuardAppStore;
+				PRODUCT_NAME = PicGuard;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -814,7 +814,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuardAppStore;
+				PRODUCT_NAME = PicGuard;
 				PROVISIONING_PROFILE_SPECIFIER = watermark_assistant_mac_appstore;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = watermark_assistant_mac_appstore;
 				SWIFT_VERSION = 5.0;
@@ -845,7 +845,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuardAppStore;
+				PRODUCT_NAME = PicGuard;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = watermark_assistant_mac_appstore;
 				SWIFT_VERSION = 5.0;
@@ -1027,7 +1027,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuardAppStore;
+				PRODUCT_NAME = PicGuard;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1175,7 +1175,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuardAppStore;
+				PRODUCT_NAME = PicGuard;
 				PROVISIONING_PROFILE_SPECIFIER = watermark_assistant_mac_appstore;
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = watermark_assistant_mac_appstore;
 				SWIFT_VERSION = 5.0;
@@ -1320,7 +1320,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuardAppStore;
+				PRODUCT_NAME = PicGuard;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = watermark_assistant_mac_appstore;
 				SWIFT_VERSION = 5.0;
