@@ -799,13 +799,29 @@ jobs:
           # https://developer.apple.com/forums/thread/733942
           # https://stackoverflow.com/questions/60384835/dyld-library-not-loaded-code-signature-invalid
           # codesign -dvvv PicGuard.app
-          bash codesign-pkg-appstore.sh "$THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY"
+          # https://lessons.livecode.com/a/876834-signing-and-uploading-apps-to-the-mac-app-store
+          
+          # 1. Code sign executables
+          echo "Code sign executables"
+          /usr/bin/codesign --deep --force --sign "$THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY" build/macos/Build/Products/AppStore-Release/PicGuard.app
+          
+          # 2. Code sign entitlements.plist
+          echo "Code sign entitlements.plist"
+          /usr/bin/codesign --force --sign "$THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY" --entitlements macos/Runner/AppStore-Release.entitlements build/macos/Build/Products/AppStore-Release/PicGuard.app
+          
+          # 3. Just to confirm all is well, verify the code signing
+          # No response means that there were no errors and it is code signed.
+          # /usr/bin/codesign --verify build/macos/Build/Products/AppStore-Release/PicGuard.app
         env:
           THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY }}
 
-      - name: Build & Sign pkg
+      - name: Create pkg
         run: |
           # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
+          # [Test the installer].  (Note the "-target /" that comes after the path to the pkg file)
+          # It will go through the installation process to confirm that the installer package is OK.
+          # NOTE: If the app is signed for distribution to the Mac App Store the resulting app will not run locally.
+          # sudo installer -store -package <path_to_app_pkg_file> -target /
           xcrun productbuild --sign "$THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY" --component PicGuard.app /Applications PicGuard.pkg
         env:
           THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY }}
