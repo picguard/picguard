@@ -36,7 +36,8 @@ Future<void> main() async {
 
   await SpUtil.getInstance();
 
-  Logger.root.level = kReleaseMode ? Level.OFF : Level.ALL; // defaults to Level.INFO
+  Logger.root.level =
+      kReleaseMode ? Level.OFF : Level.ALL; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {
     log('${record.level.name}: ${record.time}: ${record.message}');
   });
@@ -50,6 +51,8 @@ Future<void> main() async {
           ..profilesSampleRate = 1.0
           ..attachThreads = true
           ..enableWindowMetricBreadcrumbs = true
+          ..enableAppHangTracking =
+              false // https://github.com/getsentry/sentry-cocoa/issues/3472
           ..addIntegration(LoggingIntegration(minEventLevel: Level.INFO))
           ..sendDefaultPii = true
           ..reportSilentFlutterErrors = true
@@ -93,15 +96,22 @@ Future<void> main() async {
     });
   }
 
-  LocaleSettings.useDeviceLocale(); // initialize with the right locale
+  // initialize with the right locale
+  LocaleSettings.useDeviceLocale();
+
+  Widget child = const MainApp();
+  if (PgEnv.sentryEnabled) {
+    child = SentryWidget(
+      child: DefaultAssetBundle(
+        bundle: SentryAssetBundle(),
+        child: child,
+      ),
+    );
+  }
+
   runApp(
     TranslationProvider(
-      child: SentryWidget(
-        child: DefaultAssetBundle(
-          bundle: SentryAssetBundle(),
-          child: const MainApp(),
-        ),
-      ),
+      child: child,
     ),
   );
 }
