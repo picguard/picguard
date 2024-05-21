@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
   /// 图片组
   Widget get imageGroup {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.sizeOf(context).width;
     final contentWidth = width - padding * 2;
     final itemWidth = ((contentWidth - spacing * 2) / 3).floorToDouble();
     final items = _fileWrappers
