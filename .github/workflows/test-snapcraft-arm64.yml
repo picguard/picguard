@@ -9,7 +9,7 @@ permissions: read-all
 jobs:
   snap:
     name: Create snap
-    runs-on: ubuntu-latest
+    runs-on: warp-ubuntu-latest-arm64-2x
     steps:
       - uses: actions/checkout@v4
 
@@ -61,7 +61,7 @@ jobs:
       - name: Build snap
         run: |
           # https://snapcraft.io/docs/flutter-applications
-          snapcraft --output picguard.snap
+          snapcraft
 
       # Package the build.
       - name: Copy build for snap
@@ -69,7 +69,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: snap-artifact
+          name: snap-arm64-artifact
           path: |
             ./*.snap
 
