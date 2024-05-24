@@ -74,7 +74,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   msix: ^3.16.7
-  slang_build_runner: ^3.30.0
+  slang_build_runner: ^3.31.0
   very_good_analysis: ^5.1.0
 
 dependency_overrides:
