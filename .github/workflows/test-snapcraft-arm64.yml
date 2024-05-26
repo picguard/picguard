@@ -7,20 +7,22 @@ on:
 permissions: read-all
 
 jobs:
-  snap:
-    name: Create snap
+  snap_arm64:
+    name: Create snap(arm64)
     runs-on: buildjet-4vcpu-ubuntu-2204-arm
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup LXD
-        uses: canonical/setup-lxd
+        uses: canonical/setup-lxd@main
         with:
           group: lxd
           channel: latest/stable
 
-      - name: Add your username to the LXD (lxd) group
-        run: sudo usermod -a -G lxd $(whoami)
+      - name: Add user to the LXD (lxd) group
+        run: |
+          sudo usermod -a -G lxd ${USER}
+          newgrp lxd
 
       - name: Configure .env
         run: |
@@ -36,7 +38,7 @@ jobs:
         run: |
           if ! command -v yq >/dev/null 2>&1; then
             echo "yq not exists"
-            brew install yq
+            sudo snap install -y yq
           fi
           yq --version
 
@@ -45,10 +47,13 @@ jobs:
           rm -f snap/snapcraft.yaml
           mv snap/snapcraft-arm64.yaml snap/snapcraft.yaml
 
+      - name: Check LXD status
+        run: lxc launch ubuntu:22.04 testlxd
+
       - name: Build snap
         run: |
           # https://snapcraft.io/docs/flutter-applications
-          snapcraft
+          snapcraft --use-lxd
 
       # Package the build.
       - name: Copy build for snap

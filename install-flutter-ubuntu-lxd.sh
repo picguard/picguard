@@ -4,7 +4,7 @@ set -e
 
 if ! command -v wget >/dev/null 2>&1; then
    echo "🟩 Installing wget"
-   apt install wget xz -y
+   sudo apt install wget -y
 fi
 
 PG_FLUTTER_BUILD_DIR="$CRAFT_PART_BUILD/flutter-distro"

@@ -28,12 +28,13 @@ jobs:
         run: |
           if ! command -v yq >/dev/null 2>&1; then
             echo "yq not exists"
-            brew install yq
+            sudo snap install -y yq
           fi
           yq --version
 
       - name: Update snapcraft.yaml
         run: |
+          rm -f snap/snapcraft-arm64.yaml
           yq -i '.parts.picguard.build-environment[1].FLUTTER_VERSION = "3.19.6"' snap/snapcraft.yaml
 
       - name: Install snapcraft
