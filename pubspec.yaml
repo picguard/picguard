@@ -38,7 +38,7 @@ dependencies:
   file_picker: ^8.0.3
   flutter:
     sdk: flutter
-  flutter_form_builder: ^9.2.1
+  flutter_form_builder: ^9.3.0
   flutter_gen: ^5.5.0+1
   flutter_localizations:
     sdk: flutter
