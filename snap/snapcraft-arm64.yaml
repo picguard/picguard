@@ -36,16 +36,9 @@ parts:
     build-environment:
       - FLUTTER_TARGET: lib/main.dart
       - TARGET_PLATFORM: linux-arm64
-    stage-packages:
-      - clang
-      - cmake
-      - ninja-build
-      - pkg-config
-      - libgtk-3-dev
-      - liblzma-dev
     override-build: |
       # https://github.com/canonical/snapcraft/blob/main/snapcraft/parts/plugins/flutter_plugin.py
-      chmod +x install-ubuntu-lxd.sh && ./install-ubuntu-lxd.sh
+      chmod +x install-flutter-ubuntu-lxd.sh && ./install-flutter-ubuntu-lxd.sh
       flutter doctor -v
       flutter precache --linux
       flutter pub get

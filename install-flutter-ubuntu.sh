@@ -4,7 +4,7 @@ set -e
 
 if ! command -v wget >/dev/null 2>&1; then
    echo "🟩 Installing wget"
-   apt install wget xz -y
+   sudo apt install wget xz-utils -y
 fi
 
 FLUTTER_DIR="/home/linux-arm64"
