@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/flatpak/flatpak-builder/main/data/flatpak-manifest.schema.json
+
+---
+app-id: com.kjxbyz.PicGuard
+runtime: org.freedesktop.Platform
+runtime-version: "22.08"
+sdk: org.freedesktop.Sdk
+command: picguard
+separate-locales: false
+finish-args:
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+  - --socket=pulseaudio
+  - --share=network
+modules:
+  # PicGuard
+  - name: PicGuard
+    buildsystem: simple
+    only-arches:
+      - x86_64
+    build-commands:
+      - "ls -la"
+      - "bash ./build-flatpak.sh"
+    sources:
+      - type: dir
+        path: ../

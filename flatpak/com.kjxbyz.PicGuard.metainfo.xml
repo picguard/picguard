@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Generator for metainfo & .desktop files:
+    https://www.freedesktop.org/software/appstream/metainfocreator/#/
+-->
+<component type="desktop-application">
+    <id>com.kjxbyz.PicGuard</id>
+    <name>PicGuard</name>
+    <summary>Your pictures, your signature.</summary>
+    <developer_name>kjxbyz</developer_name>
+    <url type="homepage">https://kjxbyz.com/picguard</url>
+    <metadata_license>MIT</metadata_license>
+    <project_license>MIT</project_license>
+    <supports>
+        <control>pointing</control>
+        <control>keyboard</control>
+        <control>touch</control>
+    </supports>
+    <description>
+        <p>Your pictures, your signature.</p>
+        <p>Features</p>
+        <ul>
+            <li>Open Source!</li>
+        </ul>
+    </description>
+    <launchable type="desktop-id">com.kjxbyz.PicGuard.desktop</launchable>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://raw.githubusercontent.com/picguard/picguard/main/screenshots/screenshot.png</image>
+        </screenshot>
+    </screenshots>
+    <content_rating type="oars-1.1" />
+    <releases>
+        <release version="1.0.0+250" date="2024-05-29">
+            <url type="details">https://github.com/picguard/picguard/releases/tag/v1.0.0%2B250</url>
+            <description>
+                <p>Release description</p>
+                <ul>
+                    <li>chore: v1.0.0+250</li>
+                </ul>
+            </description>
+        </release>
+    </releases>
+</component>
