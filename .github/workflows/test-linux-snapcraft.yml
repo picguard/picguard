@@ -1,4 +1,4 @@
-name: Test Snapcraft
+name: Test Linux Snapcraft
 
 on:
   workflow_dispatch:

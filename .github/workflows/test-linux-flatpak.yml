@@ -1,4 +1,4 @@
-name: Test Flatpak
+name: Test Linux Flatpak
 
 on:
   workflow_dispatch:

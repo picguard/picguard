@@ -1,4 +1,4 @@
-name: Test Linux(arm64)
+name: Test Linux (arm64)
 
 on:
   workflow_dispatch:
