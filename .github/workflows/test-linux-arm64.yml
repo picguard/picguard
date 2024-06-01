@@ -450,7 +450,7 @@ jobs:
 
             # Build tar
             echo "Build tar"
-            tar -czaf "picguard_"$version"_linux_aarch64.tar.gz" build/linux/arm64/release/bundle/*
+            tar -czaf picguard_"$version"_linux_aarch64.tar.gz build/linux/arm64/release/bundle/*
             
 
       # Package the build.
