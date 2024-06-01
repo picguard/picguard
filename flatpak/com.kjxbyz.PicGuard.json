@@ -1,0 +1,115 @@
+{
+  "app-id": "com.kjxbyz.PicGuard",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "22.08",
+  "sdk": "org.freedesktop.Sdk",
+  "command": "picguard",
+  "separate-locales": false,
+  "finish-args": [
+    "--share=ipc",
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--socket=pulseaudio",
+    "--share=network",
+    "--device=all",
+    "--filesystem=xdg-download",
+    "--own-name=com.kjxbyz.picguard",
+    "--talk-name=org.freedesktop.secrets"
+  ],
+  "modules": [
+    {
+      "name": "libjsoncpp",
+      "only_arches": [
+        "x86_64"
+      ],
+      "buildsystem": "meson",
+      "config-opts": [
+        "--buildtype=release",
+        "--default-library=shared"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://github.com/open-source-parsers/jsoncpp/archive/refs/tags/1.9.5.tar.gz",
+          "sha256": "f409856e5920c18d0c2fb85276e24ee607d2a09b5e7d5f0a371368903c275da2"
+        }
+      ]
+    },
+    {
+      "name": "olm",
+      "buildsystem": "cmake",
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://gitlab.matrix.org/matrix-org/olm.git",
+          "tag": "3.2.14"
+        }
+      ]
+    },
+    {
+      "name": "libsecret",
+      "buildsystem": "meson",
+      "config-opts": [
+        "-Dvapi=false",
+        "-Dgtk_doc=false"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://gitlab.gnome.org/GNOME/libsecret.git",
+          "tag": "0.20.5"
+        }
+      ]
+    },
+    {
+      "name": "picguard",
+      "buildsystem": "simple",
+      "only-arches": [
+        "x86_64"
+      ],
+      "build-commands": [
+        "ls picguard",
+        "cp -r picguard /app/picguard",
+        "chmod +x /app/picguard/picguard",
+        "mkdir -p /app/share/icons/hicolor/scalable/apps",
+        "install -Dm644 com.kjxbyz.PicGuard.png /app/share/icons/hicolor/scalable/apps/com.kjxbyz.PicGuard.png",
+        "mkdir -p /app/bin",
+        "ln -s /usr/lib/x86_64-linux-gnu/libsqlite3.so.0 /app/lib/libsqlite3.so",
+        "if [ ! -e '/app/lib/libsqlite3.so' ]; then ln -s -f /usr/lib/aarch64-linux-gnu/libsqlite3.so.0 /app/lib/libsqlite3.so; fi",
+        "ln -s /app/picguard/picguard /app/bin/picguard",
+        "if [ $(arch) == \"aarch64\"  ]; then sed -si \"/Exec=/cExec=env GDK_GL=gles picguard %U\" com.kjxbyz.PicGuard.desktop; fi",
+        "install -Dm644 com.kjxbyz.PicGuard.desktop /app/share/applications/com.kjxbyz.PicGuard.desktop",
+        "install -Dm644 com.kjxbyz.PicGuard.metainfo.xml /app/share/appdata/com.kjxbyz.PicGuard.metainfo.xml"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "only-arches": [
+            "x86_64"
+          ],
+          "url": "https://github.com/picguard/picguard/releases/download/v1.0.0+252/picguard.linux.tar.gz",
+          "dest": "picguard",
+          "sha256": "44874db33121ae8fb366d0aedfbea39a5e127bfc6efb2459b8222fa6ee9b4696",
+          "x-checker-data": {
+            "type": "json",
+            "url": "https://api.github.com/repos/picguard/picguard/releases/latest",
+            "version-query": ".tag_name | sub(\"v\";\"\")",
+            "url-query": ".assets[] | select(.name==\"picguard.linux.tar.gz\") | .browser_download_url"
+          }
+        },
+        {
+          "type": "file",
+          "path": "com.kjxbyz.PicGuard.metainfo.xml"
+        },
+        {
+          "type": "file",
+          "path": "com.kjxbyz.PicGuard.desktop"
+        },
+        {
+          "type": "file",
+          "path": "com.kjxbyz.PicGuard.png"
+        }
+      ]
+    }
+  ]
+}
