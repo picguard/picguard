@@ -13,14 +13,39 @@ jobs:
     container:
       image: bilelmoussaoui/flatpak-github-actions:freedesktop-22.08
       options: --privileged
+    strategy:
+      fail-fast: false
+      matrix:
+        platforms:
+          - arch: x86_64
+            cache: use-cache
+            restore: cache-restored
+          - arch: aarch64
+            cache: no-cache
+            restore: no-cache-restored
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install QEMU deps
+        if: ${{ matrix.platforms.arch != 'x86_64' }}
+        run: |
+          dnf -y install docker
+
+      - name: Set up QEMU
+        if: ${{ matrix.platforms.arch != 'x86_64' }}
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
 
       - name: Build .flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          bundle: PicGuard.flatpak
+          bundle: PicGuard-${{ matrix.platforms.arch }}.flatpak
           manifest-path: flatpak/com.kjxbyz.PicGuard.json
+          cache: ${{ matrix.platforms.cache == 'use-cache' }}
+          restore-cache: ${{ matrix.platforms.restore == 'cache-restored' }}
+          cache-key: flatpak-builder-${{ github.sha }}-${{ matrix.platforms.restore }}
+          arch: ${{ matrix.platforms.arch }}
           upload-artifact: false
 
       # Package the build.
@@ -30,9 +55,9 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: linux-flatpak-artifact
+          name: linux-flatpak-${{ matrix.platforms.arch }}-artifact
           path: |
-            ./*.flatpak
+            ./*-${{ matrix.platforms.arch }}.flatpak
 
       - name: Clean up
         if: ${{ always() }}
