@@ -43,7 +43,7 @@ jobs:
         run: flutter pub get
 
       - name: Build AppImage
-        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets appimage --artifact-name picguard.appimage
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets appimage --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_x86_64.{{ext}}'
 
       # Package the build.
       - name: Copy build for AppImage
@@ -71,7 +71,6 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-          sudo apt install rpm patchelf
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -95,7 +94,7 @@ jobs:
         run: flutter pub get
 
       - name: Build deb
-        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets deb --artifact-name picguard.deb
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets deb --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_x86_64.{{ext}}'
 
       # Package the build.
       - name: Copy build for deb
@@ -128,6 +127,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+          sudo apt install -y rpm patchelf
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -151,7 +151,7 @@ jobs:
         run: flutter pub get
 
       - name: Build RPM
-        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets rpm --artifact-name picguard.rpm
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets rpm --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_x86_64.{{ext}}'
 
       # Package the build.
       - name: Copy build for rpm
@@ -203,7 +203,7 @@ jobs:
         run: flutter pub get
 
       - name: Build zip
-        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets zip --artifact-name picguard.linux.zip
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets zip --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_x86_64.{{ext}}'
 
       # Package the build.
       - name: Copy build for zip
@@ -214,7 +214,7 @@ jobs:
         with:
           name: linux-zip-artifact
           path: |
-            ./dist/**/*.linux.zip
+            ./dist/**/*.zip
 
       - name: Clean up
         if: ${{ always() }}
@@ -254,23 +254,42 @@ jobs:
       - name: Build flutter
         run: flutter build linux --dart-define-from-file=.env --target-platform=linux-x64
 
+      - name: Install yq
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            sudo add-apt-repository ppa:rmescandon/yq
+            sudo apt update
+            sudo apt install -y yq
+          fi
+          yq --version
+
+      - name: Set version
+        id: version_step
+        run: |
+          VERSION=$(yq '.version' < pubspec.yaml)
+          echo "$VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Build tar
         run: |
           baseDir=$(pwd)
-          archiveName=picguard.linux.tar.gz
+          archiveName="picguard_"$VERSION"_linux_x86_64.tar.gz"
           cd build/linux/x64/release/bundle || exit
           tar -czaf $archiveName ./*
           mv $archiveName "$baseDir"/
+        env:
+          VERSION: ${{ steps.version_step.outputs.version }}
 
       # Package the build.
-      - name: Copy build for zip
-        run: ls -la
+      - name: Copy build for tar
+        run: ls -la *.tar.gz
 
       - uses: actions/upload-artifact@v4
         with:
           name: linux-tar-artifact
           path: |
-            ./picguard.linux.tar.gz
+            ./*.tar.gz
 
       - name: Clean up
         if: ${{ always() }}

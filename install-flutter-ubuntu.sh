@@ -11,7 +11,7 @@ FLUTTER_DIR="/home/linux-arm64"
 
 if [ ! -d "$FLUTTER_DIR" ]; then
    echo "🟩 flutter directory created"
-   mkdir -p "$FLUTTER_DIR/flutter"
+   mkdir -p "$FLUTTER_DIR"
 fi
 
 if [ ! -f "$FLUTTER_DIR/flutter-3.19.6-aarch64.tar.xz" ]; then
@@ -25,14 +25,12 @@ if [ -d "$FLUTTER_DIR/flutter" ]; then
 fi
 
 echo "🟩 Unzipping"
-mkdir "$FLUTTER_DIR/flutter" && tar -xf flutter-3.19.6-aarch64.tar.xz -C "$FLUTTER_DIR/flutter" --strip-components 1
+mkdir "$FLUTTER_DIR/flutter" && tar -xf "$FLUTTER_DIR/flutter-3.19.6-aarch64.tar.xz" -C "$FLUTTER_DIR/flutter" --strip-components 1
 
 echo "🟩 Config $FLUTTER_DIR/flutter"
 git config --global --add safe.directory "$FLUTTER_DIR/flutter"
 
 echo "🟩 Running ls"
 ls
-
-export PATH="$PATH:$FLUTTER_DIR/flutter/bin"
 
 exit 0
