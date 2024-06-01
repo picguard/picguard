@@ -7,6 +7,7 @@ packager: kjxbyz
 packagerEmail: kjxbyz@163.com
 license: MIT
 url: https://github.com/picguard/picguard
+build_arch: x86_64
 
 keywords:
   - PicGuard
