@@ -1,4 +1,4 @@
-name: Test macOS pkg(appstore)
+name: Test macOS pkg (appstore)
 
 on:
   workflow_dispatch:
