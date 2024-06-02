@@ -110,17 +110,30 @@ jobs:
         run: |
           pnpm add -g appdmg
 
+      - name: Install yq
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            brew install yq
+          fi
+          yq --version
+
       - name: Build DMG
         run: |
           bash build-dmg.sh
 
       # Package the build.
       - name: Copy build for snap
-        run: ls -la *.dmg
+        run: |
+          VERSION=$(yq '.version' < pubspec.yaml)
+          echo "$VERSION"
+          ls -la *.dmg
+          mv PicGuard.dmg PicGuard_"$VERSION".dmg
+          ls -la *.dmg
 
       - uses: actions/upload-artifact@v4
         with:
-          name: dmg-artifact
+          name: macos-dmg-artifact
           path: |
             ./*.dmg
 

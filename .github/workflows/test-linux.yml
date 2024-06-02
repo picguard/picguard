@@ -52,7 +52,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: appimage-artifact
+          name: linux-appimage-artifact
           path: |
             ./dist/**/*.AppImage
 
@@ -103,7 +103,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: deb-artifact
+          name: linux-deb-artifact
           path: |
             ./dist/**/*.deb
 
@@ -160,7 +160,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: rpm-artifact
+          name: linux-rpm-artifact
           path: |
             ./dist/**/*.rpm
 
@@ -264,22 +264,15 @@ jobs:
           fi
           yq --version
 
-      - name: Set version
-        id: version_step
-        run: |
-          VERSION=$(yq '.version' < pubspec.yaml)
-          echo "$VERSION"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
       - name: Build tar
         run: |
           baseDir=$(pwd)
+          VERSION=$(yq '.version' < pubspec.yaml)
+          echo "$VERSION"
           archiveName="picguard_"$VERSION"_linux_x86_64.tar.gz"
           cd build/linux/x64/release/bundle || exit
           tar -czaf $archiveName ./*
           mv $archiveName "$baseDir"/
-        env:
-          VERSION: ${{ steps.version_step.outputs.version }}
 
       # Package the build.
       - name: Copy build for tar

@@ -56,7 +56,8 @@ jobs:
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
 
       - name: Build exe
-        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env" --platform windows --targets exe --artifact-name picguard.exe
+        run: |
+          flutter_distributor package --flutter-build-args "dart-define-from-file=.env" --platform windows --targets exe --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_x86_64.{{ext}}'
 
       # Package the build.
       - name: Copy build for exe
@@ -72,7 +73,7 @@ jobs:
           $bytes = echo $env:WINDOWS_CERTIFICATE | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$certificate_path", $bytes)
           $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
-          & $signtool sign /f "$certificate_path" /fd SHA256 /t http://timestamp.comodoca.com/authenticode /p "$env:WINDOWS_CERTIFICATE_PASSWORD" /n "$env:WINDOWS_PUBLISHER_NAME" (get-item ".\**\picguard.exe")
+          & $signtool sign /f "$certificate_path" /fd SHA256 /t http://timestamp.comodoca.com/authenticode /p "$env:WINDOWS_CERTIFICATE_PASSWORD" /n "$env:WINDOWS_PUBLISHER_NAME" (get-item ".\**\*.exe")
         env:
           WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
           WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}

@@ -100,21 +100,39 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
+      - name: Install yq
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            brew install yq
+          fi
+          yq --version
+
+      - name: Set version
+        id: version_step
+        run: |
+          VERSION=$(yq '.version' < pubspec.yaml)
+          echo "$VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Build zip
         run: |
-          tar -czaf picguard.macos.tar.gz ./PicGuard.app
+          echo "$VERSION"
+          tar -czaf picguard_"$VERSION"_macos.tar.gz ./PicGuard.app
         working-directory: build/macos/Build/Products/Release
+        env:
+          VERSION: ${{ steps.version_step.outputs.version }}
 
       # Package the build.
       - name: Copy build for tar
-        run: ls -la *.macos.tar.gz
+        run: ls -la *.tar.gz
         working-directory: build/macos/Build/Products/Release
 
       - uses: actions/upload-artifact@v4
         with:
           name: macos-tar-artifact
           path: |
-            ./build/macos/Build/Products/Release/*.macos.tar.gz
+            ./build/macos/Build/Products/Release/*.tar.gz
 
       - name: Clean up
         if: ${{ always() }}
