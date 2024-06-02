@@ -115,7 +115,7 @@ jobs:
             
             # Get version
             echo "Get version"
-            version=$(yq '.version' pubspec.yaml)
+            version=$(yq '.version' < pubspec.yaml)
             
             # Build snap
             # https://snapcraft.io/docs/flutter-applications

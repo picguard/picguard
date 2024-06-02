@@ -1493,7 +1493,7 @@ jobs:
           baseDir=$(pwd)
           RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
           archiveName="picguard_"$RELEASE"_linux_x86_64.tar.gz"
-          cd build/linux/x64/release/bundle || exit
+          cd build/linux/x64/release/bundle
           tar -czaf $archiveName ./*
           mv $archiveName $GITHUB_WORKSPACE/
         env:
