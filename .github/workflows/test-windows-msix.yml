@@ -85,7 +85,7 @@ jobs:
 
       - name: Crate msix
         run: |
-          dart run msix:create --build-windows false --output-name "picguard_$env:VERSION`_windows_x86_64.msix"
+          dart run msix:create --build-windows false --output-name "picguard_$env:VERSION`_windows_x86_64"
         env:
           VERSION: ${{ needs.get_version.outputs.version }}
 
