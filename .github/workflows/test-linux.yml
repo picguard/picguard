@@ -270,7 +270,7 @@ jobs:
           VERSION=$(yq '.version' < pubspec.yaml)
           echo "$VERSION"
           archiveName="picguard_"$VERSION"_linux_x86_64.tar.gz"
-          cd build/linux/x64/release/bundle || exit
+          cd build/linux/x64/release/bundle
           tar -czaf $archiveName ./*
           mv $archiveName "$baseDir"/
 

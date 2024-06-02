@@ -438,20 +438,26 @@ jobs:
             # Install yq
             if ! command -v yq >/dev/null 2>&1; then
               echo "yq not exists"
-              sudo add-apt-repository ppa:rmescandon/yq
-              sudo apt update
-              sudo apt install -y yq
+              if ! command -v wget >/dev/null 2>&1; then
+                echo "wget not exists"
+                sudo apt install -y wget
+              fi
+              wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_arm64 -O /usr/bin/yq &&\
+              chmod +x /usr/bin/yq
             fi
             yq --version
             
             # Get version
             echo "Get version"
-            version=$(yq '.version' pubspec.yaml)
+            version=$(yq '.version' < pubspec.yaml)
 
             # Build tar
             echo "Build tar"
-            tar -czaf picguard_"$version"_linux_aarch64.tar.gz build/linux/arm64/release/bundle/*
-            
+            baseDir=$(pwd)
+            archiveName="picguard_"$version"_linux_aarch64.tar.gz"
+            cd build/linux/arm64/release/bundle
+            tar -czaf $archiveName ./*
+            mv $archiveName "$baseDir/"
 
       # Package the build.
       - name: Copy build for tar
