@@ -84,7 +84,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: appimage-artifact
+          name: linux-appimage-arm64-artifact
           path: |
             ./dist/**/*.AppImage
 
@@ -168,7 +168,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: deb-artifact
+          name: linux-deb-arm64-artifact
           path: |
             ./dist/**/*.deb
 
@@ -273,7 +273,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: rpm-artifact
+          name: linux-rpm-arm64-artifact
           path: |
             ./dist/**/*.rpm
 
@@ -358,7 +358,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: linux-zip-artifact
+          name: linux-zip-arm64-artifact
           path: |
             ./dist/**/*.zip
 
@@ -459,7 +459,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: linux-tar-artifact
+          name: linux-tar-arm64-artifact
           path: |
             ./*.tar.gz
 
