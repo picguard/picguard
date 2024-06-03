@@ -23,7 +23,7 @@ jobs:
       sha_short: ${{ steps.sha_short_step.outputs.sha_short }}
       commit_count: ${{ steps.commit_count_step.outputs.commit_count }}
 #      timestamp: ${{ steps.timestamp_step.outputs.timestamp }}
-      version: ${{ steps.version_step.outputs.version }}
+      version: "${{ steps.version_step.outputs.version }}+${{ steps.commit_count_step.outputs.commit_count }}"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -69,7 +69,7 @@ jobs:
           echo "$PUB_VERSION"
           VERSION=$(echo "$PUB_VERSION" | sed -e "s/+\(.*\)$//g")
           echo "$VERSION"
-          echo "version=v$VERSION" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Check version
         run: echo ${{ steps.version_step.outputs.version }}
@@ -79,7 +79,7 @@ jobs:
 
       - name: Create a release
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           RELEASE_NOTES="Env: $ENV <br /> Branch: $BRANCH <br /> Commit: $COMMIT_REF"
           if [ "$ENV" == "production" ]; then
             gh release create "$RELEASE" --latest --title "$RELEASE" --notes "$RELEASE_NOTES"
@@ -90,8 +90,7 @@ jobs:
           ENV: ${{ github.event.inputs.env }}
           BRANCH: ${{ github.ref_name }}
           COMMIT_REF: ${{ steps.sha_short_step.outputs.sha_short }}
-          COMMIT_COUNT: ${{ steps.commit_count_step.outputs.commit_count }}
-          VERSION_SUFFIX: "${{ steps.version_step.outputs.version }}+${{ steps.commit_count_step.outputs.commit_count }}"
+          TAG_NAME: "v${{ steps.version_step.outputs.version }}+${{ steps.commit_count_step.outputs.commit_count }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
 #  remove_release:
@@ -125,11 +124,11 @@ jobs:
 #
 #        - name: Remove a release
 #          run: |
-#            RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+#            RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
 #            gh release delete -y --cleanup-tag "$RELEASE"
 #          env:
 #            ENV: ${{ github.event.inputs.env }}
-#            VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+#            TAG_NAME: "v${{ needs.create_release.outputs.version }}"
 #            GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
   apk:
@@ -196,23 +195,23 @@ jobs:
       - name: Copy build for Android
         run: |
           ls -la
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           cp *.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE.apk
         working-directory: build/app/outputs/flutter-apk
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
 
       - name: Show gh info
         run: gh --version
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.apk
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -287,34 +286,34 @@ jobs:
         if: github.event.inputs.env == 'staging'
         run: |
           ls -la
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE.aab
         working-directory: build/app/outputs/bundle/stagingRelease
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
 
       - name: Copy build for Android
         if: github.event.inputs.env == 'production'
         run: |
           ls -la
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE.aab
         working-directory: build/app/outputs/bundle/productionRelease
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
 
       - name: Show gh info
         run: gh --version
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.aab
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -425,23 +424,23 @@ jobs:
       - name: Copy build for iOS
         run: |
           ls -la
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           cp *.ipa $GITHUB_WORKSPACE/PicGuard_$RELEASE.ipa
         working-directory: build/ios/ipa
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
 
       - name: Show gh info
         run: gh --version
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.ipa
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -567,11 +566,11 @@ jobs:
       - name: Build DMG
         run: |
           bash build-dmg.sh
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           mv PicGuard.dmg PicGuard_"$RELEASE".dmg
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
 
       # Package the build.
       - name: Copy build for snap
@@ -582,11 +581,11 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.dmg
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -708,24 +707,24 @@ jobs:
         run: |
           rm -f PicGuard-unsigned.pkg
           ls -la *.pkg
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           mv PicGuard.pkg PicGuard_"$RELEASE".pkg
           cp *.pkg $GITHUB_WORKSPACE/
         working-directory: build/macos/Build/Products/Release
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
 
       - name: Show gh info
         run: gh --version
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.pkg
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -854,23 +853,23 @@ jobs:
       - name: Copy build for pkg
         run: |
           ls -la *.pkg
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           cp PicGuard.pkg $GITHUB_WORKSPACE/PicGuardAppStore_"$RELEASE".pkg
         working-directory: build/macos/Build/Products/AppStore-Release
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
 
       - name: Show gh info
         run: gh --version
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.pkg
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -985,12 +984,12 @@ jobs:
 
       - name: Build zip
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           7z a picguard_"$RELEASE"_macos_x86_64.zip ./PicGuard.app
         working-directory: build/macos/Build/Products/Release
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
 
       # Package the build.
       - name: Copy build for zip
@@ -1004,11 +1003,11 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.zip
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1122,12 +1121,12 @@ jobs:
 
       - name: Build zip
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           tar -czaf picguard_"$RELEASE"_macos_x86_64.tar.gz ./PicGuard.app
         working-directory: build/macos/Build/Products/Release
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
 
       # Package the build.
       - name: Copy build for tar
@@ -1141,11 +1140,11 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.tar.gz
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1200,11 +1199,11 @@ jobs:
 
       - name: Build AppImage
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           flutter_distributor package --flutter-build-args "dart-define-from-file=.env,build-number=$COMMIT_COUNT,target-platform=linux-x64" --platform linux --targets appimage --artifact-name {{name}}_"$RELEASE"_{{platform}}_x86_64.{{ext}}
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
           COMMIT_COUNT: ${{ needs.create_release.outputs.commit_count }}
 
       # Package the build.
@@ -1219,11 +1218,11 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.AppImage
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1271,11 +1270,11 @@ jobs:
 
       - name: Build deb
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           flutter_distributor package --flutter-build-args "dart-define-from-file=.env,build-number=$COMMIT_COUNT,target-platform=linux-x64" --platform linux --targets deb --artifact-name {{name}}_"$RELEASE"_{{platform}}_x86_64.{{ext}}
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
           COMMIT_COUNT: ${{ needs.create_release.outputs.commit_count }}
 
       # Package the build.
@@ -1290,11 +1289,11 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.deb
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1346,11 +1345,11 @@ jobs:
 
       - name: Build RPM
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           flutter_distributor package --flutter-build-args "dart-define-from-file=.env,build-number=$COMMIT_COUNT,target-platform=linux-x64" --platform linux --targets rpm --artifact-name {{name}}_"$RELEASE"_{{platform}}_x86_64.{{ext}}
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
           COMMIT_COUNT: ${{ needs.create_release.outputs.commit_count }}
 
       # Package the build.
@@ -1365,11 +1364,11 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.rpm
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1417,11 +1416,11 @@ jobs:
 
       - name: Build zip
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           flutter_distributor package --flutter-build-args "dart-define-from-file=.env,build-number=$COMMIT_COUNT,target-platform=linux-x64" --platform linux --targets zip --artifact-name {{name}}_"$RELEASE"_{{platform}}_x86_64.{{ext}}
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
           COMMIT_COUNT: ${{ needs.create_release.outputs.commit_count }}
 
       # Package the build.
@@ -1436,11 +1435,11 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.zip
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1491,14 +1490,14 @@ jobs:
       - name: Build tar
         run: |
           baseDir=$(pwd)
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           archiveName="picguard_"$RELEASE"_linux_x86_64.tar.gz"
           cd build/linux/x64/release/bundle
           tar -czaf $archiveName ./*
           mv $archiveName $GITHUB_WORKSPACE/
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
 
       # Package the build.
       - name: Copy build for zip
@@ -1509,11 +1508,11 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.tar.gz
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1582,11 +1581,11 @@ jobs:
       - name: Build snap
         run: |
           # https://snapcraft.io/docs/flutter-applications
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           snapcraft --output picguard_"$RELEASE"_linux_x86_64.snap
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
 
       # Package the build.
       - name: Copy build for snap
@@ -1597,11 +1596,11 @@ jobs:
 
       - name: Upload assets
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION_SUFFIX.pre" || echo "$VERSION_SUFFIX")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
           gh release upload "$RELEASE" ./*.snap
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1667,11 +1666,11 @@ jobs:
 
       - name: Crate msix
         run: |
-          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION_SUFFIX.pre"} Else {"$env:VERSION_SUFFIX"})
+          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION.pre"} Else {"$env:VERSION"})
           dart run msix:create --build-windows false --output-name "picguard_$RELEASE`_windows_x86_64"
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
 
       # Package the build.
       - name: Copy build for msix
@@ -1685,12 +1684,12 @@ jobs:
 
       - name: Upload assets
         run: |
-          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION_SUFFIX.pre"} Else {"$env:VERSION_SUFFIX"})
+          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:TAG_NAME.pre"} Else {"$env:TAG_NAME"})
           # https://github.com/cli/cli/issues/5099
           gh release upload "$RELEASE" (get-item .\*.msix)
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1772,11 +1771,11 @@ jobs:
 
       - name: Build exe
         run: |
-          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION_SUFFIX.pre"} Else {"$env:VERSION_SUFFIX"})
+          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION.pre"} Else {"$env:VERSION"})
           flutter_distributor package --flutter-build-args "dart-define-from-file=.env,build-number=$env:COMMIT_COUNT" --platform windows --targets exe --artifact-name "{{name}}_$RELEASE`_{{platform}}_x86_64.{{ext}}"
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
           COMMIT_COUNT: ${{ needs.create_release.outputs.commit_count }}
 
       - name: Signing
@@ -1807,12 +1806,12 @@ jobs:
 
       - name: Upload assets
         run: |
-          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION_SUFFIX.pre"} Else {"$env:VERSION_SUFFIX"})
+          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:TAG_NAME.pre"} Else {"$env:TAG_NAME"})
           # https://github.com/cli/cli/issues/5099
           gh release upload "$RELEASE" (get-item .\*.exe)
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1868,11 +1867,11 @@ jobs:
 
       - name: Build zip
         run: |
-          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION_SUFFIX.pre"} Else {"$env:VERSION_SUFFIX"})
+          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION.pre"} Else {"$env:VERSION"})
           flutter_distributor package --flutter-build-args "dart-define-from-file=.env,build-number=$env:COMMIT_COUNT" --platform windows --targets zip --artifact-name "{{name}}_$RELEASE`_{{platform}}_x86_64.{{ext}}"
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
           COMMIT_COUNT: ${{ needs.create_release.outputs.commit_count }}
 
       # Package the build.
@@ -1887,12 +1886,12 @@ jobs:
 
       - name: Upload assets
         run: |
-          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION_SUFFIX.pre"} Else {"$env:VERSION_SUFFIX"})
+          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:TAG_NAME.pre"} Else {"$env:TAG_NAME"})
           # https://github.com/cli/cli/issues/5099
           gh release upload "$RELEASE" (get-item .\*.zip)
         env:
           ENV: ${{ github.event.inputs.env }}
-          VERSION_SUFFIX: "${{ needs.create_release.outputs.version }}+${{ needs.create_release.outputs.commit_count }}"
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
