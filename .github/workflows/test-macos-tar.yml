@@ -13,9 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install p7zip
-        run: brew install p7zip
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
