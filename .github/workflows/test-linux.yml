@@ -270,7 +270,7 @@ jobs:
       - name: Build tar
         run: |
           baseDir=$(pwd)
-          VERSION=$(yq '.version' < pubspec.yaml)
+          VERSION=$(yq '.version' pubspec.yaml)
           echo "$VERSION"
           archiveName="picguard_"$VERSION"_linux_x86_64.tar.gz"
           cd build/linux/x64/release/bundle

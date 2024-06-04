@@ -125,7 +125,7 @@ jobs:
       # Package the build.
       - name: Copy build for snap
         run: |
-          VERSION=$(yq '.version' < pubspec.yaml)
+          VERSION=$(yq '.version' pubspec.yaml)
           echo "$VERSION"
           ls -la *.dmg
           mv PicGuard.dmg PicGuard_"$VERSION".dmg

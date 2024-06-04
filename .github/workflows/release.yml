@@ -65,7 +65,7 @@ jobs:
       - name: Set version
         id: version_step
         run: | 
-          PUB_VERSION=$(yq '.version' < pubspec.yaml)
+          PUB_VERSION=$(yq '.version' pubspec.yaml)
           echo "$PUB_VERSION"
           VERSION=$(echo "$PUB_VERSION" | sed -e "s/+\(.*\)$//g")
           echo "$VERSION"
