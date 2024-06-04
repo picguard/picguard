@@ -107,14 +107,15 @@ jobs:
 #        - macos_appstore
 #        - macos_zip
 #        - macos_tar
-#        - appimage
-#        - deb
-#        - rpm
+#        - linux_appimage
+#        - linux_deb
+#        - linux_rpm
 #        - linux_zip
 #        - linux_tar
-#        - snap
-#        - msix
-#        - exe
+#        - linux_flatpak
+#        - linux_snap
+#        - windows_msix
+#        - windows_exe
 #        - windows_zip
 #      steps:
 #        - uses: actions/checkout@v4
@@ -1519,6 +1520,91 @@ jobs:
         if: ${{ always() }}
         run: |
           rm -f .env
+
+  linux_flatpak:
+    name: Create flatpak
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:freedesktop-22.08
+      options: --privileged
+    needs:
+      - create_release
+      - linux_tar
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install yq
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            if ! command -v wget >/dev/null 2>&1; then
+              echo "wget not exists"
+              sudo dnf -y install wget
+            fi
+            wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
+            chmod +x /usr/bin/yq
+          fi
+          yq --version
+
+      - name: Update version
+        run: |
+          TAG="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
+          url=https://github.com/picguard/picguard/releases/download/"$TAG"/picguard_"$RELEASE"_linux_x86_64.tar.gz
+          wget -O downloaded.tar.gz "$url"
+          sha256=$(sha256sum downloaded.tar.gz | awk '{print $1}')
+          rm -f downloaded.tar.gz
+          url=$url yq -i '.modules[3].sources[0].url = strenv(url)' flatpak/com.kjxbyz.PicGuard.json
+          sha256=$sha256 yq -i '.modules[3].sources[0].sha256 = strenv(sha256)' flatpak/com.kjxbyz.PicGuard.json
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
+          VERSION: ${{ needs.create_release.outputs.version }}
+
+      - name: Show config
+        run: cat flatpak/com.kjxbyz.PicGuard.json
+
+      - name: Build .flatpak
+        uses: flatpak/flatpak-github-actions/flatpak-builder@master
+        with:
+          bundle: PicGuard.flatpak
+          manifest-path: flatpak/com.kjxbyz.PicGuard.json
+          cache: true
+          restore-cache: true
+          cache-key: flatpak-builder-${{ github.sha }}-cache-restored
+          arch: x86_64
+          upload-artifact: false
+
+      # Package the build.
+      - name: Copy build for flatpak
+        run: |
+          ls -la
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
+          mv ./PicGuard.flatpak $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_linux_x86_64.flatpak
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          VERSION: "${{ needs.create_release.outputs.version }}"
+
+      - name: Install gh
+        run: |
+          sudo dnf -y install git
+          sudo dnf -y install 'dnf-command(config-manager)'
+          sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+          sudo dnf -y install gh --repo gh-cli
+
+      - name: Show gh info
+        run: gh --version
+
+      - name: Upload assets
+        run: |
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          gh release upload "$RELEASE" ./*.flatpak
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
 
   linux_snap:
     name: Create snap
