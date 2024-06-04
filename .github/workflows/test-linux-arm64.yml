@@ -419,10 +419,6 @@ jobs:
             source ~/.zshrc
             echo $PATH
 
-            # Install flutter_distributor
-            echo "Install flutter_distributor"
-            dart pub global activate flutter_distributor
-
             # Flutter doctor
             echo "Flutter doctor -v"
             flutter doctor -v
