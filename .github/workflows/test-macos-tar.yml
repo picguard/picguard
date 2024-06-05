@@ -112,10 +112,10 @@ jobs:
           echo "$VERSION"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Build zip
+      - name: Build tar
         run: |
           echo "$VERSION"
-          tar -czaf picguard_"$VERSION"_macos.tar.gz ./PicGuard.app
+          tar -czaf PicGuard_"$VERSION"_macos.tar.gz ./PicGuard.app
         working-directory: build/macos/Build/Products/Release
         env:
           VERSION: ${{ steps.version_step.outputs.version }}
