@@ -1720,9 +1720,6 @@ jobs:
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64_WINDOWS }}
 
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
-
       - name: Flutter doctor -v
         run: flutter doctor -v
 
