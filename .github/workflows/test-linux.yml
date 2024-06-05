@@ -275,7 +275,7 @@ jobs:
           archiveName="picguard_"$VERSION"_linux_x86_64.tar.gz"
           cd build/linux/x64/release/bundle
           tar -czaf $archiveName ./*
-          mv $archiveName "$baseDir"/
+          mv $archiveName "$baseDir/"
 
       # Package the build.
       - name: Copy build for tar
