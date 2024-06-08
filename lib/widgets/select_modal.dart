@@ -21,7 +21,7 @@ class PGColorModal extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final languageCode = LocaleSettings.currentLocale.languageCode;
-    final bottom = MediaQuery.of(context).padding.bottom;
+    final bottom = MediaQuery.paddingOf(context).bottom;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

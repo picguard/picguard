@@ -397,7 +397,7 @@ class DialogUtil {
     Color? barrierColor,
   }) {
     final context = AppNavigator.key.currentContext!;
-    final bottom = MediaQuery.of(context).padding.bottom;
+    final bottom = MediaQuery.paddingOf(context).bottom;
     showModalBottomSheet<void>(
       context: context,
       barrierColor: barrierColor,
