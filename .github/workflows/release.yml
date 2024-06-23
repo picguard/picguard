@@ -108,12 +108,19 @@ jobs:
 #        - macos_zip
 #        - macos_tar
 #        - linux_appimage
+#        - linux_appimage_aarch64
 #        - linux_deb
+#        - linux_deb_aarch64
 #        - linux_rpm
+#        - linux_rpm_aarch64
 #        - linux_zip
+#        - linux_zip_aarch64
 #        - linux_tar
+#        - linux_tar_aarch64
 #        - linux_flatpak
+#        - linux_flatpak_aarch64
 #        - linux_snap
+#        - linux_snap_aarch64
 #        - windows_msix
 #        - windows_exe
 #        - windows_zip
@@ -1302,6 +1309,109 @@ jobs:
         run: |
           rm -f .env
 
+  linux_deb_aarch64:
+    name: Create deb (aarch64)
+    runs-on: ubuntu-latest
+    needs:
+      - create_release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
+      - name: Show linux info
+        run: uname --all
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: ghcr.io/grimbough/bioc-with-tinytex:devel-arm64
+          options: |
+            --platform linux/arm64
+            -v ${{ github.workspace }}:/work
+            --workdir /work
+            -e ENV=${{ github.event.inputs.env }}
+            -e VERSION=${{ needs.create_release.outputs.version }}
+            -e COMMIT_COUNT=${{ needs.create_release.outputs.commit_count }}
+          shell: bash
+          run: |
+            set -x
+            # Show linux info
+            echo "Show linux info"
+            uname --all
+
+            # Install dependencies for Linux
+            echo "Install dependencies for Linux"
+            sudo apt update
+            sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+
+            # Setup Flutter
+            echo "Setup Flutter"
+            bash ./install-flutter-ubuntu.sh
+            
+            if [ -d "/home/linux-arm64/flutter" ]; then
+              echo "🟩 ls -la"
+              ls -la /home/linux-arm64/flutter
+            fi
+            echo 'export PATH="$PATH:/home/linux-arm64/flutter/bin:/home/linux-arm64/flutter/.pub-cache/bin:$HOME/.pub-cache/bin"' >> ~/.zshrc
+            source ~/.zshrc
+            echo $PATH
+
+            # Install flutter_distributor
+            echo "Install flutter_distributor"
+            dart pub global activate flutter_distributor
+
+            # Flutter doctor
+            echo "Flutter doctor -v"
+            flutter doctor -v
+
+            # Install flutter dependencies
+            echo "Install flutter dependencies"
+            flutter pub get
+
+            RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
+
+            echo "RELEASE: $RELEASE"
+
+            # Build deb
+            echo "Build deb"
+            flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-arm64,build-number=$COMMIT_COUNT" --platform linux --targets deb --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
+
+      # Package the build.
+      - name: Copy build for deb
+        run: |
+          ls -laR
+          cp ./**/*.deb $GITHUB_WORKSPACE/
+        working-directory: dist
+
+      - name: Show gh info
+        run: gh --version
+
+      - name: Upload assets
+        run: |
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
+          gh release upload "$RELEASE" ./*.deb
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
+
   linux_rpm:
     name: Create rpm
     runs-on: ubuntu-latest
@@ -1377,6 +1487,133 @@ jobs:
         run: |
           rm -f .env
 
+  linux_rpm_aarch64:
+    name: Create rpm (aarch64)
+    runs-on: ubuntu-latest
+    needs:
+      - create_release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
+      - name: Show linux info
+        run: uname --all
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: ghcr.io/grimbough/bioc-with-tinytex:devel-arm64
+          options: |
+            --platform linux/arm64
+            -v ${{ github.workspace }}:/work
+            --workdir /work
+            -e ENV=${{ github.event.inputs.env }}
+            -e VERSION=${{ needs.create_release.outputs.version }}
+            -e COMMIT_COUNT=${{ needs.create_release.outputs.commit_count }}
+          shell: bash
+          run: |
+            set -x
+            # Show linux info
+            echo "Show linux info"
+            uname --all
+
+            # Install dependencies for Linux
+            echo "Install dependencies for Linux"
+            sudo apt update
+            sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+            sudo apt install -y rpm patchelf
+            
+            # Install JDK
+            echo "Install JDK"
+            sudo apt install -y wget apt-transport-https gnupg
+            wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | apt-key add -
+            echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
+            sudo apt update
+            sudo apt install -y temurin-17-jdk
+
+            # Setup Flutter
+            echo "Setup Flutter"
+            bash ./install-flutter-ubuntu.sh
+            
+            if [ -d "/home/linux-arm64/flutter" ]; then
+              echo "🟩 ls -la"
+              ls -la /home/linux-arm64/flutter
+            fi
+            echo 'export PATH="$PATH:/home/linux-arm64/flutter/bin:/home/linux-arm64/flutter/.pub-cache/bin:$HOME/.pub-cache/bin"' >> ~/.zshrc
+            source ~/.zshrc
+            echo $PATH
+
+            # Install flutter_distributor
+            echo "Install flutter_distributor"
+            dart pub global activate flutter_distributor
+
+            # Flutter doctor
+            echo "Flutter doctor -v"
+            flutter doctor -v
+
+            # Install flutter dependencies
+            echo "Install flutter dependencies"
+            flutter pub get
+
+            # Install yq
+            if ! command -v yq >/dev/null 2>&1; then
+              echo "yq not exists"
+              if ! command -v wget >/dev/null 2>&1; then
+                echo "wget not exists"
+                sudo apt install -y wget
+              fi
+              wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_arm64 -O /usr/bin/yq &&\
+              chmod +x /usr/bin/yq
+            fi
+            yq --version
+            
+            # Update make_config.yaml
+            echo "Update make_config.yaml"
+            yq -i '.build_arch = "aarch64"' linux/packaging/rpm/make_config.yaml
+
+            RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
+            echo "RELEASE: $RELEASE"
+
+            # Build RPM
+            echo "Build RPM"
+            flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-arm64,build-number=$COMMIT_COUNT" --platform linux --targets rpm --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
+
+      # Package the build.
+      - name: Copy build for rpm
+        run: |
+          ls -laR
+          cp ./**/*.rpm $GITHUB_WORKSPACE/
+        working-directory: dist
+
+      - name: Show gh info
+        run: gh --version
+
+      - name: Upload assets
+        run: |
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
+          gh release upload "$RELEASE" ./*.rpm
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
+
   linux_zip:
     name: Create zip
     runs-on: ubuntu-latest
@@ -1423,6 +1660,110 @@ jobs:
           ENV: ${{ github.event.inputs.env }}
           VERSION: ${{ needs.create_release.outputs.version }}
           COMMIT_COUNT: ${{ needs.create_release.outputs.commit_count }}
+
+      # Package the build.
+      - name: Copy build for zip
+        run: |
+          ls -laR
+          cp ./**/*.zip $GITHUB_WORKSPACE/
+        working-directory: dist
+
+      - name: Show gh info
+        run: gh --version
+
+      - name: Upload assets
+        run: |
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
+          gh release upload "$RELEASE" ./*.zip
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
+
+  linux_zip_aarch64:
+    name: Create zip (aarch64)
+    runs-on: ubuntu-latest
+    needs:
+      - create_release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
+      - name: Show linux info
+        run: uname --all
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: ghcr.io/grimbough/bioc-with-tinytex:devel-arm64
+          options: |
+            --platform linux/arm64
+            -v ${{ github.workspace }}:/work
+            --workdir /work
+            -e ENV=${{ github.event.inputs.env }}
+            -e VERSION=${{ needs.create_release.outputs.version }}
+            -e COMMIT_COUNT=${{ needs.create_release.outputs.commit_count }}
+          shell: bash
+          run: |
+            set -x
+            # Show linux info
+            echo "Show linux info"
+            uname --all
+
+            # Install dependencies for Linux
+            echo "Install dependencies for Linux"
+            sudo apt update
+            sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+            sudo apt install -y p7zip-full p7zip-rar
+
+            # Setup Flutter
+            echo "Setup Flutter"
+            bash ./install-flutter-ubuntu.sh
+            
+            if [ -d "/home/linux-arm64/flutter" ]; then
+              echo "🟩 ls -la"
+              ls -la /home/linux-arm64/flutter
+            fi
+            echo 'export PATH="$PATH:/home/linux-arm64/flutter/bin:/home/linux-arm64/flutter/.pub-cache/bin:$HOME/.pub-cache/bin"' >> ~/.zshrc
+            source ~/.zshrc
+            echo $PATH
+
+            # Install flutter_distributor
+            echo "Install flutter_distributor"
+            dart pub global activate flutter_distributor
+
+            # Flutter doctor
+            echo "Flutter doctor -v"
+            flutter doctor -v
+
+            # Install flutter dependencies
+            echo "Install flutter dependencies"
+            flutter pub get
+
+            RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
+            echo "RELEASE: $RELEASE"
+
+            # Build zip
+            echo "Build zip"
+            flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-arm64,build-number=$COMMIT_COUNT" --platform linux --targets zip --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
+
 
       # Package the build.
       - name: Copy build for zip
@@ -1520,6 +1861,111 @@ jobs:
         if: ${{ always() }}
         run: |
           rm -f .env
+
+  linux_tar_aarch64:
+    name: Create tar (aarch64)
+    runs-on: ubuntu-latest
+    needs:
+      - create_release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
+      - name: Show linux info
+        run: uname --all
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: ghcr.io/grimbough/bioc-with-tinytex:devel-arm64
+          options: |
+            --platform linux/arm64
+            -v ${{ github.workspace }}:/work
+            --workdir /work
+            -e ENV=${{ github.event.inputs.env }}
+            -e VERSION=${{ needs.create_release.outputs.version }}
+            -e COMMIT_COUNT=${{ needs.create_release.outputs.commit_count }}
+          shell: bash
+          run: |
+            set -x
+            # Show linux info
+            echo "Show linux info"
+            uname --all
+
+            # Install dependencies for Linux
+            echo "Install dependencies for Linux"
+            sudo apt update
+            sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+            sudo apt install -y p7zip-full p7zip-rar
+
+            # Setup Flutter
+            echo "Setup Flutter"
+            bash ./install-flutter-ubuntu.sh
+
+            if [ -d "/home/linux-arm64/flutter" ]; then
+              echo "🟩 ls -la"
+              ls -la /home/linux-arm64/flutter
+            fi
+            echo 'export PATH="$PATH:/home/linux-arm64/flutter/bin:/home/linux-arm64/flutter/.pub-cache/bin:$HOME/.pub-cache/bin"' >> ~/.zshrc
+            source ~/.zshrc
+            echo $PATH
+
+            # Flutter doctor
+            echo "Flutter doctor -v"
+            flutter doctor -v
+
+            # Install flutter dependencies
+            echo "Install flutter dependencies"
+            flutter pub get
+            
+            # Build flutter
+            echo "Build flutter"
+            flutter build linux --dart-define-from-file=.env --build-number=$COMMIT_COUNT --target-platform=linux-arm64
+            
+            RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
+            echo "RELEASE: $RELEASE"
+
+            # Build tar
+            echo "Build tar"
+            baseDir=$(pwd)
+            archiveName="picguard_"$RELEASE"_linux_aarch64.tar.gz"
+            cd build/linux/arm64/release/bundle
+            tar -czaf $archiveName ./*
+            mv $archiveName "$baseDir/"
+
+      # Package the build.
+      - name: Copy build for tar
+        run: ls -la
+
+      - name: Show gh info
+        run: gh --version
+
+      - name: Upload assets
+        run: |
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
+          gh release upload "$RELEASE" ./*.tar.gz
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
+
 
   linux_flatpak:
     name: Create flatpak
