@@ -77,7 +77,6 @@
         "ln -s /usr/lib/x86_64-linux-gnu/libsqlite3.so.0 /app/lib/libsqlite3.so",
         "if [ ! -e '/app/lib/libsqlite3.so' ]; then ln -s -f /usr/lib/aarch64-linux-gnu/libsqlite3.so.0 /app/lib/libsqlite3.so; fi",
         "ln -s /app/picguard/picguard /app/bin/picguard",
-        "if [ $(arch) == \"aarch64\"  ]; then sed -si \"/Exec=/cExec=env GDK_GL=gles picguard %U\" com.kjxbyz.PicGuard.desktop; fi",
         "install -Dm644 com.kjxbyz.PicGuard.desktop /app/share/applications/com.kjxbyz.PicGuard.desktop",
         "install -Dm644 com.kjxbyz.PicGuard.metainfo.xml /app/share/appdata/com.kjxbyz.PicGuard.metainfo.xml"
       ],

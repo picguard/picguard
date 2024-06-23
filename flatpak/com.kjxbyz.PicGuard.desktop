@@ -6,6 +6,7 @@ Comment=Your pictures, your signature.
 Categories=Utility;
 
 Icon=com.kjxbyz.PicGuard
-Exec=picguard
+Exec=picguard %U
 Terminal=false
 StartupWMClass=picguard
+Keywords=PicGuard;Watermark;Assistant;Watermark Assistant;
