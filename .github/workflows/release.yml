@@ -575,7 +575,7 @@ jobs:
         run: |
           bash build-dmg.sh
           RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          mv PicGuard.dmg PicGuard_"$RELEASE".dmg
+          mv PicGuard.dmg PicGuard_"$RELEASE"_macos_universal.dmg
         env:
           ENV: ${{ github.event.inputs.env }}
           VERSION: ${{ needs.create_release.outputs.version }}
@@ -996,7 +996,7 @@ jobs:
       - name: Build zip
         run: |
           RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          7z a PicGuard_"$RELEASE"_macos_x86_64.zip ./PicGuard.app
+          7z a PicGuard_"$RELEASE"_macos_universal.zip ./PicGuard.app
         working-directory: build/macos/Build/Products/Release
         env:
           ENV: ${{ github.event.inputs.env }}
@@ -1006,7 +1006,7 @@ jobs:
       - name: Copy build for zip
         run: |
           ls -la *.zip
-          mv PicGuard_*_macos_x86_64.zip $GITHUB_WORKSPACE/
+          mv PicGuard_*_macos_universal.zip $GITHUB_WORKSPACE/
         working-directory: build/macos/Build/Products/Release
 
       - name: Show gh info
@@ -1130,7 +1130,7 @@ jobs:
       - name: Build tar
         run: |
           RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          tar -czaf PicGuard_"$RELEASE"_macos_x86_64.tar.gz ./PicGuard.app
+          tar -czaf PicGuard_"$RELEASE"_macos_universal.tar.gz ./PicGuard.app
         working-directory: build/macos/Build/Products/Release
         env:
           ENV: ${{ github.event.inputs.env }}

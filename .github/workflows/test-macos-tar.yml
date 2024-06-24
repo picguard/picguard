@@ -115,7 +115,7 @@ jobs:
       - name: Build tar
         run: |
           echo "$VERSION"
-          tar -czaf PicGuard_"$VERSION"_macos.tar.gz ./PicGuard.app
+          tar -czaf PicGuard_"$VERSION"_macos_universal.tar.gz ./PicGuard.app
         working-directory: build/macos/Build/Products/Release
         env:
           VERSION: ${{ steps.version_step.outputs.version }}

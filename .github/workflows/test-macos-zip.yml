@@ -122,7 +122,7 @@ jobs:
       - name: Build zip
         run: |
           echo "$VERSION"
-          7z a PicGuard_"$VERSION"_macos.zip ./PicGuard.app
+          7z a PicGuard_"$VERSION"_macos_universal.zip ./PicGuard.app
         working-directory: build/macos/Build/Products/Release
         env:
           VERSION: ${{ steps.version_step.outputs.version }}

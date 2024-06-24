@@ -128,7 +128,7 @@ jobs:
           VERSION=$(yq '.version' pubspec.yaml)
           echo "$VERSION"
           ls -la *.dmg
-          mv PicGuard.dmg PicGuard_"$VERSION".dmg
+          mv PicGuard.dmg PicGuard_"$VERSION"_macos_universal.dmg
           ls -la *.dmg
 
       - uses: actions/upload-artifact@v4
