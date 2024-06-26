@@ -1,0 +1,150 @@
+name: Test Linux AppImage
+
+on:
+  workflow_dispatch:
+
+# Declare default permissions as readonly.
+permissions: read-all
+
+jobs:
+  appimage:
+    name: Create linux appimage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt update
+          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+          sudo apt install -y locate libfuse2
+          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          chmod +x appimagetool && mv appimagetool /usr/local/bin/
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.19.6'
+
+      - name: Configure .env
+        run: |
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
+
+      - name: Install flutter_distributor
+        run: |
+          dart pub global activate --source git https://github.com/kjxbyz/flutter_distributor --git-ref appimage --git-path packages/flutter_distributor
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build AppImage
+        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-x64" --platform linux --targets appimage --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_x86_64.{{ext}}'
+
+      # Package the build.
+      - name: Copy build for AppImage
+        run: ls -laR
+        working-directory: dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-appimage-artifact
+          path: |
+            ./dist/**/*.AppImage
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
+
+
+  appimage_aarch64:
+    name: Create linux appimage (aarch64)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
+      - name: Show linux info
+        run: uname --all
+
+      - name: Configure .env
+        run: |
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: ghcr.io/grimbough/bioc-with-tinytex:devel-arm64
+          options: |
+            --platform linux/arm64
+            -v ${{ github.workspace }}:/work
+            --workdir /work
+          shell: bash
+          run: |
+            set -x
+            # Show linux info
+            echo "Show linux info"
+            uname --all
+
+            # Install dependencies for Linux
+            echo "Install dependencies for Linux"
+            sudo apt update
+            sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+            sudo apt install -y locate libfuse2
+            wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-aarch64.AppImage"
+            chmod +x appimagetool && mv appimagetool /usr/local/bin/
+            
+            # Setup Flutter
+            echo "Setup Flutter"
+            bash ./install-flutter-ubuntu.sh
+            
+            if [ -d "/home/linux-arm64/flutter" ]; then
+              echo "🟩 ls -la"
+              ls -la /home/linux-arm64/flutter
+            fi
+            echo 'export PATH="$PATH:/home/linux-arm64/flutter/bin:/home/linux-arm64/flutter/.pub-cache/bin:$HOME/.pub-cache/bin"' >> ~/.zshrc
+            source ~/.zshrc
+            echo $PATH
+            
+            # Install flutter_distributor
+            echo "Install flutter_distributor"
+            dart pub global activate --source git https://github.com/kjxbyz/flutter_distributor --git-ref appimage --git-path packages/flutter_distributor
+            
+            # Flutter doctor
+            echo "Flutter doctor -v"
+            flutter doctor -v
+            
+            # Install flutter dependencies
+            echo "Install flutter dependencies"
+            flutter pub get
+            
+            # Build AppImage
+            echo "Build AppImage"
+            flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-arm64" --platform linux --targets appimage --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_aarch64.{{ext}}'
+
+      # Package the build.
+      - name: Copy build for AppImage
+        run: ls -laR
+        working-directory: dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-appimage-arm64-artifact
+          path: |
+            ./dist/**/*.AppImage
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
