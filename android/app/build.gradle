@@ -50,7 +50,7 @@ android {
         applicationId "com.kjxbyz.watermarkassistant"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 34
         versionName flutterVersionName
         versionCode flutterVersionCode.toInteger()
@@ -94,6 +94,13 @@ android {
         debug {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+        }
+    }
+
+    packagingOptions {
+        jniLibs {
+            // Enabling flag to compress JNI Libs to reduce APK size Ref: https://developer.android.com/topic/performance/reduce-apk-size?hl=zh-cn#extract-false
+            useLegacyPackaging true
         }
     }
 }
