@@ -2353,7 +2353,10 @@ jobs:
         if: ${{ always() }}
         run: |
           rm -f .env
-          snapcraft clean
+          if which snapcraft >/dev/null 2>&1; then
+            echo "snapcraft exists"
+            snapcraft clean
+          fi
 
   windows_msix:
     name: Create windows msix
