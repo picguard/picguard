@@ -715,7 +715,7 @@ jobs:
           rm -f PicGuard-unsigned.pkg
           ls -la *.pkg
           RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          mv PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE".pkg
+          mv PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_universal.pkg
         working-directory: build/macos/Build/Products/Release
         env:
           ENV: ${{ github.event.inputs.env }}
@@ -859,7 +859,7 @@ jobs:
         run: |
           ls -la *.pkg
           RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          cp PicGuard.pkg $GITHUB_WORKSPACE/PicGuardAppStore_"$RELEASE".pkg
+          cp PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore_universal.pkg
         working-directory: build/macos/Build/Products/AppStore-Release
         env:
           ENV: ${{ github.event.inputs.env }}
