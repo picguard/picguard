@@ -1,0 +1,49 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="PicGuard" Manufacturer="INSCO LLC" Version="1.0.0.0" UpgradeCode="62eb3032-f9fb-4440-8def-b9d7bdffd9f4">
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+    <!-- Set an icon for Windows Settings > Apps -->
+    <Property Id="ARPPRODUCTICON" Value="PicGuard.exe" />
+
+    <!-- Block 64-bit Win8/WinServer2012 (or earlier) and all 32-bit from installing -->
+    <Launch Message="PicGuard only supports 64-bit Windows 10/11!" Condition="Installed OR VersionNT64 >= 603"/>
+
+    <MediaTemplate EmbedCab="yes"/>
+
+    <Feature
+        Id="Main"
+        Title="PicGuard"
+        Description="Your pictures, your signature."
+        AllowAbsent="no"
+        AllowAdvertise="no">
+      <!-- Flutter output -->
+      <ComponentGroupRef Id="BaseComponents" />
+      <ComponentGroupRef Id="DataComponents" />
+      <ComponentGroupRef Id="FlutterAssetComponents" />
+      <ComponentGroupRef Id="FlutterFontComponents" />
+      <ComponentGroupRef Id="FlutterLogoComponents" />
+      <ComponentGroupRef Id="FlutterPackageComponents" />
+      <ComponentGroupRef Id="ShaderComponents" />
+    </Feature>
+    <Feature
+        Id="VCredist"
+        Title="Visual C++ Redistributable Libraries"
+        Description="Libraries that PicGuard uses. You may not need this if you already have vc_redist installed. You should install these if you're unsure of what this means."
+        AllowAbsent="yes"
+        AllowAdvertise="no">
+      <!-- Visual C++ Redustributable libraries -->
+      <ComponentGroupRef Id="VCredist" />
+    </Feature>
+    <!-- -->
+    <Feature
+      Id="Shortcut"
+      Title="PicGuard"
+      Description="Your pictures, your signature."
+      AllowAbsent="yes"
+      AllowAdvertise="no"
+      Level="1">
+        <ComponentGroupRef Id="BaseComponents" />
+        <ComponentRef Id="DesktopShortcutComponent"/>
+    </Feature>
+  </Package>
+</Wix>
