@@ -7,9 +7,37 @@ on:
 permissions: read-all
 
 jobs:
+  get_version:
+    name: Create release
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version_step.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install yq
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            brew install yq
+          fi
+          yq --version
+
+      - name: Set version
+        id: version_step
+        run: |
+          VERSION=$(yq '.version' pubspec.yaml)
+          echo "$VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check version
+        run: echo ${{ steps.version_step.outputs.version }}
+
   msi:
     name: Create msi
     runs-on: windows-latest
+    needs:
+      - get_version
     steps:
       - uses: actions/checkout@v4
 
@@ -96,18 +124,22 @@ jobs:
         run: |
           $env:FLUTTER_BUILD_OUTPUT_DIR = "$pwd\build\windows\x64\runner\Release"
           $env:VISUAL_STUDIO_REDIST_DIR = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC\14.40.33807\x64\Microsoft.VC143.CRT"
-          dotnet build .\MSI\PicGuard\PicGuard.wixproj --arch x64 --configuration Release
+          dotnet build .\msi\PicGuard\PicGuard.wixproj --arch x64 --configuration Release
 
       # Package the build.
       - name: Copy build for msi
-        run: ls
-        working-directory: MSI\PicGuard\bin\Release\en-US
+        shell: pwsh
+        run: |
+          Rename-Item -Path "$pwd\msi\PicGuard\bin\Release\en-US\PicGuard.msi" -NewName "PicGuard_$env:VERSION`_windows_x64_en-US.msi"
+          Rename-Item -Path "$pwd\msi\PicGuard\bin\Release\zh-CN\PicGuard.msi" -NewName "PicGuard_$env:VERSION`_windows_x64_zh-CN.msi"
+        env:
+          VERSION: ${{ needs.get_version.outputs.version }}
 
       - uses: actions/upload-artifact@v4
         with:
           name: windows-msi-artifact
           path: |
-            .\MSI\PicGuard\bin\Release\en-US\*.msi
+            .\msi\PicGuard\bin\Release\*\*.msi
 
       - name: Clean up
         if: ${{ always() }}

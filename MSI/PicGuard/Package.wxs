@@ -44,6 +44,6 @@
       Level="1">
         <ComponentGroupRef Id="BaseComponents" />
         <ComponentRef Id="DesktopShortcutComponent"/>
-      </Feature>
+    </Feature>
   </Package>
 </Wix>
