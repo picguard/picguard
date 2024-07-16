@@ -132,7 +132,7 @@ jobs:
         run: |
           echo "$VERSION"
           ls -la *.pkg
-          mv PicGuard.pkg PicGuardAppStore_"$VERSION".pkg
+          mv PicGuard.pkg PicGuardAppStore_"$VERSION"_macos_appstore_universal.pkg
           ls -la *.pkg
         working-directory: build/macos/Build/Products/AppStore-Release
         env:
