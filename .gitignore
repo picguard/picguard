@@ -72,3 +72,5 @@ dist/
 
 # FVM Version Cache
 .fvm/
+
+/*.wxs
