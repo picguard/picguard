@@ -116,7 +116,7 @@ class DialogUtil {
                         recognizer: TapGestureRecognizer()
                           ..onTap = () async {
                             final uri = Uri.parse(
-                              'https://www.kjxbyz.com/picguard/$languageCode/legal/terms-of-use/',
+                              'https://www.picguard.app/$languageCode/legal/terms-of-use/',
                             );
                             if (await canLaunchUrl(uri)) {
                               await launchUrl(uri);
@@ -142,7 +142,7 @@ class DialogUtil {
                         recognizer: TapGestureRecognizer()
                           ..onTap = () async {
                             final uri = Uri.parse(
-                              'https://www.kjxbyz.com/picguard/$languageCode/legal/privacy/',
+                              'https://www.picguard.app/$languageCode/legal/privacy/',
                             );
                             if (await canLaunchUrl(uri)) {
                               await launchUrl(uri);

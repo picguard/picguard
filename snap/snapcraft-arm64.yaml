@@ -8,7 +8,7 @@ contact: kjxbyz@163.com
 license: MIT
 source-code: https://github.com/picguard/picguard
 issues: https://github.com/picguard/picguard/issues
-website: https://www.kjxbyz.com/picguard
+website: https://www.picguard.app
 architectures:
   - build-on: [amd64]
   - build-on: [arm64]
