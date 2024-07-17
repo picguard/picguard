@@ -86,14 +86,14 @@
           "only-arches": [
             "x86_64"
           ],
-          "url": "https://github.com/picguard/picguard/releases/download/v1.0.0+283.pre/picguard_1.0.0+283.pre_linux_x86_64.tar.gz",
+          "url": "https://github.com/picguard/picguard/releases/download/v1.0.0+283.pre/picguard_1.0.0+283.pre_linux_amd64.tar.gz",
           "dest": "picguard",
           "sha256": "5264cc768f8c25645c8be4f94158810f8f2d34d6d68beeb9b5dfddf4953aabc0",
           "x-checker-data": {
             "type": "json",
             "url": "https://api.github.com/repos/picguard/picguard/releases/latest",
             "version-query": ".tag_name | sub(\"v\";\"\")",
-            "url-query": ".assets[] | select(.name==\"picguard_\" + $version + \"_linux_x86_64.tar.gz\") | .browser_download_url"
+            "url-query": ".assets[] | select(.name==\"picguard_\" + $version + \"_linux_amd64.tar.gz\") | .browser_download_url"
           }
         },
         {
