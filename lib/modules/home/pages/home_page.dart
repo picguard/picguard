@@ -52,6 +52,9 @@ class _HomePageState extends State<HomePage> with WindowListener {
   final _formKey = GlobalKey<FormBuilderState>();
   final colorNotifier = ValueNotifier<int>(0xFF9E9E9E);
   final transparencyNotifier = ValueNotifier<double>(1);
+
+  final inputFocusNode = FocusNode();
+
   List<FileWrapper> _fileWrappers = [];
 
   @override
@@ -270,6 +273,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
       },
       child: FormBuilderField<String>(
         name: 'text',
+        focusNode: inputFocusNode,
         builder: (FormFieldState<String> field) {
           final hasError = StringUtil.isNotBlank(field.errorText);
           return Column(
@@ -277,6 +281,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
             children: [
               TextFormField(
                 initialValue: field.value,
+                focusNode: inputFocusNode,
                 cursorColor: hasError ? errorTextColor : primaryColor,
                 autocorrect: false,
                 style: TextStyle(
