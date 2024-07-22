@@ -35,11 +35,11 @@ dependencies:
   collection: ^1.18.0
   cupertino_icons: ^1.0.8
   device_info_plus: ^10.1.0
-  file_picker: ^8.0.3
+  file_picker: ^8.0.5
   flutter:
     sdk: flutter
   flutter_form_builder: ^9.2.1
-  flutter_gen: ^5.5.0+1
+  flutter_gen: ^5.6.0
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.4.0
@@ -55,9 +55,9 @@ dependencies:
   permission_handler: ^11.3.1
   photo_view: ^0.15.0
   reorderables: ^0.6.0
-  sentry: ^8.2.0
-  sentry_flutter: ^8.2.0
-  sentry_logging: ^8.2.0
+  sentry: ^8.4.0
+  sentry_flutter: ^8.4.0
+  sentry_logging: ^8.4.0
   shared_preferences: ^2.2.3
   slang: ^3.31.0
   slang_flutter: ^3.31.0
@@ -65,12 +65,12 @@ dependencies:
   syncfusion_flutter_sliders: ^25.2.4
   synchronized: ^3.1.0+1
   url_launcher: ^6.3.0
-  uuid: ^4.4.0
+  uuid: ^4.4.2
   window_manager: ^0.3.9
 
 dev_dependencies:
   build_runner: ^2.4.9
-  flutter_gen_runner: ^5.5.0+1
+  flutter_gen_runner: ^5.6.0
   flutter_test:
     sdk: flutter
   msix: ^3.16.7
