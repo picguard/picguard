@@ -1,21 +1,30 @@
+import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
+import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:app_settings/app_settings.dart';
 import 'package:collection/collection.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:file_saver/file_saver.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:gap/gap.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:path/path.dart' hide context;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
 import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/utils.dart';
@@ -62,7 +71,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     super.initState();
     windowManager.addListener(this);
     LocaleSettings.getLocaleStream().listen((event) {
-      log('locale changed: $event');
+      printDebugLog('locale changed: $event');
     });
 
     SchedulerBinding.instance.addPostFrameCallback((timestamp) {
@@ -120,7 +129,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
               saveBtn,
               const Gap(20),
               Text(
-                'PicGuard $appVersion',
+                '${t.homePage.title} $appVersion',
                 style: const TextStyle(
                   color: secondaryTextColor,
                   fontSize: 12,
@@ -143,10 +152,10 @@ class _HomePageState extends State<HomePage> with WindowListener {
     final items = _fileWrappers
         .mapIndexed(
           (index, element) {
-            log(element.file.path);
+            printDebugLog(element.path);
             final image = kIsWeb
                 ? Image.network(
-                    element.file.path,
+                    element.path,
                     fit: BoxFit.cover,
                     errorBuilder: (context, url, error) => const Icon(
                       Icons.error,
@@ -155,7 +164,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                     ),
                   )
                 : Image.file(
-                    element.file,
+                    File(element.path),
                     fit: BoxFit.cover,
                     errorBuilder: (context, url, error) => const Icon(
                       Icons.error,
@@ -182,7 +191,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                     .nestedTap(() {
                   DialogUtil.showImagePreviewDialog(
                     element.name,
-                    element.file,
+                    element.path,
                   );
                 }),
                 Positioned(
@@ -376,7 +385,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     final t = Translations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final languageCode = LocaleSettings.currentLocale.languageCode;
-    log('languageCode: $languageCode');
+    printDebugLog('languageCode: $languageCode');
 
     return BaseFormItem(
       title: t.homePage.colorLabel,
@@ -493,6 +502,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
 
   /// 透明度选择
   Widget get transparency {
+    const min = 0.3;
     return BaseFormItem(
       title: t.homePage.transparencyLabel,
       required: false,
@@ -516,19 +526,21 @@ class _HomePageState extends State<HomePage> with WindowListener {
                       overlayRadius: 0,
                     ),
                     child: SfSlider(
-                      min: 0,
+                      min: min,
                       max: 1,
                       stepSize: 0.1,
                       value: field.value,
                       enableTooltip: true,
                       onChanged: (dynamic value) {
-                        transparencyNotifier.value = value as double? ?? 0.0;
+                        final newValue = value as double? ?? min;
+                        transparencyNotifier.value = newValue;
                         field
-                          ..didChange(value ?? 0.0)
+                          ..didChange(newValue)
                           ..validate();
                       },
                     ),
                   ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
+                  const Gap(4),
                   ValueListenableBuilder(
                     valueListenable: transparencyNotifier,
                     builder: (
@@ -537,13 +549,9 @@ class _HomePageState extends State<HomePage> with WindowListener {
                       Widget? child,
                     ) =>
                         Text(
-                      value.toString(),
+                      value.toStringAsFixed(1),
                       textAlign: TextAlign.center,
-                    ).nestedSizedBox(width: 28).nestedPadding(
-                              padding: const EdgeInsets.only(
-                                left: 4,
-                              ),
-                            ),
+                    ).nestedSizedBox(width: 28),
                   ),
                 ],
               ),
@@ -645,25 +653,262 @@ class _HomePageState extends State<HomePage> with WindowListener {
     );
   }
 
+  /// 预览
   void _preview() {
     if (_formKey.currentState!.validate()) {
       final values = _formKey.currentState!.instantValue;
-      log(json.encode(values));
+      printDebugLog(json.encode(values));
       final text = values['text'] as String;
       final color = values['color'] as int;
       final transparency = values['transparency'] as double;
-      log('text: $text, color: $color, transparency: $transparency');
+      printDebugLog('text: $text, color: $color, transparency: $transparency');
+
+      _saveToGallery(watermark: text, color: color, transparency: transparency);
     }
   }
 
+  /// 保存
   void _save() {
     if (_formKey.currentState!.validate()) {
       final values = _formKey.currentState!.instantValue;
-      log(json.encode(values));
+      printDebugLog(json.encode(values));
       final text = values['text'] as String;
       final color = values['color'] as int;
       final transparency = values['transparency'] as double;
-      log('text: $text, color: $color, transparency: $transparency');
+      printDebugLog('text: $text, color: $color, transparency: $transparency');
+
+      _saveToGallery(watermark: text, color: color, transparency: transparency);
+    }
+  }
+
+  void _saveToGallery({
+    required String watermark,
+    required int color,
+    required double transparency,
+  }) {
+    final imageFutures = _fileWrappers
+        .mapIndexed(
+          (index, element) => _addWatermarkV2(
+            imageIdx: index,
+            bytes: element.bytes,
+            name: element.name,
+            watermark: watermark,
+            colorValue: color,
+            transparency: transparency,
+          ),
+        )
+        .toList();
+
+    final t = Translations.of(context);
+    EasyLoading.show();
+    Future.wait(imageFutures).then((value) {
+      final hasErrors = value.where((element) => !element).isNotEmpty;
+      if (hasErrors) {
+        EasyLoading.showError(t.homePage.savedFailure);
+      } else {
+        EasyLoading.showSuccess(t.homePage.savedSuccess);
+      }
+    }).onError((error, stackTrace) {
+      EasyLoading.showError(t.homePage.savedFailure);
+      printErrorLog(error.toString());
+    });
+  }
+
+  Future<ui.Image> _loadImage(Uint8List img) async {
+    final completer = Completer<ui.Image>();
+    ui.decodeImageFromList(img, completer.complete);
+    return completer.future;
+  }
+
+  Future<bool> _addWatermarkV2({
+    required int imageIdx,
+    required Uint8List bytes,
+    required String name,
+    required String watermark,
+    required int colorValue,
+    required double transparency,
+  }) async {
+    final image = await _loadImage(bytes);
+
+    final width = image.width;
+    final height = image.height;
+    printDebugLog('image: $width, $height');
+
+    // 斜边长度
+    final hypotenuseLength = sqrt(width * width + height * height);
+
+    // 创建一个 PictureRecorder
+    final recorder = ui.PictureRecorder();
+    final canvas = Canvas(recorder);
+
+    // 绘制图像
+    paintImage(
+      canvas: canvas,
+      rect: Rect.fromLTWH(0, 0, width.toDouble(), height.toDouble()),
+      image: image,
+      fit: BoxFit.cover,
+    );
+    canvas.save();
+
+    // 设置文本样式
+    final textStyle = TextStyle(
+      color: Color(colorValue).withOpacity(transparency),
+      fontSize: 72,
+      fontWeight: FontWeight.w400,
+    );
+
+    // 创建文本画笔
+    var textPainter = TextPainter(
+      text: TextSpan(text: watermark, style: textStyle),
+      // textAlign: TextAlign.center,
+      textDirection: TextDirection.ltr,
+      maxLines: 1,
+    )..layout(maxWidth: hypotenuseLength);
+
+    // 间距
+    const gap = 200.0;
+
+    final multiply = (hypotenuseLength / (textPainter.width + gap)).floor();
+    if (multiply > 1) {
+      final watermarks = List.generate(multiply, (index) => index)
+          .map((e) => TextSpan(text: watermark))
+          .toList();
+
+      final children = <InlineSpan>[];
+      final dimensions = <PlaceholderDimensions>[];
+      for (var i = 0; i < watermarks.length; i++) {
+        if (i == 0) {
+          children.add(
+            const WidgetSpan(
+              child: SizedBox(
+                width: gap / 2,
+                height: 1,
+              ),
+            ),
+          );
+          dimensions.add(
+            const PlaceholderDimensions(
+              size: Size(gap / 2, 1),
+              alignment: ui.PlaceholderAlignment.bottom,
+            ),
+          );
+        }
+        children.add(watermarks[i]);
+        if (i < watermarks.length - 1) {
+          children.add(
+            const WidgetSpan(
+              child: SizedBox(
+                width: gap,
+                height: 1,
+              ),
+            ),
+          );
+          dimensions.add(
+            const PlaceholderDimensions(
+              size: Size(gap, 1),
+              alignment: ui.PlaceholderAlignment.bottom,
+            ),
+          );
+        }
+        if (i == watermarks.length - 1) {
+          children.add(
+            const WidgetSpan(
+              child: SizedBox(
+                width: gap / 2,
+                height: 1,
+              ),
+            ),
+          );
+          dimensions.add(
+            const PlaceholderDimensions(
+              size: Size(gap / 2, 1),
+              alignment: ui.PlaceholderAlignment.bottom,
+            ),
+          );
+        }
+      }
+
+      textPainter = TextPainter(
+        text: TextSpan(
+          children: children,
+          style: textStyle,
+        ),
+        textAlign: TextAlign.center,
+        textDirection: TextDirection.ltr,
+        maxLines: 1,
+      )
+        ..setPlaceholderDimensions(dimensions)
+        ..layout(maxWidth: hypotenuseLength);
+    }
+
+    // 计算角度
+    final angle = atan2(height, width);
+
+    canvas
+      ..translate(width / 2, height / 2)
+      ..rotate(angle);
+
+    // 计算中心文本位置
+    final offset = Offset(-textPainter.width / 2, 0);
+    textPainter.paint(canvas, offset);
+
+    printDebugLog('Height of textPainter: ${textPainter.height}');
+
+    // 绘制剩余文本
+    final lines = (((hypotenuseLength - textPainter.height) / 2) /
+            (textPainter.height + gap))
+        .floor();
+
+    for (var i = 0; i < lines; i++) {
+      textPainter
+        ..paint(
+          canvas,
+          Offset(
+            -textPainter.width / 2,
+            -(textPainter.height + gap) * (i + 1),
+          ),
+        )
+        ..paint(
+          canvas,
+          Offset(
+            -textPainter.width / 2,
+            (textPainter.height + gap) * (i + 1),
+          ),
+        );
+    }
+
+    canvas.restore();
+
+    // 结束录制并转换为 Image
+    final picture = recorder.endRecording();
+    final newImage = picture.toImageSync(width, height);
+    final data = await newImage.toByteData(format: ui.ImageByteFormat.png);
+    final watermarkedBytes = data?.buffer.asUint8List();
+
+    if (watermarkedBytes == null) {
+      return false;
+    }
+
+    final ext = extension(name);
+    final fileName =
+        '${basenameWithoutExtension(name)}_${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}$ext';
+
+    if (kIsWeb || isDesktop) {
+      await FileSaver.instance.saveFile(
+        name: fileName,
+        bytes: watermarkedBytes,
+        ext: ext,
+      );
+      return true;
+    } else {
+      // 保存图片到相册
+      final result = await ImageGallerySaver.saveImage(
+        watermarkedBytes,
+        quality: 100,
+        name: fileName,
+      );
+      printDebugLog('result: $result');
+      return result is Map && result['isSuccess'] == true;
     }
   }
 
@@ -714,13 +959,22 @@ class _HomePageState extends State<HomePage> with WindowListener {
 
   Future<void> _gotoPickImages() async {
     final picker = ImagePicker();
-    final image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      final file = File(image.path);
-      final name = image.name;
+    final images = await picker.pickMultiImage(limit: 9 - _fileWrappers.length);
+    if (images.isNotEmpty) {
+      final imageFutures = images.map(
+        (image) async {
+          return FileWrapper(
+            path: image.path,
+            bytes: await image.readAsBytes(),
+            name: image.name,
+          );
+        },
+      ).toList();
+
+      final fileWrappers = await Future.wait(imageFutures);
+
       setState(
-        () => _fileWrappers =
-            _fileWrappers + [FileWrapper(file: file, name: name)],
+        () => _fileWrappers = _fileWrappers + fileWrappers,
       );
     }
   }
@@ -738,7 +992,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
       items: colors,
       callback: (PGColor value) {
         if (kDebugMode) {
-          log('id: ${value.value}, name: ${value.enText}');
+          printDebugLog('id: ${value.value}, name: ${value.enText}');
         }
 
         field

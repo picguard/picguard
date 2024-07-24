@@ -11,7 +11,9 @@
     "colorValidator": "请选择颜色.",
     "transparencyLabel": "透明度",
     "preview": "预览",
-    "save": "保存"
+    "save": "保存",
+    "savedSuccess": "保存成功",
+    "savedFailure": "保存失败"
   },
   "buttons": {
     "agree": "同意",
@@ -37,7 +39,7 @@
         "为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)"
       ],
       "androidPermissions": [
-        "为了使用 Firebase Analytics 服务，PicGuard 需要访问您的互联网. (android.permission.INTERNET)",
+        "为了使用 Firebase Analytics 服务, PicGuard 需要访问您的互联网. (android.permission.INTERNET)",
         "为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)",
         "为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)",
         "为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)"

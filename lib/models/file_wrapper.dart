@@ -1,15 +1,18 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 ///
 class FileWrapper {
   ///
   const FileWrapper({
-    required this.file,
+    required this.path,
+    required this.bytes,
     required this.name,
   });
 
   ///
-  final File file;
+  final String path;
+
+  final Uint8List bytes;
 
   ///
   final String name;

@@ -363,7 +363,7 @@ class DialogUtil {
   }
 
   ///
-  static void showImagePreviewDialog(String id, File file) {
+  static void showImagePreviewDialog(String id, String path) {
     final context = AppNavigator.key.currentContext!;
     showDialog<void>(
       context: context,
@@ -380,7 +380,7 @@ class DialogUtil {
               bottomRight: Radius.circular(8),
             ),
             image: DecorationImage(
-              image: (kIsWeb ? NetworkImage(file.path) : FileImage(file))
+              image: (kIsWeb ? NetworkImage(path) : FileImage(File(path)))
                   as ImageProvider,
               fit: BoxFit.contain,
             ),

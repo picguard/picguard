@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -85,6 +86,8 @@ Future<void> main() async {
     return true;
   };
 
+  EasyLoading.instance.maskType = EasyLoadingMaskType.clear;
+
   if (isDesktop) {
     await WindowManager.instance.ensureInitialized();
     await windowManager.waitUntilReadyToShow().then((_) async {
@@ -116,10 +119,15 @@ Future<void> main() async {
   );
 }
 
-///
-class MainApp extends StatelessWidget {
-  ///
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  final easyLoadingBuilder = EasyLoading.init();
 
   @override
   Widget build(BuildContext context) {
@@ -136,11 +144,12 @@ class MainApp extends StatelessWidget {
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       home: const HomePage(),
       builder: (BuildContext context, Widget? child) {
+        child = easyLoadingBuilder(context,child); 
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(
             textScaler: TextScaler.noScaling,
           ),
-          child: child!,
+          child: child,
         );
       },
     );

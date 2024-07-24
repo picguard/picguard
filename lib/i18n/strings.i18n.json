@@ -11,7 +11,9 @@
     "colorValidator": "Please select a color.",
     "transparencyLabel": "Transparency",
     "preview": "Preview",
-    "save": "Save"
+    "save": "Save",
+    "savedSuccess": "Saved successfully",
+    "savedFailure": "Failed to save image(s)"
   },
   "buttons": {
     "agree": "Agree",

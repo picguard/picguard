@@ -33,9 +33,13 @@
         <false/>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
+		<key>LSSupportsOpeningDocumentsInPlace</key>
+		<true/>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>For you to upload pictures, PicGuard needs access to your Photos.</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
+		<true/>
+		<key>UIFileSharingEnabled</key>
 		<true/>
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>

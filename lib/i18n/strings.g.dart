@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 66 (33 per locale)
+/// Strings: 70 (35 per locale)
 ///
-/// Built on 2024-05-20 at 11:24 UTC
+/// Built on 2024-07-24 at 17:45 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -176,6 +176,8 @@ class _StringsHomePageEn {
 	String get transparencyLabel => 'Transparency';
 	String get preview => 'Preview';
 	String get save => 'Save';
+	String get savedSuccess => 'Saved successfully';
+	String get savedFailure => 'Failed to save image(s)';
 }
 
 // Path: buttons
@@ -291,6 +293,8 @@ class _StringsHomePageZh implements _StringsHomePageEn {
 	@override String get transparencyLabel => '透明度';
 	@override String get preview => '预览';
 	@override String get save => '保存';
+	@override String get savedSuccess => '保存成功';
+	@override String get savedFailure => '保存失败';
 }
 
 // Path: buttons
@@ -347,7 +351,7 @@ class _StringsDialogsLicenseDialogZh implements _StringsDialogsLicenseDialogEn {
 		'为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)',
 	];
 	@override List<String> get androidPermissions => [
-		'为了使用 Firebase Analytics 服务，PicGuard 需要访问您的互联网. (android.permission.INTERNET)',
+		'为了使用 Firebase Analytics 服务, PicGuard 需要访问您的互联网. (android.permission.INTERNET)',
 		'为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)',
 		'为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
 		'为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
@@ -372,6 +376,8 @@ extension on Translations {
 			case 'homePage.transparencyLabel': return 'Transparency';
 			case 'homePage.preview': return 'Preview';
 			case 'homePage.save': return 'Save';
+			case 'homePage.savedSuccess': return 'Saved successfully';
+			case 'homePage.savedFailure': return 'Failed to save image(s)';
 			case 'buttons.agree': return 'Agree';
 			case 'buttons.cancel': return 'Cancel';
 			case 'dialogs.exitConfirm.exit': return 'Exit';
@@ -413,6 +419,8 @@ extension on _StringsZh {
 			case 'homePage.transparencyLabel': return '透明度';
 			case 'homePage.preview': return '预览';
 			case 'homePage.save': return '保存';
+			case 'homePage.savedSuccess': return '保存成功';
+			case 'homePage.savedFailure': return '保存失败';
 			case 'buttons.agree': return '同意';
 			case 'buttons.cancel': return '再想想';
 			case 'dialogs.exitConfirm.exit': return '退出';
@@ -428,7 +436,7 @@ extension on _StringsZh {
 			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return '《用户服务协议》';
 			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', 你同意并接受全部条款后开始使用我们的服务.';
 			case 'dialogs.licenseDialog.iosPermissions.0': return '为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)';
-			case 'dialogs.licenseDialog.androidPermissions.0': return '为了使用 Firebase Analytics 服务，PicGuard 需要访问您的互联网. (android.permission.INTERNET)';
+			case 'dialogs.licenseDialog.androidPermissions.0': return '为了使用 Firebase Analytics 服务, PicGuard 需要访问您的互联网. (android.permission.INTERNET)';
 			case 'dialogs.licenseDialog.androidPermissions.1': return '为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.2': return '为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.3': return '为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)';
