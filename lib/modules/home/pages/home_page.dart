@@ -890,18 +890,19 @@ class _HomePageState extends State<HomePage> with WindowListener {
     }
 
     final ext = extension(name);
-    final fileName =
-        '${basenameWithoutExtension(name)}_${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}$ext';
+    final newFileName =
+        '${basenameWithoutExtension(name)}_${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}';
 
     if (kIsWeb || isDesktop) {
       await FileSaver.instance.saveFile(
-        name: fileName,
+        name: newFileName,
         bytes: watermarkedBytes,
         ext: ext,
       );
       return true;
     } else {
       // 保存图片到相册
+      final fileName = '$newFileName$ext';
       final result = await ImageGallerySaver.saveImage(
         watermarkedBytes,
         quality: 100,
