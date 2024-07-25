@@ -753,7 +753,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     // 设置文本样式
     final textStyle = TextStyle(
       color: Color(colorValue).withOpacity(transparency),
-      fontSize: 72,
+      fontSize: isMobile ? 72 : 36,
       fontWeight: FontWeight.w400,
     );
 
@@ -766,7 +766,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     )..layout(maxWidth: hypotenuseLength);
 
     // 间距
-    const gap = 200.0;
+    final gap = isMobile ? 200.0 : 60.0;
 
     final multiply = (hypotenuseLength / (textPainter.width + gap)).floor();
     if (multiply > 1) {
@@ -779,7 +779,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
       for (var i = 0; i < watermarks.length; i++) {
         if (i == 0) {
           children.add(
-            const WidgetSpan(
+            WidgetSpan(
               child: SizedBox(
                 width: gap / 2,
                 height: 1,
@@ -787,7 +787,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
             ),
           );
           dimensions.add(
-            const PlaceholderDimensions(
+            PlaceholderDimensions(
               size: Size(gap / 2, 1),
               alignment: ui.PlaceholderAlignment.bottom,
             ),
@@ -796,7 +796,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
         children.add(watermarks[i]);
         if (i < watermarks.length - 1) {
           children.add(
-            const WidgetSpan(
+            WidgetSpan(
               child: SizedBox(
                 width: gap,
                 height: 1,
@@ -804,7 +804,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
             ),
           );
           dimensions.add(
-            const PlaceholderDimensions(
+            PlaceholderDimensions(
               size: Size(gap, 1),
               alignment: ui.PlaceholderAlignment.bottom,
             ),
@@ -812,7 +812,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
         }
         if (i == watermarks.length - 1) {
           children.add(
-            const WidgetSpan(
+            WidgetSpan(
               child: SizedBox(
                 width: gap / 2,
                 height: 1,
@@ -820,7 +820,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
             ),
           );
           dimensions.add(
-            const PlaceholderDimensions(
+            PlaceholderDimensions(
               size: Size(gap / 2, 1),
               alignment: ui.PlaceholderAlignment.bottom,
             ),
