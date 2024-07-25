@@ -17,3 +17,16 @@ class FileWrapper {
   ///
   final String name;
 }
+
+class ReturnWrapper {
+  ///
+  const ReturnWrapper({
+    required this.bytes,
+    required this.name,
+  });
+
+  final Uint8List bytes;
+
+  ///
+  final String name;
+}

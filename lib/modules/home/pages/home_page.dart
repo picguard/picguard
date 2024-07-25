@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:app_settings/app_settings.dart';
@@ -21,6 +21,7 @@ import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:path/path.dart' hide context;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/i18n/i18n.dart';
@@ -33,6 +34,12 @@ import 'package:reorderables/reorderables.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:window_manager/window_manager.dart';
+
+enum Permissions {
+  photos,
+  storage,
+  none,
+}
 
 /// colors
 const colors = <PGColor>[
@@ -189,9 +196,14 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 child
                     .nestedSizedBox(width: itemWidth, height: itemWidth)
                     .nestedTap(() {
+                  final imageProviders = _fileWrappers.map((fileWrapper) {
+                    return (kIsWeb
+                        ? NetworkImage(fileWrapper.path)
+                        : FileImage(File(fileWrapper.path))) as ImageProvider;
+                  }).toList();
                   DialogUtil.showImagePreviewDialog(
-                    element.name,
-                    element.path,
+                    imageProviders,
+                    initialPage: index,
                   );
                 }),
                 Positioned(
@@ -654,7 +666,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
   }
 
   /// 预览
-  void _preview() {
+  Future<void> _preview() async {
     if (_formKey.currentState!.validate()) {
       final values = _formKey.currentState!.instantValue;
       printDebugLog(json.encode(values));
@@ -663,12 +675,38 @@ class _HomePageState extends State<HomePage> with WindowListener {
       final transparency = values['transparency'] as double;
       printDebugLog('text: $text, color: $color, transparency: $transparency');
 
-      _saveToGallery(watermark: text, color: color, transparency: transparency);
+      try {
+        await EasyLoading.show();
+        final imageFutures = _fileWrappers
+            .mapIndexed(
+              (index, element) => _addWatermarkV2(
+                imageIdx: index,
+                bytes: element.bytes,
+                name: element.name,
+                watermark: text,
+                colorValue: color,
+                transparency: transparency,
+              ),
+            )
+            .toList();
+
+        final images = await Future.wait(imageFutures);
+        printDebugLog('Length of images: ${images.length}');
+        await EasyLoading.dismiss();
+        final imageProviders = images
+            .whereNotNull()
+            .map((item) => MemoryImage(item.bytes))
+            .toList();
+        DialogUtil.showImagePreviewDialog(imageProviders);
+      } on Exception catch (error, stackTrace) {
+        await EasyLoading.dismiss();
+        printErrorLog(error, stackTrace: stackTrace);
+      }
     }
   }
 
   /// 保存
-  void _save() {
+  Future<void> _save() async {
     if (_formKey.currentState!.validate()) {
       final values = _formKey.currentState!.instantValue;
       printDebugLog(json.encode(values));
@@ -677,41 +715,82 @@ class _HomePageState extends State<HomePage> with WindowListener {
       final transparency = values['transparency'] as double;
       printDebugLog('text: $text, color: $color, transparency: $transparency');
 
-      _saveToGallery(watermark: text, color: color, transparency: transparency);
+      final permission = await _checkPermission();
+      if (permission != Permissions.none) {
+        final t = Translations.of(AppNavigator.key.currentContext!);
+        final title = permission == Permissions.photos
+            ? t.dialogs.permissions.photos.title
+            : t.dialogs.permissions.storage.title;
+        final description = permission == Permissions.photos
+            ? t.dialogs.permissions.photos.description
+            : t.dialogs.permissions.storage.description;
+        DialogUtil.showCustomDialog(
+          title: title,
+          content: description,
+          cancelText: t.buttons.ignore,
+          okText: t.buttons.turnOn,
+          onOK: () async {
+            NavigatorUtil.pop();
+            await AppSettings.openAppSettings();
+          },
+        );
+        return;
+      }
+
+      try {
+        await EasyLoading.show();
+        final imageFutures = _fileWrappers
+            .mapIndexed(
+              (index, element) => _addWatermarkV2(
+                imageIdx: index,
+                bytes: element.bytes,
+                name: element.name,
+                watermark: text,
+                colorValue: color,
+                transparency: transparency,
+              ),
+            )
+            .toList();
+
+        final images = await Future.wait(imageFutures);
+
+        final savedImageFutures =
+            images.whereNotNull().map(_saveToDevice).toList();
+        final savedImages = await Future.wait(savedImageFutures);
+        final hasErrors = savedImages.where((element) => !element).isNotEmpty;
+        if (hasErrors) {
+          await EasyLoading.showError(t.homePage.savedFailure);
+        } else {
+          await EasyLoading.showSuccess(t.homePage.savedSuccess);
+        }
+      } on Exception catch (error, stackTrace) {
+        await EasyLoading.showError(t.homePage.savedFailure);
+        printErrorLog(error, stackTrace: stackTrace);
+      }
     }
   }
 
-  void _saveToGallery({
-    required String watermark,
-    required int color,
-    required double transparency,
-  }) {
-    final imageFutures = _fileWrappers
-        .mapIndexed(
-          (index, element) => _addWatermarkV2(
-            imageIdx: index,
-            bytes: element.bytes,
-            name: element.name,
-            watermark: watermark,
-            colorValue: color,
-            transparency: transparency,
-          ),
-        )
-        .toList();
-
-    final t = Translations.of(context);
-    EasyLoading.show();
-    Future.wait(imageFutures).then((value) {
-      final hasErrors = value.where((element) => !element).isNotEmpty;
-      if (hasErrors) {
-        EasyLoading.showError(t.homePage.savedFailure);
-      } else {
-        EasyLoading.showSuccess(t.homePage.savedSuccess);
-      }
-    }).onError((error, stackTrace) {
-      EasyLoading.showError(t.homePage.savedFailure);
-      printErrorLog(error.toString());
-    });
+  Future<bool> _saveToDevice(ReturnWrapper returnWrapper) async {
+    final bytes = returnWrapper.bytes;
+    final name = returnWrapper.name;
+    final fileName = basenameWithoutExtension(name);
+    final ext = extension(name);
+    if (kIsWeb || isDesktop) {
+      await FileSaver.instance.saveFile(
+        name: fileName,
+        bytes: bytes,
+        ext: ext,
+      );
+      return true;
+    } else {
+      final result = await ImageGallerySaver.saveImage(
+        bytes,
+        quality: 100,
+        name: name,
+      );
+      printDebugLog('result: $result');
+      return result is Map && result['isSuccess'] == true;
+    }
   }
 
   Future<ui.Image> _loadImage(Uint8List img) async {
@@ -720,7 +799,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     return completer.future;
   }
 
-  Future<bool> _addWatermarkV2({
+  Future<ReturnWrapper?> _addWatermarkV2({
     required int imageIdx,
     required Uint8List bytes,
     required String name,
@@ -735,7 +814,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     printDebugLog('image: $width, $height');
 
     // 斜边长度
-    final hypotenuseLength = sqrt(width * width + height * height);
+    final hypotenuseLength = math.sqrt(width * width + height * height);
 
     // 创建一个 PictureRecorder
     final recorder = ui.PictureRecorder();
@@ -842,7 +921,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     }
 
     // 计算角度
-    final angle = atan2(height, width);
+    final angle = math.atan2(height, width);
 
     canvas
       ..translate(width / 2, height / 2)
@@ -885,74 +964,37 @@ class _HomePageState extends State<HomePage> with WindowListener {
     final data = await newImage.toByteData(format: ui.ImageByteFormat.png);
     final watermarkedBytes = data?.buffer.asUint8List();
 
-    if (watermarkedBytes == null) {
-      return false;
-    }
+    if (watermarkedBytes == null) return null;
 
     final ext = extension(name);
     final newFileName =
         '${basenameWithoutExtension(name)}_${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}';
+    final fileName = '$newFileName$ext';
 
-    if (kIsWeb || isDesktop) {
-      await FileSaver.instance.saveFile(
-        name: newFileName,
-        bytes: watermarkedBytes,
-        ext: ext,
-      );
-      return true;
-    } else {
-      // 保存图片到相册
-      final fileName = '$newFileName$ext';
-      final result = await ImageGallerySaver.saveImage(
-        watermarkedBytes,
-        quality: 100,
-        name: fileName,
-      );
-      printDebugLog('result: $result');
-      return result is Map && result['isSuccess'] == true;
-    }
+    return ReturnWrapper(bytes: watermarkedBytes, name: fileName);
   }
 
   Future<void> _pickImages() async {
-    if (isMobile) {
-      Map<Permission, PermissionStatus> statuses;
-      if (defaultTargetPlatform == TargetPlatform.android) {
-        final deviceInfo = DeviceInfoPlugin();
-        final androidInfo = await deviceInfo.androidInfo;
-        if (androidInfo.version.sdkInt >= 33) {
-          statuses = await [Permission.photos].request();
-        } else {
-          statuses = await [Permission.storage].request();
-        }
-      } else {
-        statuses = await [Permission.photos].request();
-      }
-
-      if (kDebugMode) {
-        print('statuses: $statuses');
-      }
-
-      final statusList = statuses.values.toList();
-      final denied = statusList.every(
-        (status) => [
-          PermissionStatus.permanentlyDenied,
-          PermissionStatus.denied,
-        ].contains(status),
+    final permission = await _checkPermission();
+    if (permission != Permissions.none) {
+      final t = Translations.of(AppNavigator.key.currentContext!);
+      final title = permission == Permissions.photos
+          ? t.dialogs.permissions.photos.title
+          : t.dialogs.permissions.storage.title;
+      final description = permission == Permissions.photos
+          ? t.dialogs.permissions.photos.description
+          : t.dialogs.permissions.storage.description;
+      DialogUtil.showCustomDialog(
+        title: title,
+        content: description,
+        cancelText: t.buttons.ignore,
+        okText: t.buttons.turnOn,
+        onOK: () async {
+          NavigatorUtil.pop();
+          await AppSettings.openAppSettings();
+        },
       );
-      if (denied) {
-        DialogUtil.showCustomDialog(
-          title: 'Allow access to your album',
-          content:
-              'Please go to your phone Settings to grant PicGuard the permission to visit your album.',
-          cancelText: 'Ignore',
-          okText: 'Turn On',
-          onOK: () async {
-            NavigatorUtil.pop();
-            await AppSettings.openAppSettings();
-          },
-        );
-        return;
-      }
+      return;
     }
 
     await _gotoPickImages();
@@ -1003,6 +1045,39 @@ class _HomePageState extends State<HomePage> with WindowListener {
         NavigatorUtil.pop();
       },
     );
+  }
+
+  // 检查权限
+  Future<Permissions> _checkPermission() async {
+    final t = Translations.of(AppNavigator.key.currentContext!);
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      final deviceInfo = DeviceInfoPlugin();
+      final androidInfo = await deviceInfo.androidInfo;
+      if (androidInfo.version.sdkInt >= 33) {
+        final status = await Permission.photos.request();
+        final denied = [
+          PermissionStatus.permanentlyDenied,
+          PermissionStatus.denied,
+        ].contains(status);
+        return denied ? Permissions.photos : Permissions.none;
+      } else {
+        final status = await Permission.storage.request();
+        final denied = [
+          PermissionStatus.permanentlyDenied,
+          PermissionStatus.denied,
+        ].contains(status);
+        return denied ? Permissions.storage : Permissions.none;
+      }
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      final status = await Permission.photos.request();
+      final denied = [
+        PermissionStatus.permanentlyDenied,
+        PermissionStatus.denied,
+      ].contains(status);
+      return denied ? Permissions.photos : Permissions.none;
+    }
+
+    return Permissions.none;
   }
 
   @override

@@ -17,7 +17,9 @@
   },
   "buttons": {
     "agree": "Agree",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "ignore": "Ignore",
+    "turnOn": "Turn On"
   },
   "dialogs": {
     "exitConfirm": {
@@ -25,6 +27,16 @@
       "cancel": "Cancel",
       "title": "Close confirmation",
       "description": "Are you sure you want to close this window?"
+    },
+    "permissions": {
+      "photos": {
+        "title": "Allow access to your album",
+        "description": "Please go to your phone Settings to grant PicGuard the permission to visit your album."
+      },
+      "storage": {
+        "title": "Allow access to your storage",
+        "description": "Please go to your phone Settings to grant PicGuard the permission to visit your storage."
+      }
     },
     "licenseDialog": {
       "licenseDialogTitle": "Terms and Conditions",

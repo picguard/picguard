@@ -6,9 +6,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
+import 'package:picguard/gen/assets.gen.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/models/models.dart';
 import 'package:picguard/theme/colors.dart';
@@ -363,29 +365,47 @@ class DialogUtil {
   }
 
   ///
-  static void showImagePreviewDialog(String id, String path) {
+  static void showImagePreviewDialog(
+    List<ImageProvider> imageProviders, {
+    int initialPage = 0,
+  }) {
     final context = AppNavigator.key.currentContext!;
+    final pageController = PageController(initialPage: initialPage);
     showDialog<void>(
       context: context,
-      builder: (context) => PhotoView.customChild(
-        backgroundDecoration: const BoxDecoration(color: Colors.black45),
-        heroAttributes: PhotoViewHeroAttributes(tag: id),
-        initialScale: 1.0,
-        minScale: 0.5,
-        maxScale: 2.0,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(8),
-              bottomRight: Radius.circular(8),
-            ),
-            image: DecorationImage(
-              image: (kIsWeb ? NetworkImage(path) : FileImage(File(path)))
-                  as ImageProvider,
-              fit: BoxFit.contain,
+      builder: (context) => Stack(
+        alignment: Alignment.center,
+        children: [
+          PhotoViewGallery.builder(
+            pageController: pageController,
+            scrollPhysics: const AlwaysScrollableScrollPhysics(),
+            backgroundDecoration: const BoxDecoration(color: Colors.black45),
+            itemCount: imageProviders.length,
+            builder: (BuildContext context, int index) {
+              final imageProvider = imageProviders.elementAt(index);
+              return PhotoViewGalleryPageOptions(
+                initialScale: PhotoViewComputedScale.contained,
+                imageProvider: imageProvider,
+                heroAttributes: PhotoViewHeroAttributes(tag: index),
+              );
+            },
+          ),
+          Positioned(
+            top: 8,
+            right: 8,
+            child: IconButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all(const EdgeInsets.all(4)),
+                minimumSize: MaterialStateProperty.all(Size.zero),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                iconColor: MaterialStateProperty.all(Colors.red),
+                backgroundColor: MaterialStateProperty.all(backgroundColor),
+              ),
+              onPressed: NavigatorUtil.pop,
+              icon: const Icon(Icons.close),
             ),
           ),
-        ).nestedTap(NavigatorUtil.pop),
+        ],
       ),
     );
   }

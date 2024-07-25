@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 70 (35 per locale)
+/// Strings: 82 (41 per locale)
 ///
-/// Built on 2024-07-24 at 17:45 UTC
+/// Built on 2024-07-25 at 05:49 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -189,6 +189,8 @@ class _StringsButtonsEn {
 	// Translations
 	String get agree => 'Agree';
 	String get cancel => 'Cancel';
+	String get ignore => 'Ignore';
+	String get turnOn => 'Turn On';
 }
 
 // Path: dialogs
@@ -199,6 +201,7 @@ class _StringsDialogsEn {
 
 	// Translations
 	late final _StringsDialogsExitConfirmEn exitConfirm = _StringsDialogsExitConfirmEn._(_root);
+	late final _StringsDialogsPermissionsEn permissions = _StringsDialogsPermissionsEn._(_root);
 	late final _StringsDialogsLicenseDialogEn licenseDialog = _StringsDialogsLicenseDialogEn._(_root);
 }
 
@@ -213,6 +216,17 @@ class _StringsDialogsExitConfirmEn {
 	String get cancel => 'Cancel';
 	String get title => 'Close confirmation';
 	String get description => 'Are you sure you want to close this window?';
+}
+
+// Path: dialogs.permissions
+class _StringsDialogsPermissionsEn {
+	_StringsDialogsPermissionsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final _StringsDialogsPermissionsPhotosEn photos = _StringsDialogsPermissionsPhotosEn._(_root);
+	late final _StringsDialogsPermissionsStorageEn storage = _StringsDialogsPermissionsStorageEn._(_root);
 }
 
 // Path: dialogs.licenseDialog
@@ -239,6 +253,28 @@ class _StringsDialogsLicenseDialogEn {
 		'For you to save pictures, PicGuard needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
 		'For you to upload pictures, PicGuard needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)',
 	];
+}
+
+// Path: dialogs.permissions.photos
+class _StringsDialogsPermissionsPhotosEn {
+	_StringsDialogsPermissionsPhotosEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Allow access to your album';
+	String get description => 'Please go to your phone Settings to grant PicGuard the permission to visit your album.';
+}
+
+// Path: dialogs.permissions.storage
+class _StringsDialogsPermissionsStorageEn {
+	_StringsDialogsPermissionsStorageEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Allow access to your storage';
+	String get description => 'Please go to your phone Settings to grant PicGuard the permission to visit your storage.';
 }
 
 // Path: <root>
@@ -306,6 +342,8 @@ class _StringsButtonsZh implements _StringsButtonsEn {
 	// Translations
 	@override String get agree => '同意';
 	@override String get cancel => '再想想';
+	@override String get ignore => '忽略';
+	@override String get turnOn => '打开';
 }
 
 // Path: dialogs
@@ -316,6 +354,7 @@ class _StringsDialogsZh implements _StringsDialogsEn {
 
 	// Translations
 	@override late final _StringsDialogsExitConfirmZh exitConfirm = _StringsDialogsExitConfirmZh._(_root);
+	@override late final _StringsDialogsPermissionsZh permissions = _StringsDialogsPermissionsZh._(_root);
 	@override late final _StringsDialogsLicenseDialogZh licenseDialog = _StringsDialogsLicenseDialogZh._(_root);
 }
 
@@ -332,6 +371,17 @@ class _StringsDialogsExitConfirmZh implements _StringsDialogsExitConfirmEn {
 	@override String get description => '您确定要关闭此窗口吗?';
 }
 
+// Path: dialogs.permissions
+class _StringsDialogsPermissionsZh implements _StringsDialogsPermissionsEn {
+	_StringsDialogsPermissionsZh._(this._root);
+
+	@override final _StringsZh _root; // ignore: unused_field
+
+	// Translations
+	@override late final _StringsDialogsPermissionsPhotosZh photos = _StringsDialogsPermissionsPhotosZh._(_root);
+	@override late final _StringsDialogsPermissionsStorageZh storage = _StringsDialogsPermissionsStorageZh._(_root);
+}
+
 // Path: dialogs.licenseDialog
 class _StringsDialogsLicenseDialogZh implements _StringsDialogsLicenseDialogEn {
 	_StringsDialogsLicenseDialogZh._(this._root);
@@ -342,7 +392,7 @@ class _StringsDialogsLicenseDialogZh implements _StringsDialogsLicenseDialogEn {
 	@override String get licenseDialogTitle => '隐私条款';
 	@override String get licenseDialogContentContent => 'PicGuard非常重视你的隐私保护和个人信息保护.';
 	@override String get licenseDialogContentTip => '以下是该APP所需的权限列表:';
-	@override String get licenseDialogContentPrefix => '在使用APP服务前，请认真阅读 ';
+	@override String get licenseDialogContentPrefix => '在使用APP服务前, 请认真阅读 ';
 	@override String get licenseDialogContentUserAgreement => '《隐私政策》';
 	@override String get licenseDialogContentAnd => '和';
 	@override String get licenseDialogContentPrivacyAgreement => '《用户服务协议》';
@@ -356,6 +406,28 @@ class _StringsDialogsLicenseDialogZh implements _StringsDialogsLicenseDialogEn {
 		'为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
 		'为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
 	];
+}
+
+// Path: dialogs.permissions.photos
+class _StringsDialogsPermissionsPhotosZh implements _StringsDialogsPermissionsPhotosEn {
+	_StringsDialogsPermissionsPhotosZh._(this._root);
+
+	@override final _StringsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '允许访问您的相册';
+	@override String get description => '请前往您的手机设置，授予 PicGuard 访问您相册的权限.';
+}
+
+// Path: dialogs.permissions.storage
+class _StringsDialogsPermissionsStorageZh implements _StringsDialogsPermissionsStorageEn {
+	_StringsDialogsPermissionsStorageZh._(this._root);
+
+	@override final _StringsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '允许访问您的存储';
+	@override String get description => '请前往您的手机设置，授予 PicGuard 访问您存储的权限.';
 }
 
 /// Flat map(s) containing all translations.
@@ -380,10 +452,16 @@ extension on Translations {
 			case 'homePage.savedFailure': return 'Failed to save image(s)';
 			case 'buttons.agree': return 'Agree';
 			case 'buttons.cancel': return 'Cancel';
+			case 'buttons.ignore': return 'Ignore';
+			case 'buttons.turnOn': return 'Turn On';
 			case 'dialogs.exitConfirm.exit': return 'Exit';
 			case 'dialogs.exitConfirm.cancel': return 'Cancel';
 			case 'dialogs.exitConfirm.title': return 'Close confirmation';
 			case 'dialogs.exitConfirm.description': return 'Are you sure you want to close this window?';
+			case 'dialogs.permissions.photos.title': return 'Allow access to your album';
+			case 'dialogs.permissions.photos.description': return 'Please go to your phone Settings to grant PicGuard the permission to visit your album.';
+			case 'dialogs.permissions.storage.title': return 'Allow access to your storage';
+			case 'dialogs.permissions.storage.description': return 'Please go to your phone Settings to grant PicGuard the permission to visit your storage.';
 			case 'dialogs.licenseDialog.licenseDialogTitle': return 'Terms and Conditions';
 			case 'dialogs.licenseDialog.licenseDialogContentContent': return 'Protecting user\'s privacy and personal information is a fundamental principle of PicGuard.';
 			case 'dialogs.licenseDialog.licenseDialogContentTip': return 'Below is a list of permissions required by this APP:';
@@ -423,14 +501,20 @@ extension on _StringsZh {
 			case 'homePage.savedFailure': return '保存失败';
 			case 'buttons.agree': return '同意';
 			case 'buttons.cancel': return '再想想';
+			case 'buttons.ignore': return '忽略';
+			case 'buttons.turnOn': return '打开';
 			case 'dialogs.exitConfirm.exit': return '退出';
 			case 'dialogs.exitConfirm.cancel': return '取消';
 			case 'dialogs.exitConfirm.title': return '关闭确认';
 			case 'dialogs.exitConfirm.description': return '您确定要关闭此窗口吗?';
+			case 'dialogs.permissions.photos.title': return '允许访问您的相册';
+			case 'dialogs.permissions.photos.description': return '请前往您的手机设置，授予 PicGuard 访问您相册的权限.';
+			case 'dialogs.permissions.storage.title': return '允许访问您的存储';
+			case 'dialogs.permissions.storage.description': return '请前往您的手机设置，授予 PicGuard 访问您存储的权限.';
 			case 'dialogs.licenseDialog.licenseDialogTitle': return '隐私条款';
 			case 'dialogs.licenseDialog.licenseDialogContentContent': return 'PicGuard非常重视你的隐私保护和个人信息保护.';
 			case 'dialogs.licenseDialog.licenseDialogContentTip': return '以下是该APP所需的权限列表:';
-			case 'dialogs.licenseDialog.licenseDialogContentPrefix': return '在使用APP服务前，请认真阅读 ';
+			case 'dialogs.licenseDialog.licenseDialogContentPrefix': return '在使用APP服务前, 请认真阅读 ';
 			case 'dialogs.licenseDialog.licenseDialogContentUserAgreement': return '《隐私政策》';
 			case 'dialogs.licenseDialog.licenseDialogContentAnd': return '和';
 			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return '《用户服务协议》';
