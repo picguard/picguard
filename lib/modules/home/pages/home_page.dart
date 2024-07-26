@@ -54,6 +54,7 @@ const colors = <PGColor>[
 const spacing = 8.0;
 const runSpacing = 4.0;
 const padding = 10.0;
+double initialGap = isMobile ? 100.0 : 30.0;
 
 ///
 class HomePage extends StatefulWidget {
@@ -68,6 +69,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
   final _formKey = GlobalKey<FormBuilderState>();
   final colorNotifier = ValueNotifier<int>(0xFF9E9E9E);
   final transparencyNotifier = ValueNotifier<double>(1);
+  final textGapNotifier = ValueNotifier<double>(initialGap);
+  final rowGapNotifier = ValueNotifier<double>(initialGap);
 
   final inputFocusNode = FocusNode();
 
@@ -127,6 +130,10 @@ class _HomePageState extends State<HomePage> with WindowListener {
                     colorSelect,
                     const Gap(5),
                     transparency,
+                    const Gap(5),
+                    textGap,
+                    const Gap(5),
+                    rowGap,
                   ],
                 ),
               ),
@@ -533,6 +540,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                     data: const SfSliderThemeData(
                       activeTrackHeight: 4,
                       activeTrackColor: primaryColor,
+                      inactiveTrackColor: primaryBackgroundColor,
                       thumbRadius: 6,
                       thumbColor: primaryColor,
                       overlayRadius: 0,
@@ -562,6 +570,164 @@ class _HomePageState extends State<HomePage> with WindowListener {
                     ) =>
                         Text(
                       value.toStringAsFixed(1),
+                      textAlign: TextAlign.center,
+                    ).nestedSizedBox(width: 28),
+                  ),
+                ],
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: errorTextColor,
+                  ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(top: 8, left: 8),
+                ),
+            ],
+          );
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+
+  /// 文本之间间距
+  Widget get textGap {
+    return BaseFormItem(
+      title: t.homePage.textGapLabel,
+      required: false,
+      onTipTap: () {
+        DialogUtil.showBottomSheetDialog(
+          t.homePage.textGapLabel,
+          t.homePage.textGapDescription,
+        );
+      },
+      child: FormBuilderField<double>(
+        name: 'textGap',
+        initialValue: textGapNotifier.value,
+        builder: (FormFieldState<double> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  SfSliderTheme(
+                    data: const SfSliderThemeData(
+                      activeTrackHeight: 4,
+                      activeTrackColor: primaryColor,
+                      inactiveTrackColor: primaryBackgroundColor,
+                      thumbRadius: 6,
+                      thumbColor: primaryColor,
+                      overlayRadius: 0,
+                    ),
+                    child: SfSlider(
+                      min: initialGap,
+                      max: initialGap * 3,
+                      stepSize: 10,
+                      value: field.value,
+                      enableTooltip: true,
+                      onChanged: (dynamic value) {
+                        final newValue = value as double? ?? initialGap;
+                        textGapNotifier.value = newValue;
+                        field
+                          ..didChange(newValue)
+                          ..validate();
+                      },
+                    ),
+                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
+                  const Gap(4),
+                  ValueListenableBuilder(
+                    valueListenable: textGapNotifier,
+                    builder: (
+                      BuildContext context,
+                      double value,
+                      Widget? child,
+                    ) =>
+                        Text(
+                      value.toStringAsFixed(0),
+                      textAlign: TextAlign.center,
+                    ).nestedSizedBox(width: 28),
+                  ),
+                ],
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: errorTextColor,
+                  ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(top: 8, left: 8),
+                ),
+            ],
+          );
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+
+  /// 文本行间距
+  Widget get rowGap {
+    return BaseFormItem(
+      title: t.homePage.rowGapLabel,
+      required: false,
+      onTipTap: () {
+        DialogUtil.showBottomSheetDialog(
+          t.homePage.rowGapLabel,
+          t.homePage.rowGapDescription,
+        );
+      },
+      child: FormBuilderField<double>(
+        name: 'rowGap',
+        initialValue: rowGapNotifier.value,
+        builder: (FormFieldState<double> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  SfSliderTheme(
+                    data: const SfSliderThemeData(
+                      activeTrackHeight: 4,
+                      activeTrackColor: primaryColor,
+                      inactiveTrackColor: primaryBackgroundColor,
+                      thumbRadius: 6,
+                      thumbColor: primaryColor,
+                      overlayRadius: 0,
+                    ),
+                    child: SfSlider(
+                      min: initialGap,
+                      max: initialGap * 3,
+                      stepSize: 10,
+                      value: field.value,
+                      enableTooltip: true,
+                      onChanged: (dynamic value) {
+                        final newValue = value as double? ?? initialGap;
+                        rowGapNotifier.value = newValue;
+                        field
+                          ..didChange(newValue)
+                          ..validate();
+                      },
+                    ),
+                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
+                  const Gap(4),
+                  ValueListenableBuilder(
+                    valueListenable: rowGapNotifier,
+                    builder: (
+                      BuildContext context,
+                      double value,
+                      Widget? child,
+                    ) =>
+                        Text(
+                      value.toStringAsFixed(0),
                       textAlign: TextAlign.center,
                     ).nestedSizedBox(width: 28),
                   ),
@@ -673,7 +839,11 @@ class _HomePageState extends State<HomePage> with WindowListener {
       final text = values['text'] as String;
       final color = values['color'] as int;
       final transparency = values['transparency'] as double;
-      printDebugLog('text: $text, color: $color, transparency: $transparency');
+      final textGap = values['textGap'] as double;
+      final rowGap = values['rowGap'] as double;
+      printDebugLog(
+        'text: $text, color: $color, transparency: $transparency, textGap: $textGap, rowGap: $rowGap',
+      );
 
       try {
         await EasyLoading.show();
@@ -686,6 +856,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 watermark: text,
                 colorValue: color,
                 transparency: transparency,
+                textGap: textGap,
+                rowGap: rowGap,
               ),
             )
             .toList();
@@ -713,7 +885,11 @@ class _HomePageState extends State<HomePage> with WindowListener {
       final text = values['text'] as String;
       final color = values['color'] as int;
       final transparency = values['transparency'] as double;
-      printDebugLog('text: $text, color: $color, transparency: $transparency');
+      final textGap = values['textGap'] as double;
+      final rowGap = values['rowGap'] as double;
+      printDebugLog(
+        'text: $text, color: $color, transparency: $transparency, textGap: $textGap, rowGap: $rowGap',
+      );
 
       final permission = await _checkPermission();
       if (permission != Permissions.none) {
@@ -748,6 +924,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 watermark: text,
                 colorValue: color,
                 transparency: transparency,
+                textGap: textGap,
+                rowGap: rowGap,
               ),
             )
             .toList();
@@ -806,6 +984,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
     required String watermark,
     required int colorValue,
     required double transparency,
+    required double textGap,
+    required double rowGap,
   }) async {
     final image = await _loadImage(bytes);
 
@@ -845,9 +1025,9 @@ class _HomePageState extends State<HomePage> with WindowListener {
     )..layout(maxWidth: hypotenuseLength);
 
     // 间距
-    final gap = isMobile ? 200.0 : 60.0;
+    // final gap = isMobile ? 200.0 : 60.0;
 
-    final multiply = (hypotenuseLength / (textPainter.width + gap)).floor();
+    final multiply = (hypotenuseLength / (textPainter.width + textGap)).floor();
     if (multiply > 1) {
       final watermarks = List.generate(multiply, (index) => index)
           .map((e) => TextSpan(text: watermark))
@@ -860,14 +1040,14 @@ class _HomePageState extends State<HomePage> with WindowListener {
           children.add(
             WidgetSpan(
               child: SizedBox(
-                width: gap / 2,
+                width: textGap / 2,
                 height: 1,
               ),
             ),
           );
           dimensions.add(
             PlaceholderDimensions(
-              size: Size(gap / 2, 1),
+              size: Size(textGap / 2, 1),
               alignment: ui.PlaceholderAlignment.bottom,
             ),
           );
@@ -877,14 +1057,14 @@ class _HomePageState extends State<HomePage> with WindowListener {
           children.add(
             WidgetSpan(
               child: SizedBox(
-                width: gap,
+                width: textGap,
                 height: 1,
               ),
             ),
           );
           dimensions.add(
             PlaceholderDimensions(
-              size: Size(gap, 1),
+              size: Size(textGap, 1),
               alignment: ui.PlaceholderAlignment.bottom,
             ),
           );
@@ -893,14 +1073,14 @@ class _HomePageState extends State<HomePage> with WindowListener {
           children.add(
             WidgetSpan(
               child: SizedBox(
-                width: gap / 2,
+                width: textGap / 2,
                 height: 1,
               ),
             ),
           );
           dimensions.add(
             PlaceholderDimensions(
-              size: Size(gap / 2, 1),
+              size: Size(textGap / 2, 1),
               alignment: ui.PlaceholderAlignment.bottom,
             ),
           );
@@ -935,7 +1115,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
 
     // 绘制剩余文本
     final lines = (((hypotenuseLength - textPainter.height) / 2) /
-            (textPainter.height + gap))
+            (textPainter.height + rowGap))
         .floor();
 
     for (var i = 0; i < lines; i++) {
@@ -944,14 +1124,14 @@ class _HomePageState extends State<HomePage> with WindowListener {
           canvas,
           Offset(
             -textPainter.width / 2,
-            -(textPainter.height + gap) * (i + 1),
+            -(textPainter.height + rowGap) * (i + 1),
           ),
         )
         ..paint(
           canvas,
           Offset(
             -textPainter.width / 2,
-            (textPainter.height + gap) * (i + 1),
+            (textPainter.height + rowGap) * (i + 1),
           ),
         );
     }

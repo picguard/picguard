@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 82 (41 per locale)
+/// Strings: 90 (45 per locale)
 ///
-/// Built on 2024-07-25 at 05:49 UTC
+/// Built on 2024-07-26 at 09:53 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -174,6 +174,10 @@ class _StringsHomePageEn {
 	String get colorLabel => 'Color';
 	String get colorValidator => 'Please select a color.';
 	String get transparencyLabel => 'Transparency';
+	String get textGapLabel => 'Text spacing';
+	String get textGapDescription => 'The spacing between text in each line of text';
+	String get rowGapLabel => 'Line spacing';
+	String get rowGapDescription => 'The spacing between each line of text';
 	String get preview => 'Preview';
 	String get save => 'Save';
 	String get savedSuccess => 'Saved successfully';
@@ -327,6 +331,10 @@ class _StringsHomePageZh implements _StringsHomePageEn {
 	@override String get colorLabel => '颜色';
 	@override String get colorValidator => '请选择颜色.';
 	@override String get transparencyLabel => '透明度';
+	@override String get textGapLabel => '文本间距';
+	@override String get textGapDescription => '每行文本中, 文本与文本之间的间距';
+	@override String get rowGapLabel => '行间距';
+	@override String get rowGapDescription => '每行文本与每行文本之间的间距';
 	@override String get preview => '预览';
 	@override String get save => '保存';
 	@override String get savedSuccess => '保存成功';
@@ -446,6 +454,10 @@ extension on Translations {
 			case 'homePage.colorLabel': return 'Color';
 			case 'homePage.colorValidator': return 'Please select a color.';
 			case 'homePage.transparencyLabel': return 'Transparency';
+			case 'homePage.textGapLabel': return 'Text spacing';
+			case 'homePage.textGapDescription': return 'The spacing between text in each line of text';
+			case 'homePage.rowGapLabel': return 'Line spacing';
+			case 'homePage.rowGapDescription': return 'The spacing between each line of text';
 			case 'homePage.preview': return 'Preview';
 			case 'homePage.save': return 'Save';
 			case 'homePage.savedSuccess': return 'Saved successfully';
@@ -495,6 +507,10 @@ extension on _StringsZh {
 			case 'homePage.colorLabel': return '颜色';
 			case 'homePage.colorValidator': return '请选择颜色.';
 			case 'homePage.transparencyLabel': return '透明度';
+			case 'homePage.textGapLabel': return '文本间距';
+			case 'homePage.textGapDescription': return '每行文本中, 文本与文本之间的间距';
+			case 'homePage.rowGapLabel': return '行间距';
+			case 'homePage.rowGapDescription': return '每行文本与每行文本之间的间距';
 			case 'homePage.preview': return '预览';
 			case 'homePage.save': return '保存';
 			case 'homePage.savedSuccess': return '保存成功';
