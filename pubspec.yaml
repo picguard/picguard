@@ -43,7 +43,7 @@ dependencies:
   flutter_gen: ^5.6.0
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: ^2.4.0
+  flutter_native_splash: ^2.4.1
   fluttertoast: ^8.2.6
   form_builder_validators: ^9.1.0
   gap: ^3.0.1
