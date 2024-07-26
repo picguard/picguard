@@ -45,7 +45,7 @@ dependencies:
     sdk: flutter
   flutter_native_splash: ^2.4.0
   fluttertoast: ^8.2.6
-  form_builder_validators: ^9.1.0
+  form_builder_validators: ^11.0.0
   gap: ^3.0.1
   image_gallery_saver: #8c6480bf3a07834df89525e7ac6e0196ec701f73
     path: ./plugins/image_gallery_saver
