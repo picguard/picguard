@@ -55,7 +55,7 @@
         "For you to upload pictures, PicGuard needs access to your Photos. (NSPhotoLibraryUsageDescription)"
       ],
       "androidPermissions": [
-        "In order to use the Firebase Analytics Service, PicGuard needs access to your Internet. (android.permission.INTERNET)",
+        "In order to use the Sentry Service, PicGuard needs access to your Internet. (android.permission.INTERNET)",
         "For you to upload pictures, PicGuard needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)",
         "For you to save pictures, PicGuard needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)",
         "For you to upload pictures, PicGuard needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)"
