@@ -39,7 +39,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_easyloading: ^3.0.5
-  flutter_form_builder: ^9.2.1
+  flutter_form_builder: ^9.3.0
   flutter_gen: ^5.6.0
   flutter_localizations:
     sdk: flutter
