@@ -50,7 +50,7 @@ dependencies:
   image_gallery_saver: #8c6480bf3a07834df89525e7ac6e0196ec701f73
     path: ./plugins/image_gallery_saver
   image_picker: ^1.1.2
-  intl: ^0.18.1
+  intl: ^0.19.0
   keyboard_dismisser: ^3.0.0
   logging: ^1.2.0
   mime: ^1.0.5
