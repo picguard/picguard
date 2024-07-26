@@ -32,7 +32,7 @@ dependencies:
   app_settings: # add ios privacy manifest
     git:
       url: https://github.com/spencerccf/app_settings
-  collection: ^1.18.0
+  collection: ^1.19.0
   cupertino_icons: ^1.0.8
   device_info_plus: ^10.1.0
   file_saver: ^0.2.13
