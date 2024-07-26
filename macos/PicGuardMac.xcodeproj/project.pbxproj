@@ -21,48 +21,17 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		0E13B91AEFE3F5F9F5D2C8B9 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		200DE550346399628F97E5FE /* Pods_PicGuardMacTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D860A66A437A85EAE4BEAC /* Pods_PicGuardMacTests.framework */; };
-		2EB517802BE92E7100B87C88 /* MainFlutterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC11122044BFA00003C045 /* MainFlutterWindow.swift */; };
-		2EB517812BE92E7100B87C88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC10F02044A3C60003C045 /* AppDelegate.swift */; };
-		2EB517822BE92E7100B87C88 /* GeneratedPluginRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */; };
-		2EB517862BE92E7100B87C88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33CC10F22044A3C60003C045 /* Assets.xcassets */; };
-		2EB517872BE92E7100B87C88 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33CC10F42044A3C60003C045 /* MainMenu.xib */; };
-		2EB517972BE9A59D00B87C88 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C80D7294CF71000263BE5 /* RunnerTests.swift */; };
 		331C80D8294CF71000263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C80D7294CF71000263BE5 /* RunnerTests.swift */; };
 		335BBD1B22A9A15E00E9071D /* GeneratedPluginRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */; };
 		33CC10F12044A3C60003C045 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC10F02044A3C60003C045 /* AppDelegate.swift */; };
 		33CC10F32044A3C60003C045 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33CC10F22044A3C60003C045 /* Assets.xcassets */; };
 		33CC10F62044A3C60003C045 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33CC10F42044A3C60003C045 /* MainMenu.xib */; };
 		33CC11132044BFA00003C045 /* MainFlutterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC11122044BFA00003C045 /* MainFlutterWindow.swift */; };
-		3F470C9FFC4EAD3C999D77AD /* Pods_PicGuardMacAppStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 447E80494B1F3D22942D5B08 /* Pods_PicGuardMacAppStore.framework */; };
 		7A4527B79CBDC3593DCB97C9 /* Pods_PicGuardMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D32C4970278FA4EB7F6A4A /* Pods_PicGuardMac.framework */; };
-		82521FF5B0FC53CA72A55DC9 /* Pods_PicGuardMacAppStoreTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9E4E8141F5CF9FAD0E021A4 /* Pods_PicGuardMacAppStoreTests.framework */; };
-		A2207862E048793884CF7A5E /* Pods_PicGuardMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25D32C4970278FA4EB7F6A4A /* Pods_PicGuardMac.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2EB5177D2BE92E7100B87C88 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 33CC111A2044C6BA0003C045;
-			remoteInfo = FLX;
-		};
-		2EB517942BE9A59D00B87C88 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 33CC10EC2044A3C60003C045;
-			remoteInfo = Runner;
-		};
-		2EB517A02BE9A5B000B87C88 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2EB5177B2BE92E7100B87C88;
-			remoteInfo = PicGuardMacAppStore;
-		};
 		331C80D9294CF71000263BE5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
@@ -80,16 +49,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2EB517892BE92E7100B87C88 /* Bundle Framework */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Bundle Framework";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		33CC110E2044A8840003C045 /* Bundle Framework */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -104,20 +63,9 @@
 
 /* Begin PBXFileReference section */
 		0420BC1DB2EC35A2F2879F72 /* Pods-PicGuardMacTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.profile.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.profile.xcconfig"; sourceTree = "<group>"; };
-		052448EF5889669A2BBC9C82 /* Pods-PicGuardMacAppStoreTests.appstore-release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacAppStoreTests.appstore-release.xcconfig"; path = "Target Support Files/Pods-PicGuardMacAppStoreTests/Pods-PicGuardMacAppStoreTests.appstore-release.xcconfig"; sourceTree = "<group>"; };
-		0B090B54656BC7AE8E9DAEA9 /* Pods-PicGuardMacAppStore.appstore-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacAppStore.appstore-debug.xcconfig"; path = "Target Support Files/Pods-PicGuardMacAppStore/Pods-PicGuardMacAppStore.appstore-debug.xcconfig"; sourceTree = "<group>"; };
 		11BAB1DE7B2EC7F479C0E1CA /* Pods-PicGuardMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.release.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.release.xcconfig"; sourceTree = "<group>"; };
-		1C11DC78FB46771A647EAADC /* Pods-PicGuardMac.appstore-release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.appstore-release.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.appstore-release.xcconfig"; sourceTree = "<group>"; };
 		25D32C4970278FA4EB7F6A4A /* Pods_PicGuardMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicGuardMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2BD7A93FA3C0FDCDAAE1027B /* Pods-PicGuardMacTests.appstore-profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.appstore-profile.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.appstore-profile.xcconfig"; sourceTree = "<group>"; };
 		2E22E73F2BEA5ABF0084157E /* AppStore-Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "AppStore-Release.entitlements"; sourceTree = "<group>"; };
-		2EB517902BE92E7100B87C88 /* PicGuard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicGuard.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EB5179F2BE9A59D00B87C88 /* PicGuardMacAppStoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PicGuardMacAppStoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EB517A22BE9A63700B87C88 /* AppStore-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AppStore-Info.plist"; path = "Runner/AppStore-Info.plist"; sourceTree = "<group>"; };
-		2EB517B52BE9A91D00B87C88 /* AppStore-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "AppStore-Release.xcconfig"; sourceTree = "<group>"; };
-		2EB517B62BE9A91D00B87C88 /* AppStore-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "AppStore-Debug.xcconfig"; sourceTree = "<group>"; };
-		2EB517B72BE9A92A00B87C88 /* Flutter-AppStore-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Flutter-AppStore-Release.xcconfig"; sourceTree = "<group>"; };
-		2EB517B82BE9A92B00B87C88 /* Flutter-AppStore-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Flutter-AppStore-Debug.xcconfig"; sourceTree = "<group>"; };
 		331C80D5294CF71000263BE5 /* PicGuardMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PicGuardMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		331C80D7294CF71000263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		333000ED22D3DE5D00554162 /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
@@ -134,53 +82,20 @@
 		33E51913231747F40026EE4D /* DebugProfile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DebugProfile.entitlements; sourceTree = "<group>"; };
 		33E51914231749380026EE4D /* Release.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Release.entitlements; sourceTree = "<group>"; };
 		33E5194F232828860026EE4D /* AppInfo.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppInfo.xcconfig; sourceTree = "<group>"; };
-		374753A0EDA87498709C0FF4 /* Pods-PicGuardMacAppStoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacAppStoreTests.release.xcconfig"; path = "Target Support Files/Pods-PicGuardMacAppStoreTests/Pods-PicGuardMacAppStoreTests.release.xcconfig"; sourceTree = "<group>"; };
-		447E80494B1F3D22942D5B08 /* Pods_PicGuardMacAppStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicGuardMacAppStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		536DDE790A34442CB26CCA81 /* Pods-PicGuardMacTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.debug.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.debug.xcconfig"; sourceTree = "<group>"; };
-		650B68CAE2E0E9881A538997 /* Pods-PicGuardMacAppStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacAppStore.debug.xcconfig"; path = "Target Support Files/Pods-PicGuardMacAppStore/Pods-PicGuardMacAppStore.debug.xcconfig"; sourceTree = "<group>"; };
 		68D860A66A437A85EAE4BEAC /* Pods_PicGuardMacTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicGuardMacTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AAB0F92B467B88E04101847 /* Pods-PicGuardMacAppStoreTests.appstore-profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacAppStoreTests.appstore-profile.xcconfig"; path = "Target Support Files/Pods-PicGuardMacAppStoreTests/Pods-PicGuardMacAppStoreTests.appstore-profile.xcconfig"; sourceTree = "<group>"; };
 		6ED2609233C76846568B8C6C /* Pods-PicGuardMacTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.release.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.release.xcconfig"; sourceTree = "<group>"; };
-		775103B05D87448CF5288915 /* Pods-PicGuardMacAppStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacAppStore.release.xcconfig"; path = "Target Support Files/Pods-PicGuardMacAppStore/Pods-PicGuardMacAppStore.release.xcconfig"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		7F58CC11AF6F9D0EEE2CF16E /* Pods-PicGuardMac.appstore-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.appstore-debug.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.appstore-debug.xcconfig"; sourceTree = "<group>"; };
-		95946B22618E94A07DFF6ED9 /* Pods-PicGuardMacAppStoreTests.appstore-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacAppStoreTests.appstore-debug.xcconfig"; path = "Target Support Files/Pods-PicGuardMacAppStoreTests/Pods-PicGuardMacAppStoreTests.appstore-debug.xcconfig"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		AD715CCC34A7D2DACDC34590 /* Pods-PicGuardMac.appstore-profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.appstore-profile.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.appstore-profile.xcconfig"; sourceTree = "<group>"; };
 		B3FF7C67EC0FEA417172E84B /* Pods-PicGuardMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.debug.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.debug.xcconfig"; sourceTree = "<group>"; };
-		B7D2A2244EE7523653EB51BC /* Pods-PicGuardMacAppStoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacAppStoreTests.debug.xcconfig"; path = "Target Support Files/Pods-PicGuardMacAppStoreTests/Pods-PicGuardMacAppStoreTests.debug.xcconfig"; sourceTree = "<group>"; };
-		C47F65609E4FAE5FACD011FB /* Pods-PicGuardMacAppStore.appstore-release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacAppStore.appstore-release.xcconfig"; path = "Target Support Files/Pods-PicGuardMacAppStore/Pods-PicGuardMacAppStore.appstore-release.xcconfig"; sourceTree = "<group>"; };
-		CBD2A4AD9CC6478BBCB95F63 /* Pods-PicGuardMacAppStoreTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacAppStoreTests.profile.xcconfig"; path = "Target Support Files/Pods-PicGuardMacAppStoreTests/Pods-PicGuardMacAppStoreTests.profile.xcconfig"; sourceTree = "<group>"; };
-		CD2CD8F159CDA6F3895FA7EE /* Pods-PicGuardMacAppStore.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacAppStore.profile.xcconfig"; path = "Target Support Files/Pods-PicGuardMacAppStore/Pods-PicGuardMacAppStore.profile.xcconfig"; sourceTree = "<group>"; };
 		D2C5B7D91E959D2A01CA328A /* Pods-PicGuardMac.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.profile.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.profile.xcconfig"; sourceTree = "<group>"; };
-		E60E1BAE1AF7B7456BBE6CF3 /* Pods-PicGuardMacAppStore.appstore-profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacAppStore.appstore-profile.xcconfig"; path = "Target Support Files/Pods-PicGuardMacAppStore/Pods-PicGuardMacAppStore.appstore-profile.xcconfig"; sourceTree = "<group>"; };
-		E906D0B4A47BA36B6DBE9846 /* Pods-PicGuardMacTests.appstore-debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.appstore-debug.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.appstore-debug.xcconfig"; sourceTree = "<group>"; };
-		E9E4E8141F5CF9FAD0E021A4 /* Pods_PicGuardMacAppStoreTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicGuardMacAppStoreTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F120681D9F650CFD7023290E /* Pods-PicGuardMacTests.appstore-release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.appstore-release.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.appstore-release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2EB517832BE92E7100B87C88 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3F470C9FFC4EAD3C999D77AD /* Pods_PicGuardMacAppStore.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2EB517982BE9A59D00B87C88 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				82521FF5B0FC53CA72A55DC9 /* Pods_PicGuardMacAppStoreTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		331C80D2294CF70F00263BE5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E13B91AEFE3F5F9F5D2C8B9 /* (null) in Frameworks */,
 				200DE550346399628F97E5FE /* Pods_PicGuardMacTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,7 +104,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2207862E048793884CF7A5E /* Pods_PicGuardMac.framework in Frameworks */,
 				7A4527B79CBDC3593DCB97C9 /* Pods_PicGuardMac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,8 +122,6 @@
 		33BA886A226E78AF003329D5 /* Configs */ = {
 			isa = PBXGroup;
 			children = (
-				2EB517B62BE9A91D00B87C88 /* AppStore-Debug.xcconfig */,
-				2EB517B52BE9A91D00B87C88 /* AppStore-Release.xcconfig */,
 				33E5194F232828860026EE4D /* AppInfo.xcconfig */,
 				9740EEB21CF90195004384FC /* Debug.xcconfig */,
 				7AFA3C8E1D35360C0083082E /* Release.xcconfig */,
@@ -235,8 +147,6 @@
 			children = (
 				33CC10ED2044A3C60003C045 /* PicGuard.app */,
 				331C80D5294CF71000263BE5 /* PicGuardMacTests.xctest */,
-				2EB517902BE92E7100B87C88 /* PicGuard.app */,
-				2EB5179F2BE9A59D00B87C88 /* PicGuardMacAppStoreTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -244,7 +154,6 @@
 		33CC11242044D66E0003C045 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2EB517A22BE9A63700B87C88 /* AppStore-Info.plist */,
 				33CC10F22044A3C60003C045 /* Assets.xcassets */,
 				33CC10F42044A3C60003C045 /* MainMenu.xib */,
 				33CC10F72044A3C60003C045 /* Info.plist */,
@@ -256,8 +165,6 @@
 		33CEB47122A05771004F2AC0 /* Flutter */ = {
 			isa = PBXGroup;
 			children = (
-				2EB517B82BE9A92B00B87C88 /* Flutter-AppStore-Debug.xcconfig */,
-				2EB517B72BE9A92A00B87C88 /* Flutter-AppStore-Release.xcconfig */,
 				335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */,
 				33CEB47222A05771004F2AC0 /* Flutter-Debug.xcconfig */,
 				33CEB47422A05771004F2AC0 /* Flutter-Release.xcconfig */,
@@ -284,8 +191,6 @@
 			isa = PBXGroup;
 			children = (
 				25D32C4970278FA4EB7F6A4A /* Pods_PicGuardMac.framework */,
-				447E80494B1F3D22942D5B08 /* Pods_PicGuardMacAppStore.framework */,
-				E9E4E8141F5CF9FAD0E021A4 /* Pods_PicGuardMacAppStoreTests.framework */,
 				68D860A66A437A85EAE4BEAC /* Pods_PicGuardMacTests.framework */,
 			);
 			name = Frameworks;
@@ -300,24 +205,6 @@
 				536DDE790A34442CB26CCA81 /* Pods-PicGuardMacTests.debug.xcconfig */,
 				6ED2609233C76846568B8C6C /* Pods-PicGuardMacTests.release.xcconfig */,
 				0420BC1DB2EC35A2F2879F72 /* Pods-PicGuardMacTests.profile.xcconfig */,
-				650B68CAE2E0E9881A538997 /* Pods-PicGuardMacAppStore.debug.xcconfig */,
-				775103B05D87448CF5288915 /* Pods-PicGuardMacAppStore.release.xcconfig */,
-				CD2CD8F159CDA6F3895FA7EE /* Pods-PicGuardMacAppStore.profile.xcconfig */,
-				B7D2A2244EE7523653EB51BC /* Pods-PicGuardMacAppStoreTests.debug.xcconfig */,
-				374753A0EDA87498709C0FF4 /* Pods-PicGuardMacAppStoreTests.release.xcconfig */,
-				CBD2A4AD9CC6478BBCB95F63 /* Pods-PicGuardMacAppStoreTests.profile.xcconfig */,
-				7F58CC11AF6F9D0EEE2CF16E /* Pods-PicGuardMac.appstore-debug.xcconfig */,
-				1C11DC78FB46771A647EAADC /* Pods-PicGuardMac.appstore-release.xcconfig */,
-				AD715CCC34A7D2DACDC34590 /* Pods-PicGuardMac.appstore-profile.xcconfig */,
-				0B090B54656BC7AE8E9DAEA9 /* Pods-PicGuardMacAppStore.appstore-debug.xcconfig */,
-				C47F65609E4FAE5FACD011FB /* Pods-PicGuardMacAppStore.appstore-release.xcconfig */,
-				E60E1BAE1AF7B7456BBE6CF3 /* Pods-PicGuardMacAppStore.appstore-profile.xcconfig */,
-				95946B22618E94A07DFF6ED9 /* Pods-PicGuardMacAppStoreTests.appstore-debug.xcconfig */,
-				052448EF5889669A2BBC9C82 /* Pods-PicGuardMacAppStoreTests.appstore-release.xcconfig */,
-				6AAB0F92B467B88E04101847 /* Pods-PicGuardMacAppStoreTests.appstore-profile.xcconfig */,
-				E906D0B4A47BA36B6DBE9846 /* Pods-PicGuardMacTests.appstore-debug.xcconfig */,
-				F120681D9F650CFD7023290E /* Pods-PicGuardMacTests.appstore-release.xcconfig */,
-				2BD7A93FA3C0FDCDAAE1027B /* Pods-PicGuardMacTests.appstore-profile.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -325,48 +212,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2EB5177B2BE92E7100B87C88 /* PicGuardMacAppStore */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2EB5178C2BE92E7100B87C88 /* Build configuration list for PBXNativeTarget "PicGuardMacAppStore" */;
-			buildPhases = (
-				04EA8BF1ACB50719FC7606D1 /* [CP] Check Pods Manifest.lock */,
-				2EB5177F2BE92E7100B87C88 /* Sources */,
-				2EB517832BE92E7100B87C88 /* Frameworks */,
-				2EB517852BE92E7100B87C88 /* Resources */,
-				2EB517892BE92E7100B87C88 /* Bundle Framework */,
-				2EB5178A2BE92E7100B87C88 /* ShellScript */,
-				9454BEB48B04F2E385BAD2FE /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2EB5177C2BE92E7100B87C88 /* PBXTargetDependency */,
-			);
-			name = PicGuardMacAppStore;
-			productName = Runner;
-			productReference = 2EB517902BE92E7100B87C88 /* PicGuard.app */;
-			productType = "com.apple.product-type.application";
-		};
-		2EB517922BE9A59D00B87C88 /* PicGuardMacAppStoreTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2EB5179B2BE9A59D00B87C88 /* Build configuration list for PBXNativeTarget "PicGuardMacAppStoreTests" */;
-			buildPhases = (
-				2EB517952BE9A59D00B87C88 /* [CP] Check Pods Manifest.lock */,
-				2EB517962BE9A59D00B87C88 /* Sources */,
-				2EB517982BE9A59D00B87C88 /* Frameworks */,
-				2EB5179A2BE9A59D00B87C88 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2EB517932BE9A59D00B87C88 /* PBXTargetDependency */,
-				2EB517A12BE9A5B000B87C88 /* PBXTargetDependency */,
-			);
-			name = PicGuardMacAppStoreTests;
-			productName = RunnerTests;
-			productReference = 2EB5179F2BE9A59D00B87C88 /* PicGuardMacAppStoreTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		331C80D4294CF70F00263BE5 /* PicGuardMacTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 331C80DE294CF71000263BE5 /* Build configuration list for PBXNativeTarget "PicGuardMacTests" */;
@@ -418,9 +263,6 @@
 				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
-					2EB517922BE9A59D00B87C88 = {
-						TestTargetID = 2EB5177B2BE92E7100B87C88;
-					};
 					331C80D4294CF70F00263BE5 = {
 						CreatedOnToolsVersion = 14.0;
 						TestTargetID = 33CC10EC2044A3C60003C045;
@@ -456,29 +298,11 @@
 				33CC10EC2044A3C60003C045 /* PicGuardMac */,
 				331C80D4294CF70F00263BE5 /* PicGuardMacTests */,
 				33CC111A2044C6BA0003C045 /* Flutter Assemble */,
-				2EB5177B2BE92E7100B87C88 /* PicGuardMacAppStore */,
-				2EB517922BE9A59D00B87C88 /* PicGuardMacAppStoreTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2EB517852BE92E7100B87C88 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2EB517862BE92E7100B87C88 /* Assets.xcassets in Resources */,
-				2EB517872BE92E7100B87C88 /* MainMenu.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2EB5179A2BE9A59D00B87C88 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		331C80D3294CF70F00263BE5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -514,68 +338,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-PicGuardMac-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		04EA8BF1ACB50719FC7606D1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PicGuardMacAppStore-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2EB5178A2BE92E7100B87C88 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo \"$PRODUCT_NAME.app\" > \"$PROJECT_DIR\"/Flutter/ephemeral/.app_filename && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/macos_assemble.sh embed\n";
-		};
-		2EB517952BE9A59D00B87C88 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PicGuardMacAppStoreTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -642,23 +404,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9454BEB48B04F2E385BAD2FE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PicGuardMacAppStore/Pods-PicGuardMacAppStore-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PicGuardMacAppStore/Pods-PicGuardMacAppStore-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PicGuardMacAppStore/Pods-PicGuardMacAppStore-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B0DD28461872CF63B602B541 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -679,24 +424,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2EB5177F2BE92E7100B87C88 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2EB517802BE92E7100B87C88 /* MainFlutterWindow.swift in Sources */,
-				2EB517812BE92E7100B87C88 /* AppDelegate.swift in Sources */,
-				2EB517822BE92E7100B87C88 /* GeneratedPluginRegistrant.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2EB517962BE9A59D00B87C88 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2EB517972BE9A59D00B87C88 /* RunnerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		331C80D1294CF70F00263BE5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -718,21 +445,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		2EB5177C2BE92E7100B87C88 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 33CC111A2044C6BA0003C045 /* Flutter Assemble */;
-			targetProxy = 2EB5177D2BE92E7100B87C88 /* PBXContainerItemProxy */;
-		};
-		2EB517932BE9A59D00B87C88 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 33CC10EC2044A3C60003C045 /* PicGuardMac */;
-			targetProxy = 2EB517942BE9A59D00B87C88 /* PBXContainerItemProxy */;
-		};
-		2EB517A12BE9A5B000B87C88 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2EB5177B2BE92E7100B87C88 /* PicGuardMacAppStore */;
-			targetProxy = 2EB517A02BE9A5B000B87C88 /* PBXContainerItemProxy */;
-		};
 		331C80DA294CF71000263BE5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 33CC10EC2044A3C60003C045 /* PicGuardMac */;
@@ -758,590 +470,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		2EB5178D2BE92E7100B87C88 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Runner/DebugProfile.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 43V9N6VW8L;
-				ENABLE_APP_SANDBOX = YES;
-				INFOPLIST_FILE = "Runner/AppStore-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = PicGuard;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuard;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		2EB5178E2BE92E7100B87C88 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Runner/AppStore-Release.entitlements";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 43V9N6VW8L;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = "Runner/AppStore-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = PicGuard;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuard;
-				PROVISIONING_PROFILE_SPECIFIER = watermark_assistant_mac_appstore;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = watermark_assistant_mac_appstore;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		2EB5178F2BE92E7100B87C88 /* Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Runner/DebugProfile.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 43V9N6VW8L;
-				ENABLE_APP_SANDBOX = YES;
-				INFOPLIST_FILE = "Runner/AppStore-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = PicGuard;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuard;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = watermark_assistant_mac_appstore;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Profile;
-		};
-		2EB5179C2BE9A59D00B87C88 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B7D2A2244EE7523653EB51BC /* Pods-PicGuardMacAppStoreTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac.RunnerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
-			};
-			name = Debug;
-		};
-		2EB5179D2BE9A59D00B87C88 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 374753A0EDA87498709C0FF4 /* Pods-PicGuardMacAppStoreTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac.RunnerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
-			};
-			name = Release;
-		};
-		2EB5179E2BE9A59D00B87C88 /* Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CBD2A4AD9CC6478BBCB95F63 /* Pods-PicGuardMacAppStoreTests.profile.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac.RunnerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
-			};
-			name = Profile;
-		};
-		2EB517A32BE9A8A600B87C88 /* AppStore-Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EB517B62BE9A91D00B87C88 /* AppStore-Debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = "AppStore-Debug";
-		};
-		2EB517A42BE9A8A600B87C88 /* AppStore-Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Runner/DebugProfile.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 43V9N6VW8L;
-				ENABLE_APP_SANDBOX = YES;
-				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = PicGuard;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuard;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-			};
-			name = "AppStore-Debug";
-		};
-		2EB517A52BE9A8A600B87C88 /* AppStore-Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E906D0B4A47BA36B6DBE9846 /* Pods-PicGuardMacTests.appstore-debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac.RunnerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
-			};
-			name = "AppStore-Debug";
-		};
-		2EB517A62BE9A8A600B87C88 /* AppStore-Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "AppStore-Debug";
-		};
-		2EB517A72BE9A8A600B87C88 /* AppStore-Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Runner/DebugProfile.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 43V9N6VW8L;
-				ENABLE_APP_SANDBOX = YES;
-				INFOPLIST_FILE = "Runner/AppStore-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = PicGuard;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuard;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-			};
-			name = "AppStore-Debug";
-		};
-		2EB517A82BE9A8A600B87C88 /* AppStore-Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95946B22618E94A07DFF6ED9 /* Pods-PicGuardMacAppStoreTests.appstore-debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac.RunnerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
-			};
-			name = "AppStore-Debug";
-		};
-		2EB517A92BE9A8B600B87C88 /* AppStore-Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EB517B52BE9A91D00B87C88 /* AppStore-Release.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-			};
-			name = "AppStore-Release";
-		};
-		2EB517AA2BE9A8B600B87C88 /* AppStore-Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Runner/Release.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 43V9N6VW8L;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = PicGuard;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuard;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 5.0;
-			};
-			name = "AppStore-Release";
-		};
-		2EB517AB2BE9A8B600B87C88 /* AppStore-Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F120681D9F650CFD7023290E /* Pods-PicGuardMacTests.appstore-release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac.RunnerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
-			};
-			name = "AppStore-Release";
-		};
-		2EB517AC2BE9A8B600B87C88 /* AppStore-Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "AppStore-Release";
-		};
-		2EB517AD2BE9A8B600B87C88 /* AppStore-Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "Runner/AppStore-Release.entitlements";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 43V9N6VW8L;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = "Runner/AppStore-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = PicGuard;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuard;
-				PROVISIONING_PROFILE_SPECIFIER = watermark_assistant_mac_appstore;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = watermark_assistant_mac_appstore;
-				SWIFT_VERSION = 5.0;
-			};
-			name = "AppStore-Release";
-		};
-		2EB517AE2BE9A8B600B87C88 /* AppStore-Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 052448EF5889669A2BBC9C82 /* Pods-PicGuardMacAppStoreTests.appstore-release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac.RunnerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
-			};
-			name = "AppStore-Release";
-		};
-		2EB517AF2BE9A8C200B87C88 /* AppStore-Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EB517B52BE9A91D00B87C88 /* AppStore-Release.xcconfig */;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-			};
-			name = "AppStore-Profile";
-		};
-		2EB517B02BE9A8C200B87C88 /* AppStore-Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Runner/DebugProfile.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 43V9N6VW8L;
-				ENABLE_APP_SANDBOX = YES;
-				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = PicGuard;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuard;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 5.0;
-			};
-			name = "AppStore-Profile";
-		};
-		2EB517B12BE9A8C200B87C88 /* AppStore-Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2BD7A93FA3C0FDCDAAE1027B /* Pods-PicGuardMacTests.appstore-profile.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac.RunnerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
-			};
-			name = "AppStore-Profile";
-		};
-		2EB517B22BE9A8C200B87C88 /* AppStore-Profile */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = "AppStore-Profile";
-		};
-		2EB517B32BE9A8C200B87C88 /* AppStore-Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Runner/DebugProfile.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 43V9N6VW8L;
-				ENABLE_APP_SANDBOX = YES;
-				INFOPLIST_FILE = "Runner/AppStore-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = PicGuard;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac;
-				PRODUCT_NAME = PicGuard;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = watermark_assistant_mac_appstore;
-				SWIFT_VERSION = 5.0;
-			};
-			name = "AppStore-Profile";
-		};
-		2EB517B42BE9A8C200B87C88 /* AppStore-Profile */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6AAB0F92B467B88E04101847 /* Pods-PicGuardMacAppStoreTests.appstore-profile.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.mac.RunnerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
-			};
-			name = "AppStore-Profile";
-		};
 		331C80DB294CF71000263BE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 536DDE790A34442CB26CCA81 /* Pods-PicGuardMacTests.debug.xcconfig */;
@@ -1651,41 +779,12 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2EB5178C2BE92E7100B87C88 /* Build configuration list for PBXNativeTarget "PicGuardMacAppStore" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2EB5178D2BE92E7100B87C88 /* Debug */,
-				2EB517A72BE9A8A600B87C88 /* AppStore-Debug */,
-				2EB5178E2BE92E7100B87C88 /* Release */,
-				2EB517AD2BE9A8B600B87C88 /* AppStore-Release */,
-				2EB5178F2BE92E7100B87C88 /* Profile */,
-				2EB517B32BE9A8C200B87C88 /* AppStore-Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2EB5179B2BE9A59D00B87C88 /* Build configuration list for PBXNativeTarget "PicGuardMacAppStoreTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2EB5179C2BE9A59D00B87C88 /* Debug */,
-				2EB517A82BE9A8A600B87C88 /* AppStore-Debug */,
-				2EB5179D2BE9A59D00B87C88 /* Release */,
-				2EB517AE2BE9A8B600B87C88 /* AppStore-Release */,
-				2EB5179E2BE9A59D00B87C88 /* Profile */,
-				2EB517B42BE9A8C200B87C88 /* AppStore-Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		331C80DE294CF71000263BE5 /* Build configuration list for PBXNativeTarget "PicGuardMacTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				331C80DB294CF71000263BE5 /* Debug */,
-				2EB517A52BE9A8A600B87C88 /* AppStore-Debug */,
 				331C80DC294CF71000263BE5 /* Release */,
-				2EB517AB2BE9A8B600B87C88 /* AppStore-Release */,
 				331C80DD294CF71000263BE5 /* Profile */,
-				2EB517B12BE9A8C200B87C88 /* AppStore-Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1694,11 +793,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				33CC10F92044A3C60003C045 /* Debug */,
-				2EB517A32BE9A8A600B87C88 /* AppStore-Debug */,
 				33CC10FA2044A3C60003C045 /* Release */,
-				2EB517A92BE9A8B600B87C88 /* AppStore-Release */,
 				338D0CE9231458BD00FA5F75 /* Profile */,
-				2EB517AF2BE9A8C200B87C88 /* AppStore-Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1707,11 +803,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				33CC10FC2044A3C60003C045 /* Debug */,
-				2EB517A42BE9A8A600B87C88 /* AppStore-Debug */,
 				33CC10FD2044A3C60003C045 /* Release */,
-				2EB517AA2BE9A8B600B87C88 /* AppStore-Release */,
 				338D0CEA231458BD00FA5F75 /* Profile */,
-				2EB517B02BE9A8C200B87C88 /* AppStore-Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1720,11 +813,8 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				33CC111C2044C6BA0003C045 /* Debug */,
-				2EB517A62BE9A8A600B87C88 /* AppStore-Debug */,
 				33CC111D2044C6BA0003C045 /* Release */,
-				2EB517AC2BE9A8B600B87C88 /* AppStore-Release */,
 				338D0CEB231458BD00FA5F75 /* Profile */,
-				2EB517B22BE9A8C200B87C88 /* AppStore-Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
