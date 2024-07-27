@@ -1497,7 +1497,7 @@ jobs:
             
             # Install flutter_distributor
             echo "Install flutter_distributor"
-            dart pub global activate --source git https://github.com/kjxbyz/flutter_distributor --git-ref appimage --git-path packages/flutter_distributor
+            dart pub global activate --source git https://github.com/kjxbyz/flutter_distributor --git-ref pacman --git-path packages/flutter_distributor
             
             # Install flutter dependencies
             echo "Install flutter dependencies"

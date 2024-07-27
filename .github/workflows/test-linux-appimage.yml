@@ -35,7 +35,7 @@ jobs:
 
       - name: Install flutter_distributor
         run: |
-          dart pub global activate --source git https://github.com/kjxbyz/flutter_distributor --git-ref appimage --git-path packages/flutter_distributor
+          dart pub global activate flutter_distributor
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -133,7 +133,7 @@ jobs:
             
             # Install flutter_distributor
             echo "Install flutter_distributor"
-            dart pub global activate --source git https://github.com/kjxbyz/flutter_distributor --git-ref appimage --git-path packages/flutter_distributor
+            dart pub global activate --source git https://github.com/kjxbyz/flutter_distributor --git-ref pacman --git-path packages/flutter_distributor
             
             # Flutter doctor
             echo "Flutter doctor -v"
