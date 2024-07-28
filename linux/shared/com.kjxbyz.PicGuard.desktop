@@ -1,11 +1,12 @@
 [Desktop Entry]
 Type=Application
-
+Version=1.0.0+332
 Name=PicGuard
+GenericName=PicGuard
 Comment=Your pictures, your signature.
-Categories=Utility;
-
 Icon=com.kjxbyz.PicGuard
-Exec=picguard
+Exec=picguard %U
+Categories=Utility;
+Keywords=PicGuard;Watermark;Assistant;Watermark Assistant;
+StartupNotify=true
 Terminal=false
-StartupWMClass=picguard
