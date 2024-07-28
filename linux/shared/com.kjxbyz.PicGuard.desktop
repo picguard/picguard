@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+
+Name=PicGuard
+Comment=Your pictures, your signature.
+Categories=Utility;
+
+Icon=com.kjxbyz.PicGuard
+Exec=picguard
+Terminal=false
+StartupWMClass=picguard
