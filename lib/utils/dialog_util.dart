@@ -1,12 +1,19 @@
+// Dart imports:
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:collection/collection.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:collection/collection.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+// Project imports:
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
@@ -16,7 +23,6 @@ import 'package:picguard/models/models.dart';
 import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 const double _buttonHeight = 54;
 

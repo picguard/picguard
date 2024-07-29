@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/theme/colors.dart';
 

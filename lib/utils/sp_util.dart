@@ -1,8 +1,12 @@
+// Dart imports:
 import 'dart:async';
 
-import 'package:picguard/utils/utils.dart';
+// Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:synchronized/synchronized.dart';
+
+// Project imports:
+import 'package:picguard/utils/utils.dart';
 
 class SpUtil {
 

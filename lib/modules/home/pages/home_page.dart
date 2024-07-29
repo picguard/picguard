@@ -1,17 +1,21 @@
+// Dart imports:
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
-import 'package:app_settings/app_settings.dart';
-import 'package:collection/collection.dart';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:file_saver/file_saver.dart';
+// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
+import 'package:app_settings/app_settings.dart';
+import 'package:collection/collection.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:file_saver/file_saver.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:gap/gap.dart';
@@ -21,6 +25,12 @@ import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:path/path.dart' hide context;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:reorderables/reorderables.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:window_manager/window_manager.dart';
+
+// Project imports:
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
@@ -30,10 +40,6 @@ import 'package:picguard/models/models.dart';
 import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
-import 'package:reorderables/reorderables.dart';
-import 'package:syncfusion_flutter_core/theme.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:window_manager/window_manager.dart';
 
 enum Permissions {
   photos,

@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Project imports:
 import 'package:picguard/app/manager.dart';
 
 /// Checks if the current environment is a desktop environment.
