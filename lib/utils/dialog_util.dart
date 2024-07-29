@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'dart:io';
 
 // Flutter imports:
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +16,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
-import 'package:picguard/gen/assets.gen.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/models/models.dart';
 import 'package:picguard/theme/colors.dart';
@@ -298,15 +296,15 @@ class DialogUtil {
                 TextButton(
                   onPressed: onCancel ?? NavigatorUtil.pop,
                   style: ButtonStyle(
-                    textStyle: MaterialStateProperty.all(
+                    textStyle: WidgetStateProperty.all(
                       const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                         height: 1.375,
                       ),
                     ),
-                    overlayColor: MaterialStateProperty.all(backgroundColor),
-                    shape: MaterialStateProperty.all(
+                    overlayColor: WidgetStateProperty.all(backgroundColor),
+                    shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0),
                       ),
@@ -326,14 +324,14 @@ class DialogUtil {
               TextButton(
                 onPressed: onOK,
                 style: ButtonStyle(
-                  textStyle: MaterialStateProperty.all(
+                  textStyle: WidgetStateProperty.all(
                     const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                       height: 1.375,
                     ),
                   ),
-                  shape: MaterialStateProperty.all(
+                  shape: WidgetStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(0),
                     ),
@@ -401,11 +399,11 @@ class DialogUtil {
             right: 8,
             child: IconButton(
               style: ButtonStyle(
-                padding: MaterialStateProperty.all(const EdgeInsets.all(4)),
-                minimumSize: MaterialStateProperty.all(Size.zero),
+                padding: WidgetStateProperty.all(const EdgeInsets.all(4)),
+                minimumSize: WidgetStateProperty.all(Size.zero),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                iconColor: MaterialStateProperty.all(Colors.red),
-                backgroundColor: MaterialStateProperty.all(backgroundColor),
+                iconColor: WidgetStateProperty.all(Colors.red),
+                backgroundColor: WidgetStateProperty.all(backgroundColor),
               ),
               onPressed: NavigatorUtil.pop,
               icon: const Icon(Icons.close),
@@ -452,13 +450,13 @@ class DialogUtil {
                   ).nestedExpanded(),
                   IconButton(
                     style: ButtonStyle(
-                      padding: MaterialStateProperty.all(
+                      padding: WidgetStateProperty.all(
                         const EdgeInsets.all(4),
                       ),
-                      minimumSize: MaterialStateProperty.all(Size.zero),
+                      minimumSize: WidgetStateProperty.all(Size.zero),
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      elevation: MaterialStateProperty.all(0),
-                      backgroundColor: MaterialStateProperty.all(
+                      elevation: WidgetStateProperty.all(0),
+                      backgroundColor: WidgetStateProperty.all(
                         isDark ? placeholderTextColor : primaryGrayColor,
                       ),
                     ),

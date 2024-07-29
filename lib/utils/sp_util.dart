@@ -53,6 +53,7 @@ class SpUtil {
   }
 
   /// put bool.
+  // ignore: avoid_positional_boolean_parameters
   static Future<bool>? putBool(String key, bool value) {
     return _prefs?.setBool(key, value);
   }

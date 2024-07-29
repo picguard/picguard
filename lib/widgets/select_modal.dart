@@ -42,13 +42,13 @@ class PGColorModal extends StatelessWidget {
             ),
             IconButton(
               style: ButtonStyle(
-                padding: MaterialStateProperty.all(
+                padding: WidgetStateProperty.all(
                   const EdgeInsets.all(4),
                 ),
-                minimumSize: MaterialStateProperty.all(Size.zero),
+                minimumSize: WidgetStateProperty.all(Size.zero),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                elevation: MaterialStateProperty.all(0),
-                backgroundColor: MaterialStateProperty.all(
+                elevation: WidgetStateProperty.all(0),
+                backgroundColor: WidgetStateProperty.all(
                   isDark ? placeholderTextColor : primaryGrayColor,
                 ),
               ),
@@ -69,12 +69,12 @@ class PGColorModal extends StatelessWidget {
           itemCount: items.length,
           itemBuilder: (context, index) => TextButton(
             style: ButtonStyle(
-              padding: MaterialStateProperty.all(
+              padding: WidgetStateProperty.all(
                 const EdgeInsets.symmetric(horizontal: 16),
               ),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              backgroundColor: MaterialStateProperty.all(Colors.transparent),
-              overlayColor: MaterialStateProperty.all(
+              backgroundColor: WidgetStateProperty.all(Colors.transparent),
+              overlayColor: WidgetStateProperty.all(
                 isDark ? primaryTextColor : primaryBackgroundColor,
               ),
             ),

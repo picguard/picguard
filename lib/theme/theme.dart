@@ -23,11 +23,11 @@ class AppTheme {
         clipBehavior: Clip.antiAliasWithSaveLayer,
       ),
       checkboxTheme: CheckboxThemeData(
-        fillColor: MaterialStateProperty.all(Colors.white),
-        checkColor: MaterialStateProperty.all(primaryColor),
+        fillColor: WidgetStateProperty.all(Colors.white),
+        checkColor: WidgetStateProperty.all(primaryColor),
       ),
       radioTheme: RadioThemeData(
-        fillColor: MaterialStateProperty.all(primaryColor),
+        fillColor: WidgetStateProperty.all(primaryColor),
       ),
       dividerTheme: const DividerThemeData(
         color: Colors.transparent,
@@ -161,11 +161,11 @@ class AppTheme {
         clipBehavior: Clip.antiAliasWithSaveLayer,
       ),
       checkboxTheme: CheckboxThemeData(
-        fillColor: MaterialStateProperty.all(Colors.white),
-        checkColor: MaterialStateProperty.all(primaryColor),
+        fillColor: WidgetStateProperty.all(Colors.white),
+        checkColor: WidgetStateProperty.all(primaryColor),
       ),
       radioTheme: RadioThemeData(
-        fillColor: MaterialStateProperty.all(primaryColor),
+        fillColor: WidgetStateProperty.all(primaryColor),
       ),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: const TextStyle(
