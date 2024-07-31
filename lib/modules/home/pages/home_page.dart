@@ -257,6 +257,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
             .nestedCenter()
             .nestedDecoratedBox(
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
                 color: isDark ? Colors.black54 : secondaryGrayColor,
                 border: Border.all(color: borderColor),
               ),
@@ -330,7 +331,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 },
                 decoration: InputDecoration(
                   isDense: true,
-                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
+                  contentPadding: const EdgeInsets.fromLTRB(10, 11.5, 5, 11.5),
                   enabledBorder: hasError
                       ? OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
@@ -357,7 +358,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                   hintText: t.homePage.textInput,
                   hintMaxLines: 2,
                   hintStyle: const TextStyle(
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: FontWeight.normal,
                     color: Colors.grey,
                   ),
