@@ -1,0 +1,79 @@
+name: Test Linux tar
+
+on:
+  workflow_dispatch:
+
+# Declare default permissions as readonly.
+permissions: read-all
+
+jobs:
+  tar:
+    name: Create linux tar
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt update
+          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+          sudo apt install -y p7zip-full p7zip-rar
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.22.3'
+
+      - name: Configure .env
+        run: |
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build flutter
+        run: flutter build linux --dart-define-from-file=.env --target-platform=linux-x64
+
+      - name: Install yq
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            if ! command -v wget >/dev/null 2>&1; then
+              echo "wget not exists"
+              sudo apt install -y wget
+            fi
+            wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
+            chmod +x /usr/bin/yq
+          fi
+          yq --version
+
+      - name: Build tar
+        run: |
+          baseDir=$(pwd)
+          VERSION=$(yq '.version' pubspec.yaml)
+          echo "$VERSION"
+          archiveName="picguard_"$VERSION"_linux_amd64.tar.gz"
+          cd build/linux/x64/release/bundle
+          tar -czaf $archiveName ./*
+          mv $archiveName "$baseDir/"
+
+      # Package the build.
+      - name: Copy build for tar
+        run: ls -la *.tar.gz
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-tar-artifact
+          path: |
+            ./*.tar.gz
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
