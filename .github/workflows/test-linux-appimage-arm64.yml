@@ -71,14 +71,14 @@ jobs:
             echo 'export PATH="$PATH:/home/linux-arm64/flutter/bin:/home/linux-arm64/flutter/.pub-cache/bin:$HOME/.pub-cache/bin"' >> ~/.zshrc
             source ~/.zshrc
             echo $PATH
+
+            # Flutter doctor
+            echo "Flutter doctor -v"
+            flutter doctor -v
             
             # Install flutter_distributor
             echo "Install flutter_distributor"
             dart pub global activate --source git https://github.com/kjxbyz/flutter_distributor --git-ref pacman --git-path packages/flutter_distributor
-            
-            # Flutter doctor
-            echo "Flutter doctor -v"
-            flutter doctor -v
             
             # Install flutter dependencies
             echo "Install flutter dependencies"

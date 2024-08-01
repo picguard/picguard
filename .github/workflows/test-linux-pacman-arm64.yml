@@ -18,9 +18,6 @@ jobs:
         with:
           platforms: all
 
-      - name: Show linux info
-        run: uname --all
-
       - name: Configure .env
         run: |
           echo "$ENV_KEY" | base64 --decode > .env
