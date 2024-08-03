@@ -56,15 +56,24 @@ android {
         versionCode flutterVersionCode.toInteger()
     }
 
-    flavorDimensions "default"
+    flavorDimensions "default", "env"
     productFlavors {
-        staging {
+        free {
             dimension "default"
+        }
+
+        pro {
+            dimension "default"
+            applicationIdSuffix ".pro"
+        }
+
+        staging {
+            dimension "env"
             applicationIdSuffix ".dev"
         }
 
         production {
-            dimension "default"
+            dimension "env"
         }
     }
 

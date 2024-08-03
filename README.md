@@ -44,13 +44,13 @@ xcrun simctl runtime add "~/iOS_17.0.1_Simulator_Runtime.dmg"
 >如果发布到生产环境, 请在`android/app/build.gradle`文件修改`versionCode`
 
 ```shell
-# 如果发布到测试环境
-make ENV=<dev|stg|prod> apk
+# 构建apk包
+make ENV=<dev|stg|prod> <apk_free|apk_pro>
 ```
 
 ```shell
-# 如果发布到生产环境
-make ENV=<dev|stg|prod> appbundle
+# 构建aab包
+make ENV=<dev|stg|prod> <appbundle_free|appbundle_pro>
 ```
 
 ### iOS

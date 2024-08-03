@@ -22,7 +22,7 @@ permissions: read-all
 
 jobs:
   apk:
-    name: Create apk
+    name: Create apk (free)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -64,7 +64,7 @@ jobs:
         working-directory: android
 
       - name: Build Apk
-        run: flutter build apk --no-tree-shake-icons --dart-define-from-file=.env --flavor staging
+        run: flutter build apk --no-tree-shake-icons --dart-define-from-file=.env --flavor freeStaging
 
       # Package the build.
       - name: Copy build for Android

@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "android",
+      "name": "android (free)",
       "request": "launch",
       "type": "dart",
       "program": "lib/main.dart",
@@ -13,7 +13,19 @@
         "--dart-define-from-file",
         ".env.dev.local",
         "--flavor",
-        "staging"
+        "freeStaging"
+      ]
+    },
+    {
+      "name": "android (pro)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--dart-define-from-file",
+        ".env.dev.local",
+        "--flavor",
+        "proStaging"
       ]
     },
     {

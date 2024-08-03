@@ -98,8 +98,8 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - create_release
-      - apk
-      - aab
+      - apk_free
+      - aab_free
       - ios
       - macos_dmg
       - macos_pkg
@@ -172,8 +172,8 @@ jobs:
 #      runs-on: ubuntu-latest
 #      needs:
 #        - create_release
-#        - apk
-#        - aab
+#        - apk_free
+#        - aab_free
 #        - ios
 #        - macos_dmg
 #        - macos_pkg
@@ -215,8 +215,8 @@ jobs:
 #            TAG_NAME: "v${{ needs.create_release.outputs.version }}"
 #            GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
-  apk:
-    name: Create apk
+  apk_free:
+    name: Create apk (free)
     runs-on: ubuntu-latest
     needs:
       - create_release
@@ -279,7 +279,7 @@ jobs:
       # Build the application.
       - name: Build apk
         run: |
-          FLAVOR="$([[ "$ENV" == "staging" ]] && echo "staging" || echo "production")"
+          FLAVOR="$([[ "$ENV" == "staging" ]] && echo "freeStaging" || echo "freeProduction")"
           flutter build apk --dart-define-from-file=.env --no-tree-shake-icons --flavor $FLAVOR
         env:
           ENV: ${{ github.event.inputs.env }}
@@ -289,7 +289,7 @@ jobs:
         run: |
           ls -la
           RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          cp *.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE.apk
+          cp *.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.apk
         working-directory: build/app/outputs/flutter-apk
         env:
           ENV: ${{ github.event.inputs.env }}
@@ -314,8 +314,8 @@ jobs:
           rm -f android/key.properties
           rm -f .env
 
-  aab:
-    name: Create appbundle
+  aab_free:
+    name: Create appbundle (free)
     runs-on: ubuntu-latest
     needs:
       - create_release
@@ -378,7 +378,7 @@ jobs:
       # Build the application.
       - name: Build appbundle
         run: |
-          FLAVOR="$([[ "$ENV" == "staging" ]] && echo "staging" || echo "production")"
+          FLAVOR="$([[ "$ENV" == "staging" ]] && echo "freeStaging" || echo "freeProduction")"
           flutter build appbundle --dart-define-from-file=.env --no-tree-shake-icons --flavor $FLAVOR
         env:
           ENV: ${{ github.event.inputs.env }}
@@ -389,8 +389,8 @@ jobs:
         run: |
           ls -la
           RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE.aab
-        working-directory: build/app/outputs/bundle/stagingRelease
+          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.aab
+        working-directory: build/app/outputs/bundle/freeStagingRelease
         env:
           ENV: ${{ github.event.inputs.env }}
           VERSION: ${{ needs.create_release.outputs.version }}
@@ -400,8 +400,8 @@ jobs:
         run: |
           ls -la
           RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE.aab
-        working-directory: build/app/outputs/bundle/productionRelease
+          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.aab
+        working-directory: build/app/outputs/bundle/freeProductionRelease
         env:
           ENV: ${{ github.event.inputs.env }}
           VERSION: ${{ needs.create_release.outputs.version }}
