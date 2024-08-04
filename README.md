@@ -80,13 +80,8 @@ make ENV=<dev|stg|prod> <appstore_free|appstore_pro>
 >如果发布到生产环境, 请修改`build`号
 
 ```shell
-# 如果发布到测试环境
-make ENV=<dev|stg|prod> macos_adhoc
-```
-
-```shell
-# 如果发布到生产环境
-make ENV=<dev|stg|prod> macos_appstore
+# 构建
+make ENV=<dev|stg|prod> <macos_free|macos_pro>
 ```
 
 ```shell

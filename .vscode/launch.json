@@ -51,7 +51,29 @@
       ]
     },
     {
-      "name": "desktop & web",
+      "name": "macos (free)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_free.dart",
+      "args": [
+        "--dart-define-from-file",
+        ".env.dev.local"
+      ]
+    },
+    {
+      "name": "macos (pro)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_pro.dart",
+      "args": [
+        "--dart-define-from-file",
+        ".env.dev.local",
+        "--flavor",
+        "pro"
+      ]
+    },
+    {
+      "name": "Linux & Windwos & web",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_free.dart",

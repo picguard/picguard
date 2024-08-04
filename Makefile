@@ -85,14 +85,14 @@ appstore_pro:
 	echo "╠ Releasing to app store..."
 	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptionsPro-release.plist
 
-macos_adhoc:
+macos_free:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd macos && xcodebuild clean && cd ..
 	echo "╠ Releasing bundle..."
-	fvm flutter build macos --dart-define-from-file=".env.$(ENV).local"
+	fvm flutter build macos --dart-define-from-file=".env.$(ENV).local" --target lib/main_free.dart
 
-macos_appstore:
+macos_pro:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd macos && xcodebuild clean && cd ..
 	echo "╠ Releasing bundle..."
-	fvm flutter build macos --dart-define-from-file=".env.$(ENV).local"
+	fvm flutter build macos --dart-define-from-file=".env.$(ENV).local" --target lib/main_pro.dart --flavor pro

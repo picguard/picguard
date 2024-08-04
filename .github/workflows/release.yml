@@ -106,7 +106,8 @@ jobs:
       - ios_pro
       - macos_dmg
       - macos_pkg
-      - macos_appstore
+      - macos_appstore_free
+      - macos_appstore_pro
       - macos_zip
       - macos_tar
       - linux_appimage
@@ -183,7 +184,8 @@ jobs:
 #        - ios_pro
 #        - macos_dmg
 #        - macos_pkg
-#        - macos_appstore
+#        - macos_appstore_free
+#        - macos_appstore_pro
 #        - macos_zip
 #        - macos_tar
 #        - linux_appimage
@@ -1242,8 +1244,8 @@ jobs:
           fi
           rm -f .env
 
-  macos_appstore:
-    name: Create macos pkg (appstore)
+  macos_appstore_free:
+    name: Create macos pkg (appstore-free)
     runs-on: macos-latest
     needs:
       - create_release
@@ -1293,7 +1295,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to mac app store..."
-          flutter build macos --dart-define-from-file=.env
+          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Install certificates
         run: |
@@ -1371,8 +1373,164 @@ jobs:
         run: |
           ls -la *.pkg
           RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          cp PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore_universal.pkg
+          cp PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore-free_universal.pkg
         working-directory: build/macos/Build/Products/Release
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          VERSION: ${{ needs.create_release.outputs.version }}
+
+      - name: Show gh info
+        run: gh --version
+
+      - name: Upload assets
+        run: |
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
+          gh release upload "$RELEASE" ./*.pkg
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          if [ -f "$RUNNER_TEMP/pg-signing.keychain-db" ]; then
+            echo "$RUNNER_TEMP/pg-signing.keychain-db"
+            security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
+          fi
+          rm -f .env
+
+  macos_appstore_pro:
+    name: Create macos pkg (appstore-pro)
+    runs-on: macos-latest
+    needs:
+      - create_release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.22.3'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Install yq
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            brew install yq
+          fi
+          yq --version
+
+      - name: Update pubspec.yaml
+        run: |
+          VERSION=$VERSION yq -i '.version = strenv(VERSION)' pubspec.yaml
+        env:
+          VERSION: ${{ needs.create_release.outputs.version }}
+
+      - name: Resolving flutter dependencies
+        run: flutter pub get
+
+      - name: Resolving macos dependencies
+        run: cd macos && pod install --repo-update && cd ..
+
+      - name: Build macOS
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          cd macos && xcodebuild clean && cd ..
+          echo "╠ Releasing to mac app store..."
+          flutter build macos --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro
+
+      - name: Install certificates
+        run: |
+          # create variables
+          # Mac Installer Distribution
+          THIRD_PARTY_MAC_DEVELOPER_INSTALLER_CERTIFICATE_PATH=$RUNNER_TEMP/build_mac_developer_installer_certificate.p12
+          # Mac App Distribution
+          THIRD_PARTY_MAC_DEVELOPER_APPLICATION_CERTIFICATE_PATH=$RUNNER_TEMP/build_mac_developer_application_certificate.p12
+          THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PP_PRO_PATH=$RUNNER_TEMP/watermark_assistant_pro_mac_appstore.provisionprofile
+          KEYCHAIN_PATH=$RUNNER_TEMP/pg-signing.keychain-db
+
+          # import certificate and provisioning profile from secrets
+          echo -n "$THIRD_PARTY_MAC_DEVELOPER_INSTALLER_P12_BASE64_MAC" | base64 --decode --output $THIRD_PARTY_MAC_DEVELOPER_INSTALLER_CERTIFICATE_PATH
+          echo -n "$THIRD_PARTY_MAC_DEVELOPER_APPLICATION_P12_BASE64_MAC" | base64 --decode --output $THIRD_PARTY_MAC_DEVELOPER_APPLICATION_CERTIFICATE_PATH
+          echo -n "$THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PROVISION_PROFILE_BASE64_MAC_PRO" | base64 --decode --output $THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PP_PRO_PATH
+
+          # create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $THIRD_PARTY_MAC_DEVELOPER_INSTALLER_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security import $THIRD_PARTY_MAC_DEVELOPER_APPLICATION_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+          # security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          
+          # apply provisioning profile
+          # https://developer.apple.com/documentation/bundleresources/placing_content_in_a_bundle/
+          # security cms -D -i watermark_assistant_pro_mac_appstore.provisionprofile
+          mv $THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PP_PRO_PATH build/macos/Build/Products/Release-pro/PicGuard\ Pro.app/Contents/embedded.provisionprofile
+        env:
+          THIRD_PARTY_MAC_DEVELOPER_INSTALLER_P12_BASE64_MAC: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_INSTALLER_P12_BASE64_MAC }}
+          THIRD_PARTY_MAC_DEVELOPER_APPLICATION_P12_BASE64_MAC: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_APPLICATION_P12_BASE64_MAC }}
+          THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PROVISION_PROFILE_BASE64_MAC_PRO: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PROVISION_PROFILE_BASE64_MAC_PRO }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+
+      - name: Code Signing
+        run: |
+          # https://stackoverflow.com/questions/70991268/how-to-sign-and-notarize-a-pkg-within-a-github-actions-macos-runner
+          # https://developer.apple.com/forums/thread/733942
+          # https://stackoverflow.com/questions/60384835/dyld-library-not-loaded-code-signature-invalid
+          # codesign -dvvv PicGuard.app
+          # https://lessons.livecode.com/a/876834-signing-and-uploading-apps-to-the-mac-app-store
+          
+          # 1. Code sign executables
+          echo "Code sign executables"
+          /usr/bin/codesign --deep --force --sign "$THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY" build/macos/Build/Products/Release-pro/PicGuard\ Pro.app
+          
+          # 2. Code sign entitlements.plist
+          echo "Code sign entitlements.plist"
+          /usr/bin/codesign --force --sign "$THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY" --entitlements macos/Runner/AppStorePro-Release.entitlements build/macos/Build/Products/Release-pro/PicGuard\ Pro.app
+          
+          # 3. Just to confirm all is well, verify the code signing
+          # No response means that there were no errors and it is code signed.
+          # /usr/bin/codesign --verify build/macos/Build/Products/Release-pro/PicGuard\ Pro.app
+        env:
+          THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY }}
+
+      - name: Create pkg
+        run: |
+          # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
+          # [Test the installer].  (Note the "-target /" that comes after the path to the pkg file)
+          # It will go through the installation process to confirm that the installer package is OK.
+          # NOTE: If the app is signed for distribution to the Mac App Store the resulting app will not run locally.
+          # sudo installer -store -package <path_to_app_pkg_file> -target /
+          xcrun productbuild --sign "$THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY" --component PicGuard\ Pro.app /Applications PicGuard\ Pro.pkg
+        env:
+          THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY }}
+        working-directory: build/macos/Build/Products/Release-pro
+
+      # Package the build.
+      - name: Copy build for pkg
+        run: |
+          ls -la *.pkg
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
+          cp PicGuard\ Pro.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore-pro_universal.pkg
+        working-directory: build/macos/Build/Products/Release-pro
         env:
           ENV: ${{ github.event.inputs.env }}
           VERSION: ${{ needs.create_release.outputs.version }}
