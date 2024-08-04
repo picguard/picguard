@@ -275,8 +275,8 @@ jobs:
           echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
           echo "storeFile=upload-keystore.jks" >> key.properties
           echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
-          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
           echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
+          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
         env:
           PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
@@ -371,16 +371,16 @@ jobs:
 
       - name: Configure Keystore for Android
         run: |
-          echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
-          echo "storeFile=upload-keystore.jks" >> key.properties
-          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
-          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
-          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
+          echo "$PLAY_STORE_UPLOAD_KEY_PRO" | base64 --decode > app/upload-keystore-pro.jks
+          echo "storeFile=upload-keystore-pro.jks" >> key-pro.properties
+          echo "keyAlias=$KEYSTORE_KEY_ALIAS_PRO" >> key-pro.properties
+          echo "keyPassword=$KEYSTORE_KEY_PASSWORD_PRO" >> key-pro.properties
+          echo "storePassword=$KEYSTORE_STORE_PASSWORD_PRO" >> key-pro.properties
         env:
-          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
-          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
-          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+          PLAY_STORE_UPLOAD_KEY_PRO: ${{ secrets.PLAY_STORE_UPLOAD_KEY_PRO }}
+          KEYSTORE_KEY_ALIAS_PRO: ${{ secrets.KEYSTORE_KEY_ALIAS_PRO }}
+          KEYSTORE_KEY_PASSWORD_PRO: ${{ secrets.KEYSTORE_KEY_PASSWORD_PRO }}
+          KEYSTORE_STORE_PASSWORD_PRO: ${{ secrets.KEYSTORE_STORE_PASSWORD_PRO }}
         working-directory: android
 
       # Build the application.
@@ -473,8 +473,8 @@ jobs:
           echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
           echo "storeFile=upload-keystore.jks" >> key.properties
           echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
-          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
           echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
+          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
         env:
           PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
@@ -581,16 +581,16 @@ jobs:
 
       - name: Configure Keystore for Android
         run: |
-          echo "$PLAY_STORE_UPLOAD_KEY" | base64 --decode > app/upload-keystore.jks
-          echo "storeFile=upload-keystore.jks" >> key.properties
-          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
-          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
-          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
+          echo "$PLAY_STORE_UPLOAD_KEY_PRO" | base64 --decode > app/upload-keystore-pro.jks
+          echo "storeFile=upload-keystore-pro.jks" >> key-pro.properties
+          echo "keyAlias=$KEYSTORE_KEY_ALIAS_PRO" >> key-pro.properties
+          echo "keyPassword=$KEYSTORE_KEY_PASSWORD_PRO" >> key-pro.properties
+          echo "storePassword=$KEYSTORE_STORE_PASSWORD_PRO" >> key-pro.properties
         env:
-          PLAY_STORE_UPLOAD_KEY: ${{ secrets.PLAY_STORE_UPLOAD_KEY }}
-          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
-          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+          PLAY_STORE_UPLOAD_KEY_PRO: ${{ secrets.PLAY_STORE_UPLOAD_KEY_PRO }}
+          KEYSTORE_KEY_ALIAS_PRO: ${{ secrets.KEYSTORE_KEY_ALIAS_PRO }}
+          KEYSTORE_KEY_PASSWORD_PRO: ${{ secrets.KEYSTORE_KEY_PASSWORD_PRO }}
+          KEYSTORE_STORE_PASSWORD_PRO: ${{ secrets.KEYSTORE_STORE_PASSWORD_PRO }}
         working-directory: android
 
       # Build the application.
