@@ -102,7 +102,8 @@ jobs:
       - apk_pro
       - aab_free
       - aab_pro
-      - ios
+      - ios_free
+      - ios_pro
       - macos_dmg
       - macos_pkg
       - macos_appstore
@@ -178,7 +179,8 @@ jobs:
 #        - apk_pro
 #        - aab_free
 #        - aab_pro
-#        - ios
+#        - ios_free
+#        - ios_pro
 #        - macos_dmg
 #        - macos_pkg
 #        - macos_appstore
@@ -284,7 +286,7 @@ jobs:
       - name: Build apk
         run: |
           FLAVOR="$([[ "$ENV" == "staging" ]] && echo "freeStaging" || echo "freeProduction")"
-          flutter build apk --dart-define-from-file=.env --no-tree-shake-icons --flavor $FLAVOR
+          flutter build apk --dart-define-from-file=.env --no-tree-shake-icons --target lib/main_free.dart --flavor $FLAVOR
         env:
           ENV: ${{ github.event.inputs.env }}
 
@@ -383,7 +385,7 @@ jobs:
       - name: Build apk
         run: |
           FLAVOR="$([[ "$ENV" == "staging" ]] && echo "proStaging" || echo "proProduction")"
-          flutter build apk --dart-define-from-file=.env --no-tree-shake-icons --flavor $FLAVOR
+          flutter build apk --dart-define-from-file=.env --no-tree-shake-icons --target lib/main_pro.dart --flavor $FLAVOR
         env:
           ENV: ${{ github.event.inputs.env }}
 
@@ -482,7 +484,7 @@ jobs:
       - name: Build appbundle
         run: |
           FLAVOR="$([[ "$ENV" == "staging" ]] && echo "freeStaging" || echo "freeProduction")"
-          flutter build appbundle --dart-define-from-file=.env --no-tree-shake-icons --flavor $FLAVOR
+          flutter build appbundle --dart-define-from-file=.env --no-tree-shake-icons --target lib/main_free.dart --flavor $FLAVOR
         env:
           ENV: ${{ github.event.inputs.env }}
 
@@ -593,7 +595,7 @@ jobs:
       - name: Build appbundle
         run: |
           FLAVOR="$([[ "$ENV" == "staging" ]] && echo "proStaging" || echo "proProduction")"
-          flutter build appbundle --dart-define-from-file=.env --no-tree-shake-icons --flavor $FLAVOR
+          flutter build appbundle --dart-define-from-file=.env --no-tree-shake-icons --target lib/main_pro.dart --flavor $FLAVOR
         env:
           ENV: ${{ github.event.inputs.env }}
 
@@ -639,8 +641,8 @@ jobs:
           rm -f android/key.properties
           rm -f .env
 
-  ios:
-    name: Create ios
+  ios_free:
+    name: Create ios (free)
     runs-on: macos-latest
     needs:
       - create_release
@@ -687,31 +689,37 @@ jobs:
 
       - name: Install the Apple certificate and provisioning profile
         env:
-          CERT_BASE64: ${{ secrets.CERT_BASE64 }}
           CERT_DEV_BASE64: ${{ secrets.CERT_DEV_BASE64 }}
-          P12_BASE64: ${{ secrets.P12_BASE64 }}
+          CERT_BASE64: ${{ secrets.CERT_BASE64 }}
           P12_DEV_BASE64: ${{ secrets.P12_DEV_BASE64 }}
+          P12_BASE64: ${{ secrets.P12_BASE64 }}
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
-          PROVISION_PROFILE_BASE64: ${{ secrets.PROVISION_PROFILE_BASE64 }}
           PROVISION_PROFILE_DEV_BASE64: ${{ secrets.PROVISION_PROFILE_DEV_BASE64 }}
+          PROVISION_PROFILE_BASE64: ${{ secrets.PROVISION_PROFILE_BASE64 }}
+          PROVISION_PROFILE_DEV_BASE64_PRO: ${{ secrets.PROVISION_PROFILE_DEV_BASE64_PRO }}
+          PROVISION_PROFILE_BASE64_PRO: ${{ secrets.PROVISION_PROFILE_BASE64_PRO }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
           # create variables
-          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
           CERTIFICATE_DEV_PATH=$RUNNER_TEMP/build_certificate_dev.p12
-          CERT_PATH=$RUNNER_TEMP/ios_distribution.cer
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
           CERT_DEV_PATH=$RUNNER_TEMP/ios_development.cer
-          PP_PATH=$RUNNER_TEMP/watermark_assistant_appstore.mobileprovision
+          CERT_PATH=$RUNNER_TEMP/ios_distribution.cer
           PP_DEV_PATH=$RUNNER_TEMP/watermark_assistant_dev.mobileprovision
+          PP_PATH=$RUNNER_TEMP/watermark_assistant_appstore.mobileprovision
+          PP_PRO_DEV_PATH=$RUNNER_TEMP/watermark_assistant_pro_dev.mobileprovision
+          PP_PRO_PATH=$RUNNER_TEMP/watermark_assistant_pro_appstore.mobileprovision
           KEYCHAIN_PATH=$RUNNER_TEMP/pg-signing.keychain-db
 
           # import certificate and provisioning profile from secrets
-          echo -n "$P12_BASE64" | base64 --decode --output $CERTIFICATE_PATH
           echo -n "$P12_DEV_BASE64" | base64 --decode --output $CERTIFICATE_DEV_PATH
-          echo -n "$CERT_BASE64" | base64 --decode --output $CERT_PATH
+          echo -n "$P12_BASE64" | base64 --decode --output $CERTIFICATE_PATH
           echo -n "$CERT_DEV_BASE64" | base64 --decode --output $CERT_DEV_PATH
-          echo -n "$PROVISION_PROFILE_BASE64" | base64 --decode --output $PP_PATH
+          echo -n "$CERT_BASE64" | base64 --decode --output $CERT_PATH
           echo -n "$PROVISION_PROFILE_DEV_BASE64" | base64 --decode --output $PP_DEV_PATH
+          echo -n "$PROVISION_PROFILE_BASE64" | base64 --decode --output $PP_PATH
+          echo -n "$PROVISION_PROFILE_DEV_BASE64_PRO" | base64 --decode --output $PP_PRO_DEV_PATH
+          echo -n "$PROVISION_PROFILE_BASE64_PRO" | base64 --decode --output $PP_PRO_PATH
 
           # create temporary keychain
           security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
@@ -719,16 +727,18 @@ jobs:
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
 
           # import certificate to keychain
-          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security import $CERTIFICATE_DEV_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security import $CERT_PATH -P "$P12_PASSWORD" -A -t cert -k $KEYCHAIN_PATH
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
           security import $CERT_DEV_PATH -P "$P12_PASSWORD" -A -t cert -k $KEYCHAIN_PATH
+          security import $CERT_PATH -P "$P12_PASSWORD" -A -t cert -k $KEYCHAIN_PATH
           security list-keychain -d user -s $KEYCHAIN_PATH
 
           # apply provisioning profile
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          mv $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles\
           mv $PP_DEV_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          mv $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          mv $PP_PRO_DEV_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          mv $PP_PRO_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
       - name: Build ipa
         if: github.event.inputs.env == 'staging'
@@ -736,7 +746,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to adhoc..."
-          flutter build ipa --dart-define-from-file=.env --export-options-plist=ios/ExportOptions-debug.plist
+          flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --export-options-plist=ios/ExportOptions-debug.plist
 
       - name: Build ipa
         if: github.event.inputs.env == 'production'
@@ -744,14 +754,162 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build ipa --dart-define-from-file=.env --export-options-plist=ios/ExportOptions-release.plist
+          flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --export-options-plist=ios/ExportOptions-release.plist
 
       # Package the build.
       - name: Copy build for iOS
         run: |
           ls -la
           RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          cp *.ipa $GITHUB_WORKSPACE/PicGuard_$RELEASE.ipa
+          cp *.ipa $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.ipa
+        working-directory: build/ios/ipa
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          VERSION: ${{ needs.create_release.outputs.version }}
+
+      - name: Show gh info
+        run: gh --version
+
+      - name: Upload assets
+        run: |
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
+          gh release upload "$RELEASE" ./*.ipa
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          if [ -f "$RUNNER_TEMP/pg-signing.keychain-db" ]; then
+            echo "$RUNNER_TEMP/pg-signing.keychain-db"
+            security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
+          fi
+          rm -f ~/Library/MobileDevice/Provisioning\ Profiles/watermark_assistant_*.mobileprovision
+          rm -f .env
+
+  ios_pro:
+    name: Create ios (pro)
+    runs-on: macos-latest
+    needs:
+      - create_release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.22.3'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Install yq
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            brew install yq
+          fi
+          yq --version
+
+      - name: Update pubspec.yaml
+        run: |
+          VERSION=$VERSION yq -i '.version = strenv(VERSION)' pubspec.yaml
+        env:
+          VERSION: ${{ needs.create_release.outputs.version }}
+
+      - name: Resolving flutter dependencies
+        run: flutter pub get
+
+      - name: Resolving ios dependencies
+        run: cd ios && pod install --repo-update && cd ..
+
+      - name: Install the Apple certificate and provisioning profile
+        env:
+          CERT_DEV_BASE64: ${{ secrets.CERT_DEV_BASE64 }}
+          CERT_BASE64: ${{ secrets.CERT_BASE64 }}
+          P12_DEV_BASE64: ${{ secrets.P12_DEV_BASE64 }}
+          P12_BASE64: ${{ secrets.P12_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          PROVISION_PROFILE_DEV_BASE64: ${{ secrets.PROVISION_PROFILE_DEV_BASE64 }}
+          PROVISION_PROFILE_BASE64: ${{ secrets.PROVISION_PROFILE_BASE64 }}
+          PROVISION_PROFILE_DEV_BASE64_PRO: ${{ secrets.PROVISION_PROFILE_DEV_BASE64_PRO }}
+          PROVISION_PROFILE_BASE64_PRO: ${{ secrets.PROVISION_PROFILE_BASE64_PRO }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          # create variables
+          CERTIFICATE_DEV_PATH=$RUNNER_TEMP/build_certificate_dev.p12
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          CERT_DEV_PATH=$RUNNER_TEMP/ios_development.cer
+          CERT_PATH=$RUNNER_TEMP/ios_distribution.cer
+          PP_DEV_PATH=$RUNNER_TEMP/watermark_assistant_dev.mobileprovision
+          PP_PATH=$RUNNER_TEMP/watermark_assistant_appstore.mobileprovision
+          PP_PRO_DEV_PATH=$RUNNER_TEMP/watermark_assistant_pro_dev.mobileprovision
+          PP_PRO_PATH=$RUNNER_TEMP/watermark_assistant_pro_appstore.mobileprovision
+          KEYCHAIN_PATH=$RUNNER_TEMP/pg-signing.keychain-db
+
+          # import certificate and provisioning profile from secrets
+          echo -n "$P12_DEV_BASE64" | base64 --decode --output $CERTIFICATE_DEV_PATH
+          echo -n "$P12_BASE64" | base64 --decode --output $CERTIFICATE_PATH
+          echo -n "$CERT_DEV_BASE64" | base64 --decode --output $CERT_DEV_PATH
+          echo -n "$CERT_BASE64" | base64 --decode --output $CERT_PATH
+          echo -n "$PROVISION_PROFILE_DEV_BASE64" | base64 --decode --output $PP_DEV_PATH
+          echo -n "$PROVISION_PROFILE_BASE64" | base64 --decode --output $PP_PATH
+          echo -n "$PROVISION_PROFILE_DEV_BASE64_PRO" | base64 --decode --output $PP_PRO_DEV_PATH
+          echo -n "$PROVISION_PROFILE_BASE64_PRO" | base64 --decode --output $PP_PRO_PATH
+
+          # create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $CERTIFICATE_DEV_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security import $CERT_DEV_PATH -P "$P12_PASSWORD" -A -t cert -k $KEYCHAIN_PATH
+          security import $CERT_PATH -P "$P12_PASSWORD" -A -t cert -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+          # apply provisioning profile
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          mv $PP_DEV_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          mv $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          mv $PP_PRO_DEV_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+          mv $PP_PRO_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
+      - name: Build ipa
+        if: github.event.inputs.env == 'staging'
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          cd ios && xcodebuild clean && cd ..
+          echo "╠ Releasing to adhoc..."
+          flutter build ipa --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptionsPro-debug.plist
+
+      - name: Build ipa
+        if: github.event.inputs.env == 'production'
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          cd ios && xcodebuild clean && cd ..
+          echo "╠ Releasing to app store..."
+          flutter build ipa --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptionsPro-release.plist
+
+      # Package the build.
+      - name: Copy build for iOS
+        run: |
+          ls -la
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
+          cp *.ipa $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.ipa
         working-directory: build/ios/ipa
         env:
           ENV: ${{ github.event.inputs.env }}

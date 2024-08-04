@@ -1,6 +1,9 @@
 {
+  "appName(context=Flavor, param=flavor)": {
+    "free": "PicGuard",
+    "pro": "PicGuard Pro"
+  },
   "homePage": {
-    "title": "PicGuard",
     "imageDescription": "请上传图片",
     "description": "本app不会上传任何图片到服务器, 所有操作均在本地完成",
     "textLabel": "文本",
@@ -35,16 +38,16 @@
     "permissions": {
       "photos": {
         "title": "允许访问您的相册",
-        "description": "请前往您的手机设置，授予 PicGuard 访问您相册的权限."
+        "description": "请前往您的手机设置，授予$appName访问您相册的权限."
       },
       "storage": {
         "title": "允许访问您的存储",
-        "description": "请前往您的手机设置，授予 PicGuard 访问您存储的权限."
+        "description": "请前往您的手机设置，授予$appName访问您存储的权限."
       }
     },
     "licenseDialog": {
       "licenseDialogTitle": "隐私条款",
-      "licenseDialogContentContent": "PicGuard非常重视你的隐私保护和个人信息保护.",
+      "licenseDialogContentContent": "$appName非常重视你的隐私保护和个人信息保护.",
       "licenseDialogContentTip": "以下是该APP所需的权限列表:",
       "licenseDialogContentPrefix": "在使用APP服务前, 请认真阅读 ",
       "licenseDialogContentUserAgreement": "《隐私政策》",
@@ -52,13 +55,13 @@
       "licenseDialogContentPrivacyAgreement": "《用户服务协议》",
       "licenseDialogContentSuffix": ", 你同意并接受全部条款后开始使用我们的服务.",
       "iosPermissions": [
-        "为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)"
+        "为了让您上传图片, $appName需要访问您的照片. (NSPhotoLibraryUsageDescription)"
       ],
       "androidPermissions": [
-        "为了使用 Sentry 服务, PicGuard 需要访问您的互联网. (android.permission.INTERNET)",
-        "为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)",
-        "为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)",
-        "为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)"
+        "为了使用 Sentry 服务, $appName需要访问您的互联网. (android.permission.INTERNET)",
+        "为了让您上传图片, $appName需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)",
+        "为了让您保存图片, $appName需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)",
+        "为了让您上传图片, $appName需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)"
       ]
     }
   },

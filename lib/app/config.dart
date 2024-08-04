@@ -1,4 +1,5 @@
-enum Flavor { free, pro }
+// Project imports:
+import 'package:picguard/i18n/i18n.dart';
 
 class AppConfig {
   factory AppConfig.create({

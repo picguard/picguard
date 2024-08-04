@@ -13,12 +13,14 @@ import 'package:photo_view/photo_view_gallery.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
+import 'package:picguard/app/config.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/models/models.dart';
 import 'package:picguard/theme/colors.dart';
+import 'package:picguard/types/types.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
 
@@ -35,6 +37,7 @@ class DialogUtil {
     /// 未弹出过隐私协议弹窗
     if (!isContainsKey && isShowLicenseDialog) {
       final t = Translations.of(context);
+      final appName = t.appName(flavor: AppConfig.shared.flavor);
       final languageCode = LocaleSettings.currentLocale.languageCode;
 
       final width = MediaQuery.sizeOf(context).width;
@@ -50,7 +53,7 @@ class DialogUtil {
               t.dialogs.licenseDialog.androidPermissions
                   .mapIndexed(
                     (index, permissionText) => Text(
-                      '${index + 1}. $permissionText',
+                      '${index + 1}. ${(permissionText as StringCallback)(appName: appName)}',
                       style: TextStyle(
                         color: isDark ? Colors.white : primaryTextColor,
                         fontSize: 14,
@@ -63,7 +66,7 @@ class DialogUtil {
           final iosPermissionTexts = t.dialogs.licenseDialog.iosPermissions
               .mapIndexed(
                 (index, permissionText) => Text(
-                  '${index + 1}. $permissionText',
+                  '${index + 1}. ${(permissionText as StringCallback)(appName: appName)}',
                   style: TextStyle(
                     color: isDark ? Colors.white : primaryTextColor,
                     fontSize: 14,
@@ -87,7 +90,7 @@ class DialogUtil {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  t.dialogs.licenseDialog.licenseDialogContentContent,
+                  t.dialogs.licenseDialog.licenseDialogContentContent(appName: appName),
                   style: TextStyle(
                     color: isDark ? Colors.white : primaryTextColor,
                     fontSize: 14,

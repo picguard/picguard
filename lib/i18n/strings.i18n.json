@@ -1,6 +1,9 @@
 {
+  "appName(context=Flavor, param=flavor)": {
+    "free": "PicGuard",
+    "pro": "PicGuard Pro"
+  },
   "homePage": {
-    "title": "PicGuard",
     "imageDescription": "Please upload pictures.",
     "description": "This app will not upload any pictures to the server, all operations are completed locally",
     "textLabel": "Text",
@@ -35,16 +38,16 @@
     "permissions": {
       "photos": {
         "title": "Allow access to your album",
-        "description": "Please go to your phone Settings to grant PicGuard the permission to visit your album."
+        "description": "Please go to your phone Settings to grant $appName the permission to visit your album."
       },
       "storage": {
         "title": "Allow access to your storage",
-        "description": "Please go to your phone Settings to grant PicGuard the permission to visit your storage."
+        "description": "Please go to your phone Settings to grant $appName the permission to visit your storage."
       }
     },
     "licenseDialog": {
       "licenseDialogTitle": "Terms and Conditions",
-      "licenseDialogContentContent": "Protecting user's privacy and personal information is a fundamental principle of PicGuard.",
+      "licenseDialogContentContent": "Protecting user's privacy and personal information is a fundamental principle of $appName.",
       "licenseDialogContentTip": "Below is a list of permissions required by this APP:",
       "licenseDialogContentPrefix": "Before you use this APP's services, please carefully read and agree to the ",
       "licenseDialogContentUserAgreement": "User Agreement",
@@ -52,13 +55,13 @@
       "licenseDialogContentPrivacyAgreement": "Privacy Agreement",
       "licenseDialogContentSuffix": ", start using our services after you agree and accept all terms.",
       "iosPermissions": [
-        "For you to upload pictures, PicGuard needs access to your Photos. (NSPhotoLibraryUsageDescription)"
+        "For you to upload pictures, $appName needs access to your Photos. (NSPhotoLibraryUsageDescription)"
       ],
       "androidPermissions": [
-        "In order to use the Sentry Service, PicGuard needs access to your Internet. (android.permission.INTERNET)",
-        "For you to upload pictures, PicGuard needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)",
-        "For you to save pictures, PicGuard needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)",
-        "For you to upload pictures, PicGuard needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)"
+        "In order to use the Sentry Service, $appName needs access to your Internet. (android.permission.INTERNET)",
+        "For you to upload pictures, $appName needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)",
+        "For you to save pictures, $appName needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)",
+        "For you to upload pictures, $appName needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)"
       ]
     }
   },

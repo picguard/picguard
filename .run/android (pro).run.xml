@@ -2,7 +2,7 @@
   <configuration default="false" name="android (pro)" type="FlutterRunConfigurationType" factoryName="Flutter">
     <option name="additionalArgs" value="--dart-define-from-file=.env.dev.local" />
     <option name="buildFlavor" value="proStaging" />
-    <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+    <option name="filePath" value="$PROJECT_DIR$/lib/main_pro.dart" />
     <method v="2" />
   </configuration>
 </component>

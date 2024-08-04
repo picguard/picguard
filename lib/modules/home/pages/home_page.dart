@@ -31,6 +31,7 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:window_manager/window_manager.dart';
 
 // Project imports:
+import 'package:picguard/app/config.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
@@ -105,15 +106,16 @@ class _HomePageState extends State<HomePage> with WindowListener {
   Widget build(BuildContext context) {
     final t = Translations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final appName = t.appName(flavor: AppConfig.shared.flavor);
 
     return KeyboardDismisser(
       child: Title(
-        title: t.homePage.title,
+        title: appName,
         color: isDark ? Colors.white : Colors.black,
         child: Scaffold(
           appBar: isMobile
               ? PGAppBar(
-                  titleWidget: Text(t.homePage.title),
+                  titleWidget: Text(appName),
                   isDark: isDark,
                 )
               : null,
@@ -149,7 +151,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
               saveBtn,
               const Gap(20),
               Text(
-                '${t.homePage.title} $appVersion',
+                '$appName $appVersion',
                 style: const TextStyle(
                   color: secondaryTextColor,
                   fontSize: 12,
@@ -901,6 +903,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
       final permission = await _checkPermission();
       if (permission != Permissions.none) {
         final t = Translations.of(AppNavigator.key.currentContext!);
+        final appName = t.appName(flavor: AppConfig.shared.flavor);
         final title = permission == Permissions.photos
             ? t.dialogs.permissions.photos.title
             : t.dialogs.permissions.storage.title;
@@ -909,7 +912,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
             : t.dialogs.permissions.storage.description;
         DialogUtil.showCustomDialog(
           title: title,
-          content: description,
+          content: description(appName: appName),
           cancelText: t.buttons.ignore,
           okText: t.buttons.turnOn,
           onOK: () async {
@@ -1165,6 +1168,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     final permission = await _checkPermission();
     if (permission != Permissions.none) {
       final t = Translations.of(AppNavigator.key.currentContext!);
+      final appName = t.appName(flavor: AppConfig.shared.flavor);
       final title = permission == Permissions.photos
           ? t.dialogs.permissions.photos.title
           : t.dialogs.permissions.storage.title;
@@ -1173,7 +1177,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
           : t.dialogs.permissions.storage.description;
       DialogUtil.showCustomDialog(
         title: title,
-        content: description,
+        content: description(appName: appName),
         cancelText: t.buttons.ignore,
         okText: t.buttons.turnOn,
         onOK: () async {

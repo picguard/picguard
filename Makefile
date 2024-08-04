@@ -47,43 +47,43 @@ clean_runner: ## Deleting cache and generated source files
 
 apk_free: ## Release Apk for Free
 	echo "╠ Releasing Apk..."
-	fvm flutter build apk --no-tree-shake-icons --dart-define-from-file=".env.$(ENV).local" --flavor freeStaging
+	fvm flutter build apk --no-tree-shake-icons --dart-define-from-file=".env.$(ENV).local" --target lib/main_free.dart --flavor freeStaging
 
 appbundle_free: ## Release Appbundle for free
 	echo "╠ Releasing Appbundle..."
-	fvm flutter build appbundle --no-tree-shake-icons --dart-define-from-file=".env.$(ENV).local" --flavor freeProduction
+	fvm flutter build appbundle --no-tree-shake-icons --dart-define-from-file=".env.$(ENV).local" --target lib/main_free.dart --flavor freeProduction
 
 apk_pro: ## Release Apk for Pro
 	echo "╠ Releasing Apk..."
-	fvm flutter build apk --no-tree-shake-icons --dart-define-from-file=".env.$(ENV).local" --flavor proStaging
+	fvm flutter build apk --no-tree-shake-icons --dart-define-from-file=".env.$(ENV).local" --target lib/main_pro.dart --flavor proStaging
 
 appbundle_pro: ## Release Appbundle for Pro
 	echo "╠ Releasing Appbundle..."
-	fvm flutter build appbundle --no-tree-shake-icons --dart-define-from-file=".env.$(ENV).local" --flavor proProduction
+	fvm flutter build appbundle --no-tree-shake-icons --dart-define-from-file=".env.$(ENV).local" --target lib/main_pro.dart --flavor proProduction
 
 adhoc_free:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd ios && xcodebuild clean && cd ..
 	echo "╠ Releasing to adhoc..."
-	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --export-options-plist=ios/ExportOptions-debug.plist
+	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --target lib/main_free.dart --export-options-plist=ios/ExportOptions-debug.plist
 
 appstore_free:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd ios && xcodebuild clean && cd ..
 	echo "╠ Releasing to app store..."
-	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --export-options-plist=ios/ExportOptions-release.plist
+	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --target lib/main_free.dart --export-options-plist=ios/ExportOptions-release.plist
 
 adhoc_pro:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd ios && xcodebuild clean && cd ..
 	echo "╠ Releasing to adhoc..."
-	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --flavor pro --export-options-plist=ios/ExportOptions-debug.plist
+	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptionsPro-debug.plist
 
 appstore_pro:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd ios && xcodebuild clean && cd ..
 	echo "╠ Releasing to app store..."
-	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --flavor pro --export-options-plist=ios/ExportOptions-release.plist
+	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptionsPro-release.plist
 
 macos_adhoc:
 	echo "╠ Removing build products and intermediate files from the build root..."

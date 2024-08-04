@@ -6,8 +6,11 @@ ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 project 'PicGuard', {
   'Debug' => :debug,
+  'Debug-pro' => :debug,
   'Profile' => :release,
+  'Profile-pro' => :release,
   'Release' => :release,
+  'Release-pro' => :release,
 }
 
 def flutter_root

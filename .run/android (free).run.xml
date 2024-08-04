@@ -2,7 +2,7 @@
   <configuration default="false" name="android (free)" type="FlutterRunConfigurationType" factoryName="Flutter">
     <option name="additionalArgs" value="--dart-define-from-file=.env.dev.local" />
     <option name="buildFlavor" value="freeStaging" />
-    <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+    <option name="filePath" value="$PROJECT_DIR$/lib/main_free.dart" />
     <method v="2" />
   </configuration>
 </component>

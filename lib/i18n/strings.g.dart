@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 90 (45 per locale)
+/// Strings: 92 (46 per locale)
 ///
-/// Built on 2024-07-26 at 15:43 UTC
+/// Built on 2024-08-04 at 05:28 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -116,6 +116,13 @@ class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, Translations> {
 	static List<String> get supportedLocalesRaw => instance.supportedLocalesRaw;
 }
 
+// context enums
+
+enum Flavor {
+	free,
+	pro,
+}
+
 // translations
 
 // Path: <root>
@@ -148,6 +155,14 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final Translations _root = this; // ignore: unused_field
 
 	// Translations
+	String appName({required Flavor flavor}) {
+		switch (flavor) {
+			case Flavor.free:
+				return 'PicGuard';
+			case Flavor.pro:
+				return 'PicGuard Pro';
+		}
+	}
 	late final _StringsHomePageEn homePage = _StringsHomePageEn._(_root);
 	late final _StringsButtonsEn buttons = _StringsButtonsEn._(_root);
 	late final _StringsDialogsEn dialogs = _StringsDialogsEn._(_root);
@@ -164,7 +179,6 @@ class _StringsHomePageEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'PicGuard';
 	String get imageDescription => 'Please upload pictures.';
 	String get description => 'This app will not upload any pictures to the server, all operations are completed locally';
 	String get textLabel => 'Text';
@@ -241,21 +255,21 @@ class _StringsDialogsLicenseDialogEn {
 
 	// Translations
 	String get licenseDialogTitle => 'Terms and Conditions';
-	String get licenseDialogContentContent => 'Protecting user\'s privacy and personal information is a fundamental principle of PicGuard.';
+	String licenseDialogContentContent({required Object appName}) => 'Protecting user\'s privacy and personal information is a fundamental principle of ${appName}.';
 	String get licenseDialogContentTip => 'Below is a list of permissions required by this APP:';
 	String get licenseDialogContentPrefix => 'Before you use this APP\'s services, please carefully read and agree to the ';
 	String get licenseDialogContentUserAgreement => 'User Agreement';
 	String get licenseDialogContentAnd => ' and ';
 	String get licenseDialogContentPrivacyAgreement => 'Privacy Agreement';
 	String get licenseDialogContentSuffix => ', start using our services after you agree and accept all terms.';
-	List<String> get iosPermissions => [
-		'For you to upload pictures, PicGuard needs access to your Photos. (NSPhotoLibraryUsageDescription)',
+	List<dynamic> get iosPermissions => [
+		({required Object appName}) => 'For you to upload pictures, ${appName} needs access to your Photos. (NSPhotoLibraryUsageDescription)',
 	];
-	List<String> get androidPermissions => [
-		'In order to use the Sentry Service, PicGuard needs access to your Internet. (android.permission.INTERNET)',
-		'For you to upload pictures, PicGuard needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)',
-		'For you to save pictures, PicGuard needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
-		'For you to upload pictures, PicGuard needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)',
+	List<dynamic> get androidPermissions => [
+		({required Object appName}) => 'In order to use the Sentry Service, ${appName} needs access to your Internet. (android.permission.INTERNET)',
+		({required Object appName}) => 'For you to upload pictures, ${appName} needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)',
+		({required Object appName}) => 'For you to save pictures, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
+		({required Object appName}) => 'For you to upload pictures, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)',
 	];
 }
 
@@ -267,7 +281,7 @@ class _StringsDialogsPermissionsPhotosEn {
 
 	// Translations
 	String get title => 'Allow access to your album';
-	String get description => 'Please go to your phone Settings to grant PicGuard the permission to visit your album.';
+	String description({required Object appName}) => 'Please go to your phone Settings to grant ${appName} the permission to visit your album.';
 }
 
 // Path: dialogs.permissions.storage
@@ -278,7 +292,7 @@ class _StringsDialogsPermissionsStorageEn {
 
 	// Translations
 	String get title => 'Allow access to your storage';
-	String get description => 'Please go to your phone Settings to grant PicGuard the permission to visit your storage.';
+	String description({required Object appName}) => 'Please go to your phone Settings to grant ${appName} the permission to visit your storage.';
 }
 
 // Path: <root>
@@ -305,6 +319,14 @@ class _StringsZh implements Translations {
 	@override late final _StringsZh _root = this; // ignore: unused_field
 
 	// Translations
+	@override String appName({required Flavor flavor}) {
+		switch (flavor) {
+			case Flavor.free:
+				return 'PicGuard';
+			case Flavor.pro:
+				return 'PicGuard Pro';
+		}
+	}
 	@override late final _StringsHomePageZh homePage = _StringsHomePageZh._(_root);
 	@override late final _StringsButtonsZh buttons = _StringsButtonsZh._(_root);
 	@override late final _StringsDialogsZh dialogs = _StringsDialogsZh._(_root);
@@ -321,7 +343,6 @@ class _StringsHomePageZh implements _StringsHomePageEn {
 	@override final _StringsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'PicGuard';
 	@override String get imageDescription => '请上传图片';
 	@override String get description => '本app不会上传任何图片到服务器, 所有操作均在本地完成';
 	@override String get textLabel => '文本';
@@ -398,21 +419,21 @@ class _StringsDialogsLicenseDialogZh implements _StringsDialogsLicenseDialogEn {
 
 	// Translations
 	@override String get licenseDialogTitle => '隐私条款';
-	@override String get licenseDialogContentContent => 'PicGuard非常重视你的隐私保护和个人信息保护.';
+	@override String licenseDialogContentContent({required Object appName}) => '${appName}非常重视你的隐私保护和个人信息保护.';
 	@override String get licenseDialogContentTip => '以下是该APP所需的权限列表:';
 	@override String get licenseDialogContentPrefix => '在使用APP服务前, 请认真阅读 ';
 	@override String get licenseDialogContentUserAgreement => '《隐私政策》';
 	@override String get licenseDialogContentAnd => '和';
 	@override String get licenseDialogContentPrivacyAgreement => '《用户服务协议》';
 	@override String get licenseDialogContentSuffix => ', 你同意并接受全部条款后开始使用我们的服务.';
-	@override List<String> get iosPermissions => [
-		'为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)',
+	@override List<dynamic> get iosPermissions => [
+		({required Object appName}) => '为了让您上传图片, ${appName}需要访问您的照片. (NSPhotoLibraryUsageDescription)',
 	];
-	@override List<String> get androidPermissions => [
-		'为了使用 Sentry 服务, PicGuard 需要访问您的互联网. (android.permission.INTERNET)',
-		'为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)',
-		'为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
-		'为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
+	@override List<dynamic> get androidPermissions => [
+		({required Object appName}) => '为了使用 Sentry 服务, ${appName}需要访问您的互联网. (android.permission.INTERNET)',
+		({required Object appName}) => '为了让您上传图片, ${appName}需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)',
+		({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
+		({required Object appName}) => '为了让您上传图片, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
 	];
 }
 
@@ -424,7 +445,7 @@ class _StringsDialogsPermissionsPhotosZh implements _StringsDialogsPermissionsPh
 
 	// Translations
 	@override String get title => '允许访问您的相册';
-	@override String get description => '请前往您的手机设置，授予 PicGuard 访问您相册的权限.';
+	@override String description({required Object appName}) => '请前往您的手机设置，授予${appName}访问您相册的权限.';
 }
 
 // Path: dialogs.permissions.storage
@@ -435,7 +456,7 @@ class _StringsDialogsPermissionsStorageZh implements _StringsDialogsPermissionsS
 
 	// Translations
 	@override String get title => '允许访问您的存储';
-	@override String get description => '请前往您的手机设置，授予 PicGuard 访问您存储的权限.';
+	@override String description({required Object appName}) => '请前往您的手机设置，授予${appName}访问您存储的权限.';
 }
 
 /// Flat map(s) containing all translations.
@@ -444,7 +465,14 @@ class _StringsDialogsPermissionsStorageZh implements _StringsDialogsPermissionsS
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'homePage.title': return 'PicGuard';
+			case 'appName': return ({required Flavor flavor}) {
+				switch (flavor) {
+					case Flavor.free:
+						return 'PicGuard';
+					case Flavor.pro:
+						return 'PicGuard Pro';
+				}
+			};
 			case 'homePage.imageDescription': return 'Please upload pictures.';
 			case 'homePage.description': return 'This app will not upload any pictures to the server, all operations are completed locally';
 			case 'homePage.textLabel': return 'Text';
@@ -471,22 +499,22 @@ extension on Translations {
 			case 'dialogs.exitConfirm.title': return 'Close confirmation';
 			case 'dialogs.exitConfirm.description': return 'Are you sure you want to close this window?';
 			case 'dialogs.permissions.photos.title': return 'Allow access to your album';
-			case 'dialogs.permissions.photos.description': return 'Please go to your phone Settings to grant PicGuard the permission to visit your album.';
+			case 'dialogs.permissions.photos.description': return ({required Object appName}) => 'Please go to your phone Settings to grant ${appName} the permission to visit your album.';
 			case 'dialogs.permissions.storage.title': return 'Allow access to your storage';
-			case 'dialogs.permissions.storage.description': return 'Please go to your phone Settings to grant PicGuard the permission to visit your storage.';
+			case 'dialogs.permissions.storage.description': return ({required Object appName}) => 'Please go to your phone Settings to grant ${appName} the permission to visit your storage.';
 			case 'dialogs.licenseDialog.licenseDialogTitle': return 'Terms and Conditions';
-			case 'dialogs.licenseDialog.licenseDialogContentContent': return 'Protecting user\'s privacy and personal information is a fundamental principle of PicGuard.';
+			case 'dialogs.licenseDialog.licenseDialogContentContent': return ({required Object appName}) => 'Protecting user\'s privacy and personal information is a fundamental principle of ${appName}.';
 			case 'dialogs.licenseDialog.licenseDialogContentTip': return 'Below is a list of permissions required by this APP:';
 			case 'dialogs.licenseDialog.licenseDialogContentPrefix': return 'Before you use this APP\'s services, please carefully read and agree to the ';
 			case 'dialogs.licenseDialog.licenseDialogContentUserAgreement': return 'User Agreement';
 			case 'dialogs.licenseDialog.licenseDialogContentAnd': return ' and ';
 			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return 'Privacy Agreement';
 			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', start using our services after you agree and accept all terms.';
-			case 'dialogs.licenseDialog.iosPermissions.0': return 'For you to upload pictures, PicGuard needs access to your Photos. (NSPhotoLibraryUsageDescription)';
-			case 'dialogs.licenseDialog.androidPermissions.0': return 'In order to use the Sentry Service, PicGuard needs access to your Internet. (android.permission.INTERNET)';
-			case 'dialogs.licenseDialog.androidPermissions.1': return 'For you to upload pictures, PicGuard needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.2': return 'For you to save pictures, PicGuard needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.3': return 'For you to upload pictures, PicGuard needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)';
+			case 'dialogs.licenseDialog.iosPermissions.0': return ({required Object appName}) => 'For you to upload pictures, ${appName} needs access to your Photos. (NSPhotoLibraryUsageDescription)';
+			case 'dialogs.licenseDialog.androidPermissions.0': return ({required Object appName}) => 'In order to use the Sentry Service, ${appName} needs access to your Internet. (android.permission.INTERNET)';
+			case 'dialogs.licenseDialog.androidPermissions.1': return ({required Object appName}) => 'For you to upload pictures, ${appName} needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => 'For you to save pictures, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => 'For you to upload pictures, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)';
 			case 'locales.en': return 'English';
 			case 'locales.zh': return '中文';
 			default: return null;
@@ -497,7 +525,14 @@ extension on Translations {
 extension on _StringsZh {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'homePage.title': return 'PicGuard';
+			case 'appName': return ({required Flavor flavor}) {
+				switch (flavor) {
+					case Flavor.free:
+						return 'PicGuard';
+					case Flavor.pro:
+						return 'PicGuard Pro';
+				}
+			};
 			case 'homePage.imageDescription': return '请上传图片';
 			case 'homePage.description': return '本app不会上传任何图片到服务器, 所有操作均在本地完成';
 			case 'homePage.textLabel': return '文本';
@@ -524,22 +559,22 @@ extension on _StringsZh {
 			case 'dialogs.exitConfirm.title': return '关闭确认';
 			case 'dialogs.exitConfirm.description': return '您确定要关闭此窗口吗?';
 			case 'dialogs.permissions.photos.title': return '允许访问您的相册';
-			case 'dialogs.permissions.photos.description': return '请前往您的手机设置，授予 PicGuard 访问您相册的权限.';
+			case 'dialogs.permissions.photos.description': return ({required Object appName}) => '请前往您的手机设置，授予${appName}访问您相册的权限.';
 			case 'dialogs.permissions.storage.title': return '允许访问您的存储';
-			case 'dialogs.permissions.storage.description': return '请前往您的手机设置，授予 PicGuard 访问您存储的权限.';
+			case 'dialogs.permissions.storage.description': return ({required Object appName}) => '请前往您的手机设置，授予${appName}访问您存储的权限.';
 			case 'dialogs.licenseDialog.licenseDialogTitle': return '隐私条款';
-			case 'dialogs.licenseDialog.licenseDialogContentContent': return 'PicGuard非常重视你的隐私保护和个人信息保护.';
+			case 'dialogs.licenseDialog.licenseDialogContentContent': return ({required Object appName}) => '${appName}非常重视你的隐私保护和个人信息保护.';
 			case 'dialogs.licenseDialog.licenseDialogContentTip': return '以下是该APP所需的权限列表:';
 			case 'dialogs.licenseDialog.licenseDialogContentPrefix': return '在使用APP服务前, 请认真阅读 ';
 			case 'dialogs.licenseDialog.licenseDialogContentUserAgreement': return '《隐私政策》';
 			case 'dialogs.licenseDialog.licenseDialogContentAnd': return '和';
 			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return '《用户服务协议》';
 			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', 你同意并接受全部条款后开始使用我们的服务.';
-			case 'dialogs.licenseDialog.iosPermissions.0': return '为了让您上传图片, PicGuard 需要访问您的照片. (NSPhotoLibraryUsageDescription)';
-			case 'dialogs.licenseDialog.androidPermissions.0': return '为了使用 Sentry 服务, PicGuard 需要访问您的互联网. (android.permission.INTERNET)';
-			case 'dialogs.licenseDialog.androidPermissions.1': return '为了让您上传图片, PicGuard 需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.2': return '为了让您保存图片, PicGuard 需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.3': return '为了让您上传图片, PicGuard 需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)';
+			case 'dialogs.licenseDialog.iosPermissions.0': return ({required Object appName}) => '为了让您上传图片, ${appName}需要访问您的照片. (NSPhotoLibraryUsageDescription)';
+			case 'dialogs.licenseDialog.androidPermissions.0': return ({required Object appName}) => '为了使用 Sentry 服务, ${appName}需要访问您的互联网. (android.permission.INTERNET)';
+			case 'dialogs.licenseDialog.androidPermissions.1': return ({required Object appName}) => '为了让您上传图片, ${appName}需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => '为了让您上传图片, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)';
 			case 'locales.en': return 'English';
 			case 'locales.zh': return '中文';
 			default: return null;

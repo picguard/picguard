@@ -59,12 +59,12 @@ make ENV=<dev|stg|prod> <appbundle_free|appbundle_pro>
 
 ```shell
 # 如果发布到测试环境
-make ENV=<dev|stg|prod> adhoc
+make ENV=<dev|stg|prod> <adhoc_free|adhoc_pro>
 ```
 
 ```shell
 # 如果发布到生产环境
-make ENV=<dev|stg|prod> appstore
+make ENV=<dev|stg|prod> <appstore_free|appstore_pro>
 ```
 
 ### macOS
