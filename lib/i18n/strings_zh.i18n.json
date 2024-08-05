@@ -15,6 +15,7 @@
     "transparencyLabel": "透明度",
     "fontLabel": "字体",
     "fontValidator": "请选择字体.",
+    "fontSizeLabel": "字体大小",
     "textGapLabel": "文本间距",
     "textGapDescription": "每行文本中, 文本与文本之间的间距",
     "rowGapLabel": "行间距",

@@ -75,6 +75,8 @@ const fontFamilies = <PGFont>[
 const spacing = 8.0;
 const runSpacing = 4.0;
 const padding = 10.0;
+const initialTransparency = 1.0;
+double initialFontSize = isMobile ? 72 : 36;
 double initialGap = isMobile ? 100.0 : 30.0;
 
 ///
@@ -89,7 +91,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with WindowListener {
   final _formKey = GlobalKey<FormBuilderState>();
   final colorNotifier = ValueNotifier<int>(0xFF9E9E9E);
-  final transparencyNotifier = ValueNotifier<double>(1);
+  final transparencyNotifier = ValueNotifier<double>(initialTransparency);
+  final fontSizeNotifier = ValueNotifier<double>(initialFontSize);
   final textGapNotifier = ValueNotifier<double>(initialGap);
   final rowGapNotifier = ValueNotifier<double>(initialGap);
 
@@ -155,6 +158,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
                     const Gap(5),
                     if (AppConfig.shared.isPro) ...[
                       fontSelect,
+                      const Gap(5),
+                      fontSizeSlider,
                       const Gap(5),
                     ],
                     textGap,
@@ -574,12 +579,11 @@ class _HomePageState extends State<HomePage> with WindowListener {
                     ),
                     child: SfSlider(
                       min: min,
-                      max: 1,
                       stepSize: 0.1,
                       value: field.value,
                       enableTooltip: true,
                       onChanged: (dynamic value) {
-                        final newValue = value as double? ?? min;
+                        final newValue = value as double? ?? initialTransparency;
                         transparencyNotifier.value = newValue;
                         field
                           ..didChange(newValue)
@@ -735,6 +739,81 @@ class _HomePageState extends State<HomePage> with WindowListener {
             return t.homePage.fontValidator;
           }
           return null;
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+
+  /// 字体大小选择
+  Widget get fontSizeSlider {
+    final min = isMobile ? 36.0 : 18.0;
+    return BaseFormItem(
+      title: t.homePage.fontSizeLabel,
+      required: false,
+      showTip: false,
+      child: FormBuilderField<double>(
+        name: 'fontSize',
+        initialValue: fontSizeNotifier.value,
+        builder: (FormFieldState<double> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  SfSliderTheme(
+                    data: const SfSliderThemeData(
+                      activeTrackHeight: 4,
+                      activeTrackColor: primaryColor,
+                      inactiveTrackColor: primaryBackgroundColor,
+                      thumbRadius: 6,
+                      thumbColor: primaryColor,
+                      overlayRadius: 0,
+                    ),
+                    child: SfSlider(
+                      min: min,
+                      max: min * 4,
+                      stepSize: 2,
+                      value: field.value,
+                      enableTooltip: true,
+                      onChanged: (dynamic value) {
+                        final newValue = value as double? ?? initialFontSize;
+                        fontSizeNotifier.value = newValue;
+                        field
+                          ..didChange(newValue)
+                          ..validate();
+                      },
+                    ),
+                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
+                  const Gap(4),
+                  ValueListenableBuilder(
+                    valueListenable: fontSizeNotifier,
+                    builder: (
+                      BuildContext context,
+                      double value,
+                      Widget? child,
+                    ) =>
+                        Text(
+                      value.toStringAsFixed(0),
+                      textAlign: TextAlign.center,
+                    ).nestedSizedBox(width: 28),
+                  ),
+                ],
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: errorTextColor,
+                  ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(top: 8, left: 8),
+                ),
+            ],
+          );
         },
       ).nestedPadding(
         padding: const EdgeInsets.only(top: 8.5),
@@ -988,10 +1067,11 @@ class _HomePageState extends State<HomePage> with WindowListener {
       final color = values['color'] as int;
       final transparency = values['transparency'] as double;
       final fontFamily = values['font'] as String?;
+      final fontSize = values['fontSize'] as double?;
       final textGap = values['textGap'] as double;
       final rowGap = values['rowGap'] as double;
       printDebugLog(
-        'text: $text, color: $color, transparency: $transparency, fontFamily: $fontFamily, textGap: $textGap, rowGap: $rowGap',
+        'text: $text, color: $color, transparency: $transparency, fontFamily: $fontFamily, fontSize: $fontSize, textGap: $textGap, rowGap: $rowGap',
       );
 
       try {
@@ -1006,6 +1086,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 colorValue: color,
                 transparency: transparency,
                 fontFamily: fontFamily,
+                fontSize: fontSize,
                 textGap: textGap,
                 rowGap: rowGap,
               ),
@@ -1035,11 +1116,12 @@ class _HomePageState extends State<HomePage> with WindowListener {
       final text = values['text'] as String;
       final color = values['color'] as int;
       final transparency = values['transparency'] as double;
-      final fontFamily = values['font'] as String;
+      final fontFamily = values['font'] as String?;
+      final fontSize = values['fontSize'] as double?;
       final textGap = values['textGap'] as double;
       final rowGap = values['rowGap'] as double;
       printDebugLog(
-        'text: $text, color: $color, transparency: $transparency, fontFamily: $fontFamily, textGap: $textGap, rowGap: $rowGap',
+        'text: $text, color: $color, transparency: $transparency, fontFamily: $fontFamily, fontSize: $fontSize, textGap: $textGap, rowGap: $rowGap',
       );
 
       final permission = await _checkPermission();
@@ -1077,6 +1159,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 colorValue: color,
                 transparency: transparency,
                 fontFamily: fontFamily,
+                fontSize: fontSize,
                 textGap: textGap,
                 rowGap: rowGap,
               ),
@@ -1140,6 +1223,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     required double textGap,
     required double rowGap,
     String? fontFamily,
+    double? fontSize,
   }) async {
     final image = await _loadImage(bytes);
 
@@ -1166,7 +1250,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     // 设置文本样式
     final textStyle = TextStyle(
       color: Color(colorValue).withOpacity(transparency),
-      fontSize: isMobile ? 72 : 36,
+      fontSize: fontSize ?? initialFontSize,
       fontWeight: FontWeight.w400,
       fontFamily: fontFamily,
     );
@@ -1358,6 +1442,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     }
   }
 
+  // Sort selected photos
   void _onReorder(int oldIndex, int newIndex) {
     setState(
       () => _fileWrappers = _fileWrappers..swap(oldIndex, newIndex),
@@ -1402,7 +1487,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     );
   }
 
-  // 检查权限
+  // Check permissions
   Future<Permissions> _checkPermission() async {
     if (defaultTargetPlatform == TargetPlatform.android) {
       final deviceInfo = DeviceInfoPlugin();

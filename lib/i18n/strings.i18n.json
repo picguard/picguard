@@ -15,6 +15,7 @@
     "transparencyLabel": "Transparency",
     "fontLabel": "Font",
     "fontValidator": "Please select a font.",
+    "fontSizeLabel": "Font size",
     "textGapLabel": "Text spacing",
     "textGapDescription": "The spacing between text in each line of text",
     "rowGapLabel": "Line spacing",
