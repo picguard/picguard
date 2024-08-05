@@ -12,6 +12,9 @@
         <Shortcut Name="PicGuard" Description="Your pictures, your signature." Directory="ProgramMenuFolder" Advertise="yes" Icon="PicGuard.exe" />
       </Component>
       <Component>
+        <File Source="$(FlutterBuildOutputDir)\file_saver_plugin.dll" />
+      </Component>
+      <Component>
         <File Source="$(FlutterBuildOutputDir)\file_selector_windows_plugin.dll" />
       </Component>
       <Component>
@@ -58,12 +61,6 @@
       </Component>
       <Component>
         <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\NOTICES.Z" />
-      </Component>
-    </ComponentGroup>
-
-    <ComponentGroup Id="FlutterFontComponents" Directory="FLUTTERFONTSFOLDER">
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\MaterialIcons-Regular.otf" />
       </Component>
     </ComponentGroup>
 

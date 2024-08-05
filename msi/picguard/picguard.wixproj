@@ -11,4 +11,7 @@
   <ItemGroup>
     <Content Include="..\..\windows\runner\resources\app_icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppFonts.wxs" />
+  </ItemGroup>
 </Project>

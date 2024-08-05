@@ -23,7 +23,7 @@ $env:VISUAL_STUDIO_REDIST_DIR = "C:\Program Files\Microsoft Visual Studio\2022\E
 ## Build
 
 ```powershell
-heat dir "$pwd\build\windows\$env:Platform\runner\Release\data\flutter_assets\assets" -cg AssetComponents -gg -o AppAssets.wxs
+heat dir "$pwd\build\windows\$env:Platform\runner\Release\data\flutter_assets\fonts" -cg AssetComponents -gg -o "$pwd\msi\picguard\AppFonts.wxs"
 ```
 
 ```powershell

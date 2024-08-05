@@ -1,0 +1,75 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <?define FlutterBuildOutputDir = "$(env.FLUTTER_BUILD_OUTPUT_DIR)" ?>
+    <Fragment>
+        <DirectoryRef Id="FLUTTERFONTSFOLDER">
+            <Directory Id="dir0D29B8CB1B0A1977F87C47559772BADE" Name="fonts" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="FontComponents">
+            <Component Id="cmpB748EF4068C26ED34043CEB699F8BC65" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{8E98D761-DB48-409C-A75F-734AF4EF1DA3}">
+                <File Id="fil3D9656B3BCC6B931E27DCA91B16DBF4D" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\Lato-Bold.ttf" />
+            </Component>
+            <Component Id="cmpFE130D23F3821D916C6040ECBBEDBE61" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{0D58103E-A600-4DE1-893A-DD6E47D2F564}">
+                <File Id="fil8C2FE8C51D3B643AC6F0AE13356D60B7" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\Lato-Regular.ttf" />
+            </Component>
+            <Component Id="cmp4F8ADB4BEF1462CCCBE4B877A5358D8D" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{2020206D-50B0-4B6A-8D16-AE9E29306FC6}">
+                <File Id="filB06FD1ADF5392ACB1B0D594F54D9525A" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\MaterialIcons-Regular.otf" />
+            </Component>
+            <Component Id="cmp30531531CB6E0769876204EC540DC59C" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{B617C7A5-1C90-4C4F-B238-977F1E4101B9}">
+                <File Id="fil60C3D5BB990C7C82FA1F50E3142B152E" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\Merriweather-Bold.ttf" />
+            </Component>
+            <Component Id="cmp4A4FF1DBC7678F6824D83AEC71896AF5" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{14E94EAD-1D31-470F-A060-EFCFDAD7832F}">
+                <File Id="fil172E553D589933AC8026BA6C32AE993D" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\Merriweather-Regular.ttf" />
+            </Component>
+            <Component Id="cmpB756C2DC31E45D3780191A2624DDEC29" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{EA14B91A-84D9-43C1-B02B-4F43B4094D5D}">
+                <File Id="fil80ACF16313C4E76664B194798FC84715" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\MerriweatherSans-Bold.ttf" />
+            </Component>
+            <Component Id="cmpF6FE0E5356C1F2F3C92F17FB7926A17F" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{B2B90F61-C052-474D-9B00-0FC949346D4A}">
+                <File Id="filB8559B2D7DACB19B50FF7987F66A2A07" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\MerriweatherSans-Regular.ttf" />
+            </Component>
+            <Component Id="cmp340CE0CCA9B4EC8FFBB9DEBA795C583B" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{AD45F33F-5EA3-4FD4-A234-9CF68B9A015E}">
+                <File Id="fil66480FF5B57EA5E9CF68C6DC0C646CB1" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\Montserrat-Bold.ttf" />
+            </Component>
+            <Component Id="cmp3F229CF411F5C02BB1E1B298CFE6D8D3" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{00A5715B-7DB3-49EB-B8D3-B67CE6739106}">
+                <File Id="filA9AD7DAA9AD7203C3403B63A89F9A2F4" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\Montserrat-Regular.ttf" />
+            </Component>
+            <Component Id="cmp9ABFD3815E8CC2D12FF7A0A239B5F78A" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{B2083F17-7256-4A29-9FBF-8F7D4A046766}">
+                <File Id="fil1FD8C6057A53CB745E04D95DED61301A" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\OpenSans-Bold.ttf" />
+            </Component>
+            <Component Id="cmpE3EAA841941F074BAEAC7662FE2DECDC" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{4654E033-19D8-4C30-B526-4635CD12B2C4}">
+                <File Id="filDFDF87F9288DAD1E1758C89081D30B7C" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\OpenSans-Regular.ttf" />
+            </Component>
+            <Component Id="cmp0745FEF03E115E5975A75464468F15A2" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{50A97920-A256-4DF8-8726-3D708383798B}">
+                <File Id="fil5F6A256020D37312A40F181413C796D7" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\PlayfairDisplay-Bold.ttf" />
+            </Component>
+            <Component Id="cmpDE9BA9BC5C856144D37529E3FE7B7D42" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{5026BAFE-1048-436F-A37F-A9BDC5B0C326}">
+                <File Id="filB4B262E764DF3B85CB193A99CE60949C" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\PlayfairDisplay-Regular.ttf" />
+            </Component>
+            <Component Id="cmp0A794D37A861AC1C51777E0B4F6CFD80" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{6FE235F9-4A39-43E7-9394-5190A1F0946D}">
+                <File Id="fil3A1C90DE8630E88786AFD07AC0E87381" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\PlayfairDisplaySC-Bold.ttf" />
+            </Component>
+            <Component Id="cmp87D7BA3A234F2BA50B851A6A0B4D5F8B" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{4158B76B-F588-4A22-9D70-C6FEE45AEBD1}">
+                <File Id="filEA24209A5DB0B5780CED00485FC57AFE" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\PlayfairDisplaySC-Regular.ttf" />
+            </Component>
+            <Component Id="cmp49F940EA7D54C4E704A1B8AC83DBAF22" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{538DD43F-E1DF-4515-B802-D53194054B55}">
+                <File Id="fil8323D7BCB1058941CFECF718B6A6A9AF" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\Poppins-Bold.ttf" />
+            </Component>
+            <Component Id="cmpBC694B76450333DF496C63FB9DE077D6" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{4C086A17-8680-402E-955F-4A4488579449}">
+                <File Id="fil1E88964B10267C626E36AF8F5BD0B5E4" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\Poppins-Regular.ttf" />
+            </Component>
+            <Component Id="cmp67013A1227031BA4A3565BA1BDECCDE7" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{D8D45600-E7D0-43EC-83C6-E6D81FAA1A93}">
+                <File Id="fil506A23136967A0B32B8381CBC346CB12" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\Roboto-Bold.ttf" />
+            </Component>
+            <Component Id="cmpF394700043DFFFC7329EEF670341CD3F" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{55CCD190-33B4-46E1-91A6-4777B792736D}">
+                <File Id="fil8F3999076BD5F6668E456413D9A2CD38" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\Roboto-Regular.ttf" />
+            </Component>
+            <Component Id="cmp3A06A71261E5FA57A0118497D06A72D1" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{1A20C683-4884-4AEF-8B6A-4B2AE9C4041A}">
+                <File Id="filC66585032C3626662709CEE4EF8272C9" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\SourceSans3-Bold.ttf" />
+            </Component>
+            <Component Id="cmpC2258994FD62177FB90484AABA3FEBAF" Directory="dir0D29B8CB1B0A1977F87C47559772BADE" Guid="{5798AB12-3110-4128-A252-645834977383}">
+                <File Id="filAB0A0CBBE6DC88755D592CA332390D2B" KeyPath="yes" Source="$(FlutterBuildOutputDir)\data\flutter_assets\fonts\SourceSans3-Regular.ttf" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+</Wix>
