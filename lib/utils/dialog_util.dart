@@ -502,6 +502,7 @@ class DialogUtil {
   static void showPGColorModal({
     required List<PGColor> items,
     required VoidPGColorCallback callback,
+    int? color,
   }) {
     final context = AppNavigator.key.currentContext!;
     showModalBottomSheet<void>(
@@ -512,6 +513,7 @@ class DialogUtil {
       builder: (BuildContext context) => PGColorModal(
         items: items,
         callback: callback,
+        color: color,
       ),
     );
   }
@@ -520,6 +522,7 @@ class DialogUtil {
   static void showFontModal({
     required List<PGFont> items,
     required VoidPGFontCallback callback,
+    String? font,
   }) {
     final context = AppNavigator.key.currentContext!;
     showModalBottomSheet<void>(
@@ -530,6 +533,7 @@ class DialogUtil {
       builder: (BuildContext context) => FontModal(
         items: items,
         callback: callback,
+        font: font,
       ),
     );
   }

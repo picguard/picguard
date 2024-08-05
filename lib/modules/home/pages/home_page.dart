@@ -1454,6 +1454,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     NavigatorUtil.pop();
     DialogUtil.showPGColorModal(
       items: colors,
+      color: field.value,
       callback: (PGColor value) {
         if (kDebugMode) {
           printDebugLog('id: ${value.value}, name: ${value.enText}');
@@ -1473,6 +1474,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     NavigatorUtil.pop();
     DialogUtil.showFontModal(
       items: fontFamilies,
+      font: field.value,
       callback: (PGFont font) {
         if (kDebugMode) {
           printDebugLog('fontFamily: ${font.fontFamily}, name: ${font.name}');

@@ -15,11 +15,13 @@ class PGColorModal extends StatelessWidget {
   const PGColorModal({
     required this.items,
     required this.callback,
+    this.color,
     super.key,
   });
 
   final List<PGColor> items;
   final VoidPGColorCallback callback;
+  final int? color;
 
   @override
   Widget build(BuildContext context) {
@@ -61,41 +63,59 @@ class PGColorModal extends StatelessWidget {
               ),
             ),
           ],
-        ).nestedPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-        ),
-        ListView.builder(
-          padding: EdgeInsets.zero,
-          shrinkWrap: true,
-          itemCount: items.length,
-          itemBuilder: (context, index) => TextButton(
-            style: ButtonStyle(
-              padding: WidgetStateProperty.all(
-                const EdgeInsets.symmetric(horizontal: 16),
-              ),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              backgroundColor: WidgetStateProperty.all(Colors.transparent),
-              overlayColor: WidgetStateProperty.all(
-                isDark ? primaryTextColor : primaryBackgroundColor,
+        )
+            .nestedPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            )
+            .nestedDecoratedBox(
+              decoration: const BoxDecoration(
+                border:
+                    Border(bottom: BorderSide(color: borderColor, width: 0.5)),
               ),
             ),
-            onPressed: () => callback(items[index]),
-            child: Text(
-              languageCode == 'zh' ? items[index].zhText : items[index].enText,
-              style: TextStyle(
-                color: isDark ? Colors.white : primaryTextColor,
-                fontSize: 14,
-                height: 1.43,
+        ListView.builder(
+          padding: const EdgeInsets.only(top: 5),
+          shrinkWrap: true,
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            final item = items[index];
+            final selected = item.value == color;
+            final backgroundColor =
+                selected ? primaryBackgroundColor : Colors.transparent;
+            return TextButton(
+              style: ButtonStyle(
+                padding: WidgetStateProperty.all(
+                  const EdgeInsets.symmetric(horizontal: 16),
+                ),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                backgroundColor: WidgetStateProperty.all(backgroundColor),
+                overlayColor: WidgetStateProperty.all(
+                  isDark ? primaryTextColor : primaryBackgroundColor,
+                ),
+                shape: WidgetStateProperty.all(const RoundedRectangleBorder()),
               ),
-              textAlign: TextAlign.start,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            )
-                .nestedPadding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                )
-                .nestedSizedBox(width: double.maxFinite),
-          ),
+              onPressed: () => callback(item),
+              child: Text(
+                languageCode == 'zh' ? item.zhText : item.enText,
+                style: TextStyle(
+                  color: selected
+                      ? primaryColor
+                      : isDark
+                          ? Colors.white
+                          : primaryTextColor,
+                  fontSize: 14,
+                  height: 1.43,
+                ),
+                textAlign: TextAlign.start,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              )
+                  .nestedPadding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                  )
+                  .nestedSizedBox(width: double.maxFinite),
+            );
+          },
         ).nestedFlexible(),
       ],
     )
@@ -112,11 +132,13 @@ class FontModal extends StatelessWidget {
   const FontModal({
     required this.items,
     required this.callback,
+    this.font,
     super.key,
   });
 
   final List<PGFont> items;
   final VoidPGFontCallback callback;
+  final String? font;
 
   @override
   Widget build(BuildContext context) {
@@ -158,34 +180,49 @@ class FontModal extends StatelessWidget {
               ),
             ),
           ],
-        ).nestedPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-        ),
+        )
+            .nestedPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            )
+            .nestedDecoratedBox(
+              decoration: const BoxDecoration(
+                border:
+                    Border(bottom: BorderSide(color: borderColor, width: 0.5)),
+              ),
+            ),
         ListView.builder(
-          padding: EdgeInsets.zero,
+          padding: const EdgeInsets.only(top: 5),
           shrinkWrap: true,
           itemCount: items.length,
           itemBuilder: (context, index) {
-            final fontFamily = items[index];
+            final item = items[index];
+            final selected = item.fontFamily == font;
+            final backgroundColor =
+                selected ? primaryBackgroundColor : Colors.transparent;
             return TextButton(
               style: ButtonStyle(
                 padding: WidgetStateProperty.all(
                   const EdgeInsets.symmetric(horizontal: 16),
                 ),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                backgroundColor: WidgetStateProperty.all(Colors.transparent),
+                backgroundColor: WidgetStateProperty.all(backgroundColor),
                 overlayColor: WidgetStateProperty.all(
                   isDark ? primaryTextColor : primaryBackgroundColor,
                 ),
+                shape: WidgetStateProperty.all(const RoundedRectangleBorder()),
               ),
               onPressed: () => callback(items[index]),
               child: Text(
-                fontFamily.name,
+                item.name,
                 style: TextStyle(
-                  color: isDark ? Colors.white : primaryTextColor,
+                  color: selected
+                      ? primaryColor
+                      : isDark
+                          ? Colors.white
+                          : primaryTextColor,
                   fontSize: 14,
                   height: 1.43,
-                  fontFamily: fontFamily.fontFamily,
+                  fontFamily: item.fontFamily,
                 ),
                 textAlign: TextAlign.start,
                 maxLines: 1,
