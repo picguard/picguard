@@ -109,19 +109,69 @@ flutter:
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  # list giving the asset and other descriptors for the font.
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+          weight: 400
+        - asset: fonts/Roboto-Bold.ttf
+          weight: 700
+    - family: OpenSans
+      fonts:
+        - asset: fonts/OpenSans-Regular.ttf
+          weight: 400
+        - asset: fonts/OpenSans-Bold.ttf
+          weight: 700
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato-Regular.ttf
+          weight: 400
+        - asset: fonts/Lato-Bold.ttf
+          weight: 700
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat-Regular.ttf
+          weight: 400
+        - asset: fonts/Montserrat-Bold.ttf
+          weight: 700
+    - family: Merriweather
+      fonts:
+        - asset: fonts/Merriweather-Regular.ttf
+          weight: 400
+        - asset: fonts/Merriweather-Bold.ttf
+          weight: 700
+    - family: MerriweatherSans
+      fonts:
+        - asset: fonts/MerriweatherSans-Regular.ttf
+          weight: 400
+        - asset: fonts/MerriweatherSans-Bold.ttf
+          weight: 700
+    - family: PlayfairDisplay
+      fonts:
+        - asset: fonts/PlayfairDisplay-Regular.ttf
+          weight: 400
+        - asset: fonts/PlayfairDisplay-Bold.ttf
+          weight: 700
+    - family: PlayfairDisplaySC
+      fonts:
+        - asset: fonts/PlayfairDisplaySC-Regular.ttf
+          weight: 400
+        - asset: fonts/PlayfairDisplaySC-Bold.ttf
+          weight: 700
+    - family: Poppins
+      fonts:
+        - asset: fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: fonts/Poppins-Bold.ttf
+          weight: 700
+    - family: SourceSans3
+      fonts:
+        - asset: fonts/SourceSans3-Regular.ttf
+          weight: 400
+        - asset: fonts/SourceSans3-Bold.ttf
+          weight: 700
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

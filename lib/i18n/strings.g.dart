@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 92 (46 per locale)
+/// Strings: 96 (48 per locale)
 ///
-/// Built on 2024-08-04 at 05:28 UTC
+/// Built on 2024-08-05 at 05:14 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -188,6 +188,8 @@ class _StringsHomePageEn {
 	String get colorLabel => 'Color';
 	String get colorValidator => 'Please select a color.';
 	String get transparencyLabel => 'Transparency';
+	String get fontLabel => 'Font';
+	String get fontValidator => 'Please select a font.';
 	String get textGapLabel => 'Text spacing';
 	String get textGapDescription => 'The spacing between text in each line of text';
 	String get rowGapLabel => 'Line spacing';
@@ -352,6 +354,8 @@ class _StringsHomePageZh implements _StringsHomePageEn {
 	@override String get colorLabel => '颜色';
 	@override String get colorValidator => '请选择颜色.';
 	@override String get transparencyLabel => '透明度';
+	@override String get fontLabel => '字体';
+	@override String get fontValidator => '请选择字体.';
 	@override String get textGapLabel => '文本间距';
 	@override String get textGapDescription => '每行文本中, 文本与文本之间的间距';
 	@override String get rowGapLabel => '行间距';
@@ -482,6 +486,8 @@ extension on Translations {
 			case 'homePage.colorLabel': return 'Color';
 			case 'homePage.colorValidator': return 'Please select a color.';
 			case 'homePage.transparencyLabel': return 'Transparency';
+			case 'homePage.fontLabel': return 'Font';
+			case 'homePage.fontValidator': return 'Please select a font.';
 			case 'homePage.textGapLabel': return 'Text spacing';
 			case 'homePage.textGapDescription': return 'The spacing between text in each line of text';
 			case 'homePage.rowGapLabel': return 'Line spacing';
@@ -542,6 +548,8 @@ extension on _StringsZh {
 			case 'homePage.colorLabel': return '颜色';
 			case 'homePage.colorValidator': return '请选择颜色.';
 			case 'homePage.transparencyLabel': return '透明度';
+			case 'homePage.fontLabel': return '字体';
+			case 'homePage.fontValidator': return '请选择字体.';
 			case 'homePage.textGapLabel': return '文本间距';
 			case 'homePage.textGapDescription': return '每行文本中, 文本与文本之间的间距';
 			case 'homePage.rowGapLabel': return '行间距';

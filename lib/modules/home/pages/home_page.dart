@@ -50,12 +50,26 @@ enum Permissions {
 
 /// colors
 const colors = <PGColor>[
-  PGColor(0xFFFFFFFF, 'White', '白色'),
-  PGColor(0xFF9E9E9E, 'Grey', '灰色'),
-  PGColor(0xFF000000, 'Black', '黑色'),
-  PGColor(0xFFF44336, 'Red', '红色'),
-  PGColor(0xFFFF9800, 'Orange', '橙色'),
-  PGColor(0xFF2196F3, 'Blue', '蓝色'),
+  PGColor(value: 0xFFFFFFFF, enText: 'White', zhText: '白色'),
+  PGColor(value: 0xFF9E9E9E, enText: 'Grey', zhText: '灰色'),
+  PGColor(value: 0xFF000000, enText: 'Black', zhText: '黑色'),
+  PGColor(value: 0xFFF44336, enText: 'Red', zhText: '红色'),
+  PGColor(value: 0xFFFF9800, enText: 'Orange', zhText: '橙色'),
+  PGColor(value: 0xFF2196F3, enText: 'Blue', zhText: '蓝色'),
+];
+
+/// fontFamilies
+const fontFamilies = <PGFont>[
+  PGFont(fontFamily: 'Roboto', name: 'Roboto'),
+  PGFont(fontFamily: 'OpenSans', name: 'Open Sans'),
+  PGFont(fontFamily: 'Lato', name: 'Lato'),
+  PGFont(fontFamily: 'Montserrat', name: 'Montserrat'),
+  PGFont(fontFamily: 'Merriweather', name: 'Merriweather'),
+  PGFont(fontFamily: 'MerriweatherSans', name: 'Merriweather Sans'),
+  PGFont(fontFamily: 'PlayfairDisplay', name: 'Playfair Display'),
+  PGFont(fontFamily: 'PlayfairDisplaySC', name: 'Playfair Display SC'),
+  PGFont(fontFamily: 'Poppins', name: 'Poppins'),
+  PGFont(fontFamily: 'SourceSans3', name: 'Source Sans 3'),
 ];
 
 const spacing = 8.0;
@@ -139,6 +153,10 @@ class _HomePageState extends State<HomePage> with WindowListener {
                     const Gap(5),
                     transparency,
                     const Gap(5),
+                    if (AppConfig.shared.isPro) ...[
+                      fontSelect,
+                      const Gap(5),
+                    ],
                     textGap,
                     const Gap(5),
                     rowGap,
@@ -603,6 +621,127 @@ class _HomePageState extends State<HomePage> with WindowListener {
     );
   }
 
+  /// 字体选择
+  Widget get fontSelect {
+    final t = Translations.of(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final languageCode = LocaleSettings.currentLocale.languageCode;
+    printDebugLog('languageCode: $languageCode');
+
+    return BaseFormItem(
+      title: t.homePage.fontLabel,
+      required: false,
+      showTip: false,
+      child: FormBuilderField<String>(
+        name: 'font',
+        initialValue: fontFamilies.elementAt(0).fontFamily,
+        builder: (FormFieldState<String> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DropdownButtonFormField<String>(
+                value: field.value,
+                onTap: () => onFontTap(field),
+                style: TextStyle(
+                  color: isDark ? Colors.white : primaryTextColor,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                icon: const Icon(
+                  Icons.arrow_drop_down,
+                  color: borderColor,
+                  size: 20,
+                ),
+                decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
+                  enabledBorder: hasError
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: errorTextColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: borderColor,
+                          ),
+                          gapPadding: 0,
+                        ),
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(
+                      color: borderColor,
+                    ),
+                    gapPadding: 0,
+                  ),
+                  focusedBorder: hasError
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: errorTextColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: primaryColor,
+                          ),
+                          gapPadding: 0,
+                        ),
+                ),
+                items: fontFamilies.map(
+                  (fontFamily) {
+                    return DropdownMenuItem<String>(
+                      value: fontFamily.fontFamily,
+                      child: Text(
+                        fontFamily.name,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: fontFamily.fontFamily,
+                        ),
+                      ).nestedAlign(
+                        alignment: Alignment.centerLeft,
+                      ),
+                    );
+                  },
+                ).toList(),
+                onChanged: (value) {},
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: errorTextColor,
+                  ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(
+                    top: 8,
+                    left: 8,
+                  ),
+                ),
+            ],
+          );
+        },
+        validator: (value) {
+          if (value == null) {
+            return t.homePage.fontValidator;
+          }
+          return null;
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+
   /// 文本之间间距
   Widget get textGap {
     return BaseFormItem(
@@ -848,10 +987,11 @@ class _HomePageState extends State<HomePage> with WindowListener {
       final text = values['text'] as String;
       final color = values['color'] as int;
       final transparency = values['transparency'] as double;
+      final fontFamily = values['font'] as String?;
       final textGap = values['textGap'] as double;
       final rowGap = values['rowGap'] as double;
       printDebugLog(
-        'text: $text, color: $color, transparency: $transparency, textGap: $textGap, rowGap: $rowGap',
+        'text: $text, color: $color, transparency: $transparency, fontFamily: $fontFamily, textGap: $textGap, rowGap: $rowGap',
       );
 
       try {
@@ -865,6 +1005,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 watermark: text,
                 colorValue: color,
                 transparency: transparency,
+                fontFamily: fontFamily,
                 textGap: textGap,
                 rowGap: rowGap,
               ),
@@ -894,10 +1035,11 @@ class _HomePageState extends State<HomePage> with WindowListener {
       final text = values['text'] as String;
       final color = values['color'] as int;
       final transparency = values['transparency'] as double;
+      final fontFamily = values['font'] as String;
       final textGap = values['textGap'] as double;
       final rowGap = values['rowGap'] as double;
       printDebugLog(
-        'text: $text, color: $color, transparency: $transparency, textGap: $textGap, rowGap: $rowGap',
+        'text: $text, color: $color, transparency: $transparency, fontFamily: $fontFamily, textGap: $textGap, rowGap: $rowGap',
       );
 
       final permission = await _checkPermission();
@@ -934,6 +1076,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 watermark: text,
                 colorValue: color,
                 transparency: transparency,
+                fontFamily: fontFamily,
                 textGap: textGap,
                 rowGap: rowGap,
               ),
@@ -996,6 +1139,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     required double transparency,
     required double textGap,
     required double rowGap,
+    String? fontFamily,
   }) async {
     final image = await _loadImage(bytes);
 
@@ -1024,6 +1168,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
       color: Color(colorValue).withOpacity(transparency),
       fontSize: isMobile ? 72 : 36,
       fontWeight: FontWeight.w400,
+      fontFamily: fontFamily,
     );
 
     // 创建文本画笔
@@ -1231,6 +1376,25 @@ class _HomePageState extends State<HomePage> with WindowListener {
 
         field
           ..didChange(value.value)
+          ..validate();
+
+        NavigatorUtil.pop();
+      },
+    );
+  }
+
+  void onFontTap(FormFieldState<String> field) {
+    // DO NOT REMOVE THIS LINE: 消除下拉选择默认弹窗
+    NavigatorUtil.pop();
+    DialogUtil.showFontModal(
+      items: fontFamilies,
+      callback: (PGFont font) {
+        if (kDebugMode) {
+          printDebugLog('fontFamily: ${font.fontFamily}, name: ${font.name}');
+        }
+
+        field
+          ..didChange(font.fontFamily)
           ..validate();
 
         NavigatorUtil.pop();

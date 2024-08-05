@@ -13,6 +13,8 @@
     "colorLabel": "Color",
     "colorValidator": "Please select a color.",
     "transparencyLabel": "Transparency",
+    "fontLabel": "Font",
+    "fontValidator": "Please select a font.",
     "textGapLabel": "Text spacing",
     "textGapDescription": "The spacing between text in each line of text",
     "rowGapLabel": "Line spacing",

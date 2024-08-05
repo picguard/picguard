@@ -90,7 +90,8 @@ class DialogUtil {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  t.dialogs.licenseDialog.licenseDialogContentContent(appName: appName),
+                  t.dialogs.licenseDialog
+                      .licenseDialogContentContent(appName: appName),
                   style: TextStyle(
                     color: isDark ? Colors.white : primaryTextColor,
                     fontSize: 14,
@@ -509,6 +510,24 @@ class DialogUtil {
         borderRadius: BorderRadius.circular(10),
       ),
       builder: (BuildContext context) => PGColorModal(
+        items: items,
+        callback: callback,
+      ),
+    );
+  }
+
+  ///
+  static void showFontModal({
+    required List<PGFont> items,
+    required VoidPGFontCallback callback,
+  }) {
+    final context = AppNavigator.key.currentContext!;
+    showModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      builder: (BuildContext context) => FontModal(
         items: items,
         callback: callback,
       ),

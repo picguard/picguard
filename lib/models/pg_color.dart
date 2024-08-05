@@ -1,7 +1,11 @@
 ///
 class PGColor {
   ///
-  const PGColor(this.value, this.enText, this.zhText);
+  const PGColor({
+    required this.value,
+    required this.enText,
+    required this.zhText,
+  });
 
   /// 颜色值
   final int value;

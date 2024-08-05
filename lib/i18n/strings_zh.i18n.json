@@ -13,6 +13,8 @@
     "colorLabel": "颜色",
     "colorValidator": "请选择颜色.",
     "transparencyLabel": "透明度",
+    "fontLabel": "字体",
+    "fontValidator": "请选择字体.",
     "textGapLabel": "文本间距",
     "textGapDescription": "每行文本中, 文本与文本之间的间距",
     "rowGapLabel": "行间距",
