@@ -67,8 +67,8 @@ dependencies:
   shared_preferences: ^2.3.1
   slang: ^3.31.1
   slang_flutter: ^3.31.0
-  syncfusion_flutter_core: ^26.2.7
-  syncfusion_flutter_sliders: ^26.2.7
+  syncfusion_flutter_core: ^26.2.8
+  syncfusion_flutter_sliders: ^26.2.8
   synchronized: ^3.1.0+1
   url_launcher: ^6.3.0
   uuid: ^4.4.2
