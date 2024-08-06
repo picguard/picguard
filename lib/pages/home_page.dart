@@ -77,7 +77,7 @@ const runSpacing = 4.0;
 const padding = 10.0;
 const initialTransparency = 1.0;
 double initialFontSize = isMobile ? 72 : 36;
-double initialGap = isMobile ? 100.0 : 30.0;
+double initialGap = isMobile ? 200.0 : 60.0;
 
 ///
 class HomePage extends StatefulWidget {
@@ -155,16 +155,16 @@ class _HomePageState extends State<HomePage> with WindowListener {
                     colorSelect,
                     const Gap(5),
                     transparency,
-                    const Gap(5),
                     if (AppConfig.shared.isPro) ...[
+                      const Gap(5),
                       fontSelect,
                       const Gap(5),
                       fontSizeSlider,
                       const Gap(5),
+                      textGap,
+                      const Gap(5),
+                      rowGap,
                     ],
-                    textGap,
-                    const Gap(5),
-                    rowGap,
                   ],
                 ),
               ),
@@ -848,8 +848,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
                       overlayRadius: 0,
                     ),
                     child: SfSlider(
-                      min: initialGap,
-                      max: initialGap * 3,
+                      min: initialGap / 2,
+                      max: initialGap * 2,
                       stepSize: 10,
                       value: field.value,
                       enableTooltip: true,
@@ -927,8 +927,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
                       overlayRadius: 0,
                     ),
                     child: SfSlider(
-                      min: initialGap,
-                      max: initialGap * 3,
+                      min: initialGap / 2,
+                      max: initialGap * 2,
                       stepSize: 10,
                       value: field.value,
                       enableTooltip: true,
@@ -1100,8 +1100,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
       final transparency = values['transparency'] as double;
       final fontFamily = values['font'] as String?;
       final fontSize = values['fontSize'] as double?;
-      final textGap = values['textGap'] as double;
-      final rowGap = values['rowGap'] as double;
+      final textGap = values['textGap'] as double?;
+      final rowGap = values['rowGap'] as double?;
       printDebugLog(
         'text: $text, color: $color, transparency: $transparency, fontFamily: $fontFamily, fontSize: $fontSize, textGap: $textGap, rowGap: $rowGap',
       );
@@ -1150,8 +1150,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
       final transparency = values['transparency'] as double;
       final fontFamily = values['font'] as String?;
       final fontSize = values['fontSize'] as double?;
-      final textGap = values['textGap'] as double;
-      final rowGap = values['rowGap'] as double;
+      final textGap = values['textGap'] as double?;
+      final rowGap = values['rowGap'] as double?;
       printDebugLog(
         'text: $text, color: $color, transparency: $transparency, fontFamily: $fontFamily, fontSize: $fontSize, textGap: $textGap, rowGap: $rowGap',
       );
@@ -1252,16 +1252,19 @@ class _HomePageState extends State<HomePage> with WindowListener {
     required String watermark,
     required int colorValue,
     required double transparency,
-    required double textGap,
-    required double rowGap,
     String? fontFamily,
     double? fontSize,
+    double? textGap,
+    double? rowGap,
   }) async {
     final image = await _loadImage(bytes);
 
     final width = image.width;
     final height = image.height;
     printDebugLog('image: $width, $height');
+
+    textGap = textGap ?? initialGap;
+    rowGap = rowGap ?? initialGap;
 
     // 斜边长度
     final hypotenuseLength = math.sqrt(width * width + height * height);
