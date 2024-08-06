@@ -285,7 +285,7 @@ jobs:
 
       - name: Build DMG
         run: |
-          bash build-dmg.sh
+          bash scripts/build-dmg.sh
 
       # Package the build.
       - name: Copy build for snap

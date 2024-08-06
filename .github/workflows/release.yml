@@ -1063,7 +1063,7 @@ jobs:
 
       - name: Build DMG
         run: |
-          bash build-dmg.sh
+          bash scripts/build-dmg.sh
           RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           mv PicGuard.dmg PicGuard_"$RELEASE"_macos_universal.dmg
         env:
@@ -1178,7 +1178,7 @@ jobs:
       - name: Code Signing
         run: |
           # https://stackoverflow.com/questions/70991268/how-to-sign-and-notarize-a-pkg-within-a-github-actions-macos-runner
-          bash codesign-pkg.sh "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY"
+          bash scripts/codesign-pkg.sh "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY"
         env:
           DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
 
@@ -2015,7 +2015,7 @@ jobs:
             
             # Setup Flutter
             echo "Setup Flutter"
-            bash ./install-flutter-ubuntu.sh
+            bash ./scripts/install-flutter-ubuntu.sh
             
             if [ -d "/home/linux-arm64/flutter" ]; then
               echo "🟩 ls -la"
@@ -2225,7 +2225,7 @@ jobs:
 
             # Setup Flutter
             echo "Setup Flutter"
-            bash ./install-flutter-ubuntu.sh
+            bash ./scripts/install-flutter-ubuntu.sh
             
             if [ -d "/home/linux-arm64/flutter" ]; then
               echo "🟩 ls -la"
@@ -2428,7 +2428,7 @@ jobs:
 
             # Setup Flutter
             echo "Setup Flutter"
-            bash ./install-flutter-ubuntu.sh
+            bash ./scripts/install-flutter-ubuntu.sh
             
             if [ -d "/home/linux-arm64/flutter" ]; then
               echo "🟩 ls -la"
@@ -2643,7 +2643,7 @@ jobs:
 
             # Setup Flutter
             echo "Setup Flutter"
-            bash ./install-flutter-ubuntu.sh
+            bash ./scripts/install-flutter-ubuntu.sh
             
             if [ -d "/home/linux-arm64/flutter" ]; then
               echo "🟩 ls -la"
@@ -2862,7 +2862,7 @@ jobs:
 
             # Setup Flutter
             echo "Setup Flutter"
-            bash ./install-flutter-ubuntu.sh
+            bash ./scripts/install-flutter-ubuntu.sh
             
             if [ -d "/home/linux-arm64/flutter" ]; then
               echo "🟩 ls -la"
@@ -3070,7 +3070,7 @@ jobs:
 
             # Setup Flutter
             echo "Setup Flutter"
-            bash ./install-flutter-ubuntu.sh
+            bash ./scripts/install-flutter-ubuntu.sh
 
             if [ -d "/home/linux-arm64/flutter" ]; then
               echo "🟩 ls -la"
