@@ -537,4 +537,16 @@ class DialogUtil {
       ),
     );
   }
+
+  ///
+  static void showSettingsModal() {
+    final context = AppNavigator.key.currentContext!;
+    showModalBottomSheet<void>(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      builder: (BuildContext context) => const SettingsModal(),
+    );
+  }
 }

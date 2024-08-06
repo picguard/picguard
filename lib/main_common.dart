@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -19,9 +20,10 @@ import 'package:picguard/app/config.dart';
 import 'package:picguard/app/manager.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
+import 'package:picguard/controllers/controllers.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/logger/logger.dart';
-import 'package:picguard/modules/home/home.dart';
+import 'package:picguard/pages/pages.dart';
 import 'package:picguard/theme/theme.dart';
 import 'package:picguard/utils/utils.dart';
 
@@ -113,6 +115,8 @@ Future<void> runMainApp({
   // initialize with the right locale
   LocaleSettings.useDeviceLocale();
 
+  Get.lazyPut(SettingsController.new, fenix: true);
+
   Widget child = const MainApp();
   if (PgEnv.sentryEnabled) {
     child = SentryWidget(
@@ -142,27 +146,35 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      navigatorKey: AppNavigator.key,
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
-      navigatorObservers: [
-        if (PgEnv.sentryEnabled) SentryNavigatorObserver(),
-      ],
-      locale: TranslationProvider.of(context).flutterLocale,
-      supportedLocales: AppLocaleUtils.supportedLocales,
-      localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      home: const HomePage(),
-      builder: (BuildContext context, Widget? child) {
-        child = easyLoadingBuilder(context, child);
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(
-            textScaler: TextScaler.noScaling,
-          ),
-          child: child,
+    final mainController = Get.find<SettingsController>();
+    return ObxValue(
+      (data) {
+        printDebugLog('themeMode: ${data.value}');
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          navigatorKey: AppNavigator.key,
+          navigatorObservers: [
+            if (PgEnv.sentryEnabled) SentryNavigatorObserver(),
+          ],
+          themeMode: data.value,
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
+          locale: TranslationProvider.of(context).flutterLocale,
+          supportedLocales: AppLocaleUtils.supportedLocales,
+          localizationsDelegates: GlobalMaterialLocalizations.delegates,
+          home: const HomePage(),
+          builder: (BuildContext context, Widget? child) {
+            child = easyLoadingBuilder(context, child);
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                textScaler: TextScaler.noScaling,
+              ),
+              child: child,
+            );
+          },
         );
       },
+      mainController.themeMode,
     );
   }
 }

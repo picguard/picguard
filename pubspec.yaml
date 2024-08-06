@@ -44,9 +44,11 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.4.1
+  flutter_switch: ^0.3.2
   fluttertoast: ^8.2.6
   form_builder_validators: ^11.0.0
   gap: ^3.0.1
+  get: ^4.6.6
   image_gallery_saver: #8c6480bf3a07834df89525e7ac6e0196ec701f73
     path: ./plugins/image_gallery_saver
   image_picker: ^1.1.2

@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 98 (49 per locale)
+/// Strings: 110 (55 per locale)
 ///
-/// Built on 2024-08-05 at 12:26 UTC
+/// Built on 2024-08-05 at 23:31 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -170,6 +170,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		'en': 'English',
 		'zh': '中文',
 	};
+	late final _StringsThemesEn themes = _StringsThemesEn._(_root);
 }
 
 // Path: homePage
@@ -199,6 +200,7 @@ class _StringsHomePageEn {
 	String get save => 'Save';
 	String get savedSuccess => 'Saved successfully';
 	String get savedFailure => 'Failed to save image(s)';
+	String get settings => 'Settings';
 }
 
 // Path: buttons
@@ -224,6 +226,20 @@ class _StringsDialogsEn {
 	late final _StringsDialogsExitConfirmEn exitConfirm = _StringsDialogsExitConfirmEn._(_root);
 	late final _StringsDialogsPermissionsEn permissions = _StringsDialogsPermissionsEn._(_root);
 	late final _StringsDialogsLicenseDialogEn licenseDialog = _StringsDialogsLicenseDialogEn._(_root);
+}
+
+// Path: themes
+class _StringsThemesEn {
+	_StringsThemesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get manual => 'Manual Mode';
+	String get system => 'Auto Mode';
+	String get dark => 'Dark Mode';
+	String get light => 'Light Mode';
+	String get description => 'After turning it on, the dark mode will be turned on or off according to the system';
 }
 
 // Path: dialogs.exitConfirm
@@ -337,6 +353,7 @@ class _StringsZh implements Translations {
 		'en': 'English',
 		'zh': '中文',
 	};
+	@override late final _StringsThemesZh themes = _StringsThemesZh._(_root);
 }
 
 // Path: homePage
@@ -366,6 +383,7 @@ class _StringsHomePageZh implements _StringsHomePageEn {
 	@override String get save => '保存';
 	@override String get savedSuccess => '保存成功';
 	@override String get savedFailure => '保存失败';
+	@override String get settings => '设置';
 }
 
 // Path: buttons
@@ -391,6 +409,20 @@ class _StringsDialogsZh implements _StringsDialogsEn {
 	@override late final _StringsDialogsExitConfirmZh exitConfirm = _StringsDialogsExitConfirmZh._(_root);
 	@override late final _StringsDialogsPermissionsZh permissions = _StringsDialogsPermissionsZh._(_root);
 	@override late final _StringsDialogsLicenseDialogZh licenseDialog = _StringsDialogsLicenseDialogZh._(_root);
+}
+
+// Path: themes
+class _StringsThemesZh implements _StringsThemesEn {
+	_StringsThemesZh._(this._root);
+
+	@override final _StringsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get manual => '手动模式';
+	@override String get system => '跟随系统';
+	@override String get dark => '深色模式';
+	@override String get light => '浅色模式';
+	@override String get description => '开启后, 将跟随系统打开或关闭深色模式';
 }
 
 // Path: dialogs.exitConfirm
@@ -499,6 +531,7 @@ extension on Translations {
 			case 'homePage.save': return 'Save';
 			case 'homePage.savedSuccess': return 'Saved successfully';
 			case 'homePage.savedFailure': return 'Failed to save image(s)';
+			case 'homePage.settings': return 'Settings';
 			case 'buttons.agree': return 'Agree';
 			case 'buttons.cancel': return 'Cancel';
 			case 'buttons.ignore': return 'Ignore';
@@ -526,6 +559,11 @@ extension on Translations {
 			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => 'For you to upload pictures, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)';
 			case 'locales.en': return 'English';
 			case 'locales.zh': return '中文';
+			case 'themes.manual': return 'Manual Mode';
+			case 'themes.system': return 'Auto Mode';
+			case 'themes.dark': return 'Dark Mode';
+			case 'themes.light': return 'Light Mode';
+			case 'themes.description': return 'After turning it on, the dark mode will be turned on or off according to the system';
 			default: return null;
 		}
 	}
@@ -562,6 +600,7 @@ extension on _StringsZh {
 			case 'homePage.save': return '保存';
 			case 'homePage.savedSuccess': return '保存成功';
 			case 'homePage.savedFailure': return '保存失败';
+			case 'homePage.settings': return '设置';
 			case 'buttons.agree': return '同意';
 			case 'buttons.cancel': return '再想想';
 			case 'buttons.ignore': return '忽略';
@@ -589,6 +628,11 @@ extension on _StringsZh {
 			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => '为了让您上传图片, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)';
 			case 'locales.en': return 'English';
 			case 'locales.zh': return '中文';
+			case 'themes.manual': return '手动模式';
+			case 'themes.system': return '跟随系统';
+			case 'themes.dark': return '深色模式';
+			case 'themes.light': return '浅色模式';
+			case 'themes.description': return '开启后, 将跟随系统打开或关闭深色模式';
 			default: return null;
 		}
 	}

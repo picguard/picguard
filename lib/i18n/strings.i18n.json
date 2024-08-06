@@ -23,7 +23,8 @@
     "preview": "Preview",
     "save": "Save",
     "savedSuccess": "Saved successfully",
-    "savedFailure": "Failed to save image(s)"
+    "savedFailure": "Failed to save image(s)",
+    "settings": "Settings"
   },
   "buttons": {
     "agree": "Agree",
@@ -71,5 +72,12 @@
   "locales(map)": {
     "en": "English",
     "zh": "中文"
+  },
+  "themes": {
+    "manual": "Manual Mode",
+    "system": "Auto Mode",
+    "dark": "Dark Mode",
+    "light": "Light Mode",
+    "description": "After turning it on, the dark mode will be turned on or off according to the system"
   }
 }

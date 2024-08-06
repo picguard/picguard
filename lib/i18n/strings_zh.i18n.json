@@ -23,7 +23,8 @@
     "preview": "预览",
     "save": "保存",
     "savedSuccess": "保存成功",
-    "savedFailure": "保存失败"
+    "savedFailure": "保存失败",
+    "settings": "设置"
   },
   "buttons": {
     "agree": "同意",
@@ -71,5 +72,12 @@
   "locales(map)": {
     "en": "English",
     "zh": "中文"
+  },
+  "themes": {
+    "manual": "手动模式",
+    "system": "跟随系统",
+    "dark": "深色模式",
+    "light": "浅色模式",
+    "description": "开启后, 将跟随系统打开或关闭深色模式"
   }
 }

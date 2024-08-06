@@ -172,15 +172,10 @@ class _HomePageState extends State<HomePage> with WindowListener {
               previewBtn,
               const Gap(10),
               saveBtn,
-              const Gap(20),
-              Text(
-                '$appName $appVersion',
-                style: const TextStyle(
-                  color: secondaryTextColor,
-                  fontSize: 12,
-                ),
-                textAlign: TextAlign.center,
-              ),
+              const Gap(14),
+              settingsBtn,
+              version,
+              const Gap(10),
             ],
           ),
         ),
@@ -583,7 +578,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
                       value: field.value,
                       enableTooltip: true,
                       onChanged: (dynamic value) {
-                        final newValue = value as double? ?? initialTransparency;
+                        final newValue =
+                            value as double? ?? initialTransparency;
                         transparencyNotifier.value = newValue;
                         field
                           ..didChange(newValue)
@@ -1055,6 +1051,42 @@ class _HomePageState extends State<HomePage> with WindowListener {
       ),
     ).nestedSizedBox(
       height: 42,
+    );
+  }
+
+  Widget get settingsBtn {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return IconButton(
+      style: ButtonStyle(
+        elevation: WidgetStateProperty.all(0),
+        minimumSize: WidgetStateProperty.all(Size.zero),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        padding: WidgetStateProperty.all(const EdgeInsets.all(6)),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
+      ),
+      onPressed: DialogUtil.showSettingsModal,
+      icon: Icon(
+        Icons.settings,
+        size: 20,
+        color: isDark ? Colors.white : primaryTextColor,
+      ),
+    ).nestedAlign();
+  }
+
+  Widget get version {
+    final t = Translations.of(context);
+    final appName = t.appName(flavor: AppConfig.shared.flavor);
+    return Text(
+      '$appName $appVersion',
+      style: const TextStyle(
+        color: secondaryTextColor,
+        fontSize: 12,
+      ),
+      textAlign: TextAlign.center,
     );
   }
 
