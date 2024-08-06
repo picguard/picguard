@@ -431,6 +431,7 @@ class DialogUtil {
       barrierColor: barrierColor,
       isDismissible: false,
       enableDrag: false,
+      isScrollControlled: true,
       builder: (BuildContext context) {
         final isDark = Theme.of(context).brightness == Brightness.dark;
         return SingleChildScrollView(
@@ -507,6 +508,7 @@ class DialogUtil {
     final context = AppNavigator.key.currentContext!;
     showModalBottomSheet<void>(
       context: context,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -527,6 +529,7 @@ class DialogUtil {
     final context = AppNavigator.key.currentContext!;
     showModalBottomSheet<void>(
       context: context,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -543,6 +546,7 @@ class DialogUtil {
     final context = AppNavigator.key.currentContext!;
     showModalBottomSheet<void>(
       context: context,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),

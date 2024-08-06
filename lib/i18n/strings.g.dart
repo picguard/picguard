@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 2
-/// Strings: 110 (55 per locale)
+/// Strings: 112 (56 per locale)
 ///
-/// Built on 2024-08-05 at 23:31 UTC
+/// Built on 2024-08-06 at 09:50 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -201,6 +201,7 @@ class _StringsHomePageEn {
 	String get savedSuccess => 'Saved successfully';
 	String get savedFailure => 'Failed to save image(s)';
 	String get settings => 'Settings';
+	String get languages => 'Languages';
 }
 
 // Path: buttons
@@ -384,6 +385,7 @@ class _StringsHomePageZh implements _StringsHomePageEn {
 	@override String get savedSuccess => '保存成功';
 	@override String get savedFailure => '保存失败';
 	@override String get settings => '设置';
+	@override String get languages => '语言';
 }
 
 // Path: buttons
@@ -532,6 +534,7 @@ extension on Translations {
 			case 'homePage.savedSuccess': return 'Saved successfully';
 			case 'homePage.savedFailure': return 'Failed to save image(s)';
 			case 'homePage.settings': return 'Settings';
+			case 'homePage.languages': return 'Languages';
 			case 'buttons.agree': return 'Agree';
 			case 'buttons.cancel': return 'Cancel';
 			case 'buttons.ignore': return 'Ignore';
@@ -601,6 +604,7 @@ extension on _StringsZh {
 			case 'homePage.savedSuccess': return '保存成功';
 			case 'homePage.savedFailure': return '保存失败';
 			case 'homePage.settings': return '设置';
+			case 'homePage.languages': return '语言';
 			case 'buttons.agree': return '同意';
 			case 'buttons.cancel': return '再想想';
 			case 'buttons.ignore': return '忽略';

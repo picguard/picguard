@@ -24,7 +24,8 @@
     "save": "保存",
     "savedSuccess": "保存成功",
     "savedFailure": "保存失败",
-    "settings": "设置"
+    "settings": "设置",
+    "languages": "语言"
   },
   "buttons": {
     "agree": "同意",

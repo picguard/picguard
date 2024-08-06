@@ -19,8 +19,8 @@ class SettingsController extends GetxController {
     if (StringUtil.isBlank(name)) return ThemeMode.system;
     // ignore: unnecessary_null_checks
     return ThemeMode.values.asNameMap().containsKey(name!)
-          ? ThemeMode.values.byName(name)
-          : ThemeMode.system;
+        ? ThemeMode.values.byName(name)
+        : ThemeMode.system;
   }
 
   Rx<ThemeMode> themeMode = ThemeMode.system.obs;
@@ -33,7 +33,7 @@ class SettingsController extends GetxController {
     final themeModeFromStorage = getThemeMode();
     themeMode.value = themeModeFromStorage;
   }
-  
+
   void switchThemeMode(ThemeMode themeMode) {
     this.themeMode.value = themeMode;
     box.write('themeMode', themeMode.name);

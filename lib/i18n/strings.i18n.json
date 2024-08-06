@@ -24,7 +24,8 @@
     "save": "Save",
     "savedSuccess": "Saved successfully",
     "savedFailure": "Failed to save image(s)",
-    "settings": "Settings"
+    "settings": "Settings",
+    "languages": "Languages"
   },
   "buttons": {
     "agree": "Agree",

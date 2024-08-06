@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart' hide Translations;
 
 // Project imports:
@@ -272,6 +273,9 @@ class _SettingsModalState extends State<SettingsModal> {
 
     final controller = Get.find<SettingsController>();
 
+    final currentLocale = LocaleSettings.currentLocale;
+    final languageCode = currentLocale.languageCode;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -318,88 +322,122 @@ class _SettingsModalState extends State<SettingsModal> {
                 ),
               ),
             ),
-        Obx(() {
-          final themeMode = controller.themeMode.value;
-          printDebugLog('themeMode: $themeMode');
-          final auto = themeMode == ThemeMode.system;
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Obx(() {
+              final themeMode = controller.themeMode.value;
+              printDebugLog('themeMode: $themeMode');
+              final auto = themeMode == ThemeMode.system;
 
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              MineSectionGroup(
-                title: t.themes.system,
-                description: t.themes.description,
-                items: [
-                  MineSectionModel(
-                    title: t.themes.system,
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MineSectionGroup(
+                    title: t.themes.dark,
+                    description: t.themes.description,
+                    items: [
+                      MineSectionModel(
+                        title: t.themes.system,
+                        showIcon: false,
+                        trailing: FlutterSwitch(
+                          width: 50,
+                          height: 30,
+                          toggleSize: 20,
+                          value: auto,
+                          borderRadius: 15,
+                          onToggle: (value) {
+                            final isDark =
+                                Theme.of(context).colorScheme.brightness ==
+                                    Brightness.dark;
+                            final currentMode =
+                                isDark ? ThemeMode.dark : ThemeMode.light;
+                            value
+                                ? controller.switchThemeMode(ThemeMode.system)
+                                : controller.switchThemeMode(currentMode);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (!auto)
+                    MineSectionGroup(
+                      title: t.themes.manual,
+                      items: [
+                        MineSectionModel(
+                          title: t.themes.light,
+                          showIcon: false,
+                          trailing: Radio<ThemeMode>(
+                            value: ThemeMode.light,
+                            groupValue: themeMode,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            visualDensity: const VisualDensity(
+                              horizontal: VisualDensity.minimumDensity,
+                              vertical: VisualDensity.minimumDensity,
+                            ),
+                            onChanged: (ThemeMode? value) {
+                              if (value != null) {
+                                controller.switchThemeMode(value);
+                              }
+                            },
+                          ),
+                        ),
+                        MineSectionModel(
+                          title: t.themes.dark,
+                          showIcon: false,
+                          trailing: Radio<ThemeMode>(
+                            value: ThemeMode.dark,
+                            groupValue: themeMode,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            visualDensity: const VisualDensity(
+                              horizontal: VisualDensity.minimumDensity,
+                              vertical: VisualDensity.minimumDensity,
+                            ),
+                            onChanged: (ThemeMode? value) {
+                              if (value != null) {
+                                controller.switchThemeMode(value);
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
+              );
+            }),
+            const Gap(10),
+            MineSectionGroup(
+              title: t.homePage.languages,
+              items: t.locales.entries.map(
+                (MapEntry<String, String> entry) {
+                  final appLocale = AppLocaleUtils.parse(entry.key);
+                  return MineSectionModel(
+                    title: entry.value,
                     showIcon: false,
-                    trailing: FlutterSwitch(
-                      width: 50,
-                      height: 30,
-                      toggleSize: 20,
-                      value: auto,
-                      borderRadius: 15,
-                      onToggle: (value) {
-                        final isDark =
-                            Theme.of(context).colorScheme.brightness ==
-                                Brightness.dark;
-                        final currentMode =
-                            isDark ? ThemeMode.dark : ThemeMode.light;
-                        value
-                            ? controller.switchThemeMode(ThemeMode.system)
-                            : controller.switchThemeMode(currentMode);
+                    trailing: Radio<String>(
+                      value: appLocale.languageCode,
+                      groupValue: languageCode,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      visualDensity: const VisualDensity(
+                        horizontal: VisualDensity.minimumDensity,
+                        vertical: VisualDensity.minimumDensity,
+                      ),
+                      onChanged: (String? value) {
+                        if (value != null && value.isNotEmpty) {
+                          LocaleSettings.setLocaleRaw(value);
+                        }
                       },
                     ),
-                  ),
-                ],
-              ),
-              if (!auto)
-                MineSectionGroup(
-                  title: t.themes.manual,
-                  items: [
-                    MineSectionModel(
-                      title: t.themes.light,
-                      showIcon: false,
-                      trailing: Radio<ThemeMode>(
-                        value: ThemeMode.light,
-                        groupValue: themeMode,
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        visualDensity: const VisualDensity(
-                          horizontal: VisualDensity.minimumDensity,
-                          vertical: VisualDensity.minimumDensity,
-                        ),
-                        onChanged: (ThemeMode? value) {
-                          if (value != null) {
-                            controller.switchThemeMode(value);
-                          }
-                        },
-                      ),
-                    ),
-                    MineSectionModel(
-                      title: t.themes.dark,
-                      showIcon: false,
-                      trailing: Radio<ThemeMode>(
-                        value: ThemeMode.dark,
-                        groupValue: themeMode,
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        visualDensity: const VisualDensity(
-                          horizontal: VisualDensity.minimumDensity,
-                          vertical: VisualDensity.minimumDensity,
-                        ),
-                        onChanged: (ThemeMode? value) {
-                          if (value != null) {
-                            controller.switchThemeMode(value);
-                          }
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-            ],
-          ).nestedSingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-          );
-        }),
+                  );
+                },
+              ).toList(),
+            ),
+          ],
+        ).nestedSingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+        ),
       ],
     )
         .nestedConstrainedBox(
