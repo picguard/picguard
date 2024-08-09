@@ -83,18 +83,6 @@
       <Component>
         <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\packages\fluttertoast\assets\toastify.js" />
       </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\packages\window_manager\images\ic_chrome_close.png" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\packages\window_manager\images\ic_chrome_maximize.png" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\packages\window_manager\images\ic_chrome_minimize.png" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\packages\window_manager\images\ic_chrome_unmaximize.png" />
-      </Component>
     </ComponentGroup>
 
     <ComponentGroup Id="ShaderComponents" Directory="SHADERSFOLDER">
