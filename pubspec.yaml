@@ -64,7 +64,7 @@ dependencies:
   reorderables: ^0.6.0
   sentry: ^8.6.0
   sentry_flutter: ^8.6.0
-  sentry_logging: ^8.6.0
+  sentry_logging: ^8.7.0
   shared_preferences: ^2.3.1
   slang: ^3.31.1
   slang_flutter: ^3.31.0
