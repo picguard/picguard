@@ -432,6 +432,9 @@ class DialogUtil {
       isDismissible: false,
       enableDrag: false,
       isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+      ),
       builder: (BuildContext context) {
         final isDark = Theme.of(context).brightness == Brightness.dark;
         return SingleChildScrollView(
@@ -509,8 +512,8 @@ class DialogUtil {
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
       builder: (BuildContext context) => PGColorModal(
         items: items,
@@ -530,8 +533,8 @@ class DialogUtil {
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
       builder: (BuildContext context) => FontModal(
         items: items,
@@ -547,8 +550,8 @@ class DialogUtil {
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
       builder: (BuildContext context) => const SettingsModal(),
     );
