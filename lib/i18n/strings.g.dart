@@ -6,7 +6,7 @@
 /// Locales: 2
 /// Strings: 112 (56 per locale)
 ///
-/// Built on 2024-08-06 at 09:50 UTC
+/// Built on 2024-08-11 at 14:29 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -188,7 +188,7 @@ class _StringsHomePageEn {
 	String get textInput => 'This certificate is only used for handling xx business, and is invalid for other purposes.';
 	String get colorLabel => 'Color';
 	String get colorValidator => 'Please select a color.';
-	String get transparencyLabel => 'Transparency';
+	String get opacityLabel => 'Opacity';
 	String get fontLabel => 'Font';
 	String get fontValidator => 'Please select a font.';
 	String get fontSizeLabel => 'Font size';
@@ -372,7 +372,7 @@ class _StringsHomePageZh implements _StringsHomePageEn {
 	@override String get textInput => '此证件仅用于办理xx业务, 其他用途无效';
 	@override String get colorLabel => '颜色';
 	@override String get colorValidator => '请选择颜色.';
-	@override String get transparencyLabel => '透明度';
+	@override String get opacityLabel => '不透明度';
 	@override String get fontLabel => '字体';
 	@override String get fontValidator => '请选择字体.';
 	@override String get fontSizeLabel => '字体大小';
@@ -521,7 +521,7 @@ extension on Translations {
 			case 'homePage.textInput': return 'This certificate is only used for handling xx business, and is invalid for other purposes.';
 			case 'homePage.colorLabel': return 'Color';
 			case 'homePage.colorValidator': return 'Please select a color.';
-			case 'homePage.transparencyLabel': return 'Transparency';
+			case 'homePage.opacityLabel': return 'Opacity';
 			case 'homePage.fontLabel': return 'Font';
 			case 'homePage.fontValidator': return 'Please select a font.';
 			case 'homePage.fontSizeLabel': return 'Font size';
@@ -591,7 +591,7 @@ extension on _StringsZh {
 			case 'homePage.textInput': return '此证件仅用于办理xx业务, 其他用途无效';
 			case 'homePage.colorLabel': return '颜色';
 			case 'homePage.colorValidator': return '请选择颜色.';
-			case 'homePage.transparencyLabel': return '透明度';
+			case 'homePage.opacityLabel': return '不透明度';
 			case 'homePage.fontLabel': return '字体';
 			case 'homePage.fontValidator': return '请选择字体.';
 			case 'homePage.fontSizeLabel': return '字体大小';

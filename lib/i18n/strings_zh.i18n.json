@@ -12,7 +12,7 @@
     "textInput": "此证件仅用于办理xx业务, 其他用途无效",
     "colorLabel": "颜色",
     "colorValidator": "请选择颜色.",
-    "transparencyLabel": "透明度",
+    "opacityLabel": "不透明度",
     "fontLabel": "字体",
     "fontValidator": "请选择字体.",
     "fontSizeLabel": "字体大小",

@@ -75,7 +75,9 @@ const fontFamilies = <PGFont>[
 const spacing = 8.0;
 const runSpacing = 4.0;
 const padding = 10.0;
-const initialTransparency = 1.0;
+const minOpacity = 0.3; // 最小不透明度
+const maxOpacity = 1.0; // 最大不透明度
+final minFontSize = isMobile ? 36.0 : 18.0;
 double initialFontSize = isMobile ? 72 : 36;
 double initialGap = isMobile ? 200.0 : 60.0;
 
@@ -90,14 +92,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with WindowListener {
   final _formKey = GlobalKey<FormBuilderState>();
-  final colorNotifier = ValueNotifier<int>(0xFF9E9E9E);
-  final transparencyNotifier = ValueNotifier<double>(initialTransparency);
-  final fontSizeNotifier = ValueNotifier<double>(initialFontSize);
-  final textGapNotifier = ValueNotifier<double>(initialGap);
-  final rowGapNotifier = ValueNotifier<double>(initialGap);
-
   final inputFocusNode = FocusNode();
-
   List<FileWrapper> _fileWrappers = [];
 
   @override
@@ -134,6 +129,15 @@ class _HomePageState extends State<HomePage> with WindowListener {
               ? PGAppBar(
                   titleWidget: Text(appName),
                   isDark: isDark,
+                  actions: isMobile
+                      ? [
+                          SettingsBtn(
+                            iconSize: 24,
+                            padding: const EdgeInsets.all(10),
+                            borderRadius: BorderRadius.circular(22),
+                          ),
+                        ]
+                      : null,
                 )
               : null,
           body: ListView(
@@ -142,951 +146,55 @@ class _HomePageState extends State<HomePage> with WindowListener {
               vertical: 20,
             ),
             children: [
-              imageGroup,
+              ImageGroup(
+                fileWrappers: _fileWrappers,
+                onRemove: (index) => setState(
+                  () => _fileWrappers = _fileWrappers..removeAt(index),
+                ),
+                onReorder: _onReorder,
+                pickImages: _pickImages,
+              ),
               const Gap(10),
-              description,
+              const AppDescription(),
               const Gap(10),
               FormBuilder(
                 key: _formKey,
                 child: Column(
                   children: [
-                    input,
+                    TextInput(focusNode: inputFocusNode),
                     const Gap(5),
-                    colorSelect,
+                    const ColorPicker(),
                     const Gap(5),
-                    transparency,
+                    const OpacityPicker(),
                     if (AppConfig.shared.isPro) ...[
                       const Gap(5),
-                      fontSelect,
+                      const FontPicker(),
                       const Gap(5),
-                      fontSizeSlider,
+                      const FontSizePicker(),
                       const Gap(5),
-                      textGap,
+                      const TextColumnGap(),
                       const Gap(5),
-                      rowGap,
+                      const TextRowGap(),
                     ],
                   ],
                 ),
               ),
               const Gap(20),
-              previewBtn,
+              PreviewBtn(
+                onPressed: _fileWrappers.isNotEmpty ? _preview : null,
+              ),
               const Gap(10),
-              saveBtn,
+              SaveBtn(
+                onPressed: _fileWrappers.isNotEmpty ? _save : null,
+              ),
               const Gap(14),
-              settingsBtn,
-              version,
+              if (kIsWeb || isDesktop) const SettingsBtn().nestedAlign(),
+              const AppVersion(),
               const Gap(10),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  /// 图片组
-  Widget get imageGroup {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final width = MediaQuery.sizeOf(context).width;
-    final contentWidth = width - padding * 2;
-    final itemWidth = ((contentWidth - spacing * 2) / 3).floorToDouble();
-    final items = _fileWrappers
-        .mapIndexed(
-          (index, element) {
-            printDebugLog(element.path);
-            final image = kIsWeb
-                ? Image.network(
-                    element.path,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, url, error) => const Icon(
-                      Icons.error,
-                      color: errorTextColor,
-                      size: 24,
-                    ),
-                  )
-                : Image.file(
-                    File(element.path),
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, url, error) => const Icon(
-                      Icons.error,
-                      color: errorTextColor,
-                      size: 24,
-                    ),
-                  );
-
-            Widget child = image;
-
-            if (kIsWeb || isDesktop) {
-              child = SingleChildScrollView(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: child,
-                ),
-              );
-            }
-
-            return Stack(
-              children: [
-                child
-                    .nestedSizedBox(width: itemWidth, height: itemWidth)
-                    .nestedTap(() {
-                  final imageProviders = _fileWrappers.map((fileWrapper) {
-                    return (kIsWeb
-                        ? NetworkImage(fileWrapper.path)
-                        : FileImage(File(fileWrapper.path))) as ImageProvider;
-                  }).toList();
-                  DialogUtil.showImagePreviewDialog(
-                    imageProviders,
-                    initialPage: index,
-                  );
-                }),
-                Positioned(
-                  top: 2,
-                  right: 2,
-                  child: const Icon(
-                    Icons.clear,
-                    color: warnTextColor,
-                    size: 14,
-                  )
-                      .nestedDecoratedBox(
-                        decoration: BoxDecoration(
-                          color: backgroundColor,
-                          borderRadius: BorderRadius.circular(9),
-                        ),
-                      )
-                      .nestedSizedBox(width: 18, height: 18)
-                      .nestedTap(
-                        () => setState(
-                          () => _fileWrappers = _fileWrappers..removeAt(index),
-                        ),
-                      ),
-                ),
-              ],
-            );
-          },
-        )
-        .cast<Widget>()
-        .toList();
-
-    if (items.length < 9) {
-      items.add(
-        const Icon(
-          Icons.add,
-          size: 40,
-          color: borderColor,
-        )
-            .nestedCenter()
-            .nestedDecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: isDark ? Colors.black54 : secondaryGrayColor,
-                border: Border.all(color: borderColor),
-              ),
-            )
-            .nestedSizedBox(width: itemWidth, height: itemWidth)
-            .nestedInkWell(onTap: _pickImages),
-      );
-    }
-
-    return ReorderableWrap(
-      spacing: spacing,
-      runSpacing: runSpacing,
-      onReorder: _onReorder,
-      scrollPhysics: const NeverScrollableScrollPhysics(),
-      alignment:
-          _fileWrappers.isEmpty ? WrapAlignment.center : WrapAlignment.start,
-      children: items,
-    );
-  }
-
-  /// 声明文本
-  Widget get description {
-    final t = Translations.of(context);
-    return Text(
-      t.homePage.description,
-      style: const TextStyle(
-        color: errorTextColor,
-        fontSize: 12,
-        height: 1.5,
-      ),
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-      textAlign: TextAlign.center,
-    );
-  }
-
-  /// 输入框
-  Widget get input {
-    final t = Translations.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return BaseFormItem(
-      title: t.homePage.textLabel,
-      onTipTap: () {
-        DialogUtil.showBottomSheetDialog(
-          t.homePage.textLabel,
-          t.homePage.textLabelDescription,
-        );
-      },
-      child: FormBuilderField<String>(
-        name: 'text',
-        focusNode: inputFocusNode,
-        builder: (FormFieldState<String> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                initialValue: field.value,
-                focusNode: inputFocusNode,
-                cursorColor: hasError ? errorTextColor : primaryColor,
-                autocorrect: false,
-                style: TextStyle(
-                  color: isDark ? Colors.white : primaryTextColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
-                onChanged: (value) {
-                  field
-                    ..didChange(value)
-                    ..validate();
-                },
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: const EdgeInsets.fromLTRB(10, 11.5, 5, 11.5),
-                  enabledBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: errorTextColor,
-                          ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: borderColor,
-                          ),
-                          gapPadding: 0,
-                        ),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                      color: borderColor,
-                    ),
-                    gapPadding: 0,
-                  ),
-                  hintText: t.homePage.textInput,
-                  hintMaxLines: 2,
-                  hintStyle: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.grey,
-                  ),
-                  focusedBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: errorTextColor,
-                          ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: primaryColor,
-                          ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        ),
-                ),
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
-                ),
-            ],
-          );
-        },
-        validator: (value) {
-          if (StringUtil.isBlank(value)) {
-            return t.homePage.textValidator;
-          }
-          return null;
-        },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
-    );
-  }
-
-  /// 颜色选择
-  Widget get colorSelect {
-    final t = Translations.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final languageCode = LocaleSettings.currentLocale.languageCode;
-    printDebugLog('languageCode: $languageCode');
-
-    return BaseFormItem(
-      title: t.homePage.colorLabel,
-      required: false,
-      showTip: false,
-      child: FormBuilderField<int>(
-        name: 'color',
-        initialValue: colors.elementAt(1).value,
-        builder: (FormFieldState<int> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DropdownButtonFormField<int>(
-                value: field.value,
-                onTap: () => onColorTap(field),
-                style: TextStyle(
-                  color: isDark ? Colors.white : primaryTextColor,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                icon: const Icon(
-                  Icons.arrow_drop_down,
-                  color: borderColor,
-                  size: 20,
-                ),
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
-                  enabledBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: errorTextColor,
-                          ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: borderColor,
-                          ),
-                          gapPadding: 0,
-                        ),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                      color: borderColor,
-                    ),
-                    gapPadding: 0,
-                  ),
-                  focusedBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: errorTextColor,
-                          ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: primaryColor,
-                          ),
-                          gapPadding: 0,
-                        ),
-                ),
-                items: colors.map(
-                  (color) {
-                    return DropdownMenuItem<int>(
-                      value: color.value,
-                      child: Text(
-                        languageCode == 'zh' ? color.zhText : color.enText,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ).nestedAlign(
-                        alignment: Alignment.centerLeft,
-                      ),
-                    );
-                  },
-                ).toList(),
-                onChanged: (value) {},
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(
-                    top: 8,
-                    left: 8,
-                  ),
-                ),
-            ],
-          );
-        },
-        validator: (value) {
-          if (value == null) {
-            return t.homePage.colorValidator;
-          }
-          return null;
-        },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
-    );
-  }
-
-  /// 透明度选择
-  Widget get transparency {
-    const min = 0.3;
-    return BaseFormItem(
-      title: t.homePage.transparencyLabel,
-      required: false,
-      showTip: false,
-      child: FormBuilderField<double>(
-        name: 'transparency',
-        initialValue: transparencyNotifier.value,
-        builder: (FormFieldState<double> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  SfSliderTheme(
-                    data: const SfSliderThemeData(
-                      activeTrackHeight: 4,
-                      activeTrackColor: primaryColor,
-                      inactiveTrackColor: primaryBackgroundColor,
-                      thumbRadius: 6,
-                      thumbColor: primaryColor,
-                      overlayRadius: 0,
-                    ),
-                    child: SfSlider(
-                      min: min,
-                      stepSize: 0.1,
-                      value: field.value,
-                      enableTooltip: true,
-                      onChanged: (dynamic value) {
-                        final newValue =
-                            value as double? ?? initialTransparency;
-                        transparencyNotifier.value = newValue;
-                        field
-                          ..didChange(newValue)
-                          ..validate();
-                      },
-                    ),
-                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
-                  const Gap(4),
-                  ValueListenableBuilder(
-                    valueListenable: transparencyNotifier,
-                    builder: (
-                      BuildContext context,
-                      double value,
-                      Widget? child,
-                    ) =>
-                        Text(
-                      value.toStringAsFixed(1),
-                      textAlign: TextAlign.center,
-                    ).nestedSizedBox(width: 28),
-                  ),
-                ],
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
-                ),
-            ],
-          );
-        },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
-    );
-  }
-
-  /// 字体选择
-  Widget get fontSelect {
-    final t = Translations.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final languageCode = LocaleSettings.currentLocale.languageCode;
-    printDebugLog('languageCode: $languageCode');
-
-    return BaseFormItem(
-      title: t.homePage.fontLabel,
-      required: false,
-      showTip: false,
-      child: FormBuilderField<String>(
-        name: 'font',
-        initialValue: fontFamilies.elementAt(0).fontFamily,
-        builder: (FormFieldState<String> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DropdownButtonFormField<String>(
-                value: field.value,
-                onTap: () => onFontTap(field),
-                style: TextStyle(
-                  color: isDark ? Colors.white : primaryTextColor,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                icon: const Icon(
-                  Icons.arrow_drop_down,
-                  color: borderColor,
-                  size: 20,
-                ),
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
-                  enabledBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: errorTextColor,
-                          ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: borderColor,
-                          ),
-                          gapPadding: 0,
-                        ),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                      color: borderColor,
-                    ),
-                    gapPadding: 0,
-                  ),
-                  focusedBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: errorTextColor,
-                          ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: primaryColor,
-                          ),
-                          gapPadding: 0,
-                        ),
-                ),
-                items: fontFamilies.map(
-                  (fontFamily) {
-                    return DropdownMenuItem<String>(
-                      value: fontFamily.fontFamily,
-                      child: Text(
-                        fontFamily.name,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: fontFamily.fontFamily,
-                        ),
-                      ).nestedAlign(
-                        alignment: Alignment.centerLeft,
-                      ),
-                    );
-                  },
-                ).toList(),
-                onChanged: (value) {},
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(
-                    top: 8,
-                    left: 8,
-                  ),
-                ),
-            ],
-          );
-        },
-        validator: (value) {
-          if (value == null) {
-            return t.homePage.fontValidator;
-          }
-          return null;
-        },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
-    );
-  }
-
-  /// 字体大小选择
-  Widget get fontSizeSlider {
-    final min = isMobile ? 36.0 : 18.0;
-    return BaseFormItem(
-      title: t.homePage.fontSizeLabel,
-      required: false,
-      showTip: false,
-      child: FormBuilderField<double>(
-        name: 'fontSize',
-        initialValue: fontSizeNotifier.value,
-        builder: (FormFieldState<double> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  SfSliderTheme(
-                    data: const SfSliderThemeData(
-                      activeTrackHeight: 4,
-                      activeTrackColor: primaryColor,
-                      inactiveTrackColor: primaryBackgroundColor,
-                      thumbRadius: 6,
-                      thumbColor: primaryColor,
-                      overlayRadius: 0,
-                    ),
-                    child: SfSlider(
-                      min: min,
-                      max: min * 4,
-                      stepSize: 2,
-                      value: field.value,
-                      enableTooltip: true,
-                      onChanged: (dynamic value) {
-                        final newValue = value as double? ?? initialFontSize;
-                        fontSizeNotifier.value = newValue;
-                        field
-                          ..didChange(newValue)
-                          ..validate();
-                      },
-                    ),
-                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
-                  const Gap(4),
-                  ValueListenableBuilder(
-                    valueListenable: fontSizeNotifier,
-                    builder: (
-                      BuildContext context,
-                      double value,
-                      Widget? child,
-                    ) =>
-                        Text(
-                      value.toStringAsFixed(0),
-                      textAlign: TextAlign.center,
-                    ).nestedSizedBox(width: 28),
-                  ),
-                ],
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
-                ),
-            ],
-          );
-        },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
-    );
-  }
-
-  /// 文本之间间距
-  Widget get textGap {
-    return BaseFormItem(
-      title: t.homePage.textGapLabel,
-      required: false,
-      onTipTap: () {
-        DialogUtil.showBottomSheetDialog(
-          t.homePage.textGapLabel,
-          t.homePage.textGapDescription,
-        );
-      },
-      child: FormBuilderField<double>(
-        name: 'textGap',
-        initialValue: textGapNotifier.value,
-        builder: (FormFieldState<double> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  SfSliderTheme(
-                    data: const SfSliderThemeData(
-                      activeTrackHeight: 4,
-                      activeTrackColor: primaryColor,
-                      inactiveTrackColor: primaryBackgroundColor,
-                      thumbRadius: 6,
-                      thumbColor: primaryColor,
-                      overlayRadius: 0,
-                    ),
-                    child: SfSlider(
-                      min: initialGap / 2,
-                      max: initialGap * 2,
-                      stepSize: 10,
-                      value: field.value,
-                      enableTooltip: true,
-                      onChanged: (dynamic value) {
-                        final newValue = value as double? ?? initialGap;
-                        textGapNotifier.value = newValue;
-                        field
-                          ..didChange(newValue)
-                          ..validate();
-                      },
-                    ),
-                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
-                  const Gap(4),
-                  ValueListenableBuilder(
-                    valueListenable: textGapNotifier,
-                    builder: (
-                      BuildContext context,
-                      double value,
-                      Widget? child,
-                    ) =>
-                        Text(
-                      value.toStringAsFixed(0),
-                      textAlign: TextAlign.center,
-                    ).nestedSizedBox(width: 28),
-                  ),
-                ],
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
-                ),
-            ],
-          );
-        },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
-    );
-  }
-
-  /// 文本行间距
-  Widget get rowGap {
-    return BaseFormItem(
-      title: t.homePage.rowGapLabel,
-      required: false,
-      onTipTap: () {
-        DialogUtil.showBottomSheetDialog(
-          t.homePage.rowGapLabel,
-          t.homePage.rowGapDescription,
-        );
-      },
-      child: FormBuilderField<double>(
-        name: 'rowGap',
-        initialValue: rowGapNotifier.value,
-        builder: (FormFieldState<double> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  SfSliderTheme(
-                    data: const SfSliderThemeData(
-                      activeTrackHeight: 4,
-                      activeTrackColor: primaryColor,
-                      inactiveTrackColor: primaryBackgroundColor,
-                      thumbRadius: 6,
-                      thumbColor: primaryColor,
-                      overlayRadius: 0,
-                    ),
-                    child: SfSlider(
-                      min: initialGap / 2,
-                      max: initialGap * 2,
-                      stepSize: 10,
-                      value: field.value,
-                      enableTooltip: true,
-                      onChanged: (dynamic value) {
-                        final newValue = value as double? ?? initialGap;
-                        rowGapNotifier.value = newValue;
-                        field
-                          ..didChange(newValue)
-                          ..validate();
-                      },
-                    ),
-                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
-                  const Gap(4),
-                  ValueListenableBuilder(
-                    valueListenable: rowGapNotifier,
-                    builder: (
-                      BuildContext context,
-                      double value,
-                      Widget? child,
-                    ) =>
-                        Text(
-                      value.toStringAsFixed(0),
-                      textAlign: TextAlign.center,
-                    ).nestedSizedBox(width: 28),
-                  ),
-                ],
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
-                ),
-            ],
-          );
-        },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
-    );
-  }
-
-  /// 预览按钮
-  Widget get previewBtn {
-    return ElevatedButton(
-      onPressed: _fileWrappers.isNotEmpty ? _preview : null,
-      style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(
-          Colors.white,
-        ),
-        foregroundColor: WidgetStateProperty.resolveWith((
-          Set<WidgetState> states,
-        ) {
-          if (states.contains(WidgetState.disabled)) {
-            return secondaryBorderColor;
-          }
-          return primaryColor;
-        }),
-        shape: WidgetStateProperty.resolveWith((
-          Set<WidgetState> states,
-        ) {
-          if (states.contains(WidgetState.disabled)) {
-            return RoundedRectangleBorder(
-              side: const BorderSide(color: secondaryBorderColor),
-              borderRadius: BorderRadius.circular(10),
-            );
-          }
-          return RoundedRectangleBorder(
-            side: const BorderSide(color: primaryColor),
-            borderRadius: BorderRadius.circular(10),
-          );
-        }),
-        elevation: WidgetStateProperty.all(0),
-      ),
-      child: Text(
-        t.homePage.preview,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-    ).nestedSizedBox(
-      height: 42,
-    );
-  }
-
-  /// 保存按钮
-  Widget get saveBtn {
-    return ElevatedButton(
-      onPressed: _fileWrappers.isNotEmpty ? _save : null,
-      style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.resolveWith((
-          Set<WidgetState> states,
-        ) {
-          if (states.contains(WidgetState.disabled)) {
-            return secondaryGrayColor;
-          }
-          return primaryColor;
-        }),
-        foregroundColor: WidgetStateProperty.resolveWith((
-          Set<WidgetState> states,
-        ) {
-          if (states.contains(WidgetState.disabled)) {
-            return placeholderTextColor;
-          }
-          return Colors.white;
-        }),
-        elevation: WidgetStateProperty.all(0),
-      ),
-      child: Text(
-        t.homePage.save,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-    ).nestedSizedBox(
-      height: 42,
-    );
-  }
-
-  Widget get settingsBtn {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return IconButton(
-      style: ButtonStyle(
-        elevation: WidgetStateProperty.all(0),
-        minimumSize: WidgetStateProperty.all(Size.zero),
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        padding: WidgetStateProperty.all(const EdgeInsets.all(6)),
-        shape: WidgetStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
-      ),
-      onPressed: DialogUtil.showSettingsModal,
-      icon: Icon(
-        Icons.settings,
-        size: 20,
-        color: isDark ? Colors.white : primaryTextColor,
-      ),
-    ).nestedAlign();
-  }
-
-  Widget get version {
-    final t = Translations.of(context);
-    final appName = t.appName(flavor: AppConfig.shared.flavor);
-    return Text(
-      '$appName $appVersion',
-      style: const TextStyle(
-        color: secondaryTextColor,
-        fontSize: 12,
-      ),
-      textAlign: TextAlign.center,
     );
   }
 
@@ -1097,13 +205,13 @@ class _HomePageState extends State<HomePage> with WindowListener {
       printDebugLog(json.encode(values));
       final text = values['text'] as String;
       final color = values['color'] as int;
-      final transparency = values['transparency'] as double;
+      final opacity = values['opacity'] as double;
       final fontFamily = values['font'] as String?;
       final fontSize = values['fontSize'] as double?;
       final textGap = values['textGap'] as double?;
       final rowGap = values['rowGap'] as double?;
       printDebugLog(
-        'text: $text, color: $color, transparency: $transparency, fontFamily: $fontFamily, fontSize: $fontSize, textGap: $textGap, rowGap: $rowGap',
+        'text: $text, color: $color, opacity: $opacity, fontFamily: $fontFamily, fontSize: $fontSize, textGap: $textGap, rowGap: $rowGap',
       );
 
       try {
@@ -1116,7 +224,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 name: element.name,
                 watermark: text,
                 colorValue: color,
-                transparency: transparency,
+                opacity: opacity,
                 fontFamily: fontFamily,
                 fontSize: fontSize,
                 textGap: textGap,
@@ -1147,13 +255,13 @@ class _HomePageState extends State<HomePage> with WindowListener {
       printDebugLog(json.encode(values));
       final text = values['text'] as String;
       final color = values['color'] as int;
-      final transparency = values['transparency'] as double;
+      final opacity = values['opacity'] as double;
       final fontFamily = values['font'] as String?;
       final fontSize = values['fontSize'] as double?;
       final textGap = values['textGap'] as double?;
       final rowGap = values['rowGap'] as double?;
       printDebugLog(
-        'text: $text, color: $color, transparency: $transparency, fontFamily: $fontFamily, fontSize: $fontSize, textGap: $textGap, rowGap: $rowGap',
+        'text: $text, color: $color, opacity: $opacity, fontFamily: $fontFamily, fontSize: $fontSize, textGap: $textGap, rowGap: $rowGap',
       );
 
       final permission = await _checkPermission();
@@ -1189,7 +297,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 name: element.name,
                 watermark: text,
                 colorValue: color,
-                transparency: transparency,
+                opacity: opacity,
                 fontFamily: fontFamily,
                 fontSize: fontSize,
                 textGap: textGap,
@@ -1251,7 +359,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     required String name,
     required String watermark,
     required int colorValue,
-    required double transparency,
+    required double opacity,
     String? fontFamily,
     double? fontSize,
     double? textGap,
@@ -1284,7 +392,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
 
     // 设置文本样式
     final textStyle = TextStyle(
-      color: Color(colorValue).withOpacity(transparency),
+      color: Color(colorValue).withOpacity(opacity),
       fontSize: fontSize ?? initialFontSize,
       fontWeight: FontWeight.w400,
       fontFamily: fontFamily,
@@ -1484,46 +592,6 @@ class _HomePageState extends State<HomePage> with WindowListener {
     );
   }
 
-  void onColorTap(FormFieldState<int> field) {
-    // DO NOT REMOVE THIS LINE: 消除下拉选择默认弹窗
-    NavigatorUtil.pop();
-    DialogUtil.showPGColorModal(
-      items: colors,
-      color: field.value,
-      callback: (PGColor value) {
-        if (kDebugMode) {
-          printDebugLog('id: ${value.value}, name: ${value.enText}');
-        }
-
-        field
-          ..didChange(value.value)
-          ..validate();
-
-        NavigatorUtil.pop();
-      },
-    );
-  }
-
-  void onFontTap(FormFieldState<String> field) {
-    // DO NOT REMOVE THIS LINE: 消除下拉选择默认弹窗
-    NavigatorUtil.pop();
-    DialogUtil.showFontModal(
-      items: fontFamilies,
-      font: field.value,
-      callback: (PGFont font) {
-        if (kDebugMode) {
-          printDebugLog('fontFamily: ${font.fontFamily}, name: ${font.name}');
-        }
-
-        field
-          ..didChange(font.fontFamily)
-          ..validate();
-
-        NavigatorUtil.pop();
-      },
-    );
-  }
-
   // Check permissions
   Future<Permissions> _checkPermission() async {
     if (defaultTargetPlatform == TargetPlatform.android) {
@@ -1651,5 +719,1064 @@ class _HomePageState extends State<HomePage> with WindowListener {
     // Make sure to call once.
     setState(() {});
     // do something
+  }
+}
+
+/// 图片组
+class ImageGroup extends StatelessWidget {
+  const ImageGroup({
+    required this.fileWrappers,
+    required this.onRemove,
+    required this.onReorder,
+    this.pickImages,
+    super.key,
+  });
+
+  final List<FileWrapper> fileWrappers;
+  final void Function(int index) onRemove;
+  final ReorderCallback onReorder;
+  final VoidCallback? pickImages;
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final width = MediaQuery.sizeOf(context).width;
+    final contentWidth = width - padding * 2;
+    final itemWidth = ((contentWidth - spacing * 2) / 3).floorToDouble();
+    final items = fileWrappers
+        .mapIndexed(
+          (index, element) {
+            printDebugLog(element.path);
+            final image = kIsWeb
+                ? Image.network(
+                    element.path,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, url, error) => const Icon(
+                      Icons.error,
+                      color: errorTextColor,
+                      size: 24,
+                    ),
+                  )
+                : Image.file(
+                    File(element.path),
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, url, error) => const Icon(
+                      Icons.error,
+                      color: errorTextColor,
+                      size: 24,
+                    ),
+                  );
+
+            Widget child = image;
+
+            if (kIsWeb || isDesktop) {
+              child = SingleChildScrollView(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: child,
+                ),
+              );
+            }
+
+            return Stack(
+              children: [
+                child
+                    .nestedSizedBox(width: itemWidth, height: itemWidth)
+                    .nestedTap(() {
+                  final imageProviders = fileWrappers.map((fileWrapper) {
+                    return (kIsWeb
+                        ? NetworkImage(fileWrapper.path)
+                        : FileImage(File(fileWrapper.path))) as ImageProvider;
+                  }).toList();
+                  DialogUtil.showImagePreviewDialog(
+                    imageProviders,
+                    initialPage: index,
+                  );
+                }),
+                Positioned(
+                  top: 2,
+                  right: 2,
+                  child: const Icon(
+                    Icons.clear,
+                    color: warnTextColor,
+                    size: 14,
+                  )
+                      .nestedDecoratedBox(
+                        decoration: BoxDecoration(
+                          color: backgroundColor,
+                          borderRadius: BorderRadius.circular(9),
+                        ),
+                      )
+                      .nestedSizedBox(width: 18, height: 18)
+                      .nestedTap(() => onRemove(index)),
+                ),
+              ],
+            );
+          },
+        )
+        .cast<Widget>()
+        .toList();
+
+    if (items.length < 9) {
+      items.add(
+        const Icon(
+          Icons.add,
+          size: 40,
+          color: borderColor,
+        )
+            .nestedCenter()
+            .nestedDecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: isDark ? Colors.black54 : secondaryGrayColor,
+                border: Border.all(color: borderColor),
+              ),
+            )
+            .nestedSizedBox(width: itemWidth, height: itemWidth)
+            .nestedInkWell(onTap: pickImages),
+      );
+    }
+
+    return ReorderableWrap(
+      spacing: spacing,
+      runSpacing: runSpacing,
+      onReorder: onReorder,
+      scrollPhysics: const NeverScrollableScrollPhysics(),
+      alignment:
+          fileWrappers.isEmpty ? WrapAlignment.center : WrapAlignment.start,
+      children: items,
+    );
+  }
+}
+
+/// 声明文本
+class AppDescription extends StatelessWidget {
+  const AppDescription({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Translations.of(context);
+    return Text(
+      t.homePage.description,
+      style: const TextStyle(
+        color: errorTextColor,
+        fontSize: 12,
+        height: 1.5,
+      ),
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      textAlign: TextAlign.center,
+    );
+  }
+}
+
+/// 输入框
+class TextInput extends StatelessWidget {
+  const TextInput({this.focusNode, super.key});
+
+  final FocusNode? focusNode;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Translations.of(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return BaseFormItem(
+      title: t.homePage.textLabel,
+      onTipTap: () {
+        DialogUtil.showBottomSheetDialog(
+          t.homePage.textLabel,
+          t.homePage.textLabelDescription,
+        );
+      },
+      child: FormBuilderField<String>(
+        name: 'text',
+        focusNode: focusNode,
+        builder: (FormFieldState<String> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextFormField(
+                initialValue: field.value,
+                focusNode: focusNode,
+                cursorColor: hasError ? errorTextColor : primaryColor,
+                autocorrect: false,
+                style: TextStyle(
+                  color: isDark ? Colors.white : primaryTextColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+                onChanged: (value) {
+                  field
+                    ..didChange(value)
+                    ..validate();
+                },
+                decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: const EdgeInsets.fromLTRB(10, 11.5, 5, 11.5),
+                  enabledBorder: hasError
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: errorTextColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: borderColor,
+                          ),
+                          gapPadding: 0,
+                        ),
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(
+                      color: borderColor,
+                    ),
+                    gapPadding: 0,
+                  ),
+                  hintText: t.homePage.textInput,
+                  hintMaxLines: 2,
+                  hintStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey,
+                  ),
+                  focusedBorder: hasError
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: errorTextColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: primaryColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        ),
+                ),
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: errorTextColor,
+                  ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(top: 8, left: 8),
+                ),
+            ],
+          );
+        },
+        validator: (value) {
+          if (StringUtil.isBlank(value)) {
+            return t.homePage.textValidator;
+          }
+          return null;
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+}
+
+/// 颜色选择
+class ColorPicker extends StatelessWidget {
+  const ColorPicker({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Translations.of(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final languageCode = LocaleSettings.currentLocale.languageCode;
+    printDebugLog('languageCode: $languageCode');
+
+    return BaseFormItem(
+      title: t.homePage.colorLabel,
+      required: false,
+      showTip: false,
+      child: FormBuilderField<int>(
+        name: 'color',
+        initialValue: colors.elementAt(1).value,
+        builder: (FormFieldState<int> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DropdownButtonFormField<int>(
+                value: field.value,
+                onTap: () => onColorTap(field),
+                style: TextStyle(
+                  color: isDark ? Colors.white : primaryTextColor,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                icon: const Icon(
+                  Icons.arrow_drop_down,
+                  color: borderColor,
+                  size: 20,
+                ),
+                decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
+                  enabledBorder: hasError
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: errorTextColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: borderColor,
+                          ),
+                          gapPadding: 0,
+                        ),
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(
+                      color: borderColor,
+                    ),
+                    gapPadding: 0,
+                  ),
+                  focusedBorder: hasError
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: errorTextColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: primaryColor,
+                          ),
+                          gapPadding: 0,
+                        ),
+                ),
+                items: colors.map(
+                  (color) {
+                    return DropdownMenuItem<int>(
+                      value: color.value,
+                      child: Text(
+                        languageCode == 'zh' ? color.zhText : color.enText,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ).nestedAlign(
+                        alignment: Alignment.centerLeft,
+                      ),
+                    );
+                  },
+                ).toList(),
+                onChanged: (value) {},
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: errorTextColor,
+                  ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(
+                    top: 8,
+                    left: 8,
+                  ),
+                ),
+            ],
+          );
+        },
+        validator: (value) {
+          if (value == null) {
+            return t.homePage.colorValidator;
+          }
+          return null;
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+
+  void onColorTap(FormFieldState<int> field) {
+    // DO NOT REMOVE THIS LINE: 消除下拉选择默认弹窗
+    NavigatorUtil.pop();
+    DialogUtil.showPGColorModal(
+      items: colors,
+      color: field.value,
+      callback: (PGColor value) {
+        if (kDebugMode) {
+          printDebugLog('id: ${value.value}, name: ${value.enText}');
+        }
+
+        field
+          ..didChange(value.value)
+          ..validate();
+
+        NavigatorUtil.pop();
+      },
+    );
+  }
+}
+
+/// 不透明度选择
+class OpacityPicker extends StatefulWidget {
+  const OpacityPicker({super.key});
+
+  @override
+  State<OpacityPicker> createState() => _OpacityPickerState();
+}
+
+class _OpacityPickerState extends State<OpacityPicker> {
+  final opacityNotifier = ValueNotifier<double>(maxOpacity);
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseFormItem(
+      title: t.homePage.opacityLabel,
+      required: false,
+      showTip: false,
+      child: FormBuilderField<double>(
+        name: 'opacity',
+        initialValue: opacityNotifier.value,
+        builder: (FormFieldState<double> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  SfSliderTheme(
+                    data: const SfSliderThemeData(
+                      activeTrackHeight: 4,
+                      activeTrackColor: primaryColor,
+                      inactiveTrackColor: primaryBackgroundColor,
+                      thumbRadius: 6,
+                      thumbColor: primaryColor,
+                      overlayRadius: 0,
+                    ),
+                    child: SfSlider(
+                      min: minOpacity,
+                      stepSize: 0.1,
+                      value: field.value,
+                      enableTooltip: true,
+                      onChanged: (dynamic value) {
+                        final newValue = value as double? ?? maxOpacity;
+                        opacityNotifier.value = newValue;
+                        field
+                          ..didChange(newValue)
+                          ..validate();
+                      },
+                    ),
+                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
+                  const Gap(4),
+                  ValueListenableBuilder(
+                    valueListenable: opacityNotifier,
+                    builder: (
+                      BuildContext context,
+                      double value,
+                      Widget? child,
+                    ) =>
+                        Text(
+                      value.toStringAsFixed(1),
+                      textAlign: TextAlign.center,
+                    ).nestedSizedBox(width: 28),
+                  ),
+                ],
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: errorTextColor,
+                  ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(top: 8, left: 8),
+                ),
+            ],
+          );
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+}
+
+/// 字体选择
+class FontPicker extends StatelessWidget {
+  const FontPicker({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Translations.of(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final languageCode = LocaleSettings.currentLocale.languageCode;
+    printDebugLog('languageCode: $languageCode');
+
+    return BaseFormItem(
+      title: t.homePage.fontLabel,
+      required: false,
+      showTip: false,
+      child: FormBuilderField<String>(
+        name: 'font',
+        initialValue: fontFamilies.elementAt(0).fontFamily,
+        builder: (FormFieldState<String> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DropdownButtonFormField<String>(
+                value: field.value,
+                onTap: () => onFontTap(field),
+                style: TextStyle(
+                  color: isDark ? Colors.white : primaryTextColor,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                icon: const Icon(
+                  Icons.arrow_drop_down,
+                  color: borderColor,
+                  size: 20,
+                ),
+                decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
+                  enabledBorder: hasError
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: errorTextColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: borderColor,
+                          ),
+                          gapPadding: 0,
+                        ),
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4),
+                    borderSide: const BorderSide(
+                      color: borderColor,
+                    ),
+                    gapPadding: 0,
+                  ),
+                  focusedBorder: hasError
+                      ? OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: errorTextColor,
+                          ),
+                          // borderSide: BorderSide.none,
+                          gapPadding: 0,
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                            color: primaryColor,
+                          ),
+                          gapPadding: 0,
+                        ),
+                ),
+                items: fontFamilies.map(
+                  (fontFamily) {
+                    return DropdownMenuItem<String>(
+                      value: fontFamily.fontFamily,
+                      child: Text(
+                        fontFamily.name,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: fontFamily.fontFamily,
+                        ),
+                      ).nestedAlign(
+                        alignment: Alignment.centerLeft,
+                      ),
+                    );
+                  },
+                ).toList(),
+                onChanged: (value) {},
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: errorTextColor,
+                  ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(
+                    top: 8,
+                    left: 8,
+                  ),
+                ),
+            ],
+          );
+        },
+        validator: (value) {
+          if (value == null) {
+            return t.homePage.fontValidator;
+          }
+          return null;
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+
+  void onFontTap(FormFieldState<String> field) {
+    // DO NOT REMOVE THIS LINE: 消除下拉选择默认弹窗
+    NavigatorUtil.pop();
+    DialogUtil.showFontModal(
+      items: fontFamilies,
+      font: field.value,
+      callback: (PGFont font) {
+        if (kDebugMode) {
+          printDebugLog('fontFamily: ${font.fontFamily}, name: ${font.name}');
+        }
+
+        field
+          ..didChange(font.fontFamily)
+          ..validate();
+
+        NavigatorUtil.pop();
+      },
+    );
+  }
+}
+
+/// 字体大小选择
+class FontSizePicker extends StatefulWidget {
+  const FontSizePicker({super.key});
+
+  @override
+  State<FontSizePicker> createState() => _FontSizePickerState();
+}
+
+class _FontSizePickerState extends State<FontSizePicker> {
+  final fontSizeNotifier = ValueNotifier<double>(initialFontSize);
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseFormItem(
+      title: t.homePage.fontSizeLabel,
+      required: false,
+      showTip: false,
+      child: FormBuilderField<double>(
+        name: 'fontSize',
+        initialValue: fontSizeNotifier.value,
+        builder: (FormFieldState<double> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  SfSliderTheme(
+                    data: const SfSliderThemeData(
+                      activeTrackHeight: 4,
+                      activeTrackColor: primaryColor,
+                      inactiveTrackColor: primaryBackgroundColor,
+                      thumbRadius: 6,
+                      thumbColor: primaryColor,
+                      overlayRadius: 0,
+                    ),
+                    child: SfSlider(
+                      min: minFontSize,
+                      max: minFontSize * 4,
+                      stepSize: 2,
+                      value: field.value,
+                      enableTooltip: true,
+                      onChanged: (dynamic value) {
+                        final newValue = value as double? ?? initialFontSize;
+                        fontSizeNotifier.value = newValue;
+                        field
+                          ..didChange(newValue)
+                          ..validate();
+                      },
+                    ),
+                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
+                  const Gap(4),
+                  ValueListenableBuilder(
+                    valueListenable: fontSizeNotifier,
+                    builder: (
+                      BuildContext context,
+                      double value,
+                      Widget? child,
+                    ) =>
+                        Text(
+                      value.toStringAsFixed(0),
+                      textAlign: TextAlign.center,
+                    ).nestedSizedBox(width: 28),
+                  ),
+                ],
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: errorTextColor,
+                  ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(top: 8, left: 8),
+                ),
+            ],
+          );
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+}
+
+/// 文本之间间距
+class TextColumnGap extends StatefulWidget {
+  const TextColumnGap({super.key});
+
+  @override
+  State<TextColumnGap> createState() => _TextColumnGapState();
+}
+
+class _TextColumnGapState extends State<TextColumnGap> {
+  final textGapNotifier = ValueNotifier<double>(initialGap);
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseFormItem(
+      title: t.homePage.textGapLabel,
+      required: false,
+      onTipTap: () {
+        DialogUtil.showBottomSheetDialog(
+          t.homePage.textGapLabel,
+          t.homePage.textGapDescription,
+        );
+      },
+      child: FormBuilderField<double>(
+        name: 'textGap',
+        initialValue: textGapNotifier.value,
+        builder: (FormFieldState<double> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  SfSliderTheme(
+                    data: const SfSliderThemeData(
+                      activeTrackHeight: 4,
+                      activeTrackColor: primaryColor,
+                      inactiveTrackColor: primaryBackgroundColor,
+                      thumbRadius: 6,
+                      thumbColor: primaryColor,
+                      overlayRadius: 0,
+                    ),
+                    child: SfSlider(
+                      min: initialGap / 2,
+                      max: initialGap * 2,
+                      stepSize: 10,
+                      value: field.value,
+                      enableTooltip: true,
+                      onChanged: (dynamic value) {
+                        final newValue = value as double? ?? initialGap;
+                        textGapNotifier.value = newValue;
+                        field
+                          ..didChange(newValue)
+                          ..validate();
+                      },
+                    ),
+                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
+                  const Gap(4),
+                  ValueListenableBuilder(
+                    valueListenable: textGapNotifier,
+                    builder: (
+                      BuildContext context,
+                      double value,
+                      Widget? child,
+                    ) =>
+                        Text(
+                      value.toStringAsFixed(0),
+                      textAlign: TextAlign.center,
+                    ).nestedSizedBox(width: 28),
+                  ),
+                ],
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: errorTextColor,
+                  ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(top: 8, left: 8),
+                ),
+            ],
+          );
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+}
+
+/// 文本行间距
+class TextRowGap extends StatefulWidget {
+  const TextRowGap({super.key});
+
+  @override
+  State<TextRowGap> createState() => _TextRowGapState();
+}
+
+class _TextRowGapState extends State<TextRowGap> {
+  final rowGapNotifier = ValueNotifier<double>(initialGap);
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseFormItem(
+      title: t.homePage.rowGapLabel,
+      required: false,
+      onTipTap: () {
+        DialogUtil.showBottomSheetDialog(
+          t.homePage.rowGapLabel,
+          t.homePage.rowGapDescription,
+        );
+      },
+      child: FormBuilderField<double>(
+        name: 'rowGap',
+        initialValue: rowGapNotifier.value,
+        builder: (FormFieldState<double> field) {
+          final hasError = StringUtil.isNotBlank(field.errorText);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  SfSliderTheme(
+                    data: const SfSliderThemeData(
+                      activeTrackHeight: 4,
+                      activeTrackColor: primaryColor,
+                      inactiveTrackColor: primaryBackgroundColor,
+                      thumbRadius: 6,
+                      thumbColor: primaryColor,
+                      overlayRadius: 0,
+                    ),
+                    child: SfSlider(
+                      min: initialGap / 2,
+                      max: initialGap * 2,
+                      stepSize: 10,
+                      value: field.value,
+                      enableTooltip: true,
+                      onChanged: (dynamic value) {
+                        final newValue = value as double? ?? initialGap;
+                        rowGapNotifier.value = newValue;
+                        field
+                          ..didChange(newValue)
+                          ..validate();
+                      },
+                    ),
+                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
+                  const Gap(4),
+                  ValueListenableBuilder(
+                    valueListenable: rowGapNotifier,
+                    builder: (
+                      BuildContext context,
+                      double value,
+                      Widget? child,
+                    ) =>
+                        Text(
+                      value.toStringAsFixed(0),
+                      textAlign: TextAlign.center,
+                    ).nestedSizedBox(width: 28),
+                  ),
+                ],
+              ),
+              if (hasError)
+                Text(
+                  field.errorText!,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: errorTextColor,
+                  ),
+                ).nestedPadding(
+                  padding: const EdgeInsets.only(top: 8, left: 8),
+                ),
+            ],
+          );
+        },
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 8.5),
+      ),
+    );
+  }
+}
+
+/// 设置按钮
+class SettingsBtn extends StatelessWidget {
+  const SettingsBtn({
+    this.padding = const EdgeInsets.all(6),
+    this.iconSize = 20,
+    this.borderRadius = const BorderRadius.all(Radius.circular(16)),
+    super.key,
+  });
+
+  final EdgeInsetsGeometry padding;
+  final double iconSize;
+  final BorderRadiusGeometry borderRadius;
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return IconButton(
+      style: ButtonStyle(
+        elevation: WidgetStateProperty.all(0),
+        minimumSize: WidgetStateProperty.all(Size.zero),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        padding: WidgetStateProperty.all(padding),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(borderRadius: borderRadius),
+        ),
+      ),
+      onPressed: DialogUtil.showSettingsModal,
+      icon: Icon(
+        Icons.settings,
+        size: iconSize,
+        color: isDark ? Colors.white : primaryTextColor,
+      ),
+    );
+  }
+}
+
+/// 版本号
+class AppVersion extends StatelessWidget {
+  const AppVersion({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Translations.of(context);
+    final appName = t.appName(flavor: AppConfig.shared.flavor);
+    return Text(
+      '$appName $appVersion',
+      style: const TextStyle(
+        color: secondaryTextColor,
+        fontSize: 12,
+      ),
+      textAlign: TextAlign.center,
+    );
+  }
+}
+
+/// 预览按钮
+class PreviewBtn extends StatelessWidget {
+  const PreviewBtn({this.onPressed, super.key});
+
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(
+          Colors.white,
+        ),
+        foregroundColor: WidgetStateProperty.resolveWith((
+          Set<WidgetState> states,
+        ) {
+          if (states.contains(WidgetState.disabled)) {
+            return secondaryBorderColor;
+          }
+          return primaryColor;
+        }),
+        shape: WidgetStateProperty.resolveWith((
+          Set<WidgetState> states,
+        ) {
+          if (states.contains(WidgetState.disabled)) {
+            return RoundedRectangleBorder(
+              side: const BorderSide(color: secondaryBorderColor),
+              borderRadius: BorderRadius.circular(10),
+            );
+          }
+          return RoundedRectangleBorder(
+            side: const BorderSide(color: primaryColor),
+            borderRadius: BorderRadius.circular(10),
+          );
+        }),
+        elevation: WidgetStateProperty.all(0),
+      ),
+      child: Text(
+        t.homePage.preview,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    ).nestedSizedBox(
+      height: 42,
+    );
+  }
+}
+
+/// 保存按钮
+class SaveBtn extends StatelessWidget {
+  const SaveBtn({this.onPressed, super.key});
+
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.resolveWith((
+          Set<WidgetState> states,
+        ) {
+          if (states.contains(WidgetState.disabled)) {
+            return secondaryGrayColor;
+          }
+          return primaryColor;
+        }),
+        foregroundColor: WidgetStateProperty.resolveWith((
+          Set<WidgetState> states,
+        ) {
+          if (states.contains(WidgetState.disabled)) {
+            return placeholderTextColor;
+          }
+          return Colors.white;
+        }),
+        elevation: WidgetStateProperty.all(0),
+      ),
+      child: Text(
+        t.homePage.save,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    ).nestedSizedBox(
+      height: 42,
+    );
   }
 }

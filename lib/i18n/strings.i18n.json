@@ -12,7 +12,7 @@
     "textInput": "This certificate is only used for handling xx business, and is invalid for other purposes.",
     "colorLabel": "Color",
     "colorValidator": "Please select a color.",
-    "transparencyLabel": "Transparency",
+    "opacityLabel": "Opacity",
     "fontLabel": "Font",
     "fontValidator": "Please select a font.",
     "fontSizeLabel": "Font size",
