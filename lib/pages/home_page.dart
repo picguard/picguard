@@ -107,41 +107,6 @@ class _HomePageState extends State<HomePage> with WindowListener {
       if (isMobile) {
         DialogUtil.showLicenseDialog();
       }
-
-      if (isDesktop) {
-        final t = Translations.of(context);
-        WidgetsBinding.instance.platformMenuDelegate.setMenus(
-          [
-            PlatformMenu(
-              label: '',
-              menus: [
-                const PlatformMenuItemGroup(
-                  members: [
-                    PlatformProvidedMenuItem(
-                      type: PlatformProvidedMenuItemType.about,
-                    ),
-                  ],
-                ),
-                PlatformMenuItemGroup(
-                  members: [
-                    PlatformMenuItem(
-                      label: t.homePage.settings,
-                      onSelected: DialogUtil.showSettingsModal,
-                    ),
-                  ],
-                ),
-                const PlatformMenuItemGroup(
-                  members: [
-                    PlatformProvidedMenuItem(
-                      type: PlatformProvidedMenuItemType.quit,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        );
-      }
     });
   }
 
@@ -221,7 +186,8 @@ class _HomePageState extends State<HomePage> with WindowListener {
               const Gap(10),
             ],
           ),
-          floatingActionButton: kIsWeb || kIsWasm ? const SettingsBtn() : null,
+          floatingActionButton:
+              kIsWeb || kIsWasm || isDesktop ? const SettingsBtn() : null,
         ),
       ),
     );
