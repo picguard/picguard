@@ -104,7 +104,44 @@ class _HomePageState extends State<HomePage> with WindowListener {
     });
 
     SchedulerBinding.instance.addPostFrameCallback((timestamp) {
-      DialogUtil.showLicenseDialog();
+      if (isMobile) {
+        DialogUtil.showLicenseDialog();
+      }
+
+      if (isDesktop) {
+        final t = Translations.of(context);
+        WidgetsBinding.instance.platformMenuDelegate.setMenus(
+          [
+            PlatformMenu(
+              label: '',
+              menus: [
+                const PlatformMenuItemGroup(
+                  members: [
+                    PlatformProvidedMenuItem(
+                      type: PlatformProvidedMenuItemType.about,
+                    ),
+                  ],
+                ),
+                PlatformMenuItemGroup(
+                  members: [
+                    PlatformMenuItem(
+                      label: t.homePage.settings,
+                      onSelected: DialogUtil.showSettingsModal,
+                    ),
+                  ],
+                ),
+                const PlatformMenuItemGroup(
+                  members: [
+                    PlatformProvidedMenuItem(
+                      type: PlatformProvidedMenuItemType.quit,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        );
+      }
     });
   }
 
@@ -129,15 +166,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
               ? PGAppBar(
                   titleWidget: Text(appName),
                   isDark: isDark,
-                  actions: isMobile
-                      ? [
-                          SettingsBtn(
-                            iconSize: 24,
-                            padding: const EdgeInsets.all(10),
-                            borderRadius: BorderRadius.circular(22),
-                          ),
-                        ]
-                      : null,
+                  actions: isMobile ? [const SettingsBtn()] : null,
                 )
               : null,
           body: ListView(
@@ -188,11 +217,11 @@ class _HomePageState extends State<HomePage> with WindowListener {
                 onPressed: _fileWrappers.isNotEmpty ? _save : null,
               ),
               const Gap(14),
-              if (kIsWeb || isDesktop) const SettingsBtn().nestedAlign(),
               const AppVersion(),
               const Gap(10),
             ],
           ),
+          floatingActionButton: kIsWeb || kIsWasm ? const SettingsBtn() : null,
         ),
       ),
     );
@@ -1636,9 +1665,9 @@ class _TextRowGapState extends State<TextRowGap> {
 /// 设置按钮
 class SettingsBtn extends StatelessWidget {
   const SettingsBtn({
-    this.padding = const EdgeInsets.all(6),
-    this.iconSize = 20,
-    this.borderRadius = const BorderRadius.all(Radius.circular(16)),
+    this.padding = const EdgeInsets.all(10),
+    this.iconSize = 24,
+    this.borderRadius = const BorderRadius.all(Radius.circular(22)),
     super.key,
   });
 

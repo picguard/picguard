@@ -1,5 +1,4 @@
 // Dart imports:
-import 'dart:developer';
 import 'dart:io';
 
 // Flutter imports:
@@ -18,6 +17,7 @@ import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
 import 'package:picguard/theme/colors.dart';
 import 'package:picguard/types/types.dart';
@@ -32,10 +32,10 @@ class DialogUtil {
     final context = AppNavigator.key.currentContext!;
     final isContainsKey = SpUtil.containsKey(Keys.licenseKey) ?? false;
 
-    log('isContainsKey: $isContainsKey');
+    printDebugLog('isContainsKey: $isContainsKey');
 
     /// 未弹出过隐私协议弹窗
-    if (!isContainsKey && isShowLicenseDialog) {
+    if (!isContainsKey) {
       final t = Translations.of(context);
       final appName = t.appName(flavor: AppConfig.shared.flavor);
       final languageCode = LocaleSettings.currentLocale.languageCode;

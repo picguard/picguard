@@ -6,7 +6,7 @@ import 'package:picguard/app/manager.dart';
 
 /// Checks if the current environment is a desktop environment.
 bool get isDesktop {
-  if (kIsWeb) return false;
+  if (kIsWeb || kIsWasm) return false;
   return [
     TargetPlatform.windows,
     TargetPlatform.linux,
@@ -16,19 +16,10 @@ bool get isDesktop {
 
 /// Checks if the current environment is a mobile environment.
 bool get isMobile {
-  if (kIsWeb) return false;
+  if (kIsWeb || kIsWasm) return false;
   return [
     TargetPlatform.iOS,
     TargetPlatform.android,
-  ].contains(defaultTargetPlatform);
-}
-
-bool get isShowLicenseDialog {
-  if (kIsWeb) return false;
-  return [
-    TargetPlatform.android,
-    TargetPlatform.iOS,
-    /// windows
   ].contains(defaultTargetPlatform);
 }
 
