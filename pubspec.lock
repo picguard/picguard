@@ -400,10 +400,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_form_builder
-      sha256: ba557c8933bef822fe5469f9267579379f362faf60c7a776c93bfa79cdda0446
+      sha256: b42ad8a9b3e8a629eb0fee8e4feaf7c2862fc40808ebf9f7ddc9da798e890136
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.0"
+    version: "9.4.1"
   flutter_gen:
     dependency: "direct main"
     description:
