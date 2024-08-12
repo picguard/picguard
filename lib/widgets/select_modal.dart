@@ -54,26 +54,30 @@ class PGColorModal extends StatelessWidget {
             IconButton(
               style: ButtonStyle(
                 padding: WidgetStateProperty.all(
-                  const EdgeInsets.all(4),
+                  const EdgeInsets.all(8),
                 ),
                 minimumSize: WidgetStateProperty.all(Size.zero),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 elevation: WidgetStateProperty.all(0),
-                backgroundColor: WidgetStateProperty.all(
-                  isDark ? placeholderTextColor : primaryGrayColor,
-                ),
               ),
               onPressed: NavigatorUtil.pop,
               icon: Icon(
                 Icons.close,
                 color: isDark ? primaryTextColor : secondaryTextColor,
                 size: 16,
-              ),
+              )
+                  .nestedPadding(padding: const EdgeInsets.all(2))
+                  .nestedDecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: isDark ? placeholderTextColor : primaryGrayColor,
+                    ),
+                  ),
             ),
           ],
         )
             .nestedPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
             )
             .nestedDecoratedBox(
               decoration: const BoxDecoration(
@@ -171,26 +175,30 @@ class FontModal extends StatelessWidget {
             IconButton(
               style: ButtonStyle(
                 padding: WidgetStateProperty.all(
-                  const EdgeInsets.all(4),
+                  const EdgeInsets.all(8),
                 ),
                 minimumSize: WidgetStateProperty.all(Size.zero),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 elevation: WidgetStateProperty.all(0),
-                backgroundColor: WidgetStateProperty.all(
-                  isDark ? placeholderTextColor : primaryGrayColor,
-                ),
               ),
               onPressed: NavigatorUtil.pop,
               icon: Icon(
                 Icons.close,
                 color: isDark ? primaryTextColor : secondaryTextColor,
                 size: 16,
-              ),
+              )
+                  .nestedPadding(padding: const EdgeInsets.all(2))
+                  .nestedDecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: isDark ? placeholderTextColor : primaryGrayColor,
+                    ),
+                  ),
             ),
           ],
         )
             .nestedPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
             )
             .nestedDecoratedBox(
               decoration: const BoxDecoration(
@@ -256,14 +264,9 @@ class FontModal extends StatelessWidget {
 }
 
 /// Settings
-class SettingsModal extends StatefulWidget {
+class SettingsModal extends StatelessWidget {
   const SettingsModal({super.key});
 
-  @override
-  State<SettingsModal> createState() => _SettingsModalState();
-}
-
-class _SettingsModalState extends State<SettingsModal> {
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
@@ -294,26 +297,30 @@ class _SettingsModalState extends State<SettingsModal> {
             IconButton(
               style: ButtonStyle(
                 padding: WidgetStateProperty.all(
-                  const EdgeInsets.all(4),
+                  const EdgeInsets.all(8),
                 ),
                 minimumSize: WidgetStateProperty.all(Size.zero),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 elevation: WidgetStateProperty.all(0),
-                backgroundColor: WidgetStateProperty.all(
-                  isDark ? placeholderTextColor : primaryGrayColor,
-                ),
               ),
               onPressed: NavigatorUtil.pop,
               icon: Icon(
                 Icons.close,
                 color: isDark ? primaryTextColor : secondaryTextColor,
                 size: 16,
-              ),
+              )
+                  .nestedPadding(padding: const EdgeInsets.all(2))
+                  .nestedDecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: isDark ? placeholderTextColor : primaryGrayColor,
+                    ),
+                  ),
             ),
           ],
         )
             .nestedPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
             )
             .nestedDecoratedBox(
               decoration: const BoxDecoration(

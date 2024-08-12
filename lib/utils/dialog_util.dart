@@ -419,85 +419,47 @@ class DialogUtil {
   }
 
   ///
-  static void showBottomSheetDialog(
-    String title,
-    String content, {
+  static void showBottomSheetDialog({
+    required String content,
     Color? barrierColor,
   }) {
     final context = AppNavigator.key.currentContext!;
+    final height = MediaQuery.sizeOf(context).height;
     final bottom = MediaQuery.paddingOf(context).bottom;
     showModalBottomSheet<void>(
       context: context,
       barrierColor: barrierColor,
-      isDismissible: false,
-      enableDrag: false,
+      showDragHandle: true,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
       builder: (BuildContext context) {
         final isDark = Theme.of(context).brightness == Brightness.dark;
-        return SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    title,
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      color: isDark ? Colors.white : primaryTextColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ).nestedExpanded(),
-                  IconButton(
-                    style: ButtonStyle(
-                      padding: WidgetStateProperty.all(
-                        const EdgeInsets.all(4),
-                      ),
-                      minimumSize: WidgetStateProperty.all(Size.zero),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      elevation: WidgetStateProperty.all(0),
-                      backgroundColor: WidgetStateProperty.all(
-                        isDark ? placeholderTextColor : primaryGrayColor,
-                      ),
-                    ),
-                    onPressed: NavigatorUtil.pop,
-                    icon: Icon(
-                      Icons.close,
-                      color: isDark ? primaryTextColor : secondaryTextColor,
-                      size: 16,
-                    ),
-                  ),
-                ],
-              ).nestedPadding(
-                padding: const EdgeInsets.only(bottom: 20),
-              ),
-              Text(
-                content,
-                style: TextStyle(
-                  color: isDark ? Colors.white : secondaryTextColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  height: 1.43,
-                ),
-              ),
-            ],
-          ),
-        ).nestedPadding(
-          padding: EdgeInsets.only(
-            left: 16,
-            top: 20,
-            right: 16,
-            bottom: 20 + bottom,
+
+        final Widget contentWidget = Text(
+          content,
+          style: TextStyle(
+            color: isDark ? Colors.white : secondaryTextColor,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            height: 1.43,
           ),
         );
+
+        return contentWidget
+            .nestedSizedBox(width: double.infinity)
+            .nestedSingleChildScrollView()
+            .nestedPadding(
+              padding: EdgeInsets.only(
+                left: 16,
+                right: 16,
+                bottom: 10 + bottom,
+              ),
+            )
+            .nestedConstrainedBox(
+              constraints: BoxConstraints(maxHeight: height * 0.7),
+            );
       },
     );
   }
@@ -511,6 +473,8 @@ class DialogUtil {
     final context = AppNavigator.key.currentContext!;
     showModalBottomSheet<void>(
       context: context,
+      isDismissible: false,
+      enableDrag: false,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
@@ -532,6 +496,8 @@ class DialogUtil {
     final context = AppNavigator.key.currentContext!;
     showModalBottomSheet<void>(
       context: context,
+      isDismissible: false,
+      enableDrag: false,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
@@ -549,6 +515,8 @@ class DialogUtil {
     final context = AppNavigator.key.currentContext!;
     showModalBottomSheet<void>(
       context: context,
+      isDismissible: false,
+      enableDrag: false,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),

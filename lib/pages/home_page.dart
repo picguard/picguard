@@ -879,8 +879,7 @@ class TextInput extends StatelessWidget {
       title: t.homePage.textLabel,
       onTipTap: () {
         DialogUtil.showBottomSheetDialog(
-          t.homePage.textLabel,
-          t.homePage.textLabelDescription,
+          content: t.homePage.textLabelDescription,
         );
       },
       child: FormBuilderField<String>(
@@ -1464,8 +1463,7 @@ class _TextColumnGapState extends State<TextColumnGap> {
       required: false,
       onTipTap: () {
         DialogUtil.showBottomSheetDialog(
-          t.homePage.textGapLabel,
-          t.homePage.textGapDescription,
+          content: t.homePage.textGapDescription,
         );
       },
       child: FormBuilderField<double>(
@@ -1555,8 +1553,7 @@ class _TextRowGapState extends State<TextRowGap> {
       required: false,
       onTipTap: () {
         DialogUtil.showBottomSheetDialog(
-          t.homePage.rowGapLabel,
-          t.homePage.rowGapDescription,
+          content: t.homePage.rowGapDescription,
         );
       },
       child: FormBuilderField<double>(

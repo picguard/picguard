@@ -53,9 +53,11 @@ class _BaseFormItemState extends State<BaseFormItem> {
                     .addWidgetAsList(
                       widget.tipWidget == null
                           ? tips
-                          : widget.tipWidget!.nestedTap(() {
-                              widget.onTipTap?.call();
-                            }),
+                          : widget.tipWidget!.nestedTap(
+                              () {
+                                widget.onTipTap?.call();
+                              },
+                            ),
                     )
                     .nestedRow(mainAxisAlignment: widget.mainAxisAlignment),
               widget.child,
@@ -108,7 +110,7 @@ class _BaseFormItemState extends State<BaseFormItem> {
       onPressed: widget.onTipTap,
       icon: const Icon(
         Icons.info,
-        size: 14,
+        size: 16,
         color: primaryColor,
       ),
     ).nestedPadding(padding: const EdgeInsets.only(left: 4));
