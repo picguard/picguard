@@ -70,7 +70,7 @@ dependencies:
   slang_flutter: ^3.31.0
   syncfusion_flutter_core: ^26.2.9
   syncfusion_flutter_sliders: ^26.2.9
-  synchronized: ^3.1.0+1
+  synchronized: ^3.2.0
   url_launcher: ^6.3.0
   uuid: ^4.4.2
   window_manager: ^0.4.0
