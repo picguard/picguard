@@ -1644,7 +1644,6 @@ class SettingsBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return IconButton(
       style: ButtonStyle(
         elevation: WidgetStateProperty.all(0),
@@ -1654,12 +1653,13 @@ class SettingsBtn extends StatelessWidget {
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(borderRadius: borderRadius),
         ),
+        overlayColor: WidgetStateProperty.all(primaryBackgroundColor),
       ),
       onPressed: DialogUtil.showSettingsModal,
       icon: Icon(
         Icons.settings,
         size: iconSize,
-        color: isDark ? Colors.white : primaryTextColor,
+        color: primaryColor,
       ),
     );
   }
