@@ -1141,6 +1141,7 @@ class _OpacityPickerState extends State<OpacityPicker> {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return BaseFormItem(
       title: t.homePage.opacityLabel,
       required: false,
@@ -1372,6 +1373,7 @@ class _FontSizePickerState extends State<FontSizePicker> {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return BaseFormItem(
       title: t.homePage.fontSizeLabel,
       required: false,
@@ -1458,6 +1460,7 @@ class _TextColumnGapState extends State<TextColumnGap> {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return BaseFormItem(
       title: t.homePage.textGapLabel,
       required: false,
@@ -1548,6 +1551,7 @@ class _TextRowGapState extends State<TextRowGap> {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return BaseFormItem(
       title: t.homePage.rowGapLabel,
       required: false,
@@ -1688,6 +1692,7 @@ class PreviewBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
@@ -1739,6 +1744,7 @@ class SaveBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
