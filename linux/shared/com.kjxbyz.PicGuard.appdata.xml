@@ -22,35 +22,41 @@
         <p>Your pictures, your signature.</p>
         <p>Features</p>
         <ul>
-            <li>Open Source!</li>
+            <li>Introducing PicGuard - the ultimate solution for securing and customizing your digital photos. With our app, you can easily add watermarks to your images to protect your creative work and maintain your privacy.</li>
+
+            <li>PicGuard offers robust privacy protection features, ensuring your personal and sensitive information remains safeguarded. It's highly customizable, allowing you to personalize watermarks with various fonts, styles, and designs to suit your needs.</li>
+
+            <li>Accessible on web, mobile, and desktop, you can seamlessly integrate and manage your watermarking tasks across all your devices. PicGuard, as an open-source tool, it's not only free but also continuously improved by a community of developers dedicated to providing the best user experience.</li>
+
+            <li>Download PicGuard today and take control of your photo security and personalization like never before!</li>
         </ul>
     </description>
     <launchable type="desktop-id">com.kjxbyz.PicGuard.desktop</launchable>
     <screenshots>
         <screenshot type="default">
-            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.0+332/screenshots/desktop.png</image>
+            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.0+387/screenshots/desktop.png</image>
             <caption>Default screenshot for desktop</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.0+332/screenshots/showcase1.png</image>
+            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.0+387/screenshots/showcase1.png</image>
             <caption>Secure, encrypted, decentralized</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.0+332/screenshots/showcase2.png</image>
+            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.0+387/screenshots/showcase2.png</image>
             <caption>Free, non-commercial and open source</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.0+332/screenshots/showcase3.png</image>
+            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.0+387/screenshots/showcase3.png</image>
             <caption>Easy to use for everyone</caption>
         </screenshot>
     </screenshots>
     <releases>
-        <release version="v1.0.0+332" date="2024-07-27">
-            <url type="details">https://github.com/picguard/picguard/releases/tag/v1.0.0+332</url>
+        <release version="v1.0.0+387" date="2024-07-27">
+            <url type="details">https://github.com/picguard/picguard/releases/tag/v1.0.0+387</url>
             <description>
                 <p>Release description</p>
                 <ul>
-                    <li>chore: v1.0.0+332</li>
+                    <li>chore: v1.0.0+387</li>
                 </ul>
             </description>
         </release>
