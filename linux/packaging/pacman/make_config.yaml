@@ -51,7 +51,7 @@ provides:
 
 
 # application icon path relative to project url
-icon: logo/logo.png
+icon: logo/logo512.png
 
 keywords:
   - PicGuard

@@ -7,7 +7,7 @@ priority: optional
 section: x11
 installed_size: 6604
 essential: false
-icon: logo/logo.png
+icon: logo/logo512.png
 
 postinstall_scripts:
   - echo "Installing PicGuard"
