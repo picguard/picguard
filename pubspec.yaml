@@ -45,7 +45,7 @@ dependencies:
     sdk: flutter
   flutter_native_splash: ^2.4.1
   flutter_switch: ^0.3.2
-  fluttertoast: ^8.2.6
+  fluttertoast: ^8.2.8
   form_builder_validators: ^11.0.0
   gap: ^3.0.1
   get: ^4.6.6
@@ -56,7 +56,6 @@ dependencies:
   intl: ^0.19.0
   keyboard_dismisser: ^3.0.0
   logging: ^1.2.0
-  mime: ^1.0.5
   package_info_plus: ^8.0.2
   path: ^1.9.0
   permission_handler: ^11.3.1
@@ -70,9 +69,8 @@ dependencies:
   slang_flutter: ^3.31.0
   syncfusion_flutter_core: ^26.2.9
   syncfusion_flutter_sliders: ^26.2.9
-  synchronized: ^3.1.0+1
+  synchronized: ^3.2.0
   url_launcher: ^6.3.0
-  uuid: ^4.4.2
   window_manager: ^0.4.0
 
 dev_dependencies:
