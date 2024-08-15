@@ -135,7 +135,7 @@ class PGColorModal extends StatelessWidget {
           constraints: const BoxConstraints(maxHeight: 400),
         )
         .nestedPadding(
-          padding: EdgeInsets.only(bottom: 10 + bottom),
+          padding: EdgeInsets.only(bottom: 20 + bottom),
         );
   }
 }
@@ -258,7 +258,7 @@ class FontModal extends StatelessWidget {
           constraints: BoxConstraints(maxHeight: height * 0.8),
         )
         .nestedPadding(
-          padding: EdgeInsets.only(bottom: 10 + bottom),
+          padding: EdgeInsets.only(bottom: 20 + bottom),
         );
   }
 }
@@ -451,7 +451,7 @@ class SettingsModal extends StatelessWidget {
           constraints: BoxConstraints(maxHeight: height * 0.8),
         )
         .nestedPadding(
-          padding: EdgeInsets.only(bottom: 10 + bottom),
+          padding: EdgeInsets.only(bottom: 20 + bottom),
         )
         .nestedColoredBox(color: isDark ? dialogBackgroundColor : Colors.white);
   }
