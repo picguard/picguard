@@ -81,7 +81,7 @@ dev_dependencies:
   husky: ^0.1.7
   import_sorter: ^4.6.0
   lint_staged: ^0.5.1
-  msix: ^3.16.7
+  msix: ^3.16.8
   slang_build_runner: ^3.31.0
   very_good_analysis: ^6.0.0
 
