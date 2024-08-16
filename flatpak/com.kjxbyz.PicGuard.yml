@@ -1,0 +1,65 @@
+id: com.kjxbyz.PicGuard
+
+# https://docs.flatpak.org/en/latest/available-runtimes.html
+runtime: org.freedesktop.Platform
+runtime-version: '23.08'
+sdk: org.freedesktop.Sdk
+command: picguard
+
+# These are the permissions that the application needs
+# Read more about finishing here: https://docs.flatpak.org/en/latest/manifests.html#finishing
+# https://docs.flatpak.org/en/latest/sandbox-permissions.html
+finish-args:
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+  - --share=network
+  - --filesystem=xdg-download
+  - --filesystem=xdg-pictures
+
+modules:
+  - name: picguard
+    buildsystem: simple
+    build-commands:
+      - bsdtar -Oxf picguard.deb data.tar.zst | bsdtar -xf -
+      - install -Dm755 usr/share/picguard/picguard /app/bin/picguard
+      - cp -r usr/share/picguard/data usr/share/picguard/lib /app/bin/
+      - install -Dm644 com.kjxbyz.PicGuard.desktop /app/share/applications/com.kjxbyz.PicGuard.desktop
+      - install -Dm644 usr/share/icons/hicolor/128x128/apps/picguard.png /app/share/icons/hicolor/128x128/apps/com.kjxbyz.PicGuard.png
+      - install -Dm644 usr/share/icons/hicolor/256x256/apps/picguard.png /app/share/icons/hicolor/256x256/apps/com.kjxbyz.PicGuard.png
+      - install -Dm644 com.kjxbyz.PicGuard.appdata.xml /app/share/appdata/com.kjxbyz.PicGuard.appdata.xml
+    sources:
+      - type: file
+        only-arches:
+          - x86_64
+        url: https://github.com/picguard/picguard/releases/download/v1.0.0+393/picguard_1.0.0+393_linux_amd64.deb
+        dest-filename: picguard.deb
+        sha256: 03cc773a38b1f93bbb2d3c66a190497d46bbadb4d9900d8fdea6e64c4ac47150
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/picguard/picguard/releases/latest
+          version-query: .tag_name | sub("v";"")
+          url-query: .assets[] | select(.name=="picguard_" + $version + "_linux_amd64.deb") | .browser_download_url
+
+      - type: file
+        only-arches:
+          - aarch64
+        url: https://github.com/picguard/picguard/releases/download/v1.0.0+393/picguard_1.0.0+393_linux_aarch64.deb
+        dest-filename: picguard.deb
+        sha256: d94c7eb624a11e6cd010f464f55c4deec61207d8040659663e4986e39676be1e
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/picguard/picguard/releases/latest
+          version-query: .tag_name | sub("v";"")
+          url-query: .assets[] | select(.name=="picguard_" + $version + "_linux_aarch64.deb") | .browser_download_url
+
+      - type: file
+        url: https://raw.githubusercontent.com/picguard/picguard/v1.0.0+393/linux/shared/com.kjxbyz.PicGuard.desktop
+        dest-filename: com.kjxbyz.PicGuard.desktop
+        sha256: 8e13c1b75103f39a3f57f72c36537e18e01cfdaf50ba888c5524717cc3fefd12
+
+      - type: file
+        url: https://raw.githubusercontent.com/picguard/picguard/v1.0.0+393/linux/shared/com.kjxbyz.PicGuard.appdata.xml
+        dest-filename: com.kjxbyz.PicGuard.appdata.xml
+        sha256: 105d52fc72641f023f5155f69f6bba8baee05b4e4daf87234517130a5e94f28a
