@@ -34,7 +34,47 @@ jobs:
         run: |
           VERSION=$(yq '.version' pubspec.yaml)
           echo "$VERSION"
+
+          VERSION_SHORT=$(echo "$VERSION" | sed -e "s/+.*//")
+          echo "$VERSION_SHORT"
+
+          BUILD_NUMBER=$(echo "$VERSION" | sed -e "s/.*+//")
+          echo "$BUILD_NUMBER"
+
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+
+      - name: Update version
+        run: |
+          # Update flatpak/com.kjxbyz.PicGuard.json
+          TAG="$([[ "$ENV" == "staging" ]] && echo "$TAG_NAME.pre" || echo "$TAG_NAME")"
+          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
+
+          url=https://github.com/picguard/picguard/releases/download/"$TAG"/picguard_"$RELEASE"_linux_aarch64.tar.gz
+          wget -O downloaded.tar.gz "$url"
+          sha256=$(sha256sum downloaded.tar.gz | awk '{print $1}')
+          rm -f downloaded.tar.gz
+          url=$url yq -i '.modules[3].sources[1].url = strenv(url)' flatpak/com.kjxbyz.PicGuard.json
+          sha256=$sha256 yq -i '.modules[3].sources[1].sha256 = strenv(sha256)' flatpak/com.kjxbyz.PicGuard.json
+
+          desktop_url=https://raw.githubusercontent.com/picguard/picguard/"$TAG"/linux/shared/com.kjxbyz.PicGuard.desktop
+          wget -O com.kjxbyz.PicGuard.desktop "$desktop_url"
+          desktop_sha256=$(sha256sum com.kjxbyz.PicGuard.desktop | awk '{print $1}')
+          rm -f com.kjxbyz.PicGuard.desktop
+          desktop_url=$desktop_url yq -i '.modules[3].sources[2].url = strenv(desktop_url)' flatpak/com.kjxbyz.PicGuard.json
+          desktop_sha256=$desktop_sha256 yq -i '.modules[3].sources[2].sha256 = strenv(desktop_sha256)' flatpak/com.kjxbyz.PicGuard.json
+
+          appdata_url=https://raw.githubusercontent.com/picguard/picguard/"$TAG"/linux/shared/com.kjxbyz.PicGuard.appdata.xml
+          wget -O com.kjxbyz.PicGuard.appdata.xml "$appdata_url"
+          appdata_sha256=$(sha256sum com.kjxbyz.PicGuard.appdata.xml | awk '{print $1}')
+          rm -f com.kjxbyz.PicGuard.appdata.xml
+          appdata_url=$appdata_url yq -i '.modules[3].sources[3].url = strenv(appdata_url)' flatpak/com.kjxbyz.PicGuard.json
+          appdata_sha256=$appdata_sha256 yq -i '.modules[3].sources[3].sha256 = strenv(appdata_sha256)' flatpak/com.kjxbyz.PicGuard.json
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          TAG_NAME: "v${{ steps.version_step.outputs.version }}"
+          VERSION: ${{ steps.version_step.outputs.version }}
 
       - name: Install QEMU deps
         run: |
