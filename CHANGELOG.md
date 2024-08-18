@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.0+395
+
+1. Update developer name
+2. Update icons for mac
+
 ## 1.0.0+394
 
 1. Update manifest for flatpak
