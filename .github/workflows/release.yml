@@ -2789,7 +2789,7 @@ jobs:
       options: --privileged
     needs:
       - create_release
-      - linux_tar
+      - linux_deb
     steps:
       - uses: actions/checkout@v4
 
@@ -2889,7 +2889,7 @@ jobs:
       options: --privileged
     needs:
       - create_release
-      - linux_tar_aarch64
+      - linux_deb_aarch64
     steps:
       - uses: actions/checkout@v4
 
