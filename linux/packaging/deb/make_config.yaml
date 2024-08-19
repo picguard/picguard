@@ -8,6 +8,7 @@ section: x11
 installed_size: 6604
 essential: false
 icon: logo/logo512.png
+metainfo: linux/shared/picguard.metainfo.xml
 
 postinstall_scripts:
   - echo "Installing PicGuard"

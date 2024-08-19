@@ -9,6 +9,8 @@ license: MIT
 url: https://github.com/picguard/picguard
 build_arch: x86_64
 
+metainfo: linux/shared/picguard.metainfo.xml
+
 keywords:
   - PicGuard
   - Watermark
