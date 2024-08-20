@@ -5,8 +5,8 @@ on:
   pull_request:
     paths-ignore:
       - '.github/FUNDING.yml'
+      - 'docs/**'
       - 'CHANGELOG.md'
-      - 'DEVELOPMENT.md'
       - 'LICENSE'
       - 'Makefile'
       - 'README.md'
@@ -15,8 +15,8 @@ on:
   push:
     paths-ignore:
       - '.github/FUNDING.yml'
+      - 'docs/**'
       - 'CHANGELOG.md'
-      - 'DEVELOPMENT.md'
       - 'LICENSE'
       - 'Makefile'
       - 'README.md'
