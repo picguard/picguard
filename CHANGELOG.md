@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0+397
+
+1. Add arm64 support for `snapcraft`
+
 ## 1.0.0+396
 
 1. Fix needs in github actions
