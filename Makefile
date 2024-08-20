@@ -65,25 +65,25 @@ adhoc_free:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd ios && xcodebuild clean && cd ..
 	echo "╠ Releasing to adhoc..."
-	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --target lib/main_free.dart --export-options-plist=ios/ExportOptions-debug.plist
+	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --target lib/main_free.dart --export-options-plist=ios/ExportOptions/free/debug.plist
 
 appstore_free:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd ios && xcodebuild clean && cd ..
 	echo "╠ Releasing to app store..."
-	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --target lib/main_free.dart --export-options-plist=ios/ExportOptions-release.plist
+	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --target lib/main_free.dart --export-options-plist=ios/ExportOptions/free/release.plist
 
 adhoc_pro:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd ios && xcodebuild clean && cd ..
 	echo "╠ Releasing to adhoc..."
-	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptionsPro-debug.plist
+	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/debug.plist
 
 appstore_pro:
 	echo "╠ Removing build products and intermediate files from the build root..."
 	cd ios && xcodebuild clean && cd ..
 	echo "╠ Releasing to app store..."
-	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptionsPro-release.plist
+	fvm flutter build ipa --dart-define-from-file=".env.$(ENV).local" --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/release.plist
 
 macos_free:
 	echo "╠ Removing build products and intermediate files from the build root..."
