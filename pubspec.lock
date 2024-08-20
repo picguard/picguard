@@ -1211,18 +1211,18 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_core
-      sha256: "24d7f43ff33bd6248c95d8b3312f6b9fe89637727ca778d60490b81ebd5bd8e7"
+      sha256: ca34210d70dd7ecb77489c21c8131a7f5546dea47780cd5f510326348091cb42
       url: "https://pub.dev"
     source: hosted
-    version: "26.2.9"
+    version: "26.2.10"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "3adae52373f7dfbf829bbd0b1afe8e37b7e63d13e612a68e7f2474ff8bc5cb99"
+      sha256: "26cb37156c91be5cb39f8f8f8b467870525017ca9841cc4cd915eaea53db1d7f"
       url: "https://pub.dev"
     source: hosted
-    version: "26.2.9"
+    version: "26.2.10"
   synchronized:
     dependency: "direct main"
     description:
@@ -1459,10 +1459,10 @@ packages:
     dependency: "direct main"
     description:
       name: window_manager
-      sha256: e052224c7d8f0d1d0b2e03b7b1047bb08ea800d919a79453518311839881fa5f
+      sha256: ab8b2a7f97543d3db2b506c9d875e637149d48ee0c6a5cb5f5fd6e0dac463792
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0"
+    version: "0.4.2"
   xdg_directories:
     dependency: transitive
     description:
