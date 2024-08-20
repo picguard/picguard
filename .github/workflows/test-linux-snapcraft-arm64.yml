@@ -63,7 +63,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: linux-snap-artifact
+          name: linux-snap-arm64-artifact
           path: |
             ./*.snap
 
