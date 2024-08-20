@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.0+396
+
+1. Fix needs in github actions
+2. Added metainfo on linux
+3. Update email
+
 ## 1.0.0+395
 
 1. Update developer name
