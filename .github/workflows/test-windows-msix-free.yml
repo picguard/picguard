@@ -1,4 +1,4 @@
-name: Test Windows msix
+name: Test Windows msix (free)
 
 on:
   workflow_dispatch:
@@ -78,22 +78,22 @@ jobs:
           $yamlContent = Get-Content -Raw -Path $yamlFile
 
           # 获取环境变量的值
-          $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME).Value
+          $publisherDisplayName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME).Value
           $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME).Value
           $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD).Value
           $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER).Value
 
           # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".msix_config.publisher_display_name = `"$publisherName`" | .msix_config.identity_name = `"$identityName`" | .msix_config.certificate_path = `"$certificatePath`" | .msix_config.certificate_password = `"$certificatePassword`" | .msix_config.publisher = `"$publisher`"" -
+          $updatedYamlContent = echo $yamlContent | yq e ".msix_config.publisher_display_name = `"$publisherDisplayName`" | .msix_config.identity_name = `"$identityName`" | .msix_config.certificate_path = `"$certificatePath`" | .msix_config.certificate_password = `"$certificatePassword`" | .msix_config.publisher = `"$publisher`"" -
 
           # 将更新后的内容写回文件
           Set-Content -Path $yamlFile -Value $updatedYamlContent
         env:
-          WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
           WINDOWS_IDENTITY_NAME: ${{ secrets.WINDOWS_IDENTITY_NAME }}
+          WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER }}
+          WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
           WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
           WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
-          WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER }}
 
       - name: Install flutter dependencies
         run: flutter pub get
@@ -103,7 +103,7 @@ jobs:
 
       - name: Crate msix
         run: |
-          dart run msix:create --build-windows false --output-name "picguard_$env:VERSION`_windows_x64"
+          dart run msix:create --build-windows false --output-name "picguard_$env:VERSION`_windows_store-free_x64"
         env:
           VERSION: ${{ needs.get_version.outputs.version }}
 
