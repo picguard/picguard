@@ -21,15 +21,12 @@ Download **PicGuard** today and take control of your photo security and personal
 <table>
   <tr>
     <th>Platform</th>
-    <th>App Store</th>
+    <th colspan="2" style="text-align: center">App Store</th>
   </tr>
   <tr>
-    <td>iOS</td>
-    <td>
-      <a href="https://apps.apple.com/us/app/id6470935922">
-        <img width="220" alt="Get it on App Store" src="./docs/assets/Download_on_the_App_Store.svg">
-      </a>
-    </td>
+    <th style="border-bottom: none;"></th>
+    <th style="text-align: center; border-bottom: none">Free</th>
+    <th style="text-align: center; border-bottom: none">Pro</th>
   </tr>
   <tr>
     <td>Android</td>
@@ -38,12 +35,22 @@ Download **PicGuard** today and take control of your photo security and personal
         <img width="220" alt="Get it on Google Play" src="./docs/assets/Download_on_the_Google_Play.png">
       </a>
     </td>
+    <td>
+      <a href="https://play.google.com/store/apps/details?id=com.kjxbyz.watermarkassistant.pro">
+        <img width="220" alt="Get it on Google Play" src="./docs/assets/Download_on_the_Google_Play.png">
+      </a>
+    </td>
   </tr>
   <tr>
-    <td>Windows</td>
+    <td>iOS</td>
     <td>
-      <a href="https://apps.microsoft.com/detail/9NCC0LJBG7TB?mode=full">
-       <img width="220" alt="Get it on Windows Store" src="https://get.microsoft.com/images/en-us%20dark.svg"/>
+      <a href="https://apps.apple.com/us/app/id6470935922">
+        <img width="220" alt="Get it on App Store" src="./docs/assets/Download_on_the_App_Store.svg">
+      </a>
+    </td>
+    <td>
+      <a href="https://apps.apple.com/us/app/id6602890294">
+        <img width="220" alt="Get it on App Store" src="./docs/assets/Download_on_the_App_Store.svg">
       </a>
     </td>
   </tr>
@@ -54,10 +61,28 @@ Download **PicGuard** today and take control of your photo security and personal
         <img width="220" alt="Get it on Mac App Store" src="./docs/assets/Download_on_the_Mac_App_Store.svg">
       </a>
     </td>
+    <td>
+      <a href="https://apps.apple.com/us/app/id6602890242">
+        <img width="220" alt="Get it on Mac App Store" src="./docs/assets/Download_on_the_Mac_App_Store.svg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td>Windows</td>
+    <td>
+      <a href="https://apps.microsoft.com/detail/9NCC0LJBG7TB?mode=full">
+       <img width="220" alt="Get it on Windows Store" src="https://get.microsoft.com/images/en-us%20dark.svg"/>
+      </a>
+    </td>
+    <td>
+      <a href="https://apps.microsoft.com/detail/9N0ZV9Q5SVCX?mode=full">
+       <img width="220" alt="Get it on Windows Store" src="https://get.microsoft.com/images/en-us%20dark.svg"/>
+      </a>
+    </td>
   </tr>
   <tr>
     <td>Snap Store</td>
-    <td>
+    <td colspan="2">
       <a href="https://snapcraft.io/picguard">
         <img width="220" alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" />
       </a>
@@ -65,7 +90,7 @@ Download **PicGuard** today and take control of your photo security and personal
   </tr>
   <tr>
     <td>Flathub</td>
-    <td>
+    <td colspan="2">
       <a href="https://flathub.org/apps/details/com.kjxbyz.PicGuard">
         <img width="220" alt="Get it on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png">
       </a>
