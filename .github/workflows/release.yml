@@ -121,7 +121,8 @@ jobs:
       - linux_snap
       - linux_snap_aarch64
       - windows_msi
-      - windows_msix
+      - windows_msix_free
+      - windows_msix_pro
       - windows_exe
       - windows_zip
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -200,7 +201,8 @@ jobs:
 #        - linux_snap
 #        - linux_snap_aarch64
 #        - windows_msi
-#        - windows_msix
+#        - windows_msix_free
+#        - windows_msix_pro
 #        - windows_exe
 #        - windows_zip
 #      steps:
@@ -3301,8 +3303,8 @@ jobs:
             echo "File($pwd\.env) doesn't exist."
           }
 
-  windows_msix:
-    name: Create windows msix
+  windows_msix_free:
+    name: Create windows msix (free)
     runs-on: windows-latest
     needs:
       - create_release
@@ -3349,22 +3351,22 @@ jobs:
           $yamlContent = Get-Content -Raw -Path $yamlFile
 
           # 获取环境变量的值
-          $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME).Value
+          $publisherDisplayName = (Get-Item -Path Env:WINDOWS_PUBLISHER_DISPLAY_NAME).Value
           $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME).Value
           $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD).Value
           $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER).Value
 
           # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".msix_config.publisher_display_name = `"$publisherName`" | .msix_config.identity_name = `"$identityName`" | .msix_config.certificate_path = `"$certificatePath`" | .msix_config.certificate_password = `"$certificatePassword`" | .msix_config.publisher = `"$publisher`"" -
+          $updatedYamlContent = echo $yamlContent | yq e ".msix_config.publisher_display_name = `"$publisherDisplayName`" | .msix_config.identity_name = `"$identityName`" | .msix_config.certificate_path = `"$certificatePath`" | .msix_config.certificate_password = `"$certificatePassword`" | .msix_config.publisher = `"$publisher`"" -
 
           # 将更新后的内容写回文件
           Set-Content -Path $yamlFile -Value $updatedYamlContent
         env:
-          WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
           WINDOWS_IDENTITY_NAME: ${{ secrets.WINDOWS_IDENTITY_NAME }}
+          WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER }}
+          WINDOWS_PUBLISHER_DISPLAY_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
           WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
           WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
-          WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER }}
 
       - name: Install flutter dependencies
         run: flutter pub get
@@ -3375,7 +3377,7 @@ jobs:
       - name: Create msix
         run: |
           $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION.pre"} Else {"$env:VERSION"})
-          dart run msix:create --build-windows false --output-name "picguard_$RELEASE`_windows_x64"
+          dart run msix:create --build-windows false --output-name "picguard_$RELEASE`_windows_store-free_x64"
         env:
           ENV: ${{ github.event.inputs.env }}
           VERSION: ${{ needs.create_release.outputs.version }}
@@ -3408,6 +3410,134 @@ jobs:
             remove-item -Path "$env:RUNNER_TEMP\picguard.pfx" -Force -ErrorAction SilentlyContinue
           } else {
             echo "File($env:RUNNER_TEMP\picguard.pfx) doesn't exist."
+          }
+          
+          if (test-path -Path "windows\packaging\msix\make_config.yaml") {
+            echo "windows\packaging\msix\make_config.yaml"
+            remove-item -Path "windows\packaging\msix\make_config.yaml" -Force -ErrorAction SilentlyContinue
+          } else {
+            echo "File(windows\packaging\msix\make_config.yaml) doesn't exist."
+          }
+          
+          if (test-path -Path "$pwd\.env") {
+            echo "Remove file($pwd\.env)"
+            remove-item -Path "$pwd\.env" -Force -ErrorAction SilentlyContinue
+          } else {
+            echo "File($pwd\.env) doesn't exist."
+          }
+
+  windows_msix_pro:
+    name: Create windows msix (pro)
+    runs-on: windows-latest
+    needs:
+      - create_release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.24.0'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: |
+          echo "$pwd"
+          $env_base64 = $(If ($env:ENV -eq "staging") {"$env:ENV_STG_BASE64"} Else {"$env:ENV_PROD_BASE64"})
+          $bytes = echo $env_base64 | %{[Convert]::FromBase64String($_)}
+          [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64_WINDOWS }}
+
+      - name: Install yq
+        shell: pwsh
+        run: |
+          choco install yq
+          yq --version
+
+      - name: Update config
+        shell: pwsh
+        run: |
+          echo $env:RUNNER_TEMP
+          $certificatePath = "$env:RUNNER_TEMP\picguard-pro.pfx"
+          # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
+          # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
+          $bytes = echo $env:WINDOWS_CERTIFICATE | %{[Convert]::FromBase64String($_)}
+          [IO.File]::WriteAllBytes("$certificatePath", $bytes)
+
+          $yamlFile = ".\pubspec.yaml"
+          $yamlContent = Get-Content -Raw -Path $yamlFile
+
+          # 获取环境变量的值
+          $displayName = (Get-Item -Path Env:WINDOWS_DISPLAY_NAME).Value
+          $publisherDisplayName = (Get-Item -Path Env:WINDOWS_PUBLISHER_DISPLAY_NAME).Value
+          $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME).Value
+          $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD).Value
+          $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER).Value
+
+          # 使用 yq 更新多个字段
+          $updatedYamlContent = echo $yamlContent | yq e ".msix_config.display_name = `"$displayName`" | .msix_config.publisher_display_name = `"$publisherDisplayName`" | .msix_config.identity_name = `"$identityName`" | .msix_config.certificate_path = `"$certificatePath`" | .msix_config.certificate_password = `"$certificatePassword`" | .msix_config.publisher = `"$publisher`"" -
+
+          # 将更新后的内容写回文件
+          Set-Content -Path $yamlFile -Value $updatedYamlContent
+        env:
+          WINDOWS_DISPLAY_NAME: PicGuard Pro
+          WINDOWS_IDENTITY_NAME: ${{ secrets.WINDOWS_IDENTITY_NAME_PRO }}
+          WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER_PRO }}
+          WINDOWS_PUBLISHER_DISPLAY_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
+          WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+          WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build windows
+        shell: pwsh
+        run: flutter build windows --dart-define-from-file=.env --target=lib\main_pro.dart
+        env:
+          IS_PRO: true
+
+      - name: Create msix
+        run: |
+          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION.pre"} Else {"$env:VERSION"})
+          dart run msix:create --build-windows false --output-name "picguard_$RELEASE`_windows_store-pro_x64"
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          VERSION: ${{ needs.create_release.outputs.version }}
+
+      # Package the build.
+      - name: Copy build for msix
+        run: |
+          ls
+          cp .\*.msix "$env:GITHUB_WORKSPACE\"
+        working-directory: build\windows\x64\runner\Release
+
+      - name: Show gh info
+        run: gh --version
+
+      - name: Upload assets
+        run: |
+          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:TAG_NAME.pre"} Else {"$env:TAG_NAME"})
+          # https://github.com/cli/cli/issues/5099
+          gh release upload "$RELEASE" (get-item .\*.msix)
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          TAG_NAME: "v${{ needs.create_release.outputs.version }}"
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          if (test-path -Path "$env:RUNNER_TEMP\picguard-pro.pfx") {
+            echo "$env:RUNNER_TEMP\picguard-pro.pfx"
+            remove-item -Path "$env:RUNNER_TEMP\picguard-pro.pfx" -Force -ErrorAction SilentlyContinue
+          } else {
+            echo "File($env:RUNNER_TEMP\picguard-pro.pfx) doesn't exist."
           }
           
           if (test-path -Path "windows\packaging\msix\make_config.yaml") {

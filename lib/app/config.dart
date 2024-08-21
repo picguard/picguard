@@ -18,5 +18,7 @@ class AppConfig {
 
   String get container => isPro ? 'PicGuardPro' : 'PicGuard';
 
+  String get appName => isPro ? 'PicGuard Pro' : 'PicGuard';
+
   static AppConfig shared = AppConfig.create();
 }
