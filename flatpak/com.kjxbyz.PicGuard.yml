@@ -58,8 +58,18 @@ modules:
         url: https://raw.githubusercontent.com/picguard/picguard/v1.0.0+398/linux/shared/com.kjxbyz.PicGuard.desktop
         dest-filename: com.kjxbyz.PicGuard.desktop
         sha256: 8e13c1b75103f39a3f57f72c36537e18e01cfdaf50ba888c5524717cc3fefd12
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/picguard/picguard/releases/latest
+          version-query: .tag_name
+          url-query: '"https://raw.githubusercontent.com/picguard/picguard/" + $version + "/linux/shared/com.kjxbyz.PicGuard.desktop"'
 
       - type: file
         url: https://raw.githubusercontent.com/picguard/picguard/v1.0.0+398/linux/shared/com.kjxbyz.PicGuard.appdata.xml
         dest-filename: com.kjxbyz.PicGuard.appdata.xml
         sha256: 105d52fc72641f023f5155f69f6bba8baee05b4e4daf87234517130a5e94f28a
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/picguard/picguard/releases/latest
+          version-query: .tag_name
+          url-query: '"https://raw.githubusercontent.com/picguard/picguard/" + $version + "/linux/shared/com.kjxbyz.PicGuard.appdata.xml"'
