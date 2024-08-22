@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0+398
+
+1. Add pro version for windows
+
 ## 1.0.0+397
 
 1. Add arm64 support for `snapcraft`
