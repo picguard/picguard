@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.0+399
+
+1. Update external data checker
+2. Update metainfo for linux
+
 ## 1.0.0+398
 
 1. Add pro version for windows
