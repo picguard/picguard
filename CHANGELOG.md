@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0+400
+
+1. Add winget package automatic update
+
 ## 1.0.0+399
 
 1. Update external data checker
