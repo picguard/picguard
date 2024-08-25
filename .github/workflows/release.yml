@@ -2829,10 +2829,10 @@ jobs:
           desktop_url=$desktop_url yq -i '.modules[0].sources[2].url = strenv(desktop_url)' flatpak/com.kjxbyz.PicGuard.yml
           desktop_sha256=$desktop_sha256 yq -i '.modules[0].sources[2].sha256 = strenv(desktop_sha256)' flatpak/com.kjxbyz.PicGuard.yml
 
-          appdata_url=https://raw.githubusercontent.com/picguard/picguard/"$TAG"/linux/shared/com.kjxbyz.PicGuard.appdata.xml
-          wget -O com.kjxbyz.PicGuard.appdata.xml "$appdata_url"
-          appdata_sha256=$(sha256sum com.kjxbyz.PicGuard.appdata.xml | awk '{print $1}')
-          rm -f com.kjxbyz.PicGuard.appdata.xml
+          appdata_url=https://raw.githubusercontent.com/picguard/picguard/"$TAG"/linux/shared/com.kjxbyz.PicGuard.metainfo.xml
+          wget -O com.kjxbyz.PicGuard.metainfo.xml "$appdata_url"
+          appdata_sha256=$(sha256sum com.kjxbyz.PicGuard.metainfo.xml | awk '{print $1}')
+          rm -f com.kjxbyz.PicGuard.metainfo.xml
           appdata_url=$appdata_url yq -i '.modules[0].sources[3].url = strenv(appdata_url)' flatpak/com.kjxbyz.PicGuard.yml
           appdata_sha256=$appdata_sha256 yq -i '.modules[0].sources[3].sha256 = strenv(appdata_sha256)' flatpak/com.kjxbyz.PicGuard.yml
         env:
@@ -2929,10 +2929,10 @@ jobs:
           desktop_url=$desktop_url yq -i '.modules[0].sources[2].url = strenv(desktop_url)' flatpak/com.kjxbyz.PicGuard.yml
           desktop_sha256=$desktop_sha256 yq -i '.modules[0].sources[2].sha256 = strenv(desktop_sha256)' flatpak/com.kjxbyz.PicGuard.yml
 
-          appdata_url=https://raw.githubusercontent.com/picguard/picguard/"$TAG"/linux/shared/com.kjxbyz.PicGuard.appdata.xml
-          wget -O com.kjxbyz.PicGuard.appdata.xml "$appdata_url"
-          appdata_sha256=$(sha256sum com.kjxbyz.PicGuard.appdata.xml | awk '{print $1}')
-          rm -f com.kjxbyz.PicGuard.appdata.xml
+          appdata_url=https://raw.githubusercontent.com/picguard/picguard/"$TAG"/linux/shared/com.kjxbyz.PicGuard.metainfo.xml
+          wget -O com.kjxbyz.PicGuard.metainfo.xml "$appdata_url"
+          appdata_sha256=$(sha256sum com.kjxbyz.PicGuard.metainfo.xml | awk '{print $1}')
+          rm -f com.kjxbyz.PicGuard.metainfo.xml
           appdata_url=$appdata_url yq -i '.modules[0].sources[3].url = strenv(appdata_url)' flatpak/com.kjxbyz.PicGuard.yml
           appdata_sha256=$appdata_sha256 yq -i '.modules[0].sources[3].sha256 = strenv(appdata_sha256)' flatpak/com.kjxbyz.PicGuard.yml
         env:

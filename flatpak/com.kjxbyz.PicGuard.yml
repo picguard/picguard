@@ -28,7 +28,7 @@ modules:
       - install -Dm644 com.kjxbyz.PicGuard.desktop /app/share/applications/com.kjxbyz.PicGuard.desktop
       - install -Dm644 usr/share/icons/hicolor/128x128/apps/picguard.png /app/share/icons/hicolor/128x128/apps/com.kjxbyz.PicGuard.png
       - install -Dm644 usr/share/icons/hicolor/256x256/apps/picguard.png /app/share/icons/hicolor/256x256/apps/com.kjxbyz.PicGuard.png
-      - install -Dm644 com.kjxbyz.PicGuard.appdata.xml /app/share/appdata/com.kjxbyz.PicGuard.appdata.xml
+      - install -Dm644 com.kjxbyz.PicGuard.metainfo.xml /app/share/appdata/com.kjxbyz.PicGuard.metainfo.xml
     sources:
       - type: file
         only-arches:
@@ -65,11 +65,11 @@ modules:
           url-query: '"https://raw.githubusercontent.com/picguard/picguard/" + $version + "/linux/shared/com.kjxbyz.PicGuard.desktop"'
 
       - type: file
-        url: https://raw.githubusercontent.com/picguard/picguard/v1.0.0+400/linux/shared/com.kjxbyz.PicGuard.appdata.xml
-        dest-filename: com.kjxbyz.PicGuard.appdata.xml
+        url: https://raw.githubusercontent.com/picguard/picguard/v1.0.0+400/linux/shared/com.kjxbyz.PicGuard.metainfo.xml
+        dest-filename: com.kjxbyz.PicGuard.metainfo.xml
         sha256: 105d52fc72641f023f5155f69f6bba8baee05b4e4daf87234517130a5e94f28a
         x-checker-data:
           type: json
           url: https://api.github.com/repos/picguard/picguard/releases/latest
           version-query: .tag_name
-          url-query: '"https://raw.githubusercontent.com/picguard/picguard/" + $version + "/linux/shared/com.kjxbyz.PicGuard.appdata.xml"'
+          url-query: '"https://raw.githubusercontent.com/picguard/picguard/" + $version + "/linux/shared/com.kjxbyz.PicGuard.metainfo.xml"'
