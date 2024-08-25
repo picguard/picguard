@@ -4,6 +4,7 @@
 
 [![Test](https://github.com/picguard/picguard/actions/workflows/test.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/test.yml)
 [![Release](https://github.com/picguard/picguard/actions/workflows/release.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/release.yml)
+[![Publish to WinGet](https://github.com/picguard/picguard/actions/workflows/winget.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/winget.yml)
 [![GitHub Release](https://img.shields.io/github/v/release/picguard/picguard)](https://github.com/picguard/picguard/releases/latest)
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/picguard/picguard)](https://github.com/picguard/picguard/issues/new)
 [![GitHub License](https://img.shields.io/github/license/picguard/picguard)](https://raw.githubusercontent.com/picguard/picguard/main/LICENSE)
