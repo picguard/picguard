@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0+401
+
+1. Update metainfo for linux
+
 ## 1.0.0+400
 
 1. Add winget package automatic update
