@@ -35,7 +35,7 @@ jobs:
       - get_version
     steps:
       - name: WinGet Releaser
-        uses: vedantmgoyal9/winget-releaser@v2
+        uses: vedantmgoyal9/winget-releaser@main
         with:
           identifier: Insco.PicGuard
           release-tag: ${{ github.event.inputs.tag_name }}
