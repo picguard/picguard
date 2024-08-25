@@ -1,0 +1,44 @@
+name: Publish to WinGet
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        type: string
+        description: "Which tag are you using? (ex: v1.0.0+0)"
+        required: true
+
+jobs:
+  get_version:
+    name: Get version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version_step.outputs.version }}
+    steps:
+      - name: Set version
+        id: version_step
+        run: |
+          VERSION=$(echo "$TAG_NAME" | sed -e "s/v//" -e "s/+/./")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+        env:
+          TAG_NAME: ${{ github.event.inputs.tag_name }}
+
+      - name: Check versions
+        run: |
+          echo "version: $VERSION"
+        env:
+          VERSION: ${{ steps.version_step.outputs.version }}
+
+  publish:
+    runs-on: windows-latest
+    needs: 
+      - get_version
+    steps:
+      - name: WinGet Releaser
+        uses: vedantmgoyal9/winget-releaser@v2
+        with:
+          identifier: Insco.PicGuard
+          release-tag: ${{ github.event.inputs.tag_name }}
+          version: ${{ needs.get_version.outputs.version }}
+          installers-regex: '\.msi$' # Only .msi files
+          token: ${{ secrets.PICGUARD_WINGET_TOKEN }}
