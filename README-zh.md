@@ -1,8 +1,8 @@
 # PicGuard
 
-[简体中文](./README-zh.md)
+[English](./README.md)
 
-> Your pictures, your signature.
+> 给图片添加水印，防止被恶意使用。
 
 [![Test](https://github.com/picguard/picguard/actions/workflows/test.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/test.yml)
 [![Release](https://github.com/picguard/picguard/actions/workflows/release.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/release.yml)
@@ -11,13 +11,13 @@
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/picguard/picguard)](https://github.com/picguard/picguard/issues/new)
 [![GitHub License](https://img.shields.io/github/license/picguard/picguard)](https://raw.githubusercontent.com/picguard/picguard/main/LICENSE)
 
-Introducing **PicGuard** – the ultimate solution for securing and customizing your digital photos. With our app, you can easily add watermarks to your images to protect your creative work and maintain your privacy.
+介绍**PicGuard** - 保护和自定义数码照片的终极解决方案。使用我们的应用程序，您可以轻松地在图像上添加水印，以保护您的创意作品并维护您的隐私。
 
-**PicGuard** offers robust privacy protection features, ensuring your personal and sensitive information remains safeguarded. It’s highly customizable, allowing you to personalize watermarks with various fonts, styles, and designs to suit your needs.
+**PicGuard**提供强大的隐私保护功能，确保您的个人和敏感信息得到保护。它具有高度可定制性，允许您使用各种字体、样式和设计个性化水印以满足您的需求。
 
-Accessible on web, mobile, and desktop, you can seamlessly integrate and manage your watermarking tasks across all your devices. **PicGuard**, as an open-source tool, it’s not only free but also continuously improved by a community of developers dedicated to providing the best user experience.
+可在网络、移动设备和桌面上访问，您可以无缝集成和管理所有设备上的水印任务。**PicGuard**是一种开源工具，它不仅免费，而且还由致力于提供最佳用户体验的开发人员社区不断改进。
 
-Download **PicGuard** today and take control of your photo security and personalization like never before!
+立即下载**PicGuard**，以前所未有的方式控制您的照片安全和个性化！
 
 ## 🛍️ Get It On Stores
 

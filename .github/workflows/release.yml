@@ -277,14 +277,18 @@ jobs:
 
       # Package the build.
       - name: Copy build for Android
+        if: github.event.inputs.env == 'staging'
         run: |
           ls -la
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          cp *.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.apk
-        working-directory: build/app/outputs/flutter-apk
-        env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          cp *.apk $GITHUB_WORKSPACE/
+        working-directory: build/app/outputs/apk/freeStaging/release
+
+      - name: Copy build for Android
+        if: github.event.inputs.env == 'production'
+        run: |
+          ls -la
+          cp *.apk $GITHUB_WORKSPACE/
+        working-directory: build/app/outputs/apk/freeProduction/release
 
       - name: Show gh info
         run: gh --version
@@ -362,14 +366,18 @@ jobs:
 
       # Package the build.
       - name: Copy build for Android
+        if: github.event.inputs.env == 'staging'
         run: |
           ls -la
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          cp *.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.apk
-        working-directory: build/app/outputs/flutter-apk
-        env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          cp *.apk $GITHUB_WORKSPACE/
+        working-directory: build/app/outputs/apk/proStaging/release
+
+      - name: Copy build for Android
+        if: github.event.inputs.env == 'production'
+        run: |
+          ls -la
+          cp *.apk $GITHUB_WORKSPACE/
+        working-directory: build/app/outputs/apk/proProduction/release
 
       - name: Show gh info
         run: gh --version
