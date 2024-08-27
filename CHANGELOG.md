@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.0+402
+
+1. Configure multiple APKs for ABIs
+2. fix: The bundle didn't include arm64 when building on Intel-based Macs
+
 ## 1.0.0+401
 
 1. Update metainfo for linux

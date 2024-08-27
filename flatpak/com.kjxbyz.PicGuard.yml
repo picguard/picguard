@@ -33,7 +33,7 @@ modules:
       - type: file
         only-arches:
           - x86_64
-        url: https://github.com/picguard/picguard/releases/download/v1.0.0+401/picguard_1.0.0+401_linux_amd64.deb
+        url: https://github.com/picguard/picguard/releases/download/v1.0.0+402/picguard_1.0.0+402_linux_amd64.deb
         dest-filename: picguard.deb
         sha256: 03cc773a38b1f93bbb2d3c66a190497d46bbadb4d9900d8fdea6e64c4ac47150
         x-checker-data:
@@ -45,7 +45,7 @@ modules:
       - type: file
         only-arches:
           - aarch64
-        url: https://github.com/picguard/picguard/releases/download/v1.0.0+401/picguard_1.0.0+401_linux_aarch64.deb
+        url: https://github.com/picguard/picguard/releases/download/v1.0.0+402/picguard_1.0.0+402_linux_aarch64.deb
         dest-filename: picguard.deb
         sha256: d94c7eb624a11e6cd010f464f55c4deec61207d8040659663e4986e39676be1e
         x-checker-data:
@@ -55,7 +55,7 @@ modules:
           url-query: .assets[] | select(.name=="picguard_" + $version + "_linux_aarch64.deb") | .browser_download_url
 
       - type: file
-        url: https://raw.githubusercontent.com/picguard/picguard/v1.0.0+401/linux/shared/com.kjxbyz.PicGuard.desktop
+        url: https://raw.githubusercontent.com/picguard/picguard/v1.0.0+402/linux/shared/com.kjxbyz.PicGuard.desktop
         dest-filename: com.kjxbyz.PicGuard.desktop
         sha256: 8e13c1b75103f39a3f57f72c36537e18e01cfdaf50ba888c5524717cc3fefd12
         x-checker-data:
@@ -65,7 +65,7 @@ modules:
           url-query: '"https://raw.githubusercontent.com/picguard/picguard/" + $version + "/linux/shared/com.kjxbyz.PicGuard.desktop"'
 
       - type: file
-        url: https://raw.githubusercontent.com/picguard/picguard/v1.0.0+401/linux/shared/com.kjxbyz.PicGuard.metainfo.xml
+        url: https://raw.githubusercontent.com/picguard/picguard/v1.0.0+402/linux/shared/com.kjxbyz.PicGuard.metainfo.xml
         dest-filename: com.kjxbyz.PicGuard.metainfo.xml
         sha256: 105d52fc72641f023f5155f69f6bba8baee05b4e4daf87234517130a5e94f28a
         x-checker-data:
