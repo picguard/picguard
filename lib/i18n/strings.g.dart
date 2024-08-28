@@ -6,7 +6,7 @@
 /// Locales: 2
 /// Strings: 112 (56 per locale)
 ///
-/// Built on 2024-08-11 at 14:29 UTC
+/// Built on 2024-08-28 at 09:49 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -283,13 +283,13 @@ class _StringsDialogsLicenseDialogEn {
 	String get licenseDialogContentPrivacyAgreement => 'Privacy Agreement';
 	String get licenseDialogContentSuffix => ', start using our services after you agree and accept all terms.';
 	List<dynamic> get iosPermissions => [
-		({required Object appName}) => 'For you to upload pictures, ${appName} needs access to your Photos. (NSPhotoLibraryUsageDescription)',
+		({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (NSPhotoLibraryUsageDescription)',
 	];
 	List<dynamic> get androidPermissions => [
 		({required Object appName}) => 'In order to use the Sentry Service, ${appName} needs access to your Internet. (android.permission.INTERNET)',
-		({required Object appName}) => 'For you to upload pictures, ${appName} needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)',
-		({required Object appName}) => 'For you to save pictures, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
-		({required Object appName}) => 'For you to upload pictures, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)',
+		({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)',
+		({required Object appName}) => 'In order to save images, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
+		({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)',
 	];
 }
 
@@ -467,13 +467,13 @@ class _StringsDialogsLicenseDialogZh implements _StringsDialogsLicenseDialogEn {
 	@override String get licenseDialogContentPrivacyAgreement => '《用户服务协议》';
 	@override String get licenseDialogContentSuffix => ', 你同意并接受全部条款后开始使用我们的服务.';
 	@override List<dynamic> get iosPermissions => [
-		({required Object appName}) => '为了让您上传图片, ${appName}需要访问您的照片. (NSPhotoLibraryUsageDescription)',
+		({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (NSPhotoLibraryUsageDescription)',
 	];
 	@override List<dynamic> get androidPermissions => [
 		({required Object appName}) => '为了使用 Sentry 服务, ${appName}需要访问您的互联网. (android.permission.INTERNET)',
-		({required Object appName}) => '为了让您上传图片, ${appName}需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)',
+		({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)',
 		({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
-		({required Object appName}) => '为了让您上传图片, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
+		({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
 	];
 }
 
@@ -555,11 +555,11 @@ extension on Translations {
 			case 'dialogs.licenseDialog.licenseDialogContentAnd': return ' and ';
 			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return 'Privacy Agreement';
 			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', start using our services after you agree and accept all terms.';
-			case 'dialogs.licenseDialog.iosPermissions.0': return ({required Object appName}) => 'For you to upload pictures, ${appName} needs access to your Photos. (NSPhotoLibraryUsageDescription)';
+			case 'dialogs.licenseDialog.iosPermissions.0': return ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (NSPhotoLibraryUsageDescription)';
 			case 'dialogs.licenseDialog.androidPermissions.0': return ({required Object appName}) => 'In order to use the Sentry Service, ${appName} needs access to your Internet. (android.permission.INTERNET)';
-			case 'dialogs.licenseDialog.androidPermissions.1': return ({required Object appName}) => 'For you to upload pictures, ${appName} needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => 'For you to save pictures, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => 'For you to upload pictures, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)';
+			case 'dialogs.licenseDialog.androidPermissions.1': return ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => 'In order to save images, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)';
 			case 'locales.en': return 'English';
 			case 'locales.zh': return '中文';
 			case 'themes.manual': return 'Manual Mode';
@@ -625,11 +625,11 @@ extension on _StringsZh {
 			case 'dialogs.licenseDialog.licenseDialogContentAnd': return '和';
 			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return '《用户服务协议》';
 			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', 你同意并接受全部条款后开始使用我们的服务.';
-			case 'dialogs.licenseDialog.iosPermissions.0': return ({required Object appName}) => '为了让您上传图片, ${appName}需要访问您的照片. (NSPhotoLibraryUsageDescription)';
+			case 'dialogs.licenseDialog.iosPermissions.0': return ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (NSPhotoLibraryUsageDescription)';
 			case 'dialogs.licenseDialog.androidPermissions.0': return ({required Object appName}) => '为了使用 Sentry 服务, ${appName}需要访问您的互联网. (android.permission.INTERNET)';
-			case 'dialogs.licenseDialog.androidPermissions.1': return ({required Object appName}) => '为了让您上传图片, ${appName}需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.1': return ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => '为了让您上传图片, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)';
+			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)';
 			case 'locales.en': return 'English';
 			case 'locales.zh': return '中文';
 			case 'themes.manual': return '手动模式';

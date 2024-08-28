@@ -60,13 +60,13 @@
       "licenseDialogContentPrivacyAgreement": "Privacy Agreement",
       "licenseDialogContentSuffix": ", start using our services after you agree and accept all terms.",
       "iosPermissions": [
-        "For you to upload pictures, $appName needs access to your Photos. (NSPhotoLibraryUsageDescription)"
+        "In order to add watermarks to your images, $appName needs access to your Photos. (NSPhotoLibraryUsageDescription)"
       ],
       "androidPermissions": [
         "In order to use the Sentry Service, $appName needs access to your Internet. (android.permission.INTERNET)",
-        "For you to upload pictures, $appName needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)",
-        "For you to save pictures, $appName needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)",
-        "For you to upload pictures, $appName needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)"
+        "In order to add watermarks to your images, $appName needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)",
+        "In order to save images, $appName needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)",
+        "In order to add watermarks to your images, $appName needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)"
       ]
     }
   },

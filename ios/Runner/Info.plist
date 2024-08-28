@@ -36,7 +36,7 @@
 		<key>LSSupportsOpeningDocumentsInPlace</key>
 		<true/>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>For you to upload pictures, PicGuard needs access to your Photos.</string>
+		<string>In order to add watermarks to your images, PicGuard needs access to your photos.</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UIFileSharingEnabled</key>
