@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:collection/collection.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -303,8 +304,18 @@ class _HomePageState extends State<HomePage> with WindowListener {
 
         final images = await Future.wait(imageFutures);
 
-        final savedImageFutures =
-            images.whereNotNull().map(_saveToDevice).toList();
+        String? selectedDirectory;
+        if (isDesktop) {
+          selectedDirectory = await FilePicker.platform.getDirectoryPath();
+        }
+
+        final savedImageFutures = images
+            .whereNotNull()
+            .map(
+              (returnWrapper) =>
+                  _saveToDevice(returnWrapper, selectedDirectory),
+            )
+            .toList();
         final savedImages = await Future.wait(savedImageFutures);
         final hasErrors = savedImages.where((element) => !element).isNotEmpty;
         if (hasErrors) {
@@ -319,17 +330,29 @@ class _HomePageState extends State<HomePage> with WindowListener {
     }
   }
 
-  Future<bool> _saveToDevice(ReturnWrapper returnWrapper) async {
+  Future<bool> _saveToDevice(
+    ReturnWrapper returnWrapper,
+    String? selectedDirectory,
+  ) async {
     final bytes = returnWrapper.bytes;
     final name = returnWrapper.name;
     final fileName = basenameWithoutExtension(name);
     final ext = extension(name);
-    if (kIsWeb || isDesktop) {
+    if (kIsWeb) {
       await FileSaver.instance.saveFile(
         name: fileName,
         bytes: bytes,
         ext: ext,
       );
+      return true;
+    } else if (isDesktop) {
+      printDebugLog('selectedDirectory: $selectedDirectory');
+      if (selectedDirectory == null) {
+        return false;
+      }
+
+      final file = File('$selectedDirectory$separator$name');
+      await file.writeAsBytes(bytes);
       return true;
     } else {
       final result = await ImageGallerySaver.saveImage(
