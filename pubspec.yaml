@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   device_info_plus: ^10.1.2
   file_picker: 8.0.7
-  file_saver: ^0.2.13
+  file_saver: ^0.2.14
   flutter:
     sdk: flutter
   flutter_easyloading: ^3.0.5
