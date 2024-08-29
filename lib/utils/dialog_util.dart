@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:io';
+import 'dart:math';
 
 // Flutter imports:
 import 'package:flutter/gestures.dart';
@@ -177,14 +178,12 @@ class DialogUtil {
                   ),
                 ).nestedPadding(padding: const EdgeInsets.only(top: 8)),
               ],
-            )
-                .nestedSingleChildScrollView()
-                .nestedConstrainedBox(
+            ).nestedSingleChildScrollView().nestedConstrainedBox(
                   constraints: BoxConstraints(
+                    maxWidth: min(width, 600),
                     maxHeight: height * 0.4,
                   ),
-                )
-                .nestedSizedBox(width: width),
+                ),
             actions: [
               Row(
                 children: [
