@@ -2,19 +2,9 @@
 cmake_minimum_required(VERSION 3.14)
 project(PicGuard LANGUAGES CXX)
 
-# User-level configuration.
-set(USER_MANAGED_DIR "${CMAKE_CURRENT_SOURCE_DIR}/build")
-add_subdirectory(${USER_MANAGED_DIR})
-
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
-if(DEFINED IS_PRO)
-  message("IS_PRO is set.")
-  set(BINARY_NAME "PicGuardPro")
-else()
-  message("IS_PRO is not set.")
-  set(BINARY_NAME "PicGuard")
-endif()
+set(BINARY_NAME "PicGuard")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.

@@ -106,7 +106,6 @@ Future<void> runMainApp({
     await WindowManager.instance.ensureInitialized();
     await windowManager.waitUntilReadyToShow().then((_) async {
       await windowManager.show();
-      await windowManager.setTitle(AppConfig.shared.appName);
       await windowManager.setSize(const Size(1200, 800));
       await windowManager.center();
       await windowManager.setPreventClose(true);

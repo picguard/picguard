@@ -72,22 +72,6 @@ IDI_APP_ICON            ICON                    "resources\\app_icon.ico"
 #define VERSION_AS_STRING "1.0.0"
 #endif
 
-#if defined(IS_PRO)
-#define COMPANY_NAME "com.kjxbyz.watermarkassistant.pro"
-#define FILE_DESCRIPTION "PicGuard Pro"
-#define INTERNAL_NAME "PicGuardPro"
-#define LEGAL_COPYRIGHT "Copyright (C) 2024 PicGuard Pro. All rights reserved."
-#define ORIGINAL_FILENAME "PicGuardPro.exe"
-#define PRODUCT_NAME "PicGuardPro"
-#else
-#define COMPANY_NAME "com.kjxbyz.watermarkassistant"
-#define FILE_DESCRIPTION "PicGuard"
-#define INTERNAL_NAME "PicGuard"
-#define LEGAL_COPYRIGHT "Copyright (C) 2024 PicGuard. All rights reserved."
-#define ORIGINAL_FILENAME "PicGuard.exe"
-#define PRODUCT_NAME "PicGuard"
-#endif
-
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION VERSION_AS_NUMBER
  PRODUCTVERSION VERSION_AS_NUMBER
@@ -105,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", COMPANY_NAME "\0"
-            VALUE "FileDescription", FILE_DESCRIPTION "\0"
+            VALUE "CompanyName", "com.kjxbyz.watermarkassistant" "\0"
+            VALUE "FileDescription", "PicGuard" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", INTERNAL_NAME "\0"
-            VALUE "LegalCopyright", LEGAL_COPYRIGHT "\0"
-            VALUE "OriginalFilename", ORIGINAL_FILENAME "\0"
-            VALUE "ProductName", PRODUCT_NAME "\0"
+            VALUE "InternalName", "PicGuard" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 PicGuard. All rights reserved." "\0"
+            VALUE "OriginalFilename", "PicGuard.exe" "\0"
+            VALUE "ProductName", "PicGuard" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
