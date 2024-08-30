@@ -374,7 +374,7 @@ jobs:
           rm -f .env
 
   windows:
-    name: Create windows (free)
+    name: Create windows
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -403,7 +403,8 @@ jobs:
         run: flutter pub get
 
       - name: Build zip
-        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env" --platform windows --targets zip --artifact-name '{{name}}_{{build_name}}+{{build_number}}.{{ext}}'
+        run: |
+          flutter_distributor package --flutter-build-args "dart-define-from-file=.env" --platform windows --targets zip --artifact-name '{{name}}_{{build_name}}+{{build_number}}.{{ext}}'
 
       # Package the build.
       - name: Copy build for zip
