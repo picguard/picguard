@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.0+403
+
+1. Update deps
+2. Update Orientations & entitlements
+3. Revert "Add pro version for windows"
+
 ## 1.0.0+402
 
 1. Configure multiple APKs for ABIs
