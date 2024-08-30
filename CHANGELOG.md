@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0+404
+
+1. Revert "Update Orientations"
+
 ## 1.0.0+403
 
 1. Update deps
