@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1+405
+
+1. Update entitlements
+
 ## 1.0.0+404
 
 1. Revert "Update Orientations"
