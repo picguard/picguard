@@ -72,16 +72,16 @@ Download **PicGuard** today and take control of your photo security and personal
   </tr>
   <tr>
     <td>Windows</td>
-    <td>
+    <td colspan="2">
       <a href="https://apps.microsoft.com/detail/9NCC0LJBG7TB?mode=full">
        <img width="220" alt="Get it on Windows Store" src="https://get.microsoft.com/images/en-us%20dark.svg"/>
       </a>
     </td>
-    <td>
+    <!-- <td>
       <a href="https://apps.microsoft.com/detail/9N0ZV9Q5SVCX?mode=full">
        <img width="220" alt="Get it on Windows Store" src="https://get.microsoft.com/images/en-us%20dark.svg"/>
       </a>
-    </td>
+    </td> -->
   </tr>
   <tr>
     <td>Snap Store</td>
