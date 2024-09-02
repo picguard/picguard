@@ -25,6 +25,7 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
+    depend_on_referenced_packages: false
     directives_ordering: false
     public_member_api_docs: false
     lines_longer_than_80_chars: false
