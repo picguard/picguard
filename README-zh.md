@@ -72,16 +72,16 @@
   </tr>
   <tr>
     <td>Windows</td>
-    <td>
+    <td colspan="2">
       <a href="https://apps.microsoft.com/detail/9NCC0LJBG7TB?mode=full">
        <img width="220" alt="Get it on Windows Store" src="https://get.microsoft.com/images/en-us%20dark.svg"/>
       </a>
     </td>
-    <td>
+    <!-- <td>
       <a href="https://apps.microsoft.com/detail/9N0ZV9Q5SVCX?mode=full">
        <img width="220" alt="Get it on Windows Store" src="https://get.microsoft.com/images/en-us%20dark.svg"/>
       </a>
-    </td>
+    </td> -->
   </tr>
   <tr>
     <td>Snap Store</td>
@@ -122,14 +122,14 @@
         <tr>
         <td>Android</td>
             <td>
-              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-free_universal.apk"><img src="https://img.shields.io/badge/APK_(Free)-universal-FF0000.svg?logo=android"></a>
-              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-pro_universal.apk"><img src="https://img.shields.io/badge/APK_(Pro)-universal-FF0000.svg?logo=android"></a><br>
-              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-free_arm64-v8a.apk"><img src="https://img.shields.io/badge/APK_(Free)-arm64--v8a-FFA500.svg?logo=android"></a>
-              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-pro_arm64-v8a.apk"><img src="https://img.shields.io/badge/APK_(Pro)-arm64--v8a-FFA500.svg?logo=android"></a><br>
-              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-free_armeabi-v7a.apk"><img src="https://img.shields.io/badge/APK_(Free)-armeabi--v7a-00FF00.svg?logo=android"></a>
-              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-pro_armeabi-v7a.apk"><img src="https://img.shields.io/badge/APK_(Pro)-armeabi--v7a-00FF00.svg?logo=android"></a><br>
-              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-free_x86_64.apk"><img src="https://img.shields.io/badge/APK_(Free)-x86--64-0000FF.svg?logo=android"></a>
-              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-pro_x86_64.apk"><img src="https://img.shields.io/badge/APK_(Pro)-x86--64-0000FF.svg?logo=android"></a>
+              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-free_universal.apk"><img src="https://img.shields.io/badge/APK_(Free)-Universal-FF0000.svg?logo=android"></a>
+              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-pro_universal.apk"><img src="https://img.shields.io/badge/APK_(Pro)-Universal-FF0000.svg?logo=android"></a><br>
+              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-free_arm64-v8a.apk"><img src="https://img.shields.io/badge/APK_(Free)-ARMv8-FFA500.svg?logo=android"></a>
+              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-pro_arm64-v8a.apk"><img src="https://img.shields.io/badge/APK_(Pro)-ARMv8-FFA500.svg?logo=android"></a><br>
+              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-free_armeabi-v7a.apk"><img src="https://img.shields.io/badge/APK_(Free)-ARMv7-00FF00.svg?logo=android"></a>
+              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-pro_armeabi-v7a.apk"><img src="https://img.shields.io/badge/APK_(Pro)-ARMv7-00FF00.svg?logo=android"></a><br>
+              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-free_x86_64.apk"><img src="https://img.shields.io/badge/APK_(Free)-x64-0000FF.svg?logo=android"></a>
+              <a href="https://github.com/picguard/picguard/releases/download/v1.0.0+404/PicGuard_1.0.0+404-pro_x86_64.apk"><img src="https://img.shields.io/badge/APK_(Pro)-x64-0000FF.svg?logo=android"></a>
             </td>
         </tr>
         <tr>

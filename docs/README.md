@@ -25,15 +25,13 @@ xcrun simctl runtime add "~/iOS_17.0.1_Simulator_Runtime.dmg"
 
 ## Release
 
-以下脚本都在`Makefile`文件下，JetBrains / Android Studio可能需要安装`Makefile Language`插件。
+以下脚本都在`Makefile`文件下，JetBrains IDEA / Android Studio可能需要安装`Makefile Language`插件。
 
 ### Flutter
 
 >在`pubspec.yaml`文件修改`version: <new version>`
 
 ### Android
-
->如果发布到生产环境, 请在`android/app/build.gradle`文件修改`versionCode`
 
 ```shell
 # 构建apk包
@@ -46,8 +44,6 @@ make ENV=<dev|stg|prod> <appbundle_free|appbundle_pro>
 ```
 
 ### iOS
-
->如果发布到生产环境, 请修改`build`号
 
 ```shell
 # 如果发布到测试环境
@@ -68,8 +64,6 @@ make ENV=<dev|stg|prod> <appstore_free|appstore_pro>
 3. The build target is in `pkg` format, distributed to Mac App Store, and the certificate types are `Mac App Distribution` and `Mac Installer Distribution`
 
 4. The build target is in `zip` format and the certificate type is `Developer ID Application`
-
->如果发布到生产环境, 请修改`build`号
 
 ```shell
 # 构建
