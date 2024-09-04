@@ -299,10 +299,10 @@ packages:
     dependency: transitive
     description:
       name: dio
-      sha256: "0dfb6b6a1979dac1c1245e17cef824d7b452ea29bd33d3467269f9bef3715fb0"
+      sha256: "5598aa796bbf4699afd5c67c0f5f6e2ed542afc956884b9cd58c306966efc260"
       url: "https://pub.dev"
     source: hosted
-    version: "5.6.0"
+    version: "5.7.0"
   dio_web_adapter:
     dependency: transitive
     description:
@@ -1219,18 +1219,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "85f96b7b06f32a60b19ab0bb8c32bf162a0474f2d94f4844384be1118e6b4954"
+      sha256: "038390d6f633368dc306c250877f93d2e3932de58a781945a3b7ed10c4df5171"
       url: "https://pub.dev"
     source: hosted
-    version: "26.2.11"
+    version: "26.2.12"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: c0bce1f2e319e2ba9ac4efa7d8f4f8a258984fd15d9881209316c0c29d6cb289
+      sha256: "0392849fef2990eb3b61197499f16265ae85202698d3868f740626bbda57162f"
       url: "https://pub.dev"
     source: hosted
-    version: "26.2.11"
+    version: "26.2.12"
   synchronized:
     dependency: "direct main"
     description:
