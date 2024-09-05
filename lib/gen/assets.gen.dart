@@ -12,17 +12,27 @@ import 'package:flutter/widgets.dart';
 class $LogoGen {
   const $LogoGen();
 
+  /// File path: logo/logo-128.png
+  AssetGenImage get logo128 => const AssetGenImage('logo/logo-128.png');
+
+  /// File path: logo/logo-256.png
+  AssetGenImage get logo256 => const AssetGenImage('logo/logo-256.png');
+
+  /// File path: logo/logo-32.png
+  AssetGenImage get logo32 => const AssetGenImage('logo/logo-32.png');
+
+  /// File path: logo/logo-512.png
+  AssetGenImage get logo512 => const AssetGenImage('logo/logo-512.png');
+
   /// File path: logo/logo.icns
   String get logoIcns => 'logo/logo.icns';
 
   /// File path: logo/logo.png
   AssetGenImage get logoPng => const AssetGenImage('logo/logo.png');
 
-  /// File path: logo/logo512.png
-  AssetGenImage get logo512 => const AssetGenImage('logo/logo512.png');
-
   /// List of all assets
-  List<dynamic> get values => [logoIcns, logoPng, logo512];
+  List<dynamic> get values =>
+      [logo128, logo256, logo32, logo512, logoIcns, logoPng];
 }
 
 class Assets {
