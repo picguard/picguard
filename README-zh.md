@@ -212,7 +212,7 @@
   <tr>
     <td>Nixpkgs (TODO)</td>
     <td>
-      <p><code>nix-shell -p localsend</code></p>
+      <p><code>nix-shell -p picguard</code></p>
     </td>
   </tr>
   <tr>
