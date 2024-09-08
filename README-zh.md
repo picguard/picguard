@@ -60,7 +60,7 @@
   <tr>
     <td>iOS</td>
     <td>
-      <a href="https://apps.apple.com/us/app/id6470935922">
+      <a href="https://apps.apple.com/us/app/id6477481308">
         <img width="220" alt="Get it on App Store" src="./docs/assets/Download-on-the-App-Store.svg">
       </a>
     </td>
@@ -73,12 +73,12 @@
   <tr>
     <td>MacOS</td>
     <td>
-      <a href="https://apps.apple.com/us/app/id6477482447">
+      <a href="https://apps.apple.com/us/app/id6477482447?mt=12">
         <img width="220" alt="Get it on Mac App Store" src="./docs/assets/Download-on-the-Mac-App-Store.svg">
       </a>
     </td>
     <td>
-      <a href="https://apps.apple.com/us/app/id6602890242">
+      <a href="https://apps.apple.com/us/app/id6602890242?mt=12">
         <img width="220" alt="Get it on Mac App Store" src="./docs/assets/Download-on-the-Mac-App-Store.svg">
       </a>
     </td>
