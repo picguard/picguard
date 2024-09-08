@@ -171,8 +171,6 @@ Download **PicGuard** today and take control of your photo security and personal
           <a href="https://github.com/picguard/picguard/releases/download/v1.0.1+405/picguard_1.0.1+405_linux_aarch64.AppImage"><img src="https://img.shields.io/badge/AppImage-aarch64-FF5733.svg?logo=linux"> </a><br>
           <a href="https://github.com/picguard/picguard/releases/download/v1.0.1+405/picguard_1.0.1+405_linux_amd64.deb"><img src="https://img.shields.io/badge/Deb-x64-FF8D1A.svg?logo=debian"> </a>
           <a href="https://github.com/picguard/picguard/releases/download/v1.0.1+405/picguard_1.0.1+405_linux_aarch64.deb"><img src="https://img.shields.io/badge/Deb-aarch64-FF8D1A.svg?logo=debian"> </a><br>
-          <a href="https://github.com/picguard/picguard/releases/download/v1.0.1+405/PicGuard_1.0.1+405_linux_amd64.flatpak"><img src="https://img.shields.io/badge/Flatpak-x64-FFC300.svg?logo=linux"> </a>
-          <a href="https://github.com/picguard/picguard/releases/download/v1.0.1+405/PicGuard_1.0.1+405_linux_aarch64.flatpak"><img src="https://img.shields.io/badge/Flatpak-aarch64-FFC300.svg?logo=linux"> </a><br>
           <a href="https://github.com/picguard/picguard/releases/download/v1.0.1+405/PicGuard_1.0.1+405_linux_amd64.pacman"><img src="https://img.shields.io/badge/Pacman-x64-0080FF.svg?logo=archlinux"> </a>
           <a href="https://github.com/picguard/picguard/releases/download/v1.0.1+405/PicGuard_1.0.1+405_linux_aarch64.pacman"><img src="https://img.shields.io/badge/Pacman-aarch64-0080FF.svg?logo=archlinux"> </a><br>
           <a href="https://github.com/picguard/picguard/releases/download/v1.0.1+405/picguard_1.0.1+405_linux_amd64.rpm"><img src="https://img.shields.io/badge/Rpm-x64-FFEB3B.svg?logo=redhat"> </a>
