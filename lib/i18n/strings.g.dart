@@ -3,10 +3,10 @@
 /// Original: lib/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 2
-/// Strings: 112 (56 per locale)
+/// Locales: 3
+/// Strings: 171 (57 per locale)
 ///
-/// Built on 2024-08-28 at 09:49 UTC
+/// Built on 2024-09-08 at 00:08 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -26,6 +26,7 @@ const AppLocale _baseLocale = AppLocale.en;
 /// - if (LocaleSettings.currentLocale == AppLocale.en) // locale check
 enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 	en(languageCode: 'en', build: Translations.build),
+	it(languageCode: 'it', build: _StringsIt.build),
 	zh(languageCode: 'zh', build: _StringsZh.build);
 
 	const AppLocale({required this.languageCode, this.scriptCode, this.countryCode, required this.build}); // ignore: unused_element
@@ -168,6 +169,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _StringsDialogsEn dialogs = _StringsDialogsEn._(_root);
 	Map<String, String> get locales => {
 		'en': 'English',
+		'it': 'Italiano',
 		'zh': '中文',
 	};
 	late final _StringsThemesEn themes = _StringsThemesEn._(_root);
@@ -316,6 +318,191 @@ class _StringsDialogsPermissionsStorageEn {
 }
 
 // Path: <root>
+class _StringsIt implements Translations {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	_StringsIt.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = TranslationMetadata(
+		    locale: AppLocale.it,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ) {
+		$meta.setFlatMapFunction(_flatMapFunction);
+	}
+
+	/// Metadata for the translations of <it>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	/// Access flat map
+	@override dynamic operator[](String key) => $meta.getTranslation(key);
+
+	@override late final _StringsIt _root = this; // ignore: unused_field
+
+	// Translations
+	@override String appName({required Flavor flavor}) {
+		switch (flavor) {
+			case Flavor.free:
+				return 'PicGuard';
+			case Flavor.pro:
+				return 'PicGuard Pro';
+		}
+	}
+	@override late final _StringsHomePageIt homePage = _StringsHomePageIt._(_root);
+	@override late final _StringsButtonsIt buttons = _StringsButtonsIt._(_root);
+	@override late final _StringsDialogsIt dialogs = _StringsDialogsIt._(_root);
+	@override Map<String, String> get locales => {
+		'en': 'English',
+		'it': 'Italiano',
+		'zh': '中文',
+	};
+	@override late final _StringsThemesIt themes = _StringsThemesIt._(_root);
+}
+
+// Path: homePage
+class _StringsHomePageIt implements _StringsHomePageEn {
+	_StringsHomePageIt._(this._root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get imageDescription => 'Si prega di caricare le immagini.';
+	@override String get description => 'Questa app non caricherà alcuna immagine sul server, tutte le operazioni vengono completate localmente';
+	@override String get textLabel => 'Testo';
+	@override String get textLabelDescription => 'Il testo verrà aggiunto all\'immagine come filigrana';
+	@override String get textValidator => 'Inserisci il testo.';
+	@override String get textInput => 'Questo certificato è utilizzato solo per la gestione di xx attività e non è valido per altri scopi.';
+	@override String get colorLabel => 'Colore';
+	@override String get colorValidator => 'Seleziona un colore.';
+	@override String get opacityLabel => 'Opacità';
+	@override String get fontLabel => 'Font';
+	@override String get fontValidator => 'Seleziona un font.';
+	@override String get fontSizeLabel => 'Dimensione del font';
+	@override String get textGapLabel => 'Spaziatura del testo';
+	@override String get textGapDescription => 'La spaziatura tra il testo in ogni riga di testo';
+	@override String get rowGapLabel => 'Interlinea';
+	@override String get rowGapDescription => 'La spaziatura tra ogni riga di testo';
+	@override String get preview => 'Anteprima';
+	@override String get save => 'Salva';
+	@override String get savedSuccess => 'Salvataggio riuscito';
+	@override String get savedFailure => 'Impossibile salvare l\'immagine(i)';
+	@override String get settings => 'Impostazioni';
+	@override String get languages => 'Lingue';
+}
+
+// Path: buttons
+class _StringsButtonsIt implements _StringsButtonsEn {
+	_StringsButtonsIt._(this._root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get agree => 'Accetto';
+	@override String get cancel => 'Annulla';
+	@override String get ignore => 'Ignora';
+	@override String get turnOn => 'Accendi';
+}
+
+// Path: dialogs
+class _StringsDialogsIt implements _StringsDialogsEn {
+	_StringsDialogsIt._(this._root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override late final _StringsDialogsExitConfirmIt exitConfirm = _StringsDialogsExitConfirmIt._(_root);
+	@override late final _StringsDialogsPermissionsIt permissions = _StringsDialogsPermissionsIt._(_root);
+	@override late final _StringsDialogsLicenseDialogIt licenseDialog = _StringsDialogsLicenseDialogIt._(_root);
+}
+
+// Path: themes
+class _StringsThemesIt implements _StringsThemesEn {
+	_StringsThemesIt._(this._root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get manual => 'Modalità manuale';
+	@override String get system => 'Modalità automatica';
+	@override String get dark => 'Modalità scura';
+	@override String get light => 'Modalità chiara';
+	@override String get description => 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
+}
+
+// Path: dialogs.exitConfirm
+class _StringsDialogsExitConfirmIt implements _StringsDialogsExitConfirmEn {
+	_StringsDialogsExitConfirmIt._(this._root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get exit => 'Uscita';
+	@override String get cancel => 'Annulla';
+	@override String get title => 'Chiudi conferma';
+	@override String get description => 'Sei sicuro di voler chiudere questa finestra?';
+}
+
+// Path: dialogs.permissions
+class _StringsDialogsPermissionsIt implements _StringsDialogsPermissionsEn {
+	_StringsDialogsPermissionsIt._(this._root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override late final _StringsDialogsPermissionsPhotosIt photos = _StringsDialogsPermissionsPhotosIt._(_root);
+	@override late final _StringsDialogsPermissionsStorageIt storage = _StringsDialogsPermissionsStorageIt._(_root);
+}
+
+// Path: dialogs.licenseDialog
+class _StringsDialogsLicenseDialogIt implements _StringsDialogsLicenseDialogEn {
+	_StringsDialogsLicenseDialogIt._(this._root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get licenseDialogTitle => 'Termini e Condizioni';
+	@override String licenseDialogContentContent({required Object appName}) => 'La protezione della privacy e delle informazioni personali degli utenti è un principio fondamentale di ${appName}.';
+	@override String get licenseDialogContentTip => 'Di seguito è riportato l\'elenco delle autorizzazioni richieste da questa APP:';
+	@override String get licenseDialogContentPrefix => 'Prima di utilizzare i servizi di questa APP, ti preghiamo di leggere attentamente e accettare il ';
+	@override String get licenseDialogContentUserAgreement => 'Contratto d\'uso';
+	@override String get licenseDialogContentAnd => ' e ';
+	@override String get licenseDialogContentPrivacyAgreement => 'L\'accordo sulla privacy';
+	@override String get licenseDialogContentSuffix => ', inizia a utilizzare i nostri servizi dopo aver accettato tutti i termini.';
+	@override List<dynamic> get iosPermissions => [
+		({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (NSPhotoLibraryUsageDescription)',
+	];
+	@override List<dynamic> get androidPermissions => [
+		({required Object appName}) => 'Per poter utilizzare il servizio Sentry, ${appName} deve avere accesso a Internet. (android.permission.INTERNET)',
+		({required Object appName}) => 'Per filigranare le tue immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.READ_EXTERNAL_STORAGE)',
+		({required Object appName}) => 'Per poter salvare le immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)',
+		({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)',
+	];
+}
+
+// Path: dialogs.permissions.photos
+class _StringsDialogsPermissionsPhotosIt implements _StringsDialogsPermissionsPhotosEn {
+	_StringsDialogsPermissionsPhotosIt._(this._root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Consenti l\'accesso al tuo album';
+	@override String description({required Object appName}) => 'Vai alle Impostazioni del tuo telefono per concedere a ${appName} l\'autorizzazione a visitare il tuo album.';
+}
+
+// Path: dialogs.permissions.storage
+class _StringsDialogsPermissionsStorageIt implements _StringsDialogsPermissionsStorageEn {
+	_StringsDialogsPermissionsStorageIt._(this._root);
+
+	@override final _StringsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Consenti l\'accesso al tuo archivio';
+	@override String description({required Object appName}) => 'Accedi alle Impostazioni del tuo telefono per concedere a ${appName} l\'autorizzazione ad accedere al tuo archivio.';
+}
+
+// Path: <root>
 class _StringsZh implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
@@ -352,6 +539,7 @@ class _StringsZh implements Translations {
 	@override late final _StringsDialogsZh dialogs = _StringsDialogsZh._(_root);
 	@override Map<String, String> get locales => {
 		'en': 'English',
+		'it': 'Italiano',
 		'zh': '中文',
 	};
 	@override late final _StringsThemesZh themes = _StringsThemesZh._(_root);
@@ -561,12 +749,84 @@ extension on Translations {
 			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => 'In order to save images, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)';
 			case 'locales.en': return 'English';
+			case 'locales.it': return 'Italiano';
 			case 'locales.zh': return '中文';
 			case 'themes.manual': return 'Manual Mode';
 			case 'themes.system': return 'Auto Mode';
 			case 'themes.dark': return 'Dark Mode';
 			case 'themes.light': return 'Light Mode';
 			case 'themes.description': return 'After turning it on, the dark mode will be turned on or off according to the system';
+			default: return null;
+		}
+	}
+}
+
+extension on _StringsIt {
+	dynamic _flatMapFunction(String path) {
+		switch (path) {
+			case 'appName': return ({required Flavor flavor}) {
+				switch (flavor) {
+					case Flavor.free:
+						return 'PicGuard';
+					case Flavor.pro:
+						return 'PicGuard Pro';
+				}
+			};
+			case 'homePage.imageDescription': return 'Si prega di caricare le immagini.';
+			case 'homePage.description': return 'Questa app non caricherà alcuna immagine sul server, tutte le operazioni vengono completate localmente';
+			case 'homePage.textLabel': return 'Testo';
+			case 'homePage.textLabelDescription': return 'Il testo verrà aggiunto all\'immagine come filigrana';
+			case 'homePage.textValidator': return 'Inserisci il testo.';
+			case 'homePage.textInput': return 'Questo certificato è utilizzato solo per la gestione di xx attività e non è valido per altri scopi.';
+			case 'homePage.colorLabel': return 'Colore';
+			case 'homePage.colorValidator': return 'Seleziona un colore.';
+			case 'homePage.opacityLabel': return 'Opacità';
+			case 'homePage.fontLabel': return 'Font';
+			case 'homePage.fontValidator': return 'Seleziona un font.';
+			case 'homePage.fontSizeLabel': return 'Dimensione del font';
+			case 'homePage.textGapLabel': return 'Spaziatura del testo';
+			case 'homePage.textGapDescription': return 'La spaziatura tra il testo in ogni riga di testo';
+			case 'homePage.rowGapLabel': return 'Interlinea';
+			case 'homePage.rowGapDescription': return 'La spaziatura tra ogni riga di testo';
+			case 'homePage.preview': return 'Anteprima';
+			case 'homePage.save': return 'Salva';
+			case 'homePage.savedSuccess': return 'Salvataggio riuscito';
+			case 'homePage.savedFailure': return 'Impossibile salvare l\'immagine(i)';
+			case 'homePage.settings': return 'Impostazioni';
+			case 'homePage.languages': return 'Lingue';
+			case 'buttons.agree': return 'Accetto';
+			case 'buttons.cancel': return 'Annulla';
+			case 'buttons.ignore': return 'Ignora';
+			case 'buttons.turnOn': return 'Accendi';
+			case 'dialogs.exitConfirm.exit': return 'Uscita';
+			case 'dialogs.exitConfirm.cancel': return 'Annulla';
+			case 'dialogs.exitConfirm.title': return 'Chiudi conferma';
+			case 'dialogs.exitConfirm.description': return 'Sei sicuro di voler chiudere questa finestra?';
+			case 'dialogs.permissions.photos.title': return 'Consenti l\'accesso al tuo album';
+			case 'dialogs.permissions.photos.description': return ({required Object appName}) => 'Vai alle Impostazioni del tuo telefono per concedere a ${appName} l\'autorizzazione a visitare il tuo album.';
+			case 'dialogs.permissions.storage.title': return 'Consenti l\'accesso al tuo archivio';
+			case 'dialogs.permissions.storage.description': return ({required Object appName}) => 'Accedi alle Impostazioni del tuo telefono per concedere a ${appName} l\'autorizzazione ad accedere al tuo archivio.';
+			case 'dialogs.licenseDialog.licenseDialogTitle': return 'Termini e Condizioni';
+			case 'dialogs.licenseDialog.licenseDialogContentContent': return ({required Object appName}) => 'La protezione della privacy e delle informazioni personali degli utenti è un principio fondamentale di ${appName}.';
+			case 'dialogs.licenseDialog.licenseDialogContentTip': return 'Di seguito è riportato l\'elenco delle autorizzazioni richieste da questa APP:';
+			case 'dialogs.licenseDialog.licenseDialogContentPrefix': return 'Prima di utilizzare i servizi di questa APP, ti preghiamo di leggere attentamente e accettare il ';
+			case 'dialogs.licenseDialog.licenseDialogContentUserAgreement': return 'Contratto d\'uso';
+			case 'dialogs.licenseDialog.licenseDialogContentAnd': return ' e ';
+			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return 'L\'accordo sulla privacy';
+			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', inizia a utilizzare i nostri servizi dopo aver accettato tutti i termini.';
+			case 'dialogs.licenseDialog.iosPermissions.0': return ({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (NSPhotoLibraryUsageDescription)';
+			case 'dialogs.licenseDialog.androidPermissions.0': return ({required Object appName}) => 'Per poter utilizzare il servizio Sentry, ${appName} deve avere accesso a Internet. (android.permission.INTERNET)';
+			case 'dialogs.licenseDialog.androidPermissions.1': return ({required Object appName}) => 'Per filigranare le tue immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.READ_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => 'Per poter salvare le immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)';
+			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)';
+			case 'locales.en': return 'English';
+			case 'locales.it': return 'Italiano';
+			case 'locales.zh': return '中文';
+			case 'themes.manual': return 'Modalità manuale';
+			case 'themes.system': return 'Modalità automatica';
+			case 'themes.dark': return 'Modalità scura';
+			case 'themes.light': return 'Modalità chiara';
+			case 'themes.description': return 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
 			default: return null;
 		}
 	}
@@ -631,6 +891,7 @@ extension on _StringsZh {
 			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)';
 			case 'locales.en': return 'English';
+			case 'locales.it': return 'Italiano';
 			case 'locales.zh': return '中文';
 			case 'themes.manual': return '手动模式';
 			case 'themes.system': return '跟随系统';

@@ -1,0 +1,85 @@
+{
+  "appName(context=Flavor, param=flavor)": {
+    "free": "PicGuard",
+    "pro": "PicGuard Pro"
+  },
+  "homePage": {
+    "imageDescription": "Si prega di caricare le immagini.",
+    "description": "Questa app non caricherà alcuna immagine sul server, tutte le operazioni vengono completate localmente",
+    "textLabel": "Testo",
+    "textLabelDescription": "Il testo verrà aggiunto all'immagine come filigrana",
+    "textValidator": "Inserisci il testo.",
+    "textInput": "Questo certificato è utilizzato solo per la gestione di xx attività e non è valido per altri scopi.",
+    "colorLabel": "Colore",
+    "colorValidator": "Seleziona un colore.",
+    "opacityLabel": "Opacità",
+    "fontLabel": "Font",
+    "fontValidator": "Seleziona un font.",
+    "fontSizeLabel": "Dimensione del font",
+    "textGapLabel": "Spaziatura del testo",
+    "textGapDescription": "La spaziatura tra il testo in ogni riga di testo",
+    "rowGapLabel": "Interlinea",
+    "rowGapDescription": "La spaziatura tra ogni riga di testo",
+    "preview": "Anteprima",
+    "save": "Salva",
+    "savedSuccess": "Salvataggio riuscito",
+    "savedFailure": "Impossibile salvare l'immagine(i)",
+    "settings": "Impostazioni",
+    "languages": "Lingue"
+  },
+  "buttons": {
+    "agree": "Accetto",
+    "cancel": "Annulla",
+    "ignore": "Ignora",
+    "turnOn": "Accendi"
+  },
+  "dialogs": {
+    "exitConfirm": {
+      "exit": "Uscita",
+      "cancel": "Annulla",
+      "title": "Chiudi conferma",
+      "description": "Sei sicuro di voler chiudere questa finestra?"
+    },
+    "permissions": {
+      "photos": {
+        "title": "Consenti l'accesso al tuo album",
+        "description": "Vai alle Impostazioni del tuo telefono per concedere a $appName l'autorizzazione a visitare il tuo album."
+      },
+      "storage": {
+        "title": "Consenti l'accesso al tuo archivio",
+        "description": "Accedi alle Impostazioni del tuo telefono per concedere a $appName l'autorizzazione ad accedere al tuo archivio."
+      }
+    },
+    "licenseDialog": {
+      "licenseDialogTitle": "Termini e Condizioni",
+      "licenseDialogContentContent": "La protezione della privacy e delle informazioni personali degli utenti è un principio fondamentale di $appName.",
+      "licenseDialogContentTip": "Di seguito è riportato l'elenco delle autorizzazioni richieste da questa APP:",
+      "licenseDialogContentPrefix": "Prima di utilizzare i servizi di questa APP, ti preghiamo di leggere attentamente e accettare il ",
+      "licenseDialogContentUserAgreement": "Contratto d'uso",
+      "licenseDialogContentAnd": " e ",
+      "licenseDialogContentPrivacyAgreement": "L'accordo sulla privacy",
+      "licenseDialogContentSuffix": ", inizia a utilizzare i nostri servizi dopo aver accettato tutti i termini.",
+      "iosPermissions": [
+        "Per aggiungere una filigrana alle tue immagini, $appName deve accedere alle tue foto. (NSPhotoLibraryUsageDescription)"
+      ],
+      "androidPermissions": [
+        "Per poter utilizzare il servizio Sentry, $appName deve avere accesso a Internet. (android.permission.INTERNET)",
+        "Per filigranare le tue immagini, $appName deve accedere al tuo spazio di archiviazione. (android.permission.READ_EXTERNAL_STORAGE)",
+        "Per poter salvare le immagini, $appName deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)",
+        "Per aggiungere una filigrana alle tue immagini, $appName deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)"
+      ]
+    }
+  },
+  "locales(map)": {
+    "en": "English",
+    "it": "Italiano",
+    "zh": "中文"
+  },
+  "themes": {
+    "manual": "Modalità manuale",
+    "system": "Modalità automatica",
+    "dark": "Modalità scura",
+    "light": "Modalità chiara",
+    "description": "Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema"
+  }
+}
