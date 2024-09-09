@@ -442,9 +442,11 @@ class SettingsModal extends StatelessWidget {
               ).toList(),
             ),
           ],
-        ).nestedSingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-        ),
+        )
+            .nestedSingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+            )
+            .nestedFlexible(),
       ],
     )
         .nestedConstrainedBox(
