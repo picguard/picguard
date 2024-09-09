@@ -71,7 +71,7 @@
     </td>
   </tr>
   <tr>
-    <td>MacOS</td>
+    <td>macOS</td>
     <td>
       <a href="https://apps.apple.com/us/app/id6477482447?mt=12">
         <img width="220" alt="Get it on Mac App Store" src="./docs/assets/Download-on-the-Mac-App-Store.svg">
@@ -214,7 +214,7 @@
     </td>
   </tr>
   <tr>
-    <td>Macos - <a href="https://brew.sh">Homebrew</a></td>
+    <td>macOS - <a href="https://brew.sh">Homebrew</a></td>
     <td>
      <p><code>brew install picguard/picguard/picguard</code></p>
     </td>
