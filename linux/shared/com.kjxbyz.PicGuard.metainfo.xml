@@ -17,6 +17,8 @@
     <url type="bugtracker">https://github.com/picguard/picguard/issues</url>
     <url type="homepage">https://www.picguard.app</url>
     <url type="donation">https://buymeacoffee.com/wangying</url>
+    <url type="faq">https://github.com/picguard/picguard/discussions</url>
+    <url type="translate">https://crowdin.com/project/picguard</url>
     <url type="vcs-browser">https://github.com/picguard/picguard</url>
     <metadata_license>MIT</metadata_license>
     <project_license>MIT</project_license>
