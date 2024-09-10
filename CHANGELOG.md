@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1+406
+
+1. Create Italian translation
+2. Fixed UI overflow
+3. Update deps
+
 ## 1.0.1+405
 
 1. Update entitlements
