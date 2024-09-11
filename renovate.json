@@ -3,6 +3,7 @@
   "extends": ["config:base"],
   "rangeStrategy": "bump",
   "prHourlyLimit": 0,
+  "ignorePaths": ["plugins/**"],
   "ignoreDeps": ["flutter_localizations", "flutter_test"],
   "packageRules": [
     {
