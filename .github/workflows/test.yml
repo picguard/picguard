@@ -43,7 +43,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.24.2'
+          flutter-version: '3.24.3'
 
       - name: Configure .env
         run: |
@@ -96,7 +96,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.24.2'
+          flutter-version: '3.24.3'
 
       - name: Configure .env
         run: |
@@ -207,7 +207,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.24.2'
+          flutter-version: '3.24.3'
 
       - name: Configure .env
         run: |
@@ -324,7 +324,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.24.2'
+          flutter-version: '3.24.3'
 
       - name: Configure .env
         run: |
@@ -383,7 +383,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.24.2'
+          flutter-version: '3.24.3'
 
       - name: Configure .env
         run: |
