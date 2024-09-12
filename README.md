@@ -51,10 +51,19 @@ Download **PicGuard** today and take control of your photo security and personal
         <img width="220" src="./docs/assets/Download-on-the-F-Droid.svg" alt="Get it on F-Droid">
       </a>
     </td>
+    <td style="font-size: 14px; font-weight: bold">
+      Not provided
+    </td>
+  </tr>
+  <tr>
+    <td>Amazon (TODO)</td>
     <td>
-      <a href="https://f-droid.org/packages/com.kjxbyz.watermarkassistant.pro">
-        <img width="220" src="./docs/assets/Download-on-the-F-Droid.svg" alt="Get it on F-Droid">
+      <a href="https://www.amazon.com/dp/XXXXXXXXXX">
+        <img width="220" src="./docs/assets/Download-on-the-Amazon-App-Store.png" alt="Get it on F-Droid">
       </a>
+    </td>
+    <td style="font-size: 14px; font-weight: bold">
+      Not provided
     </td>
   </tr>
   <tr>
@@ -85,31 +94,35 @@ Download **PicGuard** today and take control of your photo security and personal
   </tr>
   <tr>
     <td>Windows</td>
-    <td colspan="2">
+    <td>
       <a href="https://apps.microsoft.com/detail/9NCC0LJBG7TB?mode=full">
        <img width="220" alt="Get it on Windows Store" src="https://get.microsoft.com/images/en-us%20dark.svg"/>
       </a>
     </td>
-    <!-- <td>
-      <a href="https://apps.microsoft.com/detail/9N0ZV9Q5SVCX?mode=full">
-       <img width="220" alt="Get it on Windows Store" src="https://get.microsoft.com/images/en-us%20dark.svg"/>
-      </a>
-    </td> -->
+    <td style="font-size: 14px; font-weight: bold">
+      Not provided
+    </td>
   </tr>
   <tr>
     <td>Snap Store</td>
-    <td colspan="2">
+    <td>
       <a href="https://snapcraft.io/picguard">
         <img width="220" alt="Get it on Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" />
       </a>
     </td>
+    <td style="font-size: 14px; font-weight: bold">
+      Not provided
+    </td>
   </tr>
   <tr>
     <td>Flathub</td>
-    <td colspan="2">
+    <td>
       <a href="https://flathub.org/apps/details/com.kjxbyz.PicGuard">
         <img width="220" alt="Get it on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png">
       </a>
+    </td>
+    <td style="font-size: 14px; font-weight: bold">
+      Not provided
     </td>
   </tr>
 </table>
