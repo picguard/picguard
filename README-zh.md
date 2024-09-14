@@ -59,7 +59,7 @@
     <td>Amazon (TODO)</td>
     <td>
       <a href="https://www.amazon.com/dp/XXXXXXXXXX">
-        <img width="220" src="./docs/assets/Download-on-the-Amazon-App-Store.png" alt="Get it on F-Droid">
+        <img width="220" src="./docs/assets/Download-on-the-Amazon-App-Store.png" alt="Get it on Amazon App Store">
       </a>
     </td>
     <td style="font-size: 14px; font-weight: bold">
