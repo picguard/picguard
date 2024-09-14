@@ -6,6 +6,7 @@ on:
     paths-ignore:
       - '.github/FUNDING.yml'
       - 'docs/**'
+      - 'metadata/**'
       - 'CHANGELOG.md'
       - 'LICENSE'
       - 'Makefile'
@@ -17,6 +18,7 @@ on:
     paths-ignore:
       - '.github/FUNDING.yml'
       - 'docs/**'
+      - 'metadata/**'
       - 'CHANGELOG.md'
       - 'LICENSE'
       - 'Makefile'
