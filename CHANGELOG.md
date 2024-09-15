@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.2+407
+
+1. Add F-Droid support
+2. Bug Fixes
+3. Update docs
+4. Update deps
+
 ## 1.0.1+406
 
 1. Create Italian translation
