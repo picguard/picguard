@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2+408
+
+1. No certificate is required when publishing to the Microsoft Store.
+2. Update deps
+
 ## 1.0.2+407
 
 1. Add F-Droid support
