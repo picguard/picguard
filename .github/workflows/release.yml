@@ -3356,11 +3356,11 @@ jobs:
         shell: pwsh
         run: |
           echo $env:RUNNER_TEMP
-          $certificatePath = "$env:RUNNER_TEMP\picguard.pfx"
+          # $certificatePath = "$env:RUNNER_TEMP\picguard.pfx"
           # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
           # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
-          $bytes = echo $env:WINDOWS_CERTIFICATE | %{[Convert]::FromBase64String($_)}
-          [IO.File]::WriteAllBytes("$certificatePath", $bytes)
+          # $bytes = echo $env:WINDOWS_CERTIFICATE | %{[Convert]::FromBase64String($_)}
+          # [IO.File]::WriteAllBytes("$certificatePath", $bytes)
 
           $yamlFile = ".\pubspec.yaml"
           $yamlContent = Get-Content -Raw -Path $yamlFile
@@ -3368,11 +3368,11 @@ jobs:
           # 获取环境变量的值
           $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME).Value
           $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME).Value
-          $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD).Value
+          # $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD).Value
           $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER).Value
 
           # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".msix_config.publisher_display_name = `"$publisherName`" | .msix_config.identity_name = `"$identityName`" | .msix_config.certificate_path = `"$certificatePath`" | .msix_config.certificate_password = `"$certificatePassword`" | .msix_config.publisher = `"$publisher`"" -
+          $updatedYamlContent = echo $yamlContent | yq e ".msix_config.publisher_display_name = `"$publisherName`" | .msix_config.identity_name = `"$identityName`" | .msix_config.publisher = `"$publisher`"" -
 
           # 将更新后的内容写回文件
           Set-Content -Path $yamlFile -Value $updatedYamlContent
@@ -3392,7 +3392,7 @@ jobs:
       - name: Create msix
         run: |
           $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION.pre"} Else {"$env:VERSION"})
-          dart run msix:create --build-windows false --output-name "picguard_$RELEASE`_windows_x64"
+          dart run msix:create --store --build-windows false --output-name "picguard_$RELEASE`_windows_store_x64"
         env:
           ENV: ${{ github.event.inputs.env }}
           VERSION: ${{ needs.create_release.outputs.version }}

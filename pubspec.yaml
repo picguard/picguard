@@ -175,6 +175,8 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
+# If you publish your app to the Microsoft Store, 
+# the installation package will be signed automatically by the store.
 msix_config:
   display_name: PicGuard
   publisher_display_name: PUBLISHER_NAME_PLACEHOLDER
@@ -182,13 +184,10 @@ msix_config:
 #  msix_version: 1.0.0.0 # If not set, the value of `version` is used
   logo_path: snap\gui\picguard.png
   languages: zh, en
-  store: true
   architecture: x64
-  certificate_path: CERTIFICATE_PATH_PLACEHOLDER
-  certificate_password: CERTIFICATE_PASSWORD_PLACEHOLDER
-  install_certificate: false
   publisher: PUBLISHER_PLACEHOLDER
   capabilities: "internetClient,picturesLibrary"
+  install_certificate: false
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
