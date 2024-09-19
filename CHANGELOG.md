@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2+409
+
+1. Remove com.kjxbyz.PicGuard.metainfo.xml
+2. Update deps
+
 ## 1.0.2+408
 
 1. No certificate is required when publishing to the Microsoft Store.
