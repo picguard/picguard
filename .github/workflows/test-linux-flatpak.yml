@@ -58,19 +58,19 @@ jobs:
           url=$url yq -i '.modules[0].sources[0].url = strenv(url)' flatpak/com.kjxbyz.PicGuard.yml
           sha256=$sha256 yq -i '.modules[0].sources[0].sha256 = strenv(sha256)' flatpak/com.kjxbyz.PicGuard.yml
 
-          desktop_url=https://raw.githubusercontent.com/picguard/picguard/"$TAG"/linux/shared/com.kjxbyz.PicGuard.desktop
-          wget -O com.kjxbyz.PicGuard.desktop "$desktop_url"
-          desktop_sha256=$(sha256sum com.kjxbyz.PicGuard.desktop | awk '{print $1}')
-          rm -f com.kjxbyz.PicGuard.desktop
-          desktop_url=$desktop_url yq -i '.modules[0].sources[2].url = strenv(desktop_url)' flatpak/com.kjxbyz.PicGuard.yml
-          desktop_sha256=$desktop_sha256 yq -i '.modules[0].sources[2].sha256 = strenv(desktop_sha256)' flatpak/com.kjxbyz.PicGuard.yml
+          # desktop_url=https://raw.githubusercontent.com/picguard/picguard/"$TAG"/linux/shared/com.kjxbyz.PicGuard.desktop
+          # wget -O com.kjxbyz.PicGuard.desktop "$desktop_url"
+          # desktop_sha256=$(sha256sum com.kjxbyz.PicGuard.desktop | awk '{print $1}')
+          # rm -f com.kjxbyz.PicGuard.desktop
+          # desktop_url=$desktop_url yq -i '.modules[0].sources[2].url = strenv(desktop_url)' flatpak/com.kjxbyz.PicGuard.yml
+          # desktop_sha256=$desktop_sha256 yq -i '.modules[0].sources[2].sha256 = strenv(desktop_sha256)' flatpak/com.kjxbyz.PicGuard.yml
 
-          appdata_url=https://raw.githubusercontent.com/picguard/picguard/"$TAG"/linux/shared/com.kjxbyz.PicGuard.metainfo.xml
-          wget -O com.kjxbyz.PicGuard.metainfo.xml "$appdata_url"
-          appdata_sha256=$(sha256sum com.kjxbyz.PicGuard.metainfo.xml | awk '{print $1}')
-          rm -f com.kjxbyz.PicGuard.metainfo.xml
-          appdata_url=$appdata_url yq -i '.modules[0].sources[3].url = strenv(appdata_url)' flatpak/com.kjxbyz.PicGuard.yml
-          appdata_sha256=$appdata_sha256 yq -i '.modules[0].sources[3].sha256 = strenv(appdata_sha256)' flatpak/com.kjxbyz.PicGuard.yml
+          # appdata_url=https://raw.githubusercontent.com/picguard/picguard/"$TAG"/linux/shared/com.kjxbyz.PicGuard.metainfo.xml
+          # wget -O com.kjxbyz.PicGuard.metainfo.xml "$appdata_url"
+          # appdata_sha256=$(sha256sum com.kjxbyz.PicGuard.metainfo.xml | awk '{print $1}')
+          # rm -f com.kjxbyz.PicGuard.metainfo.xml
+          # appdata_url=$appdata_url yq -i '.modules[0].sources[3].url = strenv(appdata_url)' flatpak/com.kjxbyz.PicGuard.yml
+          # appdata_sha256=$appdata_sha256 yq -i '.modules[0].sources[3].sha256 = strenv(appdata_sha256)' flatpak/com.kjxbyz.PicGuard.yml
         env:
           ENV: ${{ github.event.inputs.env }}
           TAG_NAME: "v${{ steps.version_step.outputs.version }}"

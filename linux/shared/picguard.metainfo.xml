@@ -6,7 +6,10 @@
     https://www.freedesktop.org/software/appstream/docs/chap-Quickstart.html#sect-Quickstart-DesktopApps
 -->
 <component type="desktop-application">
-    <id>picguard</id>
+    <id>com.kjxbyz.PicGuard</id>
+    <provides>
+        <id>picguard</id>
+    </provides>
     <name>PicGuard</name>
     <summary>Your pictures, your signature</summary>
     <summary xml:lang="zh">给图片添加水印, 防止被恶意使用</summary>
@@ -43,7 +46,7 @@
         <p>Download PicGuard today and take control of your photo security and personalization like never before!</p>
         <p xml:lang="zh">立即下载PicGuard，以前所未有的方式控制您的照片安全和个性化！</p>
     </description>
-    <launchable type="desktop-id">picguard.desktop</launchable>
+    <launchable type="desktop-id">com.kjxbyz.PicGuard.desktop</launchable>
     <screenshots>
         <screenshot type="default">
             <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.2+408/screenshots/desktop.png</image>

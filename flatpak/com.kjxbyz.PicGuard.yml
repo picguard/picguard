@@ -25,10 +25,14 @@ modules:
       - bsdtar -Oxf picguard.deb data.tar.zst | bsdtar -xf -
       - install -Dm755 usr/share/picguard/picguard /app/bin/picguard
       - cp -r usr/share/picguard/data usr/share/picguard/lib /app/bin/
-      - install -Dm644 com.kjxbyz.PicGuard.desktop /app/share/applications/com.kjxbyz.PicGuard.desktop
+
+      - desktop-file-edit --remove-key=Version --set-key=Terminal --set-value='false' --set-icon='com.kjxbyz.PicGuard' "usr/share/applications/picguard.desktop"
+      - install -Dm644 usr/share/applications/picguard.desktop /app/share/applications/com.kjxbyz.PicGuard.desktop
+
       - install -Dm644 usr/share/icons/hicolor/128x128/apps/picguard.png /app/share/icons/hicolor/128x128/apps/com.kjxbyz.PicGuard.png
       - install -Dm644 usr/share/icons/hicolor/256x256/apps/picguard.png /app/share/icons/hicolor/256x256/apps/com.kjxbyz.PicGuard.png
-      - install -Dm644 com.kjxbyz.PicGuard.metainfo.xml /app/share/appdata/com.kjxbyz.PicGuard.metainfo.xml
+
+      - install -Dm644 usr/share/metainfo/picguard.metainfo.xml /app/share/appdata/com.kjxbyz.PicGuard.metainfo.xml
     sources:
       - type: file
         only-arches:
@@ -53,23 +57,3 @@ modules:
           url: https://api.github.com/repos/picguard/picguard/releases/latest
           version-query: .tag_name | sub("v";"")
           url-query: .assets[] | select(.name=="picguard_" + $version + "_linux_aarch64.deb") | .browser_download_url
-
-      - type: file
-        url: https://raw.githubusercontent.com/picguard/picguard/v1.0.2+408/linux/shared/com.kjxbyz.PicGuard.desktop
-        dest-filename: com.kjxbyz.PicGuard.desktop
-        sha256: 8e13c1b75103f39a3f57f72c36537e18e01cfdaf50ba888c5524717cc3fefd12
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/picguard/picguard/releases/latest
-          version-query: .tag_name
-          url-query: '"https://raw.githubusercontent.com/picguard/picguard/" + $version + "/linux/shared/com.kjxbyz.PicGuard.desktop"'
-
-      - type: file
-        url: https://raw.githubusercontent.com/picguard/picguard/v1.0.2+408/linux/shared/com.kjxbyz.PicGuard.metainfo.xml
-        dest-filename: com.kjxbyz.PicGuard.metainfo.xml
-        sha256: 105d52fc72641f023f5155f69f6bba8baee05b4e4daf87234517130a5e94f28a
-        x-checker-data:
-          type: json
-          url: https://api.github.com/repos/picguard/picguard/releases/latest
-          version-query: .tag_name
-          url-query: '"https://raw.githubusercontent.com/picguard/picguard/" + $version + "/linux/shared/com.kjxbyz.PicGuard.metainfo.xml"'
