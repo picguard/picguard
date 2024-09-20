@@ -214,10 +214,10 @@ Download **PicGuard** today and take control of your photo security and personal
     </td>
   </tr>
   <tr>
-    <td>Arch/Manjaro (TODO)</td>
+    <td>Arch/Manjaro</td>
     <td>
-      <p>With pamac: <code>sudo pamac install picguard</code></p>
-      <p>With yay: <code>yay -Sy picguard</code></p>
+      <p>With pacman: <code>sudo pacman -S picguard-bin</code></p>
+      <p>With yay: <code>yay -Sy picguard-bin</code></p>
     </td>
   </tr>
   <tr>
