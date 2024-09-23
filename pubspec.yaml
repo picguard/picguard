@@ -183,7 +183,7 @@ msix_config:
   identity_name: IDENTITY_NAME_PLACEHOLDER
 #  msix_version: 1.0.0.0 # If not set, the value of `version` is used
   logo_path: snap\gui\picguard.png
-  languages: zh, en
+  languages: en-us, zh-cn
   architecture: x64
   publisher: PUBLISHER_PLACEHOLDER
   capabilities: "internetClient,picturesLibrary"
