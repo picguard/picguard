@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2+410
+
+1. Fix invalid language
+
 ## 1.0.2+409
 
 1. Remove com.kjxbyz.PicGuard.metainfo.xml
