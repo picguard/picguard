@@ -1,4 +1,4 @@
-name: Test Windows msix
+name: Test Windows msix (pro)
 
 on:
   workflow_dispatch:
@@ -33,8 +33,8 @@ jobs:
       - name: Check version
         run: echo ${{ steps.version_step.outputs.version }}
 
-  msix:
-    name: Create msix
+  msix_pro:
+    name: Create msix (pro)
     runs-on: windows-latest
     needs:
       - get_version
@@ -68,42 +68,46 @@ jobs:
         shell: pwsh
         run: |
           echo $env:RUNNER_TEMP
+
+          Copy-Item -Path "windows\pro\Runner.rc" -Destination "windows\runner\Runner.rc" -Force
+          Copy-Item -Path "windows\pro\CMakeLists.txt" -Destination "windows\CMakeLists.txt" -Force
+
           # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
           # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
-          $certificatePath = "$env:RUNNER_TEMP\picguard.pfx"
-          $bytes = echo $env:WINDOWS_CERTIFICATE | %{[Convert]::FromBase64String($_)}
+          $certificatePath = "$env:RUNNER_TEMP\picguard-pro.pfx"
+          $bytes = echo $env:WINDOWS_CERTIFICATE_PRO | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$certificatePath", $bytes)
 
           $yamlFile = ".\pubspec.yaml"
           $yamlContent = Get-Content -Raw -Path $yamlFile
 
           # 获取环境变量的值
-          # $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME).Value
-          # $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER).Value
-          # $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME).Value
-          $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD).Value
+          # $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME_PRO).Value
+          # $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER_PRO).Value
+          # $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME_PRO).Value
+          $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD_PRO).Value
 
           # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".msix_config.certificate_path = `"$certificatePath`" | .msix_config.certificate_password = `"$certificatePassword`" | del(.msix_config.identity_name) | del(.msix_config.publisher) | del(.msix_config.publisher_display_name)" -
+          $updatedYamlContent = echo $yamlContent | yq e ".msix_config.display_name = `"PicGuard Pro`" | .msix_config.certificate_path = `"$certificatePath`" | .msix_config.certificate_password = `"$certificatePassword`" | del(.msix_config.identity_name) | del(.msix_config.publisher) | del(.msix_config.publisher_display_name)" -
 
           # 将更新后的内容写回文件
           Set-Content -Path $yamlFile -Value $updatedYamlContent
         env:
-          WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
-          WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
-          WINDOWS_IDENTITY_NAME: ${{ secrets.WINDOWS_IDENTITY_NAME }}
-          WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER }}
-          WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
+          WINDOWS_CERTIFICATE_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PRO }}
+          WINDOWS_CERTIFICATE_PASSWORD_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD_PRO }}
+          WINDOWS_IDENTITY_NAME_PRO: ${{ secrets.WINDOWS_IDENTITY_NAME_PRO }}
+          WINDOWS_PUBLISHER_PRO: ${{ secrets.WINDOWS_PUBLISHER_PRO }}
+          WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
 
       - name: Install flutter dependencies
         run: flutter pub get
 
       - name: Build windows
-        run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
+        run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Crate msix
         run: |
-          dart run msix:create --build-windows false --output-name "picguard_$env:VERSION`-free_windows_x64"
+          dart run msix:create --build-windows false --output-name "picguard_$env:VERSION`-pro_windows_x64"
         env:
           VERSION: ${{ needs.get_version.outputs.version }}
 
@@ -114,7 +118,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: windows-msix-artifact
+          name: windows-msix-pro-artifact
           path: |
             .\build\windows\x64\runner\Release\*.msix
 
@@ -122,11 +126,11 @@ jobs:
         if: ${{ always() }}
         run: |
           ls
-          if (test-path -Path "$env:RUNNER_TEMP\picguard.pfx") {
-            echo "$env:RUNNER_TEMP\picguard.pfx"
-            remove-item -Path "$env:RUNNER_TEMP\picguard.pfx" -Force -ErrorAction SilentlyContinue
+          if (test-path -Path "$env:RUNNER_TEMP\picguard-pro.pfx") {
+            echo "$env:RUNNER_TEMP\picguard-pro.pfx"
+            remove-item -Path "$env:RUNNER_TEMP\picguard-pro.pfx" -Force -ErrorAction SilentlyContinue
           } else {
-            echo "File($env:RUNNER_TEMP\picguard.pfx) doesn't exist."
+            echo "File($env:RUNNER_TEMP\picguard-pro.pfx) doesn't exist."
           }
           if (test-path -Path "$pwd\.env") {
             echo "Remove file($pwd\.env)"
