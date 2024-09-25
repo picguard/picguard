@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3+412
+
+1. Add pro version for windows
+2. Fix privacy manifest for app_settings in macOS
+
 ## 1.0.2+411
 
 1. Add pro version for windows
