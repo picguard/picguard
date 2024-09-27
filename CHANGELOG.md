@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3+413
+
+1. Update minSdkVersion to 24
+2. fix: comply with F-Droid version code schema
+
 ## 1.0.3+412
 
 1. Add pro version for windows
