@@ -62,8 +62,10 @@ Download **PicGuard** today and take control of your photo security and personal
         <img width="220" src="./docs/assets/Download-on-the-Amazon-App-Store.png" alt="Get it on Amazon App Store">
       </a>
     </td>
-    <td style="font-size: 14px; font-weight: bold">
-      Not provided
+    <td>
+      <a href="https://www.amazon.com/dp/B0DHZ7BW41">
+        <img width="220" src="./docs/assets/Download-on-the-Amazon-App-Store.png" alt="Get it on Amazon App Store">
+      </a>
     </td>
   </tr>
   <tr>
