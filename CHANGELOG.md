@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3+414
+
+1. Update developer
+2. Update deps
+3. Update msi
+
 ## 1.0.3+413
 
 1. Update minSdkVersion to 24
