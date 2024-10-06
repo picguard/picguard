@@ -44,7 +44,7 @@
       </a>
     </td>
   </tr>
-  <tr>
+  <!-- <tr>
     <td>F-Droid (TODO)</td>
     <td>
       <a href="https://f-droid.org/packages/com.kjxbyz.watermarkassistant">
@@ -54,7 +54,7 @@
     <td style="font-size: 14px; font-weight: bold">
       未提供
     </td>
-  </tr>
+  </tr> -->
   <tr>
     <td>Amazon</td>
     <td>

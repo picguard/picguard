@@ -44,7 +44,7 @@ Download **PicGuard** today and take control of your photo security and personal
       </a>
     </td>
   </tr>
-  <tr>
+  <!-- <tr>
     <td>F-Droid (TODO)</td>
     <td>
       <a href="https://f-droid.org/packages/com.kjxbyz.watermarkassistant">
@@ -54,7 +54,7 @@ Download **PicGuard** today and take control of your photo security and personal
     <td style="font-size: 14px; font-weight: bold">
       Not provided
     </td>
-  </tr>
+  </tr> -->
   <tr>
     <td>Amazon</td>
     <td>
