@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.3+415
+
+1. Fix Android Compilation issues
+2. Update metainfo
+3. Update deps
+4. Fix Missing potentially required entitlement
+
 ## 1.0.3+414
 
 1. Update developer
