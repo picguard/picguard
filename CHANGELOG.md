@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3+417
+
+1. Migrating to Linux ARM64
+
 ## 1.0.3+416
 
 1. Update deps
