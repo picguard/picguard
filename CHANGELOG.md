@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3+416
+
+1. Update deps
+2. Update icons
+
 ## 1.0.3+415
 
 1. Fix Android Compilation issues
