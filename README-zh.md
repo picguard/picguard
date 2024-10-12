@@ -111,7 +111,7 @@
     <td>Snap Store</td>
     <td>
       <a href="https://snapcraft.io/picguard">
-        <img width="220" alt="Get it on Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" />
+        <img width="220" alt="Get it on Snap Store" src="./docs/assets/Download-on-the-Snap-Store.svg" />
       </a>
     </td>
     <td style="font-size: 14px; font-weight: bold">
