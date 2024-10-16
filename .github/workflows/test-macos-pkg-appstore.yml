@@ -48,7 +48,7 @@ jobs:
           THIRD_PARTY_MAC_DEVELOPER_INSTALLER_CERTIFICATE_PATH=$RUNNER_TEMP/build_mac_developer_installer_certificate.p12
           # Mac App Distribution
           THIRD_PARTY_MAC_DEVELOPER_APPLICATION_CERTIFICATE_PATH=$RUNNER_TEMP/build_mac_developer_application_certificate.p12
-          THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PP_PATH=$RUNNER_TEMP/watermark_assistant_mac_appstore.provisionprofile
+          THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PP_PATH=$RUNNER_TEMP/picguard_mac_appstore.provisionprofile
           KEYCHAIN_PATH=$RUNNER_TEMP/pg-signing.keychain-db
 
           # import certificate and provisioning profile from secrets
@@ -69,7 +69,7 @@ jobs:
           
           # apply provisioning profile
           # https://developer.apple.com/documentation/bundleresources/placing_content_in_a_bundle/
-          # security cms -D -i watermark_assistant_mac_appstore.provisionprofile
+          # security cms -D -i picguard_mac_appstore.provisionprofile
           mv $THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PP_PATH build/macos/Build/Products/Release/PicGuard.app/Contents/embedded.provisionprofile
         env:
           THIRD_PARTY_MAC_DEVELOPER_INSTALLER_P12_BASE64_MAC: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_INSTALLER_P12_BASE64_MAC }}

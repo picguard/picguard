@@ -1,4 +1,4 @@
-package com.kjxbyz.watermarkassistant
+package com.kjxbyz.picguard
 
 import io.flutter.embedding.android.FlutterActivity
 

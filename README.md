@@ -34,12 +34,12 @@ Download **PicGuard** today and take control of your photo security and personal
   <tr>
     <td>Android</td>
     <td>
-      <a href="https://play.google.com/store/apps/details?id=com.kjxbyz.watermarkassistant">
+      <a href="https://play.google.com/store/apps/details?id=com.kjxbyz.picguard">
         <img width="220" alt="Get it on Google Play" src="./docs/assets/Download-on-the-Google-Play.png">
       </a>
     </td>
     <td>
-      <a href="https://play.google.com/store/apps/details?id=com.kjxbyz.watermarkassistant.pro">
+      <a href="https://play.google.com/store/apps/details?id=com.kjxbyz.picguard.pro">
         <img width="220" alt="Get it on Google Play" src="./docs/assets/Download-on-the-Google-Play.png">
       </a>
     </td>
@@ -47,7 +47,7 @@ Download **PicGuard** today and take control of your photo security and personal
   <!-- <tr>
     <td>F-Droid (TODO)</td>
     <td>
-      <a href="https://f-droid.org/packages/com.kjxbyz.watermarkassistant">
+      <a href="https://f-droid.org/packages/com.kjxbyz.picguard">
         <img width="220" src="./docs/assets/Download-on-the-F-Droid.svg" alt="Get it on F-Droid">
       </a>
     </td>

@@ -8,7 +8,7 @@
 PRODUCT_NAME = PicGuard Pro
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.watermarkassistant.pro.mac
+PRODUCT_BUNDLE_IDENTIFIER = com.kjxbyz.picguard.pro.mac
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2024 PicGuard Pro. All rights reserved.

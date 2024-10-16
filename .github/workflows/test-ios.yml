@@ -60,10 +60,10 @@ jobs:
           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
           CERT_DEV_PATH=$RUNNER_TEMP/ios_development.cer
           CERT_PATH=$RUNNER_TEMP/ios_distribution.cer
-          PP_DEV_PATH=$RUNNER_TEMP/watermark_assistant_dev.mobileprovision
-          PP_PATH=$RUNNER_TEMP/watermark_assistant_appstore.mobileprovision
-          PP_PRO_DEV_PATH=$RUNNER_TEMP/watermark_assistant_pro_dev.mobileprovision
-          PP_PRO_PATH=$RUNNER_TEMP/watermark_assistant_pro_appstore.mobileprovision
+          PP_DEV_PATH=$RUNNER_TEMP/picguard_dev.mobileprovision
+          PP_PATH=$RUNNER_TEMP/picguard_appstore.mobileprovision
+          PP_PRO_DEV_PATH=$RUNNER_TEMP/picguard_pro_dev.mobileprovision
+          PP_PRO_PATH=$RUNNER_TEMP/picguard_pro_appstore.mobileprovision
           KEYCHAIN_PATH=$RUNNER_TEMP/pg-signing.keychain-db
 
           # import certificate and provisioning profile from secrets
@@ -131,5 +131,5 @@ jobs:
             echo "$RUNNER_TEMP/pg-signing.keychain-db"
             security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
           fi
-          rm -f ~/Library/MobileDevice/Provisioning\ Profiles/watermark_assistant_*.mobileprovision
+          rm -f ~/Library/MobileDevice/Provisioning\ Profiles/picguard_*.mobileprovision
           rm -f .env
