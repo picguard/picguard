@@ -427,7 +427,7 @@ class _HomePageState extends State<HomePage> with WindowListener {
     // 间距
     // final gap = isMobile ? 200.0 : 60.0;
 
-    final multiply = (hypotenuseLength / (textPainter.width + textGap)).floor();
+    final multiply = (hypotenuseLength / (textPainter.width + textGap)).ceil();
     if (multiply > 1) {
       final watermarks = List.generate(multiply, (index) => index)
           .map((e) => TextSpan(text: watermark))
