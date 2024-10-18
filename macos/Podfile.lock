@@ -74,11 +74,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   app_settings: 140be3a9c0fc1f681e44afe9f549ab037b3aa3a2
-  device_info_plus: f1aae8670672f75c4c8850ecbe0b2ddef62b0a22
+  device_info_plus: 74e614483d05c89290d30a4c8feae15d555f7427
   file_saver: 44e6fbf666677faf097302460e214e977fdd977b
   file_selector_macos: cc3858c981fe6889f364731200d6232dac1d812d
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
-  package_info_plus: d2f71247aab4b6521434f887276093acc70d214c
+  package_info_plus: f5790acc797bf17c3e959e9d6cf162cc68ff7523
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
   Sentry: f8374b5415bc38dfb5645941b3ae31230fbeae57
