@@ -1,4 +1,4 @@
-name: Test Windows msix
+name: Test Windows msix (free)
 
 on:
   workflow_dispatch:
@@ -33,8 +33,8 @@ jobs:
       - name: Check version
         run: echo ${{ steps.version_step.outputs.version }}
 
-  msix:
-    name: Create msix
+  msix_free:
+    name: Create msix (free)
     runs-on: windows-latest
     needs:
       - get_version
