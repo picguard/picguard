@@ -1697,7 +1697,7 @@ class AppVersion extends StatelessWidget {
     final t = Translations.of(context);
     final appName = t.appName(flavor: AppConfig.shared.flavor);
     return Text(
-      '$appName $appVersion',
+      '$appName $appVersion${PgEnv.gitCommitShown ? "\n${PgEnv.gitCommitSha.substring(0, 8)}" : ""}',
       style: const TextStyle(
         color: secondaryTextColor,
         fontSize: 12,
