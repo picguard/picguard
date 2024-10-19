@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4+418
+
+1. fix: Macs with Apple silicon support issue
+2. Update deps
+
 ## 1.0.3+417
 
 1. Migrating to Linux ARM64
