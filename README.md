@@ -1,25 +1,14 @@
 # PicGuard
 
-[简体中文](./README-zh.md)
-
-> Your pictures, your signature.
-
 [![Test](https://github.com/picguard/picguard/actions/workflows/test.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/test.yml)
 [![Release](https://github.com/picguard/picguard/actions/workflows/release.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/release.yml)
-[![Publish to WinGet](https://github.com/picguard/picguard/actions/workflows/winget.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/winget.yml)
 [![GitHub Release](https://img.shields.io/github/v/release/picguard/picguard)](https://github.com/picguard/picguard/releases/latest)
-[![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/picguard/picguard)](https://github.com/picguard/picguard/issues/new)
-[![GitHub License](https://img.shields.io/github/license/picguard/picguard)](https://raw.githubusercontent.com/picguard/picguard/main/LICENSE)
 
-Introducing **PicGuard** – the ultimate solution for securing and customizing your digital photos. With our app, you can easily add watermarks to your images to protect your creative work and maintain your privacy.
+<span style="color: red; font-size: 18px; font-weight: 500;">
+  This project is used to learn how to package Flutter applications and distribute them to app stores.
+</span>
 
-**PicGuard** offers robust privacy protection features, ensuring your personal and sensitive information remains safeguarded. It’s highly customizable, allowing you to personalize watermarks with various fonts, styles, and designs to suit your needs.
-
-Accessible on web, mobile, and desktop, you can seamlessly integrate and manage your watermarking tasks across all your devices. **PicGuard**, as an open-source tool, it’s not only free but also continuously improved by a community of developers dedicated to providing the best user experience.
-
-Download **PicGuard** today and take control of your photo security and personalization like never before!
-
-## 🛍️ Get It On Stores
+## Get It On Stores
 
 <table>
   <tr>
@@ -131,14 +120,14 @@ Download **PicGuard** today and take control of your photo security and personal
   </tr>
 </table>
 
-## 📥 Direct Download
+## Direct Download
 
 <div align=left>
   <table>
     <thead align=left>
       <tr>
         <th>OS</th>
-        <th>Download</th>
+        <th style="text-align: center">Download</th>
       </tr>
     </thead>
     <tbody align=left>
@@ -204,12 +193,12 @@ Download **PicGuard** today and take control of your photo security and personal
   </table>
 </div>
 
-## 📜 Get It On Package Manager
+## Get It On Package Manager
 
 <table>
   <tr>
     <th>Platform</th>
-    <th>Package/Installation Method</th>
+    <th style="text-align: center">Package/Installation Method</th>
   </tr>
   <tr>
     <td>Flatpak</td>
@@ -259,4 +248,4 @@ Download **PicGuard** today and take control of your photo security and personal
 
 ## License
 
-MIT
+[MIT](./LICENSE)
