@@ -65,7 +65,7 @@ dependencies:
   sentry_logging: ^8.9.0
   shared_preferences: ^2.3.2
   slang: ^3.32.0
-  slang_flutter: ^3.32.0
+  slang_flutter: ^4.0.0
   syncfusion_flutter_sliders: ^27.1.53
   synchronized: ^3.3.0+3
   url_launcher: ^6.3.1
