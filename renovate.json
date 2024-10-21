@@ -13,6 +13,10 @@
     {
       "matchPackagePatterns": ["androidx.window"],
       "groupName": "androidx.window"
+    },
+    {
+      "matchPackageNames": ["slang", "slang_flutter", "slang_build_runner"],
+      "groupName": "slang"
     }
   ]
 }
