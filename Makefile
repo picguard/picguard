@@ -29,6 +29,10 @@ macos_install: ## Installing ios dependencies
 	echo "╠ Resolving macos dependencies..."
 	cd macos && pod install && cd ..
 
+precache: ## Installing ios dependencies
+	echo "╠ Populate the Flutter tool's cache of binary artifacts..."
+	fvm flutter precache -a
+
 icon: ## Generate icons
 	echo "╠ Generate icons..."
 	fvm dart run flutter_native_splash:create
