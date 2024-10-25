@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4+419
+
+1. Update deps
+
 ## 1.0.4+418
 
 1. fix: Macs with Apple silicon support issue
