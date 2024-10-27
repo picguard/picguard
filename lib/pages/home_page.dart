@@ -29,7 +29,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:window_manager/window_manager.dart';
 
 // Project imports:
 import 'package:picguard/app/config.dart';
@@ -91,7 +90,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with WindowListener {
+class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormBuilderState>();
   final inputFocusNode = FocusNode();
   List<FileWrapper> _fileWrappers = [];
@@ -99,7 +98,6 @@ class _HomePageState extends State<HomePage> with WindowListener {
   @override
   void initState() {
     super.initState();
-    windowManager.addListener(this);
     LocaleSettings.getLocaleStream().listen((event) {
       printDebugLog('locale changed: $event');
     });
@@ -109,12 +107,6 @@ class _HomePageState extends State<HomePage> with WindowListener {
         DialogUtil.showLicenseDialog();
       }
     });
-  }
-
-  @override
-  void dispose() {
-    windowManager.removeListener(this);
-    super.dispose();
   }
 
   @override
@@ -642,102 +634,6 @@ class _HomePageState extends State<HomePage> with WindowListener {
     return Permissions.none;
   }
 
-  @override
-  Future<void> onWindowClose() async {
-    final isPreventClose = await windowManager.isPreventClose();
-    if (isDesktop && isPreventClose) {
-      if (!mounted) return;
-      await showDialog<void>(
-        context: context,
-        barrierDismissible: false,
-        builder: (ctx) {
-          final t = Translations.of(context);
-          return AlertDialog(
-            title: Text(
-              t.dialogs.exitConfirm.title,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w500,
-                height: 1.44,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            content: Text(
-              t.dialogs.exitConfirm.description,
-              style: const TextStyle(fontSize: 14, height: 1.44),
-              textAlign: TextAlign.center,
-            ).nestedConstrainedBox(
-              constraints: const BoxConstraints(minWidth: 300),
-            ),
-            actions: [
-              TextButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(errorTextColor),
-                  elevation: WidgetStateProperty.all(0),
-                  minimumSize: WidgetStateProperty.all(Size.zero),
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  padding: WidgetStateProperty.all(EdgeInsets.zero),
-                  shape: WidgetStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                ),
-                child: Text(
-                  t.dialogs.exitConfirm.exit,
-                  style: const TextStyle(color: Colors.white),
-                ).nestedPadding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 6,
-                  ),
-                ),
-                onPressed: () {
-                  NavigatorUtil.pop();
-                  windowManager.destroy();
-                },
-              ),
-              const SizedBox(width: 20),
-              TextButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      WidgetStateProperty.all(primaryBackgroundColor),
-                  elevation: WidgetStateProperty.all(0),
-                  minimumSize: WidgetStateProperty.all(Size.zero),
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  padding: WidgetStateProperty.all(EdgeInsets.zero),
-                  shape: WidgetStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      side: const BorderSide(color: primaryColor),
-                    ),
-                  ),
-                ),
-                onPressed: NavigatorUtil.pop,
-                child: Text(
-                  t.dialogs.exitConfirm.cancel,
-                  style: const TextStyle(color: primaryColor),
-                ).nestedPadding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 6,
-                  ),
-                ),
-              ),
-            ],
-            actionsAlignment: MainAxisAlignment.center,
-          );
-        },
-      );
-    }
-  }
-
-  @override
-  void onWindowFocus() {
-    // Make sure to call once.
-    setState(() {});
-    // do something
-  }
 }
 
 /// 图片组

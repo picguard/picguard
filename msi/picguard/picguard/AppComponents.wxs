@@ -25,13 +25,7 @@
         <File Source="$(FlutterBuildOutputDir)\permission_handler_windows_plugin.dll" />
       </Component>
       <Component>
-        <File Source="$(FlutterBuildOutputDir)\screen_retriever_plugin.dll" />
-      </Component>
-      <Component>
         <File Source="$(FlutterBuildOutputDir)\url_launcher_windows_plugin.dll" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\window_manager_plugin.dll" />
       </Component>
       <Component>
         <File Source="$(FlutterBuildOutputDir)\LICENSE" />

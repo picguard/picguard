@@ -14,7 +14,6 @@ import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
-import 'package:window_manager/window_manager.dart';
 
 // Project imports:
 import 'package:picguard/app/config.dart';
@@ -102,19 +101,8 @@ Future<void> runMainApp({
 
   EasyLoading.instance.maskType = EasyLoadingMaskType.clear;
 
-  if (isDesktop) {
-    await WindowManager.instance.ensureInitialized();
-    await windowManager.waitUntilReadyToShow().then((_) async {
-      await windowManager.show();
-      await windowManager.setSize(const Size(1200, 800));
-      await windowManager.center();
-      await windowManager.setPreventClose(true);
-      await windowManager.setSkipTaskbar(false);
-    });
-  }
-
   // initialize with the right locale
-  LocaleSettings.useDeviceLocale();
+  await LocaleSettings.useDeviceLocale();
 
   await GetStorage.init(AppConfig.shared.container);
   Get.lazyPut(SettingsController.new, fenix: true);
