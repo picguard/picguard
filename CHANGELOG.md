@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.4+420
+
+1. Update macos deployment target
+2. Remove deps
+3. Replace pnpm with npm
+4. Added callbacks to linux app
+
 ## 1.0.4+419
 
 1. Update deps
