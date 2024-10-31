@@ -26,7 +26,7 @@ slots:
   dbus-picguard: # adjust accordingly to your app name
     interface: dbus
     bus: session
-    name: com.kjxbyz.watermarkassistant # adjust accordingly to your app name and
+    name: com.kjxbyz.PicGuard # adjust accordingly to your app name and
 apps:
   picguard:
     command: picguard

@@ -10,8 +10,8 @@
         <string>manual</string>
         <key>provisioningProfiles</key>
         <dict>
-            <key>com.kjxbyz.watermarkassistant</key>
-            <string>watermark_assistant_dev</string>
+            <key>com.kjxbyz.picguard</key>
+            <string>picguard_dev</string>
         </dict>
     </dict>
 </plist>

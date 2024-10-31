@@ -12,8 +12,8 @@
         <string>iPhone Distribution: Qingdao INSCO Network Technology Co., Ltd. (43V9N6VW8L)</string>
         <key>provisioningProfiles</key>
         <dict>
-            <key>com.kjxbyz.watermarkassistant.pro</key>
-            <string>watermark_assistant_pro_appstore</string>
+            <key>com.kjxbyz.picguard.pro</key>
+            <string>picguard_pro_appstore</string>
         </dict>
     </dict>
 </plist>
