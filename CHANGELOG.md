@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.4+421
+
+1. fix: update snap version
+2. Update deps
+3. Migrate to `com.kjxbyz.picguard`
+
 ## 1.0.4+420
 
 1. Update macos deployment target
