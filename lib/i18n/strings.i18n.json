@@ -24,6 +24,7 @@
     "save": "Save",
     "savedSuccess": "Saved successfully",
     "savedFailure": "Failed to save image(s)",
+    "saveInfo": "$succeedNum image(s) saved, $failedNum image(s) failed to save",
     "settings": "Settings",
     "languages": "Languages"
   },
@@ -72,7 +73,7 @@
   },
   "locales(map)": {
     "en": "English",
-    "it": "Italiano",
+    "it": "Italian",
     "zh": "中文"
   },
   "themes": {

@@ -46,7 +46,7 @@ class TranslationsZh implements Translations {
 	@override late final _TranslationsDialogsZh dialogs = _TranslationsDialogsZh._(_root);
 	@override Map<String, String> get locales => {
 		'en': 'English',
-		'it': 'Italiano',
+		'it': 'Italian',
 		'zh': '中文',
 	};
 	@override late final _TranslationsThemesZh themes = _TranslationsThemesZh._(_root);
@@ -79,6 +79,7 @@ class _TranslationsHomePageZh implements TranslationsHomePageEn {
 	@override String get save => '保存';
 	@override String get savedSuccess => '保存成功';
 	@override String get savedFailure => '保存失败';
+	@override String saveInfo({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
 	@override String get settings => '设置';
 	@override String get languages => '语言';
 }
@@ -227,6 +228,7 @@ extension on TranslationsZh {
 			case 'homePage.save': return '保存';
 			case 'homePage.savedSuccess': return '保存成功';
 			case 'homePage.savedFailure': return '保存失败';
+			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
 			case 'homePage.settings': return '设置';
 			case 'homePage.languages': return '语言';
 			case 'buttons.agree': return '同意';
@@ -255,7 +257,7 @@ extension on TranslationsZh {
 			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)';
 			case 'locales.en': return 'English';
-			case 'locales.it': return 'Italiano';
+			case 'locales.it': return 'Italian';
 			case 'locales.zh': return '中文';
 			case 'themes.manual': return '手动模式';
 			case 'themes.system': return '跟随系统';

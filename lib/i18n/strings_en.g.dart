@@ -50,7 +50,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsDialogsEn dialogs = TranslationsDialogsEn._(_root);
 	Map<String, String> get locales => {
 		'en': 'English',
-		'it': 'Italiano',
+		'it': 'Italian',
 		'zh': '中文',
 	};
 	late final TranslationsThemesEn themes = TranslationsThemesEn._(_root);
@@ -83,6 +83,7 @@ class TranslationsHomePageEn {
 	String get save => 'Save';
 	String get savedSuccess => 'Saved successfully';
 	String get savedFailure => 'Failed to save image(s)';
+	String saveInfo({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
 	String get settings => 'Settings';
 	String get languages => 'Languages';
 }
@@ -231,6 +232,7 @@ extension on Translations {
 			case 'homePage.save': return 'Save';
 			case 'homePage.savedSuccess': return 'Saved successfully';
 			case 'homePage.savedFailure': return 'Failed to save image(s)';
+			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
 			case 'homePage.settings': return 'Settings';
 			case 'homePage.languages': return 'Languages';
 			case 'buttons.agree': return 'Agree';
@@ -259,7 +261,7 @@ extension on Translations {
 			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => 'In order to save images, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)';
 			case 'locales.en': return 'English';
-			case 'locales.it': return 'Italiano';
+			case 'locales.it': return 'Italian';
 			case 'locales.zh': return '中文';
 			case 'themes.manual': return 'Manual Mode';
 			case 'themes.system': return 'Auto Mode';

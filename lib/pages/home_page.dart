@@ -301,19 +301,26 @@ class _HomePageState extends State<HomePage> {
           selectedDirectory = await FilePicker.platform.getDirectoryPath();
         }
 
-        final savedImageFutures = images
-            .whereNotNull()
-            .map(
-              (returnWrapper) =>
-                  _saveToDevice(returnWrapper, selectedDirectory),
-            )
-            .toList();
-        final savedImages = await Future.wait(savedImageFutures);
-        final hasErrors = savedImages.where((element) => !element).isNotEmpty;
-        if (hasErrors) {
+        final results = <bool>[];
+        for (final returnWrapper in images.nonNulls) {
+          final result = await _saveToDevice(returnWrapper, selectedDirectory);
+          results.add(result);
+        }
+
+        final savedLength = results.where((element) => element).length;
+        final failedLength = results.length - savedLength;
+
+        if (savedLength == 0) {
           await EasyLoading.showError(t.homePage.savedFailure);
-        } else {
+        } else if (failedLength == 0) {
           await EasyLoading.showSuccess(t.homePage.savedSuccess);
+        } else {
+          await EasyLoading.showInfo(
+            t.homePage.saveInfo(
+              succeedNum: savedLength,
+              failedNum: failedLength,
+            ),
+          );
         }
       } on Exception catch (error, stackTrace) {
         await EasyLoading.showError(t.homePage.savedFailure);
@@ -633,7 +640,6 @@ class _HomePageState extends State<HomePage> {
 
     return Permissions.none;
   }
-
 }
 
 /// 图片组

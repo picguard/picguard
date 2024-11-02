@@ -46,7 +46,7 @@ class TranslationsIt implements Translations {
 	@override late final _TranslationsDialogsIt dialogs = _TranslationsDialogsIt._(_root);
 	@override Map<String, String> get locales => {
 		'en': 'English',
-		'it': 'Italiano',
+		'it': 'Italian',
 		'zh': '中文',
 	};
 	@override late final _TranslationsThemesIt themes = _TranslationsThemesIt._(_root);
@@ -79,6 +79,7 @@ class _TranslationsHomePageIt implements TranslationsHomePageEn {
 	@override String get save => 'Salva';
 	@override String get savedSuccess => 'Salvataggio riuscito';
 	@override String get savedFailure => 'Impossibile salvare l\'immagine(i)';
+	@override String saveInfo({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
 	@override String get settings => 'Impostazioni';
 	@override String get languages => 'Lingue';
 }
@@ -227,6 +228,7 @@ extension on TranslationsIt {
 			case 'homePage.save': return 'Salva';
 			case 'homePage.savedSuccess': return 'Salvataggio riuscito';
 			case 'homePage.savedFailure': return 'Impossibile salvare l\'immagine(i)';
+			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
 			case 'homePage.settings': return 'Impostazioni';
 			case 'homePage.languages': return 'Lingue';
 			case 'buttons.agree': return 'Accetto';
@@ -255,7 +257,7 @@ extension on TranslationsIt {
 			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => 'Per poter salvare le immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)';
 			case 'locales.en': return 'English';
-			case 'locales.it': return 'Italiano';
+			case 'locales.it': return 'Italian';
 			case 'locales.zh': return '中文';
 			case 'themes.manual': return 'Modalità manuale';
 			case 'themes.system': return 'Modalità automatica';

@@ -24,6 +24,7 @@
     "save": "保存",
     "savedSuccess": "保存成功",
     "savedFailure": "保存失败",
+    "saveInfo": "已保存$succeedNum张, 保存失败$failedNum张",
     "settings": "设置",
     "languages": "语言"
   },
@@ -72,7 +73,7 @@
   },
   "locales(map)": {
     "en": "English",
-    "it": "Italiano",
+    "it": "Italian",
     "zh": "中文"
   },
   "themes": {
