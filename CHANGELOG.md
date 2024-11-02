@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4+422
+
+1. fix: The loading box won't disappear
+2. chore(deps): update plugin com.android.application to v8.7.2
+
 ## 1.0.4+421
 
 1. fix: update snap version
