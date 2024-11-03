@@ -56,7 +56,7 @@ parts:
       - liblzma-dev
       - libstdc++-12-dev
     build-environment:
-      - FLUTTER_TARGET: lib/main.dart
+      - FLUTTER_TARGET: lib/main_free.dart
       - TARGET_PLATFORM: linux-arm64
     override-build: |
       # https://github.com/canonical/snapcraft/blob/main/snapcraft/parts/plugins/flutter_plugin.py

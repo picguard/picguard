@@ -74,7 +74,7 @@ jobs:
             
             # Build flutter
             echo "Build flutter"
-            flutter build linux --dart-define-from-file=.env --target-platform=linux-arm64
+            flutter build linux --dart-define-from-file=.env --target lib/main_free.dart --target-platform=linux-arm64
             
             # Install yq
             if ! command -v yq >/dev/null 2>&1; then

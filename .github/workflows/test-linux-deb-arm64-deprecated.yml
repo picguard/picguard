@@ -77,7 +77,11 @@ jobs:
 
             # Build deb
             echo "Build deb"
-            flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-arm64" --platform linux --targets deb --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_aarch64.{{ext}}'
+            flutter_distributor package \
+              --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-arm64" \
+              --platform linux \
+              --targets deb \
+              --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_aarch64.{{ext}}'
 
 
       # Package the build.

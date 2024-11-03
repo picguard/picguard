@@ -35,7 +35,7 @@
       "program": "lib/main_free.dart",
       "args": [
         "--dart-define-from-file",
-        ".env.dev.local",
+        ".env.dev.local"
       ]
     },
     {

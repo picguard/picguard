@@ -227,7 +227,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart
+          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --target lib/main_free.dart
 
       - name: Install certificates
         env:
@@ -335,7 +335,7 @@ jobs:
         run: flutter pub get
 
       - name: Build flutter
-        run: flutter build linux --dart-define-from-file=.env --target-platform=linux-x64
+        run: flutter build linux --dart-define-from-file=.env --target lib/main_free.dart --target-platform=linux-x64
 
       - name: Install yq
         run: |
@@ -400,7 +400,11 @@ jobs:
 
       - name: Build zip
         run: |
-          flutter_distributor package --flutter-build-args "dart-define-from-file=.env" --platform windows --targets zip --artifact-name '{{name}}_{{build_name}}+{{build_number}}.{{ext}}'
+          flutter_distributor package `
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
+            --platform windows `
+            --targets zip `
+            --artifact-name '{{name}}_{{build_name}}+{{build_number}}.{{ext}}'
 
       # Package the build.
       - name: Copy build for zip

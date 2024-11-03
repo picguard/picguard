@@ -106,7 +106,7 @@ jobs:
         run: flutter pub get
 
       - name: Build windows
-        run: flutter build windows --dart-define-from-file=.env
+        run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Update msi version
         shell: pwsh

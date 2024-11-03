@@ -80,7 +80,11 @@ jobs:
             
             # Build Pacman
             echo "Build Pacman"
-            flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target-platform=linux-arm64" --platform linux --targets pacman --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_aarch64.{{ext}}'
+            flutter_distributor package \
+              --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-arm64" \
+              --platform linux 
+              --targets pacman 
+              --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_aarch64.{{ext}}'
 
       # Package the build.
       - name: Copy build for Pacman
