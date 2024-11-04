@@ -52,12 +52,12 @@
   <tr>
     <td>Amazon</td>
     <td>
-      <a href="https://www.amazon.com/dp/B0DH3V8FQ3">
+      <a href="https://www.amazon.com/dp/B0DLT8N89V">
         <img width="220" src="./docs/assets/Download-on-the-Amazon-App-Store.png" alt="Get it on Amazon App Store">
       </a>
     </td>
     <td>
-      <a href="https://www.amazon.com/dp/B0DHZ7BW41">
+      <a href="https://www.amazon.com/dp/B0DLT7DGBV">
         <img width="220" src="./docs/assets/Download-on-the-Amazon-App-Store.png" alt="Get it on Amazon App Store">
       </a>
     </td>
