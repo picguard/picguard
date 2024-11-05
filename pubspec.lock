@@ -868,10 +868,10 @@ packages:
     dependency: transitive
     description:
       name: path_parsing
-      sha256: "45f7d6bba1128761de5540f39d5ca000ea8a1f22f06b76b61094a60a2997bd0e"
+      sha256: "883402936929eac138ee0a45da5b0f2c80f89913e6dc3bf77eb65b84b409c6ca"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "1.1.0"
   path_provider:
     dependency: transitive
     description:
@@ -1209,18 +1209,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "6a2445aef2adc77136aedaf8b0c1b7f22c43b43d7036f219414db9acd679570a"
+      sha256: "31d2ddf410ee41abb3ecf85b7b6e8e1563307ad52ee784ddd91337e30280f715"
       url: "https://pub.dev"
     source: hosted
-    version: "27.1.57"
+    version: "27.1.58"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: fe19b8fda1e7190b2d99c0e0c3cdc54eeb9f0329207a37592e9645cc40f156a3
+      sha256: "5a65c6aa001bc8763835325c6da4ff668018f64c3c4c5565cf25fafff01b1828"
       url: "https://pub.dev"
     source: hosted
-    version: "27.1.57"
+    version: "27.1.58"
   synchronized:
     dependency: "direct main"
     description:
@@ -1297,10 +1297,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: "0dea215895a4d254401730ca0ba8204b29109a34a99fb06ae559a2b60988d2de"
+      sha256: "6fc2f56536ee873eeb867ad176ae15f304ccccc357848b351f6f0d8d4a40d193"
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.13"
+    version: "6.3.14"
   url_launcher_ios:
     dependency: transitive
     description:
@@ -1361,18 +1361,18 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics_codec
-      sha256: c86987475f162fadff579e7320c7ddda04cd2fdeffbe1129227a85d9ac9e03da
+      sha256: "2430b973a4ca3c4dbc9999b62b8c719a160100dcbae5c819bae0cacce32c9cdb"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.11+1"
+    version: "1.1.12"
   vector_graphics_compiler:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: "12faff3f73b1741a36ca7e31b292ddeb629af819ca9efe9953b70bd63fc8cd81"
+      sha256: f3b9b6e4591c11394d4be4806c63e72d3a41778547b2c1e2a8a04fadcfd7d173
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.11+1"
+    version: "1.1.12"
   vector_math:
     dependency: transitive
     description:
@@ -1441,10 +1441,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "10169d3934549017f0ae278ccb07f828f9d6ea21573bab0fb77b0e1ef0fce454"
+      sha256: "84ba388638ed7a8cb3445a320c8273136ab2631cd5f2c57888335504ddab1bc2"
       url: "https://pub.dev"
     source: hosted
-    version: "5.7.2"
+    version: "5.8.0"
   win32_registry:
     dependency: transitive
     description:
