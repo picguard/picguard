@@ -25,6 +25,9 @@
         <File Source="$(FlutterBuildOutputDir)\permission_handler_windows_plugin.dll" />
       </Component>
       <Component>
+        <File Source="$(FlutterBuildOutputDir)\sentry_flutter_plugin.lib" />
+      </Component>
+      <Component>
         <File Source="$(FlutterBuildOutputDir)\url_launcher_windows_plugin.dll" />
       </Component>
       <Component>
