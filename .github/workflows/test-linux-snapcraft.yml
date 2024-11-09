@@ -10,13 +10,16 @@ jobs:
   snap:
     name: Create linux snap
     runs-on: ubuntu-latest
+    env:
+      LXD_GROUP: lxd
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup LXD
-        uses: canonical/setup-lxd@v0.1.1
+        uses: canonical/setup-lxd@v0.1.2
         with:
           channel: latest/stable
+          group: ${{ env.LXD_GROUP }}
 
       - name: Configure .env
         run: |
@@ -45,7 +48,7 @@ jobs:
         run: |
           # https://snapcraft.io/docs/flutter-applications
           version=$(yq '.version' pubspec.yaml)
-          snapcraft --output "picguard_"$version"_linux_amd64.snap"
+          sudo snapcraft --output "picguard_"$version"_linux_amd64.snap"
 
       # Package the build.
       - name: Copy build for snap
@@ -63,5 +66,5 @@ jobs:
           rm -f .env
           if which snapcraft >/dev/null 2>&1; then
             echo "snapcraft exists"
-            snapcraft clean
+            sudo snapcraft clean
           fi
