@@ -61,7 +61,7 @@ dependencies:
   reorderables: ^0.6.0
   sentry_flutter: ^8.10.1
   sentry_logging: ^8.10.1
-  shared_preferences: ^2.3.2
+  shared_preferences: ^2.3.3
   slang_flutter: ^4.1.0
   syncfusion_flutter_sliders: ^27.1.58
   synchronized: ^3.3.0+3
