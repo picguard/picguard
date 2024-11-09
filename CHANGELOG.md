@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.5+423
+
+1. Update deps
+2. Update target
+
 ## 1.0.4+422
 
 1. fix: The loading box won't disappear
