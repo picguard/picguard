@@ -218,16 +218,16 @@
       <p>With yay: <code>yay -Sy picguard-bin</code></p>
     </td>
   </tr>
-  <tr>
+  <!-- <tr>
     <td>Nixpkgs (TODO)</td>
     <td>
       <p><code>nix-shell -p picguard</code></p>
     </td>
-  </tr>
+  </tr> -->
   <tr>
     <td>macOS - <a href="https://brew.sh">Homebrew</a></td>
     <td>
-     <p><code>brew install picguard/picguard/picguard</code></p>
+     <p><code>brew install kjxbyz/casks/picguard</code></p>
     </td>
   </tr>
   <tr>
@@ -239,8 +239,8 @@
   <tr>
     <td>Windows - <a href="https://scoop.sh">Scoop</a></td>
     <td>
-      <p><code>scoop bucket add scoop-bucket https://github.com/picguard/scoop-bucket</code></p>
-      <p><code>scoop install scoop-bucket/picguard</code></p>
+      <p><code>scoop bucket add kjxbyz_scoop-bucket https://github.com/kjxbyz/scoop-bucket</code></p>
+      <p><code>scoop install kjxbyz_scoop-bucket/picguard</code></p>
     </td>
   </tr>
   <tr>
