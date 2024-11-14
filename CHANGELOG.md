@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.5+424
+
+1. Update deps
+2. Building from source on Linux arm64
+3. Update flutter to v3.24.5
+
 ## 1.0.5+423
 
 1. Update deps
