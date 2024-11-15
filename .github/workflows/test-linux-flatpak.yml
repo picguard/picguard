@@ -89,16 +89,13 @@ jobs:
 
       # Package the build.
       - name: Copy build for flatpak
-        run: |
-          ls -la
+        run: ls -la
 
       - uses: actions/upload-artifact@v4
         with:
           name: linux-flatpak-artifact
-          path: |
-            ./*.flatpak
+          path: ./*.flatpak
 
       - name: Clean up
         if: ${{ always() }}
-        run: |
-          rm -f .env
+        run: rm -f .env

@@ -22,18 +22,9 @@ jobs:
           group: ${{ env.LXD_GROUP }}
 
       - name: Configure .env
-        run: |
-          echo "$ENV_KEY" | base64 --decode > .env
+        run: echo "$ENV_KEY" | base64 --decode > .env
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
-
-      - name: Install yq
-        run: |
-          if ! command -v yq >/dev/null 2>&1; then
-            echo "yq not exists"
-            sudo snap install -y yq
-          fi
-          yq --version
 
       - name: Update snapcraft.yaml
         run: rm -f snap/snapcraft-arm64.yaml
@@ -54,8 +45,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: linux-snap-artifact
-          path: |
-            ./*.snap
+          path: ./*.snap
 
       - name: Clean up
         if: ${{ always() }}

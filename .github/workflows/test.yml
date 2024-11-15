@@ -48,8 +48,7 @@ jobs:
           flutter-version: '3.24.5'
 
       - name: Configure .env
-        run: |
-          echo "$ENV_KEY" | base64 --decode > .env
+        run: echo "$ENV_KEY" | base64 --decode > .env
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
@@ -101,8 +100,7 @@ jobs:
           flutter-version: '3.24.5'
 
       - name: Configure .env
-        run: |
-          echo "$ENV_KEY" | base64 --decode > .env
+        run: echo "$ENV_KEY" | base64 --decode > .env
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
@@ -208,8 +206,7 @@ jobs:
           flutter-version: '3.24.5'
 
       - name: Configure .env
-        run: |
-          echo "$ENV_KEY" | base64 --decode > .env
+        run: echo "$ENV_KEY" | base64 --decode > .env
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
@@ -323,8 +320,7 @@ jobs:
           flutter-version: '3.24.5'
 
       - name: Configure .env
-        run: |
-          echo "$ENV_KEY" | base64 --decode > .env
+        run: echo "$ENV_KEY" | base64 --decode > .env
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
@@ -336,19 +332,6 @@ jobs:
 
       - name: Build flutter
         run: flutter build linux --dart-define-from-file=.env --target lib/main_free.dart --target-platform=linux-x64
-
-      - name: Install yq
-        run: |
-          if ! command -v yq >/dev/null 2>&1; then
-            echo "yq not exists"
-            if ! command -v wget >/dev/null 2>&1; then
-              echo "wget not exists"
-              sudo apt install -y wget
-            fi
-            wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
-            chmod +x /usr/bin/yq
-          fi
-          yq --version
 
       - name: Build tar
         run: |
@@ -366,8 +349,7 @@ jobs:
 
       - name: Clean up
         if: ${{ always() }}
-        run: |
-          rm -f .env
+        run: rm -f .env
 
   windows:
     name: Create windows

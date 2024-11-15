@@ -17,39 +17,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install yq
-        run: |
-          if ! command -v yq >/dev/null 2>&1; then
-            echo "yq not exists"
-            brew install yq
-          fi
-          yq --version
-
       - name: Set version
         id: version_step
         run: |
           VERSION=$(yq '.version' pubspec.yaml)
-          echo "$VERSION"
+          echo "VERSION: $VERSION."
 
           VERSION_SHORT=$(echo "$VERSION" | sed -e "s/+.*//")
-          echo "$VERSION_SHORT"
+          echo "VERSION_SHORT: $VERSION_SHORT."
 
           BUILD_NUMBER=$(echo "$VERSION" | sed -e "s/.*+//")
-          echo "$BUILD_NUMBER"
+          echo "BUILD_NUMBER: $BUILD_NUMBER."
 
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
           echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
-
-      - name: Check version
-        run: |
-          echo "version: $VERSION"
-          echo "version_short: $VERSION_SHORT"
-          echo "build_number: $BUILD_NUMBER"
-        env:
-          VERSION: ${{ steps.version_step.outputs.version }}
-          VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
-          BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
 
   msi:
     name: Create msi
@@ -160,8 +142,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: windows-msi-artifact
-          path: |
-            .\msi\picguard\picguard\bin\${{ env.Platform }}\Release\*\*.msi
+          path: .\msi\picguard\picguard\bin\${{ env.Platform }}\Release\*\*.msi
 
       - name: Clean up
         if: ${{ always() }}

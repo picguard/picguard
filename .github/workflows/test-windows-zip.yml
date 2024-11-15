@@ -53,8 +53,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: windows-zip-artifact
-          path: |
-            .\dist\**\*.zip
+          path: .\dist\**\*.zip
 
       - name: Clean up
         if: ${{ always() }}

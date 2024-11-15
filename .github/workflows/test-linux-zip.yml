@@ -29,8 +29,7 @@ jobs:
         run: flutter doctor -v
 
       - name: Configure .env
-        run: |
-          echo "$ENV_KEY" | base64 --decode > .env
+        run: echo "$ENV_KEY" | base64 --decode > .env
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
@@ -41,7 +40,12 @@ jobs:
         run: flutter pub get
 
       - name: Build zip
-        run: flutter_distributor package --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-x64" --platform linux --targets zip --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_amd64.{{ext}}'
+        run: |
+          flutter_distributor package \
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-x64" \
+            --platform linux \
+            --targets zip \
+            --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_amd64.{{ext}}'
 
       # Package the build.
       - name: Copy build for zip
@@ -51,10 +55,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: linux-zip-artifact
-          path: |
-            ./dist/**/*.zip
+          path: ./dist/**/*.zip
 
       - name: Clean up
         if: ${{ always() }}
-        run: |
-          rm -f .env
+        run: rm -f .env

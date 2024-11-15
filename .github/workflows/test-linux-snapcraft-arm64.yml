@@ -22,8 +22,7 @@ jobs:
           group: ${{ env.LXD_GROUP }}
 
       - name: Configure .env
-        run: |
-          echo "$ENV_KEY" | base64 --decode > .env
+        run: echo "$ENV_KEY" | base64 --decode > .env
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
@@ -56,8 +55,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: linux-snap-arm64-artifact
-          path: |
-            ./*.snap
+          path: ./*.snap
 
       - name: Clean up
         if: ${{ always() }}
