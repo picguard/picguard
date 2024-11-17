@@ -1137,26 +1137,26 @@ packages:
     dependency: transitive
     description:
       name: slang
-      sha256: b04db2dbaf927b28600a2f8a272a3bf2ae309556dcc5d6beb02d66af0be39e4c
+      sha256: "0af2983d4863f9b57f7a28f47fdd86df4ada462e1fad727b47e6bf5fc64d0060"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.1"
   slang_build_runner:
     dependency: "direct dev"
     description:
       name: slang_build_runner
-      sha256: "6338653769ab088ad222e84b1f382fffb867a9a3ead802960aa4d0ab45a62f5f"
+      sha256: "2c0f2790ad0f68210c151fefee86b863c483f315816cbe59496dbbe744ef90e2"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.0"
   slang_flutter:
     dependency: "direct main"
     description:
       name: slang_flutter
-      sha256: "59988f37bb8b50d96ee46832a8a389036c0da26c04b1b1d4aa6690c00f70eccf"
+      sha256: "1693804c4c16a14134e753e48e488dca6a86ad682d5faf3c9c53e80b7b2e6b49"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.0"
   source_span:
     dependency: transitive
     description:
@@ -1209,18 +1209,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "31d2ddf410ee41abb3ecf85b7b6e8e1563307ad52ee784ddd91337e30280f715"
+      sha256: "225b1cc135549bb4eef096d63b7323c30ee61c4b095c7e8a14bf9333e243d84b"
       url: "https://pub.dev"
     source: hosted
-    version: "27.1.58"
+    version: "27.2.2"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "5a65c6aa001bc8763835325c6da4ff668018f64c3c4c5565cf25fafff01b1828"
+      sha256: af68a903ed78cd1c168df62aaeb3dca1a0f25e46058a89dd086b3538348cd2d0
       url: "https://pub.dev"
     source: hosted
-    version: "27.1.58"
+    version: "27.2.2"
   synchronized:
     dependency: "direct main"
     description:
@@ -1313,10 +1313,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_linux
-      sha256: e2b9622b4007f97f504cd64c0128309dfb978ae66adbe944125ed9e1750f06af
+      sha256: "4e9ba368772369e3e08f231d2301b4ef72b9ff87c31192ef471b380ef29a4935"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.0"
+    version: "3.2.1"
   url_launcher_macos:
     dependency: transitive
     description:
