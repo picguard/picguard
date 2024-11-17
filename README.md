@@ -9,7 +9,7 @@
 [![Snapcraft Version](https://img.shields.io/snapcraft/v/picguard/latest/stable)](https://snapcraft.io/picguard)
 [![AUR Version](https://img.shields.io/aur/version/picguard-bin)](https://aur.archlinux.org/packages/picguard-bin)
 
-<span style="color: red; font-size: 18px; font-weight: 500;">
+<span style="color: red; font-size: 22px; font-weight: 500;">
   This project is used to learn how to package Flutter applications and distribute them to app stores.
 </span>
 
@@ -148,12 +148,12 @@
         <td>
           <a href="https://github.com/picguard/picguard/releases/download/v1.0.5+424/PicGuard_1.0.5+424-free_universal.apk"><img src="https://img.shields.io/badge/APK_(Free)-universal-FF0000.svg?logo=android"></a>
           <a href="https://github.com/picguard/picguard/releases/download/v1.0.5+424/PicGuard_1.0.5+424-pro_universal.apk"><img src="https://img.shields.io/badge/APK_(Pro)-universal-FF0000.svg?logo=android"></a><br>
-          <a href="https://github.com/picguard/picguard/releases/download/v1.0.5+424/PicGuard_1.0.5+424-free_arm64-v8a.apk"><img src="https://img.shields.io/badge/APK_(Free)-arm64--v8a-FFA500.svg?logo=android"></a>
+          <!-- <a href="https://github.com/picguard/picguard/releases/download/v1.0.5+424/PicGuard_1.0.5+424-free_arm64-v8a.apk"><img src="https://img.shields.io/badge/APK_(Free)-arm64--v8a-FFA500.svg?logo=android"></a>
           <a href="https://github.com/picguard/picguard/releases/download/v1.0.5+424/PicGuard_1.0.5+424-pro_arm64-v8a.apk"><img src="https://img.shields.io/badge/APK_(Pro)-arm64--v8a-FFA500.svg?logo=android"></a><br>
           <a href="https://github.com/picguard/picguard/releases/download/v1.0.5+424/PicGuard_1.0.5+424-free_armeabi-v7a.apk"><img src="https://img.shields.io/badge/APK_(Free)-armeabi--v7a-00FF00.svg?logo=android"></a>
           <a href="https://github.com/picguard/picguard/releases/download/v1.0.5+424/PicGuard_1.0.5+424-pro_armeabi-v7a.apk"><img src="https://img.shields.io/badge/APK_(Pro)-armeabi--v7a-00FF00.svg?logo=android"></a><br>
           <a href="https://github.com/picguard/picguard/releases/download/v1.0.5+424/PicGuard_1.0.5+424-free_x86_64.apk"><img src="https://img.shields.io/badge/APK_(Free)-x86--64-0000FF.svg?logo=android"></a>
-          <a href="https://github.com/picguard/picguard/releases/download/v1.0.5+424/PicGuard_1.0.5+424-pro_x86_64.apk"><img src="https://img.shields.io/badge/APK_(Pro)-x86--64-0000FF.svg?logo=android"></a>
+          <a href="https://github.com/picguard/picguard/releases/download/v1.0.5+424/PicGuard_1.0.5+424-pro_x86_64.apk"><img src="https://img.shields.io/badge/APK_(Pro)-x86--64-0000FF.svg?logo=android"></a> -->
         </td>
       </tr>
       <tr>
