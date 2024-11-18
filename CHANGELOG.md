@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.5+425
+
+1. Update deps
+2. Disable multiple APKs for ABIs
+3. refactor: remove unused workflows
+4. fix: remove VCredist.wxs
+
 ## 1.0.5+424
 
 1. Update deps
