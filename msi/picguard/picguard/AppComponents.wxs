@@ -22,6 +22,9 @@
         <File Source="$(FlutterBuildOutputDir)\flutter_windows.dll" />
       </Component>
       <Component>
+        <File Source="$(FlutterBuildOutputDir)\msvcp140.dll" />
+      </Component>
+      <Component>
         <File Source="$(FlutterBuildOutputDir)\permission_handler_windows_plugin.dll" />
       </Component>
       <Component>
@@ -29,6 +32,12 @@
       </Component>
       <Component>
         <File Source="$(FlutterBuildOutputDir)\url_launcher_windows_plugin.dll" />
+      </Component>
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\vcruntime140_1.dll" />
+      </Component>
+      <Component>
+        <File Source="$(FlutterBuildOutputDir)\vcruntime140.dll" />
       </Component>
       <Component>
         <File Source="$(FlutterBuildOutputDir)\LICENSE" />

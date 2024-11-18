@@ -26,16 +26,6 @@
       <ComponentGroupRef Id="ShaderComponents" />
     </Feature>
     <Feature
-        Id="VCredist"
-        Title="Visual C++ Redistributable Libraries"
-        Description="Libraries that PicGuard uses. You may not need this if you already have vc_redist installed. You should install these if you're unsure of what this means."
-        AllowAbsent="yes"
-        AllowAdvertise="no">
-      <!-- Visual C++ Redustributable libraries -->
-      <ComponentGroupRef Id="VCredist" />
-    </Feature>
-    <!-- -->
-    <Feature
       Id="Shortcut"
       Title="PicGuard"
       Description="Your pictures, your signature."
