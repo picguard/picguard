@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.6+426
+
+1. refactor: Update CI
+
 ## 1.0.5+425
 
 1. Update deps
