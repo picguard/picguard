@@ -11,6 +11,11 @@ on:
         options:
           - staging
           - production
+      latest:
+        type: boolean
+        description: "Whether to create the latest version? (default to false)"
+        default: false
+        required: false
 
 # Declare default permissions as readonly.
 permissions: read-all
@@ -24,6 +29,7 @@ jobs:
       version: ${{ steps.version_step.outputs.version }}
       version_short: ${{ steps.version_step.outputs.version_short }}
       build_number: ${{ steps.version_step.outputs.build_number }}
+      release: ${{ steps.version_step.outputs.release }}
       tag_name: ${{ steps.version_step.outputs.tag_name }}
     steps:
       - uses: actions/checkout@v4
@@ -52,15 +58,23 @@ jobs:
           BUILD_NUMBER=$(echo "$VERSION" | sed -e "s/.*+//")
           echo "BUILD_NUMBER: $BUILD_NUMBER."
 
-          TAG_NAME=$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")
+          if [ "$ENV" == "staging" ]; then
+            TAG_NAME="$VERSION.pre"
+          elif [[ "$ENV" == "production" && "$IS_LATEST" == "false" ]]; then
+            TAG_NAME="$VERSION.rc"
+          else
+            TAG_NAME="$VERSION"
+          fi
           echo "TAG_NAME: v$TAG_NAME."
 
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
           echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+          echo "release=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "tag_name=v$TAG_NAME" >> $GITHUB_OUTPUT
         env:
           ENV: ${{ github.event.inputs.env }}
+          IS_LATEST: ${{ github.event.inputs.latest }}
 
       - name: Create a release
         run: |
@@ -122,13 +136,14 @@ jobs:
 
       - name: Publish a release
         run: |
-          if [ "$ENV" == "production" ]; then
+          if [[ "$ENV" == "production" && "$IS_LATEST" == "true" ]]; then
             gh release edit "$TAG_NAME" --latest --draft=false --tag "$TAG_NAME" --target "$SHA"
           else
             gh release edit "$TAG_NAME" --prerelease --draft=false --tag "$TAG_NAME" --target "$SHA"
           fi
         env:
           ENV: ${{ github.event.inputs.env }}
+          IS_LATEST: ${{ github.event.inputs.latest }}
           SHA: ${{ needs.create_release.outputs.sha }}
           TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
@@ -209,18 +224,17 @@ jobs:
 
       # Package the build.
       - name: Copy build for Android
-        if: github.event.inputs.env == 'staging'
         run: |
           ls -la
-          cp *.apk $GITHUB_WORKSPACE/
-        working-directory: build/app/outputs/apk/freeStaging/release
-
-      - name: Copy build for Android
-        if: github.event.inputs.env == 'production'
-        run: |
-          ls -la
-          cp *.apk $GITHUB_WORKSPACE/
-        working-directory: build/app/outputs/apk/freeProduction/release
+          if [[ "$ENV" == "staging" ]]; then
+            cp app-freestaging-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.apk
+          else
+            cp app-freeproduction-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.apk
+          fi
+        working-directory: build/app/outputs/flutter-apk
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.apk
@@ -292,18 +306,17 @@ jobs:
 
       # Package the build.
       - name: Copy build for Android
-        if: github.event.inputs.env == 'staging'
         run: |
           ls -la
-          cp *.apk $GITHUB_WORKSPACE/
-        working-directory: build/app/outputs/apk/proStaging/release
-
-      - name: Copy build for Android
-        if: github.event.inputs.env == 'production'
-        run: |
-          ls -la
-          cp *.apk $GITHUB_WORKSPACE/
-        working-directory: build/app/outputs/apk/proProduction/release
+          if [[ "$ENV" == "staging" ]]; then
+            cp app-prostaging-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.apk
+          else
+            cp app-proproduction-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.apk
+          fi
+        working-directory: build/app/outputs/flutter-apk
+        env:
+          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.apk
@@ -378,23 +391,19 @@ jobs:
         if: github.event.inputs.env == 'staging'
         run: |
           ls -la
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.aab
         working-directory: build/app/outputs/bundle/freeStagingRelease
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       - name: Copy build for Android
         if: github.event.inputs.env == 'production'
         run: |
           ls -la
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.aab
         working-directory: build/app/outputs/bundle/freeProductionRelease
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.aab
@@ -469,23 +478,19 @@ jobs:
         if: github.event.inputs.env == 'staging'
         run: |
           ls -la
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.aab
         working-directory: build/app/outputs/bundle/proStagingRelease
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       - name: Copy build for Android
         if: github.event.inputs.env == 'production'
         run: |
           ls -la
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.aab
         working-directory: build/app/outputs/bundle/proProductionRelease
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.aab
@@ -605,12 +610,10 @@ jobs:
       - name: Copy build for iOS
         run: |
           ls -la
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           cp *.ipa $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.ipa
         working-directory: build/ios/ipa
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.ipa
@@ -733,12 +736,10 @@ jobs:
       - name: Copy build for iOS
         run: |
           ls -la
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           cp *.ipa $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.ipa
         working-directory: build/ios/ipa
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.ipa
@@ -862,11 +863,9 @@ jobs:
       - name: Build DMG
         run: |
           bash scripts/build-dmg.sh
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           mv PicGuard.dmg PicGuard_"$RELEASE"_macos_universal.dmg
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for snap
@@ -994,12 +993,10 @@ jobs:
         run: |
           rm -f PicGuard-unsigned.pkg
           ls -la *.pkg
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           mv PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_universal.pkg
         working-directory: build/macos/Build/Products/Release
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.pkg
@@ -1130,12 +1127,10 @@ jobs:
       - name: Copy build for pkg
         run: |
           ls -la *.pkg
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           cp PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore-free_universal.pkg
         working-directory: build/macos/Build/Products/Release
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.pkg
@@ -1266,12 +1261,10 @@ jobs:
       - name: Copy build for pkg
         run: |
           ls -la *.pkg
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           cp PicGuard\ Pro.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore-pro_universal.pkg
         working-directory: build/macos/Build/Products/Release-pro
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.pkg
@@ -1391,13 +1384,10 @@ jobs:
           fi
 
       - name: Build zip
-        run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          7z a PicGuard_"$RELEASE"_macos_universal.zip ./PicGuard.app
+        run: 7z a PicGuard_"$RELEASE"_macos_universal.zip ./PicGuard.app
         working-directory: build/macos/Build/Products/Release
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for zip
@@ -1517,13 +1507,10 @@ jobs:
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
       - name: Build tar
-        run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          tar -czaf PicGuard_"$RELEASE"_macos_universal.tar.gz ./PicGuard.app
+        run: tar -czaf PicGuard_"$RELEASE"_macos_universal.tar.gz ./PicGuard.app
         working-directory: build/macos/Build/Products/Release
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for tar
@@ -1589,14 +1576,13 @@ jobs:
 
       - name: Build AppImage
         run: |
-          VERSION_SUFFIX="$([[ "$ENV" == "staging" ]] && echo ".pre" || echo "")"
           flutter_distributor package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-x64" \
             --platform linux \
             --targets appimage \
-            --artifact-name {{name}}_{{build_name}}+{{build_number}}"$VERSION_SUFFIX"_{{platform}}_amd64.{{ext}}
+            --artifact-name {{name}}_"$RELEASE"_{{platform}}_amd64.{{ext}}
         env:
-          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for AppImage
@@ -1667,14 +1653,13 @@ jobs:
 
       - name: Build AppImage
         run: |
-          VERSION_SUFFIX="$([[ "$ENV" == "staging" ]] && echo ".pre" || echo "")"
           flutter_distributor package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-arm64" \
             --platform linux \
             --targets appimage \
-            --artifact-name {{name}}_{{build_name}}+{{build_number}}"$VERSION_SUFFIX"_{{platform}}_aarch64.{{ext}}
+            --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
         env:
-          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for AppImage
@@ -1735,14 +1720,13 @@ jobs:
 
       - name: Build Pacman
         run: |
-          VERSION_SUFFIX="$([[ "$ENV" == "staging" ]] && echo ".pre" || echo "")"
           flutter_distributor package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-x64" \
             --platform linux \
             --targets pacman \
-            --artifact-name {{name}}_{{build_name}}+{{build_number}}"$VERSION_SUFFIX"_{{platform}}_amd64.{{ext}}
+            --artifact-name {{name}}_"$RELEASE"_{{platform}}_amd64.{{ext}}
         env:
-          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for Pacman
@@ -1807,14 +1791,13 @@ jobs:
 
       - name: Build Pacman
         run: |
-          VERSION_SUFFIX="$([[ "$ENV" == "staging" ]] && echo ".pre" || echo "")"
           flutter_distributor package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-arm64" \
             --platform linux \
             --targets pacman \
-            --artifact-name {{name}}_{{build_name}}+{{build_number}}"$VERSION_SUFFIX"_{{platform}}_aarch64.{{ext}}
+            --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
         env:
-          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for Pacman
@@ -1873,14 +1856,13 @@ jobs:
 
       - name: Build deb
         run: |
-          VERSION_SUFFIX="$([[ "$ENV" == "staging" ]] && echo ".pre" || echo "")"
           flutter_distributor package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-x64" \
             --platform linux \
             --targets deb \
-            --artifact-name {{name}}_{{build_name}}+{{build_number}}"$VERSION_SUFFIX"_{{platform}}_amd64.{{ext}}
+            --artifact-name {{name}}_"$RELEASE"_{{platform}}_amd64.{{ext}}
         env:
-          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for deb
@@ -1939,14 +1921,13 @@ jobs:
 
       - name: Build deb
         run: |
-          VERSION_SUFFIX="$([[ "$ENV" == "staging" ]] && echo ".pre" || echo "")"
           flutter_distributor package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-arm64" \
             --platform linux \
             --targets deb \
-            --artifact-name {{name}}_{{build_name}}+{{build_number}}"$VERSION_SUFFIX"_{{platform}}_aarch64.{{ext}}
+            --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
         env:
-          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for deb
@@ -2009,14 +1990,13 @@ jobs:
 
       - name: Build RPM
         run: |
-          VERSION_SUFFIX="$([[ "$ENV" == "staging" ]] && echo ".pre" || echo "")"
           flutter_distributor package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-x64" \
             --platform linux \
             --targets rpm \
-            --artifact-name {{name}}_{{build_name}}+{{build_number}}"$VERSION_SUFFIX"_{{platform}}_amd64.{{ext}}
+            --artifact-name {{name}}_"$RELEASE"_{{platform}}_amd64.{{ext}}
         env:
-          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for rpm
@@ -2093,14 +2073,13 @@ jobs:
 
       - name: Build RPM
         run: |
-          VERSION_SUFFIX="$([[ "$ENV" == "staging" ]] && echo ".pre" || echo "")"
           flutter_distributor package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-arm64" \
             --platform linux \
             --targets rpm \
-            --artifact-name {{name}}_{{build_name}}+{{build_number}}"$VERSION_SUFFIX"_{{platform}}_aarch64.{{ext}}
+            --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
         env:
-          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for rpm
@@ -2159,14 +2138,13 @@ jobs:
 
       - name: Build zip
         run: |
-          VERSION_SUFFIX="$([[ "$ENV" == "staging" ]] && echo ".pre" || echo "")"
           flutter_distributor package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-x64" \
             --platform linux \
             --targets zip \
-            --artifact-name {{name}}_{{build_name}}+{{build_number}}"$VERSION_SUFFIX"_{{platform}}_amd64.{{ext}}
+            --artifact-name {{name}}_"$RELEASE"_{{platform}}_amd64.{{ext}}
         env:
-          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for zip
@@ -2226,14 +2204,13 @@ jobs:
 
       - name: Build zip
         run: |
-          VERSION_SUFFIX="$([[ "$ENV" == "staging" ]] && echo ".pre" || echo "")"
           flutter_distributor package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-arm64" \
             --platform linux \
             --targets zip \
-            --artifact-name {{name}}_{{build_name}}+{{build_number}}"$VERSION_SUFFIX"_{{platform}}_aarch64.{{ext}}
+            --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
         env:
-          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for zip
@@ -2292,14 +2269,12 @@ jobs:
 
       - name: Build tar
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           archiveName="picguard_"$RELEASE"_linux_amd64.tar.gz"
           cd build/linux/x64/release/bundle
           tar -czaf $archiveName ./*
           mv $archiveName $GITHUB_WORKSPACE/
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for tar
@@ -2368,15 +2343,12 @@ jobs:
 
       - name: Build tar
         run: |
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
-          echo "$VERSION"
           archiveName="picguard_"$RELEASE"_linux_aarch64.tar.gz"
           cd build/linux/arm64/release/bundle
           tar -czaf $archiveName ./*
           mv $archiveName $GITHUB_WORKSPACE/
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for tar
@@ -2431,11 +2403,9 @@ jobs:
       - name: Build snap
         run: |
           # https://snapcraft.io/docs/flutter-applications
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           sudo snapcraft --output picguard_"$RELEASE"_linux_amd64.snap
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for snap
@@ -2504,11 +2474,9 @@ jobs:
       - name: Build snap
         run: |
           # https://snapcraft.io/docs/flutter-applications
-          RELEASE="$([[ "$ENV" == "staging" ]] && echo "$VERSION.pre" || echo "$VERSION")"
           sudo snapcraft --output "picguard_"$RELEASE"_linux_aarch64.snap"
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for snap
@@ -2626,14 +2594,12 @@ jobs:
       - name: Copy build for msi
         shell: pwsh
         run: |
-          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION.pre"} Else {"$env:VERSION"})
-          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\en-US\picguard.msi" -NewName "picguard_$RELEASE`_windows_$env:Platform`_en-US.msi"
-          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\zh-CN\picguard.msi" -NewName "picguard_$RELEASE`_windows_$env:Platform`_zh-CN.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\en-US\picguard.msi" -NewName "picguard_$env:RELEASE`_windows_$env:Platform`_en-US.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\zh-CN\picguard.msi" -NewName "picguard_$env:RELEASE`_windows_$env:Platform`_zh-CN.msi"
           ls -R ".\msi\picguard\picguard\bin\$env:Platform\Release"
           cp ".\msi\picguard\picguard\bin\$env:Platform\Release\*\*.msi" "$env:GITHUB_WORKSPACE\"
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       - name: Upload assets
         run: |
@@ -2732,12 +2698,9 @@ jobs:
         run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Create msix
-        run: |
-          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION.pre"} Else {"$env:VERSION"})
-          dart run msix:create --store --build-windows false --output-name "picguard_$RELEASE`_windows_store-free_x64"
+        run: dart run msix:create --store --build-windows false --output-name "picguard_$env:RELEASE`_windows_store-free_x64"
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for msix
@@ -2855,12 +2818,9 @@ jobs:
         run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Create msix
-        run: |
-          $RELEASE = $(If ($env:ENV -eq "staging") {"$env:VERSION.pre"} Else {"$env:VERSION"})
-          dart run msix:create --store --build-windows false --output-name "picguard_$RELEASE`_windows_store-pro_x64"
+        run: dart run msix:create --store --build-windows false --output-name "picguard_$env:RELEASE`_windows_store-pro_x64"
         env:
-          ENV: ${{ github.event.inputs.env }}
-          VERSION: ${{ needs.create_release.outputs.version }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for msix
@@ -2976,14 +2936,13 @@ jobs:
       - name: Build exe
         shell: pwsh
         run: |
-          $VERSION_SUFFIX = $(If ($env:ENV -eq "staging") {".pre"} Else {""})
           flutter_distributor package `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets exe `
-            --artifact-name "{{name}}_{{build_name}}+{{build_number}}$VERSION_SUFFIX`_{{platform}}_x64.{{ext}}"
+            --artifact-name "{{name}}_$env:RELEASE`_{{platform}}_x64.{{ext}}"
         env:
-          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       - name: Signing
         run: |
@@ -3070,14 +3029,13 @@ jobs:
       - name: Build zip
         shell: pwsh
         run: |
-          $VERSION_SUFFIX = $(If ($env:ENV -eq "staging") {".pre"} Else {""})
           flutter_distributor package `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets zip `
-            --artifact-name "{{name}}_{{build_name}}+{{build_number}}$VERSION_SUFFIX`_{{platform}}_x64.{{ext}}"
+            --artifact-name "{{name}}_$env:RELEASE`_{{platform}}_x64.{{ext}}"
         env:
-          ENV: ${{ github.event.inputs.env }}
+          RELEASE: ${{ needs.create_release.outputs.release }}
 
       # Package the build.
       - name: Copy build for zip
