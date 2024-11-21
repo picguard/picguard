@@ -29,12 +29,12 @@
     <td>Android</td>
     <td>
       <a href="https://play.google.com/store/apps/details?id=com.kjxbyz.picguard">
-        <img width="220" alt="Get it on Google Play" src="./docs/assets/Download-on-the-Google-Play.png">
+        <img width="220" alt="Get it on Google Play" src="https://www.picguard.app/images/Download-on-the-Google-Play.png">
       </a>
     </td>
     <td>
       <a href="https://play.google.com/store/apps/details?id=com.kjxbyz.picguard.pro">
-        <img width="220" alt="Get it on Google Play" src="./docs/assets/Download-on-the-Google-Play.png">
+        <img width="220" alt="Get it on Google Play" src="https://www.picguard.app/images/Download-on-the-Google-Play.png">
       </a>
     </td>
   </tr>
@@ -42,7 +42,7 @@
     <td>F-Droid (TODO)</td>
     <td>
       <a href="https://f-droid.org/packages/com.kjxbyz.picguard">
-        <img width="220" src="./docs/assets/Download-on-the-F-Droid.svg" alt="Get it on F-Droid">
+        <img width="220" src="https://www.picguard.app/images/Download-on-the-F-Droid.svg" alt="Get it on F-Droid">
       </a>
     </td>
     <td style="font-size: 14px; font-weight: bold">
@@ -53,12 +53,12 @@
     <td>Amazon</td>
     <td>
       <a href="https://www.amazon.com/dp/B0DLT8N89V">
-        <img width="220" src="./docs/assets/Download-on-the-Amazon-App-Store.png" alt="Get it on Amazon App Store">
+        <img width="220" src="https://www.picguard.app/images/Download-on-the-Amazon-App-Store.png" alt="Get it on Amazon App Store">
       </a>
     </td>
     <td>
       <a href="https://www.amazon.com/dp/B0DLT7DGBV">
-        <img width="220" src="./docs/assets/Download-on-the-Amazon-App-Store.png" alt="Get it on Amazon App Store">
+        <img width="220" src="https://www.picguard.app/images/Download-on-the-Amazon-App-Store.png" alt="Get it on Amazon App Store">
       </a>
     </td>
   </tr>
@@ -66,12 +66,12 @@
     <td>iOS</td>
     <td>
       <a href="https://apps.apple.com/app/id6737562561">
-        <img width="220" alt="Get it on App Store" src="./docs/assets/Download-on-the-App-Store.svg">
+        <img width="220" alt="Get it on App Store" src="https://www.picguard.app/images/Download-on-the-App-Store.svg">
       </a>
     </td>
     <td>
       <a href="https://apps.apple.com/app/id6737562597">
-        <img width="220" alt="Get it on App Store" src="./docs/assets/Download-on-the-App-Store.svg">
+        <img width="220" alt="Get it on App Store" src="https://www.picguard.app/images/Download-on-the-App-Store.svg">
       </a>
     </td>
   </tr>
@@ -79,12 +79,12 @@
     <td>macOS</td>
     <td>
       <a href="https://apps.apple.com/app/id6737562561?mt=12">
-        <img width="220" alt="Get it on Mac App Store" src="./docs/assets/Download-on-the-Mac-App-Store.svg">
+        <img width="220" alt="Get it on Mac App Store" src="https://www.picguard.app/images/Download-on-the-Mac-App-Store.svg">
       </a>
     </td>
     <td>
       <a href="https://apps.apple.com/app/id6737562597?mt=12">
-        <img width="220" alt="Get it on Mac App Store" src="./docs/assets/Download-on-the-Mac-App-Store.svg">
+        <img width="220" alt="Get it on Mac App Store" src="https://www.picguard.app/images/Download-on-the-Mac-App-Store.svg">
       </a>
     </td>
   </tr>
@@ -105,7 +105,7 @@
     <td>Snap Store</td>
     <td>
       <a href="https://snapcraft.io/picguard">
-        <img width="220" alt="Get it on Snap Store" src="./docs/assets/Download-on-the-Snap-Store.svg" />
+        <img width="220" alt="Get it on Snap Store" src="https://www.picguard.app/images/Download-on-the-Snap-Store.svg" />
       </a>
     </td>
     <td style="font-size: 14px; font-weight: bold">
