@@ -7,7 +7,7 @@ display_name: PicGuard
 package_name: picguard
 
 licenses:
-  - MIT
+  - GPL-3.0-only
 
 maintainer:
   name: kjxbyz

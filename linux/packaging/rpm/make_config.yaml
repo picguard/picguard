@@ -5,7 +5,7 @@ group: Application/Emulator
 vendor: kjxbyz
 packager: kjxbyz
 packagerEmail: kjxbyz888@outlook.com
-license: MIT
+license: GPL-3.0-only
 url: https://github.com/picguard/picguard
 build_arch: x86_64
 

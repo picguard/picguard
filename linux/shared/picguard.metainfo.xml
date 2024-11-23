@@ -23,7 +23,7 @@
     <url type="translate">https://crowdin.com/project/picguard</url>
     <url type="vcs-browser">https://github.com/picguard/picguard</url>
     <metadata_license>MIT</metadata_license>
-    <project_license>MIT</project_license>
+    <project_license>GPL-3.0-only</project_license>
     <branding>
         <color type="primary" scheme_preference="light">#e0f2f7</color>
         <color type="primary" scheme_preference="dark">#1d2a36</color>

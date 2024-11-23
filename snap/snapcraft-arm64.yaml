@@ -12,7 +12,7 @@ description: |
 icon: snap/gui/picguard.png
 title: PicGuard
 contact: kjxbyz888@outlook.com
-license: MIT
+license: GPL-3.0-only
 source-code: https://github.com/picguard/picguard
 issues: https://github.com/picguard/picguard/issues
 website: https://www.picguard.app
