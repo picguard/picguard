@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.6+427
+
+1. Update deps
+2. Update license
+
 ## 1.0.6+426
 
 1. refactor: Update CI
