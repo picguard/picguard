@@ -122,6 +122,12 @@ flutter_distributor package --platform windows --targets exe
 flutter_distributor package --platform windows --targets msix
 ```
 
+### Web
+
+```shell
+make ENV=<dev|stg|prod> web_free
+```
+
 ## Tests
 
 ### app links
