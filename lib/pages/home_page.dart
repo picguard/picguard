@@ -580,6 +580,39 @@ class _HomePageState extends State<HomePage> {
     await _gotoPickImages();
   }
 
+  // Check permissions
+  Future<Permissions> _checkPermission() async {
+    if (!kIsWeb) {
+      if (defaultTargetPlatform == TargetPlatform.android) {
+        final deviceInfo = DeviceInfoPlugin();
+        final androidInfo = await deviceInfo.androidInfo;
+        if (androidInfo.version.sdkInt >= 33) {
+          final status = await Permission.photos.request();
+          final denied = [
+            PermissionStatus.permanentlyDenied,
+            PermissionStatus.denied,
+          ].contains(status);
+          return denied ? Permissions.photos : Permissions.none;
+        } else {
+          final status = await Permission.storage.request();
+          final denied = [
+            PermissionStatus.permanentlyDenied,
+            PermissionStatus.denied,
+          ].contains(status);
+          return denied ? Permissions.storage : Permissions.none;
+        }
+      } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+        final status = await Permission.photos.request();
+        final denied = [
+          PermissionStatus.permanentlyDenied,
+          PermissionStatus.denied,
+        ].contains(status);
+        return denied ? Permissions.photos : Permissions.none;
+      }
+    }
+    return Permissions.none;
+  }
+
   Future<void> _gotoPickImages() async {
     final picker = ImagePicker();
     final images = await picker.pickMultiImage(limit: 9 - _fileWrappers.length);
@@ -607,38 +640,6 @@ class _HomePageState extends State<HomePage> {
     setState(
       () => _fileWrappers = _fileWrappers..swap(oldIndex, newIndex),
     );
-  }
-
-  // Check permissions
-  Future<Permissions> _checkPermission() async {
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      final deviceInfo = DeviceInfoPlugin();
-      final androidInfo = await deviceInfo.androidInfo;
-      if (androidInfo.version.sdkInt >= 33) {
-        final status = await Permission.photos.request();
-        final denied = [
-          PermissionStatus.permanentlyDenied,
-          PermissionStatus.denied,
-        ].contains(status);
-        return denied ? Permissions.photos : Permissions.none;
-      } else {
-        final status = await Permission.storage.request();
-        final denied = [
-          PermissionStatus.permanentlyDenied,
-          PermissionStatus.denied,
-        ].contains(status);
-        return denied ? Permissions.storage : Permissions.none;
-      }
-    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-      final status = await Permission.photos.request();
-      final denied = [
-        PermissionStatus.permanentlyDenied,
-        PermissionStatus.denied,
-      ].contains(status);
-      return denied ? Permissions.photos : Permissions.none;
-    }
-
-    return Permissions.none;
   }
 }
 
