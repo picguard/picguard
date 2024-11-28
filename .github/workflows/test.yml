@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   pull_request:
     paths-ignore:
+      - '.github/workflows/test-*.yml'
       - '.github/FUNDING.yml'
       - 'docs/**'
       - 'metadata/**'
@@ -16,6 +17,7 @@ on:
       - main
   push:
     paths-ignore:
+      - '.github/workflows/test-*.yml'
       - '.github/FUNDING.yml'
       - 'docs/**'
       - 'metadata/**'

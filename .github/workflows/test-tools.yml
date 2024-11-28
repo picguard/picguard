@@ -99,3 +99,24 @@ jobs:
           name: yq-artifact
           path: |
             windows\packaging\exe\make_config.yaml
+
+  linux-envs:
+    name: Get envs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure .env
+        run: |
+          echo "$ENV_STG_BASE64" | base64 --decode > .stg.txt
+          echo "$ENV_PROD_BASE64" | base64 --decode > .prod.txt
+        env:
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - run: ls -la
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: env-artifact
+          include-hidden-files: true
+          path: |
+            *.txt
