@@ -191,7 +191,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -273,7 +273,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -355,7 +355,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -442,7 +442,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -525,7 +525,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -651,7 +651,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -782,7 +782,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -906,7 +906,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -1033,7 +1033,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -1167,7 +1167,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -1301,7 +1301,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -1431,7 +1431,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -1562,7 +1562,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -1635,7 +1635,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -1705,7 +1705,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -1773,7 +1773,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -1842,7 +1842,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -1907,7 +1907,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -1976,7 +1976,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -2047,7 +2047,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -2124,7 +2124,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -2190,7 +2190,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -2255,7 +2255,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -2317,7 +2317,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -2383,7 +2383,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
@@ -2445,7 +2445,7 @@ jobs:
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_KEY" | base64 --decode > .env
+          echo "$ENV_BASE64" | base64 --decode > .env
         env:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
