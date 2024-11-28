@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.7+429
+
+1. fix: Incorrect environment variable name
+
 ## 1.0.7+428
 
 1. fix: Crash on mobile browsers
