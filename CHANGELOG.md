@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.7+428
+
+1. fix: Crash on mobile browsers
+2. fix: Update metainfo for F-Droid
+
 ## 1.0.6+427
 
 1. Update deps
