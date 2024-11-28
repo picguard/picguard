@@ -3,6 +3,7 @@
 [![Test](https://github.com/picguard/picguard/actions/workflows/test.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/test.yml)
 [![Release](https://github.com/picguard/picguard/actions/workflows/release.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/release.yml)
 [![GitHub Release](https://img.shields.io/github/v/release/picguard/picguard)](https://github.com/picguard/picguard/releases/latest)
+[![F-Droid Version](https://img.shields.io/f-droid/v/com.kjxbyz.picguard)](https://f-droid.org/packages/com.kjxbyz.picguard)
 [![Chocolatey Version](https://img.shields.io/chocolatey/v/picguard)](https://community.chocolatey.org/packages/picguard)
 [![Scoop Version](https://img.shields.io/scoop/v/picguard?bucket=https%253A%252F%252Fgithub.com%252Fkjxbyz%252Fscoop-bucket)](https://scoop.sh/#/apps?q=picguard&o=false)
 [![Flathub Version](https://img.shields.io/flathub/v/com.kjxbyz.PicGuard)](https://flathub.org/apps/com.kjxbyz.PicGuard)
