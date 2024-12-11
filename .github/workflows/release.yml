@@ -1544,9 +1544,10 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt update
-          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-          sudo apt install -y locate libfuse2
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y locate libfuse2
           wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
           chmod +x appimagetool && mv appimagetool /usr/local/bin/
 
@@ -1611,10 +1612,10 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt update
-          sudo apt install -y wget curl git unzip xz-utils zip libglu1-mesa file
-          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-          sudo apt install -y locate libfuse2
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y locate libfuse2
 
       - name: Install appimagetool
         run: |
@@ -1688,10 +1689,10 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt update
-          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-          sudo apt install -y locate libfuse2
-          sudo apt install -y libarchive-tools
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y locate libfuse2 libarchive-tools
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1755,11 +1756,10 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt update
-          sudo apt install -y wget curl git unzip xz-utils zip libglu1-mesa file
-          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-          sudo apt install -y locate libfuse2
-          sudo apt install -y libarchive-tools
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y locate libfuse2 libarchive-tools
 
       - name: Setup Flutter
         shell: bash
@@ -1826,9 +1826,10 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt update
-          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-          sudo apt install rpm patchelf
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y rpm patchelf
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1891,9 +1892,9 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt update
-          sudo apt install -y wget curl git unzip xz-utils zip libglu1-mesa file
-          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
 
       - name: Setup Flutter
         shell: bash
@@ -1961,8 +1962,9 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt update
-          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -2030,10 +2032,10 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt update
-          sudo apt install -y wget curl git unzip xz-utils zip libglu1-mesa file
-          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-          sudo apt install -y rpm patchelf
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y rpm patchelf
 
       - name: Setup Flutter
         shell: bash
@@ -2108,9 +2110,10 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt update
-          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-          sudo apt install -y p7zip-full p7zip-rar
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y p7zip-full p7zip-rar
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -2173,10 +2176,10 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt update
-          sudo apt install -y wget curl git unzip xz-utils zip libglu1-mesa file
-          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-          sudo apt install -y p7zip-full p7zip-rar
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y p7zip-full p7zip-rar
 
       - name: Setup Flutter
         shell: bash
@@ -2239,9 +2242,10 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt update
-          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-          sudo apt install -y p7zip-full p7zip-rar
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y p7zip-full p7zip-rar
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -2300,10 +2304,10 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt update
-          sudo apt install -y wget curl git unzip xz-utils zip libglu1-mesa file
-          sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-          sudo apt install -y p7zip-full p7zip-rar
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y p7zip-full p7zip-rar
 
       - name: Setup Flutter
         shell: bash
