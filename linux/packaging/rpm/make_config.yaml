@@ -4,7 +4,7 @@ summary: Your pictures, your signature.
 group: Application/Emulator
 vendor: kjxbyz
 packager: kjxbyz
-packagerEmail: kjxbyz888@outlook.com
+packagerEmail: hello@kjxbyz.com
 license: GPL-3.0-only
 url: https://github.com/picguard/picguard
 build_arch: x86_64
