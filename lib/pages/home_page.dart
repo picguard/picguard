@@ -7,7 +7,6 @@ import 'dart:ui' as ui;
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -30,7 +29,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import 'package:picguard/app/config.dart';
@@ -177,8 +175,6 @@ class _HomePageState extends State<HomePage> {
                 onPressed: _fileWrappers.isNotEmpty ? _save : null,
               ),
               const Gap(14),
-              const Privacy(),
-              const Gap(10),
               const AppVersion(),
               const Gap(10),
             ],
@@ -1590,86 +1586,6 @@ class SettingsBtn extends StatelessWidget {
         Icons.settings,
         size: iconSize,
         color: primaryColor,
-      ),
-    );
-  }
-}
-
-/// 隐私条款
-class Privacy extends StatelessWidget {
-  const Privacy({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    final languageCode = LocaleSettings.currentLocale.languageCode;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text:
-            t.dialogs.licenseDialog.licenseDialogContentPrefix,
-            style: TextStyle(
-              color: isDark ? Colors.white : primaryTextColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          TextSpan(
-            text: t.dialogs.licenseDialog
-                .licenseDialogContentUserAgreement,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () async {
-                final uri = Uri.parse(
-                  'https://www.picguard.app/$languageCode/legal/terms-of-use/',
-                );
-                if (await canLaunchUrl(uri)) {
-                  await launchUrl(uri);
-                }
-              },
-            style: const TextStyle(
-              color: primaryColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          TextSpan(
-            text: t.dialogs.licenseDialog.licenseDialogContentAnd,
-            style: TextStyle(
-              color: isDark ? Colors.white : primaryTextColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          TextSpan(
-            text: t.dialogs.licenseDialog
-                .licenseDialogContentPrivacyAgreement,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () async {
-                final uri = Uri.parse(
-                  'https://www.picguard.app/$languageCode/legal/privacy/',
-                );
-                if (await canLaunchUrl(uri)) {
-                  await launchUrl(uri);
-                }
-              },
-            style: const TextStyle(
-              color: primaryColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          TextSpan(
-            text:
-            t.dialogs.licenseDialog.licenseDialogContentSuffix,
-            style: TextStyle(
-              color: isDark ? Colors.white : primaryTextColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ],
       ),
     );
   }

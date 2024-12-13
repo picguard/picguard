@@ -1,9 +1,5 @@
 # Changelog
 
-## 1.0.8+430
-
-1. Update deps
-
 ## 1.0.7+429
 
 1. fix: Incorrect environment variable name
