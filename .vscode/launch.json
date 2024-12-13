@@ -73,13 +73,27 @@
       ]
     },
     {
-      "name": "Linux & Windows & web",
+      "name": "linux & windows",
       "request": "launch",
       "type": "dart",
       "program": "lib/main_free.dart",
       "args": [
         "--dart-define-from-file",
         ".env.dev.local"
+      ]
+    },
+    {
+      "name": "web",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_free.dart",
+      "args": [
+        "--dart-define-from-file",
+        ".env.dev.local",
+        "--web-header",
+        "Cross-Origin-Opener-Policy=same-origin",
+        "--web-header",
+        "Cross-Origin-Embedder-Policy=require-corp"
       ]
     }
   ]

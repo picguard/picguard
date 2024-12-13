@@ -40,6 +40,7 @@ import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
+import 'package:picguard/rust/api/picguard.dart';
 import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
@@ -177,9 +178,11 @@ class _HomePageState extends State<HomePage> {
                 onPressed: _fileWrappers.isNotEmpty ? _save : null,
               ),
               const Gap(14),
-              const Privacy(),
-              const Gap(10),
+              // const Privacy(),
+              // const Gap(10),
               const AppVersion(),
+              const Gap(10),
+              const RustBackend(),
               const Gap(10),
             ],
           ),
@@ -1608,8 +1611,7 @@ class Privacy extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text:
-            t.dialogs.licenseDialog.licenseDialogContentPrefix,
+            text: t.dialogs.licenseDialog.licenseDialogContentPrefix,
             style: TextStyle(
               color: isDark ? Colors.white : primaryTextColor,
               fontSize: 14,
@@ -1617,8 +1619,7 @@ class Privacy extends StatelessWidget {
             ),
           ),
           TextSpan(
-            text: t.dialogs.licenseDialog
-                .licenseDialogContentUserAgreement,
+            text: t.dialogs.licenseDialog.licenseDialogContentUserAgreement,
             recognizer: TapGestureRecognizer()
               ..onTap = () async {
                 final uri = Uri.parse(
@@ -1643,8 +1644,7 @@ class Privacy extends StatelessWidget {
             ),
           ),
           TextSpan(
-            text: t.dialogs.licenseDialog
-                .licenseDialogContentPrivacyAgreement,
+            text: t.dialogs.licenseDialog.licenseDialogContentPrivacyAgreement,
             recognizer: TapGestureRecognizer()
               ..onTap = () async {
                 final uri = Uri.parse(
@@ -1661,8 +1661,7 @@ class Privacy extends StatelessWidget {
             ),
           ),
           TextSpan(
-            text:
-            t.dialogs.licenseDialog.licenseDialogContentSuffix,
+            text: t.dialogs.licenseDialog.licenseDialogContentSuffix,
             style: TextStyle(
               color: isDark ? Colors.white : primaryTextColor,
               fontSize: 14,
@@ -1685,6 +1684,25 @@ class AppVersion extends StatelessWidget {
     final appName = t.appName(flavor: AppConfig.shared.flavor);
     return Text(
       '$appName $appVersion${PgEnv.gitCommitShown ? "\n${PgEnv.gitCommitSha.substring(0, 8)}" : ""}',
+      style: const TextStyle(
+        color: secondaryTextColor,
+        fontSize: 12,
+      ),
+      textAlign: TextAlign.center,
+    );
+  }
+}
+
+/// 版本号
+class RustBackend extends StatelessWidget {
+  const RustBackend({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Translations.of(context);
+    final appName = t.appName(flavor: AppConfig.shared.flavor);
+    return Text(
+      greet(name: appName),
       style: const TextStyle(
         color: secondaryTextColor,
         fontSize: 12,

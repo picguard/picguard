@@ -43,6 +43,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.4.3
+  flutter_rust_bridge: 2.7.0
   flutter_switch: ^0.3.2
   fluttertoast: ^8.2.8
   form_builder_validators: ^11.0.0
@@ -58,6 +59,8 @@ dependencies:
   permission_handler: ^11.3.1
   photo_view: ^0.15.0
   reorderables: ^0.6.0
+  rust_lib_picguard:
+    path: rust_builder
   sentry_flutter: ^8.10.1
   sentry_logging: ^8.10.1
   shared_preferences: ^2.3.3
@@ -73,6 +76,8 @@ dev_dependencies:
     sdk: flutter
   husky: ^0.1.7
   import_sorter: ^4.6.0
+  integration_test:
+    sdk: flutter
   lint_staged: ^0.5.1
   msix: ^3.16.8
   slang_build_runner: ^4.3.0
@@ -205,6 +210,7 @@ import_sorter:
   ignored_files: # Optional, defaults to []
     - \/lib\/gen\/*
     - \/lib\/i18n\/*
+    - \/lib\/rust\/*
 
 lint_staged:
-  'lib/**.dart': fvm dart run import_sorter:main lib\/* test\/* && git add --all
+  'lib/**.dart': fvm dart run import_sorter:main lib\/* test\/* && git add --patch

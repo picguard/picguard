@@ -74,3 +74,5 @@ dist/
 .fvm/
 
 /*.wxs
+
+rust_builder/
