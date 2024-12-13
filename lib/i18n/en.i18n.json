@@ -26,7 +26,8 @@
     "savedFailure": "Failed to save image(s)",
     "saveInfo": "$succeedNum image(s) saved, $failedNum image(s) failed to save",
     "settings": "Settings",
-    "languages": "Languages"
+    "languages": "Languages",
+    "feedback": "Feedback"
   },
   "buttons": {
     "agree": "Agree",

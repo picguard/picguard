@@ -26,7 +26,8 @@
     "savedFailure": "Impossibile salvare l'immagine(i)",
     "saveInfo": "Sono state salvate $succeedNum l'immagine(i) e non è stato possibile salvare $failedNum l'immagine(i).",
     "settings": "Impostazioni",
-    "languages": "Lingue"
+    "languages": "Lingue",
+    "feedback": "Feedback"
   },
   "buttons": {
     "agree": "Accetto",

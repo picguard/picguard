@@ -82,6 +82,7 @@ class _TranslationsHomePageZh implements TranslationsHomePageEn {
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
 	@override String get settings => '设置';
 	@override String get languages => '语言';
+	@override String get feedback => '反馈';
 }
 
 // Path: buttons
@@ -231,6 +232,7 @@ extension on TranslationsZh {
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
 			case 'homePage.settings': return '设置';
 			case 'homePage.languages': return '语言';
+			case 'homePage.feedback': return '反馈';
 			case 'buttons.agree': return '同意';
 			case 'buttons.cancel': return '再想想';
 			case 'buttons.ignore': return '忽略';

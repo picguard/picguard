@@ -86,6 +86,7 @@ class TranslationsHomePageEn {
 	String saveInfo({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
 	String get settings => 'Settings';
 	String get languages => 'Languages';
+	String get feedback => 'Feedback';
 }
 
 // Path: buttons
@@ -235,6 +236,7 @@ extension on Translations {
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
 			case 'homePage.settings': return 'Settings';
 			case 'homePage.languages': return 'Languages';
+			case 'homePage.feedback': return 'Feedback';
 			case 'buttons.agree': return 'Agree';
 			case 'buttons.cancel': return 'Cancel';
 			case 'buttons.ignore': return 'Ignore';
