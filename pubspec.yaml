@@ -45,7 +45,7 @@ dependencies:
     sdk: flutter
   flutter_native_splash: ^2.4.3
   flutter_switch: ^0.3.2
-  fluttertoast: ^8.2.8
+  fluttertoast: ^8.2.10
   form_builder_validators: ^11.0.0
   gap: ^3.0.1
   get: ^4.6.6
