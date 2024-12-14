@@ -82,7 +82,6 @@ class _TranslationsHomePageIt implements TranslationsHomePageEn {
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
 	@override String get settings => 'Impostazioni';
 	@override String get languages => 'Lingue';
-	@override String get feedback => 'Feedback';
 }
 
 // Path: buttons
@@ -232,7 +231,6 @@ extension on TranslationsIt {
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
 			case 'homePage.settings': return 'Impostazioni';
 			case 'homePage.languages': return 'Lingue';
-			case 'homePage.feedback': return 'Feedback';
 			case 'buttons.agree': return 'Accetto';
 			case 'buttons.cancel': return 'Annulla';
 			case 'buttons.ignore': return 'Ignora';

@@ -7,7 +7,6 @@ import 'dart:ui' as ui;
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +15,6 @@ import 'package:flutter/services.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:collection/collection.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:feedback/feedback.dart' as feedback;
 import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -29,7 +27,6 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:path/path.dart' hide context;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:reorderables/reorderables.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -1602,67 +1599,13 @@ class AppVersion extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Translations.of(context);
     final appName = t.appName(flavor: AppConfig.shared.flavor);
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        children: <InlineSpan>[
-          TextSpan(
-            text: '$appName $appVersion',
-            style: const TextStyle(
-              color: secondaryTextColor,
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          if (PgEnv.gitCommitShown)
-            ...[
-              const WidgetSpan(child: SizedBox(width: 4)),
-              TextSpan(
-                text: PgEnv.gitCommitSha.substring(0, 8),
-                style: const TextStyle(
-                  color: secondaryTextColor,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
-          const WidgetSpan(child: SizedBox(width: 4)),
-          TextSpan(
-            text: t.homePage.feedback,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                feedback.BetterFeedback.of(context).show(
-                  (feedback.UserFeedback feedback) {
-                    Sentry.captureMessage(
-                      feedback.text,
-                      withScope: (scope) {
-                        final entries = feedback.extra?.entries;
-                        if (entries != null) {
-                          for (final extra in entries) {
-                            // ignore: deprecated_member_use
-                            scope.setExtra(extra.key, extra.value);
-                          }
-                        }
-                        scope.addAttachment(
-                          SentryAttachment.fromUint8List(
-                            feedback.screenshot,
-                            'feedback.png',
-                            contentType: 'image/png',
-                          ),
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-            style: const TextStyle(
-              color: errorTextColor,
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ],
+    return Text(
+      '$appName $appVersion${PgEnv.gitCommitShown ? "\n${PgEnv.gitCommitSha.substring(0, 8)}" : ""}',
+      style: const TextStyle(
+        color: secondaryTextColor,
+        fontSize: 12,
       ),
+      textAlign: TextAlign.center,
     );
   }
 }

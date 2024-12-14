@@ -6,8 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:feedback/feedback.dart' as feedback;
-import 'package:feedback/feedback.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -129,11 +127,6 @@ Future<void> runMainApp({
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
-  static List<LocalizationsDelegate<dynamic>> delegates = <LocalizationsDelegate<dynamic>>[
-    ...GlobalMaterialLocalizations.delegates,
-    GlobalFeedbackLocalizationsDelegate.delegate,
-  ];
-
   @override
   State<MainApp> createState() => _MainAppState();
 }
@@ -145,33 +138,28 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     final mainController = Get.find<SettingsController>();
     return Obx(
-      () => feedback.BetterFeedback(
+      () => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        navigatorKey: AppNavigator.key,
+        navigatorObservers: [
+          if (PgEnv.sentryEnabled) SentryNavigatorObserver(),
+        ],
         themeMode: mainController.themeMode.value,
-        localizationsDelegates: MainApp.delegates,
-        localeOverride: TranslationProvider.of(context).flutterLocale,
-        child: GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          navigatorKey: AppNavigator.key,
-          navigatorObservers: [
-            if (PgEnv.sentryEnabled) SentryNavigatorObserver(),
-          ],
-          themeMode: mainController.themeMode.value,
-          theme: AppTheme.light,
-          darkTheme: AppTheme.dark,
-          locale: TranslationProvider.of(context).flutterLocale,
-          supportedLocales: AppLocaleUtils.supportedLocales,
-          localizationsDelegates: MainApp.delegates,
-          home: const HomePage(),
-          builder: (BuildContext context, Widget? child) {
-            child = easyLoadingBuilder(context, child);
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(
-                textScaler: TextScaler.noScaling,
-              ),
-              child: child,
-            );
-          },
-        ),
+        theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
+        locale: TranslationProvider.of(context).flutterLocale,
+        supportedLocales: AppLocaleUtils.supportedLocales,
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
+        home: const HomePage(),
+        builder: (BuildContext context, Widget? child) {
+          child = easyLoadingBuilder(context, child);
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaler: TextScaler.noScaling,
+            ),
+            child: child,
+          );
+        },
       ),
     );
   }
