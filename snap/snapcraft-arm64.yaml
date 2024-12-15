@@ -57,7 +57,7 @@ parts:
       - libstdc++-12-dev
     build-environment:
       - FLUTTER_REPO: https://github.com/flutter/flutter.git
-      - FLUTTER_VERSION: 3.24.5
+      - FLUTTER_VERSION: 3.27.0
       - FLUTTER_TARGET: lib/main_free.dart
       - TARGET_PLATFORM: linux-arm64
     override-build: |
