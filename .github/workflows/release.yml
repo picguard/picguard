@@ -23,7 +23,7 @@ permissions: read-all
 jobs:
   create_release:
     name: Create release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       sha: ${{ steps.sha_step.outputs.sha }}
       version: ${{ steps.version_step.outputs.version }}
@@ -90,7 +90,7 @@ jobs:
 
   gen_shasum:
     name: Gen Shasum
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - create_release
       - apk_free
@@ -169,7 +169,7 @@ jobs:
 
   apk_free:
     name: Create apk (free)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - create_release
     steps:
@@ -251,7 +251,7 @@ jobs:
           
   apk_pro:
     name: Create apk (pro)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - create_release
     steps:
@@ -333,7 +333,7 @@ jobs:
 
   aab_free:
     name: Create appbundle (free)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - create_release
     steps:
@@ -420,7 +420,7 @@ jobs:
 
   aab_pro:
     name: Create appbundle (pro)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - create_release
     steps:
@@ -507,7 +507,7 @@ jobs:
 
   ios_free:
     name: Create ios (free)
-    runs-on: macos-latest
+    runs-on: macos-14
     needs:
       - create_release
     steps:
@@ -633,7 +633,7 @@ jobs:
 
   ios_pro:
     name: Create ios (pro)
-    runs-on: macos-latest
+    runs-on: macos-14
     needs:
       - create_release
     steps:
@@ -759,7 +759,7 @@ jobs:
 
   macos_dmg:
     name: Create macos dmg
-    runs-on: macos-latest
+    runs-on: macos-14
     needs:
       - create_release
     steps:
@@ -888,7 +888,7 @@ jobs:
 
   macos_pkg:
     name: Create macos pkg
-    runs-on: macos-latest
+    runs-on: macos-14
     needs:
       - create_release
     steps:
@@ -1015,7 +1015,7 @@ jobs:
 
   macos_appstore_free:
     name: Create macos pkg (appstore-free)
-    runs-on: macos-latest
+    runs-on: macos-14
     needs:
       - create_release
     steps:
@@ -1149,7 +1149,7 @@ jobs:
 
   macos_appstore_pro:
     name: Create macos pkg (appstore-pro)
-    runs-on: macos-latest
+    runs-on: macos-14
     needs:
       - create_release
     steps:
@@ -1283,7 +1283,7 @@ jobs:
 
   macos_zip:
     name: Create macos zip
-    runs-on: macos-latest
+    runs-on: macos-14
     needs:
       - create_release
     steps:
@@ -1413,7 +1413,7 @@ jobs:
 
   macos_tar:
     name: Create macos tar
-    runs-on: macos-latest
+    runs-on: macos-14
     needs:
       - create_release
     steps:
@@ -1536,7 +1536,7 @@ jobs:
 
   linux_appimage:
     name: Create linux AppImage
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - create_release
     steps:
@@ -1681,7 +1681,7 @@ jobs:
 
   linux_pacman:
     name: Create linux pacman
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - create_release
     steps:
@@ -1818,7 +1818,7 @@ jobs:
 
   linux_deb:
     name: Create linux deb
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - create_release
     steps:
@@ -1949,7 +1949,7 @@ jobs:
 
   linux_rpm:
     name: Create linux rpm
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - create_release
     steps:
@@ -2102,7 +2102,7 @@ jobs:
 
   linux_zip:
     name: Create linux zip
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - create_release
     steps:
@@ -2234,7 +2234,7 @@ jobs:
 
   linux_tar:
     name: Create linux tar
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - create_release
     steps:
@@ -2370,7 +2370,7 @@ jobs:
 
   linux_snap:
     name: Create linux snap
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       LXD_GROUP: lxd
     needs:
@@ -2503,7 +2503,7 @@ jobs:
 
   windows_msi:
     name: Create windows msi
-    runs-on: windows-latest
+    runs-on: windows-2022
     env:
       Platform: x64
     needs:
@@ -2632,7 +2632,7 @@ jobs:
 
   windows_msix_free:
     name: Create windows msix (free)
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs:
       - create_release
     steps:
@@ -2747,7 +2747,7 @@ jobs:
 
   windows_msix_pro:
     name: Create windows msix (pro)
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs:
       - create_release
     steps:
@@ -2867,7 +2867,7 @@ jobs:
 
   windows_exe:
     name: Create windows exe
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs:
       - create_release
     steps:
@@ -2998,7 +2998,7 @@ jobs:
 
   windows_zip:
     name: Create windows zip
-    runs-on: windows-latest
+    runs-on: windows-2022
     needs:
       - create_release
     steps:
