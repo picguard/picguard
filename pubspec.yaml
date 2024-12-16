@@ -58,8 +58,8 @@ dependencies:
   permission_handler: ^11.3.1
   photo_view: ^0.15.0
   reorderables: ^0.6.0
-  sentry_flutter: ^8.10.1
-  sentry_logging: ^8.10.1
+  sentry_flutter: ^8.11.1
+  sentry_logging: ^8.11.1
   shared_preferences: ^2.3.3
   slang_flutter: ^4.4.0
   syncfusion_flutter_sliders: ^28.1.33

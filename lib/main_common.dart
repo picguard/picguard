@@ -41,7 +41,7 @@ FlutterErrorDetails makeErrorDetails(Object error, StackTrace stackTrace) {
 Future<void> runMainApp({
   Flavor flavor = Flavor.free,
 }) async {
-  WidgetsFlutterBinding.ensureInitialized();
+  SentryWidgetsFlutterBinding.ensureInitialized();
 
   AppConfig.create(flavor: flavor);
 

@@ -43,6 +43,7 @@ parts:
     # flutter-target: lib/main.dart # The main entry-point file of the application
     build-packages:
       - curl
+      - libcurl4-openssl-dev
       - git
       - unzip
       - xz-utils
