@@ -225,7 +225,7 @@ class _HomePageState extends State<HomePage> {
         printDebugLog('Length of images: ${images.length}');
         await EasyLoading.dismiss();
         final imageProviders = images
-            .whereNotNull()
+            .nonNulls
             .map((item) => MemoryImage(item.bytes))
             .toList();
         DialogUtil.showImagePreviewDialog(imageProviders);
@@ -409,7 +409,7 @@ class _HomePageState extends State<HomePage> {
 
     // 设置文本样式
     final textStyle = TextStyle(
-      color: Color(colorValue).withOpacity(opacity),
+      color: Color(colorValue).withAlpha((255.0 * opacity).round()),
       fontSize: fontSize ?? initialFontSize,
       fontWeight: FontWeight.w400,
       fontFamily: fontFamily,
