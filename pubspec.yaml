@@ -38,14 +38,14 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_easyloading: ^3.0.5
-  flutter_form_builder: ^9.5.0
+  flutter_form_builder: ^9.6.0
   flutter_gen: ^5.8.0
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.4.3
   flutter_switch: ^0.3.2
   fluttertoast: ^8.2.10
-  form_builder_validators: ^11.0.0
+  form_builder_validators: ^11.1.0
   gap: ^3.0.1
   get: ^4.6.6
   get_storage: ^2.1.1
@@ -60,9 +60,9 @@ dependencies:
   reorderables: ^0.6.0
   sentry_flutter: ^8.11.2
   sentry_logging: ^8.11.2
-  shared_preferences: ^2.3.3
+  shared_preferences: ^2.3.4
   slang_flutter: ^4.4.0
-  syncfusion_flutter_sliders: ^28.1.33
+  syncfusion_flutter_sliders: ^28.1.35
   synchronized: ^3.3.0+3
   url_launcher: ^6.3.1
 
@@ -76,7 +76,7 @@ dev_dependencies:
   lint_staged: ^0.5.1
   msix: ^3.16.8
   slang_build_runner: ^4.4.0
-  very_good_analysis: ^6.0.0
+  very_good_analysis: ^7.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
