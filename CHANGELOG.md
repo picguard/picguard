@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.10+434
+
+1. Update deps
+2. Update workflows
+
 ## 1.0.9+433
 
 1. Update deps
