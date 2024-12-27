@@ -8,10 +8,11 @@ on:
       - '.github/FUNDING.yml'
       - 'docs/**'
       - 'metadata/**'
+      - 'msi/picguard/LICENSE'
+      - 'msi/picguard/README.md'
       - 'CHANGELOG.md'
       - 'LICENSE'
       - 'Makefile'
-      - 'README-zh.md'
       - 'README.md'
     branches:
       - main
@@ -21,10 +22,11 @@ on:
       - '.github/FUNDING.yml'
       - 'docs/**'
       - 'metadata/**'
+      - 'msi/picguard/LICENSE'
+      - 'msi/picguard/README.md'
       - 'CHANGELOG.md'
       - 'LICENSE'
       - 'Makefile'
-      - 'README-zh.md'
       - 'README.md'
     branches:
       - main
