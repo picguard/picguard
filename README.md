@@ -14,7 +14,7 @@
 [![AUR Version](https://img.shields.io/aur/version/picguard-bin)](https://aur.archlinux.org/packages/picguard-bin)
 
 <h1>
-  This project is used to learn how to package Flutter applications and distribute them to app stores.
+  This project is used to learn how to package Flutter applications and distribute them through app stores, package managers or binary packages.
 </h1>
 
 ## 📥 Download
