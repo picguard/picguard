@@ -6,6 +6,7 @@
 [![iTunes App Store](https://img.shields.io/itunes/v/6737562561?label=PicGuard%20on%20the%20App%20Store)](https://apps.apple.com/app/id6737562561)
 [![iTunes App Store](https://img.shields.io/itunes/v/6737562597?label=PicGuard%20Pro%20on%20the%20App%20Store)](https://apps.apple.com/app/id6737562597)
 [![F-Droid Version](https://img.shields.io/f-droid/v/com.kjxbyz.picguard)](https://f-droid.org/packages/com.kjxbyz.picguard)
+![WinGet Package Version](https://img.shields.io/winget/v/Insco.PicGuard)
 [![Chocolatey Version](https://img.shields.io/chocolatey/v/picguard)](https://community.chocolatey.org/packages/picguard)
 [![Scoop Version](https://img.shields.io/scoop/v/picguard?bucket=https%253A%252F%252Fgithub.com%252Fkjxbyz%252Fscoop-bucket)](https://scoop.sh/#/apps?q=picguard&o=false)
 [![Homebrew Cask Version](https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/kjxbyz/homebrew-casks/main/Info/picguard.json&query=$.casks.[0].version&label=homebrew)](https://github.com/kjxbyz/homebrew-casks)
