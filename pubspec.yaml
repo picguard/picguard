@@ -42,7 +42,7 @@ dependencies:
   flutter_gen: ^5.8.0
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: ^2.4.3
+  flutter_native_splash: ^2.4.4
   flutter_switch: ^0.3.2
   fluttertoast: ^8.2.10
   form_builder_validators: ^11.1.1
@@ -62,7 +62,7 @@ dependencies:
   sentry_logging: ^8.12.0
   shared_preferences: ^2.3.4
   slang_flutter: ^4.4.0
-  syncfusion_flutter_sliders: ^28.1.36
+  syncfusion_flutter_sliders: ^28.1.37
   synchronized: ^3.3.0+3
   url_launcher: ^6.3.1
 
