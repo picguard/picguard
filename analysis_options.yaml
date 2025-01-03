@@ -11,6 +11,9 @@ include: package:very_good_analysis/analysis_options.yaml
 
 analyzer:
   exclude:
+    - lib/**/*.freezed.dart
+    - lib/**/*.g.dart
+    - lib/**/*.gen.dart
     - plugins/**
 
 linter:
