@@ -10,7 +10,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsIt implements Translations {
+class TranslationsIt extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsIt({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
@@ -20,7 +20,9 @@ class TranslationsIt implements Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -28,7 +30,7 @@ class TranslationsIt implements Translations {
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsIt _root = this; // ignore: unused_field
 
@@ -53,8 +55,8 @@ class TranslationsIt implements Translations {
 }
 
 // Path: homePage
-class _TranslationsHomePageIt implements TranslationsHomePageEn {
-	_TranslationsHomePageIt._(this._root);
+class _TranslationsHomePageIt extends TranslationsHomePageEn {
+	_TranslationsHomePageIt._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -85,8 +87,8 @@ class _TranslationsHomePageIt implements TranslationsHomePageEn {
 }
 
 // Path: buttons
-class _TranslationsButtonsIt implements TranslationsButtonsEn {
-	_TranslationsButtonsIt._(this._root);
+class _TranslationsButtonsIt extends TranslationsButtonsEn {
+	_TranslationsButtonsIt._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -98,8 +100,8 @@ class _TranslationsButtonsIt implements TranslationsButtonsEn {
 }
 
 // Path: dialogs
-class _TranslationsDialogsIt implements TranslationsDialogsEn {
-	_TranslationsDialogsIt._(this._root);
+class _TranslationsDialogsIt extends TranslationsDialogsEn {
+	_TranslationsDialogsIt._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -110,8 +112,8 @@ class _TranslationsDialogsIt implements TranslationsDialogsEn {
 }
 
 // Path: themes
-class _TranslationsThemesIt implements TranslationsThemesEn {
-	_TranslationsThemesIt._(this._root);
+class _TranslationsThemesIt extends TranslationsThemesEn {
+	_TranslationsThemesIt._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -124,8 +126,8 @@ class _TranslationsThemesIt implements TranslationsThemesEn {
 }
 
 // Path: dialogs.exitConfirm
-class _TranslationsDialogsExitConfirmIt implements TranslationsDialogsExitConfirmEn {
-	_TranslationsDialogsExitConfirmIt._(this._root);
+class _TranslationsDialogsExitConfirmIt extends TranslationsDialogsExitConfirmEn {
+	_TranslationsDialogsExitConfirmIt._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -137,8 +139,8 @@ class _TranslationsDialogsExitConfirmIt implements TranslationsDialogsExitConfir
 }
 
 // Path: dialogs.permissions
-class _TranslationsDialogsPermissionsIt implements TranslationsDialogsPermissionsEn {
-	_TranslationsDialogsPermissionsIt._(this._root);
+class _TranslationsDialogsPermissionsIt extends TranslationsDialogsPermissionsEn {
+	_TranslationsDialogsPermissionsIt._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -148,8 +150,8 @@ class _TranslationsDialogsPermissionsIt implements TranslationsDialogsPermission
 }
 
 // Path: dialogs.licenseDialog
-class _TranslationsDialogsLicenseDialogIt implements TranslationsDialogsLicenseDialogEn {
-	_TranslationsDialogsLicenseDialogIt._(this._root);
+class _TranslationsDialogsLicenseDialogIt extends TranslationsDialogsLicenseDialogEn {
+	_TranslationsDialogsLicenseDialogIt._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -174,8 +176,8 @@ class _TranslationsDialogsLicenseDialogIt implements TranslationsDialogsLicenseD
 }
 
 // Path: dialogs.permissions.photos
-class _TranslationsDialogsPermissionsPhotosIt implements TranslationsDialogsPermissionsPhotosEn {
-	_TranslationsDialogsPermissionsPhotosIt._(this._root);
+class _TranslationsDialogsPermissionsPhotosIt extends TranslationsDialogsPermissionsPhotosEn {
+	_TranslationsDialogsPermissionsPhotosIt._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -185,8 +187,8 @@ class _TranslationsDialogsPermissionsPhotosIt implements TranslationsDialogsPerm
 }
 
 // Path: dialogs.permissions.storage
-class _TranslationsDialogsPermissionsStorageIt implements TranslationsDialogsPermissionsStorageEn {
-	_TranslationsDialogsPermissionsStorageIt._(this._root);
+class _TranslationsDialogsPermissionsStorageIt extends TranslationsDialogsPermissionsStorageEn {
+	_TranslationsDialogsPermissionsStorageIt._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 

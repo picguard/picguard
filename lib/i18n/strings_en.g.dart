@@ -45,20 +45,20 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 				return 'PicGuard Pro';
 		}
 	}
-	late final TranslationsHomePageEn homePage = TranslationsHomePageEn._(_root);
-	late final TranslationsButtonsEn buttons = TranslationsButtonsEn._(_root);
-	late final TranslationsDialogsEn dialogs = TranslationsDialogsEn._(_root);
+	late final TranslationsHomePageEn homePage = TranslationsHomePageEn.internal(_root);
+	late final TranslationsButtonsEn buttons = TranslationsButtonsEn.internal(_root);
+	late final TranslationsDialogsEn dialogs = TranslationsDialogsEn.internal(_root);
 	Map<String, String> get locales => {
 		'en': 'English',
 		'it': 'Italian',
 		'zh': '中文',
 	};
-	late final TranslationsThemesEn themes = TranslationsThemesEn._(_root);
+	late final TranslationsThemesEn themes = TranslationsThemesEn.internal(_root);
 }
 
 // Path: homePage
 class TranslationsHomePageEn {
-	TranslationsHomePageEn._(this._root);
+	TranslationsHomePageEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -90,7 +90,7 @@ class TranslationsHomePageEn {
 
 // Path: buttons
 class TranslationsButtonsEn {
-	TranslationsButtonsEn._(this._root);
+	TranslationsButtonsEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -103,19 +103,19 @@ class TranslationsButtonsEn {
 
 // Path: dialogs
 class TranslationsDialogsEn {
-	TranslationsDialogsEn._(this._root);
+	TranslationsDialogsEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsDialogsExitConfirmEn exitConfirm = TranslationsDialogsExitConfirmEn._(_root);
-	late final TranslationsDialogsPermissionsEn permissions = TranslationsDialogsPermissionsEn._(_root);
-	late final TranslationsDialogsLicenseDialogEn licenseDialog = TranslationsDialogsLicenseDialogEn._(_root);
+	late final TranslationsDialogsExitConfirmEn exitConfirm = TranslationsDialogsExitConfirmEn.internal(_root);
+	late final TranslationsDialogsPermissionsEn permissions = TranslationsDialogsPermissionsEn.internal(_root);
+	late final TranslationsDialogsLicenseDialogEn licenseDialog = TranslationsDialogsLicenseDialogEn.internal(_root);
 }
 
 // Path: themes
 class TranslationsThemesEn {
-	TranslationsThemesEn._(this._root);
+	TranslationsThemesEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -129,7 +129,7 @@ class TranslationsThemesEn {
 
 // Path: dialogs.exitConfirm
 class TranslationsDialogsExitConfirmEn {
-	TranslationsDialogsExitConfirmEn._(this._root);
+	TranslationsDialogsExitConfirmEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -142,18 +142,18 @@ class TranslationsDialogsExitConfirmEn {
 
 // Path: dialogs.permissions
 class TranslationsDialogsPermissionsEn {
-	TranslationsDialogsPermissionsEn._(this._root);
+	TranslationsDialogsPermissionsEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsDialogsPermissionsPhotosEn photos = TranslationsDialogsPermissionsPhotosEn._(_root);
-	late final TranslationsDialogsPermissionsStorageEn storage = TranslationsDialogsPermissionsStorageEn._(_root);
+	late final TranslationsDialogsPermissionsPhotosEn photos = TranslationsDialogsPermissionsPhotosEn.internal(_root);
+	late final TranslationsDialogsPermissionsStorageEn storage = TranslationsDialogsPermissionsStorageEn.internal(_root);
 }
 
 // Path: dialogs.licenseDialog
 class TranslationsDialogsLicenseDialogEn {
-	TranslationsDialogsLicenseDialogEn._(this._root);
+	TranslationsDialogsLicenseDialogEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -179,7 +179,7 @@ class TranslationsDialogsLicenseDialogEn {
 
 // Path: dialogs.permissions.photos
 class TranslationsDialogsPermissionsPhotosEn {
-	TranslationsDialogsPermissionsPhotosEn._(this._root);
+	TranslationsDialogsPermissionsPhotosEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -190,7 +190,7 @@ class TranslationsDialogsPermissionsPhotosEn {
 
 // Path: dialogs.permissions.storage
 class TranslationsDialogsPermissionsStorageEn {
-	TranslationsDialogsPermissionsStorageEn._(this._root);
+	TranslationsDialogsPermissionsStorageEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
