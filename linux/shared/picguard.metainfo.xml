@@ -14,7 +14,7 @@
     <summary>Your pictures, your signature</summary>
     <summary xml:lang="zh">给图片添加水印, 防止被恶意使用</summary>
     <developer id="com.kjxbyz">
-        <name>Insco LLC</name>
+        <name>Insco Ltd</name>
     </developer>
     <url type="bugtracker">https://github.com/picguard/picguard/issues</url>
     <url type="homepage">https://www.picguard.app</url>
