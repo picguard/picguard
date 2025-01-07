@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=PicGuard
-Comment=Your pictures, your signature.
-Exec=picguard
-Icon=${SNAP}/meta/gui/picguard.png
-Terminal=false
-Type=Application
-Categories=Utility;
-StartupNotify=false

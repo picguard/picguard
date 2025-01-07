@@ -174,7 +174,7 @@ flutter:
 # the installation package will be signed automatically by the store.
 msix_config:
   display_name: PicGuard
-  logo_path: snap\gui\picguard.png
+  logo_path: logo\logo-512.png
   languages: en-us, zh-cn
   architecture: x64
   capabilities: "internetClient,picturesLibrary"
