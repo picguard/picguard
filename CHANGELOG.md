@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.11+435
+
+1. fix(deps): update deps
+2. fix: update slang config
+3. fix: remove flatpack support
+4. fix: remove snapcraft support
+5. fix: remove pacman support
+
 ## 1.0.10+434
 
 1. Update deps
