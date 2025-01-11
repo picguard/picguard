@@ -1562,9 +1562,6 @@ jobs:
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
-      - name: Install flutter dependencies
-        run: flutter pub get
-
       - name: Build deb
         run: |
           flutter_distributor package \
@@ -1626,9 +1623,6 @@ jobs:
 
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
-
-      - name: Install flutter dependencies
-        run: flutter pub get
 
       - name: Build deb
         run: |
@@ -1697,9 +1691,6 @@ jobs:
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
-      - name: Install flutter dependencies
-        run: flutter pub get
-
       - name: Build RPM
         run: |
           flutter_distributor package \
@@ -1767,9 +1758,6 @@ jobs:
 
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
-
-      - name: Install flutter dependencies
-        run: flutter pub get
 
       - name: Install yq
         run: |
@@ -1904,9 +1892,6 @@ jobs:
           ENV: ${{ github.event.inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
 
       - name: Install flutter dependencies
         run: flutter pub get
@@ -2351,9 +2336,6 @@ jobs:
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
-      - name: Install flutter dependencies
-        run: flutter pub get
-
       - name: Install yq
         shell: pwsh
         run: |
@@ -2471,9 +2453,6 @@ jobs:
 
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
-
-      - name: Install flutter dependencies
-        run: flutter pub get
 
       - name: Build zip
         shell: pwsh
