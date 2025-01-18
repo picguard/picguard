@@ -58,7 +58,7 @@ parts:
       - libstdc++-12-dev
     build-environment:
       - FLUTTER_REPO: https://github.com/flutter/flutter.git
-      - FLUTTER_VERSION: 3.27.1
+      - FLUTTER_VERSION: 3.27.2
       - FLUTTER_TARGET: lib/main_free.dart
     override-build: |
       # https://github.com/canonical/snapcraft/blob/main/snapcraft/parts/plugins/flutter_plugin.py
