@@ -48,19 +48,22 @@
     <launchable type="desktop-id">com.kjxbyz.PicGuard.desktop</launchable>
     <screenshots>
         <screenshot type="default">
-            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.11+435/screenshots/desktop.png</image>
+            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.12+436/screenshots/desktop.png</image>
             <caption>Default screenshot for desktop</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.11+435/screenshots/desktop-zh.png</image>
+            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.12+436/screenshots/desktop-zh.png</image>
             <caption>Support Chinese</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.11+435/screenshots/desktop-dark.png</image>
+            <image>https://raw.githubusercontent.com/picguard/picguard/v1.0.12+436/screenshots/desktop-dark.png</image>
             <caption>Dark Mode</caption>
         </screenshot>
     </screenshots>
     <releases>
+        <release version="v1.0.12+436" date="2024-01-19">
+            <url type="details">https://github.com/picguard/picguard/blob/v1.0.12+436/CHANGELOG.md</url>
+        </release>
         <release version="v1.0.11+435" date="2024-01-08">
             <url type="details">https://github.com/picguard/picguard/blob/v1.0.11+435/CHANGELOG.md</url>
         </release>

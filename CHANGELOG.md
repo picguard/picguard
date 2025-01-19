@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.12+436
+
+1. ci(linux): add snap support
+2. ci(linux): add appimage support
+3. fix(deps): update deps
+4. fix(linux): remove zip support
+
 ## 1.0.11+435
 
 1. fix(deps): update deps
