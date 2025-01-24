@@ -60,9 +60,9 @@ dependencies:
   reorderables: ^0.6.0
   sentry_flutter: ^8.12.0
   sentry_logging: ^8.12.0
-  shared_preferences: ^2.3.5
+  shared_preferences: ^2.4.0
   slang_flutter: ^4.4.0
-  syncfusion_flutter_sliders: ^28.1.39
+  syncfusion_flutter_sliders: ^28.1.41
   synchronized: ^3.3.0+3
   url_launcher: ^6.3.1
 
@@ -75,7 +75,7 @@ dev_dependencies:
   import_sorter: ^4.6.0
   lint_staged: ^0.5.1
   msix: ^3.16.8
-  slang_build_runner: ^4.4.0
+  slang_build_runner: ^4.4.2
   very_good_analysis: ^7.0.0
 
 # For information on the generic Dart part of this file, see the
