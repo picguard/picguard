@@ -109,7 +109,7 @@
 
     <!-- Desktop shortcut (user's choice) -->
     <Component Id="DesktopShortcutComponent" Directory="DesktopFolder">
-      <RegistryValue Root="HKCU" Key="SOFTWARE\Insco Ltd\PicGuard" Name="EnableDesktopShortcut" Value="1" />
+      <RegistryValue Root="HKCU" Key="SOFTWARE\Insco\PicGuard" Name="EnableDesktopShortcut" Value="1" />
       <Shortcut Name="PicGuard" Description="Your pictures, your signature." Directory="DesktopFolder" Target="[#PicGuard.exe]" />
     </Component>
   </Fragment>
