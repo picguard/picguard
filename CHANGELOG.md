@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.13+437
+
+1. fix(deps): update deps
+
 ## 1.0.12+436
 
 1. ci(linux): add snap support
