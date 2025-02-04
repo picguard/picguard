@@ -68,27 +68,6 @@
       </Component>
     </ComponentGroup>
 
-    <ComponentGroup Id="FlutterLogoComponents" Directory="FLUTTERLOGOFOLDER">
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\logo\logo-32.png" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\logo\logo-128.png" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\logo\logo-256.png" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\logo\logo-512.png" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\logo\logo.icns" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\logo\logo.png" />
-      </Component>
-    </ComponentGroup>
-
     <ComponentGroup Id="FlutterPackageComponents" Directory="FLUTTERPACKAGEFOLDER">
       <Component>
         <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\packages\cupertino_icons\assets\CupertinoIcons.ttf" />

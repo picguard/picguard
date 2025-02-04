@@ -6,7 +6,6 @@
           <Directory Id="DATAFOLDER" Name="data">
             <Directory Id="FLUTTERASSETSFOLDER" Name="flutter_assets">
               <Directory Id="FLUTTERFONTSFOLDER" />
-              <Directory Id="FLUTTERLOGOFOLDER" Name="logo" />
               <Directory Id="FLUTTERPACKAGEFOLDER" Name="packages" />
               <Directory Id="SHADERSFOLDER" Name="shaders" />
             </Directory>

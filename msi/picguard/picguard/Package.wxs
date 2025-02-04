@@ -21,7 +21,6 @@
       <ComponentGroupRef Id="DataComponents" />
       <ComponentGroupRef Id="FontComponents" />
       <ComponentGroupRef Id="FlutterAssetComponents" />
-      <ComponentGroupRef Id="FlutterLogoComponents" />
       <ComponentGroupRef Id="FlutterPackageComponents" />
       <ComponentGroupRef Id="ShaderComponents" />
     </Feature>
