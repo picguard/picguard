@@ -4,11 +4,7 @@
       <Directory Id="CompanyFolder" Name="!(bind.Property.Manufacturer)">
         <Directory Id="INSTALLFOLDER" Name="!(bind.Property.ProductName)">
           <Directory Id="DATAFOLDER" Name="data">
-            <Directory Id="FLUTTERASSETSFOLDER" Name="flutter_assets">
-              <Directory Id="FLUTTERFONTSFOLDER" />
-              <Directory Id="FLUTTERPACKAGEFOLDER" Name="packages" />
-              <Directory Id="SHADERSFOLDER" Name="shaders" />
-            </Directory>
+            <Directory Id="FLUTTERASSETSFOLDER" Name="flutter_assets" />
           </Directory>
         </Directory>
       </Directory>

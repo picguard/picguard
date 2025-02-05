@@ -53,39 +53,6 @@
       </Component>
     </ComponentGroup>
 
-    <ComponentGroup Id="FlutterAssetComponents" Directory="FLUTTERASSETSFOLDER">
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\AssetManifest.bin" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\AssetManifest.json" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\FontManifest.json" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\NOTICES.Z" />
-      </Component>
-    </ComponentGroup>
-
-    <ComponentGroup Id="FlutterPackageComponents" Directory="FLUTTERPACKAGEFOLDER">
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\packages\cupertino_icons\assets\CupertinoIcons.ttf" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\packages\fluttertoast\assets\toastify.css" />
-      </Component>
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\packages\fluttertoast\assets\toastify.js" />
-      </Component>
-    </ComponentGroup>
-
-    <ComponentGroup Id="ShaderComponents" Directory="SHADERSFOLDER">
-      <Component>
-        <File Source="$(FlutterBuildOutputDir)\data\flutter_assets\shaders\ink_sparkle.frag" />
-      </Component>
-    </ComponentGroup>
-
     <!-- Desktop shortcut (user's choice) -->
     <Component Id="DesktopShortcutComponent" Directory="DesktopFolder">
       <RegistryValue Root="HKCU" Key="SOFTWARE\Insco\PicGuard" Name="EnableDesktopShortcut" Value="1" />
