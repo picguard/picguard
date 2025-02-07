@@ -35,7 +35,7 @@ dependencies:
     sdk: flutter
   flutter_native_splash: ^2.4.4
   flutter_switch: ^0.3.2
-  fluttertoast: ^8.2.10
+  fluttertoast: ^8.2.11
   form_builder_validators: ^11.1.1
   gap: ^3.0.1
   get: ^4.6.6
@@ -49,8 +49,8 @@ dependencies:
   permission_handler: ^11.3.1
   photo_view: ^0.15.0
   reorderables: ^0.6.0
-  sentry_flutter: ^8.12.0
-  sentry_logging: ^8.12.0
+  sentry_flutter: ^8.13.0
+  sentry_logging: ^8.13.0
   shared_preferences: ^2.5.1
   slang_flutter: ^4.4.0
   syncfusion_flutter_sliders: ^28.2.4
