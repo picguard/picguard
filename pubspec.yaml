@@ -25,7 +25,7 @@ dependencies:
     path: ./plugins/app_settings
   cupertino_icons: ^1.0.8
   device_info_plus: ^11.2.2
-  file_picker: ^8.3.1
+  file_picker: ^8.3.3
   file_saver: ^0.2.14
   flutter:
     sdk: flutter
