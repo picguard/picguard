@@ -38,7 +38,7 @@ dependencies:
   fluttertoast: ^8.2.12
   form_builder_validators: ^11.1.1
   gap: ^3.0.1
-  get: ^4.6.6
+  get: ^4.7.1
   get_storage: ^2.1.1
   image_gallery_saver: #8c6480bf3a07834df89525e7ac6e0196ec701f73
     path: ./plugins/image_gallery_saver
