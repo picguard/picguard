@@ -82,6 +82,7 @@ class _BaseFormItemState extends State<BaseFormItem> {
                 color: errorTextColor,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
+                fontFamily: 'NotoSansSC',
               ),
             ),
           TextSpan(
@@ -90,6 +91,7 @@ class _BaseFormItemState extends State<BaseFormItem> {
               color: isDark ? Colors.white : primaryTextColor,
               fontSize: 14,
               fontWeight: FontWeight.w400,
+              fontFamily: 'NotoSansSC',
             ),
           ),
         ],

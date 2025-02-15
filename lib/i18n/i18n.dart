@@ -1,1 +1,1 @@
-export 'l10n.g.dart';
+export 'i18n.g.dart';

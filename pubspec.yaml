@@ -155,6 +155,10 @@ flutter:
           weight: 400
         - asset: fonts/SourceSans3-Bold.ttf
           weight: 700
+    - family: NotoSansSC
+      fonts:
+        - asset: fonts/NotoSansSC-Regular.ttf
+          weight: 400
 
   #
   # For details regarding fonts from package dependencies,

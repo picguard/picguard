@@ -14,6 +14,7 @@
     "colorValidator": "Please select a color.",
     "opacityLabel": "Opacity",
     "fontLabel": "Font",
+    "fontLabelDescription": "Some languages do not support custom fonts",
     "fontValidator": "Please select a font.",
     "fontSizeLabel": "Font size",
     "textGapLabel": "Text spacing",

@@ -11,6 +11,7 @@ class AppTheme {
     return ThemeData(
       unselectedWidgetColor: borderColor,
       scaffoldBackgroundColor: Colors.white,
+      fontFamily: 'NotoSansSC',
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
@@ -148,6 +149,7 @@ class AppTheme {
       unselectedWidgetColor: borderColor,
       scaffoldBackgroundColor: Colors.black,
       brightness: Brightness.dark,
+      fontFamily: 'NotoSansSC',
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.black,
         surfaceTintColor: Colors.black,

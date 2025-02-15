@@ -14,6 +14,7 @@
     "colorValidator": "请选择颜色.",
     "opacityLabel": "不透明度",
     "fontLabel": "字体",
+    "fontLabelDescription": "部分语言不支持自定义字体",
     "fontValidator": "请选择字体.",
     "fontSizeLabel": "字体大小",
     "textGapLabel": "文本间距",

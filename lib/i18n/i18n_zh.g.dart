@@ -71,6 +71,7 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 	@override String get colorValidator => '请选择颜色.';
 	@override String get opacityLabel => '不透明度';
 	@override String get fontLabel => '字体';
+	@override String get fontLabelDescription => '部分语言不支持自定义字体';
 	@override String get fontValidator => '请选择字体.';
 	@override String get fontSizeLabel => '字体大小';
 	@override String get textGapLabel => '文本间距';
@@ -220,6 +221,7 @@ extension on TranslationsZh {
 			case 'homePage.colorValidator': return '请选择颜色.';
 			case 'homePage.opacityLabel': return '不透明度';
 			case 'homePage.fontLabel': return '字体';
+			case 'homePage.fontLabelDescription': return '部分语言不支持自定义字体';
 			case 'homePage.fontValidator': return '请选择字体.';
 			case 'homePage.fontSizeLabel': return '字体大小';
 			case 'homePage.textGapLabel': return '文本间距';

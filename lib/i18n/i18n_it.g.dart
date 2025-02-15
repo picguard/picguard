@@ -71,10 +71,11 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String get colorValidator => 'Seleziona un colore.';
 	@override String get opacityLabel => 'Opacità';
 	@override String get fontLabel => 'Font';
+	@override String get fontLabelDescription => 'Some languages do not support custom fonts';
 	@override String get fontValidator => 'Seleziona un font.';
 	@override String get fontSizeLabel => 'Dimensione del font';
 	@override String get textGapLabel => 'Spaziatura del testo';
-	@override String get textGapDescription => 'La spaziatura tra il testo in ogni riga di testo';
+	@override String get textGapDescription => 'Alcune lingue non supportano i font personalizzati';
 	@override String get rowGapLabel => 'Interlinea';
 	@override String get rowGapDescription => 'La spaziatura tra ogni riga di testo';
 	@override String get preview => 'Anteprima';
@@ -220,10 +221,11 @@ extension on TranslationsIt {
 			case 'homePage.colorValidator': return 'Seleziona un colore.';
 			case 'homePage.opacityLabel': return 'Opacità';
 			case 'homePage.fontLabel': return 'Font';
+			case 'homePage.fontLabelDescription': return 'Some languages do not support custom fonts';
 			case 'homePage.fontValidator': return 'Seleziona un font.';
 			case 'homePage.fontSizeLabel': return 'Dimensione del font';
 			case 'homePage.textGapLabel': return 'Spaziatura del testo';
-			case 'homePage.textGapDescription': return 'La spaziatura tra il testo in ogni riga di testo';
+			case 'homePage.textGapDescription': return 'Alcune lingue non supportano i font personalizzati';
 			case 'homePage.rowGapLabel': return 'Interlinea';
 			case 'homePage.rowGapDescription': return 'La spaziatura tra ogni riga di testo';
 			case 'homePage.preview': return 'Anteprima';

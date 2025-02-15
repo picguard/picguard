@@ -147,33 +147,24 @@ class _HomePageState extends State<HomePage> {
               FormBuilder(
                 key: _formKey,
                 child: Column(
+                  spacing: 5,
                   children: [
                     TextInput(focusNode: inputFocusNode),
-                    const Gap(5),
                     const ColorPicker(),
-                    const Gap(5),
                     const OpacityPicker(),
                     if (AppConfig.shared.isPro) ...[
-                      const Gap(5),
                       const FontPicker(),
-                      const Gap(5),
                       const FontSizePicker(),
-                      const Gap(5),
                       const TextColumnGap(),
-                      const Gap(5),
                       const TextRowGap(),
                     ],
                   ],
                 ),
               ),
               const Gap(20),
-              PreviewBtn(
-                onPressed: _fileWrappers.isNotEmpty ? _preview : null,
-              ),
+              PreviewBtn(onPressed: _fileWrappers.isNotEmpty ? _preview : null),
               const Gap(10),
-              SaveBtn(
-                onPressed: _fileWrappers.isNotEmpty ? _save : null,
-              ),
+              SaveBtn(onPressed: _fileWrappers.isNotEmpty ? _save : null),
               const Gap(14),
               const AppVersion(),
               const Gap(10),
@@ -224,10 +215,8 @@ class _HomePageState extends State<HomePage> {
         final images = await Future.wait(imageFutures);
         printDebugLog('Length of images: ${images.length}');
         await EasyLoading.dismiss();
-        final imageProviders = images
-            .nonNulls
-            .map((item) => MemoryImage(item.bytes))
-            .toList();
+        final imageProviders =
+            images.nonNulls.map((item) => MemoryImage(item.bytes)).toList();
         DialogUtil.showImagePreviewDialog(imageProviders);
       } on Exception catch (error, stackTrace) {
         await EasyLoading.dismiss();
@@ -407,6 +396,7 @@ class _HomePageState extends State<HomePage> {
     );
     canvas.save();
 
+    debugPrint('fontFamily: $fontFamily');
     // 设置文本样式
     final textStyle = TextStyle(
       color: Color(colorValue).withAlpha((255.0 * opacity).round()),
@@ -545,10 +535,10 @@ class _HomePageState extends State<HomePage> {
 
     if (watermarkedBytes == null) return null;
 
-    final ext = extension(name);
+    // final ext = extension(name);
     final newFileName =
         '${basenameWithoutExtension(name)}_${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}';
-    final fileName = '$newFileName$ext';
+    final fileName = '$newFileName.png';
 
     return ReturnWrapper(bytes: watermarkedBytes, name: fileName);
   }
@@ -825,6 +815,7 @@ class TextInput extends StatelessWidget {
                   color: isDark ? Colors.white : primaryTextColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
+                  fontFamily: 'NotoSansSC',
                 ),
                 onChanged: (value) {
                   field
@@ -863,6 +854,7 @@ class TextInput extends StatelessWidget {
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                     color: Colors.grey,
+                    fontFamily: 'NotoSansSC',
                   ),
                   focusedBorder: hasError
                       ? OutlineInputBorder(
@@ -889,6 +881,7 @@ class TextInput extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
+                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(top: 8, left: 8),
@@ -938,6 +931,7 @@ class ColorPicker extends StatelessWidget {
                 style: TextStyle(
                   color: isDark ? Colors.white : primaryTextColor,
                   overflow: TextOverflow.ellipsis,
+                  fontFamily: 'NotoSansSC',
                 ),
                 icon: const Icon(
                   Icons.arrow_drop_down,
@@ -996,6 +990,7 @@ class ColorPicker extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
+                          fontFamily: 'NotoSansSC',
                         ),
                       ).nestedAlign(
                         alignment: Alignment.centerLeft,
@@ -1011,6 +1006,7 @@ class ColorPicker extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
+                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(
@@ -1154,7 +1150,11 @@ class FontPicker extends StatelessWidget {
     return BaseFormItem(
       title: t.homePage.fontLabel,
       required: false,
-      showTip: false,
+      onTipTap: () {
+        DialogUtil.showBottomSheetDialog(
+          content: t.homePage.fontLabelDescription,
+        );
+      },
       child: FormBuilderField<String>(
         name: 'font',
         initialValue: fontFamilies.elementAt(0).fontFamily,
@@ -1359,6 +1359,7 @@ class _FontSizePickerState extends State<FontSizePicker> {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
+                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(top: 8, left: 8),
@@ -1450,6 +1451,7 @@ class _TextColumnGapState extends State<TextColumnGap> {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
+                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(top: 8, left: 8),
@@ -1541,6 +1543,7 @@ class _TextRowGapState extends State<TextRowGap> {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
+                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(top: 8, left: 8),
@@ -1604,6 +1607,7 @@ class AppVersion extends StatelessWidget {
       style: const TextStyle(
         color: secondaryTextColor,
         fontSize: 12,
+        fontFamily: 'NotoSansSC',
       ),
       textAlign: TextAlign.center,
     );
@@ -1654,6 +1658,7 @@ class PreviewBtn extends StatelessWidget {
         style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w400,
+          fontFamily: 'NotoSansSC',
         ),
       ),
     ).nestedSizedBox(
@@ -1697,6 +1702,7 @@ class SaveBtn extends StatelessWidget {
         style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w400,
+          fontFamily: 'NotoSansSC',
         ),
       ),
     ).nestedSizedBox(

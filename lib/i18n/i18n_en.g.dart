@@ -73,6 +73,7 @@ class TranslationsHomePageEn {
 	String get colorValidator => 'Please select a color.';
 	String get opacityLabel => 'Opacity';
 	String get fontLabel => 'Font';
+	String get fontLabelDescription => 'Some languages do not support custom fonts';
 	String get fontValidator => 'Please select a font.';
 	String get fontSizeLabel => 'Font size';
 	String get textGapLabel => 'Text spacing';
@@ -222,6 +223,7 @@ extension on Translations {
 			case 'homePage.colorValidator': return 'Please select a color.';
 			case 'homePage.opacityLabel': return 'Opacity';
 			case 'homePage.fontLabel': return 'Font';
+			case 'homePage.fontLabelDescription': return 'Some languages do not support custom fonts';
 			case 'homePage.fontValidator': return 'Please select a font.';
 			case 'homePage.fontSizeLabel': return 'Font size';
 			case 'homePage.textGapLabel': return 'Text spacing';
