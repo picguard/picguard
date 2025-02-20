@@ -103,4 +103,8 @@ macos_pro:
 
 web_free:
 	echo "╠ Releasing web..."
+	fvm flutter build web --dart-define-from-file=".env.$(ENV).local" --target lib/main_free.dart
+
+web_dev:
+	echo "╠ Releasing web..."
 	fvm flutter run -d web-server --web-hostname 0.0.0.0 --web-port 8080 --dart-define-from-file=".env.$(ENV).local" --target lib/main_free.dart
