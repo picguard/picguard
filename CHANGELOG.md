@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.14+438
+
+1. fix(deps): update deps
+2. fix: update font family
+3. fix: correct git errors in flutter
+
 ## 1.0.13+437
 
 1. fix(deps): update deps
