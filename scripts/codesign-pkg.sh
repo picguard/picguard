@@ -13,11 +13,11 @@ signFile() {
 }
 
 export -f signFile
-if [ -d "build/macos/Build/Products/Release/PicGuard.app" ]; then
-    cd build/macos/Build/Products/Release
+if [ -d "build/macos/Build/Products/Release-free/PicGuard.app" ]; then
+    cd build/macos/Build/Products/Release-free
     find PicGuard.app -exec bash -c 'signFile "{}"' \;
 else
-  echo "Directory (build/macos/Build/Products/Release/PicGuard.app) does not exist!"
+  echo "Directory (build/macos/Build/Products/Release-free/PicGuard.app) does not exist!"
   exit 1
 fi
 

@@ -63,17 +63,20 @@
 
 /* Begin PBXFileReference section */
 		02E4EF0D6D67209A971F5575 /* Pods-PicGuardMacTests.release-pro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.release-pro.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.release-pro.xcconfig"; sourceTree = "<group>"; };
-		0420BC1DB2EC35A2F2879F72 /* Pods-PicGuardMacTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.profile.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.profile.xcconfig"; sourceTree = "<group>"; };
-		11BAB1DE7B2EC7F479C0E1CA /* Pods-PicGuardMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.release.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.release.xcconfig"; sourceTree = "<group>"; };
 		15A7FBD0CF0382A438BC541E /* Pods-PicGuardMacTests.profile-pro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.profile-pro.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.profile-pro.xcconfig"; sourceTree = "<group>"; };
 		25D32C4970278FA4EB7F6A4A /* Pods_PicGuardMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicGuardMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E22E73F2BEA5ABF0084157E /* AppStore-Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "AppStore-Release.entitlements"; sourceTree = "<group>"; };
 		2E4AE6612C5F7D010014EC6E /* AppStorePro-Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "AppStorePro-Release.entitlements"; sourceTree = "<group>"; };
 		2E4AE66E2C5F7E4A0014EC6E /* Info-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Info-Pro.plist"; path = "Runner/Info-Pro.plist"; sourceTree = "<group>"; };
 		2E4AE6702C5F88EB0014EC6E /* AppInfo-Pro.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "AppInfo-Pro.xcconfig"; sourceTree = "<group>"; };
+		2E82EE702D69F58A00199BE7 /* Debug-pro.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug-pro.xcconfig"; sourceTree = "<group>"; };
+		2E82EE712D69F58A00199BE7 /* Release-pro.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-pro.xcconfig"; sourceTree = "<group>"; };
+		2E82EE722D69F5A000199BE7 /* Flutter-Debug-pro.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Flutter-Debug-pro.xcconfig"; sourceTree = "<group>"; };
+		2E82EE732D69F5A000199BE7 /* Flutter-Release-pro.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Flutter-Release-pro.xcconfig"; sourceTree = "<group>"; };
 		2EE23F482C91B8EF0049A10D /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		2EE23F492C91B8F80049A10D /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		2EE23F4B2C91B9130049A10D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		2F35376F94CCFF5DC2E88095 /* Pods-PicGuardMacTests.profile-free.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.profile-free.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.profile-free.xcconfig"; sourceTree = "<group>"; };
 		331C80D5294CF71000263BE5 /* PicGuardMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PicGuardMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		331C80D7294CF71000263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		333000ED22D3DE5D00554162 /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
@@ -90,16 +93,17 @@
 		33E51913231747F40026EE4D /* DebugProfile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DebugProfile.entitlements; sourceTree = "<group>"; };
 		33E51914231749380026EE4D /* Release.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Release.entitlements; sourceTree = "<group>"; };
 		33E5194F232828860026EE4D /* AppInfo.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppInfo.xcconfig; sourceTree = "<group>"; };
-		536DDE790A34442CB26CCA81 /* Pods-PicGuardMacTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.debug.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.debug.xcconfig"; sourceTree = "<group>"; };
+		497508D4FC1B98E95DA3F75B /* Pods-PicGuardMac.profile-free.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.profile-free.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.profile-free.xcconfig"; sourceTree = "<group>"; };
 		68D860A66A437A85EAE4BEAC /* Pods_PicGuardMacTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicGuardMacTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6ED2609233C76846568B8C6C /* Pods-PicGuardMacTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.release.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.release.xcconfig"; sourceTree = "<group>"; };
 		6F2641153E5EF13C98E84F0E /* Pods-PicGuardMacTests.debug-pro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.debug-pro.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.debug-pro.xcconfig"; sourceTree = "<group>"; };
+		77B5BB56D190681F4B6A3AEC /* Pods-PicGuardMac.release-free.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.release-free.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.release-free.xcconfig"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		8F37A76B5229763D9125C562 /* Pods-PicGuardMac.debug-pro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.debug-pro.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.debug-pro.xcconfig"; sourceTree = "<group>"; };
+		939FA2BC410F844D12F0A03D /* Pods-PicGuardMac.debug-free.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.debug-free.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.debug-free.xcconfig"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		B3FF7C67EC0FEA417172E84B /* Pods-PicGuardMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.debug.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.debug.xcconfig"; sourceTree = "<group>"; };
-		D2C5B7D91E959D2A01CA328A /* Pods-PicGuardMac.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.profile.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.profile.xcconfig"; sourceTree = "<group>"; };
+		D1B50142BB92420DA515FE00 /* Pods-PicGuardMacTests.release-free.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.release-free.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.release-free.xcconfig"; sourceTree = "<group>"; };
 		DC9BCEC2E3B57DB32CFD9C64 /* Pods-PicGuardMac.release-pro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.release-pro.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.release-pro.xcconfig"; sourceTree = "<group>"; };
+		E8E9DBF2512F2828BD003A0D /* Pods-PicGuardMacTests.debug-free.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMacTests.debug-free.xcconfig"; path = "Target Support Files/Pods-PicGuardMacTests/Pods-PicGuardMacTests.debug-free.xcconfig"; sourceTree = "<group>"; };
 		ED3DD1FF08BE5B66272B65E9 /* Pods-PicGuardMac.profile-pro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardMac.profile-pro.xcconfig"; path = "Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.profile-pro.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,6 +138,8 @@
 		33BA886A226E78AF003329D5 /* Configs */ = {
 			isa = PBXGroup;
 			children = (
+				2E82EE702D69F58A00199BE7 /* Debug-pro.xcconfig */,
+				2E82EE712D69F58A00199BE7 /* Release-pro.xcconfig */,
 				2E4AE6702C5F88EB0014EC6E /* AppInfo-Pro.xcconfig */,
 				33E5194F232828860026EE4D /* AppInfo.xcconfig */,
 				9740EEB21CF90195004384FC /* Debug.xcconfig */,
@@ -179,6 +185,8 @@
 		33CEB47122A05771004F2AC0 /* Flutter */ = {
 			isa = PBXGroup;
 			children = (
+				2E82EE722D69F5A000199BE7 /* Flutter-Debug-pro.xcconfig */,
+				2E82EE732D69F5A000199BE7 /* Flutter-Release-pro.xcconfig */,
 				335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */,
 				33CEB47222A05771004F2AC0 /* Flutter-Debug.xcconfig */,
 				33CEB47422A05771004F2AC0 /* Flutter-Release.xcconfig */,
@@ -214,18 +222,18 @@
 		EB44C484205607873B5727B1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B3FF7C67EC0FEA417172E84B /* Pods-PicGuardMac.debug.xcconfig */,
-				11BAB1DE7B2EC7F479C0E1CA /* Pods-PicGuardMac.release.xcconfig */,
-				D2C5B7D91E959D2A01CA328A /* Pods-PicGuardMac.profile.xcconfig */,
-				536DDE790A34442CB26CCA81 /* Pods-PicGuardMacTests.debug.xcconfig */,
-				6ED2609233C76846568B8C6C /* Pods-PicGuardMacTests.release.xcconfig */,
-				0420BC1DB2EC35A2F2879F72 /* Pods-PicGuardMacTests.profile.xcconfig */,
 				8F37A76B5229763D9125C562 /* Pods-PicGuardMac.debug-pro.xcconfig */,
 				DC9BCEC2E3B57DB32CFD9C64 /* Pods-PicGuardMac.release-pro.xcconfig */,
 				ED3DD1FF08BE5B66272B65E9 /* Pods-PicGuardMac.profile-pro.xcconfig */,
 				6F2641153E5EF13C98E84F0E /* Pods-PicGuardMacTests.debug-pro.xcconfig */,
 				02E4EF0D6D67209A971F5575 /* Pods-PicGuardMacTests.release-pro.xcconfig */,
 				15A7FBD0CF0382A438BC541E /* Pods-PicGuardMacTests.profile-pro.xcconfig */,
+				939FA2BC410F844D12F0A03D /* Pods-PicGuardMac.debug-free.xcconfig */,
+				77B5BB56D190681F4B6A3AEC /* Pods-PicGuardMac.release-free.xcconfig */,
+				497508D4FC1B98E95DA3F75B /* Pods-PicGuardMac.profile-free.xcconfig */,
+				E8E9DBF2512F2828BD003A0D /* Pods-PicGuardMacTests.debug-free.xcconfig */,
+				D1B50142BB92420DA515FE00 /* Pods-PicGuardMacTests.release-free.xcconfig */,
+				2F35376F94CCFF5DC2E88095 /* Pods-PicGuardMacTests.profile-free.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -498,7 +506,7 @@
 /* Begin XCBuildConfiguration section */
 		2E4AE6622C5F7D710014EC6E /* Debug-pro */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
+			baseConfigurationReference = 2E82EE702D69F58A00199BE7 /* Debug-pro.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -608,7 +616,7 @@
 		};
 		2E4AE6662C5F7D840014EC6E /* Release-pro */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
+			baseConfigurationReference = 2E82EE712D69F58A00199BE7 /* Release-pro.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -711,7 +719,7 @@
 		};
 		2E4AE66A2C5F7D8C0014EC6E /* Profile-pro */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
+			baseConfigurationReference = 2E82EE712D69F58A00199BE7 /* Release-pro.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -811,9 +819,9 @@
 			};
 			name = "Profile-pro";
 		};
-		331C80DB294CF71000263BE5 /* Debug */ = {
+		331C80DB294CF71000263BE5 /* Debug-free */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 536DDE790A34442CB26CCA81 /* Pods-PicGuardMacTests.debug.xcconfig */;
+			baseConfigurationReference = E8E9DBF2512F2828BD003A0D /* Pods-PicGuardMacTests.debug-free.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -824,11 +832,11 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
 			};
-			name = Debug;
+			name = "Debug-free";
 		};
-		331C80DC294CF71000263BE5 /* Release */ = {
+		331C80DC294CF71000263BE5 /* Release-free */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6ED2609233C76846568B8C6C /* Pods-PicGuardMacTests.release.xcconfig */;
+			baseConfigurationReference = D1B50142BB92420DA515FE00 /* Pods-PicGuardMacTests.release-free.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -839,11 +847,11 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
 			};
-			name = Release;
+			name = "Release-free";
 		};
-		331C80DD294CF71000263BE5 /* Profile */ = {
+		331C80DD294CF71000263BE5 /* Profile-free */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0420BC1DB2EC35A2F2879F72 /* Pods-PicGuardMacTests.profile.xcconfig */;
+			baseConfigurationReference = 2F35376F94CCFF5DC2E88095 /* Pods-PicGuardMacTests.profile-free.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -854,9 +862,9 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PicGuard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PicGuard";
 			};
-			name = Profile;
+			name = "Profile-free";
 		};
-		338D0CE9231458BD00FA5F75 /* Profile */ = {
+		338D0CE9231458BD00FA5F75 /* Profile-free */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
@@ -903,9 +911,9 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
-			name = Profile;
+			name = "Profile-free";
 		};
-		338D0CEA231458BD00FA5F75 /* Profile */ = {
+		338D0CEA231458BD00FA5F75 /* Profile-free */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
 			buildSettings = {
@@ -933,17 +941,17 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
-			name = Profile;
+			name = "Profile-free";
 		};
-		338D0CEB231458BD00FA5F75 /* Profile */ = {
+		338D0CEB231458BD00FA5F75 /* Profile-free */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
-			name = Profile;
+			name = "Profile-free";
 		};
-		33CC10F92044A3C60003C045 /* Debug */ = {
+		33CC10F92044A3C60003C045 /* Debug-free */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
@@ -997,9 +1005,9 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Debug;
+			name = "Debug-free";
 		};
-		33CC10FA2044A3C60003C045 /* Release */ = {
+		33CC10FA2044A3C60003C045 /* Release-free */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
@@ -1046,9 +1054,9 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
-			name = Release;
+			name = "Release-free";
 		};
-		33CC10FC2044A3C60003C045 /* Debug */ = {
+		33CC10FC2044A3C60003C045 /* Debug-free */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
 			buildSettings = {
@@ -1077,9 +1085,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
-			name = Debug;
+			name = "Debug-free";
 		};
-		33CC10FD2044A3C60003C045 /* Release */ = {
+		33CC10FD2044A3C60003C045 /* Release-free */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 33E5194F232828860026EE4D /* AppInfo.xcconfig */;
 			buildSettings = {
@@ -1108,23 +1116,23 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
-			name = Release;
+			name = "Release-free";
 		};
-		33CC111C2044C6BA0003C045 /* Debug */ = {
+		33CC111C2044C6BA0003C045 /* Debug-free */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
-			name = Debug;
+			name = "Debug-free";
 		};
-		33CC111D2044C6BA0003C045 /* Release */ = {
+		33CC111D2044C6BA0003C045 /* Release-free */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
-			name = Release;
+			name = "Release-free";
 		};
 /* End XCBuildConfiguration section */
 
@@ -1132,54 +1140,54 @@
 		331C80DE294CF71000263BE5 /* Build configuration list for PBXNativeTarget "PicGuardMacTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				331C80DB294CF71000263BE5 /* Debug */,
+				331C80DB294CF71000263BE5 /* Debug-free */,
 				2E4AE6642C5F7D710014EC6E /* Debug-pro */,
-				331C80DC294CF71000263BE5 /* Release */,
+				331C80DC294CF71000263BE5 /* Release-free */,
 				2E4AE6682C5F7D840014EC6E /* Release-pro */,
-				331C80DD294CF71000263BE5 /* Profile */,
+				331C80DD294CF71000263BE5 /* Profile-free */,
 				2E4AE66C2C5F7D8C0014EC6E /* Profile-pro */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release-free";
 		};
 		33CC10E82044A3C60003C045 /* Build configuration list for PBXProject "PicGuardMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				33CC10F92044A3C60003C045 /* Debug */,
+				33CC10F92044A3C60003C045 /* Debug-free */,
 				2E4AE6622C5F7D710014EC6E /* Debug-pro */,
-				33CC10FA2044A3C60003C045 /* Release */,
+				33CC10FA2044A3C60003C045 /* Release-free */,
 				2E4AE6662C5F7D840014EC6E /* Release-pro */,
-				338D0CE9231458BD00FA5F75 /* Profile */,
+				338D0CE9231458BD00FA5F75 /* Profile-free */,
 				2E4AE66A2C5F7D8C0014EC6E /* Profile-pro */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release-free";
 		};
 		33CC10FB2044A3C60003C045 /* Build configuration list for PBXNativeTarget "PicGuardMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				33CC10FC2044A3C60003C045 /* Debug */,
+				33CC10FC2044A3C60003C045 /* Debug-free */,
 				2E4AE6632C5F7D710014EC6E /* Debug-pro */,
-				33CC10FD2044A3C60003C045 /* Release */,
+				33CC10FD2044A3C60003C045 /* Release-free */,
 				2E4AE6672C5F7D840014EC6E /* Release-pro */,
-				338D0CEA231458BD00FA5F75 /* Profile */,
+				338D0CEA231458BD00FA5F75 /* Profile-free */,
 				2E4AE66B2C5F7D8C0014EC6E /* Profile-pro */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release-free";
 		};
 		33CC111B2044C6BA0003C045 /* Build configuration list for PBXAggregateTarget "Flutter Assemble" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				33CC111C2044C6BA0003C045 /* Debug */,
+				33CC111C2044C6BA0003C045 /* Debug-free */,
 				2E4AE6652C5F7D710014EC6E /* Debug-pro */,
-				33CC111D2044C6BA0003C045 /* Release */,
+				33CC111D2044C6BA0003C045 /* Release-free */,
 				2E4AE6692C5F7D840014EC6E /* Release-pro */,
-				338D0CEB231458BD00FA5F75 /* Profile */,
+				338D0CEB231458BD00FA5F75 /* Profile-free */,
 				2E4AE66D2C5F7D8C0014EC6E /* Profile-pro */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release-free";
 		};
 /* End XCConfigurationList section */
 	};

@@ -581,7 +581,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to adhoc..."
-          flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --export-options-plist=ios/ExportOptions/free/debug.plist
+          flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/debug.plist
 
       - name: Build ipa
         if: github.event.inputs.env == 'production'
@@ -589,7 +589,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --export-options-plist=ios/ExportOptions/free/release.plist
+          flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/release.plist
 
       # Package the build.
       - name: Copy build for iOS
@@ -776,7 +776,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart
+          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
       - name: Install certificates
         env:
@@ -804,7 +804,7 @@ jobs:
 
       - name: Code Signing
         run: /usr/bin/codesign --deep --force -s "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY" --options runtime PicGuard.app -v
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
 
@@ -827,7 +827,7 @@ jobs:
           # validated by macOS even when an internet connection is not available.
           echo "Attach staple"
           xcrun stapler staple "PicGuard.app"
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
@@ -900,7 +900,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart
+          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
       - name: Install certificates
         run: |
@@ -943,7 +943,7 @@ jobs:
           xcrun productbuild --package PicGuard-unsigned.pkg --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard.pkg
         env:
           DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY }}
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
 
       - name: Notarize & Staple
         run: |
@@ -958,7 +958,7 @@ jobs:
           # validated by macOS even when an internet connection is not available.
           echo "Attach staple"
           xcrun stapler staple "PicGuard.pkg"
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
@@ -971,7 +971,7 @@ jobs:
           rm -f PicGuard-unsigned.pkg
           ls -la *.pkg
           mv PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_universal.pkg
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           RELEASE: ${{ needs.create_release.outputs.release }}
 
@@ -1027,7 +1027,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to mac app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart
+          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
       - name: Install certificates
         run: |
@@ -1058,7 +1058,7 @@ jobs:
           # apply provisioning profile
           # https://developer.apple.com/documentation/bundleresources/placing_content_in_a_bundle/
           # security cms -D -i picguard_mac_appstore.provisionprofile
-          mv $THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PP_PATH build/macos/Build/Products/Release/PicGuard.app/Contents/embedded.provisionprofile
+          mv $THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PP_PATH build/macos/Build/Products/Release-free/PicGuard.app/Contents/embedded.provisionprofile
         env:
           THIRD_PARTY_MAC_DEVELOPER_INSTALLER_P12_BASE64_MAC: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_INSTALLER_P12_BASE64_MAC }}
           THIRD_PARTY_MAC_DEVELOPER_APPLICATION_P12_BASE64_MAC: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_APPLICATION_P12_BASE64_MAC }}
@@ -1076,15 +1076,15 @@ jobs:
           
           # 1. Code sign executables
           echo "Code sign executables"
-          /usr/bin/codesign --deep --force --sign "$THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY" build/macos/Build/Products/Release/PicGuard.app
+          /usr/bin/codesign --deep --force --sign "$THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY" build/macos/Build/Products/Release-free/PicGuard.app
           
           # 2. Code sign entitlements.plist
           echo "Code sign entitlements.plist"
-          /usr/bin/codesign --force --sign "$THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY" --entitlements macos/Runner/AppStore-Release.entitlements build/macos/Build/Products/Release/PicGuard.app
+          /usr/bin/codesign --force --sign "$THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY" --entitlements macos/Runner/AppStore-Release.entitlements build/macos/Build/Products/Release-free/PicGuard.app
           
           # 3. Just to confirm all is well, verify the code signing
           # No response means that there were no errors and it is code signed.
-          # /usr/bin/codesign --verify build/macos/Build/Products/Release/PicGuard.app
+          # /usr/bin/codesign --verify build/macos/Build/Products/Release-free/PicGuard.app
         env:
           THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY }}
 
@@ -1098,14 +1098,14 @@ jobs:
           xcrun productbuild --sign "$THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY" --component PicGuard.app /Applications PicGuard.pkg
         env:
           THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY }}
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
 
       # Package the build.
       - name: Copy build for pkg
         run: |
           ls -la *.pkg
           cp PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore-free_universal.pkg
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           RELEASE: ${{ needs.create_release.outputs.release }}
 
@@ -1295,7 +1295,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart
+          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
       - name: Install certificates
         env:
@@ -1323,7 +1323,7 @@ jobs:
 
       - name: Code Signing
         run: /usr/bin/codesign --deep --force -s "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY" --options runtime PicGuard.app -v
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
 
@@ -1346,7 +1346,7 @@ jobs:
           # validated by macOS even when an internet connection is not available.
           echo "Attach staple"
           xcrun stapler staple "PicGuard.app"
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
@@ -1362,7 +1362,7 @@ jobs:
 
       - name: Build zip
         run: 7z a PicGuard_"$RELEASE"_macos_universal.zip ./PicGuard.app
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           RELEASE: ${{ needs.create_release.outputs.release }}
 
@@ -1371,7 +1371,7 @@ jobs:
         run: |
           ls -la *.zip
           mv PicGuard_*_macos_universal.zip $GITHUB_WORKSPACE/
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.zip
@@ -1425,7 +1425,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart
+          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
       - name: Install certificates
         env:
@@ -1453,7 +1453,7 @@ jobs:
 
       - name: Code Signing
         run: /usr/bin/codesign --deep --force -s "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY" --options runtime PicGuard.app -v
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
 
@@ -1476,7 +1476,7 @@ jobs:
           # validated by macOS even when an internet connection is not available.
           echo "Attach staple"
           xcrun stapler staple "PicGuard.app"
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
@@ -1485,7 +1485,7 @@ jobs:
 
       - name: Build tar
         run: tar -czaf PicGuard_"$RELEASE"_macos_universal.tar.gz ./PicGuard.app
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           RELEASE: ${{ needs.create_release.outputs.release }}
 
@@ -1494,7 +1494,7 @@ jobs:
         run: |
           ls -la *.tar.gz
           mv *.tar.gz $GITHUB_WORKSPACE/
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.tar.gz

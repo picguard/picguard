@@ -167,7 +167,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --export-options-plist=ios/ExportOptions/free/debug.plist
+          flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/debug.plist
 
       # Package the build.
       - name: Copy build for iOS
@@ -220,7 +220,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --target lib/main_free.dart
+          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
       - name: Install certificates
         env:
@@ -248,7 +248,7 @@ jobs:
 
       - name: Code Signing
         run: /usr/bin/codesign --deep --force -s "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY" --options runtime PicGuard.app -v
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
 
@@ -271,7 +271,7 @@ jobs:
           # validated by macOS even when an internet connection is not available.
           echo "Attach staple"
           xcrun stapler staple "PicGuard.app"
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}

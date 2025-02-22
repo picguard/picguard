@@ -38,7 +38,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart
+          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
       - name: Install certificates
         env:
@@ -66,7 +66,7 @@ jobs:
 
       - name: Code Signing
         run: /usr/bin/codesign --deep --force -s "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY" --options runtime PicGuard.app -v
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
 
@@ -89,7 +89,7 @@ jobs:
           # validated by macOS even when an internet connection is not available.
           echo "Attach staple"
           xcrun stapler staple "PicGuard.app"
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
@@ -107,19 +107,19 @@ jobs:
         run: |
           echo "$VERSION"
           tar -czaf PicGuard_"$VERSION"_macos_universal.tar.gz ./PicGuard.app
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           VERSION: ${{ steps.version_step.outputs.version }}
 
       # Package the build.
       - name: Copy build for tar
         run: ls -la *.tar.gz
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
 
       - uses: actions/upload-artifact@v4
         with:
           name: macos-tar-artifact
-          path: ./build/macos/Build/Products/Release/*.tar.gz
+          path: ./build/macos/Build/Products/Release-free/*.tar.gz
 
       - name: Clean up
         if: ${{ always() }}

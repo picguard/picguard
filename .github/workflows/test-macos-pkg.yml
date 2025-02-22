@@ -38,7 +38,7 @@ jobs:
           echo "╠ Removing build products and intermediate files from the build root..."
           cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart
+          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
       - name: Install certificates
         run: |
@@ -81,19 +81,19 @@ jobs:
           xcrun productbuild --package PicGuard-unsigned.pkg --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard.pkg
         env:
           DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY }}
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
 
       - uses: actions/upload-artifact@v4
         with:
           name: pkg-artifact
           path: |
-            ./build/macos/Build/Products/Release/PicGuard.pkg
+            ./build/macos/Build/Products/Release-free/PicGuard.pkg
 
 #      - name: Check sign status
 #        run: |
 #          # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
 #          pkgutil –-check-signature PicGuard.pkg
-#        working-directory: build/macos/Build/Products/Release
+#        working-directory: build/macos/Build/Products/Release-free
 
       - name: Notarize & Staple
         run: |
@@ -108,7 +108,7 @@ jobs:
           # validated by macOS even when an internet connection is not available.
           echo "Attach staple"
           xcrun stapler staple "PicGuard.pkg"
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
@@ -130,14 +130,14 @@ jobs:
           rm -f PicGuard-unsigned.pkg
           mv PicGuard.pkg PicGuard_"$VERSION"_macos_universal.pkg
           ls -la *.pkg
-        working-directory: build/macos/Build/Products/Release
+        working-directory: build/macos/Build/Products/Release-free
         env:
           VERSION: ${{ steps.version_step.outputs.version }}
 
       - uses: actions/upload-artifact@v4
         with:
           name: macos-pkg-artifact
-          path: ./build/macos/Build/Products/Release/*.pkg
+          path: ./build/macos/Build/Products/Release-free/*.pkg
 
       - name: Clean up
         if: ${{ always() }}

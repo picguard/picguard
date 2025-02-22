@@ -1,0 +1,2 @@
+#include "../../Flutter/Flutter-Release-pro.xcconfig"
+#include "Warnings.xcconfig"
