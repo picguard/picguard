@@ -1,5 +1,5 @@
 name: picguard
-version: 1.0.8.430
+version: 1.0.14.438
 summary: Your pictures, your signature.
 description: |
   Introducing **PicGuard** - the ultimate solution for securing and customizing your digital photos. With our app, you can easily add watermarks to your images to protect your creative work and maintain your privacy.
@@ -43,6 +43,7 @@ parts:
     # flutter-target: lib/main.dart # The main entry-point file of the application
     build-packages:
       - curl
+      - libcurl4-openssl-dev
       - git
       - unzip
       - xz-utils
@@ -57,9 +58,8 @@ parts:
       - libstdc++-12-dev
     build-environment:
       - FLUTTER_REPO: https://github.com/flutter/flutter.git
-      - FLUTTER_VERSION: 3.24.5
+      - FLUTTER_VERSION: 3.29.0
       - FLUTTER_TARGET: lib/main_free.dart
-      - TARGET_PLATFORM: linux-x64
     override-build: |
       # https://github.com/canonical/snapcraft/blob/main/snapcraft/parts/plugins/flutter_plugin.py
       PG_FLUTTER_BUILD_DIR="$CRAFT_PART_BUILD/flutter-distro"
@@ -68,8 +68,11 @@ parts:
         rm -rf $PG_FLUTTER_BUILD_DIR
       fi
       git clone --depth 1 -b $FLUTTER_VERSION $FLUTTER_REPO $PG_FLUTTER_BUILD_DIR
+      
+      # https://github.com/canonical/snapcraft/pull/5264
+      rm -f "$PG_FLUTTER_BUILD_DIR/engine/src/.gn"
       flutter doctor -v
       flutter precache --linux
       flutter pub get
-      flutter build linux --release --dart-define-from-file=.env --target-platform $TARGET_PLATFORM --target $FLUTTER_TARGET
+      flutter build linux --release --dart-define-from-file=.env --target $FLUTTER_TARGET
       cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/

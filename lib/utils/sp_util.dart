@@ -9,7 +9,6 @@ import 'package:synchronized/synchronized.dart';
 import 'package:picguard/utils/utils.dart';
 
 class SpUtil {
-
   SpUtil._();
   static SpUtil? _singleton;
   static SharedPreferences? _prefs;
@@ -35,10 +34,7 @@ class SpUtil {
   }
 
   /// get string.
-  static String getString(
-    String key, {
-    String defValue = StringUtil.empty,
-  }) {
+  static String getString(String key, {String defValue = StringUtil.empty}) {
     return _prefs?.getString(key) ?? defValue;
   }
 

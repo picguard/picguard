@@ -39,10 +39,8 @@ FlutterErrorDetails makeErrorDetails(Object error, StackTrace stackTrace) {
   return FlutterErrorDetails(exception: error, stack: stackTrace);
 }
 
-Future<void> runMainApp({
-  Flavor flavor = Flavor.free,
-}) async {
-  WidgetsFlutterBinding.ensureInitialized();
+Future<void> runMainApp({Flavor flavor = Flavor.free}) async {
+  SentryWidgetsFlutterBinding.ensureInitialized();
   await RustLib.init();
 
   AppConfig.create(flavor: flavor);
@@ -59,31 +57,28 @@ Future<void> runMainApp({
   });
 
   if (PgEnv.sentryEnabled) {
-    await SentryFlutter.init(
-      (options) {
-        options
-          ..dsn = PgEnv.sentryDsn
-          ..tracesSampleRate = 1.0
-          ..profilesSampleRate = 1.0
-          ..attachThreads = true
-          ..enableWindowMetricBreadcrumbs = true
-          ..enableAppHangTracking =
-              false // https://github.com/getsentry/sentry-cocoa/issues/3472
-          ..addIntegration(LoggingIntegration(minEventLevel: Level.INFO))
-          ..sendDefaultPii = true
-          ..reportSilentFlutterErrors = true
-          ..attachScreenshot = true
-          ..screenshotQuality = SentryScreenshotQuality.low
-          ..attachViewHierarchy = true
-          ..debug = kDebugMode
-          ..spotlight = Spotlight(enabled: true)
-          ..enableTimeToFullDisplayTracing = true
-          ..enableMetrics = true
-          ..maxRequestBodySize = MaxRequestBodySize.always
-          ..maxResponseBodySize = MaxResponseBodySize.always
-          ..navigatorKey = AppNavigator.key;
-      },
-    );
+    await SentryFlutter.init((options) {
+      options
+        ..dsn = PgEnv.sentryDsn
+        ..tracesSampleRate = 1.0
+        ..profilesSampleRate = 1.0
+        ..attachThreads = true
+        ..enableWindowMetricBreadcrumbs = true
+        ..enableAppHangTracking =
+            false // https://github.com/getsentry/sentry-cocoa/issues/3472
+        ..addIntegration(LoggingIntegration(minEventLevel: Level.INFO))
+        ..sendDefaultPii = true
+        ..reportSilentFlutterErrors = true
+        ..attachScreenshot = true
+        ..screenshotQuality = SentryScreenshotQuality.low
+        ..attachViewHierarchy = true
+        ..debug = kDebugMode
+        ..spotlight = Spotlight(enabled: true)
+        ..enableTimeToFullDisplayTracing = true
+        ..maxRequestBodySize = MaxRequestBodySize.always
+        ..maxResponseBodySize = MaxResponseBodySize.always
+        ..navigatorKey = AppNavigator.key;
+    });
   } else {
     printWarningLog('sentry is not enabled, please check the .env file');
   }
@@ -112,18 +107,11 @@ Future<void> runMainApp({
   Widget child = const MainApp();
   if (PgEnv.sentryEnabled) {
     child = SentryWidget(
-      child: DefaultAssetBundle(
-        bundle: SentryAssetBundle(),
-        child: child,
-      ),
+      child: DefaultAssetBundle(bundle: SentryAssetBundle(), child: child),
     );
   }
 
-  runApp(
-    TranslationProvider(
-      child: child,
-    ),
-  );
+  runApp(TranslationProvider(child: child));
 }
 
 class MainApp extends StatefulWidget {
@@ -156,9 +144,9 @@ class _MainAppState extends State<MainApp> {
         builder: (BuildContext context, Widget? child) {
           child = easyLoadingBuilder(context, child);
           return MediaQuery(
-            data: MediaQuery.of(context).copyWith(
-              textScaler: TextScaler.noScaling,
-            ),
+            data: MediaQuery.of(
+              context,
+            ).copyWith(textScaler: TextScaler.noScaling),
             child: child,
           );
         },

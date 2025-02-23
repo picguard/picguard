@@ -1,5 +1,5 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-<Package Name="PicGuard" Manufacturer="Insco LLC" Version="1.0.8.430" UpgradeCode="62eb3032-f9fb-4440-8def-b9d7bdffd9f4">
+<Package Name="PicGuard" Manufacturer="Insco" Version="1.0.14.438" UpgradeCode="62eb3032-f9fb-4440-8def-b9d7bdffd9f4">
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
 
     <!-- Set an icon for Windows Settings > Apps -->
@@ -19,11 +19,7 @@
       <!-- Flutter output -->
       <ComponentGroupRef Id="BaseComponents" />
       <ComponentGroupRef Id="DataComponents" />
-      <ComponentGroupRef Id="FontComponents" />
-      <ComponentGroupRef Id="FlutterAssetComponents" />
-      <ComponentGroupRef Id="FlutterLogoComponents" />
-      <ComponentGroupRef Id="FlutterPackageComponents" />
-      <ComponentGroupRef Id="ShaderComponents" />
+      <ComponentGroupRef Id="FlutterAssetsComponents" />
     </Feature>
     <Feature
       Id="Shortcut"

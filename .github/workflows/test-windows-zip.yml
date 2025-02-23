@@ -9,7 +9,7 @@ permissions: read-all
 jobs:
   zip:
     name: Create zip
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
 
@@ -17,7 +17,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.24.5'
+          flutter-version: '3.29.0'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -32,9 +32,6 @@ jobs:
 
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
-
-      - name: Install flutter dependencies
-        run: flutter pub get
 
       - name: Build zip
         shell: pwsh

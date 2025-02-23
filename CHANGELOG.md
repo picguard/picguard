@@ -1,8 +1,44 @@
 # Changelog
 
-## 1.0.8+430
+## 1.0.14+438
+
+1. fix(deps): update deps
+2. fix: update font family
+3. fix: correct git errors in flutter
+
+## 1.0.13+437
+
+1. fix(deps): update deps
+
+## 1.0.12+436
+
+1. ci(linux): add snap support
+2. ci(linux): add appimage support
+3. fix(deps): update deps
+4. fix(linux): remove zip support
+
+## 1.0.11+435
+
+1. fix(deps): update deps
+2. fix: update slang config
+3. fix: remove flatpack support
+4. fix: remove snapcraft support
+5. fix: remove pacman support
+
+## 1.0.10+434
 
 1. Update deps
+2. Update workflows
+3. Update android sdk to 35
+
+## 1.0.9+433
+
+1. Update deps
+
+## 1.0.8+432
+
+1. Update deps
+2. Update workflows
 
 ## 1.0.7+429
 

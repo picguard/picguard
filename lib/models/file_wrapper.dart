@@ -21,10 +21,7 @@ class FileWrapper {
 
 class ReturnWrapper {
   ///
-  const ReturnWrapper({
-    required this.bytes,
-    required this.name,
-  });
+  const ReturnWrapper({required this.bytes, required this.name});
 
   final Uint8List bytes;
 

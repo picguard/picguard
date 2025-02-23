@@ -9,14 +9,14 @@ permissions: read-all
 jobs:
   deb:
     name: Create linux deb (aarch64)
-    runs-on: buildjet-4vcpu-ubuntu-2204-arm
+    runs-on: ubuntu-22.04-arm
     steps:
       - uses: actions/checkout@v4
 
       - name: Install dependencies for Linux
         run: |
           sudo apt-get update -y && sudo apt-get upgrade -y
-          sudo apt-get install -y curl git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
 
       - name: Setup Flutter
@@ -36,13 +36,10 @@ jobs:
       - name: Install flutter_distributor
         run: dart pub global activate flutter_distributor
 
-      - name: Install flutter dependencies
-        run: flutter pub get
-
       - name: Build deb
         run: |
           flutter_distributor package \
-            --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart,target-platform=linux-arm64" \
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets deb \
             --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_aarch64.{{ext}}'

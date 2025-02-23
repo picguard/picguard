@@ -5,15 +5,10 @@ maintainer:
   email: hello@kjxbyz.com
 priority: optional
 section: x11
-installed_size: 6604
+installed_size: 12000
 essential: false
 icon: logo/logo-512.png
 metainfo: linux/shared/picguard.metainfo.xml
-
-postinstall_scripts:
-  - echo "Installing PicGuard"
-postuninstall_scripts:
-  - echo "PicGuard installed"
 
 keywords:
   - PicGuard

@@ -17,7 +17,6 @@ void main() {
 
   tearDown(log.clear);
 
-
   test('saveImageToGallery test', () async {
     // response = true;
     // final imageBytes = Uint8List(16);
@@ -35,5 +34,4 @@ void main() {
     // );
     // expect(result, response);
   });
-
 }

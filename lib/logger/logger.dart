@@ -14,11 +14,7 @@ void printWarningLog(Object? object) {
   logger.warning(object);
 }
 
-void printErrorLog(
-  dynamic error, {
-  DateTime? time,
-  StackTrace? stackTrace,
-}) {
+void printErrorLog(dynamic error, {DateTime? time, StackTrace? stackTrace}) {
   logger.severe(null, error, stackTrace);
 }
 

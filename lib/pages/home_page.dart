@@ -45,11 +45,7 @@ import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
 
-enum Permissions {
-  photos,
-  storage,
-  none,
-}
+enum Permissions { photos, storage, none }
 
 /// colors
 const colors = <PGColor>[
@@ -123,13 +119,14 @@ class _HomePageState extends State<HomePage> {
         title: appName,
         color: isDark ? Colors.white : Colors.black,
         child: Scaffold(
-          appBar: isMobile
-              ? PGAppBar(
-                  titleWidget: Text(appName),
-                  isDark: isDark,
-                  actions: isMobile ? [const SettingsBtn()] : null,
-                )
-              : null,
+          appBar:
+              isMobile
+                  ? PGAppBar(
+                    titleWidget: Text(appName),
+                    isDark: isDark,
+                    actions: isMobile ? [const SettingsBtn()] : null,
+                  )
+                  : null,
           body: ListView(
             padding: const EdgeInsets.symmetric(
               horizontal: padding,
@@ -138,9 +135,10 @@ class _HomePageState extends State<HomePage> {
             children: [
               ImageGroup(
                 fileWrappers: _fileWrappers,
-                onRemove: (index) => setState(
-                  () => _fileWrappers = _fileWrappers..removeAt(index),
-                ),
+                onRemove:
+                    (index) => setState(
+                      () => _fileWrappers = _fileWrappers..removeAt(index),
+                    ),
                 onReorder: _onReorder,
                 pickImages: _pickImages,
               ),
@@ -150,36 +148,25 @@ class _HomePageState extends State<HomePage> {
               FormBuilder(
                 key: _formKey,
                 child: Column(
+                  spacing: 5,
                   children: [
                     TextInput(focusNode: inputFocusNode),
-                    const Gap(5),
                     const ColorPicker(),
-                    const Gap(5),
                     const OpacityPicker(),
                     if (AppConfig.shared.isPro) ...[
-                      const Gap(5),
                       const FontPicker(),
-                      const Gap(5),
                       const FontSizePicker(),
-                      const Gap(5),
                       const TextColumnGap(),
-                      const Gap(5),
                       const TextRowGap(),
                     ],
                   ],
                 ),
               ),
               const Gap(20),
-              PreviewBtn(
-                onPressed: _fileWrappers.isNotEmpty ? _preview : null,
-              ),
+              PreviewBtn(onPressed: _fileWrappers.isNotEmpty ? _preview : null),
               const Gap(10),
-              SaveBtn(
-                onPressed: _fileWrappers.isNotEmpty ? _save : null,
-              ),
+              SaveBtn(onPressed: _fileWrappers.isNotEmpty ? _save : null),
               const Gap(14),
-              // const Privacy(),
-              // const Gap(10),
               const AppVersion(),
               const Gap(10),
               const RustBackend(),
@@ -211,30 +198,29 @@ class _HomePageState extends State<HomePage> {
 
       try {
         await EasyLoading.show();
-        final imageFutures = _fileWrappers
-            .mapIndexed(
-              (index, element) => _addWatermarkV2(
-                imageIdx: index,
-                bytes: element.bytes,
-                name: element.name,
-                watermark: text,
-                colorValue: color,
-                opacity: opacity,
-                fontFamily: fontFamily,
-                fontSize: fontSize,
-                textGap: textGap,
-                rowGap: rowGap,
-              ),
-            )
-            .toList();
+        final imageFutures =
+            _fileWrappers
+                .mapIndexed(
+                  (index, element) => _addWatermarkV2(
+                    imageIdx: index,
+                    bytes: element.bytes,
+                    name: element.name,
+                    watermark: text,
+                    colorValue: color,
+                    opacity: opacity,
+                    fontFamily: fontFamily,
+                    fontSize: fontSize,
+                    textGap: textGap,
+                    rowGap: rowGap,
+                  ),
+                )
+                .toList();
 
         final images = await Future.wait(imageFutures);
         printDebugLog('Length of images: ${images.length}');
         await EasyLoading.dismiss();
-        final imageProviders = images
-            .whereNotNull()
-            .map((item) => MemoryImage(item.bytes))
-            .toList();
+        final imageProviders =
+            images.nonNulls.map((item) => MemoryImage(item.bytes)).toList();
         DialogUtil.showImagePreviewDialog(imageProviders);
       } on Exception catch (error, stackTrace) {
         await EasyLoading.dismiss();
@@ -263,12 +249,14 @@ class _HomePageState extends State<HomePage> {
       if (permission != Permissions.none) {
         final t = Translations.of(AppNavigator.key.currentContext!);
         final appName = t.appName(flavor: AppConfig.shared.flavor);
-        final title = permission == Permissions.photos
-            ? t.dialogs.permissions.photos.title
-            : t.dialogs.permissions.storage.title;
-        final description = permission == Permissions.photos
-            ? t.dialogs.permissions.photos.description
-            : t.dialogs.permissions.storage.description;
+        final title =
+            permission == Permissions.photos
+                ? t.dialogs.permissions.photos.title
+                : t.dialogs.permissions.storage.title;
+        final description =
+            permission == Permissions.photos
+                ? t.dialogs.permissions.photos.description
+                : t.dialogs.permissions.storage.description;
         DialogUtil.showCustomDialog(
           title: title,
           content: description(appName: appName),
@@ -284,22 +272,23 @@ class _HomePageState extends State<HomePage> {
 
       try {
         await EasyLoading.show();
-        final imageFutures = _fileWrappers
-            .mapIndexed(
-              (index, element) => _addWatermarkV2(
-                imageIdx: index,
-                bytes: element.bytes,
-                name: element.name,
-                watermark: text,
-                colorValue: color,
-                opacity: opacity,
-                fontFamily: fontFamily,
-                fontSize: fontSize,
-                textGap: textGap,
-                rowGap: rowGap,
-              ),
-            )
-            .toList();
+        final imageFutures =
+            _fileWrappers
+                .mapIndexed(
+                  (index, element) => _addWatermarkV2(
+                    imageIdx: index,
+                    bytes: element.bytes,
+                    name: element.name,
+                    watermark: text,
+                    colorValue: color,
+                    opacity: opacity,
+                    fontFamily: fontFamily,
+                    fontSize: fontSize,
+                    textGap: textGap,
+                    rowGap: rowGap,
+                  ),
+                )
+                .toList();
 
         final images = await Future.wait(imageFutures);
 
@@ -345,11 +334,7 @@ class _HomePageState extends State<HomePage> {
     final fileName = basenameWithoutExtension(name);
     final ext = extension(name);
     if (kIsWeb) {
-      await FileSaver.instance.saveFile(
-        name: fileName,
-        bytes: bytes,
-        ext: ext,
-      );
+      await FileSaver.instance.saveFile(name: fileName, bytes: bytes, ext: ext);
       return true;
     } else if (isDesktop) {
       printDebugLog('selectedDirectory: $selectedDirectory');
@@ -414,9 +399,10 @@ class _HomePageState extends State<HomePage> {
     );
     canvas.save();
 
+    debugPrint('fontFamily: $fontFamily');
     // 设置文本样式
     final textStyle = TextStyle(
-      color: Color(colorValue).withOpacity(opacity),
+      color: Color(colorValue).withAlpha((255.0 * opacity).round()),
       fontSize: fontSize ?? initialFontSize,
       fontWeight: FontWeight.w400,
       fontFamily: fontFamily,
@@ -435,21 +421,18 @@ class _HomePageState extends State<HomePage> {
 
     final multiply = (hypotenuseLength / (textPainter.width + textGap)).ceil();
     if (multiply > 1) {
-      final watermarks = List.generate(multiply, (index) => index)
-          .map((e) => TextSpan(text: watermark))
-          .toList();
+      final watermarks =
+          List.generate(
+            multiply,
+            (index) => index,
+          ).map((e) => TextSpan(text: watermark)).toList();
 
       final children = <InlineSpan>[];
       final dimensions = <PlaceholderDimensions>[];
       for (var i = 0; i < watermarks.length; i++) {
         if (i == 0) {
           children.add(
-            WidgetSpan(
-              child: SizedBox(
-                width: textGap / 2,
-                height: 1,
-              ),
-            ),
+            WidgetSpan(child: SizedBox(width: textGap / 2, height: 1)),
           );
           dimensions.add(
             PlaceholderDimensions(
@@ -460,14 +443,7 @@ class _HomePageState extends State<HomePage> {
         }
         children.add(watermarks[i]);
         if (i < watermarks.length - 1) {
-          children.add(
-            WidgetSpan(
-              child: SizedBox(
-                width: textGap,
-                height: 1,
-              ),
-            ),
-          );
+          children.add(WidgetSpan(child: SizedBox(width: textGap, height: 1)));
           dimensions.add(
             PlaceholderDimensions(
               size: Size(textGap, 1),
@@ -477,12 +453,7 @@ class _HomePageState extends State<HomePage> {
         }
         if (i == watermarks.length - 1) {
           children.add(
-            WidgetSpan(
-              child: SizedBox(
-                width: textGap / 2,
-                height: 1,
-              ),
-            ),
+            WidgetSpan(child: SizedBox(width: textGap / 2, height: 1)),
           );
           dimensions.add(
             PlaceholderDimensions(
@@ -493,17 +464,15 @@ class _HomePageState extends State<HomePage> {
         }
       }
 
-      textPainter = TextPainter(
-        text: TextSpan(
-          children: children,
-          style: textStyle,
-        ),
-        textAlign: TextAlign.center,
-        textDirection: TextDirection.ltr,
-        maxLines: 1,
-      )
-        ..setPlaceholderDimensions(dimensions)
-        ..layout(maxWidth: hypotenuseLength);
+      textPainter =
+          TextPainter(
+              text: TextSpan(children: children, style: textStyle),
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.ltr,
+              maxLines: 1,
+            )
+            ..setPlaceholderDimensions(dimensions)
+            ..layout(maxWidth: hypotenuseLength);
     }
 
     // 计算角度
@@ -520,9 +489,10 @@ class _HomePageState extends State<HomePage> {
     printDebugLog('Height of textPainter: ${textPainter.height}');
 
     // 绘制剩余文本
-    final lines = (((hypotenuseLength - textPainter.height) / 2) /
-            (textPainter.height + rowGap))
-        .floor();
+    final lines =
+        (((hypotenuseLength - textPainter.height) / 2) /
+                (textPainter.height + rowGap))
+            .floor();
 
     for (var i = 0; i < lines; i++) {
       textPainter
@@ -552,10 +522,10 @@ class _HomePageState extends State<HomePage> {
 
     if (watermarkedBytes == null) return null;
 
-    final ext = extension(name);
+    // final ext = extension(name);
     final newFileName =
         '${basenameWithoutExtension(name)}_${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}';
-    final fileName = '$newFileName$ext';
+    final fileName = '$newFileName.png';
 
     return ReturnWrapper(bytes: watermarkedBytes, name: fileName);
   }
@@ -565,12 +535,14 @@ class _HomePageState extends State<HomePage> {
     if (permission != Permissions.none) {
       final t = Translations.of(AppNavigator.key.currentContext!);
       final appName = t.appName(flavor: AppConfig.shared.flavor);
-      final title = permission == Permissions.photos
-          ? t.dialogs.permissions.photos.title
-          : t.dialogs.permissions.storage.title;
-      final description = permission == Permissions.photos
-          ? t.dialogs.permissions.photos.description
-          : t.dialogs.permissions.storage.description;
+      final title =
+          permission == Permissions.photos
+              ? t.dialogs.permissions.photos.title
+              : t.dialogs.permissions.storage.title;
+      final description =
+          permission == Permissions.photos
+              ? t.dialogs.permissions.photos.description
+              : t.dialogs.permissions.storage.description;
       DialogUtil.showCustomDialog(
         title: title,
         content: description(appName: appName),
@@ -624,29 +596,24 @@ class _HomePageState extends State<HomePage> {
     final picker = ImagePicker();
     final images = await picker.pickMultiImage(limit: 9 - _fileWrappers.length);
     if (images.isNotEmpty) {
-      final imageFutures = images.map(
-        (image) async {
-          return FileWrapper(
-            path: image.path,
-            bytes: await image.readAsBytes(),
-            name: image.name,
-          );
-        },
-      ).toList();
+      final imageFutures =
+          images.map((image) async {
+            return FileWrapper(
+              path: image.path,
+              bytes: await image.readAsBytes(),
+              name: image.name,
+            );
+          }).toList();
 
       final fileWrappers = await Future.wait(imageFutures);
 
-      setState(
-        () => _fileWrappers = _fileWrappers + fileWrappers,
-      );
+      setState(() => _fileWrappers = _fileWrappers + fileWrappers);
     }
   }
 
   // Sort selected photos
   void _onReorder(int oldIndex, int newIndex) {
-    setState(
-      () => _fileWrappers = _fileWrappers..swap(oldIndex, newIndex),
-    );
+    setState(() => _fileWrappers = _fileWrappers..swap(oldIndex, newIndex));
   }
 }
 
@@ -671,87 +638,87 @@ class ImageGroup extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final contentWidth = width - padding * 2;
     final itemWidth = ((contentWidth - spacing * 2) / 3).floorToDouble();
-    final items = fileWrappers
-        .mapIndexed(
-          (index, element) {
-            printDebugLog(element.path);
-            final image = kIsWeb
-                ? Image.network(
-                    element.path,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, url, error) => const Icon(
-                      Icons.error,
-                      color: errorTextColor,
-                      size: 24,
-                    ),
-                  )
-                : Image.file(
-                    File(element.path),
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, url, error) => const Icon(
-                      Icons.error,
-                      color: errorTextColor,
-                      size: 24,
-                    ),
-                  );
-
-            Widget child = image;
-
-            if (kIsWeb || isDesktop) {
-              child = SingleChildScrollView(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: child,
-                ),
-              );
-            }
-
-            return Stack(
-              children: [
-                child
-                    .nestedSizedBox(width: itemWidth, height: itemWidth)
-                    .nestedTap(() {
-                  final imageProviders = fileWrappers.map((fileWrapper) {
-                    return (kIsWeb
-                        ? NetworkImage(fileWrapper.path)
-                        : FileImage(File(fileWrapper.path))) as ImageProvider;
-                  }).toList();
-                  DialogUtil.showImagePreviewDialog(
-                    imageProviders,
-                    initialPage: index,
-                  );
-                }),
-                Positioned(
-                  top: 2,
-                  right: 2,
-                  child: const Icon(
-                    Icons.clear,
-                    color: warnTextColor,
-                    size: 14,
-                  )
-                      .nestedDecoratedBox(
-                        decoration: BoxDecoration(
-                          color: backgroundColor,
-                          borderRadius: BorderRadius.circular(9),
-                        ),
+    final items =
+        fileWrappers
+            .mapIndexed((index, element) {
+              printDebugLog(element.path);
+              final image =
+                  kIsWeb
+                      ? Image.network(
+                        element.path,
+                        fit: BoxFit.cover,
+                        errorBuilder:
+                            (context, url, error) => const Icon(
+                              Icons.error,
+                              color: errorTextColor,
+                              size: 24,
+                            ),
                       )
-                      .nestedSizedBox(width: 18, height: 18)
-                      .nestedTap(() => onRemove(index)),
-                ),
-              ],
-            );
-          },
-        )
-        .cast<Widget>()
-        .toList();
+                      : Image.file(
+                        File(element.path),
+                        fit: BoxFit.cover,
+                        errorBuilder:
+                            (context, url, error) => const Icon(
+                              Icons.error,
+                              color: errorTextColor,
+                              size: 24,
+                            ),
+                      );
+
+              Widget child = image;
+
+              if (kIsWeb || isDesktop) {
+                child = SingleChildScrollView(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: child,
+                  ),
+                );
+              }
+
+              return Stack(
+                children: [
+                  child
+                      .nestedSizedBox(width: itemWidth, height: itemWidth)
+                      .nestedTap(() {
+                        final imageProviders =
+                            fileWrappers.map((fileWrapper) {
+                              return (kIsWeb
+                                      ? NetworkImage(fileWrapper.path)
+                                      : FileImage(File(fileWrapper.path)))
+                                  as ImageProvider;
+                            }).toList();
+                        DialogUtil.showImagePreviewDialog(
+                          imageProviders,
+                          initialPage: index,
+                        );
+                      }),
+                  Positioned(
+                    top: 2,
+                    right: 2,
+                    child: const Icon(
+                          Icons.clear,
+                          color: warnTextColor,
+                          size: 14,
+                        )
+                        .nestedDecoratedBox(
+                          decoration: BoxDecoration(
+                            color: backgroundColor,
+                            borderRadius: BorderRadius.circular(9),
+                          ),
+                        )
+                        .nestedSizedBox(width: 18, height: 18)
+                        .nestedTap(() => onRemove(index)),
+                  ),
+                ],
+              );
+            })
+            .cast<Widget>()
+            .toList();
 
     if (items.length < 9) {
       items.add(
-        const Icon(
-          Icons.add,
-          size: 40,
-          color: borderColor,
-        )
+        const Icon(Icons.add, size: 40, color: borderColor)
             .nestedCenter()
             .nestedDecoratedBox(
               decoration: BoxDecoration(
@@ -786,11 +753,7 @@ class AppDescription extends StatelessWidget {
     final t = Translations.of(context);
     return Text(
       t.homePage.description,
-      style: const TextStyle(
-        color: errorTextColor,
-        fontSize: 12,
-        height: 1.5,
-      ),
+      style: const TextStyle(color: errorTextColor, fontSize: 12, height: 1.5),
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
       textAlign: TextAlign.center,
@@ -832,6 +795,7 @@ class TextInput extends StatelessWidget {
                   color: isDark ? Colors.white : primaryTextColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
+                  fontFamily: 'NotoSansSC',
                 ),
                 onChanged: (value) {
                   field
@@ -841,27 +805,22 @@ class TextInput extends StatelessWidget {
                 decoration: InputDecoration(
                   isDense: true,
                   contentPadding: const EdgeInsets.fromLTRB(10, 11.5, 5, 11.5),
-                  enabledBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: errorTextColor,
+                  enabledBorder:
+                      hasError
+                          ? OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: errorTextColor),
+                            // borderSide: BorderSide.none,
+                            gapPadding: 0,
+                          )
+                          : OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: borderColor),
+                            gapPadding: 0,
                           ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: borderColor,
-                          ),
-                          gapPadding: 0,
-                        ),
                   disabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                      color: borderColor,
-                    ),
+                    borderSide: const BorderSide(color: borderColor),
                     gapPadding: 0,
                   ),
                   hintText: t.homePage.textInput,
@@ -870,24 +829,22 @@ class TextInput extends StatelessWidget {
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                     color: Colors.grey,
+                    fontFamily: 'NotoSansSC',
                   ),
-                  focusedBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: errorTextColor,
+                  focusedBorder:
+                      hasError
+                          ? OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: errorTextColor),
+                            // borderSide: BorderSide.none,
+                            gapPadding: 0,
+                          )
+                          : OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: primaryColor),
+                            // borderSide: BorderSide.none,
+                            gapPadding: 0,
                           ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: primaryColor,
-                          ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        ),
                 ),
               ),
               if (hasError)
@@ -896,6 +853,7 @@ class TextInput extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
+                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(top: 8, left: 8),
@@ -909,9 +867,7 @@ class TextInput extends StatelessWidget {
           }
           return null;
         },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
+      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
     );
   }
 }
@@ -945,6 +901,7 @@ class ColorPicker extends StatelessWidget {
                 style: TextStyle(
                   color: isDark ? Colors.white : primaryTextColor,
                   overflow: TextOverflow.ellipsis,
+                  fontFamily: 'NotoSansSC',
                 ),
                 icon: const Icon(
                   Icons.arrow_drop_down,
@@ -954,62 +911,52 @@ class ColorPicker extends StatelessWidget {
                 decoration: InputDecoration(
                   isDense: true,
                   contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
-                  enabledBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: errorTextColor,
+                  enabledBorder:
+                      hasError
+                          ? OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: errorTextColor),
+                            // borderSide: BorderSide.none,
+                            gapPadding: 0,
+                          )
+                          : OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: borderColor),
+                            gapPadding: 0,
                           ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: borderColor,
-                          ),
-                          gapPadding: 0,
-                        ),
                   disabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                      color: borderColor,
-                    ),
+                    borderSide: const BorderSide(color: borderColor),
                     gapPadding: 0,
                   ),
-                  focusedBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: errorTextColor,
+                  focusedBorder:
+                      hasError
+                          ? OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: errorTextColor),
+                            // borderSide: BorderSide.none,
+                            gapPadding: 0,
+                          )
+                          : OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: primaryColor),
+                            gapPadding: 0,
                           ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: primaryColor,
-                          ),
-                          gapPadding: 0,
-                        ),
                 ),
-                items: colors.map(
-                  (color) {
-                    return DropdownMenuItem<int>(
-                      value: color.value,
-                      child: Text(
-                        languageCode == 'zh' ? color.zhText : color.enText,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ).nestedAlign(
-                        alignment: Alignment.centerLeft,
-                      ),
-                    );
-                  },
-                ).toList(),
+                items:
+                    colors.map((color) {
+                      return DropdownMenuItem<int>(
+                        value: color.value,
+                        child: Text(
+                          languageCode == 'zh' ? color.zhText : color.enText,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'NotoSansSC',
+                          ),
+                        ).nestedAlign(alignment: Alignment.centerLeft),
+                      );
+                    }).toList(),
                 onChanged: (value) {},
               ),
               if (hasError)
@@ -1018,12 +965,10 @@ class ColorPicker extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
+                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
-                  padding: const EdgeInsets.only(
-                    top: 8,
-                    left: 8,
-                  ),
+                  padding: const EdgeInsets.only(top: 8, left: 8),
                 ),
             ],
           );
@@ -1034,9 +979,7 @@ class ColorPicker extends StatelessWidget {
           }
           return null;
         },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
+      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
     );
   }
 
@@ -1115,34 +1058,26 @@ class _OpacityPickerState extends State<OpacityPicker> {
                   const Gap(4),
                   ValueListenableBuilder(
                     valueListenable: opacityNotifier,
-                    builder: (
-                      BuildContext context,
-                      double value,
-                      Widget? child,
-                    ) =>
-                        Text(
-                      value.toStringAsFixed(1),
-                      textAlign: TextAlign.center,
-                    ).nestedSizedBox(width: 28),
+                    builder:
+                        (BuildContext context, double value, Widget? child) =>
+                            Text(
+                              value.toStringAsFixed(1),
+                              textAlign: TextAlign.center,
+                            ).nestedSizedBox(width: 28),
                   ),
                 ],
               ),
               if (hasError)
                 Text(
                   field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                  ),
+                  style: const TextStyle(fontSize: 12, color: errorTextColor),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(top: 8, left: 8),
                 ),
             ],
           );
         },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
+      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
     );
   }
 }
@@ -1161,7 +1096,11 @@ class FontPicker extends StatelessWidget {
     return BaseFormItem(
       title: t.homePage.fontLabel,
       required: false,
-      showTip: false,
+      onTipTap: () {
+        DialogUtil.showBottomSheetDialog(
+          content: t.homePage.fontLabelDescription,
+        );
+      },
       child: FormBuilderField<String>(
         name: 'font',
         initialValue: fontFamilies.elementAt(0).fontFamily,
@@ -1185,77 +1124,60 @@ class FontPicker extends StatelessWidget {
                 decoration: InputDecoration(
                   isDense: true,
                   contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
-                  enabledBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: errorTextColor,
+                  enabledBorder:
+                      hasError
+                          ? OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: errorTextColor),
+                            // borderSide: BorderSide.none,
+                            gapPadding: 0,
+                          )
+                          : OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: borderColor),
+                            gapPadding: 0,
                           ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: borderColor,
-                          ),
-                          gapPadding: 0,
-                        ),
                   disabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                      color: borderColor,
-                    ),
+                    borderSide: const BorderSide(color: borderColor),
                     gapPadding: 0,
                   ),
-                  focusedBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: errorTextColor,
+                  focusedBorder:
+                      hasError
+                          ? OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: errorTextColor),
+                            // borderSide: BorderSide.none,
+                            gapPadding: 0,
+                          )
+                          : OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: primaryColor),
+                            gapPadding: 0,
                           ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: primaryColor,
-                          ),
-                          gapPadding: 0,
-                        ),
                 ),
-                items: fontFamilies.map(
-                  (fontFamily) {
-                    return DropdownMenuItem<String>(
-                      value: fontFamily.fontFamily,
-                      child: Text(
-                        fontFamily.name,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: fontFamily.fontFamily,
-                        ),
-                      ).nestedAlign(
-                        alignment: Alignment.centerLeft,
-                      ),
-                    );
-                  },
-                ).toList(),
+                items:
+                    fontFamilies.map((fontFamily) {
+                      return DropdownMenuItem<String>(
+                        value: fontFamily.fontFamily,
+                        child: Text(
+                          fontFamily.name,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: fontFamily.fontFamily,
+                          ),
+                        ).nestedAlign(alignment: Alignment.centerLeft),
+                      );
+                    }).toList(),
                 onChanged: (value) {},
               ),
               if (hasError)
                 Text(
                   field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                  ),
+                  style: const TextStyle(fontSize: 12, color: errorTextColor),
                 ).nestedPadding(
-                  padding: const EdgeInsets.only(
-                    top: 8,
-                    left: 8,
-                  ),
+                  padding: const EdgeInsets.only(top: 8, left: 8),
                 ),
             ],
           );
@@ -1266,9 +1188,7 @@ class FontPicker extends StatelessWidget {
           }
           return null;
         },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
+      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
     );
   }
 
@@ -1348,15 +1268,12 @@ class _FontSizePickerState extends State<FontSizePicker> {
                   const Gap(4),
                   ValueListenableBuilder(
                     valueListenable: fontSizeNotifier,
-                    builder: (
-                      BuildContext context,
-                      double value,
-                      Widget? child,
-                    ) =>
-                        Text(
-                      value.toStringAsFixed(0),
-                      textAlign: TextAlign.center,
-                    ).nestedSizedBox(width: 28),
+                    builder:
+                        (BuildContext context, double value, Widget? child) =>
+                            Text(
+                              value.toStringAsFixed(0),
+                              textAlign: TextAlign.center,
+                            ).nestedSizedBox(width: 28),
                   ),
                 ],
               ),
@@ -1366,6 +1283,7 @@ class _FontSizePickerState extends State<FontSizePicker> {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
+                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(top: 8, left: 8),
@@ -1373,9 +1291,7 @@ class _FontSizePickerState extends State<FontSizePicker> {
             ],
           );
         },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
+      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
     );
   }
 }
@@ -1439,15 +1355,12 @@ class _TextColumnGapState extends State<TextColumnGap> {
                   const Gap(4),
                   ValueListenableBuilder(
                     valueListenable: textGapNotifier,
-                    builder: (
-                      BuildContext context,
-                      double value,
-                      Widget? child,
-                    ) =>
-                        Text(
-                      value.toStringAsFixed(0),
-                      textAlign: TextAlign.center,
-                    ).nestedSizedBox(width: 28),
+                    builder:
+                        (BuildContext context, double value, Widget? child) =>
+                            Text(
+                              value.toStringAsFixed(0),
+                              textAlign: TextAlign.center,
+                            ).nestedSizedBox(width: 28),
                   ),
                 ],
               ),
@@ -1457,6 +1370,7 @@ class _TextColumnGapState extends State<TextColumnGap> {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
+                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(top: 8, left: 8),
@@ -1464,9 +1378,7 @@ class _TextColumnGapState extends State<TextColumnGap> {
             ],
           );
         },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
+      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
     );
   }
 }
@@ -1489,9 +1401,7 @@ class _TextRowGapState extends State<TextRowGap> {
       title: t.homePage.rowGapLabel,
       required: false,
       onTipTap: () {
-        DialogUtil.showBottomSheetDialog(
-          content: t.homePage.rowGapDescription,
-        );
+        DialogUtil.showBottomSheetDialog(content: t.homePage.rowGapDescription);
       },
       child: FormBuilderField<double>(
         name: 'rowGap',
@@ -1530,15 +1440,12 @@ class _TextRowGapState extends State<TextRowGap> {
                   const Gap(4),
                   ValueListenableBuilder(
                     valueListenable: rowGapNotifier,
-                    builder: (
-                      BuildContext context,
-                      double value,
-                      Widget? child,
-                    ) =>
-                        Text(
-                      value.toStringAsFixed(0),
-                      textAlign: TextAlign.center,
-                    ).nestedSizedBox(width: 28),
+                    builder:
+                        (BuildContext context, double value, Widget? child) =>
+                            Text(
+                              value.toStringAsFixed(0),
+                              textAlign: TextAlign.center,
+                            ).nestedSizedBox(width: 28),
                   ),
                 ],
               ),
@@ -1548,6 +1455,7 @@ class _TextRowGapState extends State<TextRowGap> {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
+                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(top: 8, left: 8),
@@ -1555,9 +1463,7 @@ class _TextRowGapState extends State<TextRowGap> {
             ],
           );
         },
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 8.5),
-      ),
+      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
     );
   }
 }
@@ -1589,11 +1495,7 @@ class SettingsBtn extends StatelessWidget {
         overlayColor: WidgetStateProperty.all(primaryBackgroundColor),
       ),
       onPressed: DialogUtil.showSettingsModal,
-      icon: Icon(
-        Icons.settings,
-        size: iconSize,
-        color: primaryColor,
-      ),
+      icon: Icon(Icons.settings, size: iconSize, color: primaryColor),
     );
   }
 }
@@ -1620,15 +1522,16 @@ class Privacy extends StatelessWidget {
           ),
           TextSpan(
             text: t.dialogs.licenseDialog.licenseDialogContentUserAgreement,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () async {
-                final uri = Uri.parse(
-                  'https://www.picguard.app/$languageCode/legal/terms-of-use/',
-                );
-                if (await canLaunchUrl(uri)) {
-                  await launchUrl(uri);
-                }
-              },
+            recognizer:
+                TapGestureRecognizer()
+                  ..onTap = () async {
+                    final uri = Uri.parse(
+                      'https://www.picguard.app/$languageCode/legal/terms-of-use/',
+                    );
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri);
+                    }
+                  },
             style: const TextStyle(
               color: primaryColor,
               fontSize: 14,
@@ -1645,15 +1548,16 @@ class Privacy extends StatelessWidget {
           ),
           TextSpan(
             text: t.dialogs.licenseDialog.licenseDialogContentPrivacyAgreement,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () async {
-                final uri = Uri.parse(
-                  'https://www.picguard.app/$languageCode/legal/privacy/',
-                );
-                if (await canLaunchUrl(uri)) {
-                  await launchUrl(uri);
-                }
-              },
+            recognizer:
+                TapGestureRecognizer()
+                  ..onTap = () async {
+                    final uri = Uri.parse(
+                      'https://www.picguard.app/$languageCode/legal/privacy/',
+                    );
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(uri);
+                    }
+                  },
             style: const TextStyle(
               color: primaryColor,
               fontSize: 14,
@@ -1687,6 +1591,7 @@ class AppVersion extends StatelessWidget {
       style: const TextStyle(
         color: secondaryTextColor,
         fontSize: 12,
+        fontFamily: 'NotoSansSC',
       ),
       textAlign: TextAlign.center,
     );
@@ -1703,10 +1608,7 @@ class RustBackend extends StatelessWidget {
     final appName = t.appName(flavor: AppConfig.shared.flavor);
     return Text(
       greet(name: appName),
-      style: const TextStyle(
-        color: secondaryTextColor,
-        fontSize: 12,
-      ),
+      style: const TextStyle(color: secondaryTextColor, fontSize: 12),
       textAlign: TextAlign.center,
     );
   }
@@ -1724,9 +1626,7 @@ class PreviewBtn extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(
-          Colors.white,
-        ),
+        backgroundColor: WidgetStateProperty.all(Colors.white),
         foregroundColor: WidgetStateProperty.resolveWith((
           Set<WidgetState> states,
         ) {
@@ -1735,9 +1635,7 @@ class PreviewBtn extends StatelessWidget {
           }
           return primaryColor;
         }),
-        shape: WidgetStateProperty.resolveWith((
-          Set<WidgetState> states,
-        ) {
+        shape: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
           if (states.contains(WidgetState.disabled)) {
             return RoundedRectangleBorder(
               side: const BorderSide(color: secondaryBorderColor),
@@ -1756,11 +1654,10 @@ class PreviewBtn extends StatelessWidget {
         style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w400,
+          fontFamily: 'NotoSansSC',
         ),
       ),
-    ).nestedSizedBox(
-      height: 42,
-    );
+    ).nestedSizedBox(height: 42);
   }
 }
 
@@ -1799,10 +1696,9 @@ class SaveBtn extends StatelessWidget {
         style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w400,
+          fontFamily: 'NotoSansSC',
         ),
       ),
-    ).nestedSizedBox(
-      height: 42,
-    );
+    ).nestedSizedBox(height: 42);
   }
 }

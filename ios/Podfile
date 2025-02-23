@@ -5,11 +5,11 @@ platform :ios, '13.0'
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 project 'PicGuard', {
-  'Debug' => :debug,
+  'Debug-free' => :debug,
   'Debug-pro' => :debug,
-  'Profile' => :release,
+  'Profile-free' => :release,
   'Profile-pro' => :release,
-  'Release' => :release,
+  'Release-free' => :release,
   'Release-pro' => :release,
 }
 

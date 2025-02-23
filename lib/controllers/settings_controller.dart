@@ -17,9 +17,8 @@ class SettingsController extends GetxController {
     final name = box.read<String?>('themeMode');
     printDebugLog('theme mode from storage: $name');
     if (StringUtil.isBlank(name)) return ThemeMode.system;
-    // ignore: unnecessary_null_checks
-    return ThemeMode.values.asNameMap().containsKey(name!)
-        ? ThemeMode.values.byName(name)
+    return ThemeMode.values.asNameMap().containsKey(name)
+        ? ThemeMode.values.byName(name!)
         : ThemeMode.system;
   }
 

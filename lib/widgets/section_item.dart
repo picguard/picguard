@@ -62,11 +62,7 @@ class MineSectionItem extends StatelessWidget {
               ),
             ).nestedPadding(padding: EdgeInsets.only(right: showIcon ? 4 : 0)),
           if (showIcon)
-            const Icon(
-              Icons.arrow_forward_ios,
-              color: borderColor,
-              size: 14,
-            ),
+            const Icon(Icons.arrow_forward_ios, color: borderColor, size: 14),
           if (trailing != null) trailing!,
         ],
       );
@@ -75,39 +71,35 @@ class MineSectionItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (leading != null) leading!,
-              Text(
-                name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: labelColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                  height: 1.43,
-                ),
-              ),
-              if (StringUtil.isNotBlank(tips))
-                Text(
-                  tips!,
-                  style: const TextStyle(
-                    color: secondaryTextColor,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (leading != null) leading!,
+                  Text(
+                    name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: labelColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      height: 1.43,
+                    ),
                   ),
-                ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
-            ],
-          )
+                  if (StringUtil.isNotBlank(tips))
+                    Text(
+                      tips!,
+                      style: const TextStyle(
+                        color: secondaryTextColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
+                ],
+              )
               .nestedPadding(padding: EdgeInsets.only(right: showIcon ? 4 : 0))
               .nestedExpanded(),
           if (showIcon)
-            const Icon(
-              Icons.arrow_forward_ios,
-              color: borderColor,
-              size: 14,
-            ),
+            const Icon(Icons.arrow_forward_ios, color: borderColor, size: 14),
           if (trailing != null) trailing!,
         ],
       );
@@ -137,9 +129,7 @@ class MineSectionItem extends StatelessWidget {
     if (showBorder) {
       child = child.nestedDecoratedBox(
         decoration: const BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: borderColor, width: 0.5),
-          ),
+          border: Border(bottom: BorderSide(color: borderColor, width: 0.5)),
         ),
       );
     }
@@ -165,24 +155,21 @@ class MineSectionGroup extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final itemWidgets = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: List.generate(
-        items.length,
-        (index) {
-          final item = items.elementAt(index);
-          return MineSectionItem(
-            name: item.title,
-            showBorder: !(index == items.length - 1),
-            labelColor: item.color,
-            overlayColor: item.overlayColor,
-            callback: item.callback,
-            showIcon: item.showIcon,
-            direction: item.direction,
-            tips: item.tips,
-            leading: item.leading,
-            trailing: item.trailing,
-          );
-        },
-      ),
+      children: List.generate(items.length, (index) {
+        final item = items.elementAt(index);
+        return MineSectionItem(
+          name: item.title,
+          showBorder: !(index == items.length - 1),
+          labelColor: item.color,
+          overlayColor: item.overlayColor,
+          callback: item.callback,
+          showIcon: item.showIcon,
+          direction: item.direction,
+          tips: item.tips,
+          leading: item.leading,
+          trailing: item.trailing,
+        );
+      }),
     ).nestedDecoratedBox(
       decoration: BoxDecoration(
         color: isDark ? Colors.black12 : secondaryGrayColor,
@@ -216,18 +203,12 @@ class MineSectionGroup extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                 height: 1.67,
               ),
-            ).nestedPadding(
-              padding: const EdgeInsets.only(left: 10, top: 10),
-            ),
+            ).nestedPadding(padding: const EdgeInsets.only(left: 10, top: 10)),
         ],
-      ).nestedPadding(
-        padding: const EdgeInsets.only(top: 20),
-      );
+      ).nestedPadding(padding: const EdgeInsets.only(top: 20));
     }
 
-    return itemWidgets.nestedPadding(
-      padding: const EdgeInsets.only(top: 20),
-    );
+    return itemWidgets.nestedPadding(padding: const EdgeInsets.only(top: 20));
   }
 }
 

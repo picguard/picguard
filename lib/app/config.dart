@@ -2,9 +2,7 @@
 import 'package:picguard/i18n/i18n.dart';
 
 class AppConfig {
-  factory AppConfig.create({
-    Flavor flavor = Flavor.free,
-  }) {
+  factory AppConfig.create({Flavor flavor = Flavor.free}) {
     return shared = AppConfig._(flavor);
   }
 

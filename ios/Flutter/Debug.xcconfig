@@ -1,2 +1,2 @@
-#include? "Pods/Target Support Files/Pods-PicGuard/Pods-PicGuard.debug.xcconfig"
+#include? "Pods/Target Support Files/Pods-PicGuard/Pods-PicGuard.debug-free.xcconfig"
 #include "Generated.xcconfig"

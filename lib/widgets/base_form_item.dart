@@ -43,30 +43,25 @@ class _BaseFormItemState extends State<BaseFormItem> {
   Widget build(BuildContext context) {
     return widget.title != null
         ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: widget.mainAxisSize,
-            children: [
-              if (!widget.showTip)
-                content
-              else
-                content
-                    .addWidgetAsList(
-                      widget.tipWidget == null
-                          ? tips
-                          : widget.tipWidget!.nestedTap(
-                              () {
-                                widget.onTipTap?.call();
-                              },
-                            ),
-                    )
-                    .nestedRow(mainAxisAlignment: widget.mainAxisAlignment),
-              widget.child,
-            ],
-          ).nestedPadding(padding: widget.padding)
-        : Padding(
-            padding: widget.padding,
-            child: widget.child,
-          );
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: widget.mainAxisSize,
+          children: [
+            if (!widget.showTip)
+              content
+            else
+              content
+                  .addWidgetAsList(
+                    widget.tipWidget == null
+                        ? tips
+                        : widget.tipWidget!.nestedTap(() {
+                          widget.onTipTap?.call();
+                        }),
+                  )
+                  .nestedRow(mainAxisAlignment: widget.mainAxisAlignment),
+            widget.child,
+          ],
+        ).nestedPadding(padding: widget.padding)
+        : Padding(padding: widget.padding, child: widget.child);
   }
 
   Widget get content {
@@ -82,6 +77,7 @@ class _BaseFormItemState extends State<BaseFormItem> {
                 color: errorTextColor,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
+                fontFamily: 'NotoSansSC',
               ),
             ),
           TextSpan(
@@ -90,6 +86,7 @@ class _BaseFormItemState extends State<BaseFormItem> {
               color: isDark ? Colors.white : primaryTextColor,
               fontSize: 14,
               fontWeight: FontWeight.w400,
+              fontFamily: 'NotoSansSC',
             ),
           ),
         ],
@@ -108,11 +105,7 @@ class _BaseFormItemState extends State<BaseFormItem> {
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
       onPressed: widget.onTipTap,
-      icon: const Icon(
-        Icons.info,
-        size: 16,
-        color: primaryColor,
-      ),
+      icon: const Icon(Icons.info, size: 16, color: primaryColor),
     ).nestedPadding(padding: const EdgeInsets.only(left: 4));
   }
 }

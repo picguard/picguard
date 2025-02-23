@@ -9,7 +9,7 @@ permissions: read-all
 jobs:
   snap:
     name: Create linux snap (aarch64)
-    runs-on: buildjet-4vcpu-ubuntu-2204-arm
+    runs-on: ubuntu-22.04-arm
     env:
       LXD_GROUP: lxd
     steps:
@@ -33,11 +33,6 @@ jobs:
             sudo snap install -y yq
           fi
           yq --version
-
-      - name: Update snapcraft.yaml
-        run: |
-          rm -f snap/snapcraft.yaml
-          mv snap/snapcraft-arm64.yaml snap/snapcraft.yaml
 
       - name: Install snapcraft
         run: sudo snap install snapcraft --classic

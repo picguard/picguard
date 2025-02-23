@@ -54,10 +54,10 @@ enum AppSettingsType {
   device,
 
   /// Open the general device settings (The first page when user open Settings.)
-  /// 
+  ///
   /// Only supported on Android.
   generalSettings,
-  
+
   /// Open the display settings.
   ///
   /// Only supported on Android.
