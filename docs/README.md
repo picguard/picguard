@@ -2,6 +2,10 @@
 
 ## Requirements
 
+## Rust
+
+[Quickstart for Flutter Rust Bridge](https://cjycode.com/flutter_rust_bridge/quickstart)
+
 ### iOS
 
 ```shell
