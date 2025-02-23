@@ -85,116 +85,26 @@
         <release version="v1.0.7+429" date="2024-11-28">
             <url type="details">https://github.com/picguard/picguard/blob/v1.0.7+429/CHANGELOG.md</url>
         </release>
-        <release version="v1.0.7+428" date="2024-11-28">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.7+428/CHANGELOG.md</url>
-        </release>
         <release version="v1.0.6+427" date="2024-11-24">
             <url type="details">https://github.com/picguard/picguard/blob/v1.0.6+427/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.6+426" date="2024-11-20">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.6+426/CHANGELOG.md</url>
         </release>
         <release version="v1.0.5+425" date="2024-11-18">
             <url type="details">https://github.com/picguard/picguard/blob/v1.0.5+425/CHANGELOG.md</url>
         </release>
-        <release version="v1.0.5+424" date="2024-11-14">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.5+424/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.5+423" date="2024-11-09">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.5+423/CHANGELOG.md</url>
-        </release>
         <release version="v1.0.4+422" date="2024-11-02">
             <url type="details">https://github.com/picguard/picguard/blob/v1.0.4+422/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.4+421" date="2024-10-31">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.4+421/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.4+420" date="2024-10-28">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.4+420/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.4+419" date="2024-10-25">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.4+419/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.4+418" date="2024-10-19">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.4+418/CHANGELOG.md</url>
         </release>
         <release version="v1.0.3+417" date="2024-10-12">
             <url type="details">https://github.com/picguard/picguard/blob/v1.0.3+417/CHANGELOG.md</url>
         </release>
-        <release version="v1.0.3+416" date="2024-10-11">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.3+416/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.3+415" date="2024-10-08">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.3+415/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.3+414" date="2024-10-04">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.3+414/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.3+413" date="2024-09-27">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.3+413/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.3+412" date="2024-09-25">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.3+412/CHANGELOG.md</url>
-        </release>
         <release version="v1.0.2+411" date="2024-09-24">
             <url type="details">https://github.com/picguard/picguard/blob/v1.0.2+411/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.2+410" date="2024-09-23">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.2+410/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.2+409" date="2024-09-19">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.2+409/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.2+408" date="2024-09-18">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.2+408/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.2+407" date="2024-09-15">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.2+407/CHANGELOG.md</url>
         </release>
         <release version="v1.0.1+406" date="2024-09-10">
             <url type="details">https://github.com/picguard/picguard/blob/v1.0.1+406/CHANGELOG.md</url>
         </release>
-        <release version="v1.0.1+405" date="2024-09-08">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.1+405/CHANGELOG.md</url>
-        </release>
         <release version="v1.0.0+404" date="2024-08-30">
             <url type="details">https://github.com/picguard/picguard/blob/v1.0.0+404/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.0+403" date="2024-08-30">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.0+403/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.0+402" date="2024-08-27">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.0+402/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.0+401" date="2024-08-26">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.0+401/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.0+400" date="2024-08-25">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.0+400/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.0+399" date="2024-08-24">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.0+399/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.0+398" date="2024-08-22">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.0+398/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.0+397" date="2024-08-20">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.0+397/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.0+396" date="2024-08-20">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.0+396/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.0+395" date="2024-08-18">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.0+395/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.0+394" date="2024-08-17">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.0+394/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.0+393" date="2024-08-16">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.0+393/CHANGELOG.md</url>
-        </release>
-        <release version="v1.0.0+392" date="2024-08-15">
-            <url type="details">https://github.com/picguard/picguard/blob/v1.0.0+392/CHANGELOG.md</url>
         </release>
     </releases>
     <content_rating type="oars-1.1">
