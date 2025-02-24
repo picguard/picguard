@@ -385,10 +385,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_form_builder
-      sha256: "375da52998c72f80dec9187bd93afa7ab202b89d5d066699368ff96d39fd4876"
+      sha256: "60237a24a4da373218eb77b0ef1a3c64ca17ff6c42250e149987755735cbd67c"
       url: "https://pub.dev"
     source: hosted
-    version: "9.7.0"
+    version: "10.0.0"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
