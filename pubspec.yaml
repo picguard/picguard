@@ -25,12 +25,12 @@ dependencies:
     path: ./plugins/app_settings
   cupertino_icons: ^1.0.8
   device_info_plus: ^11.3.0
-  file_picker: ^9.0.0
+  file_picker: ^9.0.1
   file_saver: ^0.2.14
   flutter:
     sdk: flutter
   flutter_easyloading: ^3.0.5
-  flutter_form_builder: ^9.7.0
+  flutter_form_builder: ^10.0.0
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.4.5
