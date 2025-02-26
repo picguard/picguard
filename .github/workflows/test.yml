@@ -433,17 +433,7 @@ jobs:
         run: flutter pub get
 
       - name: Build flutter
-        run: flutter build web --dart-define-from-file=.env --target lib/main_free.dart --base-href /play/
-
-      - name: Copy files to flutter web
-        run: cp LICENSE README.md ./build/web
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.PG_RELEASE_TOKEN }}
-          publish_dir: ./build/web
-          cname: picguard-web.picguard.app
+        run: flutter build web --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Clean up
         if: ${{ always() }}
