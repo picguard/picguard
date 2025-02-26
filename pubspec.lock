@@ -260,10 +260,10 @@ packages:
     dependency: "direct main"
     description:
       name: device_info_plus
-      sha256: c3093ce936028bf4b35d0dd54948ee62ed1cf95f6ae4447c7abed07c7cbee38b
+      sha256: "610739247975c2d0de43482afa13ec1018f63c9fddf97ef3d8dc895faa3b4543"
       url: "https://pub.dev"
     source: hosted
-    version: "11.3.1"
+    version: "11.3.2"
   device_info_plus_platform_interface:
     dependency: transitive
     description:
