@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart' hide Translations;
 
 // Project imports:
@@ -331,6 +330,7 @@ class SettingsModal extends StatelessWidget {
             ),
         Column(
           mainAxisSize: MainAxisSize.min,
+          spacing: 10,
           children: [
             Obx(() {
               final themeMode = controller.themeMode.value;
@@ -414,7 +414,6 @@ class SettingsModal extends StatelessWidget {
                 ],
               );
             }),
-            const Gap(10),
             MineSectionGroup(
               title: t.homePage.languages,
               items: t.locales.entries.map(

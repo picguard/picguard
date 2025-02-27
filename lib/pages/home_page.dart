@@ -167,7 +167,6 @@ class _HomePageState extends State<HomePage> {
               SaveBtn(onPressed: _fileWrappers.isNotEmpty ? _save : null),
               const Gap(14),
               const AppVersion(),
-              const Gap(10),
             ],
           ),
           floatingActionButton:
@@ -805,6 +804,7 @@ class TextInput extends StatelessWidget {
           final hasError = StringUtil.isNotBlank(field.errorText);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
             children: [
               TextFormField(
                 initialValue: field.value,
@@ -884,7 +884,7 @@ class TextInput extends StatelessWidget {
                     fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
+                  padding: const EdgeInsets.only(left: 8),
                 ),
             ],
           );
@@ -924,6 +924,7 @@ class ColorPicker extends StatelessWidget {
           final hasError = StringUtil.isNotBlank(field.errorText);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
             children: [
               DropdownButtonFormField<int>(
                 value: field.value,
@@ -1009,10 +1010,7 @@ class ColorPicker extends StatelessWidget {
                     fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
-                  padding: const EdgeInsets.only(
-                    top: 8,
-                    left: 8,
-                  ),
+                  padding: const EdgeInsets.only(left: 8),
                 ),
             ],
           );
@@ -1075,8 +1073,10 @@ class _OpacityPickerState extends State<OpacityPicker> {
           final hasError = StringUtil.isNotBlank(field.errorText);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
             children: [
               Row(
+                spacing: 4,
                 children: [
                   SfSliderTheme(
                     data: const SfSliderThemeData(
@@ -1101,7 +1101,6 @@ class _OpacityPickerState extends State<OpacityPicker> {
                       },
                     ),
                   ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
-                  const Gap(4),
                   ValueListenableBuilder(
                     valueListenable: opacityNotifier,
                     builder: (
@@ -1124,7 +1123,7 @@ class _OpacityPickerState extends State<OpacityPicker> {
                     color: errorTextColor,
                   ),
                 ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
+                  padding: const EdgeInsets.only(left: 8),
                 ),
             ],
           );
@@ -1162,6 +1161,7 @@ class FontPicker extends StatelessWidget {
           final hasError = StringUtil.isNotBlank(field.errorText);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
             children: [
               DropdownButtonFormField<String>(
                 value: field.value,
@@ -1245,10 +1245,7 @@ class FontPicker extends StatelessWidget {
                     color: errorTextColor,
                   ),
                 ).nestedPadding(
-                  padding: const EdgeInsets.only(
-                    top: 8,
-                    left: 8,
-                  ),
+                  padding: const EdgeInsets.only(left: 8),
                 ),
             ],
           );
@@ -1311,8 +1308,10 @@ class _FontSizePickerState extends State<FontSizePicker> {
           final hasError = StringUtil.isNotBlank(field.errorText);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
             children: [
               Row(
+                spacing: 4,
                 children: [
                   SfSliderTheme(
                     data: const SfSliderThemeData(
@@ -1338,7 +1337,6 @@ class _FontSizePickerState extends State<FontSizePicker> {
                       },
                     ),
                   ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
-                  const Gap(4),
                   ValueListenableBuilder(
                     valueListenable: fontSizeNotifier,
                     builder: (
@@ -1362,7 +1360,7 @@ class _FontSizePickerState extends State<FontSizePicker> {
                     fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
+                  padding: const EdgeInsets.only(left: 8),
                 ),
             ],
           );
@@ -1403,8 +1401,10 @@ class _TextColumnGapState extends State<TextColumnGap> {
           final hasError = StringUtil.isNotBlank(field.errorText);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
             children: [
               Row(
+                spacing: 4,
                 children: [
                   SfSliderTheme(
                     data: const SfSliderThemeData(
@@ -1430,7 +1430,6 @@ class _TextColumnGapState extends State<TextColumnGap> {
                       },
                     ),
                   ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
-                  const Gap(4),
                   ValueListenableBuilder(
                     valueListenable: textGapNotifier,
                     builder: (
@@ -1454,7 +1453,7 @@ class _TextColumnGapState extends State<TextColumnGap> {
                     fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
+                  padding: const EdgeInsets.only(left: 8),
                 ),
             ],
           );
@@ -1495,8 +1494,10 @@ class _TextRowGapState extends State<TextRowGap> {
           final hasError = StringUtil.isNotBlank(field.errorText);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
             children: [
               Row(
+                spacing: 4,
                 children: [
                   SfSliderTheme(
                     data: const SfSliderThemeData(
@@ -1522,7 +1523,6 @@ class _TextRowGapState extends State<TextRowGap> {
                       },
                     ),
                   ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
-                  const Gap(4),
                   ValueListenableBuilder(
                     valueListenable: rowGapNotifier,
                     builder: (
@@ -1546,7 +1546,7 @@ class _TextRowGapState extends State<TextRowGap> {
                     fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
+                  padding: const EdgeInsets.only(left: 8),
                 ),
             ],
           );
