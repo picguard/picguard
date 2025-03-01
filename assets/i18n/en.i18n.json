@@ -29,6 +29,12 @@
     "settings": "Settings",
     "languages": "Languages"
   },
+  "menus": {
+    "help": "Help",
+    "support": "Support",
+    "userAgreement": "User Agreement",
+    "privacy": "Privacy Policy"
+  },
   "buttons": {
     "agree": "Agree",
     "cancel": "Cancel",
@@ -59,7 +65,7 @@
       "licenseDialogContentPrefix": "Before you use this APP's services, please carefully read and agree to the ",
       "licenseDialogContentUserAgreement": "User Agreement",
       "licenseDialogContentAnd": " and ",
-      "licenseDialogContentPrivacyAgreement": "Privacy Agreement",
+      "licenseDialogContentPrivacyPolicy": "Privacy Policy",
       "licenseDialogContentSuffix": ", start using our services after you agree and accept all terms.",
       "iosPermissions": [
         "In order to add watermarks to your images, $appName needs access to your Photos. (NSPhotoLibraryUsageDescription)"

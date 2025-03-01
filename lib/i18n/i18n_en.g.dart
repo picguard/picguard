@@ -46,6 +46,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		}
 	}
 	late final TranslationsHomePageEn homePage = TranslationsHomePageEn.internal(_root);
+	late final TranslationsMenusEn menus = TranslationsMenusEn.internal(_root);
 	late final TranslationsButtonsEn buttons = TranslationsButtonsEn.internal(_root);
 	late final TranslationsDialogsEn dialogs = TranslationsDialogsEn.internal(_root);
 	Map<String, String> get locales => {
@@ -87,6 +88,19 @@ class TranslationsHomePageEn {
 	String saveInfo({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
 	String get settings => 'Settings';
 	String get languages => 'Languages';
+}
+
+// Path: menus
+class TranslationsMenusEn {
+	TranslationsMenusEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get help => 'Help';
+	String get support => 'Support';
+	String get userAgreement => 'User Agreement';
+	String get privacy => 'Privacy Policy';
 }
 
 // Path: buttons
@@ -165,7 +179,7 @@ class TranslationsDialogsLicenseDialogEn {
 	String get licenseDialogContentPrefix => 'Before you use this APP\'s services, please carefully read and agree to the ';
 	String get licenseDialogContentUserAgreement => 'User Agreement';
 	String get licenseDialogContentAnd => ' and ';
-	String get licenseDialogContentPrivacyAgreement => 'Privacy Agreement';
+	String get licenseDialogContentPrivacyPolicy => 'Privacy Policy';
 	String get licenseDialogContentSuffix => ', start using our services after you agree and accept all terms.';
 	List<dynamic> get iosPermissions => [
 		({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (NSPhotoLibraryUsageDescription)',
@@ -237,6 +251,10 @@ extension on Translations {
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
 			case 'homePage.settings': return 'Settings';
 			case 'homePage.languages': return 'Languages';
+			case 'menus.help': return 'Help';
+			case 'menus.support': return 'Support';
+			case 'menus.userAgreement': return 'User Agreement';
+			case 'menus.privacy': return 'Privacy Policy';
 			case 'buttons.agree': return 'Agree';
 			case 'buttons.cancel': return 'Cancel';
 			case 'buttons.ignore': return 'Ignore';
@@ -255,7 +273,7 @@ extension on Translations {
 			case 'dialogs.licenseDialog.licenseDialogContentPrefix': return 'Before you use this APP\'s services, please carefully read and agree to the ';
 			case 'dialogs.licenseDialog.licenseDialogContentUserAgreement': return 'User Agreement';
 			case 'dialogs.licenseDialog.licenseDialogContentAnd': return ' and ';
-			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return 'Privacy Agreement';
+			case 'dialogs.licenseDialog.licenseDialogContentPrivacyPolicy': return 'Privacy Policy';
 			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', start using our services after you agree and accept all terms.';
 			case 'dialogs.licenseDialog.iosPermissions.0': return ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (NSPhotoLibraryUsageDescription)';
 			case 'dialogs.licenseDialog.androidPermissions.0': return ({required Object appName}) => 'In order to use the Sentry Service, ${appName} needs access to your Internet. (android.permission.INTERNET)';

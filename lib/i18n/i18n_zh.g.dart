@@ -44,6 +44,7 @@ class TranslationsZh extends Translations {
 		}
 	}
 	@override late final _TranslationsHomePageZh homePage = _TranslationsHomePageZh._(_root);
+	@override late final _TranslationsMenusZh menus = _TranslationsMenusZh._(_root);
 	@override late final _TranslationsButtonsZh buttons = _TranslationsButtonsZh._(_root);
 	@override late final _TranslationsDialogsZh dialogs = _TranslationsDialogsZh._(_root);
 	@override Map<String, String> get locales => {
@@ -85,6 +86,19 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
 	@override String get settings => '设置';
 	@override String get languages => '语言';
+}
+
+// Path: menus
+class _TranslationsMenusZh extends TranslationsMenusEn {
+	_TranslationsMenusZh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get help => '帮助';
+	@override String get support => '支持';
+	@override String get userAgreement => '用户协议';
+	@override String get privacy => '隐私政策';
 }
 
 // Path: buttons
@@ -161,9 +175,9 @@ class _TranslationsDialogsLicenseDialogZh extends TranslationsDialogsLicenseDial
 	@override String licenseDialogContentContent({required Object appName}) => '${appName}非常重视你的隐私保护和个人信息保护.';
 	@override String get licenseDialogContentTip => '以下是该APP所需的权限列表:';
 	@override String get licenseDialogContentPrefix => '在使用APP服务前, 请认真阅读 ';
-	@override String get licenseDialogContentUserAgreement => '《隐私政策》';
+	@override String get licenseDialogContentUserAgreement => '《用户服务协议》';
 	@override String get licenseDialogContentAnd => '和';
-	@override String get licenseDialogContentPrivacyAgreement => '《用户服务协议》';
+	@override String get licenseDialogContentPrivacyPolicy => '《隐私政策》';
 	@override String get licenseDialogContentSuffix => ', 你同意并接受全部条款后开始使用我们的服务.';
 	@override List<dynamic> get iosPermissions => [
 		({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (NSPhotoLibraryUsageDescription)',
@@ -235,6 +249,10 @@ extension on TranslationsZh {
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
 			case 'homePage.settings': return '设置';
 			case 'homePage.languages': return '语言';
+			case 'menus.help': return '帮助';
+			case 'menus.support': return '支持';
+			case 'menus.userAgreement': return '用户协议';
+			case 'menus.privacy': return '隐私政策';
 			case 'buttons.agree': return '同意';
 			case 'buttons.cancel': return '再想想';
 			case 'buttons.ignore': return '忽略';
@@ -251,9 +269,9 @@ extension on TranslationsZh {
 			case 'dialogs.licenseDialog.licenseDialogContentContent': return ({required Object appName}) => '${appName}非常重视你的隐私保护和个人信息保护.';
 			case 'dialogs.licenseDialog.licenseDialogContentTip': return '以下是该APP所需的权限列表:';
 			case 'dialogs.licenseDialog.licenseDialogContentPrefix': return '在使用APP服务前, 请认真阅读 ';
-			case 'dialogs.licenseDialog.licenseDialogContentUserAgreement': return '《隐私政策》';
+			case 'dialogs.licenseDialog.licenseDialogContentUserAgreement': return '《用户服务协议》';
 			case 'dialogs.licenseDialog.licenseDialogContentAnd': return '和';
-			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return '《用户服务协议》';
+			case 'dialogs.licenseDialog.licenseDialogContentPrivacyPolicy': return '《隐私政策》';
 			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', 你同意并接受全部条款后开始使用我们的服务.';
 			case 'dialogs.licenseDialog.iosPermissions.0': return ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (NSPhotoLibraryUsageDescription)';
 			case 'dialogs.licenseDialog.androidPermissions.0': return ({required Object appName}) => '为了使用 Sentry 服务, ${appName}需要访问您的互联网. (android.permission.INTERNET)';

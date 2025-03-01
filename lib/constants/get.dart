@@ -1,6 +1,10 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 
+bool get isWeb {
+  return kIsWeb || kIsWasm;
+}
+
 /// Checks if the current environment is a desktop environment.
 bool get isDesktop {
   if (kIsWeb || kIsWasm) return false;

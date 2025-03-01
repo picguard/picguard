@@ -44,6 +44,7 @@ class TranslationsIt extends Translations {
 		}
 	}
 	@override late final _TranslationsHomePageIt homePage = _TranslationsHomePageIt._(_root);
+	@override late final _TranslationsMenusIt menus = _TranslationsMenusIt._(_root);
 	@override late final _TranslationsButtonsIt buttons = _TranslationsButtonsIt._(_root);
 	@override late final _TranslationsDialogsIt dialogs = _TranslationsDialogsIt._(_root);
 	@override Map<String, String> get locales => {
@@ -85,6 +86,19 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
 	@override String get settings => 'Impostazioni';
 	@override String get languages => 'Lingue';
+}
+
+// Path: menus
+class _TranslationsMenusIt extends TranslationsMenusEn {
+	_TranslationsMenusIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get help => 'Aiuto';
+	@override String get support => 'Supporto';
+	@override String get userAgreement => 'Accordo utente';
+	@override String get privacy => 'Politica sulla riservatezza';
 }
 
 // Path: buttons
@@ -163,7 +177,7 @@ class _TranslationsDialogsLicenseDialogIt extends TranslationsDialogsLicenseDial
 	@override String get licenseDialogContentPrefix => 'Prima di utilizzare i servizi di questa APP, ti preghiamo di leggere attentamente e accettare il ';
 	@override String get licenseDialogContentUserAgreement => 'Contratto d\'uso';
 	@override String get licenseDialogContentAnd => ' e ';
-	@override String get licenseDialogContentPrivacyAgreement => 'L\'accordo sulla privacy';
+	@override String get licenseDialogContentPrivacyPolicy => 'L\'accordo sulla privacy';
 	@override String get licenseDialogContentSuffix => ', inizia a utilizzare i nostri servizi dopo aver accettato tutti i termini.';
 	@override List<dynamic> get iosPermissions => [
 		({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (NSPhotoLibraryUsageDescription)',
@@ -235,6 +249,10 @@ extension on TranslationsIt {
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
 			case 'homePage.settings': return 'Impostazioni';
 			case 'homePage.languages': return 'Lingue';
+			case 'menus.help': return 'Aiuto';
+			case 'menus.support': return 'Supporto';
+			case 'menus.userAgreement': return 'Accordo utente';
+			case 'menus.privacy': return 'Politica sulla riservatezza';
 			case 'buttons.agree': return 'Accetto';
 			case 'buttons.cancel': return 'Annulla';
 			case 'buttons.ignore': return 'Ignora';
@@ -253,7 +271,7 @@ extension on TranslationsIt {
 			case 'dialogs.licenseDialog.licenseDialogContentPrefix': return 'Prima di utilizzare i servizi di questa APP, ti preghiamo di leggere attentamente e accettare il ';
 			case 'dialogs.licenseDialog.licenseDialogContentUserAgreement': return 'Contratto d\'uso';
 			case 'dialogs.licenseDialog.licenseDialogContentAnd': return ' e ';
-			case 'dialogs.licenseDialog.licenseDialogContentPrivacyAgreement': return 'L\'accordo sulla privacy';
+			case 'dialogs.licenseDialog.licenseDialogContentPrivacyPolicy': return 'L\'accordo sulla privacy';
 			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', inizia a utilizzare i nostri servizi dopo aver accettato tutti i termini.';
 			case 'dialogs.licenseDialog.iosPermissions.0': return ({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (NSPhotoLibraryUsageDescription)';
 			case 'dialogs.licenseDialog.androidPermissions.0': return ({required Object appName}) => 'Per poter utilizzare il servizio Sentry, ${appName} deve avere accesso a Internet. (android.permission.INTERNET)';

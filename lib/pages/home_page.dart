@@ -170,8 +170,13 @@ class _HomePageState extends State<HomePage> {
               const AppVersion(),
             ],
           ),
-          floatingActionButton:
-              kIsWeb || kIsWasm || isDesktop ? const SettingsBtn() : null,
+          floatingActionButton: isWeb ||
+                  [
+                    TargetPlatform.windows,
+                    TargetPlatform.linux,
+                  ].contains(defaultTargetPlatform)
+              ? const SettingsBtn()
+              : null,
         ),
       ),
     );

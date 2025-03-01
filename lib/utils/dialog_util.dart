@@ -149,7 +149,7 @@ class DialogUtil {
                       ),
                       TextSpan(
                         text: t.dialogs.licenseDialog
-                            .licenseDialogContentPrivacyAgreement,
+                            .licenseDialogContentPrivacyPolicy,
                         recognizer: TapGestureRecognizer()
                           ..onTap = () async {
                             final uri = Uri.parse(
