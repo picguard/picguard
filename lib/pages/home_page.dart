@@ -20,7 +20,7 @@ import 'package:file_saver/file_saver.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:gap/gap.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -391,7 +391,7 @@ class _HomePageState extends State<HomePage> {
       await file.writeAsBytes(bytes);
       return true;
     } else {
-      final result = await ImageGallerySaver.saveImage(
+      final result = await ImageGallerySaverPlus.saveImage(
         bytes,
         quality: 100,
         name: name,

@@ -44,10 +44,12 @@ packages:
   app_settings:
     dependency: "direct main"
     description:
-      path: "plugins/app_settings"
-      relative: true
-    source: path
-    version: "5.1.1"
+      path: "."
+      ref: master
+      resolved-ref: bc0d4ae457b914b93ac7765f2955e8d145d6c922
+      url: "https://github.com/spencerccf/app_settings"
+    source: git
+    version: "5.2.0"
   archive:
     dependency: transitive
     description:
@@ -556,13 +558,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.5.3"
-  image_gallery_saver:
+  image_gallery_saver_plus:
     dependency: "direct main"
     description:
-      path: "plugins/image_gallery_saver"
-      relative: true
-    source: path
-    version: "2.0.3"
+      name: image_gallery_saver_plus
+      sha256: "388b2043d6377277536fd6346e15cd0a87a9c48cef51284c9f35fedf03659312"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0-0.alpha"
   image_picker:
     dependency: "direct main"
     description:

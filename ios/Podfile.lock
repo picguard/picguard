@@ -44,7 +44,7 @@ PODS:
     - Flutter
   - fluttertoast (0.0.2):
     - Flutter
-  - image_gallery_saver (2.0.2):
+  - image_gallery_saver_plus (0.0.1):
     - Flutter
   - image_picker_ios (0.0.1):
     - Flutter
@@ -78,7 +78,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
-  - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
+  - image_gallery_saver_plus (from `.symlinks/plugins/image_gallery_saver_plus/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -110,8 +110,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
-  image_gallery_saver:
-    :path: ".symlinks/plugins/image_gallery_saver/ios"
+  image_gallery_saver_plus:
+    :path: ".symlinks/plugins/image_gallery_saver_plus/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   package_info_plus:
@@ -128,7 +128,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
-  app_settings: c8026d12f9fdbfa7f0ed1a79dc09e12cc6117829
+  app_settings: 5127ae0678de1dcc19f2293271c51d37c89428b2
   device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
   DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
@@ -137,7 +137,7 @@ SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_native_splash: c32d145d68aeda5502d5f543ee38c192065986cf
   fluttertoast: 2c67e14dce98bbdb200df9e1acf610d7a6264ea1
-  image_gallery_saver: 69df6cc38c5b59fb6f8bb78b44b19dbd3097a64e
+  image_gallery_saver_plus: e597bf65a7846979417a3eae0763b71b6dfec6c3
   image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
