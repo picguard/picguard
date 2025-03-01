@@ -1,8 +1,9 @@
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 
-// Project imports:
-import 'package:picguard/app/manager.dart';
+bool get isWeb {
+  return kIsWeb || kIsWasm;
+}
 
 /// Checks if the current environment is a desktop environment.
 bool get isDesktop {
@@ -21,10 +22,4 @@ bool get isMobile {
     TargetPlatform.iOS,
     TargetPlatform.android,
   ].contains(defaultTargetPlatform);
-}
-
-String? get appVersion {
-  final version = AppManager.instance.version;
-  final buildNumber = AppManager.instance.buildNumber;
-  return '$version+$buildNumber';
 }

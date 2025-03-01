@@ -64,19 +64,18 @@ class DialogUtil {
                   )
                   .toList();
 
-          final iosPermissionTexts =
-              t.dialogs.licenseDialog.iosPermissions
-                  .mapIndexed(
-                    (index, permissionText) => Text(
-                      '${index + 1}. ${(permissionText as StringCallback)(appName: appName)}',
-                      style: TextStyle(
-                        color: isDark ? Colors.white : primaryTextColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
-                  )
-                  .toList();
+          final iosPermissionTexts = t.dialogs.licenseDialog.iosPermissions
+              .mapIndexed(
+                (index, permissionText) => Text(
+                  '${index + 1}. ${(permissionText as StringCallback)(appName: appName)}',
+                  style: TextStyle(
+                    color: isDark ? Colors.white : primaryTextColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
+              )
+              .toList();
 
           return AlertDialog(
             title: Text(
@@ -92,9 +91,8 @@ class DialogUtil {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  t.dialogs.licenseDialog.licenseDialogContentContent(
-                    appName: appName,
-                  ),
+                  t.dialogs.licenseDialog
+                      .licenseDialogContentContent(appName: appName),
                   style: TextStyle(
                     color: isDark ? Colors.white : primaryTextColor,
                     fontSize: 14,
@@ -124,21 +122,17 @@ class DialogUtil {
                         ),
                       ),
                       TextSpan(
-                        text:
-                            t
-                                .dialogs
-                                .licenseDialog
-                                .licenseDialogContentUserAgreement,
-                        recognizer:
-                            TapGestureRecognizer()
-                              ..onTap = () async {
-                                final uri = Uri.parse(
-                                  'https://www.picguard.app/$languageCode/legal/terms-of-use/',
-                                );
-                                if (await canLaunchUrl(uri)) {
-                                  await launchUrl(uri);
-                                }
-                              },
+                        text: t.dialogs.licenseDialog
+                            .licenseDialogContentUserAgreement,
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () async {
+                            final uri = Uri.parse(
+                              'https://www.picguard.app/$languageCode/legal/terms-of-use/',
+                            );
+                            if (await canLaunchUrl(uri)) {
+                              await launchUrl(uri);
+                            }
+                          },
                         style: const TextStyle(
                           color: primaryColor,
                           fontSize: 14,
@@ -154,21 +148,17 @@ class DialogUtil {
                         ),
                       ),
                       TextSpan(
-                        text:
-                            t
-                                .dialogs
-                                .licenseDialog
-                                .licenseDialogContentPrivacyAgreement,
-                        recognizer:
-                            TapGestureRecognizer()
-                              ..onTap = () async {
-                                final uri = Uri.parse(
-                                  'https://www.picguard.app/$languageCode/legal/privacy/',
-                                );
-                                if (await canLaunchUrl(uri)) {
-                                  await launchUrl(uri);
-                                }
-                              },
+                        text: t.dialogs.licenseDialog
+                            .licenseDialogContentPrivacyPolicy,
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () async {
+                            final uri = Uri.parse(
+                              'https://www.picguard.app/$languageCode/legal/privacy/',
+                            );
+                            if (await canLaunchUrl(uri)) {
+                              await launchUrl(uri);
+                            }
+                          },
                         style: const TextStyle(
                           color: primaryColor,
                           fontSize: 14,
@@ -189,41 +179,40 @@ class DialogUtil {
                 ).nestedPadding(padding: const EdgeInsets.only(top: 8)),
               ],
             ).nestedSingleChildScrollView().nestedConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: min(width, 600),
-                maxHeight: height * 0.4,
-              ),
-            ),
+                  constraints: BoxConstraints(
+                    maxWidth: min(width, 600),
+                    maxHeight: height * 0.4,
+                  ),
+                ),
             actions: [
               Row(
                 children: [
                   Text(
-                        t.buttons.cancel,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: isDark ? Colors.white70 : secondaryTextColor,
-                          fontSize: 16,
-                          height: 1.375,
-                        ),
-                      )
+                    t.buttons.cancel,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: isDark ? Colors.white70 : secondaryTextColor,
+                      fontSize: 16,
+                      height: 1.375,
+                    ),
+                  )
                       .nestedPadding(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                      )
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  )
                       .nestedTap(() {
-                        SpUtil.putBool(Keys.licenseKey, false);
-                        NavigatorUtil.pop();
-                        // exit(0);
-                      })
-                      .nestedExpanded(),
+                    SpUtil.putBool(Keys.licenseKey, false);
+                    NavigatorUtil.pop();
+                    // exit(0);
+                  }).nestedExpanded(),
                   Text(
-                        t.buttons.agree,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: primaryColor,
-                          fontSize: 16,
-                          height: 1.375,
-                        ),
-                      )
+                    t.buttons.agree,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: primaryColor,
+                      fontSize: 16,
+                      height: 1.375,
+                    ),
+                  )
                       .nestedPadding(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       )
@@ -233,10 +222,9 @@ class DialogUtil {
                         ),
                       )
                       .nestedTap(() {
-                        SpUtil.putBool(Keys.licenseKey, true);
-                        NavigatorUtil.pop();
-                      })
-                      .nestedExpanded(),
+                    SpUtil.putBool(Keys.licenseKey, true);
+                    NavigatorUtil.pop();
+                  }).nestedExpanded(),
                 ],
               ).nestedDecoratedBox(
                 decoration: const BoxDecoration(
@@ -279,113 +267,107 @@ class DialogUtil {
     showDialog<void>(
       context: AppNavigator.key.currentContext!,
       barrierDismissible: barrierDismissible,
-      builder:
-          (BuildContext context) => AlertDialog(
-            title:
-                titleWidget ??
-                (StringUtil.isNotBlank(title)
-                    ? Text(
-                      title!,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: primaryTextColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )
-                    : null),
-            content:
-                contentWidget ??
-                (StringUtil.isNotBlank(content)
-                    ? Text(
-                      content!,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: secondaryTextColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    )
-                    : null),
-            actions: [
-              Row(
-                    children: [
-                      if (!hideCancel) ...[
-                        TextButton(
-                              onPressed: onCancel ?? NavigatorUtil.pop,
-                              style: ButtonStyle(
-                                textStyle: WidgetStateProperty.all(
-                                  const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    height: 1.375,
-                                  ),
-                                ),
-                                overlayColor: WidgetStateProperty.all(
-                                  backgroundColor,
-                                ),
-                                shape: WidgetStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(0),
-                                  ),
-                                ),
-                              ),
-                              child: Text(
-                                cancelText,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: cancelColor),
-                              ),
-                            )
-                            .nestedSizedBox(height: _buttonHeight - 1)
-                            .nestedExpanded(),
-                        const ColoredBox(
-                          color: borderColor,
-                        ).nestedSizedBox(width: 1, height: _buttonHeight),
-                      ],
-                      TextButton(
-                            onPressed: onOK,
-                            style: ButtonStyle(
-                              textStyle: WidgetStateProperty.all(
-                                const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.375,
-                                ),
-                              ),
-                              shape: WidgetStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0),
-                                ),
-                              ),
-                            ),
-                            child: Text(
-                              okText,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: okColor),
-                            ),
-                          )
-                          .nestedSizedBox(height: _buttonHeight - 1)
-                          .nestedExpanded(),
-                    ],
-                  )
-                  .nestedDecoratedBox(
-                    decoration: const BoxDecoration(
-                      border: Border(top: BorderSide(color: borderColor)),
+      builder: (BuildContext context) => AlertDialog(
+        title: titleWidget ??
+            (StringUtil.isNotBlank(title)
+                ? Text(
+                    title!,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: primaryTextColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
                     ),
                   )
-                  .nestedSizedBox(height: _buttonHeight),
+                : null),
+        content: contentWidget ??
+            (StringUtil.isNotBlank(content)
+                ? Text(
+                    content!,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: secondaryTextColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  )
+                : null),
+        actions: [
+          Row(
+            children: [
+              if (!hideCancel) ...[
+                TextButton(
+                  onPressed: onCancel ?? NavigatorUtil.pop,
+                  style: ButtonStyle(
+                    textStyle: WidgetStateProperty.all(
+                      const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        height: 1.375,
+                      ),
+                    ),
+                    overlayColor: WidgetStateProperty.all(backgroundColor),
+                    shape: WidgetStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0),
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    cancelText,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: cancelColor,
+                    ),
+                  ),
+                ).nestedSizedBox(height: _buttonHeight - 1).nestedExpanded(),
+                const ColoredBox(color: borderColor)
+                    .nestedSizedBox(width: 1, height: _buttonHeight),
+              ],
+              TextButton(
+                onPressed: onOK,
+                style: ButtonStyle(
+                  textStyle: WidgetStateProperty.all(
+                    const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      height: 1.375,
+                    ),
+                  ),
+                  shape: WidgetStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+                  ),
+                ),
+                child: Text(
+                  okText,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: okColor,
+                  ),
+                ),
+              ).nestedSizedBox(height: _buttonHeight - 1).nestedExpanded(),
             ],
-            titlePadding: titlePadding,
-            contentPadding: contentPadding,
-            actionsPadding: EdgeInsets.zero,
-            buttonPadding: EdgeInsets.zero,
-            actionsOverflowButtonSpacing: 0,
-            actionsAlignment: MainAxisAlignment.center,
-            clipBehavior: Clip.hardEdge,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
+          )
+              .nestedDecoratedBox(
+                decoration: const BoxDecoration(
+                  border: Border(top: BorderSide(color: borderColor)),
+                ),
+              )
+              .nestedSizedBox(height: _buttonHeight),
+        ],
+        titlePadding: titlePadding,
+        contentPadding: contentPadding,
+        actionsPadding: EdgeInsets.zero,
+        buttonPadding: EdgeInsets.zero,
+        actionsOverflowButtonSpacing: 0,
+        actionsAlignment: MainAxisAlignment.center,
+        clipBehavior: Clip.hardEdge,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
     );
   }
 
@@ -398,43 +380,40 @@ class DialogUtil {
     final pageController = PageController(initialPage: initialPage);
     showDialog<void>(
       context: context,
-      builder:
-          (context) => Stack(
-            alignment: Alignment.center,
-            children: [
-              PhotoViewGallery.builder(
-                pageController: pageController,
-                scrollPhysics: const AlwaysScrollableScrollPhysics(),
-                backgroundDecoration: const BoxDecoration(
-                  color: Colors.black45,
-                ),
-                itemCount: imageProviders.length,
-                builder: (BuildContext context, int index) {
-                  final imageProvider = imageProviders.elementAt(index);
-                  return PhotoViewGalleryPageOptions(
-                    initialScale: PhotoViewComputedScale.contained,
-                    imageProvider: imageProvider,
-                    heroAttributes: PhotoViewHeroAttributes(tag: index),
-                  );
-                },
-              ),
-              Positioned(
-                top: 8,
-                right: 8,
-                child: IconButton(
-                  style: ButtonStyle(
-                    padding: WidgetStateProperty.all(const EdgeInsets.all(4)),
-                    minimumSize: WidgetStateProperty.all(Size.zero),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    iconColor: WidgetStateProperty.all(Colors.red),
-                    backgroundColor: WidgetStateProperty.all(backgroundColor),
-                  ),
-                  onPressed: NavigatorUtil.pop,
-                  icon: const Icon(Icons.close),
-                ),
-              ),
-            ],
+      builder: (context) => Stack(
+        alignment: Alignment.center,
+        children: [
+          PhotoViewGallery.builder(
+            pageController: pageController,
+            scrollPhysics: const AlwaysScrollableScrollPhysics(),
+            backgroundDecoration: const BoxDecoration(color: Colors.black45),
+            itemCount: imageProviders.length,
+            builder: (BuildContext context, int index) {
+              final imageProvider = imageProviders.elementAt(index);
+              return PhotoViewGalleryPageOptions(
+                initialScale: PhotoViewComputedScale.contained,
+                imageProvider: imageProvider,
+                heroAttributes: PhotoViewHeroAttributes(tag: index),
+              );
+            },
           ),
+          Positioned(
+            top: 8,
+            right: 8,
+            child: IconButton(
+              style: ButtonStyle(
+                padding: WidgetStateProperty.all(const EdgeInsets.all(4)),
+                minimumSize: WidgetStateProperty.all(Size.zero),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                iconColor: WidgetStateProperty.all(Colors.red),
+                backgroundColor: WidgetStateProperty.all(backgroundColor),
+              ),
+              onPressed: NavigatorUtil.pop,
+              icon: const Icon(Icons.close),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -499,9 +478,11 @@ class DialogUtil {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
-      builder:
-          (BuildContext context) =>
-              PGColorModal(items: items, callback: callback, color: color),
+      builder: (BuildContext context) => PGColorModal(
+        items: items,
+        callback: callback,
+        color: color,
+      ),
     );
   }
 
@@ -520,9 +501,11 @@ class DialogUtil {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
-      builder:
-          (BuildContext context) =>
-              FontModal(items: items, callback: callback, font: font),
+      builder: (BuildContext context) => FontModal(
+        items: items,
+        callback: callback,
+        font: font,
+      ),
     );
   }
 

@@ -29,6 +29,12 @@
     "settings": "Impostazioni",
     "languages": "Lingue"
   },
+  "menus": {
+    "help": "Aiuto",
+    "support": "Supporto",
+    "userAgreement": "Accordo utente",
+    "privacy": "Politica sulla riservatezza"
+  },
   "buttons": {
     "agree": "Accetto",
     "cancel": "Annulla",
@@ -59,7 +65,7 @@
       "licenseDialogContentPrefix": "Prima di utilizzare i servizi di questa APP, ti preghiamo di leggere attentamente e accettare il ",
       "licenseDialogContentUserAgreement": "Contratto d'uso",
       "licenseDialogContentAnd": " e ",
-      "licenseDialogContentPrivacyAgreement": "L'accordo sulla privacy",
+      "licenseDialogContentPrivacyPolicy": "L'accordo sulla privacy",
       "licenseDialogContentSuffix": ", inizia a utilizzare i nostri servizi dopo aver accettato tutti i termini.",
       "iosPermissions": [
         "Per aggiungere una filigrana alle tue immagini, $appName deve accedere alle tue foto. (NSPhotoLibraryUsageDescription)"

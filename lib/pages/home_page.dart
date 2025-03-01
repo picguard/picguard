@@ -7,10 +7,9 @@ import 'dart:ui' as ui;
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' hide TextInput;
 
 // Package imports:
 import 'package:app_settings/app_settings.dart';
@@ -21,64 +20,28 @@ import 'package:file_saver/file_saver.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:gap/gap.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:path/path.dart' hide context;
 import 'package:permission_handler/permission_handler.dart';
-import 'package:reorderables/reorderables.dart';
-import 'package:syncfusion_flutter_core/theme.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import 'package:picguard/app/config.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
-import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
-import 'package:picguard/rust/api/picguard.dart';
-import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
 
-enum Permissions { photos, storage, none }
-
-/// colors
-const colors = <PGColor>[
-  PGColor(value: 0xFFFFFFFF, enText: 'White', zhText: '白色'),
-  PGColor(value: 0xFF9E9E9E, enText: 'Grey', zhText: '灰色'),
-  PGColor(value: 0xFF000000, enText: 'Black', zhText: '黑色'),
-  PGColor(value: 0xFFF44336, enText: 'Red', zhText: '红色'),
-  PGColor(value: 0xFFFF9800, enText: 'Orange', zhText: '橙色'),
-  PGColor(value: 0xFF2196F3, enText: 'Blue', zhText: '蓝色'),
-];
-
-/// fontFamilies
-const fontFamilies = <PGFont>[
-  PGFont(fontFamily: 'Roboto', name: 'Roboto'),
-  PGFont(fontFamily: 'OpenSans', name: 'Open Sans'),
-  PGFont(fontFamily: 'Lato', name: 'Lato'),
-  PGFont(fontFamily: 'Montserrat', name: 'Montserrat'),
-  PGFont(fontFamily: 'Merriweather', name: 'Merriweather'),
-  PGFont(fontFamily: 'MerriweatherSans', name: 'Merriweather Sans'),
-  PGFont(fontFamily: 'PlayfairDisplay', name: 'Playfair Display'),
-  PGFont(fontFamily: 'PlayfairDisplaySC', name: 'Playfair Display SC'),
-  PGFont(fontFamily: 'Poppins', name: 'Poppins'),
-  PGFont(fontFamily: 'SourceSans3', name: 'Source Sans 3'),
-];
-
-const spacing = 8.0;
-const runSpacing = 4.0;
-const padding = 10.0;
-const minOpacity = 0.3; // 最小不透明度
-const maxOpacity = 1.0; // 最大不透明度
-final minFontSize = isMobile ? 36.0 : 18.0;
-double initialFontSize = isMobile ? 72 : 36;
-double initialGap = isMobile ? 200.0 : 60.0;
+enum Permissions {
+  photos,
+  storage,
+  none,
+}
 
 ///
 class HomePage extends StatefulWidget {
@@ -119,62 +82,144 @@ class _HomePageState extends State<HomePage> {
         title: appName,
         color: isDark ? Colors.white : Colors.black,
         child: Scaffold(
-          appBar:
-              isMobile
-                  ? PGAppBar(
-                    titleWidget: Text(appName),
-                    isDark: isDark,
-                    actions: isMobile ? [const SettingsBtn()] : null,
-                  )
-                  : null,
-          body: ListView(
-            padding: const EdgeInsets.symmetric(
-              horizontal: padding,
-              vertical: 20,
-            ),
-            children: [
-              ImageGroup(
-                fileWrappers: _fileWrappers,
-                onRemove:
-                    (index) => setState(
-                      () => _fileWrappers = _fileWrappers..removeAt(index),
-                    ),
-                onReorder: _onReorder,
-                pickImages: _pickImages,
-              ),
-              const Gap(10),
-              const AppDescription(),
-              const Gap(10),
-              FormBuilder(
-                key: _formKey,
-                child: Column(
-                  spacing: 5,
-                  children: [
-                    TextInput(focusNode: inputFocusNode),
-                    const ColorPicker(),
-                    const OpacityPicker(),
-                    if (AppConfig.shared.isPro) ...[
-                      const FontPicker(),
-                      const FontSizePicker(),
-                      const TextColumnGap(),
-                      const TextRowGap(),
+          appBar: isMobile
+              ? PGAppBar(
+                  titleWidget: Text(appName),
+                  isDark: isDark,
+                  actions: const [SettingsBtn()],
+                )
+              : null,
+          body: LayoutBuilder(
+            builder: (context, constraints) {
+              final maxWidth = constraints.maxWidth;
+              debugPrint('maxWidth: $maxWidth');
+              if ((isWeb || isDesktop) && maxWidth >= 800) {
+                return SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: padding,
+                    vertical: 20,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 10,
+                    children: [
+                      Flexible(
+                        flex: 6,
+                        fit: FlexFit.tight,
+                        child: Column(
+                          spacing: 10,
+                          children: [
+                            ImageGroup(
+                              fileWrappers: _fileWrappers,
+                              onRemove: (index) => setState(
+                                    () => _fileWrappers = _fileWrappers
+                                  ..removeAt(index),
+                              ),
+                              onReorder: _onReorder,
+                              pickImages: _pickImages,
+                            ),
+                            const AppDescription(),
+                          ],
+                        ),
+                      ),
+                      Flexible(
+                        flex: 4,
+                        fit: FlexFit.tight,
+                        child: Column(
+                          children: [
+                            FormBuilder(
+                              key: _formKey,
+                              child: Column(
+                                spacing: 5,
+                                children: [
+                                  TextInput(focusNode: inputFocusNode),
+                                  const ColorPicker(),
+                                  const OpacityPicker(),
+                                  if (AppConfig.shared.isPro) ...[
+                                    const FontPicker(),
+                                    const FontSizePicker(),
+                                    const TextColumnGap(),
+                                    const TextRowGap(),
+                                  ],
+                                ],
+                              ),
+                            ),
+                            const Gap(20),
+                            PreviewBtn(
+                              onPressed: _fileWrappers.isNotEmpty
+                                  ? _preview
+                                  : null,
+                            ),
+                            const Gap(10),
+                            SaveBtn(
+                              onPressed:
+                              _fileWrappers.isNotEmpty ? _save : null,
+                            ),
+                            const Gap(14),
+                            const AppVersion(),
+                          ],
+                        ),
+                      ),
                     ],
+                  ),
+                );
+              } else {
+                return ListView(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: padding,
+                    vertical: 20,
+                  ),
+                  children: [
+                    ImageGroup(
+                      fileWrappers: _fileWrappers,
+                      onRemove: (index) => setState(
+                        () => _fileWrappers = _fileWrappers..removeAt(index),
+                      ),
+                      onReorder: _onReorder,
+                      pickImages: _pickImages,
+                    ),
+                    const Gap(10),
+                    const AppDescription(),
+                    const Gap(10),
+                    FormBuilder(
+                      key: _formKey,
+                      child: Column(
+                        spacing: 5,
+                        children: [
+                          TextInput(focusNode: inputFocusNode),
+                          const ColorPicker(),
+                          const OpacityPicker(),
+                          if (AppConfig.shared.isPro) ...[
+                            const FontPicker(),
+                            const FontSizePicker(),
+                            const TextColumnGap(),
+                            const TextRowGap(),
+                          ],
+                        ],
+                      ),
+                    ),
+                    const Gap(20),
+                    PreviewBtn(
+                      onPressed: _fileWrappers.isNotEmpty ? _preview : null,
+                    ),
+                    const Gap(10),
+                    SaveBtn(onPressed: _fileWrappers.isNotEmpty ? _save : null),
+                    const Gap(14),
+                    const AppVersion(),
                   ],
-                ),
-              ),
-              const Gap(20),
-              PreviewBtn(onPressed: _fileWrappers.isNotEmpty ? _preview : null),
-              const Gap(10),
-              SaveBtn(onPressed: _fileWrappers.isNotEmpty ? _save : null),
-              const Gap(14),
-              const AppVersion(),
-              const Gap(10),
-              const RustBackend(),
-              const Gap(10),
-            ],
+                );
+              }
+            },
           ),
-          floatingActionButton:
-              kIsWeb || kIsWasm || isDesktop ? const SettingsBtn() : null,
+          floatingActionButton: isWeb ||
+                  [
+                    TargetPlatform.windows,
+                    TargetPlatform.linux,
+                  ].contains(defaultTargetPlatform)
+              ? const SettingsBtn()
+              : null,
         ),
       ),
     );
@@ -198,23 +243,22 @@ class _HomePageState extends State<HomePage> {
 
       try {
         await EasyLoading.show();
-        final imageFutures =
-            _fileWrappers
-                .mapIndexed(
-                  (index, element) => _addWatermarkV2(
-                    imageIdx: index,
-                    bytes: element.bytes,
-                    name: element.name,
-                    watermark: text,
-                    colorValue: color,
-                    opacity: opacity,
-                    fontFamily: fontFamily,
-                    fontSize: fontSize,
-                    textGap: textGap,
-                    rowGap: rowGap,
-                  ),
-                )
-                .toList();
+        final imageFutures = _fileWrappers
+            .mapIndexed(
+              (index, element) => _addWatermarkV2(
+                imageIdx: index,
+                bytes: element.bytes,
+                name: element.name,
+                watermark: text,
+                colorValue: color,
+                opacity: opacity,
+                fontFamily: fontFamily,
+                fontSize: fontSize,
+                textGap: textGap,
+                rowGap: rowGap,
+              ),
+            )
+            .toList();
 
         final images = await Future.wait(imageFutures);
         printDebugLog('Length of images: ${images.length}');
@@ -249,14 +293,12 @@ class _HomePageState extends State<HomePage> {
       if (permission != Permissions.none) {
         final t = Translations.of(AppNavigator.key.currentContext!);
         final appName = t.appName(flavor: AppConfig.shared.flavor);
-        final title =
-            permission == Permissions.photos
-                ? t.dialogs.permissions.photos.title
-                : t.dialogs.permissions.storage.title;
-        final description =
-            permission == Permissions.photos
-                ? t.dialogs.permissions.photos.description
-                : t.dialogs.permissions.storage.description;
+        final title = permission == Permissions.photos
+            ? t.dialogs.permissions.photos.title
+            : t.dialogs.permissions.storage.title;
+        final description = permission == Permissions.photos
+            ? t.dialogs.permissions.photos.description
+            : t.dialogs.permissions.storage.description;
         DialogUtil.showCustomDialog(
           title: title,
           content: description(appName: appName),
@@ -272,23 +314,22 @@ class _HomePageState extends State<HomePage> {
 
       try {
         await EasyLoading.show();
-        final imageFutures =
-            _fileWrappers
-                .mapIndexed(
-                  (index, element) => _addWatermarkV2(
-                    imageIdx: index,
-                    bytes: element.bytes,
-                    name: element.name,
-                    watermark: text,
-                    colorValue: color,
-                    opacity: opacity,
-                    fontFamily: fontFamily,
-                    fontSize: fontSize,
-                    textGap: textGap,
-                    rowGap: rowGap,
-                  ),
-                )
-                .toList();
+        final imageFutures = _fileWrappers
+            .mapIndexed(
+              (index, element) => _addWatermarkV2(
+                imageIdx: index,
+                bytes: element.bytes,
+                name: element.name,
+                watermark: text,
+                colorValue: color,
+                opacity: opacity,
+                fontFamily: fontFamily,
+                fontSize: fontSize,
+                textGap: textGap,
+                rowGap: rowGap,
+              ),
+            )
+            .toList();
 
         final images = await Future.wait(imageFutures);
 
@@ -334,7 +375,11 @@ class _HomePageState extends State<HomePage> {
     final fileName = basenameWithoutExtension(name);
     final ext = extension(name);
     if (kIsWeb) {
-      await FileSaver.instance.saveFile(name: fileName, bytes: bytes, ext: ext);
+      await FileSaver.instance.saveFile(
+        name: fileName,
+        bytes: bytes,
+        ext: ext,
+      );
       return true;
     } else if (isDesktop) {
       printDebugLog('selectedDirectory: $selectedDirectory');
@@ -346,7 +391,7 @@ class _HomePageState extends State<HomePage> {
       await file.writeAsBytes(bytes);
       return true;
     } else {
-      final result = await ImageGallerySaver.saveImage(
+      final result = await ImageGallerySaverPlus.saveImage(
         bytes,
         quality: 100,
         name: name,
@@ -421,18 +466,21 @@ class _HomePageState extends State<HomePage> {
 
     final multiply = (hypotenuseLength / (textPainter.width + textGap)).ceil();
     if (multiply > 1) {
-      final watermarks =
-          List.generate(
-            multiply,
-            (index) => index,
-          ).map((e) => TextSpan(text: watermark)).toList();
+      final watermarks = List.generate(multiply, (index) => index)
+          .map((e) => TextSpan(text: watermark))
+          .toList();
 
       final children = <InlineSpan>[];
       final dimensions = <PlaceholderDimensions>[];
       for (var i = 0; i < watermarks.length; i++) {
         if (i == 0) {
           children.add(
-            WidgetSpan(child: SizedBox(width: textGap / 2, height: 1)),
+            WidgetSpan(
+              child: SizedBox(
+                width: textGap / 2,
+                height: 1,
+              ),
+            ),
           );
           dimensions.add(
             PlaceholderDimensions(
@@ -443,7 +491,14 @@ class _HomePageState extends State<HomePage> {
         }
         children.add(watermarks[i]);
         if (i < watermarks.length - 1) {
-          children.add(WidgetSpan(child: SizedBox(width: textGap, height: 1)));
+          children.add(
+            WidgetSpan(
+              child: SizedBox(
+                width: textGap,
+                height: 1,
+              ),
+            ),
+          );
           dimensions.add(
             PlaceholderDimensions(
               size: Size(textGap, 1),
@@ -453,7 +508,12 @@ class _HomePageState extends State<HomePage> {
         }
         if (i == watermarks.length - 1) {
           children.add(
-            WidgetSpan(child: SizedBox(width: textGap / 2, height: 1)),
+            WidgetSpan(
+              child: SizedBox(
+                width: textGap / 2,
+                height: 1,
+              ),
+            ),
           );
           dimensions.add(
             PlaceholderDimensions(
@@ -464,15 +524,17 @@ class _HomePageState extends State<HomePage> {
         }
       }
 
-      textPainter =
-          TextPainter(
-              text: TextSpan(children: children, style: textStyle),
-              textAlign: TextAlign.center,
-              textDirection: TextDirection.ltr,
-              maxLines: 1,
-            )
-            ..setPlaceholderDimensions(dimensions)
-            ..layout(maxWidth: hypotenuseLength);
+      textPainter = TextPainter(
+        text: TextSpan(
+          children: children,
+          style: textStyle,
+        ),
+        textAlign: TextAlign.center,
+        textDirection: TextDirection.ltr,
+        maxLines: 1,
+      )
+        ..setPlaceholderDimensions(dimensions)
+        ..layout(maxWidth: hypotenuseLength);
     }
 
     // 计算角度
@@ -489,10 +551,9 @@ class _HomePageState extends State<HomePage> {
     printDebugLog('Height of textPainter: ${textPainter.height}');
 
     // 绘制剩余文本
-    final lines =
-        (((hypotenuseLength - textPainter.height) / 2) /
-                (textPainter.height + rowGap))
-            .floor();
+    final lines = (((hypotenuseLength - textPainter.height) / 2) /
+            (textPainter.height + rowGap))
+        .floor();
 
     for (var i = 0; i < lines; i++) {
       textPainter
@@ -535,14 +596,12 @@ class _HomePageState extends State<HomePage> {
     if (permission != Permissions.none) {
       final t = Translations.of(AppNavigator.key.currentContext!);
       final appName = t.appName(flavor: AppConfig.shared.flavor);
-      final title =
-          permission == Permissions.photos
-              ? t.dialogs.permissions.photos.title
-              : t.dialogs.permissions.storage.title;
-      final description =
-          permission == Permissions.photos
-              ? t.dialogs.permissions.photos.description
-              : t.dialogs.permissions.storage.description;
+      final title = permission == Permissions.photos
+          ? t.dialogs.permissions.photos.title
+          : t.dialogs.permissions.storage.title;
+      final description = permission == Permissions.photos
+          ? t.dialogs.permissions.photos.description
+          : t.dialogs.permissions.storage.description;
       DialogUtil.showCustomDialog(
         title: title,
         content: description(appName: appName),
@@ -596,1109 +655,28 @@ class _HomePageState extends State<HomePage> {
     final picker = ImagePicker();
     final images = await picker.pickMultiImage(limit: 9 - _fileWrappers.length);
     if (images.isNotEmpty) {
-      final imageFutures =
-          images.map((image) async {
-            return FileWrapper(
-              path: image.path,
-              bytes: await image.readAsBytes(),
-              name: image.name,
-            );
-          }).toList();
+      final imageFutures = images.map(
+        (image) async {
+          return FileWrapper(
+            path: image.path,
+            bytes: await image.readAsBytes(),
+            name: image.name,
+          );
+        },
+      ).toList();
 
       final fileWrappers = await Future.wait(imageFutures);
 
-      setState(() => _fileWrappers = _fileWrappers + fileWrappers);
+      setState(
+        () => _fileWrappers = _fileWrappers + fileWrappers,
+      );
     }
   }
 
   // Sort selected photos
   void _onReorder(int oldIndex, int newIndex) {
-    setState(() => _fileWrappers = _fileWrappers..swap(oldIndex, newIndex));
-  }
-}
-
-/// 图片组
-class ImageGroup extends StatelessWidget {
-  const ImageGroup({
-    required this.fileWrappers,
-    required this.onRemove,
-    required this.onReorder,
-    this.pickImages,
-    super.key,
-  });
-
-  final List<FileWrapper> fileWrappers;
-  final void Function(int index) onRemove;
-  final ReorderCallback onReorder;
-  final VoidCallback? pickImages;
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final width = MediaQuery.sizeOf(context).width;
-    final contentWidth = width - padding * 2;
-    final itemWidth = ((contentWidth - spacing * 2) / 3).floorToDouble();
-    final items =
-        fileWrappers
-            .mapIndexed((index, element) {
-              printDebugLog(element.path);
-              final image =
-                  kIsWeb
-                      ? Image.network(
-                        element.path,
-                        fit: BoxFit.cover,
-                        errorBuilder:
-                            (context, url, error) => const Icon(
-                              Icons.error,
-                              color: errorTextColor,
-                              size: 24,
-                            ),
-                      )
-                      : Image.file(
-                        File(element.path),
-                        fit: BoxFit.cover,
-                        errorBuilder:
-                            (context, url, error) => const Icon(
-                              Icons.error,
-                              color: errorTextColor,
-                              size: 24,
-                            ),
-                      );
-
-              Widget child = image;
-
-              if (kIsWeb || isDesktop) {
-                child = SingleChildScrollView(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: child,
-                  ),
-                );
-              }
-
-              return Stack(
-                children: [
-                  child
-                      .nestedSizedBox(width: itemWidth, height: itemWidth)
-                      .nestedTap(() {
-                        final imageProviders =
-                            fileWrappers.map((fileWrapper) {
-                              return (kIsWeb
-                                      ? NetworkImage(fileWrapper.path)
-                                      : FileImage(File(fileWrapper.path)))
-                                  as ImageProvider;
-                            }).toList();
-                        DialogUtil.showImagePreviewDialog(
-                          imageProviders,
-                          initialPage: index,
-                        );
-                      }),
-                  Positioned(
-                    top: 2,
-                    right: 2,
-                    child: const Icon(
-                          Icons.clear,
-                          color: warnTextColor,
-                          size: 14,
-                        )
-                        .nestedDecoratedBox(
-                          decoration: BoxDecoration(
-                            color: backgroundColor,
-                            borderRadius: BorderRadius.circular(9),
-                          ),
-                        )
-                        .nestedSizedBox(width: 18, height: 18)
-                        .nestedTap(() => onRemove(index)),
-                  ),
-                ],
-              );
-            })
-            .cast<Widget>()
-            .toList();
-
-    if (items.length < 9) {
-      items.add(
-        const Icon(Icons.add, size: 40, color: borderColor)
-            .nestedCenter()
-            .nestedDecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: isDark ? Colors.black54 : secondaryGrayColor,
-                border: Border.all(color: borderColor),
-              ),
-            )
-            .nestedSizedBox(width: itemWidth, height: itemWidth)
-            .nestedInkWell(onTap: pickImages),
-      );
-    }
-
-    return ReorderableWrap(
-      spacing: spacing,
-      runSpacing: runSpacing,
-      onReorder: onReorder,
-      scrollPhysics: const NeverScrollableScrollPhysics(),
-      alignment:
-          fileWrappers.isEmpty ? WrapAlignment.center : WrapAlignment.start,
-      children: items,
+    setState(
+      () => _fileWrappers = _fileWrappers..swap(oldIndex, newIndex),
     );
-  }
-}
-
-/// 声明文本
-class AppDescription extends StatelessWidget {
-  const AppDescription({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    return Text(
-      t.homePage.description,
-      style: const TextStyle(color: errorTextColor, fontSize: 12, height: 1.5),
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-      textAlign: TextAlign.center,
-    );
-  }
-}
-
-/// 输入框
-class TextInput extends StatelessWidget {
-  const TextInput({this.focusNode, super.key});
-
-  final FocusNode? focusNode;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return BaseFormItem(
-      title: t.homePage.textLabel,
-      onTipTap: () {
-        DialogUtil.showBottomSheetDialog(
-          content: t.homePage.textLabelDescription,
-        );
-      },
-      child: FormBuilderField<String>(
-        name: 'text',
-        focusNode: focusNode,
-        builder: (FormFieldState<String> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                initialValue: field.value,
-                focusNode: focusNode,
-                cursorColor: hasError ? errorTextColor : primaryColor,
-                autocorrect: false,
-                style: TextStyle(
-                  color: isDark ? Colors.white : primaryTextColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'NotoSansSC',
-                ),
-                onChanged: (value) {
-                  field
-                    ..didChange(value)
-                    ..validate();
-                },
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: const EdgeInsets.fromLTRB(10, 11.5, 5, 11.5),
-                  enabledBorder:
-                      hasError
-                          ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: errorTextColor),
-                            // borderSide: BorderSide.none,
-                            gapPadding: 0,
-                          )
-                          : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: borderColor),
-                            gapPadding: 0,
-                          ),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(color: borderColor),
-                    gapPadding: 0,
-                  ),
-                  hintText: t.homePage.textInput,
-                  hintMaxLines: 2,
-                  hintStyle: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.grey,
-                    fontFamily: 'NotoSansSC',
-                  ),
-                  focusedBorder:
-                      hasError
-                          ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: errorTextColor),
-                            // borderSide: BorderSide.none,
-                            gapPadding: 0,
-                          )
-                          : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: primaryColor),
-                            // borderSide: BorderSide.none,
-                            gapPadding: 0,
-                          ),
-                ),
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                    fontFamily: 'NotoSansSC',
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
-                ),
-            ],
-          );
-        },
-        validator: (value) {
-          if (StringUtil.isBlank(value)) {
-            return t.homePage.textValidator;
-          }
-          return null;
-        },
-      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
-    );
-  }
-}
-
-/// 颜色选择
-class ColorPicker extends StatelessWidget {
-  const ColorPicker({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final languageCode = LocaleSettings.currentLocale.languageCode;
-    printDebugLog('languageCode: $languageCode');
-
-    return BaseFormItem(
-      title: t.homePage.colorLabel,
-      required: false,
-      showTip: false,
-      child: FormBuilderField<int>(
-        name: 'color',
-        initialValue: colors.elementAt(1).value,
-        builder: (FormFieldState<int> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DropdownButtonFormField<int>(
-                value: field.value,
-                onTap: () => onColorTap(field),
-                style: TextStyle(
-                  color: isDark ? Colors.white : primaryTextColor,
-                  overflow: TextOverflow.ellipsis,
-                  fontFamily: 'NotoSansSC',
-                ),
-                icon: const Icon(
-                  Icons.arrow_drop_down,
-                  color: borderColor,
-                  size: 20,
-                ),
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
-                  enabledBorder:
-                      hasError
-                          ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: errorTextColor),
-                            // borderSide: BorderSide.none,
-                            gapPadding: 0,
-                          )
-                          : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: borderColor),
-                            gapPadding: 0,
-                          ),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(color: borderColor),
-                    gapPadding: 0,
-                  ),
-                  focusedBorder:
-                      hasError
-                          ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: errorTextColor),
-                            // borderSide: BorderSide.none,
-                            gapPadding: 0,
-                          )
-                          : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: primaryColor),
-                            gapPadding: 0,
-                          ),
-                ),
-                items:
-                    colors.map((color) {
-                      return DropdownMenuItem<int>(
-                        value: color.value,
-                        child: Text(
-                          languageCode == 'zh' ? color.zhText : color.enText,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'NotoSansSC',
-                          ),
-                        ).nestedAlign(alignment: Alignment.centerLeft),
-                      );
-                    }).toList(),
-                onChanged: (value) {},
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                    fontFamily: 'NotoSansSC',
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
-                ),
-            ],
-          );
-        },
-        validator: (value) {
-          if (value == null) {
-            return t.homePage.colorValidator;
-          }
-          return null;
-        },
-      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
-    );
-  }
-
-  void onColorTap(FormFieldState<int> field) {
-    // DO NOT REMOVE THIS LINE: 消除下拉选择默认弹窗
-    NavigatorUtil.pop();
-    DialogUtil.showPGColorModal(
-      items: colors,
-      color: field.value,
-      callback: (PGColor value) {
-        if (kDebugMode) {
-          printDebugLog('id: ${value.value}, name: ${value.enText}');
-        }
-
-        field
-          ..didChange(value.value)
-          ..validate();
-
-        NavigatorUtil.pop();
-      },
-    );
-  }
-}
-
-/// 不透明度选择
-class OpacityPicker extends StatefulWidget {
-  const OpacityPicker({super.key});
-
-  @override
-  State<OpacityPicker> createState() => _OpacityPickerState();
-}
-
-class _OpacityPickerState extends State<OpacityPicker> {
-  final opacityNotifier = ValueNotifier<double>(maxOpacity);
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    return BaseFormItem(
-      title: t.homePage.opacityLabel,
-      required: false,
-      showTip: false,
-      child: FormBuilderField<double>(
-        name: 'opacity',
-        initialValue: opacityNotifier.value,
-        builder: (FormFieldState<double> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  SfSliderTheme(
-                    data: const SfSliderThemeData(
-                      activeTrackHeight: 4,
-                      activeTrackColor: primaryColor,
-                      inactiveTrackColor: primaryBackgroundColor,
-                      thumbRadius: 6,
-                      thumbColor: primaryColor,
-                      overlayRadius: 0,
-                    ),
-                    child: SfSlider(
-                      min: minOpacity,
-                      stepSize: 0.1,
-                      value: field.value,
-                      enableTooltip: true,
-                      onChanged: (dynamic value) {
-                        final newValue = value as double? ?? maxOpacity;
-                        opacityNotifier.value = newValue;
-                        field
-                          ..didChange(newValue)
-                          ..validate();
-                      },
-                    ),
-                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
-                  const Gap(4),
-                  ValueListenableBuilder(
-                    valueListenable: opacityNotifier,
-                    builder:
-                        (BuildContext context, double value, Widget? child) =>
-                            Text(
-                              value.toStringAsFixed(1),
-                              textAlign: TextAlign.center,
-                            ).nestedSizedBox(width: 28),
-                  ),
-                ],
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(fontSize: 12, color: errorTextColor),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
-                ),
-            ],
-          );
-        },
-      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
-    );
-  }
-}
-
-/// 字体选择
-class FontPicker extends StatelessWidget {
-  const FontPicker({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final languageCode = LocaleSettings.currentLocale.languageCode;
-    printDebugLog('languageCode: $languageCode');
-
-    return BaseFormItem(
-      title: t.homePage.fontLabel,
-      required: false,
-      onTipTap: () {
-        DialogUtil.showBottomSheetDialog(
-          content: t.homePage.fontLabelDescription,
-        );
-      },
-      child: FormBuilderField<String>(
-        name: 'font',
-        initialValue: fontFamilies.elementAt(0).fontFamily,
-        builder: (FormFieldState<String> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DropdownButtonFormField<String>(
-                value: field.value,
-                onTap: () => onFontTap(field),
-                style: TextStyle(
-                  color: isDark ? Colors.white : primaryTextColor,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                icon: const Icon(
-                  Icons.arrow_drop_down,
-                  color: borderColor,
-                  size: 20,
-                ),
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
-                  enabledBorder:
-                      hasError
-                          ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: errorTextColor),
-                            // borderSide: BorderSide.none,
-                            gapPadding: 0,
-                          )
-                          : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: borderColor),
-                            gapPadding: 0,
-                          ),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(color: borderColor),
-                    gapPadding: 0,
-                  ),
-                  focusedBorder:
-                      hasError
-                          ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: errorTextColor),
-                            // borderSide: BorderSide.none,
-                            gapPadding: 0,
-                          )
-                          : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(color: primaryColor),
-                            gapPadding: 0,
-                          ),
-                ),
-                items:
-                    fontFamilies.map((fontFamily) {
-                      return DropdownMenuItem<String>(
-                        value: fontFamily.fontFamily,
-                        child: Text(
-                          fontFamily.name,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: fontFamily.fontFamily,
-                          ),
-                        ).nestedAlign(alignment: Alignment.centerLeft),
-                      );
-                    }).toList(),
-                onChanged: (value) {},
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(fontSize: 12, color: errorTextColor),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
-                ),
-            ],
-          );
-        },
-        validator: (value) {
-          if (value == null) {
-            return t.homePage.fontValidator;
-          }
-          return null;
-        },
-      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
-    );
-  }
-
-  void onFontTap(FormFieldState<String> field) {
-    // DO NOT REMOVE THIS LINE: 消除下拉选择默认弹窗
-    NavigatorUtil.pop();
-    DialogUtil.showFontModal(
-      items: fontFamilies,
-      font: field.value,
-      callback: (PGFont font) {
-        if (kDebugMode) {
-          printDebugLog('fontFamily: ${font.fontFamily}, name: ${font.name}');
-        }
-
-        field
-          ..didChange(font.fontFamily)
-          ..validate();
-
-        NavigatorUtil.pop();
-      },
-    );
-  }
-}
-
-/// 字体大小选择
-class FontSizePicker extends StatefulWidget {
-  const FontSizePicker({super.key});
-
-  @override
-  State<FontSizePicker> createState() => _FontSizePickerState();
-}
-
-class _FontSizePickerState extends State<FontSizePicker> {
-  final fontSizeNotifier = ValueNotifier<double>(initialFontSize);
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    return BaseFormItem(
-      title: t.homePage.fontSizeLabel,
-      required: false,
-      showTip: false,
-      child: FormBuilderField<double>(
-        name: 'fontSize',
-        initialValue: fontSizeNotifier.value,
-        builder: (FormFieldState<double> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  SfSliderTheme(
-                    data: const SfSliderThemeData(
-                      activeTrackHeight: 4,
-                      activeTrackColor: primaryColor,
-                      inactiveTrackColor: primaryBackgroundColor,
-                      thumbRadius: 6,
-                      thumbColor: primaryColor,
-                      overlayRadius: 0,
-                    ),
-                    child: SfSlider(
-                      min: minFontSize,
-                      max: minFontSize * 4,
-                      stepSize: 2,
-                      value: field.value,
-                      enableTooltip: true,
-                      onChanged: (dynamic value) {
-                        final newValue = value as double? ?? initialFontSize;
-                        fontSizeNotifier.value = newValue;
-                        field
-                          ..didChange(newValue)
-                          ..validate();
-                      },
-                    ),
-                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
-                  const Gap(4),
-                  ValueListenableBuilder(
-                    valueListenable: fontSizeNotifier,
-                    builder:
-                        (BuildContext context, double value, Widget? child) =>
-                            Text(
-                              value.toStringAsFixed(0),
-                              textAlign: TextAlign.center,
-                            ).nestedSizedBox(width: 28),
-                  ),
-                ],
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                    fontFamily: 'NotoSansSC',
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
-                ),
-            ],
-          );
-        },
-      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
-    );
-  }
-}
-
-/// 文本之间间距
-class TextColumnGap extends StatefulWidget {
-  const TextColumnGap({super.key});
-
-  @override
-  State<TextColumnGap> createState() => _TextColumnGapState();
-}
-
-class _TextColumnGapState extends State<TextColumnGap> {
-  final textGapNotifier = ValueNotifier<double>(initialGap);
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    return BaseFormItem(
-      title: t.homePage.textGapLabel,
-      required: false,
-      onTipTap: () {
-        DialogUtil.showBottomSheetDialog(
-          content: t.homePage.textGapDescription,
-        );
-      },
-      child: FormBuilderField<double>(
-        name: 'textGap',
-        initialValue: textGapNotifier.value,
-        builder: (FormFieldState<double> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  SfSliderTheme(
-                    data: const SfSliderThemeData(
-                      activeTrackHeight: 4,
-                      activeTrackColor: primaryColor,
-                      inactiveTrackColor: primaryBackgroundColor,
-                      thumbRadius: 6,
-                      thumbColor: primaryColor,
-                      overlayRadius: 0,
-                    ),
-                    child: SfSlider(
-                      min: initialGap / 2,
-                      max: initialGap * 2,
-                      stepSize: 10,
-                      value: field.value,
-                      enableTooltip: true,
-                      onChanged: (dynamic value) {
-                        final newValue = value as double? ?? initialGap;
-                        textGapNotifier.value = newValue;
-                        field
-                          ..didChange(newValue)
-                          ..validate();
-                      },
-                    ),
-                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
-                  const Gap(4),
-                  ValueListenableBuilder(
-                    valueListenable: textGapNotifier,
-                    builder:
-                        (BuildContext context, double value, Widget? child) =>
-                            Text(
-                              value.toStringAsFixed(0),
-                              textAlign: TextAlign.center,
-                            ).nestedSizedBox(width: 28),
-                  ),
-                ],
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                    fontFamily: 'NotoSansSC',
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
-                ),
-            ],
-          );
-        },
-      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
-    );
-  }
-}
-
-/// 文本行间距
-class TextRowGap extends StatefulWidget {
-  const TextRowGap({super.key});
-
-  @override
-  State<TextRowGap> createState() => _TextRowGapState();
-}
-
-class _TextRowGapState extends State<TextRowGap> {
-  final rowGapNotifier = ValueNotifier<double>(initialGap);
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    return BaseFormItem(
-      title: t.homePage.rowGapLabel,
-      required: false,
-      onTipTap: () {
-        DialogUtil.showBottomSheetDialog(content: t.homePage.rowGapDescription);
-      },
-      child: FormBuilderField<double>(
-        name: 'rowGap',
-        initialValue: rowGapNotifier.value,
-        builder: (FormFieldState<double> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  SfSliderTheme(
-                    data: const SfSliderThemeData(
-                      activeTrackHeight: 4,
-                      activeTrackColor: primaryColor,
-                      inactiveTrackColor: primaryBackgroundColor,
-                      thumbRadius: 6,
-                      thumbColor: primaryColor,
-                      overlayRadius: 0,
-                    ),
-                    child: SfSlider(
-                      min: initialGap / 2,
-                      max: initialGap * 2,
-                      stepSize: 10,
-                      value: field.value,
-                      enableTooltip: true,
-                      onChanged: (dynamic value) {
-                        final newValue = value as double? ?? initialGap;
-                        rowGapNotifier.value = newValue;
-                        field
-                          ..didChange(newValue)
-                          ..validate();
-                      },
-                    ),
-                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
-                  const Gap(4),
-                  ValueListenableBuilder(
-                    valueListenable: rowGapNotifier,
-                    builder:
-                        (BuildContext context, double value, Widget? child) =>
-                            Text(
-                              value.toStringAsFixed(0),
-                              textAlign: TextAlign.center,
-                            ).nestedSizedBox(width: 28),
-                  ),
-                ],
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: errorTextColor,
-                    fontFamily: 'NotoSansSC',
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(top: 8, left: 8),
-                ),
-            ],
-          );
-        },
-      ).nestedPadding(padding: const EdgeInsets.only(top: 8.5)),
-    );
-  }
-}
-
-/// 设置按钮
-class SettingsBtn extends StatelessWidget {
-  const SettingsBtn({
-    this.padding = const EdgeInsets.all(10),
-    this.iconSize = 24,
-    this.borderRadius = const BorderRadius.all(Radius.circular(22)),
-    super.key,
-  });
-
-  final EdgeInsetsGeometry padding;
-  final double iconSize;
-  final BorderRadiusGeometry borderRadius;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      style: ButtonStyle(
-        elevation: WidgetStateProperty.all(0),
-        minimumSize: WidgetStateProperty.all(Size.zero),
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        padding: WidgetStateProperty.all(padding),
-        shape: WidgetStateProperty.all(
-          RoundedRectangleBorder(borderRadius: borderRadius),
-        ),
-        overlayColor: WidgetStateProperty.all(primaryBackgroundColor),
-      ),
-      onPressed: DialogUtil.showSettingsModal,
-      icon: Icon(Icons.settings, size: iconSize, color: primaryColor),
-    );
-  }
-}
-
-/// 隐私条款
-class Privacy extends StatelessWidget {
-  const Privacy({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    final languageCode = LocaleSettings.currentLocale.languageCode;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text: t.dialogs.licenseDialog.licenseDialogContentPrefix,
-            style: TextStyle(
-              color: isDark ? Colors.white : primaryTextColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          TextSpan(
-            text: t.dialogs.licenseDialog.licenseDialogContentUserAgreement,
-            recognizer:
-                TapGestureRecognizer()
-                  ..onTap = () async {
-                    final uri = Uri.parse(
-                      'https://www.picguard.app/$languageCode/legal/terms-of-use/',
-                    );
-                    if (await canLaunchUrl(uri)) {
-                      await launchUrl(uri);
-                    }
-                  },
-            style: const TextStyle(
-              color: primaryColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          TextSpan(
-            text: t.dialogs.licenseDialog.licenseDialogContentAnd,
-            style: TextStyle(
-              color: isDark ? Colors.white : primaryTextColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          TextSpan(
-            text: t.dialogs.licenseDialog.licenseDialogContentPrivacyAgreement,
-            recognizer:
-                TapGestureRecognizer()
-                  ..onTap = () async {
-                    final uri = Uri.parse(
-                      'https://www.picguard.app/$languageCode/legal/privacy/',
-                    );
-                    if (await canLaunchUrl(uri)) {
-                      await launchUrl(uri);
-                    }
-                  },
-            style: const TextStyle(
-              color: primaryColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          TextSpan(
-            text: t.dialogs.licenseDialog.licenseDialogContentSuffix,
-            style: TextStyle(
-              color: isDark ? Colors.white : primaryTextColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// 版本号
-class AppVersion extends StatelessWidget {
-  const AppVersion({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    final appName = t.appName(flavor: AppConfig.shared.flavor);
-    return Text(
-      '$appName $appVersion${PgEnv.gitCommitShown ? "\n${PgEnv.gitCommitSha.substring(0, 8)}" : ""}',
-      style: const TextStyle(
-        color: secondaryTextColor,
-        fontSize: 12,
-        fontFamily: 'NotoSansSC',
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
-}
-
-/// 版本号
-class RustBackend extends StatelessWidget {
-  const RustBackend({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    final appName = t.appName(flavor: AppConfig.shared.flavor);
-    return Text(
-      greet(name: appName),
-      style: const TextStyle(color: secondaryTextColor, fontSize: 12),
-      textAlign: TextAlign.center,
-    );
-  }
-}
-
-/// 预览按钮
-class PreviewBtn extends StatelessWidget {
-  const PreviewBtn({this.onPressed, super.key});
-
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(Colors.white),
-        foregroundColor: WidgetStateProperty.resolveWith((
-          Set<WidgetState> states,
-        ) {
-          if (states.contains(WidgetState.disabled)) {
-            return secondaryBorderColor;
-          }
-          return primaryColor;
-        }),
-        shape: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
-          if (states.contains(WidgetState.disabled)) {
-            return RoundedRectangleBorder(
-              side: const BorderSide(color: secondaryBorderColor),
-              borderRadius: BorderRadius.circular(10),
-            );
-          }
-          return RoundedRectangleBorder(
-            side: const BorderSide(color: primaryColor),
-            borderRadius: BorderRadius.circular(10),
-          );
-        }),
-        elevation: WidgetStateProperty.all(0),
-      ),
-      child: Text(
-        t.homePage.preview,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-          fontFamily: 'NotoSansSC',
-        ),
-      ),
-    ).nestedSizedBox(height: 42);
-  }
-}
-
-/// 保存按钮
-class SaveBtn extends StatelessWidget {
-  const SaveBtn({this.onPressed, super.key});
-
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.resolveWith((
-          Set<WidgetState> states,
-        ) {
-          if (states.contains(WidgetState.disabled)) {
-            return secondaryGrayColor;
-          }
-          return primaryColor;
-        }),
-        foregroundColor: WidgetStateProperty.resolveWith((
-          Set<WidgetState> states,
-        ) {
-          if (states.contains(WidgetState.disabled)) {
-            return placeholderTextColor;
-          }
-          return Colors.white;
-        }),
-        elevation: WidgetStateProperty.all(0),
-      ),
-      child: Text(
-        t.homePage.save,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-          fontFamily: 'NotoSansSC',
-        ),
-      ),
-    ).nestedSizedBox(height: 42);
   }
 }
