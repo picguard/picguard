@@ -1,0 +1,43 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:package_info_plus/package_info_plus.dart';
+
+// Project imports:
+import 'package:picguard/app/config.dart';
+import 'package:picguard/constants/env.dart';
+import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/theme/colors.dart';
+
+/// 版本号
+class AppVersion extends StatelessWidget {
+  const AppVersion({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<PackageInfo>(
+      future: PackageInfo.fromPlatform(),
+      builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasData) {
+          final t = Translations.of(context);
+          final appName = t.appName(flavor: AppConfig.shared.flavor);
+          final packageInfo = snapshot.data;
+          final version = packageInfo?.version;
+          final buildNumber = packageInfo?.buildNumber;
+          return Text(
+            '$appName $version+$buildNumber${PgEnv.gitCommitShown ? "\n${PgEnv.gitCommitSha.substring(0, 8)}" : ""}',
+            style: const TextStyle(
+              color: secondaryTextColor,
+              fontSize: 12,
+              fontFamily: 'NotoSansSC',
+            ),
+            textAlign: TextAlign.center,
+          );
+        }
+        return const SizedBox.shrink();
+      },
+    );
+  }
+}
