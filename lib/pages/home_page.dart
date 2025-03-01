@@ -24,6 +24,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path/path.dart' hide context;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:reorderables/reorderables.dart';
@@ -1600,16 +1601,28 @@ class AppVersion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Translations.of(context);
-    final appName = t.appName(flavor: AppConfig.shared.flavor);
-    return Text(
-      '$appName $appVersion${PgEnv.gitCommitShown ? "\n${PgEnv.gitCommitSha.substring(0, 8)}" : ""}',
-      style: const TextStyle(
-        color: secondaryTextColor,
-        fontSize: 12,
-        fontFamily: 'NotoSansSC',
-      ),
-      textAlign: TextAlign.center,
+    return FutureBuilder<PackageInfo>(
+      future: PackageInfo.fromPlatform(),
+      builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasData) {
+          final t = Translations.of(context);
+          final appName = t.appName(flavor: AppConfig.shared.flavor);
+          final packageInfo = snapshot.data;
+          final version = packageInfo?.version;
+          final buildNumber = packageInfo?.buildNumber;
+          return Text(
+            '$appName $version+$buildNumber${PgEnv.gitCommitShown ? "\n${PgEnv.gitCommitSha.substring(0, 8)}" : ""}',
+            style: const TextStyle(
+              color: secondaryTextColor,
+              fontSize: 12,
+              fontFamily: 'NotoSansSC',
+            ),
+            textAlign: TextAlign.center,
+          );
+        }
+        return const SizedBox.shrink();
+      },
     );
   }
 }

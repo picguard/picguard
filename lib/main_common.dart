@@ -11,13 +11,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logging/logging.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 
 // Project imports:
 import 'package:picguard/app/config.dart';
-import 'package:picguard/app/manager.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/controllers/controllers.dart';
@@ -42,13 +40,9 @@ Future<void> runMainApp({
   Flavor flavor = Flavor.free,
 }) async {
   SentryWidgetsFlutterBinding.ensureInitialized();
+  await SpUtil.getInstance();
 
   AppConfig.create(flavor: flavor);
-
-  // app version / build number
-  await initApp();
-
-  await SpUtil.getInstance();
 
   Logger.root.level =
       kReleaseMode ? Level.OFF : Level.ALL; // defaults to Level.INFO
@@ -162,11 +156,4 @@ class _MainAppState extends State<MainApp> {
       ),
     );
   }
-}
-
-Future<void> initApp() async {
-  final packageInfo = await PackageInfo.fromPlatform();
-  AppManager.instance
-    ..version = packageInfo.version
-    ..buildNumber = packageInfo.buildNumber;
 }
