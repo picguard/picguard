@@ -9,8 +9,8 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 // Project imports:
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.dart';
-import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
 
@@ -51,11 +51,12 @@ class _TextColumnGapState extends State<TextColumnGap> {
                   SfSliderTheme(
                     data: const SfSliderThemeData(
                       activeTrackHeight: 4,
-                      activeTrackColor: primaryColor,
-                      inactiveTrackColor: primaryBackgroundColor,
+                      activeTrackColor: PGColors.primaryColor,
+                      inactiveTrackColor: PGColors.primaryBackgroundColor,
                       thumbRadius: 6,
-                      thumbColor: primaryColor,
+                      thumbColor: PGColors.primaryColor,
                       overlayRadius: 0,
+                      tooltipBackgroundColor: PGColors.primaryColor,
                     ),
                     child: SfSlider(
                       min: initialGap / 2,
@@ -91,8 +92,7 @@ class _TextColumnGapState extends State<TextColumnGap> {
                   field.errorText!,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: errorTextColor,
-                    fontFamily: 'NotoSansSC',
+                    color: PGColors.errorTextColor,
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(left: 8),

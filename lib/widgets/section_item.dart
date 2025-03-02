@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:picguard/extensions/extensions.dart';
-import 'package:picguard/theme/colors.dart';
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/utils/utils.dart';
 
 class MineSectionItem extends StatelessWidget {
   const MineSectionItem({
     required this.name,
-    this.labelColor = primaryTextColor,
-    this.overlayColor = primaryBackgroundColor,
+    this.labelColor = PGColors.primaryTextColor,
+    this.overlayColor = PGColors.primaryBackgroundColor,
     this.showBorder = true,
     this.showIcon = true,
     this.direction = Axis.horizontal,
@@ -56,13 +56,16 @@ class MineSectionItem extends StatelessWidget {
             Text(
               tips!,
               style: const TextStyle(
-                color: secondaryTextColor,
+                color: PGColors.secondaryTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w400,
               ),
             ).nestedPadding(padding: EdgeInsets.only(right: showIcon ? 4 : 0)),
           if (showIcon)
-            const Icon(Icons.arrow_forward_ios, color: borderColor, size: 14),
+            const Icon(
+              Icons.arrow_forward_ios,
+              color: PGColors.borderColor,
+              size: 14,
+            ),
           if (trailing != null) trailing!,
         ],
       );
@@ -71,35 +74,38 @@ class MineSectionItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (leading != null) leading!,
-                  Text(
-                    name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: labelColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      height: 1.43,
-                    ),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (leading != null) leading!,
+              Text(
+                name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: labelColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                  height: 1.43,
+                ),
+              ),
+              if (StringUtil.isNotBlank(tips))
+                Text(
+                  tips!,
+                  style: const TextStyle(
+                    color: PGColors.secondaryTextColor,
+                    fontSize: 12,
                   ),
-                  if (StringUtil.isNotBlank(tips))
-                    Text(
-                      tips!,
-                      style: const TextStyle(
-                        color: secondaryTextColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
-                ],
-              )
+                ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
+            ],
+          )
               .nestedPadding(padding: EdgeInsets.only(right: showIcon ? 4 : 0))
               .nestedExpanded(),
           if (showIcon)
-            const Icon(Icons.arrow_forward_ios, color: borderColor, size: 14),
+            const Icon(
+              Icons.arrow_forward_ios,
+              color: PGColors.borderColor,
+              size: 14,
+            ),
           if (trailing != null) trailing!,
         ],
       );
@@ -129,7 +135,9 @@ class MineSectionItem extends StatelessWidget {
     if (showBorder) {
       child = child.nestedDecoratedBox(
         decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(color: borderColor, width: 0.5)),
+          border: Border(
+            bottom: BorderSide(color: PGColors.borderColor, width: 0.5),
+          ),
         ),
       );
     }
@@ -155,24 +163,27 @@ class MineSectionGroup extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final itemWidgets = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: List.generate(items.length, (index) {
-        final item = items.elementAt(index);
-        return MineSectionItem(
-          name: item.title,
-          showBorder: !(index == items.length - 1),
-          labelColor: item.color,
-          overlayColor: item.overlayColor,
-          callback: item.callback,
-          showIcon: item.showIcon,
-          direction: item.direction,
-          tips: item.tips,
-          leading: item.leading,
-          trailing: item.trailing,
-        );
-      }),
+      children: List.generate(
+        items.length,
+        (index) {
+          final item = items.elementAt(index);
+          return MineSectionItem(
+            name: item.title,
+            showBorder: !(index == items.length - 1),
+            labelColor: item.color,
+            overlayColor: item.overlayColor,
+            callback: item.callback,
+            showIcon: item.showIcon,
+            direction: item.direction,
+            tips: item.tips,
+            leading: item.leading,
+            trailing: item.trailing,
+          );
+        },
+      ),
     ).nestedDecoratedBox(
       decoration: BoxDecoration(
-        color: isDark ? Colors.black12 : secondaryGrayColor,
+        color: isDark ? Colors.black12 : PGColors.secondaryGrayColor,
         borderRadius: BorderRadius.circular(6),
       ),
     );
@@ -185,9 +196,8 @@ class MineSectionGroup extends StatelessWidget {
             Text(
               title!,
               style: TextStyle(
-                color: isDark ? secondaryBorderColor : secondaryTextColor,
+                color: isDark ? PGColors.secondaryBorderColor : PGColors.secondaryTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w400,
                 height: 1.67,
               ),
             ).nestedPadding(
@@ -198,25 +208,30 @@ class MineSectionGroup extends StatelessWidget {
             Text(
               description!,
               style: TextStyle(
-                color: isDark ? secondaryBorderColor : secondaryTextColor,
+                color: isDark ? PGColors.secondaryBorderColor : PGColors.secondaryTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w400,
                 height: 1.67,
               ),
-            ).nestedPadding(padding: const EdgeInsets.only(left: 10, top: 10)),
+            ).nestedPadding(
+              padding: const EdgeInsets.only(left: 10, top: 10),
+            ),
         ],
-      ).nestedPadding(padding: const EdgeInsets.only(top: 20));
+      ).nestedPadding(
+        padding: const EdgeInsets.only(top: 20),
+      );
     }
 
-    return itemWidgets.nestedPadding(padding: const EdgeInsets.only(top: 20));
+    return itemWidgets.nestedPadding(
+      padding: const EdgeInsets.only(top: 20),
+    );
   }
 }
 
 class MineSectionModel {
   const MineSectionModel({
     required this.title,
-    this.color = primaryTextColor,
-    this.overlayColor = primaryBackgroundColor,
+    this.color = PGColors.primaryTextColor,
+    this.overlayColor = PGColors.primaryBackgroundColor,
     this.showIcon = true,
     this.direction = Axis.horizontal,
     this.leading,

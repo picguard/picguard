@@ -52,7 +52,6 @@ class TranslationsIt extends Translations {
 		'it': 'Italian',
 		'zh': '中文',
 	};
-	@override late final _TranslationsThemesIt themes = _TranslationsThemesIt._(_root);
 }
 
 // Path: homePage
@@ -84,8 +83,6 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String get savedSuccess => 'Salvataggio riuscito';
 	@override String get savedFailure => 'Impossibile salvare l\'immagine(i)';
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
-	@override String get settings => 'Impostazioni';
-	@override String get languages => 'Lingue';
 }
 
 // Path: menus
@@ -121,23 +118,12 @@ class _TranslationsDialogsIt extends TranslationsDialogsEn {
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
+	@override String get selectColor => 'Seleziona un colore';
+	@override String get selectFont => 'Seleziona un carattere';
 	@override late final _TranslationsDialogsExitConfirmIt exitConfirm = _TranslationsDialogsExitConfirmIt._(_root);
 	@override late final _TranslationsDialogsPermissionsIt permissions = _TranslationsDialogsPermissionsIt._(_root);
 	@override late final _TranslationsDialogsLicenseDialogIt licenseDialog = _TranslationsDialogsLicenseDialogIt._(_root);
-}
-
-// Path: themes
-class _TranslationsThemesIt extends TranslationsThemesEn {
-	_TranslationsThemesIt._(TranslationsIt root) : this._root = root, super.internal(root);
-
-	final TranslationsIt _root; // ignore: unused_field
-
-	// Translations
-	@override String get manual => 'Modalità manuale';
-	@override String get system => 'Modalità automatica';
-	@override String get dark => 'Modalità scura';
-	@override String get light => 'Modalità chiara';
-	@override String get description => 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
+	@override late final _TranslationsDialogsSettingsDialogIt settingsDialog = _TranslationsDialogsSettingsDialogIt._(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -190,6 +176,19 @@ class _TranslationsDialogsLicenseDialogIt extends TranslationsDialogsLicenseDial
 	];
 }
 
+// Path: dialogs.settingsDialog
+class _TranslationsDialogsSettingsDialogIt extends TranslationsDialogsSettingsDialogEn {
+	_TranslationsDialogsSettingsDialogIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get settings => 'Impostazioni';
+	@override String get languages => 'Lingue';
+	@override late final _TranslationsDialogsSettingsDialogThemesIt themes = _TranslationsDialogsSettingsDialogThemesIt._(_root);
+	@override String get themesDescription => 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
+}
+
 // Path: dialogs.permissions.photos
 class _TranslationsDialogsPermissionsPhotosIt extends TranslationsDialogsPermissionsPhotosEn {
 	_TranslationsDialogsPermissionsPhotosIt._(TranslationsIt root) : this._root = root, super.internal(root);
@@ -210,6 +209,19 @@ class _TranslationsDialogsPermissionsStorageIt extends TranslationsDialogsPermis
 	// Translations
 	@override String get title => 'Consenti l\'accesso al tuo archivio';
 	@override String description({required Object appName}) => 'Accedi alle Impostazioni del tuo telefono per concedere a ${appName} l\'autorizzazione ad accedere al tuo archivio.';
+}
+
+// Path: dialogs.settingsDialog.themes
+class _TranslationsDialogsSettingsDialogThemesIt extends TranslationsDialogsSettingsDialogThemesEn {
+	_TranslationsDialogsSettingsDialogThemesIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get manual => 'Modalità manuale';
+	@override String get system => 'Modalità automatica';
+	@override String get dark => 'Modalità scura';
+	@override String get light => 'Modalità chiara';
 }
 
 /// Flat map(s) containing all translations.
@@ -247,8 +259,6 @@ extension on TranslationsIt {
 			case 'homePage.savedSuccess': return 'Salvataggio riuscito';
 			case 'homePage.savedFailure': return 'Impossibile salvare l\'immagine(i)';
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
-			case 'homePage.settings': return 'Impostazioni';
-			case 'homePage.languages': return 'Lingue';
 			case 'menus.help': return 'Aiuto';
 			case 'menus.support': return 'Supporto';
 			case 'menus.userAgreement': return 'Accordo utente';
@@ -257,6 +267,8 @@ extension on TranslationsIt {
 			case 'buttons.cancel': return 'Annulla';
 			case 'buttons.ignore': return 'Ignora';
 			case 'buttons.turnOn': return 'Accendi';
+			case 'dialogs.selectColor': return 'Seleziona un colore';
+			case 'dialogs.selectFont': return 'Seleziona un carattere';
 			case 'dialogs.exitConfirm.exit': return 'Uscita';
 			case 'dialogs.exitConfirm.cancel': return 'Annulla';
 			case 'dialogs.exitConfirm.title': return 'Chiudi conferma';
@@ -278,14 +290,16 @@ extension on TranslationsIt {
 			case 'dialogs.licenseDialog.androidPermissions.1': return ({required Object appName}) => 'Per filigranare le tue immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.READ_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => 'Per poter salvare le immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)';
+			case 'dialogs.settingsDialog.settings': return 'Impostazioni';
+			case 'dialogs.settingsDialog.languages': return 'Lingue';
+			case 'dialogs.settingsDialog.themes.manual': return 'Modalità manuale';
+			case 'dialogs.settingsDialog.themes.system': return 'Modalità automatica';
+			case 'dialogs.settingsDialog.themes.dark': return 'Modalità scura';
+			case 'dialogs.settingsDialog.themes.light': return 'Modalità chiara';
+			case 'dialogs.settingsDialog.themesDescription': return 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
 			case 'locales.en': return 'English';
 			case 'locales.it': return 'Italian';
 			case 'locales.zh': return '中文';
-			case 'themes.manual': return 'Modalità manuale';
-			case 'themes.system': return 'Modalità automatica';
-			case 'themes.dark': return 'Modalità scura';
-			case 'themes.light': return 'Modalità chiara';
-			case 'themes.description': return 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
 			default: return null;
 		}
 	}

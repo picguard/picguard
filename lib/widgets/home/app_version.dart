@@ -7,8 +7,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 // Project imports:
 import 'package:picguard/app/config.dart';
 import 'package:picguard/constants/env.dart';
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.dart';
-import 'package:picguard/theme/colors.dart';
 
 /// 版本号
 class AppVersion extends StatelessWidget {
@@ -29,9 +29,8 @@ class AppVersion extends StatelessWidget {
           return Text(
             '$appName $version+$buildNumber${PgEnv.gitCommitShown ? "\n${PgEnv.gitCommitSha.substring(0, 8)}" : ""}',
             style: const TextStyle(
-              color: secondaryTextColor,
+              color: PGColors.secondaryTextColor,
               fontSize: 12,
-              fontFamily: 'NotoSansSC',
             ),
             textAlign: TextAlign.center,
           );

@@ -54,7 +54,6 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		'it': 'Italian',
 		'zh': '中文',
 	};
-	late final TranslationsThemesEn themes = TranslationsThemesEn.internal(_root);
 }
 
 // Path: homePage
@@ -86,8 +85,6 @@ class TranslationsHomePageEn {
 	String get savedSuccess => 'Saved successfully';
 	String get savedFailure => 'Failed to save image(s)';
 	String saveInfo({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
-	String get settings => 'Settings';
-	String get languages => 'Languages';
 }
 
 // Path: menus
@@ -123,23 +120,12 @@ class TranslationsDialogsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	String get selectColor => 'Select a color';
+	String get selectFont => 'Select a font';
 	late final TranslationsDialogsExitConfirmEn exitConfirm = TranslationsDialogsExitConfirmEn.internal(_root);
 	late final TranslationsDialogsPermissionsEn permissions = TranslationsDialogsPermissionsEn.internal(_root);
 	late final TranslationsDialogsLicenseDialogEn licenseDialog = TranslationsDialogsLicenseDialogEn.internal(_root);
-}
-
-// Path: themes
-class TranslationsThemesEn {
-	TranslationsThemesEn.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get manual => 'Manual Mode';
-	String get system => 'Auto Mode';
-	String get dark => 'Dark Mode';
-	String get light => 'Light Mode';
-	String get description => 'After turning it on, the dark mode will be turned on or off according to the system';
+	late final TranslationsDialogsSettingsDialogEn settingsDialog = TranslationsDialogsSettingsDialogEn.internal(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -192,6 +178,19 @@ class TranslationsDialogsLicenseDialogEn {
 	];
 }
 
+// Path: dialogs.settingsDialog
+class TranslationsDialogsSettingsDialogEn {
+	TranslationsDialogsSettingsDialogEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get settings => 'Settings';
+	String get languages => 'Languages';
+	late final TranslationsDialogsSettingsDialogThemesEn themes = TranslationsDialogsSettingsDialogThemesEn.internal(_root);
+	String get themesDescription => 'After turning it on, the dark mode will be turned on or off according to the system';
+}
+
 // Path: dialogs.permissions.photos
 class TranslationsDialogsPermissionsPhotosEn {
 	TranslationsDialogsPermissionsPhotosEn.internal(this._root);
@@ -212,6 +211,19 @@ class TranslationsDialogsPermissionsStorageEn {
 	// Translations
 	String get title => 'Allow access to your storage';
 	String description({required Object appName}) => 'Please go to your phone Settings to grant ${appName} the permission to visit your storage.';
+}
+
+// Path: dialogs.settingsDialog.themes
+class TranslationsDialogsSettingsDialogThemesEn {
+	TranslationsDialogsSettingsDialogThemesEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get manual => 'Manual Mode';
+	String get system => 'Auto Mode';
+	String get dark => 'Dark Mode';
+	String get light => 'Light Mode';
 }
 
 /// Flat map(s) containing all translations.
@@ -249,8 +261,6 @@ extension on Translations {
 			case 'homePage.savedSuccess': return 'Saved successfully';
 			case 'homePage.savedFailure': return 'Failed to save image(s)';
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
-			case 'homePage.settings': return 'Settings';
-			case 'homePage.languages': return 'Languages';
 			case 'menus.help': return 'Help';
 			case 'menus.support': return 'Support';
 			case 'menus.userAgreement': return 'User Agreement';
@@ -259,6 +269,8 @@ extension on Translations {
 			case 'buttons.cancel': return 'Cancel';
 			case 'buttons.ignore': return 'Ignore';
 			case 'buttons.turnOn': return 'Turn On';
+			case 'dialogs.selectColor': return 'Select a color';
+			case 'dialogs.selectFont': return 'Select a font';
 			case 'dialogs.exitConfirm.exit': return 'Exit';
 			case 'dialogs.exitConfirm.cancel': return 'Cancel';
 			case 'dialogs.exitConfirm.title': return 'Close confirmation';
@@ -280,14 +292,16 @@ extension on Translations {
 			case 'dialogs.licenseDialog.androidPermissions.1': return ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => 'In order to save images, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)';
+			case 'dialogs.settingsDialog.settings': return 'Settings';
+			case 'dialogs.settingsDialog.languages': return 'Languages';
+			case 'dialogs.settingsDialog.themes.manual': return 'Manual Mode';
+			case 'dialogs.settingsDialog.themes.system': return 'Auto Mode';
+			case 'dialogs.settingsDialog.themes.dark': return 'Dark Mode';
+			case 'dialogs.settingsDialog.themes.light': return 'Light Mode';
+			case 'dialogs.settingsDialog.themesDescription': return 'After turning it on, the dark mode will be turned on or off according to the system';
 			case 'locales.en': return 'English';
 			case 'locales.it': return 'Italian';
 			case 'locales.zh': return '中文';
-			case 'themes.manual': return 'Manual Mode';
-			case 'themes.system': return 'Auto Mode';
-			case 'themes.dark': return 'Dark Mode';
-			case 'themes.light': return 'Light Mode';
-			case 'themes.description': return 'After turning it on, the dark mode will be turned on or off according to the system';
 			default: return null;
 		}
 	}

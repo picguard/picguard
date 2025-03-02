@@ -4,7 +4,7 @@ import 'package:picguard/models/models.dart';
 
 const spacing = 8.0;
 const runSpacing = 4.0;
-const padding = 10.0;
+const paddingSize = 10.0;
 const minOpacity = 0.3; // 最小不透明度
 const maxOpacity = 1.0; // 最大不透明度
 

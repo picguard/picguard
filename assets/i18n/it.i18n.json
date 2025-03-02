@@ -25,9 +25,7 @@
     "save": "Salva",
     "savedSuccess": "Salvataggio riuscito",
     "savedFailure": "Impossibile salvare l'immagine(i)",
-    "saveInfo": "Sono state salvate $succeedNum l'immagine(i) e non è stato possibile salvare $failedNum l'immagine(i).",
-    "settings": "Impostazioni",
-    "languages": "Lingue"
+    "saveInfo": "Sono state salvate $succeedNum l'immagine(i) e non è stato possibile salvare $failedNum l'immagine(i)."
   },
   "menus": {
     "help": "Aiuto",
@@ -42,6 +40,8 @@
     "turnOn": "Accendi"
   },
   "dialogs": {
+    "selectColor": "Seleziona un colore",
+    "selectFont": "Seleziona un carattere",
     "exitConfirm": {
       "exit": "Uscita",
       "cancel": "Annulla",
@@ -76,18 +76,22 @@
         "Per poter salvare le immagini, $appName deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)",
         "Per aggiungere una filigrana alle tue immagini, $appName deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)"
       ]
+    },
+    "settingsDialog": {
+      "settings": "Impostazioni",
+      "languages": "Lingue",
+      "themes": {
+        "manual": "Modalità manuale",
+        "system": "Modalità automatica",
+        "dark": "Modalità scura",
+        "light": "Modalità chiara"
+      },
+      "themesDescription": "Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema"
     }
   },
   "locales(map)": {
     "en": "English",
     "it": "Italian",
     "zh": "中文"
-  },
-  "themes": {
-    "manual": "Modalità manuale",
-    "system": "Modalità automatica",
-    "dark": "Modalità scura",
-    "light": "Modalità chiara",
-    "description": "Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema"
   }
 }

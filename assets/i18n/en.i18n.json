@@ -25,9 +25,7 @@
     "save": "Save",
     "savedSuccess": "Saved successfully",
     "savedFailure": "Failed to save image(s)",
-    "saveInfo": "$succeedNum image(s) saved, $failedNum image(s) failed to save",
-    "settings": "Settings",
-    "languages": "Languages"
+    "saveInfo": "$succeedNum image(s) saved, $failedNum image(s) failed to save"
   },
   "menus": {
     "help": "Help",
@@ -42,6 +40,8 @@
     "turnOn": "Turn On"
   },
   "dialogs": {
+    "selectColor": "Select a color",
+    "selectFont": "Select a font",
     "exitConfirm": {
       "exit": "Exit",
       "cancel": "Cancel",
@@ -76,18 +76,22 @@
         "In order to save images, $appName needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)",
         "In order to add watermarks to your images, $appName needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)"
       ]
+    },
+    "settingsDialog": {
+      "settings": "Settings",
+      "languages": "Languages",
+      "themes": {
+        "manual": "Manual Mode",
+        "system": "Auto Mode",
+        "dark": "Dark Mode",
+        "light": "Light Mode"
+      },
+      "themesDescription": "After turning it on, the dark mode will be turned on or off according to the system"
     }
   },
   "locales(map)": {
     "en": "English",
     "it": "Italian",
     "zh": "中文"
-  },
-  "themes": {
-    "manual": "Manual Mode",
-    "system": "Auto Mode",
-    "dark": "Dark Mode",
-    "light": "Light Mode",
-    "description": "After turning it on, the dark mode will be turned on or off according to the system"
   }
 }

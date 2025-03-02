@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:picguard/extensions/extensions.dart';
-import 'package:picguard/theme/colors.dart';
+import 'package:picguard/generated/colors.gen.dart';
 
 ///
 typedef BaseFormItemCallback = void Function();
@@ -43,50 +43,51 @@ class _BaseFormItemState extends State<BaseFormItem> {
   Widget build(BuildContext context) {
     return widget.title != null
         ? Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: widget.mainAxisSize,
-          children: [
-            if (!widget.showTip)
-              content
-            else
-              content
-                  .addWidgetAsList(
-                    widget.tipWidget == null
-                        ? tips
-                        : widget.tipWidget!.nestedTap(() {
-                          widget.onTipTap?.call();
-                        }),
-                  )
-                  .nestedRow(mainAxisAlignment: widget.mainAxisAlignment),
-            widget.child,
-          ],
-        ).nestedPadding(padding: widget.padding)
-        : Padding(padding: widget.padding, child: widget.child);
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: widget.mainAxisSize,
+            children: [
+              if (!widget.showTip)
+                content
+              else
+                content
+                    .addWidgetAsList(
+                      widget.tipWidget == null
+                          ? tips
+                          : widget.tipWidget!.nestedTap(
+                              () {
+                                widget.onTipTap?.call();
+                              },
+                            ),
+                    )
+                    .nestedRow(mainAxisAlignment: widget.mainAxisAlignment),
+              widget.child,
+            ],
+          ).nestedPadding(padding: widget.padding)
+        : Padding(
+            padding: widget.padding,
+            child: widget.child,
+          );
   }
 
   Widget get content {
     final brightness = Theme.of(context).brightness;
     final isDark = brightness == Brightness.dark;
-    return RichText(
-      text: TextSpan(
+    return Text.rich(
+      TextSpan(
         children: [
           if (widget.required)
             const TextSpan(
               text: '*',
               style: TextStyle(
-                color: errorTextColor,
+                color: PGColors.errorTextColor,
                 fontSize: 14,
-                fontWeight: FontWeight.w400,
-                fontFamily: 'NotoSansSC',
               ),
             ),
           TextSpan(
             text: widget.title,
             style: TextStyle(
-              color: isDark ? Colors.white : primaryTextColor,
+              color: isDark ? Colors.white : PGColors.primaryTextColor,
               fontSize: 14,
-              fontWeight: FontWeight.w400,
-              fontFamily: 'NotoSansSC',
             ),
           ),
         ],
@@ -105,7 +106,11 @@ class _BaseFormItemState extends State<BaseFormItem> {
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
       onPressed: widget.onTipTap,
-      icon: const Icon(Icons.info, size: 16, color: primaryColor),
+      icon: const Icon(
+        Icons.info,
+        size: 16,
+        color: PGColors.primaryColor,
+      ),
     ).nestedPadding(padding: const EdgeInsets.only(left: 4));
   }
 }

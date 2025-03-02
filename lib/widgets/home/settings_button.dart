@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:picguard/theme/colors.dart';
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/utils/utils.dart';
 
 /// 设置按钮
@@ -29,13 +29,13 @@ class SettingsBtn extends StatelessWidget {
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(borderRadius: borderRadius),
         ),
-        overlayColor: WidgetStateProperty.all(primaryBackgroundColor),
+        overlayColor: WidgetStateProperty.all(PGColors.primaryBackgroundColor),
       ),
       onPressed: DialogUtil.showSettingsModal,
       icon: Icon(
         Icons.settings,
         size: iconSize,
-        color: primaryColor,
+        color: PGColors.primaryColor,
       ),
     );
   }

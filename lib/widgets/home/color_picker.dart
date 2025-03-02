@@ -8,10 +8,10 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 // Project imports:
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
-import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
 
@@ -43,13 +43,12 @@ class ColorPicker extends StatelessWidget {
                 value: field.value,
                 onTap: () => onColorTap(field),
                 style: TextStyle(
-                  color: isDark ? Colors.white : primaryTextColor,
+                  color: isDark ? Colors.white : PGColors.primaryTextColor,
                   overflow: TextOverflow.ellipsis,
-                  fontFamily: 'NotoSansSC',
                 ),
                 icon: const Icon(
                   Icons.arrow_drop_down,
-                  color: borderColor,
+                  color: PGColors.borderColor,
                   size: 20,
                 ),
                 decoration: InputDecoration(
@@ -59,7 +58,7 @@ class ColorPicker extends StatelessWidget {
                       ? OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide: const BorderSide(
-                      color: errorTextColor,
+                      color: PGColors.errorTextColor,
                     ),
                     // borderSide: BorderSide.none,
                     gapPadding: 0,
@@ -67,14 +66,14 @@ class ColorPicker extends StatelessWidget {
                       : OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide: const BorderSide(
-                      color: borderColor,
+                      color: PGColors.borderColor,
                     ),
                     gapPadding: 0,
                   ),
                   disabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide: const BorderSide(
-                      color: borderColor,
+                      color: PGColors.borderColor,
                     ),
                     gapPadding: 0,
                   ),
@@ -82,7 +81,7 @@ class ColorPicker extends StatelessWidget {
                       ? OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide: const BorderSide(
-                      color: errorTextColor,
+                      color: PGColors.errorTextColor,
                     ),
                     // borderSide: BorderSide.none,
                     gapPadding: 0,
@@ -90,7 +89,7 @@ class ColorPicker extends StatelessWidget {
                       : OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide: const BorderSide(
-                      color: primaryColor,
+                      color: PGColors.primaryColor,
                     ),
                     gapPadding: 0,
                   ),
@@ -103,8 +102,7 @@ class ColorPicker extends StatelessWidget {
                         languageCode == 'zh' ? color.zhText : color.enText,
                         style: const TextStyle(
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'NotoSansSC',
+                          fontFamily: 'NotoSansSC', // TODO(kjxbyz): Need to fixed later.
                         ),
                       ).nestedAlign(
                         alignment: Alignment.centerLeft,
@@ -119,8 +117,7 @@ class ColorPicker extends StatelessWidget {
                   field.errorText!,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: errorTextColor,
-                    fontFamily: 'NotoSansSC',
+                    color: PGColors.errorTextColor,
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(left: 8),

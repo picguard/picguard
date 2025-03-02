@@ -6,8 +6,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 // Project imports:
 import 'package:picguard/extensions/extensions.dart';
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.dart';
-import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
 
@@ -40,13 +40,11 @@ class TextInput extends StatelessWidget {
               TextFormField(
                 initialValue: field.value,
                 focusNode: focusNode,
-                cursorColor: hasError ? errorTextColor : primaryColor,
+                cursorColor: hasError ? PGColors.errorTextColor : PGColors.primaryColor,
                 autocorrect: false,
                 style: TextStyle(
-                  color: isDark ? Colors.white : primaryTextColor,
+                  color: isDark ? Colors.white : PGColors.primaryTextColor,
                   fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'NotoSansSC',
                 ),
                 onChanged: (value) {
                   field
@@ -60,7 +58,7 @@ class TextInput extends StatelessWidget {
                       ? OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide: const BorderSide(
-                      color: errorTextColor,
+                      color: PGColors.errorTextColor,
                     ),
                     // borderSide: BorderSide.none,
                     gapPadding: 0,
@@ -68,14 +66,14 @@ class TextInput extends StatelessWidget {
                       : OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide: const BorderSide(
-                      color: borderColor,
+                      color: PGColors.borderColor,
                     ),
                     gapPadding: 0,
                   ),
                   disabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide: const BorderSide(
-                      color: borderColor,
+                      color: PGColors.borderColor,
                     ),
                     gapPadding: 0,
                   ),
@@ -83,15 +81,13 @@ class TextInput extends StatelessWidget {
                   hintMaxLines: 2,
                   hintStyle: const TextStyle(
                     fontSize: 14,
-                    fontWeight: FontWeight.normal,
                     color: Colors.grey,
-                    fontFamily: 'NotoSansSC',
                   ),
                   focusedBorder: hasError
                       ? OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide: const BorderSide(
-                      color: errorTextColor,
+                      color: PGColors.errorTextColor,
                     ),
                     // borderSide: BorderSide.none,
                     gapPadding: 0,
@@ -99,7 +95,7 @@ class TextInput extends StatelessWidget {
                       : OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4),
                     borderSide: const BorderSide(
-                      color: primaryColor,
+                      color: PGColors.primaryColor,
                     ),
                     // borderSide: BorderSide.none,
                     gapPadding: 0,
@@ -111,8 +107,7 @@ class TextInput extends StatelessWidget {
                   field.errorText!,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: errorTextColor,
-                    fontFamily: 'NotoSansSC',
+                    color: PGColors.errorTextColor,
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(left: 8),

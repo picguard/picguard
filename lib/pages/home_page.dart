@@ -14,7 +14,6 @@ import 'package:flutter/services.dart' hide TextInput;
 // Package imports:
 import 'package:app_settings/app_settings.dart';
 import 'package:collection/collection.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -25,7 +24,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:path/path.dart' hide context;
-import 'package:permission_handler/permission_handler.dart';
 
 // Project imports:
 import 'package:picguard/app/config.dart';
@@ -36,12 +34,6 @@ import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
-
-enum Permissions {
-  photos,
-  storage,
-  none,
-}
 
 ///
 class HomePage extends StatefulWidget {
@@ -76,152 +68,153 @@ class _HomePageState extends State<HomePage> {
     final t = Translations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final appName = t.appName(flavor: AppConfig.shared.flavor);
+    const padding = EdgeInsets.symmetric(
+      horizontal: paddingSize,
+      vertical: 20,
+    );
 
-    return KeyboardDismisser(
-      child: Title(
-        title: appName,
-        color: isDark ? Colors.white : Colors.black,
-        child: Scaffold(
-          appBar: isMobile
-              ? PGAppBar(
-                  titleWidget: Text(appName),
-                  isDark: isDark,
-                  actions: const [SettingsBtn()],
-                )
-              : null,
-          body: LayoutBuilder(
-            builder: (context, constraints) {
-              final maxWidth = constraints.maxWidth;
-              debugPrint('maxWidth: $maxWidth');
-              if ((isWeb || isDesktop) && maxWidth >= 800) {
-                return SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: padding,
-                    vertical: 20,
+    Widget child = Scaffold(
+      appBar: isMobile
+          ? PGAppBar(
+              titleWidget: Text(appName),
+              isDark: isDark,
+              actions: const [SettingsBtn()],
+            )
+          : null,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final maxWidth = constraints.maxWidth;
+          printDebugLog('maxWidth: $maxWidth');
+          if ((isWeb || isDesktop) && maxWidth >= 800) {
+            return SingleChildScrollView(
+              padding: padding,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                spacing: 10,
+                children: [
+                  Flexible(
+                    flex: 6,
+                    fit: FlexFit.tight,
+                    child: Column(
+                      spacing: 10,
+                      children: [
+                        ImageGroup(
+                          fileWrappers: _fileWrappers,
+                          onRemove: (index) => setState(
+                            () =>
+                                _fileWrappers = _fileWrappers..removeAt(index),
+                          ),
+                          onReorder: _onReorder,
+                          pickImages: _pickImages,
+                        ),
+                        const AppDescription(),
+                      ],
+                    ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    spacing: 10,
+                  Flexible(
+                    flex: 4,
+                    fit: FlexFit.tight,
+                    child: Column(
+                      children: [
+                        FormBuilder(
+                          key: _formKey,
+                          child: Column(
+                            spacing: 5,
+                            children: [
+                              TextInput(focusNode: inputFocusNode),
+                              const ColorPicker(),
+                              const OpacityPicker(),
+                              if (AppConfig.shared.isPro) ...[
+                                const FontPicker(),
+                                const FontSizePicker(),
+                                const TextColumnGap(),
+                                const TextRowGap(),
+                              ],
+                            ],
+                          ),
+                        ),
+                        const Gap(20),
+                        PreviewBtn(
+                          onPressed: _fileWrappers.isNotEmpty ? _preview : null,
+                        ),
+                        const Gap(10),
+                        SaveBtn(
+                          onPressed: _fileWrappers.isNotEmpty ? _save : null,
+                        ),
+                        const Gap(14),
+                        const AppVersion(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return ListView(
+              padding: padding,
+              children: [
+                ImageGroup(
+                  fileWrappers: _fileWrappers,
+                  onRemove: (index) => setState(
+                    () => _fileWrappers = _fileWrappers..removeAt(index),
+                  ),
+                  onReorder: _onReorder,
+                  pickImages: _pickImages,
+                ),
+                const Gap(10),
+                const AppDescription(),
+                const Gap(10),
+                FormBuilder(
+                  key: _formKey,
+                  child: Column(
+                    spacing: 5,
                     children: [
-                      Flexible(
-                        flex: 6,
-                        fit: FlexFit.tight,
-                        child: Column(
-                          spacing: 10,
-                          children: [
-                            ImageGroup(
-                              fileWrappers: _fileWrappers,
-                              onRemove: (index) => setState(
-                                    () => _fileWrappers = _fileWrappers
-                                  ..removeAt(index),
-                              ),
-                              onReorder: _onReorder,
-                              pickImages: _pickImages,
-                            ),
-                            const AppDescription(),
-                          ],
-                        ),
-                      ),
-                      Flexible(
-                        flex: 4,
-                        fit: FlexFit.tight,
-                        child: Column(
-                          children: [
-                            FormBuilder(
-                              key: _formKey,
-                              child: Column(
-                                spacing: 5,
-                                children: [
-                                  TextInput(focusNode: inputFocusNode),
-                                  const ColorPicker(),
-                                  const OpacityPicker(),
-                                  if (AppConfig.shared.isPro) ...[
-                                    const FontPicker(),
-                                    const FontSizePicker(),
-                                    const TextColumnGap(),
-                                    const TextRowGap(),
-                                  ],
-                                ],
-                              ),
-                            ),
-                            const Gap(20),
-                            PreviewBtn(
-                              onPressed: _fileWrappers.isNotEmpty
-                                  ? _preview
-                                  : null,
-                            ),
-                            const Gap(10),
-                            SaveBtn(
-                              onPressed:
-                              _fileWrappers.isNotEmpty ? _save : null,
-                            ),
-                            const Gap(14),
-                            const AppVersion(),
-                          ],
-                        ),
-                      ),
+                      TextInput(focusNode: inputFocusNode),
+                      const ColorPicker(),
+                      const OpacityPicker(),
+                      if (AppConfig.shared.isPro) ...[
+                        const FontPicker(),
+                        const FontSizePicker(),
+                        const TextColumnGap(),
+                        const TextRowGap(),
+                      ],
                     ],
                   ),
-                );
-              } else {
-                return ListView(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: padding,
-                    vertical: 20,
-                  ),
-                  children: [
-                    ImageGroup(
-                      fileWrappers: _fileWrappers,
-                      onRemove: (index) => setState(
-                        () => _fileWrappers = _fileWrappers..removeAt(index),
-                      ),
-                      onReorder: _onReorder,
-                      pickImages: _pickImages,
-                    ),
-                    const Gap(10),
-                    const AppDescription(),
-                    const Gap(10),
-                    FormBuilder(
-                      key: _formKey,
-                      child: Column(
-                        spacing: 5,
-                        children: [
-                          TextInput(focusNode: inputFocusNode),
-                          const ColorPicker(),
-                          const OpacityPicker(),
-                          if (AppConfig.shared.isPro) ...[
-                            const FontPicker(),
-                            const FontSizePicker(),
-                            const TextColumnGap(),
-                            const TextRowGap(),
-                          ],
-                        ],
-                      ),
-                    ),
-                    const Gap(20),
-                    PreviewBtn(
-                      onPressed: _fileWrappers.isNotEmpty ? _preview : null,
-                    ),
-                    const Gap(10),
-                    SaveBtn(onPressed: _fileWrappers.isNotEmpty ? _save : null),
-                    const Gap(14),
-                    const AppVersion(),
-                  ],
-                );
-              }
-            },
-          ),
-          floatingActionButton: isWeb ||
-                  [
-                    TargetPlatform.windows,
-                    TargetPlatform.linux,
-                  ].contains(defaultTargetPlatform)
-              ? const SettingsBtn()
-              : null,
-        ),
+                ),
+                const Gap(20),
+                PreviewBtn(
+                  onPressed: _fileWrappers.isNotEmpty ? _preview : null,
+                ),
+                const Gap(10),
+                SaveBtn(onPressed: _fileWrappers.isNotEmpty ? _save : null),
+                const Gap(14),
+                const AppVersion(),
+              ],
+            );
+          }
+        },
       ),
+      floatingActionButton: isWeb ||
+              [
+                TargetPlatform.windows,
+                TargetPlatform.linux,
+              ].contains(defaultTargetPlatform)
+          ? const SettingsBtn()
+          : null,
+    );
+
+    if (isWeb) {
+      child = Title(
+        title: appName,
+        color: isDark ? Colors.white : Colors.black,
+        child: child,
+      );
+    }
+
+    return KeyboardDismisser(
+      child: child,
     );
   }
 
@@ -289,7 +282,7 @@ class _HomePageState extends State<HomePage> {
         'text: $text, color: $color, opacity: $opacity, fontFamily: $fontFamily, fontSize: $fontSize, textGap: $textGap, rowGap: $rowGap',
       );
 
-      final permission = await _checkPermission();
+      final permission = await PermissionUtil.checkPermission();
       if (permission != Permissions.none) {
         final t = Translations.of(AppNavigator.key.currentContext!);
         final appName = t.appName(flavor: AppConfig.shared.flavor);
@@ -444,12 +437,12 @@ class _HomePageState extends State<HomePage> {
     );
     canvas.save();
 
-    debugPrint('fontFamily: $fontFamily');
+    printDebugLog('fontFamily: $fontFamily');
     // 设置文本样式
     final textStyle = TextStyle(
       color: Color(colorValue).withAlpha((255.0 * opacity).round()),
       fontSize: fontSize ?? initialFontSize,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.normal,
       fontFamily: fontFamily,
     );
 
@@ -592,7 +585,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _pickImages() async {
-    final permission = await _checkPermission();
+    final permission = await PermissionUtil.checkPermission();
     if (permission != Permissions.none) {
       final t = Translations.of(AppNavigator.key.currentContext!);
       final appName = t.appName(flavor: AppConfig.shared.flavor);
@@ -618,58 +611,24 @@ class _HomePageState extends State<HomePage> {
     await _gotoPickImages();
   }
 
-  // Check permissions
-  Future<Permissions> _checkPermission() async {
-    if (!kIsWeb) {
-      if (defaultTargetPlatform == TargetPlatform.android) {
-        final deviceInfo = DeviceInfoPlugin();
-        final androidInfo = await deviceInfo.androidInfo;
-        if (androidInfo.version.sdkInt >= 33) {
-          final status = await Permission.photos.request();
-          final denied = [
-            PermissionStatus.permanentlyDenied,
-            PermissionStatus.denied,
-          ].contains(status);
-          return denied ? Permissions.photos : Permissions.none;
-        } else {
-          final status = await Permission.storage.request();
-          final denied = [
-            PermissionStatus.permanentlyDenied,
-            PermissionStatus.denied,
-          ].contains(status);
-          return denied ? Permissions.storage : Permissions.none;
-        }
-      } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-        final status = await Permission.photos.request();
-        final denied = [
-          PermissionStatus.permanentlyDenied,
-          PermissionStatus.denied,
-        ].contains(status);
-        return denied ? Permissions.photos : Permissions.none;
-      }
-    }
-    return Permissions.none;
-  }
-
   Future<void> _gotoPickImages() async {
     final picker = ImagePicker();
-    final images = await picker.pickMultiImage(limit: 9 - _fileWrappers.length);
-    if (images.isNotEmpty) {
-      final imageFutures = images.map(
-        (image) async {
-          return FileWrapper(
-            path: image.path,
-            bytes: await image.readAsBytes(),
-            name: image.name,
-          );
-        },
-      ).toList();
+    final image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      final bytes = await image.readAsBytes();
+      final path = image.path;
+      final name = image.name;
 
-      final fileWrappers = await Future.wait(imageFutures);
-
-      setState(
-        () => _fileWrappers = _fileWrappers + fileWrappers,
-      );
+      setState(() {
+        _fileWrappers = _fileWrappers +
+            [
+              FileWrapper(
+                path: path,
+                bytes: bytes,
+                name: name,
+              ),
+            ];
+      });
     }
   }
 

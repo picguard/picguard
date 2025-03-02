@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.dart';
-import 'package:picguard/theme/colors.dart';
 
 /// 声明文本
 class AppDescription extends StatelessWidget {
@@ -15,7 +15,7 @@ class AppDescription extends StatelessWidget {
     return Text(
       t.homePage.description,
       style: const TextStyle(
-        color: errorTextColor,
+        color: PGColors.errorTextColor,
         fontSize: 12,
         height: 1.5,
       ),

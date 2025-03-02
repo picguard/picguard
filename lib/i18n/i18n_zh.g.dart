@@ -52,7 +52,6 @@ class TranslationsZh extends Translations {
 		'it': 'Italian',
 		'zh': '中文',
 	};
-	@override late final _TranslationsThemesZh themes = _TranslationsThemesZh._(_root);
 }
 
 // Path: homePage
@@ -84,8 +83,6 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 	@override String get savedSuccess => '保存成功';
 	@override String get savedFailure => '保存失败';
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
-	@override String get settings => '设置';
-	@override String get languages => '语言';
 }
 
 // Path: menus
@@ -121,23 +118,12 @@ class _TranslationsDialogsZh extends TranslationsDialogsEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
+	@override String get selectColor => '选择颜色';
+	@override String get selectFont => '选择字体';
 	@override late final _TranslationsDialogsExitConfirmZh exitConfirm = _TranslationsDialogsExitConfirmZh._(_root);
 	@override late final _TranslationsDialogsPermissionsZh permissions = _TranslationsDialogsPermissionsZh._(_root);
 	@override late final _TranslationsDialogsLicenseDialogZh licenseDialog = _TranslationsDialogsLicenseDialogZh._(_root);
-}
-
-// Path: themes
-class _TranslationsThemesZh extends TranslationsThemesEn {
-	_TranslationsThemesZh._(TranslationsZh root) : this._root = root, super.internal(root);
-
-	final TranslationsZh _root; // ignore: unused_field
-
-	// Translations
-	@override String get manual => '手动模式';
-	@override String get system => '跟随系统';
-	@override String get dark => '深色模式';
-	@override String get light => '浅色模式';
-	@override String get description => '开启后, 将跟随系统打开或关闭深色模式';
+	@override late final _TranslationsDialogsSettingsDialogZh settingsDialog = _TranslationsDialogsSettingsDialogZh._(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -190,6 +176,19 @@ class _TranslationsDialogsLicenseDialogZh extends TranslationsDialogsLicenseDial
 	];
 }
 
+// Path: dialogs.settingsDialog
+class _TranslationsDialogsSettingsDialogZh extends TranslationsDialogsSettingsDialogEn {
+	_TranslationsDialogsSettingsDialogZh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get settings => '设置';
+	@override String get languages => '语言';
+	@override late final _TranslationsDialogsSettingsDialogThemesZh themes = _TranslationsDialogsSettingsDialogThemesZh._(_root);
+	@override String get themesDescription => '开启后, 将跟随系统打开或关闭深色模式';
+}
+
 // Path: dialogs.permissions.photos
 class _TranslationsDialogsPermissionsPhotosZh extends TranslationsDialogsPermissionsPhotosEn {
 	_TranslationsDialogsPermissionsPhotosZh._(TranslationsZh root) : this._root = root, super.internal(root);
@@ -210,6 +209,19 @@ class _TranslationsDialogsPermissionsStorageZh extends TranslationsDialogsPermis
 	// Translations
 	@override String get title => '允许访问您的存储';
 	@override String description({required Object appName}) => '请前往您的手机设置，授予${appName}访问您存储的权限.';
+}
+
+// Path: dialogs.settingsDialog.themes
+class _TranslationsDialogsSettingsDialogThemesZh extends TranslationsDialogsSettingsDialogThemesEn {
+	_TranslationsDialogsSettingsDialogThemesZh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get manual => '手动模式';
+	@override String get system => '跟随系统';
+	@override String get dark => '深色模式';
+	@override String get light => '浅色模式';
 }
 
 /// Flat map(s) containing all translations.
@@ -247,8 +259,6 @@ extension on TranslationsZh {
 			case 'homePage.savedSuccess': return '保存成功';
 			case 'homePage.savedFailure': return '保存失败';
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
-			case 'homePage.settings': return '设置';
-			case 'homePage.languages': return '语言';
 			case 'menus.help': return '帮助';
 			case 'menus.support': return '支持';
 			case 'menus.userAgreement': return '用户协议';
@@ -257,6 +267,8 @@ extension on TranslationsZh {
 			case 'buttons.cancel': return '再想想';
 			case 'buttons.ignore': return '忽略';
 			case 'buttons.turnOn': return '打开';
+			case 'dialogs.selectColor': return '选择颜色';
+			case 'dialogs.selectFont': return '选择字体';
 			case 'dialogs.exitConfirm.exit': return '退出';
 			case 'dialogs.exitConfirm.cancel': return '取消';
 			case 'dialogs.exitConfirm.title': return '关闭确认';
@@ -278,14 +290,16 @@ extension on TranslationsZh {
 			case 'dialogs.licenseDialog.androidPermissions.1': return ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)';
 			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)';
+			case 'dialogs.settingsDialog.settings': return '设置';
+			case 'dialogs.settingsDialog.languages': return '语言';
+			case 'dialogs.settingsDialog.themes.manual': return '手动模式';
+			case 'dialogs.settingsDialog.themes.system': return '跟随系统';
+			case 'dialogs.settingsDialog.themes.dark': return '深色模式';
+			case 'dialogs.settingsDialog.themes.light': return '浅色模式';
+			case 'dialogs.settingsDialog.themesDescription': return '开启后, 将跟随系统打开或关闭深色模式';
 			case 'locales.en': return 'English';
 			case 'locales.it': return 'Italian';
 			case 'locales.zh': return '中文';
-			case 'themes.manual': return '手动模式';
-			case 'themes.system': return '跟随系统';
-			case 'themes.dark': return '深色模式';
-			case 'themes.light': return '浅色模式';
-			case 'themes.description': return '开启后, 将跟随系统打开或关闭深色模式';
 			default: return null;
 		}
 	}
