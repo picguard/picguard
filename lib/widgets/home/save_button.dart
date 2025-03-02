@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:picguard/extensions/extensions.dart';
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.dart';
-import 'package:picguard/theme/colors.dart';
 
 /// 保存按钮
 class SaveBtn extends StatelessWidget {
@@ -24,15 +24,15 @@ class SaveBtn extends StatelessWidget {
               Set<WidgetState> states,
             ) {
               if (states.contains(WidgetState.disabled)) {
-                return secondaryGrayColor;
+                return PGColors.secondaryGrayColor;
               }
-              return primaryColor;
+              return PGColors.primaryColor;
             }),
             foregroundColor: WidgetStateProperty.resolveWith((
               Set<WidgetState> states,
             ) {
               if (states.contains(WidgetState.disabled)) {
-                return placeholderTextColor;
+                return PGColors.placeholderTextColor;
               }
               return Colors.white;
             }),

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:picguard/theme/colors.dart';
+import 'package:picguard/generated/colors.gen.dart';
 
 ///
 class PGAppBar extends AppBar {
@@ -26,7 +26,7 @@ class PGAppBar extends AppBar {
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(0.5),
             child: Container(
-              color: isDark ? secondaryTextColor : borderColor,
+              color: isDark ? PGColors.secondaryTextColor : PGColors.borderColor,
               height: 1,
             ),
           ),

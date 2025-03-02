@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:picguard/theme/colors.dart';
+import 'package:picguard/generated/colors.gen.dart';
 
 ///
 class AppTheme {
   ///
   static ThemeData get light {
     return ThemeData(
-      unselectedWidgetColor: borderColor,
+      unselectedWidgetColor: PGColors.borderColor,
       scaffoldBackgroundColor: Colors.white,
       fontFamily: 'NotoSansSC',
       appBarTheme: const AppBarTheme(
@@ -25,10 +25,10 @@ class AppTheme {
       ),
       checkboxTheme: CheckboxThemeData(
         fillColor: WidgetStateProperty.all(Colors.white),
-        checkColor: WidgetStateProperty.all(primaryColor),
+        checkColor: WidgetStateProperty.all(PGColors.primaryColor),
       ),
       radioTheme: RadioThemeData(
-        fillColor: WidgetStateProperty.all(primaryColor),
+        fillColor: WidgetStateProperty.all(PGColors.primaryColor),
       ),
       dividerTheme: const DividerThemeData(
         color: Colors.transparent,
@@ -47,51 +47,51 @@ class AppTheme {
         hintStyle: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.normal,
-          color: placeholderTextColor,
+          color: PGColors.placeholderTextColor,
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: borderColor,
+            color: PGColors.borderColor,
           ),
           gapPadding: 0,
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: borderColor,
+            color: PGColors.borderColor,
           ),
           gapPadding: 0,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: primaryColor,
+            color: PGColors.primaryColor,
           ),
           gapPadding: 0,
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: errorTextColor,
+            color: PGColors.errorTextColor,
           ),
           gapPadding: 0,
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: errorTextColor,
+            color: PGColors.errorTextColor,
           ),
           gapPadding: 0,
         ),
         errorStyle: const TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.normal,
-          color: errorTextColor,
+          color: PGColors.errorTextColor,
         ),
       ),
       colorScheme: ColorScheme.fromSwatch(
-        accentColor: primaryColor,
+        accentColor: PGColors.primaryColor,
       ),
       tabBarTheme: const TabBarTheme(
         tabAlignment: TabAlignment.start,
@@ -119,7 +119,7 @@ class AppTheme {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           backgroundColor: Colors.white,
-          foregroundColor: primaryBackgroundColor,
+          foregroundColor: PGColors.primaryBackgroundColor,
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -146,7 +146,7 @@ class AppTheme {
   ///
   static ThemeData get dark {
     return ThemeData(
-      unselectedWidgetColor: borderColor,
+      unselectedWidgetColor: PGColors.borderColor,
       scaffoldBackgroundColor: Colors.black,
       brightness: Brightness.dark,
       fontFamily: 'NotoSansSC',
@@ -155,8 +155,8 @@ class AppTheme {
         surfaceTintColor: Colors.black,
       ),
       bottomSheetTheme: BottomSheetThemeData(
-        surfaceTintColor: dialogBackgroundColor,
-        backgroundColor: dialogBackgroundColor,
+        surfaceTintColor: PGColors.dialogBackgroundColor,
+        backgroundColor: PGColors.dialogBackgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -164,67 +164,67 @@ class AppTheme {
       ),
       checkboxTheme: CheckboxThemeData(
         fillColor: WidgetStateProperty.all(Colors.white),
-        checkColor: WidgetStateProperty.all(primaryColor),
+        checkColor: WidgetStateProperty.all(PGColors.primaryColor),
       ),
       radioTheme: RadioThemeData(
-        fillColor: WidgetStateProperty.all(primaryColor),
+        fillColor: WidgetStateProperty.all(PGColors.primaryColor),
       ),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.normal,
-          color: placeholderTextColor,
+          color: PGColors.placeholderTextColor,
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: borderColor,
+            color: PGColors.borderColor,
           ),
           gapPadding: 0,
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: borderColor,
+            color: PGColors.borderColor,
           ),
           gapPadding: 0,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: primaryColor,
+            color: PGColors.primaryColor,
           ),
           gapPadding: 0,
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: errorTextColor,
+            color: PGColors.errorTextColor,
           ),
           gapPadding: 0,
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(
-            color: errorTextColor,
+            color: PGColors.errorTextColor,
           ),
           gapPadding: 0,
         ),
         errorStyle: const TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.normal,
-          color: errorTextColor,
+          color: PGColors.errorTextColor,
         ),
       ),
       colorScheme: ColorScheme.fromSwatch(
         brightness: Brightness.dark,
-        accentColor: primaryColor,
+        accentColor: PGColors.primaryColor,
       ),
       tabBarTheme: const TabBarTheme(
         tabAlignment: TabAlignment.start,
       ),
       dialogTheme: DialogTheme(
-        backgroundColor: dialogBackgroundColor,
+        backgroundColor: PGColors.dialogBackgroundColor,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         shape: RoundedRectangleBorder(
@@ -247,7 +247,7 @@ class AppTheme {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           backgroundColor: Colors.white,
-          foregroundColor: primaryBackgroundColor,
+          foregroundColor: PGColors.primaryBackgroundColor,
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),

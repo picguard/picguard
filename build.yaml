@@ -1,6 +1,18 @@
 targets:
   $default:
     builders:
+      flutter_gen_runner: # or flutter_gen
+        options:
+          output: lib/generated/ # Optional (default: lib/gen/)
+          line_length: 80 # Optional (default: 80)
+
+          colors:
+            enabled: true
+            outputs:
+              class_name: PGColors
+            inputs:
+              - assets/color/colors.xml
+
       slang_build_runner:
         options:
           base_locale: en

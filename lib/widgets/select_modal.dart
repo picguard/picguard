@@ -8,10 +8,10 @@ import 'package:get/get.dart' hide Translations;
 // Project imports:
 import 'package:picguard/controllers/controllers.dart';
 import 'package:picguard/extensions/extensions.dart';
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
-import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
 
@@ -45,7 +45,7 @@ class PGColorModal extends StatelessWidget {
             Text(
               t.dialogs.selectColor,
               style: TextStyle(
-                color: isDark ? Colors.white : primaryTextColor,
+                color: isDark ? Colors.white : PGColors.primaryTextColor,
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 height: 1.43,
@@ -63,14 +63,14 @@ class PGColorModal extends StatelessWidget {
               onPressed: NavigatorUtil.pop,
               icon: Icon(
                 Icons.close,
-                color: isDark ? primaryTextColor : secondaryTextColor,
+                color: isDark ? PGColors.primaryTextColor : PGColors.secondaryTextColor,
                 size: 16,
               )
                   .nestedPadding(padding: const EdgeInsets.all(2))
                   .nestedDecoratedBox(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: isDark ? placeholderTextColor : primaryGrayColor,
+                      color: isDark ? PGColors.placeholderTextColor : PGColors.primaryGrayColor,
                     ),
                   ),
             ),
@@ -82,7 +82,7 @@ class PGColorModal extends StatelessWidget {
             .nestedDecoratedBox(
               decoration: const BoxDecoration(
                 border:
-                    Border(bottom: BorderSide(color: borderColor, width: 0.5)),
+                    Border(bottom: BorderSide(color: PGColors.borderColor, width: 0.5)),
               ),
             ),
         ListView.builder(
@@ -93,7 +93,7 @@ class PGColorModal extends StatelessWidget {
             final item = items[index];
             final selected = item.value == color;
             final backgroundColor =
-                selected ? primaryBackgroundColor : Colors.transparent;
+                selected ? PGColors.primaryBackgroundColor : Colors.transparent;
             return TextButton(
               style: ButtonStyle(
                 padding: WidgetStateProperty.all(
@@ -102,7 +102,7 @@ class PGColorModal extends StatelessWidget {
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 backgroundColor: WidgetStateProperty.all(backgroundColor),
                 overlayColor: WidgetStateProperty.all(
-                  isDark ? primaryTextColor : primaryBackgroundColor,
+                  isDark ? PGColors.primaryTextColor : PGColors.primaryBackgroundColor,
                 ),
                 shape: WidgetStateProperty.all(const RoundedRectangleBorder()),
               ),
@@ -111,10 +111,10 @@ class PGColorModal extends StatelessWidget {
                 languageCode == 'zh' ? item.zhText : item.enText,
                 style: TextStyle(
                   color: selected
-                      ? primaryColor
+                      ? PGColors.primaryColor
                       : isDark
                           ? Colors.white
-                          : primaryTextColor,
+                          : PGColors.primaryTextColor,
                   fontSize: 14,
                   height: 1.43,
                 ),
@@ -167,7 +167,7 @@ class FontModal extends StatelessWidget {
             Text(
               t.dialogs.selectFont,
               style: TextStyle(
-                color: isDark ? Colors.white : primaryTextColor,
+                color: isDark ? Colors.white : PGColors.primaryTextColor,
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 height: 1.43,
@@ -185,14 +185,14 @@ class FontModal extends StatelessWidget {
               onPressed: NavigatorUtil.pop,
               icon: Icon(
                 Icons.close,
-                color: isDark ? primaryTextColor : secondaryTextColor,
+                color: isDark ? PGColors.primaryTextColor : PGColors.secondaryTextColor,
                 size: 16,
               )
                   .nestedPadding(padding: const EdgeInsets.all(2))
                   .nestedDecoratedBox(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: isDark ? placeholderTextColor : primaryGrayColor,
+                      color: isDark ? PGColors.placeholderTextColor : PGColors.primaryGrayColor,
                     ),
                   ),
             ),
@@ -204,7 +204,7 @@ class FontModal extends StatelessWidget {
             .nestedDecoratedBox(
               decoration: const BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(color: borderColor, width: 0.5),
+                  bottom: BorderSide(color: PGColors.borderColor, width: 0.5),
                 ),
               ),
             ),
@@ -216,7 +216,7 @@ class FontModal extends StatelessWidget {
             final item = items[index];
             final selected = item.fontFamily == font;
             final backgroundColor =
-                selected ? primaryBackgroundColor : Colors.transparent;
+                selected ? PGColors.primaryBackgroundColor : Colors.transparent;
             return TextButton(
               style: ButtonStyle(
                 padding: WidgetStateProperty.all(
@@ -225,7 +225,7 @@ class FontModal extends StatelessWidget {
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 backgroundColor: WidgetStateProperty.all(backgroundColor),
                 overlayColor: WidgetStateProperty.all(
-                  isDark ? primaryTextColor : primaryBackgroundColor,
+                  isDark ? PGColors.primaryTextColor : PGColors.primaryBackgroundColor,
                 ),
                 shape: WidgetStateProperty.all(const RoundedRectangleBorder()),
               ),
@@ -234,10 +234,10 @@ class FontModal extends StatelessWidget {
                 item.name,
                 style: TextStyle(
                   color: selected
-                      ? primaryColor
+                      ? PGColors.primaryColor
                       : isDark
                           ? Colors.white
-                          : primaryTextColor,
+                          : PGColors.primaryTextColor,
                   fontSize: 14,
                   height: 1.43,
                   fontFamily: item.fontFamily,
@@ -289,7 +289,7 @@ class SettingsModal extends StatelessWidget {
             Text(
               t.dialogs.settingsDialog.settings,
               style: TextStyle(
-                color: isDark ? Colors.white : primaryTextColor,
+                color: isDark ? Colors.white : PGColors.primaryTextColor,
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 height: 1.43,
@@ -307,14 +307,14 @@ class SettingsModal extends StatelessWidget {
               onPressed: NavigatorUtil.pop,
               icon: Icon(
                 Icons.close,
-                color: isDark ? primaryTextColor : secondaryTextColor,
+                color: isDark ? PGColors.primaryTextColor : PGColors.secondaryTextColor,
                 size: 16,
               )
                   .nestedPadding(padding: const EdgeInsets.all(2))
                   .nestedDecoratedBox(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: isDark ? placeholderTextColor : primaryGrayColor,
+                      color: isDark ? PGColors.placeholderTextColor : PGColors.primaryGrayColor,
                     ),
                   ),
             ),
@@ -326,7 +326,7 @@ class SettingsModal extends StatelessWidget {
             .nestedDecoratedBox(
               decoration: const BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(color: borderColor, width: 0.5),
+                  bottom: BorderSide(color: PGColors.borderColor, width: 0.5),
                 ),
               ),
             ),
@@ -456,6 +456,6 @@ class SettingsModal extends StatelessWidget {
         .nestedPadding(
           padding: EdgeInsets.only(bottom: 20 + bottom),
         )
-        .nestedColoredBox(color: isDark ? dialogBackgroundColor : Colors.white);
+        .nestedColoredBox(color: isDark ? PGColors.dialogBackgroundColor : Colors.white);
   }
 }

@@ -17,10 +17,10 @@ import 'package:picguard/app/config.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
-import 'package:picguard/theme/colors.dart';
 import 'package:picguard/types/types.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
@@ -56,7 +56,7 @@ class DialogUtil {
                     (index, permissionText) => Text(
                       '${index + 1}. ${(permissionText as StringCallback)(appName: appName)}',
                       style: TextStyle(
-                        color: isDark ? Colors.white : primaryTextColor,
+                        color: isDark ? Colors.white : PGColors.primaryTextColor,
                         fontSize: 14,
                       ),
                     ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
@@ -68,7 +68,7 @@ class DialogUtil {
                 (index, permissionText) => Text(
                   '${index + 1}. ${(permissionText as StringCallback)(appName: appName)}',
                   style: TextStyle(
-                    color: isDark ? Colors.white : primaryTextColor,
+                    color: isDark ? Colors.white : PGColors.primaryTextColor,
                     fontSize: 14,
                   ),
                 ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
@@ -79,7 +79,7 @@ class DialogUtil {
             title: Text(
               t.dialogs.licenseDialog.licenseDialogTitle,
               style: TextStyle(
-                color: isDark ? Colors.white : primaryTextColor,
+                color: isDark ? Colors.white : PGColors.primaryTextColor,
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),
@@ -92,14 +92,14 @@ class DialogUtil {
                   t.dialogs.licenseDialog
                       .licenseDialogContentContent(appName: appName),
                   style: TextStyle(
-                    color: isDark ? Colors.white : primaryTextColor,
+                    color: isDark ? Colors.white : PGColors.primaryTextColor,
                     fontSize: 14,
                   ),
                 ),
                 Text(
                   t.dialogs.licenseDialog.licenseDialogContentTip,
                   style: TextStyle(
-                    color: isDark ? Colors.white : primaryTextColor,
+                    color: isDark ? Colors.white : PGColors.primaryTextColor,
                     fontSize: 14,
                   ),
                 ).nestedPadding(padding: const EdgeInsets.only(top: 8)),
@@ -112,7 +112,7 @@ class DialogUtil {
                         text:
                             t.dialogs.licenseDialog.licenseDialogContentPrefix,
                         style: TextStyle(
-                          color: isDark ? Colors.white : primaryTextColor,
+                          color: isDark ? Colors.white : PGColors.primaryTextColor,
                           fontSize: 14,
                         ),
                       ),
@@ -129,14 +129,14 @@ class DialogUtil {
                             }
                           },
                         style: const TextStyle(
-                          color: primaryColor,
+                          color: PGColors.primaryColor,
                           fontSize: 14,
                         ),
                       ),
                       TextSpan(
                         text: t.dialogs.licenseDialog.licenseDialogContentAnd,
                         style: TextStyle(
-                          color: isDark ? Colors.white : primaryTextColor,
+                          color: isDark ? Colors.white : PGColors.primaryTextColor,
                           fontSize: 14,
                         ),
                       ),
@@ -153,7 +153,7 @@ class DialogUtil {
                             }
                           },
                         style: const TextStyle(
-                          color: primaryColor,
+                          color: PGColors.primaryColor,
                           fontSize: 14,
                         ),
                       ),
@@ -161,7 +161,7 @@ class DialogUtil {
                         text:
                             t.dialogs.licenseDialog.licenseDialogContentSuffix,
                         style: TextStyle(
-                          color: isDark ? Colors.white : primaryTextColor,
+                          color: isDark ? Colors.white : PGColors.primaryTextColor,
                           fontSize: 14,
                         ),
                       ),
@@ -182,7 +182,7 @@ class DialogUtil {
                     t.buttons.cancel,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: isDark ? Colors.white70 : secondaryTextColor,
+                      color: isDark ? Colors.white70 : PGColors.secondaryTextColor,
                       fontSize: 16,
                       height: 1.375,
                     ),
@@ -199,7 +199,7 @@ class DialogUtil {
                     t.buttons.agree,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      color: primaryColor,
+                      color: PGColors.primaryColor,
                       fontSize: 16,
                       height: 1.375,
                     ),
@@ -209,7 +209,7 @@ class DialogUtil {
                       )
                       .nestedDecoratedBox(
                         decoration: const BoxDecoration(
-                          border: Border(left: BorderSide(color: borderColor)),
+                          border: Border(left: BorderSide(color: PGColors.borderColor)),
                         ),
                       )
                       .nestedTap(() {
@@ -219,7 +219,7 @@ class DialogUtil {
                 ],
               ).nestedDecoratedBox(
                 decoration: const BoxDecoration(
-                  border: Border(top: BorderSide(color: borderColor)),
+                  border: Border(top: BorderSide(color: PGColors.borderColor)),
                 ),
               ),
             ],
@@ -246,8 +246,8 @@ class DialogUtil {
     Widget? contentWidget,
     String cancelText = 'Cancel',
     String okText = 'OK',
-    Color cancelColor = secondaryTextColor,
-    Color okColor = primaryColor,
+    Color cancelColor = PGColors.secondaryTextColor,
+    Color okColor = PGColors.primaryColor,
     bool hideCancel = false,
     bool barrierDismissible = false,
     VoidCallback? onCancel,
@@ -265,7 +265,7 @@ class DialogUtil {
                     title!,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      color: primaryTextColor,
+                      color: PGColors.primaryTextColor,
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                     ),
@@ -277,7 +277,7 @@ class DialogUtil {
                     content!,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      color: secondaryTextColor,
+                      color: PGColors.secondaryTextColor,
                       fontSize: 14,
                     ),
                   )
@@ -295,7 +295,7 @@ class DialogUtil {
                         height: 1.375,
                       ),
                     ),
-                    overlayColor: WidgetStateProperty.all(backgroundColor),
+                    overlayColor: WidgetStateProperty.all(PGColors.backgroundColor),
                     shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0),
@@ -310,7 +310,7 @@ class DialogUtil {
                     ),
                   ),
                 ).nestedSizedBox(height: _buttonHeight - 1).nestedExpanded(),
-                const ColoredBox(color: borderColor)
+                const ColoredBox(color: PGColors.borderColor)
                     .nestedSizedBox(width: 1, height: _buttonHeight),
               ],
               TextButton(
@@ -340,7 +340,7 @@ class DialogUtil {
           )
               .nestedDecoratedBox(
                 decoration: const BoxDecoration(
-                  border: Border(top: BorderSide(color: borderColor)),
+                  border: Border(top: BorderSide(color: PGColors.borderColor)),
                 ),
               )
               .nestedSizedBox(height: _buttonHeight),
@@ -394,7 +394,7 @@ class DialogUtil {
                 minimumSize: WidgetStateProperty.all(Size.zero),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 iconColor: WidgetStateProperty.all(Colors.red),
-                backgroundColor: WidgetStateProperty.all(backgroundColor),
+                backgroundColor: WidgetStateProperty.all(PGColors.backgroundColor),
               ),
               onPressed: NavigatorUtil.pop,
               icon: const Icon(Icons.close),
@@ -427,7 +427,7 @@ class DialogUtil {
         final Widget contentWidget = Text(
           content,
           style: TextStyle(
-            color: isDark ? Colors.white : secondaryTextColor,
+            color: isDark ? Colors.white : PGColors.secondaryTextColor,
             fontSize: 14,
             height: 1.43,
           ),

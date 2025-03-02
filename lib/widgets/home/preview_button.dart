@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:picguard/extensions/extensions.dart';
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.dart';
-import 'package:picguard/theme/colors.dart';
 
 /// 预览按钮
 class PreviewBtn extends StatelessWidget {
@@ -27,21 +27,21 @@ class PreviewBtn extends StatelessWidget {
               Set<WidgetState> states,
             ) {
               if (states.contains(WidgetState.disabled)) {
-                return secondaryBorderColor;
+                return PGColors.secondaryBorderColor;
               }
-              return primaryColor;
+              return PGColors.primaryColor;
             }),
             shape: WidgetStateProperty.resolveWith((
               Set<WidgetState> states,
             ) {
               if (states.contains(WidgetState.disabled)) {
                 return RoundedRectangleBorder(
-                  side: const BorderSide(color: secondaryBorderColor),
+                  side: const BorderSide(color: PGColors.secondaryBorderColor),
                   borderRadius: BorderRadius.circular(10),
                 );
               }
               return RoundedRectangleBorder(
-                side: const BorderSide(color: primaryColor),
+                side: const BorderSide(color: PGColors.primaryColor),
                 borderRadius: BorderRadius.circular(10),
               );
             }),

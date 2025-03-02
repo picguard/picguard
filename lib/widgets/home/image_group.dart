@@ -12,9 +12,9 @@ import 'package:reorderables/reorderables.dart';
 // Project imports:
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
-import 'package:picguard/theme/colors.dart';
 import 'package:picguard/utils/utils.dart';
 
 /// 图片组
@@ -50,7 +50,7 @@ class ImageGroup extends StatelessWidget {
                         fit: BoxFit.cover,
                         errorBuilder: (context, url, error) => const Icon(
                           Icons.error,
-                          color: errorTextColor,
+                          color: PGColors.errorTextColor,
                           size: 24,
                         ),
                       )
@@ -59,7 +59,7 @@ class ImageGroup extends StatelessWidget {
                         fit: BoxFit.cover,
                         errorBuilder: (context, url, error) => const Icon(
                           Icons.error,
-                          color: errorTextColor,
+                          color: PGColors.errorTextColor,
                           size: 24,
                         ),
                       );
@@ -96,12 +96,12 @@ class ImageGroup extends StatelessWidget {
                       right: 2,
                       child: const Icon(
                         Icons.clear,
-                        color: warnTextColor,
+                        color: PGColors.warnTextColor,
                         size: 14,
                       )
                           .nestedDecoratedBox(
                             decoration: BoxDecoration(
-                              color: backgroundColor,
+                              color: PGColors.backgroundColor,
                               borderRadius: BorderRadius.circular(9),
                             ),
                           )
@@ -120,14 +120,14 @@ class ImageGroup extends StatelessWidget {
             const Icon(
               Icons.add,
               size: 40,
-              color: borderColor,
+              color: PGColors.borderColor,
             )
                 .nestedCenter()
                 .nestedDecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
-                    color: isDark ? Colors.black54 : secondaryGrayColor,
-                    border: Border.all(color: borderColor),
+                    color: isDark ? Colors.black54 : PGColors.secondaryGrayColor,
+                    border: Border.all(color: PGColors.borderColor),
                   ),
                 )
                 .nestedSizedBox(width: itemWidth, height: itemWidth)

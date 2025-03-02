@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:picguard/extensions/extensions.dart';
-import 'package:picguard/theme/colors.dart';
+import 'package:picguard/generated/colors.gen.dart';
 
 ///
 typedef BaseFormItemCallback = void Function();
@@ -79,14 +79,14 @@ class _BaseFormItemState extends State<BaseFormItem> {
             const TextSpan(
               text: '*',
               style: TextStyle(
-                color: errorTextColor,
+                color: PGColors.errorTextColor,
                 fontSize: 14,
               ),
             ),
           TextSpan(
             text: widget.title,
             style: TextStyle(
-              color: isDark ? Colors.white : primaryTextColor,
+              color: isDark ? Colors.white : PGColors.primaryTextColor,
               fontSize: 14,
             ),
           ),
@@ -109,7 +109,7 @@ class _BaseFormItemState extends State<BaseFormItem> {
       icon: const Icon(
         Icons.info,
         size: 16,
-        color: primaryColor,
+        color: PGColors.primaryColor,
       ),
     ).nestedPadding(padding: const EdgeInsets.only(left: 4));
   }
