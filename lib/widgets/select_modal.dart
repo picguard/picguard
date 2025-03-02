@@ -355,6 +355,7 @@ class SettingsModal extends StatelessWidget {
                           toggleSize: 20,
                           value: auto,
                           borderRadius: 15,
+                          activeColor: PGColors.primaryColor,
                           onToggle: (value) {
                             final isDark =
                                 Theme.of(context).colorScheme.brightness ==

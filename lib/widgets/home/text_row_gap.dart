@@ -56,6 +56,7 @@ class _TextRowGapState extends State<TextRowGap> {
                       thumbRadius: 6,
                       thumbColor: PGColors.primaryColor,
                       overlayRadius: 0,
+                      tooltipBackgroundColor: PGColors.primaryColor,
                     ),
                     child: SfSlider(
                       min: initialGap / 2,

@@ -2,7 +2,7 @@
 <resources>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="primary_color">#1E90FF</color>
+    <color name="primary_color">#1E6EB9</color>
     <color name="primary_hover_color">#70A1FF</color>
     <color name="primary_background_color">#E3ECFC</color>
     <color name="primary_text_color">#333333</color>

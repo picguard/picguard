@@ -34,8 +34,8 @@ class PGColors {
   /// Color: #E3ECFC
   static const Color primaryBackgroundColor = Color(0xFFE3ECFC);
 
-  /// Color: #1E90FF
-  static const Color primaryColor = Color(0xFF1E90FF);
+  /// Color: #1E6EB9
+  static const Color primaryColor = Color(0xFF1E6EB9);
 
   /// Color: #F0F0F0
   static const Color primaryGrayColor = Color(0xFFF0F0F0);

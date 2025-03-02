@@ -55,6 +55,7 @@ class _FontSizePickerState extends State<FontSizePicker> {
                       thumbRadius: 6,
                       thumbColor: PGColors.primaryColor,
                       overlayRadius: 0,
+                      tooltipBackgroundColor: PGColors.primaryColor,
                     ),
                     child: SfSlider(
                       min: minFontSize,

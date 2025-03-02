@@ -52,6 +52,7 @@ class _OpacityPickerState extends State<OpacityPicker> {
                       thumbRadius: 6,
                       thumbColor: PGColors.primaryColor,
                       overlayRadius: 0,
+                      tooltipBackgroundColor: PGColors.primaryColor,
                     ),
                     child: SfSlider(
                       min: minOpacity,
