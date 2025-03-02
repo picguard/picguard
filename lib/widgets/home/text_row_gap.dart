@@ -92,7 +92,6 @@ class _TextRowGapState extends State<TextRowGap> {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
-                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(left: 8),

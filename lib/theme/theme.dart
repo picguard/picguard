@@ -46,7 +46,7 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: const TextStyle(
           fontSize: 14,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.normal,
           color: placeholderTextColor,
         ),
         enabledBorder: OutlineInputBorder(
@@ -86,7 +86,7 @@ class AppTheme {
         ),
         errorStyle: const TextStyle(
           fontSize: 12,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.normal,
           color: errorTextColor,
         ),
       ),
@@ -172,7 +172,7 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: const TextStyle(
           fontSize: 14,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.normal,
           color: placeholderTextColor,
         ),
         enabledBorder: OutlineInputBorder(
@@ -212,7 +212,7 @@ class AppTheme {
         ),
         errorStyle: const TextStyle(
           fontSize: 12,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.normal,
           color: errorTextColor,
         ),
       ),

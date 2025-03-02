@@ -4,3 +4,4 @@ export 'navigator_util.dart';
 export 'run_once.dart';
 export 'sp_util.dart';
 export 'string_util.dart';
+export 'permission_util.dart';

@@ -45,7 +45,6 @@ class ColorPicker extends StatelessWidget {
                 style: TextStyle(
                   color: isDark ? Colors.white : primaryTextColor,
                   overflow: TextOverflow.ellipsis,
-                  fontFamily: 'NotoSansSC',
                 ),
                 icon: const Icon(
                   Icons.arrow_drop_down,
@@ -103,8 +102,7 @@ class ColorPicker extends StatelessWidget {
                         languageCode == 'zh' ? color.zhText : color.enText,
                         style: const TextStyle(
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'NotoSansSC',
+                          fontFamily: 'NotoSansSC', // TODO(kjxbyz): Need to fixed later.
                         ),
                       ).nestedAlign(
                         alignment: Alignment.centerLeft,
@@ -120,7 +118,6 @@ class ColorPicker extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
-                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(left: 8),

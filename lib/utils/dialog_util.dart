@@ -58,7 +58,6 @@ class DialogUtil {
                       style: TextStyle(
                         color: isDark ? Colors.white : primaryTextColor,
                         fontSize: 14,
-                        fontWeight: FontWeight.w400,
                       ),
                     ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
                   )
@@ -71,7 +70,6 @@ class DialogUtil {
                   style: TextStyle(
                     color: isDark ? Colors.white : primaryTextColor,
                     fontSize: 14,
-                    fontWeight: FontWeight.w400,
                   ),
                 ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
               )
@@ -96,7 +94,6 @@ class DialogUtil {
                   style: TextStyle(
                     color: isDark ? Colors.white : primaryTextColor,
                     fontSize: 14,
-                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 Text(
@@ -104,7 +101,6 @@ class DialogUtil {
                   style: TextStyle(
                     color: isDark ? Colors.white : primaryTextColor,
                     fontSize: 14,
-                    fontWeight: FontWeight.w400,
                   ),
                 ).nestedPadding(padding: const EdgeInsets.only(top: 8)),
                 if (Platform.isAndroid) ...androidPermissionTexts,
@@ -118,7 +114,6 @@ class DialogUtil {
                         style: TextStyle(
                           color: isDark ? Colors.white : primaryTextColor,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       TextSpan(
@@ -136,7 +131,6 @@ class DialogUtil {
                         style: const TextStyle(
                           color: primaryColor,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       TextSpan(
@@ -144,7 +138,6 @@ class DialogUtil {
                         style: TextStyle(
                           color: isDark ? Colors.white : primaryTextColor,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       TextSpan(
@@ -162,7 +155,6 @@ class DialogUtil {
                         style: const TextStyle(
                           color: primaryColor,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       TextSpan(
@@ -171,7 +163,6 @@ class DialogUtil {
                         style: TextStyle(
                           color: isDark ? Colors.white : primaryTextColor,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ],
@@ -288,7 +279,6 @@ class DialogUtil {
                     style: const TextStyle(
                       color: secondaryTextColor,
                       fontSize: 14,
-                      fontWeight: FontWeight.w400,
                     ),
                   )
                 : null),
@@ -302,7 +292,6 @@ class DialogUtil {
                     textStyle: WidgetStateProperty.all(
                       const TextStyle(
                         fontSize: 16,
-                        fontWeight: FontWeight.w400,
                         height: 1.375,
                       ),
                     ),
@@ -330,7 +319,6 @@ class DialogUtil {
                   textStyle: WidgetStateProperty.all(
                     const TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.w400,
                       height: 1.375,
                     ),
                   ),
@@ -441,7 +429,6 @@ class DialogUtil {
           style: TextStyle(
             color: isDark ? Colors.white : secondaryTextColor,
             fontSize: 14,
-            fontWeight: FontWeight.w400,
             height: 1.43,
           ),
         );

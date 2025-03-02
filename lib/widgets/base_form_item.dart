@@ -72,8 +72,8 @@ class _BaseFormItemState extends State<BaseFormItem> {
   Widget get content {
     final brightness = Theme.of(context).brightness;
     final isDark = brightness == Brightness.dark;
-    return RichText(
-      text: TextSpan(
+    return Text.rich(
+      TextSpan(
         children: [
           if (widget.required)
             const TextSpan(
@@ -81,8 +81,6 @@ class _BaseFormItemState extends State<BaseFormItem> {
               style: TextStyle(
                 color: errorTextColor,
                 fontSize: 14,
-                fontWeight: FontWeight.w400,
-                fontFamily: 'NotoSansSC',
               ),
             ),
           TextSpan(
@@ -90,8 +88,6 @@ class _BaseFormItemState extends State<BaseFormItem> {
             style: TextStyle(
               color: isDark ? Colors.white : primaryTextColor,
               fontSize: 14,
-              fontWeight: FontWeight.w400,
-              fontFamily: 'NotoSansSC',
             ),
           ),
         ],

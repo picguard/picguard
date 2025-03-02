@@ -32,6 +32,7 @@ class PGColorModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final languageCode = LocaleSettings.currentLocale.languageCode;
     final bottom = MediaQuery.paddingOf(context).bottom;
@@ -42,7 +43,7 @@ class PGColorModal extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Select a color',
+              t.dialogs.selectColor,
               style: TextStyle(
                 color: isDark ? Colors.white : primaryTextColor,
                 fontSize: 16,
@@ -153,6 +154,7 @@ class FontModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final bottom = MediaQuery.paddingOf(context).bottom;
     final height = MediaQuery.sizeOf(context).height;
@@ -163,7 +165,7 @@ class FontModal extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Select a font',
+              t.dialogs.selectFont,
               style: TextStyle(
                 color: isDark ? Colors.white : primaryTextColor,
                 fontSize: 16,
@@ -285,7 +287,7 @@ class SettingsModal extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              t.homePage.settings,
+              t.dialogs.settingsDialog.settings,
               style: TextStyle(
                 color: isDark ? Colors.white : primaryTextColor,
                 fontSize: 16,
@@ -341,11 +343,11 @@ class SettingsModal extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   MineSectionGroup(
-                    title: t.themes.dark,
-                    description: t.themes.description,
+                    title: t.dialogs.settingsDialog.themes.dark,
+                    description: t.dialogs.settingsDialog.themesDescription,
                     items: [
                       MineSectionModel(
-                        title: t.themes.system,
+                        title: t.dialogs.settingsDialog.themes.system,
                         showIcon: false,
                         trailing: FlutterSwitch(
                           width: 50,
@@ -369,10 +371,10 @@ class SettingsModal extends StatelessWidget {
                   ),
                   if (!auto)
                     MineSectionGroup(
-                      title: t.themes.manual,
+                      title: t.dialogs.settingsDialog.themes.manual,
                       items: [
                         MineSectionModel(
-                          title: t.themes.light,
+                          title: t.dialogs.settingsDialog.themes.light,
                           showIcon: false,
                           trailing: Radio<ThemeMode>(
                             value: ThemeMode.light,
@@ -391,7 +393,7 @@ class SettingsModal extends StatelessWidget {
                           ),
                         ),
                         MineSectionModel(
-                          title: t.themes.dark,
+                          title: t.dialogs.settingsDialog.themes.dark,
                           showIcon: false,
                           trailing: Radio<ThemeMode>(
                             value: ThemeMode.dark,
@@ -415,7 +417,7 @@ class SettingsModal extends StatelessWidget {
               );
             }),
             MineSectionGroup(
-              title: t.homePage.languages,
+              title: t.dialogs.settingsDialog.languages,
               items: t.locales.entries.map(
                 (MapEntry<String, String> entry) {
                   final appLocale = AppLocaleUtils.parse(entry.key);

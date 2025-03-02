@@ -25,9 +25,7 @@
     "save": "保存",
     "savedSuccess": "保存成功",
     "savedFailure": "保存失败",
-    "saveInfo": "已保存$succeedNum张, 保存失败$failedNum张",
-    "settings": "设置",
-    "languages": "语言"
+    "saveInfo": "已保存$succeedNum张, 保存失败$failedNum张"
   },
   "menus": {
     "help": "帮助",
@@ -42,6 +40,8 @@
     "turnOn": "打开"
   },
   "dialogs": {
+    "selectColor": "选择颜色",
+    "selectFont": "选择字体",
     "exitConfirm": {
       "exit": "退出",
       "cancel": "取消",
@@ -76,18 +76,22 @@
         "为了让您保存图片, $appName需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)",
         "为了给您的图像添加水印, $appName需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)"
       ]
+    },
+    "settingsDialog": {
+      "settings": "设置",
+      "languages": "语言",
+      "themes": {
+        "manual": "手动模式",
+        "system": "跟随系统",
+        "dark": "深色模式",
+        "light": "浅色模式"
+      },
+      "themesDescription": "开启后, 将跟随系统打开或关闭深色模式"
     }
   },
   "locales(map)": {
     "en": "English",
     "it": "Italian",
     "zh": "中文"
-  },
-  "themes": {
-    "manual": "手动模式",
-    "system": "跟随系统",
-    "dark": "深色模式",
-    "light": "浅色模式",
-    "description": "开启后, 将跟随系统打开或关闭深色模式"
   }
 }

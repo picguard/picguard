@@ -31,7 +31,6 @@ class AppVersion extends StatelessWidget {
             style: const TextStyle(
               color: secondaryTextColor,
               fontSize: 12,
-              fontFamily: 'NotoSansSC',
             ),
             textAlign: TextAlign.center,
           );

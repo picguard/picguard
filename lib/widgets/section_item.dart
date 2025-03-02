@@ -58,7 +58,6 @@ class MineSectionItem extends StatelessWidget {
               style: const TextStyle(
                 color: secondaryTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w400,
               ),
             ).nestedPadding(padding: EdgeInsets.only(right: showIcon ? 4 : 0)),
           if (showIcon)
@@ -95,7 +94,6 @@ class MineSectionItem extends StatelessWidget {
                   style: const TextStyle(
                     color: secondaryTextColor,
                     fontSize: 12,
-                    fontWeight: FontWeight.w400,
                   ),
                 ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
             ],
@@ -200,7 +198,6 @@ class MineSectionGroup extends StatelessWidget {
               style: TextStyle(
                 color: isDark ? secondaryBorderColor : secondaryTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w400,
                 height: 1.67,
               ),
             ).nestedPadding(
@@ -213,7 +210,6 @@ class MineSectionGroup extends StatelessWidget {
               style: TextStyle(
                 color: isDark ? secondaryBorderColor : secondaryTextColor,
                 fontSize: 12,
-                fontWeight: FontWeight.w400,
                 height: 1.67,
               ),
             ).nestedPadding(

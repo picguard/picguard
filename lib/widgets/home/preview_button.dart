@@ -51,8 +51,6 @@ class PreviewBtn extends StatelessWidget {
             t.homePage.preview,
             style: const TextStyle(
               fontSize: 16,
-              fontWeight: FontWeight.w400,
-              fontFamily: 'NotoSansSC',
             ),
           ),
         ).nestedSizedBox(

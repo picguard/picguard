@@ -92,7 +92,6 @@ class _TextColumnGapState extends State<TextColumnGap> {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
-                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(left: 8),

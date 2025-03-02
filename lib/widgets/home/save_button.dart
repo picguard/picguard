@@ -42,8 +42,6 @@ class SaveBtn extends StatelessWidget {
             t.homePage.save,
             style: const TextStyle(
               fontSize: 16,
-              fontWeight: FontWeight.w400,
-              fontFamily: 'NotoSansSC',
             ),
           ),
         ).nestedSizedBox(

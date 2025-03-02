@@ -91,7 +91,6 @@ class _FontSizePickerState extends State<FontSizePicker> {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
-                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(left: 8),

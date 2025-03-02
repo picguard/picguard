@@ -137,6 +137,14 @@ class _MainAppState extends State<MainApp> {
       () {
         final t = Translations.of(context);
         final appName = t.appName(flavor: AppConfig.shared.flavor);
+
+        final child = DefaultTextStyle.merge(
+          style: const TextStyle(
+            fontFamily: 'NotoSansSC',
+            fontWeight: FontWeight.normal,
+          ),
+          child: const HomePage(),
+        );
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           navigatorKey: AppNavigator.key,
@@ -168,7 +176,7 @@ class _MainAppState extends State<MainApp> {
                               onSelected: DialogUtil.showSettingsModal,
                               shortcut:
                                   const CharacterActivator(',', meta: true),
-                              label: t.homePage.settings,
+                              label: t.dialogs.settingsDialog.settings,
                             ),
                           ],
                         ),
@@ -216,9 +224,9 @@ class _MainAppState extends State<MainApp> {
                       ],
                     ),
                   ],
-                  child: const HomePage(),
+                  child: child,
                 )
-              : const HomePage(),
+              : child,
           builder: (BuildContext context, Widget? child) {
             child = easyLoadingBuilder(context, child);
             return MediaQuery(

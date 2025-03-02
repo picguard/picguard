@@ -38,7 +38,7 @@ class ImageGroup extends StatelessWidget {
       builder: (context, constraints) {
         final isDark = Theme.of(context).brightness == Brightness.dark;
         final width = constraints.maxWidth;
-        final contentWidth = width - padding * 2;
+        final contentWidth = width - paddingSize * 2;
         final itemWidth = ((contentWidth - spacing * 2) / 3).floorToDouble();
         final items = fileWrappers
             .mapIndexed(

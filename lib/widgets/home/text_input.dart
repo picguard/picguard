@@ -45,8 +45,6 @@ class TextInput extends StatelessWidget {
                 style: TextStyle(
                   color: isDark ? Colors.white : primaryTextColor,
                   fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'NotoSansSC',
                 ),
                 onChanged: (value) {
                   field
@@ -83,9 +81,7 @@ class TextInput extends StatelessWidget {
                   hintMaxLines: 2,
                   hintStyle: const TextStyle(
                     fontSize: 14,
-                    fontWeight: FontWeight.normal,
                     color: Colors.grey,
-                    fontFamily: 'NotoSansSC',
                   ),
                   focusedBorder: hasError
                       ? OutlineInputBorder(
@@ -112,7 +108,6 @@ class TextInput extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 12,
                     color: errorTextColor,
-                    fontFamily: 'NotoSansSC',
                   ),
                 ).nestedPadding(
                   padding: const EdgeInsets.only(left: 8),

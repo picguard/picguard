@@ -106,7 +106,6 @@ class FontPicker extends StatelessWidget {
                         fontFamily.name,
                         style: TextStyle(
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
                           fontFamily: fontFamily.fontFamily,
                         ),
                       ).nestedAlign(
