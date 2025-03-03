@@ -24,11 +24,11 @@ class SettingsController extends GetxController {
 
   Rx<ThemeMode> themeMode = ThemeMode.system.obs;
 
-  // 在初始化时读取存储的数据
+  // Read stored data at initialization
   @override
   void onInit() {
     super.onInit();
-    // 读取存储的数据，如果没有则设置默认值
+    // Read stored data, set default value if not
     final themeModeFromStorage = getThemeMode();
     themeMode.value = themeModeFromStorage;
   }

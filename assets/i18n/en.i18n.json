@@ -27,6 +27,50 @@
     "savedFailure": "Failed to save image(s)",
     "saveInfo": "$succeedNum image(s) saved, $failedNum image(s) failed to save"
   },
+  "colors(interface=AppColor)": [
+    {
+      "alpha": 255,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "label": "White"
+    },
+    {
+      "alpha": 255,
+      "red": 158,
+      "green": 158,
+      "blue": 158,
+      "label": "Grey"
+    },
+    {
+      "alpha": 255,
+      "red": 0,
+      "green": 0,
+      "blue": 0,
+      "label": "Black"
+    },
+    {
+      "alpha": 255,
+      "red": 244,
+      "green": 67,
+      "blue": 54,
+      "label": "Red"
+    },
+    {
+      "alpha": 255,
+      "red": 255,
+      "green": 152,
+      "blue": 0,
+      "label": "Orange"
+    },
+    {
+      "alpha": 255,
+      "red": 33,
+      "green": 150,
+      "blue": 243,
+      "label": "Blue"
+    }
+  ],
   "menus": {
     "help": "Help",
     "support": "Support",

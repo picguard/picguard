@@ -44,6 +44,14 @@ class TranslationsIt extends Translations {
 		}
 	}
 	@override late final _TranslationsHomePageIt homePage = _TranslationsHomePageIt._(_root);
+	@override List<AppColor> get colors => [
+		_Translations$colors$0i0$It._(_root),
+		_Translations$colors$0i1$It._(_root),
+		_Translations$colors$0i2$It._(_root),
+		_Translations$colors$0i3$It._(_root),
+		_Translations$colors$0i4$It._(_root),
+		_Translations$colors$0i5$It._(_root),
+	];
 	@override late final _TranslationsMenusIt menus = _TranslationsMenusIt._(_root);
 	@override late final _TranslationsButtonsIt buttons = _TranslationsButtonsIt._(_root);
 	@override late final _TranslationsDialogsIt dialogs = _TranslationsDialogsIt._(_root);
@@ -83,6 +91,90 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String get savedSuccess => 'Salvataggio riuscito';
 	@override String get savedFailure => 'Impossibile salvare l\'immagine(i)';
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
+}
+
+// Path: colors.0
+class _Translations$colors$0i0$It extends Translations$colors$0i0$En with AppColor {
+	_Translations$colors$0i0$It._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get alpha => '255';
+	@override String get red => '255';
+	@override String get green => '255';
+	@override String get blue => '255';
+	@override String get label => 'Bianco';
+}
+
+// Path: colors.1
+class _Translations$colors$0i1$It extends Translations$colors$0i1$En with AppColor {
+	_Translations$colors$0i1$It._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get alpha => '255';
+	@override String get red => '158';
+	@override String get green => '158';
+	@override String get blue => '158';
+	@override String get label => 'Grigio';
+}
+
+// Path: colors.2
+class _Translations$colors$0i2$It extends Translations$colors$0i2$En with AppColor {
+	_Translations$colors$0i2$It._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get alpha => '255';
+	@override String get red => '0';
+	@override String get green => '0';
+	@override String get blue => '0';
+	@override String get label => 'Nero';
+}
+
+// Path: colors.3
+class _Translations$colors$0i3$It extends Translations$colors$0i3$En with AppColor {
+	_Translations$colors$0i3$It._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get alpha => '255';
+	@override String get red => '244';
+	@override String get green => '67';
+	@override String get blue => '54';
+	@override String get label => 'Rosso';
+}
+
+// Path: colors.4
+class _Translations$colors$0i4$It extends Translations$colors$0i4$En with AppColor {
+	_Translations$colors$0i4$It._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get alpha => '255';
+	@override String get red => '255';
+	@override String get green => '152';
+	@override String get blue => '0';
+	@override String get label => 'Arancia';
+}
+
+// Path: colors.5
+class _Translations$colors$0i5$It extends Translations$colors$0i5$En with AppColor {
+	_Translations$colors$0i5$It._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get alpha => '255';
+	@override String get red => '33';
+	@override String get green => '150';
+	@override String get blue => '243';
+	@override String get label => 'Blu';
 }
 
 // Path: menus
@@ -259,6 +351,36 @@ extension on TranslationsIt {
 			case 'homePage.savedSuccess': return 'Salvataggio riuscito';
 			case 'homePage.savedFailure': return 'Impossibile salvare l\'immagine(i)';
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
+			case 'colors.0.alpha': return '255';
+			case 'colors.0.red': return '255';
+			case 'colors.0.green': return '255';
+			case 'colors.0.blue': return '255';
+			case 'colors.0.label': return 'Bianco';
+			case 'colors.1.alpha': return '255';
+			case 'colors.1.red': return '158';
+			case 'colors.1.green': return '158';
+			case 'colors.1.blue': return '158';
+			case 'colors.1.label': return 'Grigio';
+			case 'colors.2.alpha': return '255';
+			case 'colors.2.red': return '0';
+			case 'colors.2.green': return '0';
+			case 'colors.2.blue': return '0';
+			case 'colors.2.label': return 'Nero';
+			case 'colors.3.alpha': return '255';
+			case 'colors.3.red': return '244';
+			case 'colors.3.green': return '67';
+			case 'colors.3.blue': return '54';
+			case 'colors.3.label': return 'Rosso';
+			case 'colors.4.alpha': return '255';
+			case 'colors.4.red': return '255';
+			case 'colors.4.green': return '152';
+			case 'colors.4.blue': return '0';
+			case 'colors.4.label': return 'Arancia';
+			case 'colors.5.alpha': return '255';
+			case 'colors.5.red': return '33';
+			case 'colors.5.green': return '150';
+			case 'colors.5.blue': return '243';
+			case 'colors.5.label': return 'Blu';
 			case 'menus.help': return 'Aiuto';
 			case 'menus.support': return 'Supporto';
 			case 'menus.userAgreement': return 'Accordo utente';

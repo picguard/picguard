@@ -34,7 +34,6 @@ class PGColorModal extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Translations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final languageCode = LocaleSettings.currentLocale.languageCode;
     final bottom = MediaQuery.paddingOf(context).bottom;
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -91,7 +90,7 @@ class PGColorModal extends StatelessWidget {
           itemCount: items.length,
           itemBuilder: (context, index) {
             final item = items[index];
-            final selected = item.value == color;
+            final selected = item.color.toARGB32() == color;
             final backgroundColor =
                 selected ? PGColors.primaryBackgroundColor : Colors.transparent;
             return TextButton(
@@ -108,7 +107,7 @@ class PGColorModal extends StatelessWidget {
               ),
               onPressed: () => callback(item),
               child: Text(
-                languageCode == 'zh' ? item.zhText : item.enText,
+                item.label,
                 style: TextStyle(
                   color: selected
                       ? PGColors.primaryColor

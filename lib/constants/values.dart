@@ -10,16 +10,6 @@ const maxOpacity = 1.0; // 最大不透明度
 
 double initialGap = isMobile ? 200.0 : 60.0;
 
-/// colors
-const colors = <PGColor>[
-  PGColor(value: 0xFFFFFFFF, enText: 'White', zhText: '白色'),
-  PGColor(value: 0xFF9E9E9E, enText: 'Grey', zhText: '灰色'),
-  PGColor(value: 0xFF000000, enText: 'Black', zhText: '黑色'),
-  PGColor(value: 0xFFF44336, enText: 'Red', zhText: '红色'),
-  PGColor(value: 0xFFFF9800, enText: 'Orange', zhText: '橙色'),
-  PGColor(value: 0xFF2196F3, enText: 'Blue', zhText: '蓝色'),
-];
-
 /// fontFamilies
 const fontFamilies = <PGFont>[
   PGFont(fontFamily: 'Roboto', name: 'Roboto'),

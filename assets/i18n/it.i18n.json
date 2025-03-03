@@ -27,6 +27,50 @@
     "savedFailure": "Impossibile salvare l'immagine(i)",
     "saveInfo": "Sono state salvate $succeedNum l'immagine(i) e non è stato possibile salvare $failedNum l'immagine(i)."
   },
+  "colors(interface=AppColor)": [
+    {
+      "alpha": 255,
+      "red": 255,
+      "green": 255,
+      "blue": 255,
+      "label": "Bianco"
+    },
+    {
+      "alpha": 255,
+      "red": 158,
+      "green": 158,
+      "blue": 158,
+      "label": "Grigio"
+    },
+    {
+      "alpha": 255,
+      "red": 0,
+      "green": 0,
+      "blue": 0,
+      "label": "Nero"
+    },
+    {
+      "alpha": 255,
+      "red": 244,
+      "green": 67,
+      "blue": 54,
+      "label": "Rosso"
+    },
+    {
+      "alpha": 255,
+      "red": 255,
+      "green": 152,
+      "blue": 0,
+      "label": "Arancia"
+    },
+    {
+      "alpha": 255,
+      "red": 33,
+      "green": 150,
+      "blue": 243,
+      "label": "Blu"
+    }
+  ],
   "menus": {
     "help": "Aiuto",
     "support": "Supporto",
