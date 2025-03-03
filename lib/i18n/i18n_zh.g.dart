@@ -44,6 +44,14 @@ class TranslationsZh extends Translations {
 		}
 	}
 	@override late final _TranslationsHomePageZh homePage = _TranslationsHomePageZh._(_root);
+	@override List<AppColor> get colors => [
+		_Translations$colors$0i0$Zh._(_root),
+		_Translations$colors$0i1$Zh._(_root),
+		_Translations$colors$0i2$Zh._(_root),
+		_Translations$colors$0i3$Zh._(_root),
+		_Translations$colors$0i4$Zh._(_root),
+		_Translations$colors$0i5$Zh._(_root),
+	];
 	@override late final _TranslationsMenusZh menus = _TranslationsMenusZh._(_root);
 	@override late final _TranslationsButtonsZh buttons = _TranslationsButtonsZh._(_root);
 	@override late final _TranslationsDialogsZh dialogs = _TranslationsDialogsZh._(_root);
@@ -83,6 +91,90 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 	@override String get savedSuccess => '保存成功';
 	@override String get savedFailure => '保存失败';
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
+}
+
+// Path: colors.0
+class _Translations$colors$0i0$Zh extends Translations$colors$0i0$En with AppColor {
+	_Translations$colors$0i0$Zh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get alpha => '255';
+	@override String get red => '255';
+	@override String get green => '255';
+	@override String get blue => '255';
+	@override String get label => '白色';
+}
+
+// Path: colors.1
+class _Translations$colors$0i1$Zh extends Translations$colors$0i1$En with AppColor {
+	_Translations$colors$0i1$Zh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get alpha => '255';
+	@override String get red => '158';
+	@override String get green => '158';
+	@override String get blue => '158';
+	@override String get label => '灰色';
+}
+
+// Path: colors.2
+class _Translations$colors$0i2$Zh extends Translations$colors$0i2$En with AppColor {
+	_Translations$colors$0i2$Zh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get alpha => '255';
+	@override String get red => '0';
+	@override String get green => '0';
+	@override String get blue => '0';
+	@override String get label => '黑色';
+}
+
+// Path: colors.3
+class _Translations$colors$0i3$Zh extends Translations$colors$0i3$En with AppColor {
+	_Translations$colors$0i3$Zh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get alpha => '255';
+	@override String get red => '244';
+	@override String get green => '67';
+	@override String get blue => '54';
+	@override String get label => '红色';
+}
+
+// Path: colors.4
+class _Translations$colors$0i4$Zh extends Translations$colors$0i4$En with AppColor {
+	_Translations$colors$0i4$Zh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get alpha => '255';
+	@override String get red => '255';
+	@override String get green => '152';
+	@override String get blue => '0';
+	@override String get label => '橙色';
+}
+
+// Path: colors.5
+class _Translations$colors$0i5$Zh extends Translations$colors$0i5$En with AppColor {
+	_Translations$colors$0i5$Zh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get alpha => '255';
+	@override String get red => '33';
+	@override String get green => '150';
+	@override String get blue => '243';
+	@override String get label => '蓝色';
 }
 
 // Path: menus
@@ -259,6 +351,36 @@ extension on TranslationsZh {
 			case 'homePage.savedSuccess': return '保存成功';
 			case 'homePage.savedFailure': return '保存失败';
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
+			case 'colors.0.alpha': return '255';
+			case 'colors.0.red': return '255';
+			case 'colors.0.green': return '255';
+			case 'colors.0.blue': return '255';
+			case 'colors.0.label': return '白色';
+			case 'colors.1.alpha': return '255';
+			case 'colors.1.red': return '158';
+			case 'colors.1.green': return '158';
+			case 'colors.1.blue': return '158';
+			case 'colors.1.label': return '灰色';
+			case 'colors.2.alpha': return '255';
+			case 'colors.2.red': return '0';
+			case 'colors.2.green': return '0';
+			case 'colors.2.blue': return '0';
+			case 'colors.2.label': return '黑色';
+			case 'colors.3.alpha': return '255';
+			case 'colors.3.red': return '244';
+			case 'colors.3.green': return '67';
+			case 'colors.3.blue': return '54';
+			case 'colors.3.label': return '红色';
+			case 'colors.4.alpha': return '255';
+			case 'colors.4.red': return '255';
+			case 'colors.4.green': return '152';
+			case 'colors.4.blue': return '0';
+			case 'colors.4.label': return '橙色';
+			case 'colors.5.alpha': return '255';
+			case 'colors.5.red': return '33';
+			case 'colors.5.green': return '150';
+			case 'colors.5.blue': return '243';
+			case 'colors.5.label': return '蓝色';
 			case 'menus.help': return '帮助';
 			case 'menus.support': return '支持';
 			case 'menus.userAgreement': return '用户协议';
