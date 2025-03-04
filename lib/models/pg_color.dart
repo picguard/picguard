@@ -1,17 +1,29 @@
-// Dart imports:
-import 'dart:ui';
+// Project imports:
+import 'package:picguard/i18n/i18n.g.dart';
 
 ///
-class PGColor {
+enum PGColor {
+  white(0xFFFFFFFF),
+  grey(0xFF9E9E9E),
+  black(0xFF000000),
+  red(0xFFF44336),
+  orange(0xFFFF9800),
+  blue(0xFF2196F3);
+
   ///
-  const PGColor({
-    required this.color,
-    required this.label,
-  });
+  const PGColor(this.color);
 
   /// 颜色值
-  final Color color;
+  final int color;
 
-  /// 文案
-  final String label;
+  String get label {
+    return switch (this) {
+      PGColor.white => t.colors.white,
+      PGColor.grey => t.colors.grey,
+      PGColor.black => t.colors.black,
+      PGColor.red => t.colors.red,
+      PGColor.orange => t.colors.orange,
+      PGColor.blue => t.colors.blue,
+    };
+  }
 }

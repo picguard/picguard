@@ -27,50 +27,14 @@
     "savedFailure": "保存失败",
     "saveInfo": "已保存$succeedNum张, 保存失败$failedNum张"
   },
-  "colors(interface=AppColor)": [
-    {
-      "alpha": 255,
-      "red": 255,
-      "green": 255,
-      "blue": 255,
-      "label": "白色"
-    },
-    {
-      "alpha": 255,
-      "red": 158,
-      "green": 158,
-      "blue": 158,
-      "label": "灰色"
-    },
-    {
-      "alpha": 255,
-      "red": 0,
-      "green": 0,
-      "blue": 0,
-      "label": "黑色"
-    },
-    {
-      "alpha": 255,
-      "red": 244,
-      "green": 67,
-      "blue": 54,
-      "label": "红色"
-    },
-    {
-      "alpha": 255,
-      "red": 255,
-      "green": 152,
-      "blue": 0,
-      "label": "橙色"
-    },
-    {
-      "alpha": 255,
-      "red": 33,
-      "green": 150,
-      "blue": 243,
-      "label": "蓝色"
-    }
-  ],
+  "colors": {
+    "white": "白色",
+    "grey": "灰色",
+    "black": "黑色",
+    "red": "红色",
+    "orange": "橙色",
+    "blue": "蓝色"
+  },
   "menus": {
     "help": "帮助",
     "support": "支持",

@@ -7,7 +7,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 // Project imports:
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
 

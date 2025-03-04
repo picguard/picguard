@@ -1,5 +1,5 @@
 // Project imports:
-import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/i18n/i18n.g.dart';
 
 class AppConfig {
   factory AppConfig.create({

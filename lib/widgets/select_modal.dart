@@ -9,7 +9,7 @@ import 'package:get/get.dart' hide Translations;
 import 'package:picguard/controllers/controllers.dart';
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
 import 'package:picguard/utils/utils.dart';
@@ -90,7 +90,7 @@ class PGColorModal extends StatelessWidget {
           itemCount: items.length,
           itemBuilder: (context, index) {
             final item = items[index];
-            final selected = item.color.toARGB32() == color;
+            final selected = item.color == color;
             final backgroundColor =
                 selected ? PGColors.primaryBackgroundColor : Colors.transparent;
             return TextButton(

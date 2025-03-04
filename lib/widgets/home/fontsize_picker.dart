@@ -10,7 +10,7 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:picguard/constants/get.dart';
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
 

@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 3
-/// Strings: 285 (95 per locale)
+/// Strings: 213 (71 per locale)
 ///
-/// Built on 2025-03-03 at 12:32 UTC
+/// Built on 2025-03-04 at 10:40 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -201,47 +201,4 @@ class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, Translations> {
 enum Flavor {
 	free,
 	pro,
-}
-
-// interfaces generated as mixins
-
-mixin AppColor {
-	String get alpha;
-	String get red;
-	String get green;
-	String get blue;
-	String get label;
-
-	@override
-	bool operator ==(Object other) {
-		if (identical(this, other)) return true;
-		if (other is! AppColor) return false;
-
-		final fields = $fields;
-		final otherFields = other.$fields;
-		for (int i = 0; i < fields.length; i++) {
-			if (fields[i] != otherFields[i]) return false;
-		}
-
-		return true;
-	}
-
-	@override
-	int get hashCode {
-		final fields = $fields;
-		int result = fields.first.hashCode;
-		for (final element in fields.skip(1)) {
-			result *= element.hashCode;
-		}
-
-		return result;
-	}
-
-	List<Object?> get $fields => [
-		alpha,
-		red,
-		green,
-		blue,
-		label,
-	];
 }
