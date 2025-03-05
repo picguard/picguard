@@ -448,10 +448,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: "1c2b787f99bdca1f3718543f81d38aa1b124817dfeb9fb196201bea85b6134bf"
+      sha256: "5a1e6fb2c0561958d7e4c33574674bda7b77caaca7a33b758876956f2902eea3"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.26"
+    version: "2.0.27"
   flutter_spinkit:
     dependency: transitive
     description:
@@ -610,10 +610,10 @@ packages:
     dependency: "direct main"
     description:
       name: image_gallery_saver_plus
-      sha256: "388b2043d6377277536fd6346e15cd0a87a9c48cef51284c9f35fedf03659312"
+      sha256: d56cb27414ac09aff24cc8d5af6a68a04bcbe82e1c3aed0574e1a50a295c3d3a
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0-0.alpha"
+    version: "4.0.0"
   image_picker:
     dependency: "direct main"
     description:
@@ -1207,18 +1207,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "393db014b90865222f8c442dd989a9ba6107bb92bf4d4774257d60a3ee05053f"
+      sha256: "5a1a76eef118e511443b299925d4a802eb8259388d6a580e0ad6413d1a70f987"
       url: "https://pub.dev"
     source: hosted
-    version: "28.2.7"
+    version: "28.2.9"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "131446a2818d31305596e7e94fd45f13fdc9a1b387939f4f814026aca99d8d7c"
+      sha256: fd6eee88ef842d3c62921c18769bc49db941d32232feb5decbffc019f11903f8
       url: "https://pub.dev"
     source: hosted
-    version: "28.2.7"
+    version: "28.2.9"
   synchronized:
     dependency: "direct main"
     description:
