@@ -44,7 +44,7 @@ class ImageGroup extends StatelessWidget {
             .mapIndexed(
               (index, element) {
                 printDebugLog(element.path);
-                final image = kIsWeb
+                Widget child = kIsWeb
                     ? Image.network(
                         element.path,
                         fit: BoxFit.cover,
@@ -64,8 +64,6 @@ class ImageGroup extends StatelessWidget {
                         ),
                       );
 
-                Widget child = image;
-
                 if (kIsWeb || isDesktop) {
                   child = SingleChildScrollView(
                     child: SingleChildScrollView(
@@ -79,6 +77,7 @@ class ImageGroup extends StatelessWidget {
                   children: [
                     child
                         .nestedSizedBox(width: itemWidth, height: itemWidth)
+                        .nestedClipRRect(borderRadius: BorderRadius.circular(4))
                         .nestedTap(() {
                       final imageProviders = fileWrappers.map((fileWrapper) {
                         return (kIsWeb
@@ -115,22 +114,25 @@ class ImageGroup extends StatelessWidget {
             .cast<Widget>()
             .toList();
 
+        final addIcon = const Icon(
+          Icons.add,
+          size: 60,
+          color: PGColors.borderColor,
+        ).nestedCenter().nestedDecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: isDark ? Colors.black54 : PGColors.secondaryGrayColor,
+                border: Border.all(color: PGColors.borderColor),
+              ),
+            );
+
         if (items.length < 9) {
           items.add(
-            const Icon(
-              Icons.add,
-              size: 40,
-              color: PGColors.borderColor,
-            )
-                .nestedCenter()
-                .nestedDecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: isDark ? Colors.black54 : PGColors.secondaryGrayColor,
-                    border: Border.all(color: PGColors.borderColor),
-                  ),
+            addIcon
+                .nestedSizedBox(
+                  width: items.isEmpty ? contentWidth : itemWidth,
+                  height: itemWidth,
                 )
-                .nestedSizedBox(width: itemWidth, height: itemWidth)
                 .nestedInkWell(onTap: pickImages),
           );
         }
@@ -140,8 +142,6 @@ class ImageGroup extends StatelessWidget {
           runSpacing: runSpacing,
           onReorder: onReorder,
           scrollPhysics: const NeverScrollableScrollPhysics(),
-          alignment:
-              fileWrappers.isEmpty ? WrapAlignment.center : WrapAlignment.start,
           children: items,
         );
       },
