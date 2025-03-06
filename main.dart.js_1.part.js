@@ -2,7 +2,7 @@
 a[b][c]=a[b][c]||[]
 a[b][c].push({p:"main.dart.js_1",e:"beginPart"})})(self,"$__dart_deferred_initializers__","eventLog")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-b2a(d,e,f){var w,v,u=x.c,t=new B.jQ(C.o1,u)
+b2a(d,e,f){var w,v,u=x.c,t=new B.jQ(C.o0,u)
 u=new A.a06(t,new B.jQ(C.fd,u))
 u.H0(d,e,null)
 w=u.a
@@ -296,19 +296,19 @@ $S:9};(function installTearOffs(){var w=a.installInstanceTearOff
 w(A.abD.prototype,"gjC",1,0,null,["$1$appName"],["lg"],0,0,0)
 w(A.abF.prototype,"gjC",1,0,null,["$1$appName"],["lg"],0,0,0)})();(function inheritance(){var w=a.inherit,v=a.inheritMany
 w(A.a06,B.f6)
-w(A.aOY,B.Il)
-w(A.aOO,B.Ig)
-w(A.aP_,B.Im)
-w(A.aOM,B.If)
-w(A.aOQ,B.Ih)
-w(A.aOR,B.Ii)
-w(A.aOT,B.Ij)
+w(A.aOY,B.Im)
+w(A.aOO,B.Ih)
+w(A.aP_,B.In)
+w(A.aOM,B.Ig)
+w(A.aOQ,B.Ii)
+w(A.aOR,B.Ij)
+w(A.aOT,B.Ik)
 w(A.abD,B.yD)
 w(A.abF,B.yE)
-w(A.aOU,B.Ik)
+w(A.aOU,B.Il)
 v(B.lf,[A.aQn,A.aQk,A.aQ4,A.aQ5,A.aQ6,A.aQ7,A.aQ8,A.aQ9,A.aQa,A.aQb,A.aQc])})()
 B.aVP(b.typeUniverse,JSON.parse('{"a06":{"f6":[],"ir":["ew","f6"]}}'))
 var y={S:" l'autorizzazione a visitare il tuo album.",j:" l'autorizzazione ad accedere al tuo archivio.",I:" l'immagine(i) e non \xe8 stato possibile salvare ",g:"Accedi alle Impostazioni del tuo telefono per concedere a ",a:"Alcune lingue non supportano i font personalizzati",c:"Dopo averlo attivato, la modalit\xe0 scura verr\xe0 attivata o disattivata in base al sistema",_:"Il testo verr\xe0 aggiunto all'immagine come filigrana",C:"Per aggiungere una filigrana alle tue immagini, ",M:"Questa app non caricher\xe0 alcuna immagine sul server, tutte le operazioni vengono completate localmente",N:"Questo certificato \xe8 utilizzato solo per la gestione di xx attivit\xe0 e non \xe8 valido per altri scopi.",s:"Some languages do not support custom fonts",e:"Vai alle Impostazioni del tuo telefono per concedere a "}
 var x={g:B.au("j"),c:B.au("jQ<ew,f6>")}};
 ((a,b)=>{a[b]=a.current
-a.eventLog.push({p:"main.dart.js_1",e:"endPart",h:b})})($__dart_deferred_initializers__,"BcUDmw3ro7Xiru14CtuAYZ4Lmgo=");
+a.eventLog.push({p:"main.dart.js_1",e:"endPart",h:b})})($__dart_deferred_initializers__,"bm3pCZVq25e74Rl8M/WpAiP4lCA=");
