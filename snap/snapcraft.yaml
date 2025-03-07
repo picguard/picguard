@@ -58,7 +58,7 @@ parts:
       - libstdc++-12-dev
     build-environment:
       - FLUTTER_REPO: https://github.com/flutter/flutter.git
-      - FLUTTER_VERSION: 3.29.0
+      - FLUTTER_VERSION: 3.29.1
       - FLUTTER_TARGET: lib/main_free.dart
     override-build: |
       # https://github.com/canonical/snapcraft/blob/main/snapcraft/parts/plugins/flutter_plugin.py
@@ -70,7 +70,8 @@ parts:
       git clone --depth 1 -b $FLUTTER_VERSION $FLUTTER_REPO $PG_FLUTTER_BUILD_DIR
       
       # https://github.com/canonical/snapcraft/pull/5264
-      rm -f "$PG_FLUTTER_BUILD_DIR/engine/src/.gn"
+      # Fixed in 3.29.1
+      # rm -f "$PG_FLUTTER_BUILD_DIR/engine/src/.gn"
       flutter doctor -v
       flutter precache --linux
       flutter pub get

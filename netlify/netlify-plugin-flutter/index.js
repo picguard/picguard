@@ -36,11 +36,12 @@ export const onPreBuild = async function ({
     console.log('✅ Flutter SDK downloaded')
 
     // https://github.com/canonical/snapcraft/pull/5264
-    console.log('🐛 Removing engine/src/.gn')
-    await run('rm', [
-      '-f',
-      flutterPath + '/engine/src/.gn',
-    ])
+    // Fixed in 3.29.1
+    // console.log('🐛 Removing engine/src/.gn')
+    // await run('rm', [
+    //   '-f',
+    //   flutterPath + '/engine/src/.gn',
+    // ])
 
     console.log('🪄 Adding Flutter to PATH')
     process.env['PATH'] = process.env['PATH'] + ':' + flutterBinPath
