@@ -23,7 +23,9 @@ import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:path/path.dart' hide context;
+import 'package:uuid/uuid.dart';
 
 // Project imports:
 import 'package:picguard/app/config.dart';
@@ -35,6 +37,8 @@ import 'package:picguard/models/models.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
 
+const uuid = Uuid();
+
 ///
 class HomePage extends StatefulWidget {
   ///
@@ -45,13 +49,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late MultiImagePickerController controller;
   final _formKey = GlobalKey<FormBuilderState>();
   final inputFocusNode = FocusNode();
-  List<FileWrapper> _fileWrappers = [];
 
   @override
   void initState() {
     super.initState();
+    controller = MultiImagePickerController(
+      maxImages: 9,
+      images: <ImageFile>[],
+      picker: (bool allowMultiple) async {
+        final pickedImages = await _pickImages(allowMultiple);
+        if (pickedImages.length >
+            controller.maxImages - controller.images.length) {
+          return pickedImages.slice(
+            0,
+            controller.maxImages - controller.images.length,
+          );
+        }
+
+        return pickedImages;
+      },
+    )..addListener(() {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+
     LocaleSettings.getLocaleStream().listen((event) {
       printDebugLog('locale changed: $event');
     });
@@ -61,6 +86,12 @@ class _HomePageState extends State<HomePage> {
         DialogUtil.showLicenseDialog();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -100,15 +131,7 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       spacing: 10,
                       children: [
-                        ImageGroup(
-                          fileWrappers: _fileWrappers,
-                          onRemove: (index) => setState(
-                            () =>
-                                _fileWrappers = _fileWrappers..removeAt(index),
-                          ),
-                          onReorder: _onReorder,
-                          pickImages: _pickImages,
-                        ),
+                        ImageGroup(controller: controller),
                         const AppDescription(),
                       ],
                     ),
@@ -137,11 +160,13 @@ class _HomePageState extends State<HomePage> {
                         ),
                         const Gap(20),
                         PreviewBtn(
-                          onPressed: _fileWrappers.isNotEmpty ? _preview : null,
+                          onPressed:
+                              controller.images.isNotEmpty ? _preview : null,
                         ),
                         const Gap(10),
                         SaveBtn(
-                          onPressed: _fileWrappers.isNotEmpty ? _save : null,
+                          onPressed:
+                              controller.images.isNotEmpty ? _save : null,
                         ),
                         const Gap(14),
                         const AppVersion(),
@@ -155,14 +180,7 @@ class _HomePageState extends State<HomePage> {
             return ListView(
               padding: padding,
               children: [
-                ImageGroup(
-                  fileWrappers: _fileWrappers,
-                  onRemove: (index) => setState(
-                    () => _fileWrappers = _fileWrappers..removeAt(index),
-                  ),
-                  onReorder: _onReorder,
-                  pickImages: _pickImages,
-                ),
+                ImageGroup(controller: controller),
                 const Gap(10),
                 const AppDescription(),
                 const Gap(10),
@@ -185,10 +203,10 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const Gap(20),
                 PreviewBtn(
-                  onPressed: _fileWrappers.isNotEmpty ? _preview : null,
+                  onPressed: controller.images.isNotEmpty ? _preview : null,
                 ),
                 const Gap(10),
-                SaveBtn(onPressed: _fileWrappers.isNotEmpty ? _save : null),
+                SaveBtn(onPressed: controller.images.isNotEmpty ? _save : null),
                 const Gap(14),
                 const AppVersion(),
               ],
@@ -236,11 +254,12 @@ class _HomePageState extends State<HomePage> {
 
       try {
         await EasyLoading.show();
-        final imageFutures = _fileWrappers
+        final imageFutures = controller.images
+            .where((element) => element.bytes != null)
             .mapIndexed(
               (index, element) => _addWatermarkV2(
                 imageIdx: index,
-                bytes: element.bytes,
+                bytes: element.bytes!,
                 name: element.name,
                 watermark: text,
                 colorValue: color,
@@ -307,11 +326,12 @@ class _HomePageState extends State<HomePage> {
 
       try {
         await EasyLoading.show();
-        final imageFutures = _fileWrappers
+        final imageFutures = controller.images
+            .where((element) => element.bytes != null)
             .mapIndexed(
               (index, element) => _addWatermarkV2(
                 imageIdx: index,
-                bytes: element.bytes,
+                bytes: element.bytes!,
                 name: element.name,
                 watermark: text,
                 colorValue: color,
@@ -584,7 +604,7 @@ class _HomePageState extends State<HomePage> {
     return ReturnWrapper(bytes: watermarkedBytes, name: fileName);
   }
 
-  Future<void> _pickImages() async {
+  Future<List<ImageFile>> _pickImages(bool allowMultiple) async {
     final permission = await PermissionUtil.checkPermission();
     if (permission != Permissions.none) {
       final t = Translations.of(AppNavigator.key.currentContext!);
@@ -605,37 +625,43 @@ class _HomePageState extends State<HomePage> {
           await AppSettings.openAppSettings();
         },
       );
-      return;
+      return [];
     }
 
-    await _gotoPickImages();
+    return _gotoPickImages(allowMultiple);
   }
 
-  Future<void> _gotoPickImages() async {
+  Future<List<ImageFile>> _gotoPickImages(bool allowMultiple) async {
     final picker = ImagePicker();
-    final image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      final bytes = await image.readAsBytes();
-      final path = image.path;
-      final name = image.name;
+    if (allowMultiple) {
+      final images = await picker.pickMultiImage();
+      final imageFutures = images.mapIndexed(
+        (index, image) async {
+          return ImageFile(
+            'index_${uuid.v4()}',
+            name: image.name,
+            extension: extension(image.name),
+            path: image.path,
+            bytes: await image.readAsBytes(),
+          );
+        },
+      ).toList();
 
-      setState(() {
-        _fileWrappers = _fileWrappers +
-            [
-              FileWrapper(
-                path: path,
-                bytes: bytes,
-                name: name,
-              ),
-            ];
-      });
+      return Future.wait(imageFutures);
+    } else {
+      final image = await picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        return [
+          ImageFile(
+            'index_${uuid.v4()}',
+            name: image.name,
+            extension: extension(image.name),
+            path: image.path,
+            bytes: await image.readAsBytes(),
+          ),
+        ];
+      }
+      return [];
     }
-  }
-
-  // Sort selected photos
-  void _onReorder(int oldIndex, int newIndex) {
-    setState(
-      () => _fileWrappers = _fileWrappers..swap(oldIndex, newIndex),
-    );
   }
 }

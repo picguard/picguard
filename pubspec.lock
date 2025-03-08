@@ -452,6 +452,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.27"
+  flutter_reorderable_grid_view:
+    dependency: transitive
+    description:
+      name: flutter_reorderable_grid_view
+      sha256: a7e0f9d5ba12fd232eb07fbb7f570ae35491045a6bba1858f6eb50c675526dfe
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.4.1"
   flutter_spinkit:
     dependency: transitive
     description:
@@ -822,6 +830,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.16.8"
+  multi_image_picker_view:
+    dependency: "direct main"
+    description:
+      name: multi_image_picker_view
+      sha256: ed12fa78263b74f004c1adc9f1b75c1b6164c92bd6b1ea4e49b5f89289d731d0
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   package_config:
     dependency: transitive
     description:
@@ -1022,14 +1038,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
-  reorderables:
-    dependency: "direct main"
-    description:
-      name: reorderables
-      sha256: "004a886e4878df1ee27321831c838bc1c976311f4ca6a74ce7d561e506540a77"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.0"
   sentry:
     dependency: transitive
     description:
@@ -1348,7 +1356,7 @@ packages:
     source: hosted
     version: "3.1.4"
   uuid:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: uuid
       sha256: a5be9ef6618a7ac1e964353ef476418026db906c4facdedaa299b7a2e71690ff

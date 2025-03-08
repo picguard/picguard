@@ -1,148 +1,55 @@
-// Dart imports:
-import 'dart:io';
-
 // Flutter imports:
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:collection/collection.dart';
-import 'package:reorderables/reorderables.dart';
-
-// Project imports:
-import 'package:picguard/constants/constants.dart';
-import 'package:picguard/extensions/extensions.dart';
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/logger/logger.dart';
-import 'package:picguard/models/models.dart';
-import 'package:picguard/utils/utils.dart';
+import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
 /// 图片组
 class ImageGroup extends StatelessWidget {
   const ImageGroup({
-    required this.fileWrappers,
-    required this.onRemove,
-    required this.onReorder,
-    this.pickImages,
+    required this.controller,
     super.key,
   });
 
-  final List<FileWrapper> fileWrappers;
-  final void Function(int index) onRemove;
-  final ReorderCallback onReorder;
-  final VoidCallback? pickImages;
+  final MultiImagePickerController controller;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isDark = Theme.of(context).brightness == Brightness.dark;
         final width = constraints.maxWidth;
-        final contentWidth = width - paddingSize * 2;
-        final itemWidth = ((contentWidth - spacing * 2) / 3).floorToDouble();
-        final items = fileWrappers
-            .mapIndexed(
-              (index, element) {
-                printDebugLog(element.path);
-                Widget child = kIsWeb
-                    ? Image.network(
-                        element.path,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, url, error) => const Icon(
-                          Icons.error,
-                          color: PGColors.errorTextColor,
-                          size: 24,
-                        ),
-                      )
-                    : Image.file(
-                        File(element.path),
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, url, error) => const Icon(
-                          Icons.error,
-                          color: PGColors.errorTextColor,
-                          size: 24,
-                        ),
-                      );
 
-                if (kIsWeb || isDesktop) {
-                  child = SingleChildScrollView(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: child,
-                    ),
-                  );
-                }
-
-                return Stack(
-                  children: [
-                    child
-                        .nestedSizedBox(width: itemWidth, height: itemWidth)
-                        .nestedClipRRect(borderRadius: BorderRadius.circular(4))
-                        .nestedTap(() {
-                      final imageProviders = fileWrappers.map((fileWrapper) {
-                        return (kIsWeb
-                                ? NetworkImage(fileWrapper.path)
-                                : FileImage(File(fileWrapper.path)))
-                            as ImageProvider;
-                      }).toList();
-                      DialogUtil.showImagePreviewDialog(
-                        imageProviders,
-                        initialPage: index,
-                      );
-                    }),
-                    Positioned(
-                      top: 2,
-                      right: 2,
-                      child: const Icon(
-                        Icons.clear,
-                        color: PGColors.warnTextColor,
-                        size: 14,
-                      )
-                          .nestedDecoratedBox(
-                            decoration: BoxDecoration(
-                              color: PGColors.backgroundColor,
-                              borderRadius: BorderRadius.circular(9),
-                            ),
-                          )
-                          .nestedSizedBox(width: 18, height: 18)
-                          .nestedTap(() => onRemove(index)),
-                    ),
-                  ],
-                );
-              },
-            )
-            .cast<Widget>()
-            .toList();
-
-        final addIcon = const Icon(
-          Icons.add,
-          size: 60,
-          color: PGColors.borderColor,
-        ).nestedCenter().nestedDecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: isDark ? Colors.black54 : PGColors.secondaryGrayColor,
-                border: Border.all(color: PGColors.borderColor),
-              ),
+        return MultiImagePickerView(
+          controller: controller,
+          builder: (context, ImageFile imageFile) {
+            // here returning DefaultDraggableItemWidget. You can also return your custom widget as well.
+            return DefaultDraggableItemWidget(
+              imageFile: imageFile,
+              boxDecoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              closeButtonIcon:
+                  const Icon(Icons.delete_rounded, color: Colors.red, size: 16),
+              closeButtonMargin: const EdgeInsets.all(3),
             );
-
-        if (items.length < 9) {
-          items.add(
-            addIcon
-                .nestedSizedBox(
-                  width: items.isEmpty ? contentWidth : itemWidth,
-                  height: itemWidth,
-                )
-                .nestedInkWell(onTap: pickImages),
-          );
-        }
-
-        return ReorderableWrap(
-          spacing: spacing,
-          runSpacing: runSpacing,
-          onReorder: onReorder,
-          scrollPhysics: const NeverScrollableScrollPhysics(),
-          children: items,
+          },
+          initialWidget: DefaultInitialWidget(
+            centerWidget: const Icon(Icons.add_a_photo),
+            backgroundColor:
+                Theme.of(context).colorScheme.secondary.withValues(alpha: 0.05),
+            margin: EdgeInsets.zero,
+          ),
+          addMoreButton: DefaultAddMoreWidget(
+            icon: const Icon(Icons.add),
+            backgroundColor:
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.4),
+          ),
+          // Use any Widget or DefaultAddMoreWidget. Use null to hide add more button.
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: width / 3,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          shrinkWrap: true,
         );
       },
     );
