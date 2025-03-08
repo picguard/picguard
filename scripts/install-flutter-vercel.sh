@@ -25,6 +25,10 @@ mkdir "$FLUTTER_DIR/flutter" && tar -xf "$FLUTTER_DIR/flutter_linux_3.29.1-stabl
 echo "🟩 Config $FLUTTER_DIR/flutter"
 git config --global --add safe.directory "$FLUTTER_DIR/flutter"
 
+# https://github.com/canonical/snapcraft/pull/5264
+# Fixed in 3.29.1
+#rm -f "$FLUTTER_DIR/flutter/engine/src/.gn"
+
 echo "🟩 Running ls"
 ls
 

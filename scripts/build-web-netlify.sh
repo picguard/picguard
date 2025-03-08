@@ -16,10 +16,12 @@ if [ "$CONTEXT" = "production" ]; then
     flutter build web --dart-define SENTRY_DSN="$PG_ENV_PROD" --dart-define GIT_COMMIT_SHA="$COMMIT_REF" --target lib/main_free.dart --base-href /play/
   fi
 else
-  echo "🔥Building web app in preview environment"
+  echo "🔥Building web app in $CONTEXT environment"
   if [ "$FLAVOR" = "pro" ]; then
+    echo "🔥Built for pro version"
     flutter build web --dart-define SENTRY_DSN="$PG_ENV_STG" --dart-define GIT_COMMIT_SHA="$COMMIT_REF" --target lib/main_pro.dart
   else
+    echo "🔥Built for free version"
     flutter build web --dart-define SENTRY_DSN="$PG_ENV_STG" --dart-define GIT_COMMIT_SHA="$COMMIT_REF" --target lib/main_free.dart
   fi
 fi
