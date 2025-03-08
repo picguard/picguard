@@ -286,10 +286,10 @@ packages:
     dependency: "direct main"
     description:
       name: device_info_plus
-      sha256: "610739247975c2d0de43482afa13ec1018f63c9fddf97ef3d8dc895faa3b4543"
+      sha256: "306b78788d1bb569edb7c55d622953c2414ca12445b41c9117963e03afc5c513"
       url: "https://pub.dev"
     source: hosted
-    version: "11.3.2"
+    version: "11.3.3"
   device_info_plus_platform_interface:
     dependency: transitive
     description:
@@ -461,10 +461,18 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: "1f74d9bd071bd8ab661faf38f6c57028a953b182703cac4b60821b9b2af583e9"
+      sha256: "5a1e6fb2c0561958d7e4c33574674bda7b77caaca7a33b758876956f2902eea3"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.25"
+    version: "2.0.27"
+  flutter_reorderable_grid_view:
+    dependency: transitive
+    description:
+      name: flutter_reorderable_grid_view
+      sha256: a7e0f9d5ba12fd232eb07fbb7f570ae35491045a6bba1858f6eb50c675526dfe
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.4.1"
   flutter_rust_bridge:
     dependency: "direct main"
     description:
@@ -636,10 +644,10 @@ packages:
     dependency: "direct main"
     description:
       name: image_gallery_saver_plus
-      sha256: "388b2043d6377277536fd6346e15cd0a87a9c48cef51284c9f35fedf03659312"
+      sha256: d56cb27414ac09aff24cc8d5af6a68a04bcbe82e1c3aed0574e1a50a295c3d3a
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0-0.alpha"
+    version: "4.0.0"
   image_picker:
     dependency: "direct main"
     description:
@@ -853,6 +861,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.16.8"
+  multi_image_picker_view:
+    dependency: "direct main"
+    description:
+      name: multi_image_picker_view
+      sha256: ed12fa78263b74f004c1adc9f1b75c1b6164c92bd6b1ea4e49b5f89289d731d0
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   package_config:
     dependency: transitive
     description:
@@ -1061,14 +1077,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
-  reorderables:
-    dependency: "direct main"
-    description:
-      name: reorderables
-      sha256: "004a886e4878df1ee27321831c838bc1c976311f4ca6a74ce7d561e506540a77"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.0"
   rust_lib_picguard:
     dependency: "direct main"
     description:
@@ -1261,18 +1269,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "393db014b90865222f8c442dd989a9ba6107bb92bf4d4774257d60a3ee05053f"
+      sha256: "5a1a76eef118e511443b299925d4a802eb8259388d6a580e0ad6413d1a70f987"
       url: "https://pub.dev"
     source: hosted
-    version: "28.2.7"
+    version: "28.2.9"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "131446a2818d31305596e7e94fd45f13fdc9a1b387939f4f814026aca99d8d7c"
+      sha256: fd6eee88ef842d3c62921c18769bc49db941d32232feb5decbffc019f11903f8
       url: "https://pub.dev"
     source: hosted
-    version: "28.2.7"
+    version: "28.2.9"
   synchronized:
     dependency: "direct main"
     description:
@@ -1402,7 +1410,7 @@ packages:
     source: hosted
     version: "3.1.4"
   uuid:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: uuid
       sha256: a5be9ef6618a7ac1e964353ef476418026db906c4facdedaa299b7a2e71690ff
@@ -1539,4 +1547,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.7.0 <4.0.0"
-  flutter: ">=3.29.0"
+  flutter: ">=3.29.1"

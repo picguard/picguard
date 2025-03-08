@@ -20,7 +20,7 @@ import 'package:picguard/app/config.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/controllers/controllers.dart';
-import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/pages/pages.dart';
 import 'package:picguard/theme/theme.dart';

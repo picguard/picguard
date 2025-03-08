@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.15+439
+
+1. fix: update flavors for iOS and macOS
+2. fix(deps): update deps
+3. refactor: Enable adaptive layout on web and desktop platforms
+4. fix: add i18n support for color labels
+5. refactor: update ImageGroup widget
+
 ## 1.0.14+438
 
 1. fix(deps): update deps

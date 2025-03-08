@@ -18,7 +18,7 @@ import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
 import 'package:picguard/types/types.dart';

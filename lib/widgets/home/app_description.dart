@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/i18n/i18n.g.dart';
 
 /// 声明文本
 class AppDescription extends StatelessWidget {

@@ -8,7 +8,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 // Project imports:
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.dart';
+import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
 import 'package:picguard/utils/utils.dart';
@@ -22,19 +22,7 @@ class ColorPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Translations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final colors = t.colors
-        .map(
-          (item) => PGColor(
-            color: Color.fromARGB(
-              int.parse(item.alpha),
-              int.parse(item.red),
-              int.parse(item.green),
-              int.parse(item.blue),
-            ),
-            label: item.label,
-          ),
-        )
-        .toList();
+    const colors = PGColor.values;
 
     return BaseFormItem(
       title: t.homePage.colorLabel,
@@ -42,7 +30,7 @@ class ColorPicker extends StatelessWidget {
       showTip: false,
       child: FormBuilderField<int>(
         name: 'color',
-        initialValue: colors.elementAt(1).color.toARGB32(),
+        initialValue: colors.elementAt(1).color,
         builder: (FormFieldState<int> field) {
           final hasError = StringUtil.isNotBlank(field.errorText);
           return Column(
@@ -107,8 +95,8 @@ class ColorPicker extends StatelessWidget {
                 items: colors.map(
                   (item) {
                     return DropdownMenuItem<int>(
-                      enabled: item.color.toARGB32() != field.value,
-                      value: item.color.toARGB32(),
+                      enabled: item.color != field.value,
+                      value: item.color,
                       child: Text(item.label).nestedAlign(
                         alignment: Alignment.centerLeft,
                       ),
@@ -150,11 +138,11 @@ class ColorPicker extends StatelessWidget {
       color: field.value,
       callback: (PGColor item) {
         if (kDebugMode) {
-          printDebugLog('id: ${item.color.toARGB32()}, name: ${item.label}');
+          printDebugLog('id: ${item.color}, name: ${item.label}');
         }
 
         field
-          ..didChange(item.color.toARGB32())
+          ..didChange(item.color)
           ..validate();
 
         NavigatorUtil.pop();
