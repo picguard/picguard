@@ -108,6 +108,11 @@ class _TranslationsMenusIt extends TranslationsMenusEn {
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
+	@override String about({required Object appName}) => 'Di ${appName}';
+	@override String hide({required Object appName}) => 'Nascondere ${appName}';
+	@override String get hideOthers => 'Nascondere gli altri';
+	@override String get showAll => 'Mostra tutto';
+	@override String exit({required Object appName}) => 'Esentato ${appName}';
 	@override String get help => 'Aiuto';
 	@override String get support => 'Supporto';
 	@override String get userAgreement => 'Accordo utente';
@@ -281,6 +286,11 @@ extension on TranslationsIt {
 			case 'colors.red': return 'Rosso';
 			case 'colors.orange': return 'Arancia';
 			case 'colors.blue': return 'Blu';
+			case 'menus.about': return ({required Object appName}) => 'Di ${appName}';
+			case 'menus.hide': return ({required Object appName}) => 'Nascondere ${appName}';
+			case 'menus.hideOthers': return 'Nascondere gli altri';
+			case 'menus.showAll': return 'Mostra tutto';
+			case 'menus.exit': return ({required Object appName}) => 'Esentato ${appName}';
 			case 'menus.help': return 'Aiuto';
 			case 'menus.support': return 'Supporto';
 			case 'menus.userAgreement': return 'Accordo utente';

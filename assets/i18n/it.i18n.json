@@ -36,6 +36,11 @@
     "blue": "Blu"
   },
   "menus": {
+    "about": "Di $appName",
+    "hide": "Nascondere $appName",
+    "hideOthers": "Nascondere gli altri",
+    "showAll": "Mostra tutto",
+    "exit": "Esentato $appName",
     "help": "Aiuto",
     "support": "Supporto",
     "userAgreement": "Accordo utente",

@@ -1,9 +1,11 @@
 // Dart imports:
 import 'dart:developer';
+import 'dart:io';
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -25,6 +27,8 @@ import 'package:picguard/logger/logger.dart';
 import 'package:picguard/pages/pages.dart';
 import 'package:picguard/theme/theme.dart';
 import 'package:picguard/utils/utils.dart';
+
+const macosMenuChannel = MethodChannel('macos_menu_channel');
 
 Future<void> reportErrorAndLog(FlutterErrorDetails details) async {
   printErrorLog(details.exception, stackTrace: details.stack);
@@ -111,11 +115,7 @@ Future<void> runMainApp({
     );
   }
 
-  runApp(
-    TranslationProvider(
-      child: child,
-    ),
-  );
+  runApp(TranslationProvider(child: child));
 }
 
 class MainApp extends StatefulWidget {
@@ -127,8 +127,6 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final easyLoadingBuilder = EasyLoading.init();
-
-  bool showAll = false;
 
   @override
   Widget build(BuildContext context) {
@@ -157,16 +155,26 @@ class _MainAppState extends State<MainApp> {
           locale: TranslationProvider.of(context).flutterLocale,
           supportedLocales: AppLocaleUtils.supportedLocales,
           localizationsDelegates: GlobalMaterialLocalizations.delegates,
-          home: defaultTargetPlatform == TargetPlatform.macOS
+          home: !isWeb && defaultTargetPlatform == TargetPlatform.macOS
               ? PlatformMenuBar(
                   menus: <PlatformMenuItem>[
                     PlatformMenu(
                       label: appName,
                       menus: <PlatformMenuItem>[
-                        const PlatformMenuItemGroup(
+                        PlatformMenuItemGroup(
                           members: <PlatformMenuItem>[
-                            PlatformProvidedMenuItem(
-                              type: PlatformProvidedMenuItemType.about,
+                            PlatformMenuItem(
+                              onSelected: () async {
+                                try {
+                                  await macosMenuChannel
+                                      .invokeMethod('showAboutPanel');
+                                } on PlatformException catch (e) {
+                                  printErrorLog(
+                                    'Cannot display the About window: ${e.message}',
+                                  );
+                                }
+                              },
+                              label: t.menus.about(appName: appName),
                             ),
                           ],
                         ),
@@ -180,8 +188,67 @@ class _MainAppState extends State<MainApp> {
                             ),
                           ],
                         ),
-                        const PlatformProvidedMenuItem(
-                          type: PlatformProvidedMenuItemType.quit,
+                        PlatformMenuItemGroup(
+                          members: <PlatformMenuItem>[
+                            PlatformMenuItem(
+                              onSelected: () async {
+                                try {
+                                  await macosMenuChannel
+                                      .invokeMethod('hideApp');
+                                } on PlatformException catch (e) {
+                                  printErrorLog(
+                                    'Cannot hide this app: ${e.message}',
+                                  );
+                                }
+                              },
+                              shortcut:
+                                  const CharacterActivator('H', meta: true),
+                              label: t.menus.hide(appName: appName),
+                            ),
+                            PlatformMenuItem(
+                              onSelected: () async {
+                                try {
+                                  await macosMenuChannel
+                                      .invokeMethod('hideOtherApps');
+                                } on PlatformException catch (e) {
+                                  printErrorLog(
+                                    'Cannot hide other apps: ${e.message}',
+                                  );
+                                }
+                              },
+                              shortcut: const CharacterActivator(
+                                ',',
+                                control: true,
+                                meta: true,
+                              ),
+                              label: t.menus.hideOthers,
+                            ),
+                            PlatformMenuItem(
+                              onSelected: () async {
+                                try {
+                                  await macosMenuChannel
+                                      .invokeMethod('showAllApps');
+                                } on PlatformException catch (e) {
+                                  printErrorLog(
+                                    'Cannot unhide all apps: ${e.message}',
+                                  );
+                                }
+                              },
+                              label: t.menus.showAll,
+                            ),
+                          ],
+                        ),
+                        PlatformMenuItemGroup(
+                          members: <PlatformMenuItem>[
+                            PlatformMenuItem(
+                              onSelected: () {
+                                exit(0);
+                              },
+                              shortcut:
+                                  const CharacterActivator('Q', meta: true),
+                              label: t.menus.exit(appName: appName),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -192,7 +259,7 @@ class _MainAppState extends State<MainApp> {
                           members: <PlatformMenuItem>[
                             PlatformMenuItem(
                               onSelected: () async {
-                                const uri = 'https://www.picguard.app/support';
+                                const uri = '$websiteBaseUrl/support';
                                 if (await canLaunchUrlString(uri)) {
                                   await launchUrlString(uri);
                                 }
@@ -202,7 +269,7 @@ class _MainAppState extends State<MainApp> {
                             PlatformMenuItem(
                               onSelected: () async {
                                 const uri =
-                                    'https://www.picguard.app/legal/terms-of-use';
+                                    '$websiteBaseUrl/legal/terms-of-use';
                                 if (await canLaunchUrlString(uri)) {
                                   await launchUrlString(uri);
                                 }
@@ -211,8 +278,7 @@ class _MainAppState extends State<MainApp> {
                             ),
                             PlatformMenuItem(
                               onSelected: () async {
-                                const uri =
-                                    'https://www.picguard.app/legal/privacy';
+                                const uri = '$websiteBaseUrl/legal/privacy';
                                 if (await canLaunchUrlString(uri)) {
                                   await launchUrlString(uri);
                                 }

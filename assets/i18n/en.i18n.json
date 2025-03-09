@@ -36,6 +36,11 @@
     "blue": "Blue"
   },
   "menus": {
+    "about": "About $appName",
+    "hide": "Hide $appName",
+    "hideOthers": "Hide Others",
+    "showAll": "Show All",
+    "exit": "Quit $appName",
     "help": "Help",
     "support": "Support",
     "userAgreement": "User Agreement",

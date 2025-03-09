@@ -36,6 +36,11 @@
     "blue": "蓝色"
   },
   "menus": {
+    "about": "关于 $appName",
+    "hide": "隐藏 $appName",
+    "hideOthers": "隐藏其它",
+    "showAll": "显示全部",
+    "exit": "退出 $appName",
     "help": "帮助",
     "support": "支持",
     "userAgreement": "用户协议",

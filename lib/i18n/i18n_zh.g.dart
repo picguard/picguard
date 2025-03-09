@@ -108,6 +108,11 @@ class _TranslationsMenusZh extends TranslationsMenusEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
+	@override String about({required Object appName}) => '关于 ${appName}';
+	@override String hide({required Object appName}) => '隐藏 ${appName}';
+	@override String get hideOthers => '隐藏其它';
+	@override String get showAll => '显示全部';
+	@override String exit({required Object appName}) => '退出 ${appName}';
 	@override String get help => '帮助';
 	@override String get support => '支持';
 	@override String get userAgreement => '用户协议';
@@ -281,6 +286,11 @@ extension on TranslationsZh {
 			case 'colors.red': return '红色';
 			case 'colors.orange': return '橙色';
 			case 'colors.blue': return '蓝色';
+			case 'menus.about': return ({required Object appName}) => '关于 ${appName}';
+			case 'menus.hide': return ({required Object appName}) => '隐藏 ${appName}';
+			case 'menus.hideOthers': return '隐藏其它';
+			case 'menus.showAll': return '显示全部';
+			case 'menus.exit': return ({required Object appName}) => '退出 ${appName}';
 			case 'menus.help': return '帮助';
 			case 'menus.support': return '支持';
 			case 'menus.userAgreement': return '用户协议';

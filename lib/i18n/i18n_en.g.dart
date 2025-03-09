@@ -110,6 +110,11 @@ class TranslationsMenusEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	String about({required Object appName}) => 'About ${appName}';
+	String hide({required Object appName}) => 'Hide ${appName}';
+	String get hideOthers => 'Hide Others';
+	String get showAll => 'Show All';
+	String exit({required Object appName}) => 'Quit ${appName}';
 	String get help => 'Help';
 	String get support => 'Support';
 	String get userAgreement => 'User Agreement';
@@ -283,6 +288,11 @@ extension on Translations {
 			case 'colors.red': return 'Red';
 			case 'colors.orange': return 'Orange';
 			case 'colors.blue': return 'Blue';
+			case 'menus.about': return ({required Object appName}) => 'About ${appName}';
+			case 'menus.hide': return ({required Object appName}) => 'Hide ${appName}';
+			case 'menus.hideOthers': return 'Hide Others';
+			case 'menus.showAll': return 'Show All';
+			case 'menus.exit': return ({required Object appName}) => 'Quit ${appName}';
 			case 'menus.help': return 'Help';
 			case 'menus.support': return 'Support';
 			case 'menus.userAgreement': return 'User Agreement';
