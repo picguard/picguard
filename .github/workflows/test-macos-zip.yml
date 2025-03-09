@@ -7,7 +7,7 @@ on:
 permissions: read-all
 
 jobs:
-  macos_zip:
+  macos-zip:
     name: Create macos zip (free)
     runs-on: macos-14
     steps:

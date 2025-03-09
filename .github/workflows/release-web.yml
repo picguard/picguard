@@ -2,22 +2,13 @@ name: Release web
 on:
   # Enable manual run
   workflow_dispatch:
-    inputs:
-      env:
-        type: choice
-        description: "Which environment are you using?"
-        required: true
-        default: "staging"
-        options:
-          - staging
-          - production
 
 # Declare default permissions as readonly.
 permissions: read-all
 
 jobs:
-  web:
-    name: Create web
+  web-free:
+    name: Create web (free)
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
@@ -36,12 +27,8 @@ jobs:
           flutter-version: '3.29.1'
 
       - name: Configure .env
-        run: |
-          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_BASE64" | base64 --decode > .env
+        run: echo "$ENV_PROD_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ inputs.env }}
-          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
       - name: Flutter doctor -v
@@ -51,7 +38,9 @@ jobs:
         run: flutter pub get
 
       - name: Build flutter
-        run: flutter build web --dart-define-from-file=.env --target lib/main_free.dart --base-href /play/
+        run: flutter build web --dart-define-from-file=.env --dart-define GIT_COMMIT_SHA="$GIT_COMMIT_SHA" --target lib/main_free.dart --base-href /play/
+        env:
+          GIT_COMMIT_SHA: ${{ github.sha }}
 
       - name: Copy files to flutter web
         run: cp LICENSE README.md ./build/web
@@ -59,9 +48,60 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.PG_RELEASE_TOKEN }}
+          github_token: ${{ secrets.PG_PAGES_TOKEN }}
           publish_dir: ./build/web
           cname: picguard-web.picguard.app
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: rm -f .env
+
+  web-pro:
+    name: Create web (pro)
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          # https://github.com/getsentry/sentry-dart/issues/2504
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.1'
+
+      - name: Configure .env
+        run: echo "$ENV_PROD_BASE64" | base64 --decode > .env
+        env:
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build flutter
+        run: flutter build web --dart-define-from-file=.env --dart-define GIT_COMMIT_SHA="$GIT_COMMIT_SHA" --target lib/main_pro.dart --base-href /play/pro/
+        env:
+          GIT_COMMIT_SHA: ${{ github.sha }}
+
+      - name: Copy files to flutter web
+        run: cp LICENSE README.md ./build/web
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PG_PAGES_TOKEN }}
+          external_repository: picguard/pro-web
+          publish_branch: main  # default: gh-pages
+          publish_dir: ./build/web
+          cname: picguard-pro-web.picguard.app
 
       - name: Clean up
         if: ${{ always() }}

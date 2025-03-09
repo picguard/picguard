@@ -21,7 +21,7 @@ on:
 permissions: read-all
 
 jobs:
-  create_release:
+  create-release:
     name: Create release
     runs-on: ubuntu-22.04
     outputs:
@@ -73,8 +73,8 @@ jobs:
           echo "release=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "tag_name=v$TAG_NAME" >> $GITHUB_OUTPUT
         env:
-          ENV: ${{ github.event.inputs.env }}
-          IS_LATEST: ${{ github.event.inputs.latest }}
+          ENV: ${{ inputs.env }}
+          IS_LATEST: ${{ inputs.latest }}
 
       - name: Create a release
         run: |
@@ -85,39 +85,40 @@ jobs:
           TAG_NAME: ${{ steps.version_step.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
-  gen_shasum:
+  gen-shasum:
     name: Gen Shasum
     runs-on: ubuntu-22.04
     needs:
-      - create_release
-      - apk_free
-      - apk_pro
-      - aab_free
-      - aab_pro
-      - ios_free
-      - ios_pro
-      - macos_dmg
-      - macos_pkg
-      - macos_appstore_free
-      - macos_appstore_pro
-      - macos_zip
-      - macos_tar
-      - linux_appimage
-      - linux_appimage_aarch64
-      - linux_deb
-      - linux_deb_aarch64
-      - linux_rpm
-      - linux_rpm_aarch64
-      - linux_tar
-      - linux_tar_aarch64
-      - linux_snap
-      - linux_snap_aarch64
-      - windows_msi
-      - windows_msix_free
-      - windows_msix_pro
-      - windows_exe
-      - windows_zip
-      - web
+      - create-release
+      - apk-free
+      - apk-pro
+      - aab-free
+      - aab-pro
+      - ios-free
+      - ios-pro
+      - macos-dmg
+      - macos-pkg
+      - macos-appstore-free
+      - macos-appstore-pro
+      - macos-zip
+      - macos-tar
+      - linux-appimage
+      - linux-appimage-aarch64
+      - linux-deb
+      - linux-deb-aarch64
+      - linux-rpm
+      - linux-rpm-aarch64
+      - linux-tar
+      - linux-tar-aarch64
+      - linux-snap
+      - linux-snap-aarch64
+      - windows-msi
+      - windows-msix-free
+      - windows-msix-pro
+      - windows-exe
+      - windows-zip
+      - web-free
+      - web-pro
     steps:
       - uses: actions/checkout@v4
 
@@ -136,16 +137,16 @@ jobs:
             gh release edit "$TAG_NAME" --prerelease --draft=false --tag "$TAG_NAME" --target "$SHA"
           fi
         env:
-          ENV: ${{ github.event.inputs.env }}
-          IS_LATEST: ${{ github.event.inputs.latest }}
-          SHA: ${{ needs.create_release.outputs.sha }}
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          ENV: ${{ inputs.env }}
+          IS_LATEST: ${{ inputs.latest }}
+          SHA: ${{ needs.create-release.outputs.sha }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Download assets
         uses: robinraju/release-downloader@v1
         with:
-          tag: "${{ needs.create_release.outputs.tag_name }}"
+          tag: "${{ needs.create-release.outputs.tag_name }}"
           fileName: '*'
           tarBall: false
           zipBall: false
@@ -158,14 +159,14 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./SHASUMS256.txt
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
-  apk_free:
+  apk-free:
     name: Create apk (free)
     runs-on: ubuntu-22.04
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -187,7 +188,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -214,7 +215,7 @@ jobs:
           FLAVOR="$([[ "$ENV" == "staging" ]] && echo "freeStaging" || echo "freeProduction")"
           flutter build apk --dart-define-from-file=.env --no-tree-shake-icons --target lib/main_free.dart --flavor $FLAVOR
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
 
       # Package the build.
       - name: Copy build for Android
@@ -227,13 +228,13 @@ jobs:
           fi
         working-directory: build/app/outputs/flutter-apk
         env:
-          ENV: ${{ github.event.inputs.env }}
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          ENV: ${{ inputs.env }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.apk
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -243,11 +244,11 @@ jobs:
           rm -f android/key.properties
           rm -f .env
           
-  apk_pro:
+  apk-pro:
     name: Create apk (pro)
     runs-on: ubuntu-22.04
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -269,7 +270,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -296,7 +297,7 @@ jobs:
           FLAVOR="$([[ "$ENV" == "staging" ]] && echo "proStaging" || echo "proProduction")"
           flutter build apk --dart-define-from-file=.env --no-tree-shake-icons --target lib/main_pro.dart --flavor $FLAVOR
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
 
       # Package the build.
       - name: Copy build for Android
@@ -309,13 +310,13 @@ jobs:
           fi
         working-directory: build/app/outputs/flutter-apk
         env:
-          ENV: ${{ github.event.inputs.env }}
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          ENV: ${{ inputs.env }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.apk
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -325,11 +326,11 @@ jobs:
           rm -f android/key.properties
           rm -f .env
 
-  aab_free:
+  aab-free:
     name: Create appbundle (free)
     runs-on: ubuntu-22.04
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -351,7 +352,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -378,31 +379,31 @@ jobs:
           FLAVOR="$([[ "$ENV" == "staging" ]] && echo "freeStaging" || echo "freeProduction")"
           flutter build appbundle --dart-define-from-file=.env --no-tree-shake-icons --target lib/main_free.dart --flavor $FLAVOR
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
 
       # Package the build.
       - name: Copy build for Android
-        if: github.event.inputs.env == 'staging'
+        if: inputs.env == 'staging'
         run: |
           ls -la
           cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.aab
         working-directory: build/app/outputs/bundle/freeStagingRelease
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       - name: Copy build for Android
-        if: github.event.inputs.env == 'production'
+        if: inputs.env == 'production'
         run: |
           ls -la
           cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.aab
         working-directory: build/app/outputs/bundle/freeProductionRelease
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.aab
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -412,11 +413,11 @@ jobs:
           rm -f android/key.properties
           rm -f .env
 
-  aab_pro:
+  aab-pro:
     name: Create appbundle (pro)
     runs-on: ubuntu-22.04
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -438,7 +439,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -465,31 +466,31 @@ jobs:
           FLAVOR="$([[ "$ENV" == "staging" ]] && echo "proStaging" || echo "proProduction")"
           flutter build appbundle --dart-define-from-file=.env --no-tree-shake-icons --target lib/main_pro.dart --flavor $FLAVOR
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
 
       # Package the build.
       - name: Copy build for Android
-        if: github.event.inputs.env == 'staging'
+        if: inputs.env == 'staging'
         run: |
           ls -la
           cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.aab
         working-directory: build/app/outputs/bundle/proStagingRelease
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       - name: Copy build for Android
-        if: github.event.inputs.env == 'production'
+        if: inputs.env == 'production'
         run: |
           ls -la
           cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.aab
         working-directory: build/app/outputs/bundle/proProductionRelease
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.aab
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -499,11 +500,11 @@ jobs:
           rm -f android/key.properties
           rm -f .env
 
-  ios_free:
+  ios-free:
     name: Create ios (free)
     runs-on: macos-14
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -521,7 +522,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -577,7 +578,7 @@ jobs:
           mv $PP_PRO_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
       - name: Build ipa
-        if: github.event.inputs.env == 'staging'
+        if: inputs.env == 'staging'
         run: |
           echo "╠ Removing build products and intermediate files from the build root..."
           cd ios && xcodebuild clean && cd ..
@@ -585,7 +586,7 @@ jobs:
           flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/debug.plist
 
       - name: Build ipa
-        if: github.event.inputs.env == 'production'
+        if: inputs.env == 'production'
         run: |
           echo "╠ Removing build products and intermediate files from the build root..."
           cd ios && xcodebuild clean && cd ..
@@ -599,12 +600,12 @@ jobs:
           cp *.ipa $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.ipa
         working-directory: build/ios/ipa
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.ipa
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -617,11 +618,11 @@ jobs:
           rm -f ~/Library/MobileDevice/Provisioning\ Profiles/picguard_*.mobileprovision
           rm -f .env
 
-  ios_pro:
+  ios-pro:
     name: Create ios (pro)
     runs-on: macos-14
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -639,7 +640,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -695,7 +696,7 @@ jobs:
           mv $PP_PRO_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
       - name: Build ipa
-        if: github.event.inputs.env == 'staging'
+        if: inputs.env == 'staging'
         run: |
           echo "╠ Removing build products and intermediate files from the build root..."
           cd ios && xcodebuild clean && cd ..
@@ -703,7 +704,7 @@ jobs:
           flutter build ipa --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/debug.plist
 
       - name: Build ipa
-        if: github.event.inputs.env == 'production'
+        if: inputs.env == 'production'
         run: |
           echo "╠ Removing build products and intermediate files from the build root..."
           cd ios && xcodebuild clean && cd ..
@@ -717,12 +718,12 @@ jobs:
           cp *.ipa $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.ipa
         working-directory: build/ios/ipa
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.ipa
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -735,11 +736,11 @@ jobs:
           rm -f ~/Library/MobileDevice/Provisioning\ Profiles/picguard_*.mobileprovision
           rm -f .env
 
-  macos_dmg:
+  macos-dmg:
     name: Create macos dmg
     runs-on: macos-14
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -762,7 +763,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -843,7 +844,7 @@ jobs:
           bash scripts/build-dmg.sh
           mv PicGuard.dmg PicGuard_"$RELEASE"_macos_universal.dmg
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for snap
@@ -852,7 +853,7 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.dmg
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -864,11 +865,11 @@ jobs:
           fi
           rm -f .env
 
-  macos_pkg:
+  macos-pkg:
     name: Create macos pkg
     runs-on: macos-14
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -886,7 +887,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -974,12 +975,12 @@ jobs:
           mv PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_universal.pkg
         working-directory: build/macos/Build/Products/Release-free
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.pkg
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -991,11 +992,11 @@ jobs:
           fi
           rm -f .env
 
-  macos_appstore_free:
+  macos-appstore-free:
     name: Create macos pkg (appstore-free)
     runs-on: macos-14
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -1013,7 +1014,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -1108,12 +1109,12 @@ jobs:
           cp PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore-free_universal.pkg
         working-directory: build/macos/Build/Products/Release-free
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.pkg
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1125,11 +1126,11 @@ jobs:
           fi
           rm -f .env
 
-  macos_appstore_pro:
+  macos-appstore-pro:
     name: Create macos pkg (appstore-pro)
     runs-on: macos-14
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -1147,7 +1148,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -1242,12 +1243,12 @@ jobs:
           cp PicGuard\ Pro.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore-pro_universal.pkg
         working-directory: build/macos/Build/Products/Release-pro
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.pkg
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1259,11 +1260,11 @@ jobs:
           fi
           rm -f .env
 
-  macos_zip:
+  macos-zip:
     name: Create macos zip
     runs-on: macos-14
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -1281,7 +1282,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -1365,7 +1366,7 @@ jobs:
         run: 7z a PicGuard_"$RELEASE"_macos_universal.zip ./PicGuard.app
         working-directory: build/macos/Build/Products/Release-free
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for zip
@@ -1377,7 +1378,7 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.zip
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1389,11 +1390,11 @@ jobs:
           fi
           rm -f .env
 
-  macos_tar:
+  macos-tar:
     name: Create macos tar
     runs-on: macos-14
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -1411,7 +1412,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -1488,7 +1489,7 @@ jobs:
         run: tar -czaf PicGuard_"$RELEASE"_macos_universal.tar.gz ./PicGuard.app
         working-directory: build/macos/Build/Products/Release-free
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for tar
@@ -1500,7 +1501,7 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -1512,11 +1513,11 @@ jobs:
           fi
           rm -f .env
           
-  linux_appimage:
+  linux-appimage:
     name: Create linux AppImage
     runs-on: ubuntu-22.04
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -1546,7 +1547,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -1561,7 +1562,7 @@ jobs:
             --targets appimage \
             --artifact-name {{name}}_"$RELEASE"_{{platform}}_amd64.{{ext}}
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for AppImage
@@ -1573,18 +1574,18 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.AppImage
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
         if: ${{ always() }}
         run: rm -f .env
 
-  linux_appimage_aarch64:
+  linux-appimage-aarch64:
     name: Create linux AppImage (aarch64)
     runs-on: ubuntu-22.04-arm
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -1616,7 +1617,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -1635,7 +1636,7 @@ jobs:
             --targets appimage \
             --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for AppImage
@@ -1647,18 +1648,18 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.AppImage
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
         if: ${{ always() }}
         run: rm -f .env
 
-  linux_deb:
+  linux-deb:
     name: Create linux deb
     runs-on: ubuntu-22.04
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -1683,7 +1684,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -1698,7 +1699,7 @@ jobs:
             --targets deb \
             --artifact-name {{name}}_"$RELEASE"_{{platform}}_amd64.{{ext}}
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for deb
@@ -1710,18 +1711,18 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.deb
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
         if: ${{ always() }}
         run: rm -f .env
 
-  linux_deb_aarch64:
+  linux-deb-aarch64:
     name: Create linux deb (aarch64)
     runs-on: ubuntu-22.04-arm
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -1745,7 +1746,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -1760,7 +1761,7 @@ jobs:
             --targets deb \
             --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for deb
@@ -1772,18 +1773,18 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.deb
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
         if: ${{ always() }}
         run: rm -f .env
 
-  linux_rpm:
+  linux-rpm:
     name: Create linux rpm
     runs-on: ubuntu-22.04
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
       - name: Setup Java
@@ -1812,7 +1813,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -1827,7 +1828,7 @@ jobs:
             --targets rpm \
             --artifact-name {{name}}_"$RELEASE"_{{platform}}_amd64.{{ext}}
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for rpm
@@ -1839,18 +1840,18 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.rpm
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
         if: ${{ always() }}
         run: rm -f .env
 
-  linux_rpm_aarch64:
+  linux-rpm-aarch64:
     name: Create linux rpm (aarch64)
     runs-on: ubuntu-22.04-arm
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -1880,7 +1881,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -1907,7 +1908,7 @@ jobs:
             --targets rpm \
             --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for rpm
@@ -1919,18 +1920,18 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.rpm
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
         if: ${{ always() }}
         run: rm -f .env
 
-  linux_tar:
+  linux-tar:
     name: Create linux tar
     runs-on: ubuntu-22.04
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -1955,7 +1956,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -1972,7 +1973,7 @@ jobs:
           tar -czaf $archiveName ./*
           mv $archiveName $GITHUB_WORKSPACE/
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for tar
@@ -1981,18 +1982,18 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
         if: ${{ always() }}
         run: rm -f .env
 
-  linux_tar_aarch64:
+  linux-tar-aarch64:
     name: Create linux tar (aarch64)
     runs-on: ubuntu-22.04-arm
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -2017,7 +2018,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -2043,7 +2044,7 @@ jobs:
           tar -czaf $archiveName ./*
           mv $archiveName $GITHUB_WORKSPACE/
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for tar
@@ -2052,20 +2053,20 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
         if: ${{ always() }}
         run: rm -f .env
 
-  linux_snap:
+  linux-snap:
     name: Create linux snap
     runs-on: ubuntu-22.04
     env:
       LXD_GROUP: lxd
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -2080,7 +2081,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -2091,15 +2092,15 @@ jobs:
         run: |
           VERSION="$VERSION_SHORT.$BUILD_NUMBER" yq -i '.version = strenv(VERSION)' snap/snapcraft.yaml
         env:
-          VERSION_SHORT: ${{ needs.create_release.outputs.version_short }}
-          BUILD_NUMBER: ${{ needs.create_release.outputs.build_number }}
+          VERSION_SHORT: ${{ needs.create-release.outputs.version_short }}
+          BUILD_NUMBER: ${{ needs.create-release.outputs.build_number }}
 
       - name: Build snap
         run: |
           # https://snapcraft.io/docs/flutter-applications
           sudo snapcraft --output picguard_"$RELEASE"_linux_amd64.snap
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for snap
@@ -2108,7 +2109,7 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.snap
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -2120,13 +2121,13 @@ jobs:
             sudo snapcraft clean
           fi
 
-  linux_snap_aarch64:
+  linux-snap-aarch64:
     name: Create linux snap (aarch64)
     runs-on: ubuntu-22.04-arm
     env:
       LXD_GROUP: lxd
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -2141,7 +2142,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -2157,8 +2158,8 @@ jobs:
         run: |
           VERSION="$VERSION_SHORT.$BUILD_NUMBER" yq -i '.version = strenv(VERSION)' snap/snapcraft.yaml
         env:
-          VERSION_SHORT: ${{ needs.create_release.outputs.version_short }}
-          BUILD_NUMBER: ${{ needs.create_release.outputs.build_number }}
+          VERSION_SHORT: ${{ needs.create-release.outputs.version_short }}
+          BUILD_NUMBER: ${{ needs.create-release.outputs.build_number }}
 
       - name: Install snapcraft
         run: sudo snap install snapcraft --classic
@@ -2168,7 +2169,7 @@ jobs:
           # https://snapcraft.io/docs/flutter-applications
           sudo snapcraft --output "picguard_"$RELEASE"_linux_aarch64.snap"
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for snap
@@ -2177,7 +2178,7 @@ jobs:
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.snap
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -2189,13 +2190,13 @@ jobs:
             sudo snapcraft clean
           fi
 
-  windows_msi:
+  windows-msi:
     name: Create windows msi
     runs-on: windows-2022
     env:
       Platform: x64
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -2227,7 +2228,7 @@ jobs:
           $bytes = echo $env_base64 | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64_WINDOWS }}
 
@@ -2261,8 +2262,8 @@ jobs:
           # 写回文件
           Set-Content -Path $filePath -Value $newContent -NoNewline
         env:
-          VERSION_SHORT: ${{ needs.create_release.outputs.version_short }}
-          BUILD_NUMBER: ${{ needs.create_release.outputs.build_number }}
+          VERSION_SHORT: ${{ needs.create-release.outputs.version_short }}
+          BUILD_NUMBER: ${{ needs.create-release.outputs.build_number }}
 
       - name: Create msi
         shell: pwsh
@@ -2294,14 +2295,14 @@ jobs:
           ls -R ".\msi\picguard\picguard\bin\$env:Platform\Release"
           cp ".\msi\picguard\picguard\bin\$env:Platform\Release\*\*.msi" "$env:GITHUB_WORKSPACE\"
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       - name: Upload assets
         run: |
           # https://github.com/cli/cli/issues/5099
           gh release upload "$env:TAG_NAME" (get-item .\*.msi)
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -2321,11 +2322,11 @@ jobs:
             echo "File($pwd\.env) doesn't exist."
           }
 
-  windows_msix_free:
+  windows-msix-free:
     name: Create windows msix (free)
     runs-on: windows-2022
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -2345,7 +2346,7 @@ jobs:
           $bytes = echo $env_base64 | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64_WINDOWS }}
 
@@ -2398,7 +2399,7 @@ jobs:
       - name: Create msix
         run: dart run msix:create --store --build-windows false --output-name "picguard_$env:RELEASE`_windows_store-free_x64"
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for msix
@@ -2412,7 +2413,7 @@ jobs:
           # https://github.com/cli/cli/issues/5099
           gh release upload "$env:TAG_NAME" (get-item .\*.msix)
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -2439,11 +2440,11 @@ jobs:
             echo "File($pwd\.env) doesn't exist."
           }
 
-  windows_msix_pro:
+  windows-msix-pro:
     name: Create windows msix (pro)
     runs-on: windows-2022
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -2463,7 +2464,7 @@ jobs:
           $bytes = echo $env_base64 | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64_WINDOWS }}
 
@@ -2521,7 +2522,7 @@ jobs:
       - name: Create msix
         run: dart run msix:create --store --build-windows false --output-name "picguard_$env:RELEASE`_windows_store-pro_x64"
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for msix
@@ -2535,7 +2536,7 @@ jobs:
           # https://github.com/cli/cli/issues/5099
           gh release upload "$env:TAG_NAME" (get-item .\*.msix)
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -2562,11 +2563,11 @@ jobs:
             echo "File($pwd\.env) doesn't exist."
           }
 
-  windows_exe:
+  windows-exe:
     name: Create windows exe
     runs-on: windows-2022
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -2586,7 +2587,7 @@ jobs:
           $bytes = echo $env_base64 | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64_WINDOWS }}
 
@@ -2637,7 +2638,7 @@ jobs:
             --targets exe `
             --artifact-name "{{name}}_$env:RELEASE`_{{platform}}_x64.{{ext}}"
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       - name: Signing
         run: |
@@ -2667,7 +2668,7 @@ jobs:
           # https://github.com/cli/cli/issues/5099
           gh release upload "$env:TAG_NAME" (get-item .\*.exe)
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -2687,11 +2688,11 @@ jobs:
             echo "File($pwd\.env) doesn't exist."
           }
 
-  windows_zip:
+  windows-zip:
     name: Create windows zip
     runs-on: windows-2022
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -2711,7 +2712,7 @@ jobs:
           $bytes = echo $env_base64 | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64_WINDOWS }}
 
@@ -2730,7 +2731,7 @@ jobs:
             --targets zip `
             --artifact-name "{{name}}_$env:RELEASE`_{{platform}}_x64.{{ext}}"
         env:
-          RELEASE: ${{ needs.create_release.outputs.release }}
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for zip
@@ -2744,7 +2745,7 @@ jobs:
           # https://github.com/cli/cli/issues/5099
           gh release upload "$env:TAG_NAME" (get-item .\*.zip)
         env:
-          TAG_NAME: ${{ needs.create_release.outputs.tag_name }}
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
@@ -2758,11 +2759,12 @@ jobs:
             echo "File($pwd\.env) doesn't exist."
           }
 
-  web:
-    name: Create web
+  web-free:
+    name: Create web (free)
     runs-on: ubuntu-22.04
+    if: ${{ inputs.env == 'production' }}
     needs:
-      - create_release
+      - create-release
     steps:
       - uses: actions/checkout@v4
 
@@ -2784,7 +2786,7 @@ jobs:
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
           echo "$ENV_BASE64" | base64 --decode > .env
         env:
-          ENV: ${{ github.event.inputs.env }}
+          ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
@@ -2795,7 +2797,9 @@ jobs:
         run: flutter pub get
 
       - name: Build flutter
-        run: flutter build web --dart-define-from-file=.env --target lib/main_free.dart --base-href /play/
+        run: flutter build web --dart-define-from-file=.env --dart-define GIT_COMMIT_SHA="$GIT_COMMIT_SHA" --target lib/main_free.dart --base-href /play/
+        env:
+          GIT_COMMIT_SHA: ${{ github.sha }}
 
       - name: Copy files to flutter web
         run: cp LICENSE README.md ./build/web
@@ -2803,9 +2807,67 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.PG_RELEASE_TOKEN }}
+          github_token: ${{ secrets.PG_PAGES_TOKEN }}
           publish_dir: ./build/web
           cname: picguard-web.picguard.app
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: rm -f .env
+
+  web-pro:
+    name: Create web (pro)
+    runs-on: ubuntu-22.04
+    if: ${{ inputs.env == 'production' }}
+    needs:
+      - create-release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          # https://github.com/getsentry/sentry-dart/issues/2504
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.1'
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_BASE64" | base64 --decode > .env
+        env:
+          ENV: ${{ inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build flutter
+        run: flutter build web --dart-define-from-file=.env --dart-define GIT_COMMIT_SHA="$GIT_COMMIT_SHA" --target lib/main_pro.dart --base-href /play/pro/
+        env:
+          GIT_COMMIT_SHA: ${{ github.sha }}
+
+      - name: Copy files to flutter web
+        run: cp LICENSE README.md ./build/web
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PG_PAGES_TOKEN }}
+          external_repository: picguard/pro-web
+          publish_branch: main  # default: gh-pages
+          publish_dir: ./build/web
+          cname: picguard-pro-web.picguard.app
 
       - name: Clean up
         if: ${{ always() }}

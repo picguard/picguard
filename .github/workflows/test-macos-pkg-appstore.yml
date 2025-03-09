@@ -7,7 +7,7 @@ on:
 permissions: read-all
 
 jobs:
-  pkg_appstore:
+  pkg-appstore:
     name: Create pkg appstore (free)
     runs-on: macos-14
     steps:
