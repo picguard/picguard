@@ -33,7 +33,7 @@ import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
-import 'package:picguard/models/models.dart';
+import 'package:picguard/rust/api/picguard.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
 
@@ -72,10 +72,10 @@ class _HomePageState extends State<HomePage> {
         return pickedImages;
       },
     )..addListener(() {
-      if (mounted) {
-        setState(() {});
-      }
-    });
+        if (mounted) {
+          setState(() {});
+        }
+      });
 
     LocaleSettings.getLocaleStream().listen((event) {
       printDebugLog('locale changed: $event');
@@ -249,28 +249,36 @@ class _HomePageState extends State<HomePage> {
       final textGap = values['textGap'] as double?;
       final rowGap = values['rowGap'] as double?;
       printDebugLog(
-        'text: $text, color: $color, opacity: $opacity, fontFamily: $fontFamily, fontSize: $fontSize, textGap: $textGap, rowGap: $rowGap',
+        'text: $text, color: $color, opacity: $opacity, '
+        'fontFamily: $fontFamily, fontSize: $fontSize, '
+        'textGap: $textGap, rowGap: $rowGap',
       );
+
+      final fontAsset = fontFamilies.firstWhereOrNull(
+            (element) => element.fontFamily == fontFamily,
+          ) ??
+          fontFamilies.elementAt(0);
 
       try {
         await EasyLoading.show();
         final imageFutures = controller.images
             .where((element) => element.bytes != null)
             .mapIndexed(
-              (index, element) => _addWatermarkV2(
-                imageIdx: index,
-                bytes: element.bytes!,
-                name: element.name,
-                watermark: text,
-                colorValue: color,
-                opacity: opacity,
-                fontFamily: fontFamily,
-                fontSize: fontSize,
-                textGap: textGap,
-                rowGap: rowGap,
-              ),
-            )
-            .toList();
+          (index, element) async {
+            final data = await rootBundle.load(fontAsset.path);
+            return addWatermark(
+              bytes: element.bytes!,
+              name: element.name,
+              watermark: text,
+              colorValue: (color >> 24, color >> 16, color >> 8, color),
+              opacity: opacity,
+              fontBytes: data.buffer.asUint8List().toList(),
+              fontSize: fontSize,
+              textGap: textGap,
+              rowGap: rowGap,
+            );
+          },
+        ).toList();
 
         final images = await Future.wait(imageFutures);
         printDebugLog('Length of images: ${images.length}');
@@ -324,25 +332,31 @@ class _HomePageState extends State<HomePage> {
         return;
       }
 
+      final fontAsset = fontFamilies.firstWhereOrNull(
+            (element) => element.fontFamily == fontFamily,
+          ) ??
+          fontFamilies.elementAt(0);
+
       try {
         await EasyLoading.show();
         final imageFutures = controller.images
             .where((element) => element.bytes != null)
             .mapIndexed(
-              (index, element) => _addWatermarkV2(
-                imageIdx: index,
-                bytes: element.bytes!,
-                name: element.name,
-                watermark: text,
-                colorValue: color,
-                opacity: opacity,
-                fontFamily: fontFamily,
-                fontSize: fontSize,
-                textGap: textGap,
-                rowGap: rowGap,
-              ),
-            )
-            .toList();
+          (index, element) async {
+            final data = await rootBundle.load(fontAsset.path);
+            return addWatermark(
+              bytes: element.bytes!,
+              name: element.name,
+              watermark: text,
+              colorValue: (color >> 24, color >> 16, color >> 8, color),
+              opacity: opacity,
+              fontBytes: data.buffer.asUint8List().toList(),
+              fontSize: fontSize,
+              textGap: textGap,
+              rowGap: rowGap,
+            );
+          },
+        ).toList();
 
         final images = await Future.wait(imageFutures);
 
@@ -421,7 +435,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<ReturnWrapper?> _addWatermarkV2({
-    required int imageIdx,
     required Uint8List bytes,
     required String name,
     required String watermark,

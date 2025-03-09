@@ -23,6 +23,7 @@ import 'package:picguard/controllers/controllers.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/pages/pages.dart';
+import 'package:picguard/rust/frb_generated.dart';
 import 'package:picguard/theme/theme.dart';
 import 'package:picguard/utils/utils.dart';
 
@@ -41,6 +42,7 @@ Future<void> runMainApp({
   Flavor flavor = Flavor.free,
 }) async {
   SentryWidgetsFlutterBinding.ensureInitialized();
+  await RustLib.init();
   await SpUtil.getInstance();
 
   AppConfig.create(flavor: flavor);

@@ -8,3 +8,43 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 String greet({required String name}) =>
     RustLib.instance.api.crateApiPicguardGreet(name: name);
+
+Future<ReturnWrapper?> addWatermark({
+  required List<int> bytes,
+  required String name,
+  required String watermark,
+  required (int, int, int, int) colorValue,
+  required double opacity,
+  required List<int> fontBytes,
+  double? fontSize,
+  double? textGap,
+  double? rowGap,
+}) => RustLib.instance.api.crateApiPicguardAddWatermark(
+  bytes: bytes,
+  name: name,
+  watermark: watermark,
+  colorValue: colorValue,
+  opacity: opacity,
+  fontBytes: fontBytes,
+  fontSize: fontSize,
+  textGap: textGap,
+  rowGap: rowGap,
+);
+
+class ReturnWrapper {
+  final Uint8List bytes;
+  final String name;
+
+  const ReturnWrapper({required this.bytes, required this.name});
+
+  @override
+  int get hashCode => bytes.hashCode ^ name.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ReturnWrapper &&
+          runtimeType == other.runtimeType &&
+          bytes == other.bytes &&
+          name == other.name;
+}

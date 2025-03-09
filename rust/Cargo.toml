@@ -7,5 +7,9 @@ edition = "2021"
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
+ab_glyph = "0.2.29"
+chrono = "0.4.40"
 flutter_rust_bridge = "=2.8.0"
+glyph_brush_layout = "0.2.4"
 image = "0.25.5"
+imageproc = "0.25.0"

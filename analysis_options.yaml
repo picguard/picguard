@@ -17,6 +17,7 @@ analyzer:
     - lib/generated/**
     - lib/i18n/**
     - lib/rust/**
+    - rust_builder/cargokit/**
 
 linter:
   # The lint rules applied to this project can be customized in the

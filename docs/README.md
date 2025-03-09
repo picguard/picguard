@@ -6,6 +6,10 @@
 
 [Quickstart for Flutter Rust Bridge](https://cjycode.com/flutter_rust_bridge/quickstart)
 
+```shell
+flutter_rust_bridge_codegen generate
+```
+
 ### iOS
 
 ```shell
@@ -131,6 +135,14 @@ flutter_distributor package --platform windows --targets msix
 ```
 
 ### Web
+
+```shell
+flutter_rust_bridge_codegen build-web
+```
+
+```shell
+fvm flutter run --dart-define-from-file=".env.dev.local" --target lib/main_free.dart --web-header=Cross-Origin-Opener-Policy=same-origin --web-header=Cross-Origin-Embedder-Policy=require-corp
+```
 
 ```shell
 make ENV=<dev|stg|prod> web_free

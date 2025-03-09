@@ -1,30 +1,15 @@
-// Dart imports:
-import 'dart:typed_data';
+// Project imports:
+import 'package:picguard/rust/api/picguard.dart';
 
 ///
-class FileWrapper {
+class FileWrapper extends ReturnWrapper {
   ///
   const FileWrapper({
     required this.path,
-    required this.bytes,
-    required this.name,
+    required super.bytes,
+    required super.name,
   });
 
   ///
   final String path;
-
-  final Uint8List bytes;
-
-  ///
-  final String name;
-}
-
-class ReturnWrapper {
-  ///
-  const ReturnWrapper({required this.bytes, required this.name});
-
-  final Uint8List bytes;
-
-  ///
-  final String name;
 }
