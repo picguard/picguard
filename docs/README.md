@@ -8,6 +8,9 @@
 
 ```shell
 flutter_rust_bridge_codegen generate
+
+# tests
+cargo test -- --nocapture
 ```
 
 ### iOS
