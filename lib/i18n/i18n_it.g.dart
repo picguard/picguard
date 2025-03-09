@@ -62,6 +62,7 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
+	@override String get appPreview => 'ATTENZIONE: Versione di sviluppo, basata automaticamente su ogni commit';
 	@override String get imageDescription => 'Si prega di caricare le immagini.';
 	@override String get description => 'Questa app non caricherà alcuna immagine sul server, tutte le operazioni vengono completate localmente';
 	@override String get textLabel => 'Testo';
@@ -258,6 +259,7 @@ extension on TranslationsIt {
 						return 'PicGuard Pro';
 				}
 			};
+			case 'homePage.appPreview': return 'ATTENZIONE: Versione di sviluppo, basata automaticamente su ogni commit';
 			case 'homePage.imageDescription': return 'Si prega di caricare le immagini.';
 			case 'homePage.description': return 'Questa app non caricherà alcuna immagine sul server, tutte le operazioni vengono completate localmente';
 			case 'homePage.textLabel': return 'Testo';

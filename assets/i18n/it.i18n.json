@@ -4,6 +4,7 @@
     "pro": "PicGuard Pro"
   },
   "homePage": {
+    "appPreview": "ATTENZIONE: Versione di sviluppo, basata automaticamente su ogni commit",
     "imageDescription": "Si prega di caricare le immagini.",
     "description": "Questa app non caricherà alcuna immagine sul server, tutte le operazioni vengono completate localmente",
     "textLabel": "Testo",

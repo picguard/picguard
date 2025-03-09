@@ -72,10 +72,10 @@ class _HomePageState extends State<HomePage> {
         return pickedImages;
       },
     )..addListener(() {
-      if (mounted) {
-        setState(() {});
-      }
-    });
+        if (mounted) {
+          setState(() {});
+        }
+      });
 
     LocaleSettings.getLocaleStream().listen((event) {
       printDebugLog('locale changed: $event');
@@ -111,7 +111,22 @@ class _HomePageState extends State<HomePage> {
               isDark: isDark,
               actions: const [SettingsBtn()],
             )
-          : null,
+          : isWeb && PgEnv.appPreviewEnabled
+              ? PGAppBar(
+                  titleWidget: Text(
+                    t.homePage.appPreview,
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                  ),
+                  isDark: isDark,
+                  showBottom: false,
+                )
+              : null,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;

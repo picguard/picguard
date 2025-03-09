@@ -64,6 +64,7 @@ class TranslationsHomePageEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	String get appPreview => 'WARNING: Development version, automatically built on each commit';
 	String get imageDescription => 'Please upload pictures.';
 	String get description => 'This app will not upload any pictures to the server, all operations are completed locally';
 	String get textLabel => 'Text';
@@ -260,6 +261,7 @@ extension on Translations {
 						return 'PicGuard Pro';
 				}
 			};
+			case 'homePage.appPreview': return 'WARNING: Development version, automatically built on each commit';
 			case 'homePage.imageDescription': return 'Please upload pictures.';
 			case 'homePage.description': return 'This app will not upload any pictures to the server, all operations are completed locally';
 			case 'homePage.textLabel': return 'Text';

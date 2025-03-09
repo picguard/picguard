@@ -62,6 +62,7 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
+	@override String get appPreview => '警告: 开发版本, 每个提交自动构建';
 	@override String get imageDescription => '请上传图片';
 	@override String get description => '本app不会上传任何图片到服务器, 所有操作均在本地完成';
 	@override String get textLabel => '文本';
@@ -258,6 +259,7 @@ extension on TranslationsZh {
 						return 'PicGuard Pro';
 				}
 			};
+			case 'homePage.appPreview': return '警告: 开发版本, 每个提交自动构建';
 			case 'homePage.imageDescription': return '请上传图片';
 			case 'homePage.description': return '本app不会上传任何图片到服务器, 所有操作均在本地完成';
 			case 'homePage.textLabel': return '文本';

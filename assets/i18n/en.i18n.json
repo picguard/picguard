@@ -4,6 +4,7 @@
     "pro": "PicGuard Pro"
   },
   "homePage": {
+    "appPreview": "WARNING: Development version, automatically built on each commit",
     "imageDescription": "Please upload pictures.",
     "description": "This app will not upload any pictures to the server, all operations are completed locally",
     "textLabel": "Text",

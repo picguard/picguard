@@ -4,6 +4,7 @@
     "pro": "PicGuard Pro"
   },
   "homePage": {
+    "appPreview": "警告: 开发版本, 每个提交自动构建",
     "imageDescription": "请上传图片",
     "description": "本app不会上传任何图片到服务器, 所有操作均在本地完成",
     "textLabel": "文本",

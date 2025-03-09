@@ -11,6 +11,7 @@ class PGAppBar extends AppBar {
     required this.isDark,
     this.titleName,
     this.titleWidget,
+    this.showBottom = true,
     super.key,
     super.actions,
   }) : super(
@@ -23,16 +24,21 @@ class PGAppBar extends AppBar {
                 ),
           centerTitle: true,
           elevation: 0,
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(0.5),
-            child: Container(
-              color: isDark ? PGColors.secondaryTextColor : PGColors.borderColor,
-              height: 1,
-            ),
-          ),
+          bottom: !showBottom
+              ? null
+              : PreferredSize(
+                  preferredSize: const Size.fromHeight(0.5),
+                  child: Container(
+                    color: isDark
+                        ? PGColors.secondaryTextColor
+                        : PGColors.borderColor,
+                    height: 1,
+                  ),
+                ),
         );
 
   final String? titleName;
   final Widget? titleWidget;
   final bool isDark;
+  final bool showBottom;
 }
