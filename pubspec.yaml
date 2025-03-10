@@ -21,10 +21,7 @@ environment:
   flutter: '>=3.29.1'
 
 dependencies:
-  app_settings:
-    git:
-      url: https://github.com/spencerccf/app_settings
-      ref: master
+  app_settings_plus: ^5.2.0+1
   cupertino_icons: ^1.0.8
   device_info_plus: ^11.3.3
   file_picker: ^9.0.2

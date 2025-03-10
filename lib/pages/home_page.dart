@@ -12,7 +12,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart' hide TextInput;
 
 // Package imports:
-import 'package:app_settings/app_settings.dart';
+import 'package:app_settings_plus/app_settings_plus.dart';
 import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
@@ -333,7 +333,7 @@ class _HomePageState extends State<HomePage> {
           okText: t.buttons.turnOn,
           onOK: () async {
             NavigatorUtil.pop();
-            await AppSettings.openAppSettings();
+            await AppSettingsPlus.openAppSettings();
           },
         );
         return;
@@ -637,7 +637,7 @@ class _HomePageState extends State<HomePage> {
         okText: t.buttons.turnOn,
         onOK: () async {
           NavigatorUtil.pop();
-          await AppSettings.openAppSettings();
+          await AppSettingsPlus.openAppSettings();
         },
       );
       return [];

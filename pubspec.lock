@@ -41,15 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-  app_settings:
+  app_settings_plus:
     dependency: "direct main"
     description:
-      path: "."
-      ref: master
-      resolved-ref: bc0d4ae457b914b93ac7765f2955e8d145d6c922
-      url: "https://github.com/spencerccf/app_settings"
-    source: git
-    version: "5.2.0"
+      name: app_settings_plus
+      sha256: d6d9827f1d1f27db777434b342050a99ec098641e7a5a4a2c8090b22e430bb26
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.2.0+1"
   archive:
     dependency: transitive
     description:
