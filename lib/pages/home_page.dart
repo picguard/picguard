@@ -59,18 +59,7 @@ class _HomePageState extends State<HomePage> {
     controller = MultiImagePickerController(
       maxImages: 9,
       images: <ImageFile>[],
-      picker: (bool allowMultiple) async {
-        final pickedImages = await _pickImages(allowMultiple);
-        if (pickedImages.length >
-            controller.maxImages - controller.images.length) {
-          return pickedImages.slice(
-            0,
-            controller.maxImages - controller.images.length,
-          );
-        }
-
-        return pickedImages;
-      },
+      picker: (limit, params) async => _pickImages(limit),
     )..addListener(() {
         if (mounted) {
           setState(() {});
@@ -619,7 +608,7 @@ class _HomePageState extends State<HomePage> {
     return ReturnWrapper(bytes: watermarkedBytes, name: fileName);
   }
 
-  Future<List<ImageFile>> _pickImages(bool allowMultiple) async {
+  Future<List<ImageFile>> _pickImages(int limit) async {
     final permission = await PermissionUtil.checkPermission();
     if (permission != Permissions.none) {
       final t = Translations.of(AppNavigator.key.currentContext!);
@@ -643,40 +632,24 @@ class _HomePageState extends State<HomePage> {
       return [];
     }
 
-    return _gotoPickImages(allowMultiple);
+    return _gotoPickImages(limit);
   }
 
-  Future<List<ImageFile>> _gotoPickImages(bool allowMultiple) async {
+  Future<List<ImageFile>> _gotoPickImages(int limit) async {
     final picker = ImagePicker();
-    if (allowMultiple) {
-      final images = await picker.pickMultiImage();
-      final imageFutures = images.mapIndexed(
-        (index, image) async {
-          return ImageFile(
-            'index_${uuid.v4()}',
-            name: image.name,
-            extension: extension(image.name),
-            path: image.path,
-            bytes: await image.readAsBytes(),
-          );
-        },
-      ).toList();
+    final images = await picker.pickMultiImage(limit: limit);
+    final imageFutures = images.mapIndexed(
+      (index, image) async {
+        return ImageFile(
+          'index_${uuid.v4()}',
+          name: image.name,
+          extension: extension(image.name),
+          path: image.path,
+          bytes: await image.readAsBytes(),
+        );
+      },
+    ).toList();
 
-      return Future.wait(imageFutures);
-    } else {
-      final image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        return [
-          ImageFile(
-            'index_${uuid.v4()}',
-            name: image.name,
-            extension: extension(image.name),
-            path: image.path,
-            bytes: await image.readAsBytes(),
-          ),
-        ];
-      }
-      return [];
-    }
+    return Future.wait(imageFutures);
   }
 }
