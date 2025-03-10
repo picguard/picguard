@@ -833,10 +833,10 @@ packages:
     dependency: "direct main"
     description:
       name: multi_image_picker_view
-      sha256: ed12fa78263b74f004c1adc9f1b75c1b6164c92bd6b1ea4e49b5f89289d731d0
+      sha256: aa9f81fcbb27762193da659fde9c035a9d6f10828cf688d2fd45fdd012c884b5
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "3.0.0"
   package_config:
     dependency: transitive
     description:
