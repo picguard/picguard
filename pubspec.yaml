@@ -40,7 +40,7 @@ dependencies:
   gap: ^3.0.1
   get: ^4.7.2
   get_storage: ^2.1.1
-  image_gallery_saver_plus: ^4.0.0
+  image_gallery_saver_plus: ^4.0.1
   image_picker: ^1.1.2
   keyboard_dismisser: ^3.0.0
   logging: ^1.3.0
