@@ -141,7 +141,7 @@ class _MainAppState extends State<MainApp> {
             fontFamily: 'NotoSansSC',
             fontWeight: FontWeight.normal,
           ),
-          child: const HomePage(),
+          child: const SelectionArea(child: HomePage()),
         );
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
