@@ -218,13 +218,7 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
-      floatingActionButton: isWeb ||
-              [
-                TargetPlatform.windows,
-                TargetPlatform.linux,
-              ].contains(defaultTargetPlatform)
-          ? const SettingsBtn()
-          : null,
+      floatingActionButton: isWeb ? const SettingsBtn() : null,
     );
 
     if (isWeb) {

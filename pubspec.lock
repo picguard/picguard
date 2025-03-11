@@ -805,6 +805,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.11.1"
+  menu_bar:
+    dependency: "direct main"
+    description:
+      name: menu_bar
+      sha256: ab436747560ce19666fb37c617482085c12d9d9679f1d7e321df8f104fd025a8
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.3"
   meta:
     dependency: transitive
     description:
