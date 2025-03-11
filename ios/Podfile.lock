@@ -1,5 +1,5 @@
 PODS:
-  - app_settings_plus (5.2.0):
+  - "app_settings_plus (5.2.0+2)":
     - Flutter
   - device_info_plus (0.0.1):
     - Flutter
@@ -128,7 +128,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
-  app_settings_plus: e74c3bc2889338a11cdc9e7cf6e2e225ab5a3b75
+  app_settings_plus: abc630de7e453f2101fad71eef45a4c14b770dd4
   device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
   DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
