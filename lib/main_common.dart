@@ -196,15 +196,16 @@ class MacOSMenuBar extends StatelessWidget {
             PlatformMenuItemGroup(
               members: <PlatformMenuItem>[
                 PlatformMenuItem(
-                  onSelected: () async {
-                    try {
-                      await macosMenuChannel.invokeMethod('showAboutPanel');
-                    } on PlatformException catch (e) {
-                      printErrorLog(
-                        'Cannot display the About window: ${e.message}',
-                      );
-                    }
-                  },
+                  onSelected: DialogUtil.showAboutModal,
+                  // onSelected: () async {
+                  //   try {
+                  //     await macosMenuChannel.invokeMethod('showAboutPanel');
+                  //   } on PlatformException catch (e) {
+                  //     printErrorLog(
+                  //       'Cannot display the About window: ${e.message}',
+                  //     );
+                  //   }
+                  // },
                   label: t.menus.about(appName: appName),
                 ),
               ],
@@ -335,7 +336,7 @@ class DesktopMenuBar extends StatelessWidget {
             menuItems: [
               MenuButton(
                 text: Text(t.menus.about(appName: appName)),
-                onTap: () => showAdaptiveAboutDialog(context: context),
+                onTap: DialogUtil.showAboutModal,
                 icon: const Icon(Icons.info),
                 shortcut: const CharacterActivator('A', control: true),
                 shortcutText: 'Ctrl+A',

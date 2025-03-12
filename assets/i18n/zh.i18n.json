@@ -28,6 +28,15 @@
     "savedFailure": "保存失败",
     "saveInfo": "已保存$succeedNum张, 保存失败$failedNum张"
   },
+  "aboutPage": {
+    "version": "版本号 $version($buildNumber)",
+    "copyright": "版权 © $year $appName. 版权所有。",
+    "slogan": "给图片添加水印, 防止被恶意使用.",
+    "readme": "项目简介",
+    "appLicense": "应用许可证",
+    "changelog": "变更日志",
+    "thirdPartyLicense": "第三方许可证"
+  },
   "colors": {
     "white": "白色",
     "grey": "灰色",

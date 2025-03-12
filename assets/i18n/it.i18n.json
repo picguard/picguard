@@ -28,6 +28,15 @@
     "savedFailure": "Impossibile salvare l'immagine(i)",
     "saveInfo": "Sono state salvate $succeedNum l'immagine(i) e non è stato possibile salvare $failedNum l'immagine(i)."
   },
+  "aboutPage": {
+    "version": "Versione $version($buildNumber)",
+    "copyright": "Copyright © $year $appName. Tutti i diritti riservati.",
+    "slogan": "Le tue foto, la tua firma.",
+    "readme": "Introduzione del progetto",
+    "appLicense": "Licenza di applicazione",
+    "changelog": "Changelog",
+    "thirdPartyLicense": "Licenze di terze parti"
+  },
   "colors": {
     "white": "Bianco",
     "grey": "Grigio",

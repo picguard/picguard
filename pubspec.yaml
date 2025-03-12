@@ -21,6 +21,7 @@ environment:
   flutter: '>=3.29.1'
 
 dependencies:
+  about: ^2.2.0
   app_settings_plus: ^5.2.0+2
   cupertino_icons: ^1.0.8
   device_info_plus: ^11.3.3
@@ -82,8 +83,11 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-#  assets:
-#     - logo/
+  assets:
+   - logo/
+   - CHANGELOG.md
+   - LICENSE
+   - README.md
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

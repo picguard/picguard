@@ -28,6 +28,15 @@
     "savedFailure": "Failed to save image(s)",
     "saveInfo": "$succeedNum image(s) saved, $failedNum image(s) failed to save"
   },
+  "aboutPage": {
+    "version": "Version $version($buildNumber)",
+    "copyright": "Copyright © $year $appName. All rights reserved.",
+    "slogan": "Your pictures, your signature.",
+    "readme": "Readme",
+    "appLicense": "Application License",
+    "changelog": "Changelog",
+    "thirdPartyLicense": "Third Party Licenses"
+  },
   "colors": {
     "white": "White",
     "grey": "Grey",

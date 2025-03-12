@@ -46,6 +46,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		}
 	}
 	late final TranslationsHomePageEn homePage = TranslationsHomePageEn.internal(_root);
+	late final TranslationsAboutPageEn aboutPage = TranslationsAboutPageEn.internal(_root);
 	late final TranslationsColorsEn colors = TranslationsColorsEn.internal(_root);
 	late final TranslationsMenusEn menus = TranslationsMenusEn.internal(_root);
 	late final TranslationsButtonsEn buttons = TranslationsButtonsEn.internal(_root);
@@ -87,6 +88,22 @@ class TranslationsHomePageEn {
 	String get savedSuccess => 'Saved successfully';
 	String get savedFailure => 'Failed to save image(s)';
 	String saveInfo({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
+}
+
+// Path: aboutPage
+class TranslationsAboutPageEn {
+	TranslationsAboutPageEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String version({required Object version, required Object buildNumber}) => 'Version ${version}(${buildNumber})';
+	String copyright({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. All rights reserved.';
+	String get slogan => 'Your pictures, your signature.';
+	String get readme => 'Readme';
+	String get appLicense => 'Application License';
+	String get changelog => 'Changelog';
+	String get thirdPartyLicense => 'Third Party Licenses';
 }
 
 // Path: colors
@@ -284,6 +301,13 @@ extension on Translations {
 			case 'homePage.savedSuccess': return 'Saved successfully';
 			case 'homePage.savedFailure': return 'Failed to save image(s)';
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
+			case 'aboutPage.version': return ({required Object version, required Object buildNumber}) => 'Version ${version}(${buildNumber})';
+			case 'aboutPage.copyright': return ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. All rights reserved.';
+			case 'aboutPage.slogan': return 'Your pictures, your signature.';
+			case 'aboutPage.readme': return 'Readme';
+			case 'aboutPage.appLicense': return 'Application License';
+			case 'aboutPage.changelog': return 'Changelog';
+			case 'aboutPage.thirdPartyLicense': return 'Third Party Licenses';
 			case 'colors.white': return 'White';
 			case 'colors.grey': return 'Grey';
 			case 'colors.black': return 'Black';

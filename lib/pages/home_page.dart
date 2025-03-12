@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
           ? PGAppBar(
               titleWidget: Text(appName),
               isDark: isDark,
-              actions: const [SettingsBtn()],
+              actions: const [SettingsBtn(), AboutBtn()],
             )
           : isWeb && PgEnv.appPreviewEnabled
               ? PGAppBar(

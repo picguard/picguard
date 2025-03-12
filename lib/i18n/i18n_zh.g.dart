@@ -44,6 +44,7 @@ class TranslationsZh extends Translations {
 		}
 	}
 	@override late final _TranslationsHomePageZh homePage = _TranslationsHomePageZh._(_root);
+	@override late final _TranslationsAboutPageZh aboutPage = _TranslationsAboutPageZh._(_root);
 	@override late final _TranslationsColorsZh colors = _TranslationsColorsZh._(_root);
 	@override late final _TranslationsMenusZh menus = _TranslationsMenusZh._(_root);
 	@override late final _TranslationsButtonsZh buttons = _TranslationsButtonsZh._(_root);
@@ -85,6 +86,22 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 	@override String get savedSuccess => '保存成功';
 	@override String get savedFailure => '保存失败';
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
+}
+
+// Path: aboutPage
+class _TranslationsAboutPageZh extends TranslationsAboutPageEn {
+	_TranslationsAboutPageZh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version, required Object buildNumber}) => '版本号 ${version}(${buildNumber})';
+	@override String copyright({required Object year, required Object appName}) => '版权 © ${year} ${appName}. 版权所有。';
+	@override String get slogan => '给图片添加水印, 防止被恶意使用.';
+	@override String get readme => '项目简介';
+	@override String get appLicense => '应用许可证';
+	@override String get changelog => '变更日志';
+	@override String get thirdPartyLicense => '第三方许可证';
 }
 
 // Path: colors
@@ -282,6 +299,13 @@ extension on TranslationsZh {
 			case 'homePage.savedSuccess': return '保存成功';
 			case 'homePage.savedFailure': return '保存失败';
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
+			case 'aboutPage.version': return ({required Object version, required Object buildNumber}) => '版本号 ${version}(${buildNumber})';
+			case 'aboutPage.copyright': return ({required Object year, required Object appName}) => '版权 © ${year} ${appName}. 版权所有。';
+			case 'aboutPage.slogan': return '给图片添加水印, 防止被恶意使用.';
+			case 'aboutPage.readme': return '项目简介';
+			case 'aboutPage.appLicense': return '应用许可证';
+			case 'aboutPage.changelog': return '变更日志';
+			case 'aboutPage.thirdPartyLicense': return '第三方许可证';
 			case 'colors.white': return '白色';
 			case 'colors.grey': return '灰色';
 			case 'colors.black': return '黑色';

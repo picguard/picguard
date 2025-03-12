@@ -44,6 +44,7 @@ class TranslationsIt extends Translations {
 		}
 	}
 	@override late final _TranslationsHomePageIt homePage = _TranslationsHomePageIt._(_root);
+	@override late final _TranslationsAboutPageIt aboutPage = _TranslationsAboutPageIt._(_root);
 	@override late final _TranslationsColorsIt colors = _TranslationsColorsIt._(_root);
 	@override late final _TranslationsMenusIt menus = _TranslationsMenusIt._(_root);
 	@override late final _TranslationsButtonsIt buttons = _TranslationsButtonsIt._(_root);
@@ -85,6 +86,22 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String get savedSuccess => 'Salvataggio riuscito';
 	@override String get savedFailure => 'Impossibile salvare l\'immagine(i)';
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
+}
+
+// Path: aboutPage
+class _TranslationsAboutPageIt extends TranslationsAboutPageEn {
+	_TranslationsAboutPageIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version, required Object buildNumber}) => 'Versione ${version}(${buildNumber})';
+	@override String copyright({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. Tutti i diritti riservati.';
+	@override String get slogan => 'Le tue foto, la tua firma.';
+	@override String get readme => 'Introduzione del progetto';
+	@override String get appLicense => 'Licenza di applicazione';
+	@override String get changelog => 'Changelog';
+	@override String get thirdPartyLicense => 'Licenze di terze parti';
 }
 
 // Path: colors
@@ -282,6 +299,13 @@ extension on TranslationsIt {
 			case 'homePage.savedSuccess': return 'Salvataggio riuscito';
 			case 'homePage.savedFailure': return 'Impossibile salvare l\'immagine(i)';
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
+			case 'aboutPage.version': return ({required Object version, required Object buildNumber}) => 'Versione ${version}(${buildNumber})';
+			case 'aboutPage.copyright': return ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. Tutti i diritti riservati.';
+			case 'aboutPage.slogan': return 'Le tue foto, la tua firma.';
+			case 'aboutPage.readme': return 'Introduzione del progetto';
+			case 'aboutPage.appLicense': return 'Licenza di applicazione';
+			case 'aboutPage.changelog': return 'Changelog';
+			case 'aboutPage.thirdPartyLicense': return 'Licenze di terze parti';
 			case 'colors.white': return 'Bianco';
 			case 'colors.grey': return 'Grigio';
 			case 'colors.black': return 'Nero';

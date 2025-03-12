@@ -7,7 +7,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:about/about.dart';
 import 'package:collection/collection.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -17,6 +19,7 @@ import 'package:picguard/app/config.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/extensions/extensions.dart';
+import 'package:picguard/generated/assets.gen.dart';
 import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
@@ -50,18 +53,18 @@ class DialogUtil {
         builder: (BuildContext context) {
           final isDark = Theme.of(context).brightness == Brightness.dark;
 
-          final androidPermissionTexts =
-              t.dialogs.licenseDialog.androidPermissions
-                  .mapIndexed(
-                    (index, permissionText) => Text(
-                      '${index + 1}. ${(permissionText as StringCallback)(appName: appName)}',
-                      style: TextStyle(
-                        color: isDark ? Colors.white : PGColors.primaryTextColor,
-                        fontSize: 14,
-                      ),
-                    ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
-                  )
-                  .toList();
+          final androidPermissionTexts = t
+              .dialogs.licenseDialog.androidPermissions
+              .mapIndexed(
+                (index, permissionText) => Text(
+                  '${index + 1}. ${(permissionText as StringCallback)(appName: appName)}',
+                  style: TextStyle(
+                    color: isDark ? Colors.white : PGColors.primaryTextColor,
+                    fontSize: 14,
+                  ),
+                ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
+              )
+              .toList();
 
           final iosPermissionTexts = t.dialogs.licenseDialog.iosPermissions
               .mapIndexed(
@@ -112,7 +115,8 @@ class DialogUtil {
                         text:
                             t.dialogs.licenseDialog.licenseDialogContentPrefix,
                         style: TextStyle(
-                          color: isDark ? Colors.white : PGColors.primaryTextColor,
+                          color:
+                              isDark ? Colors.white : PGColors.primaryTextColor,
                           fontSize: 14,
                         ),
                       ),
@@ -136,7 +140,8 @@ class DialogUtil {
                       TextSpan(
                         text: t.dialogs.licenseDialog.licenseDialogContentAnd,
                         style: TextStyle(
-                          color: isDark ? Colors.white : PGColors.primaryTextColor,
+                          color:
+                              isDark ? Colors.white : PGColors.primaryTextColor,
                           fontSize: 14,
                         ),
                       ),
@@ -161,7 +166,8 @@ class DialogUtil {
                         text:
                             t.dialogs.licenseDialog.licenseDialogContentSuffix,
                         style: TextStyle(
-                          color: isDark ? Colors.white : PGColors.primaryTextColor,
+                          color:
+                              isDark ? Colors.white : PGColors.primaryTextColor,
                           fontSize: 14,
                         ),
                       ),
@@ -182,7 +188,8 @@ class DialogUtil {
                     t.buttons.cancel,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: isDark ? Colors.white70 : PGColors.secondaryTextColor,
+                      color:
+                          isDark ? Colors.white70 : PGColors.secondaryTextColor,
                       fontSize: 16,
                       height: 1.375,
                     ),
@@ -209,7 +216,9 @@ class DialogUtil {
                       )
                       .nestedDecoratedBox(
                         decoration: const BoxDecoration(
-                          border: Border(left: BorderSide(color: PGColors.borderColor)),
+                          border: Border(
+                            left: BorderSide(color: PGColors.borderColor),
+                          ),
                         ),
                       )
                       .nestedTap(() {
@@ -295,7 +304,8 @@ class DialogUtil {
                         height: 1.375,
                       ),
                     ),
-                    overlayColor: WidgetStateProperty.all(PGColors.backgroundColor),
+                    overlayColor:
+                        WidgetStateProperty.all(PGColors.backgroundColor),
                     shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0),
@@ -394,7 +404,8 @@ class DialogUtil {
                 minimumSize: WidgetStateProperty.all(Size.zero),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 iconColor: WidgetStateProperty.all(Colors.red),
-                backgroundColor: WidgetStateProperty.all(PGColors.backgroundColor),
+                backgroundColor:
+                    WidgetStateProperty.all(PGColors.backgroundColor),
               ),
               onPressed: NavigatorUtil.pop,
               icon: const Icon(Icons.close),
@@ -508,6 +519,57 @@ class DialogUtil {
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
       builder: (BuildContext context) => const SettingsModal(),
+    );
+  }
+
+  ///
+  static Future<void> showAboutModal() async {
+    final context = AppNavigator.key.currentContext!;
+    final t = Translations.of(context);
+    final appName = t.appName(flavor: AppConfig.shared.flavor);
+    final packageInfo = await PackageInfo.fromPlatform();
+
+    if (!context.mounted) {
+      return;
+    }
+
+    final version = packageInfo.version;
+    final buildNumber = packageInfo.buildNumber;
+
+    await showAboutPage(
+      context: context,
+      title: Text(t.menus.about(appName: appName)),
+      applicationIcon: Assets.logo.logo512.image(width: 100, height: 100),
+      applicationName: appName,
+      applicationVersion: t.aboutPage.version(version: version, buildNumber: buildNumber),
+      applicationLegalese:
+          t.aboutPage.copyright(year: DateTime.now().year.toString(), appName: appName),
+      applicationDescription: Text(
+        t.aboutPage.slogan,
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
+      ),
+      children: <Widget>[
+         MarkdownPageListTile(
+          filename: 'README.md',
+          title: Text(t.aboutPage.readme),
+          icon: const Icon(Icons.all_inclusive),
+        ),
+         MarkdownPageListTile(
+          filename: 'LICENSE',
+          title: Text(t.aboutPage.appLicense),
+          icon: const Icon(Icons.description),
+        ),
+        MarkdownPageListTile(
+          icon: const Icon(Icons.list),
+          title: Text(t.aboutPage.changelog),
+          filename: 'CHANGELOG.md',
+        ),
+        LicensesPageListTile(
+          icon: const Icon(Icons.favorite),
+          title: Text(t.aboutPage.thirdPartyLicense),
+        ),
+      ],
     );
   }
 }
