@@ -17,6 +17,7 @@ import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:gap/gap.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
@@ -31,6 +32,7 @@ import 'package:uuid/uuid.dart';
 import 'package:picguard/app/config.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
@@ -50,6 +52,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late MultiImagePickerController controller;
+  final _key = GlobalKey<ExpandableFabState>();
   final _formKey = GlobalKey<FormBuilderState>();
   final inputFocusNode = FocusNode();
 
@@ -98,7 +101,18 @@ class _HomePageState extends State<HomePage> {
           ? PGAppBar(
               titleWidget: Text(appName),
               isDark: isDark,
-              actions: const [SettingsBtn(), AboutBtn()],
+              actions: const [
+                IconBtn(
+                  icon: Icons.settings,
+                  onPressed: DialogUtil.showSettingsModal,
+                ),
+                IconBtn(
+                  icon: Icons.info,
+                  iconColor: PGColors.warnTextColor,
+                  overlayColor: PGColors.backgroundColor,
+                  onPressed: DialogUtil.showAboutModal,
+                ),
+              ],
             )
           : isWeb && PgEnv.appPreviewEnabled
               ? PGAppBar(
@@ -218,7 +232,71 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
-      floatingActionButton: isWeb ? const SettingsBtn() : null,
+      floatingActionButtonLocation: ExpandableFab.location,
+      floatingActionButton: isWeb
+          ? ExpandableFab(
+              key: _key,
+              duration: const Duration(milliseconds: 500),
+              distance: 60,
+              type: ExpandableFabType.up,
+              // pos: ExpandableFabPos.left,
+              // childrenOffset: const Offset(0, 20),
+              childrenAnimation: ExpandableFabAnimation.none,
+              fanAngle: 40,
+              openButtonBuilder: RotateFloatingActionButtonBuilder(
+                child: const Icon(Icons.menu),
+                fabSize: ExpandableFabSize.small,
+                foregroundColor: PGColors.primaryColor,
+                backgroundColor: PGColors.primaryBackgroundColor,
+                shape: const CircleBorder(),
+                angle: 3.14 * 2,
+              ),
+              closeButtonBuilder: FloatingActionButtonBuilder(
+                size: 44,
+                builder: (
+                  BuildContext context,
+                  void Function()? onPressed,
+                  Animation<double> progress,
+                ) {
+                  return IconButton(
+                    onPressed: onPressed,
+                    style: ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all(PGColors.backgroundColor),
+                      foregroundColor:
+                          WidgetStateProperty.all(PGColors.warnTextColor),
+                    ),
+                    icon: const Icon(
+                      Icons.close,
+                      size: 24,
+                    ),
+                  );
+                },
+              ),
+              overlayStyle: ExpandableFabOverlayStyle(
+                color: Colors.black.withValues(alpha: 0.5),
+                blur: 5,
+              ),
+              children: [
+                IconBtn(
+                  icon: Icons.settings,
+                  onPressed: () {
+                    _key.currentState?.toggle();
+                    DialogUtil.showSettingsModal();
+                  },
+                ),
+                IconBtn(
+                  icon: Icons.info,
+                  iconColor: PGColors.warnTextColor,
+                  overlayColor: PGColors.backgroundColor,
+                  onPressed: () {
+                    _key.currentState?.toggle();
+                    DialogUtil.showAboutModal();
+                  },
+                ),
+              ],
+            )
+          : null,
     );
 
     if (isWeb) {
@@ -247,7 +325,9 @@ class _HomePageState extends State<HomePage> {
       final textGap = values['textGap'] as double?;
       final rowGap = values['rowGap'] as double?;
       printDebugLog(
-        'text: $text, color: $color, opacity: $opacity, fontFamily: $fontFamily, fontSize: $fontSize, textGap: $textGap, rowGap: $rowGap',
+        'text: $text, color: $color, opacity: $opacity, '
+        'fontFamily: $fontFamily, fontSize: $fontSize, '
+        'textGap: $textGap, rowGap: $rowGap',
       );
 
       try {
@@ -301,7 +381,7 @@ class _HomePageState extends State<HomePage> {
 
       final permission = await PermissionUtil.checkPermission();
       if (permission != Permissions.none) {
-        final t = Translations.of(AppNavigator.key.currentContext!);
+        final t = Translations.of(AppNavigator.navigatorKey.currentContext!);
         final appName = t.appName(flavor: AppConfig.shared.flavor);
         final title = permission == Permissions.photos
             ? t.dialogs.permissions.photos.title
@@ -605,7 +685,7 @@ class _HomePageState extends State<HomePage> {
   Future<List<ImageFile>> _pickImages(int limit) async {
     final permission = await PermissionUtil.checkPermission();
     if (permission != Permissions.none) {
-      final t = Translations.of(AppNavigator.key.currentContext!);
+      final t = Translations.of(AppNavigator.navigatorKey.currentContext!);
       final appName = t.appName(flavor: AppConfig.shared.flavor);
       final title = permission == Permissions.photos
           ? t.dialogs.permissions.photos.title

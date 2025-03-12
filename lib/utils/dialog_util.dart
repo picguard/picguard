@@ -12,7 +12,7 @@ import 'package:collection/collection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 // Project imports:
 import 'package:picguard/app/config.dart';
@@ -33,7 +33,7 @@ const double _buttonHeight = 54;
 ///
 class DialogUtil {
   static void showLicenseDialog() {
-    final context = AppNavigator.key.currentContext!;
+    final context = AppNavigator.navigatorKey.currentContext!;
     final isContainsKey = SpUtil.containsKey(Keys.licenseKey) ?? false;
 
     printDebugLog('isContainsKey: $isContainsKey');
@@ -57,7 +57,9 @@ class DialogUtil {
               .dialogs.licenseDialog.androidPermissions
               .mapIndexed(
                 (index, permissionText) => Text(
-                  '${index + 1}. ${(permissionText as StringCallback)(appName: appName)}',
+                  '${index + 1}. ${(permissionText as StringCallback)(
+                    appName: appName,
+                  )}',
                   style: TextStyle(
                     color: isDark ? Colors.white : PGColors.primaryTextColor,
                     fontSize: 14,
@@ -69,7 +71,9 @@ class DialogUtil {
           final iosPermissionTexts = t.dialogs.licenseDialog.iosPermissions
               .mapIndexed(
                 (index, permissionText) => Text(
-                  '${index + 1}. ${(permissionText as StringCallback)(appName: appName)}',
+                  '${index + 1}. ${(permissionText as StringCallback)(
+                    appName: appName,
+                  )}',
                   style: TextStyle(
                     color: isDark ? Colors.white : PGColors.primaryTextColor,
                     fontSize: 14,
@@ -125,11 +129,10 @@ class DialogUtil {
                             .licenseDialogContentUserAgreement,
                         recognizer: TapGestureRecognizer()
                           ..onTap = () async {
-                            final uri = Uri.parse(
-                              'https://www.picguard.app/$languageCode/legal/terms-of-use/',
-                            );
-                            if (await canLaunchUrl(uri)) {
-                              await launchUrl(uri);
+                            final uri =
+                                '$websiteBaseUrl/$languageCode/legal/terms-of-use/';
+                            if (await canLaunchUrlString(uri)) {
+                              await launchUrlString(uri);
                             }
                           },
                         style: const TextStyle(
@@ -150,11 +153,10 @@ class DialogUtil {
                             .licenseDialogContentPrivacyPolicy,
                         recognizer: TapGestureRecognizer()
                           ..onTap = () async {
-                            final uri = Uri.parse(
-                              'https://www.picguard.app/$languageCode/legal/privacy/',
-                            );
-                            if (await canLaunchUrl(uri)) {
-                              await launchUrl(uri);
+                            final uri =
+                                '$websiteBaseUrl/$languageCode/legal/privacy/';
+                            if (await canLaunchUrlString(uri)) {
+                              await launchUrlString(uri);
                             }
                           },
                         style: const TextStyle(
@@ -265,7 +267,7 @@ class DialogUtil {
     EdgeInsetsGeometry? contentPadding,
   }) {
     showDialog<void>(
-      context: AppNavigator.key.currentContext!,
+      context: AppNavigator.navigatorKey.currentContext!,
       barrierDismissible: barrierDismissible,
       builder: (BuildContext context) => AlertDialog(
         title: titleWidget ??
@@ -374,7 +376,7 @@ class DialogUtil {
     List<ImageProvider> imageProviders, {
     int initialPage = 0,
   }) {
-    final context = AppNavigator.key.currentContext!;
+    final context = AppNavigator.navigatorKey.currentContext!;
     final pageController = PageController(initialPage: initialPage);
     showDialog<void>(
       context: context,
@@ -384,7 +386,9 @@ class DialogUtil {
           PhotoViewGallery.builder(
             pageController: pageController,
             scrollPhysics: const AlwaysScrollableScrollPhysics(),
-            backgroundDecoration: const BoxDecoration(color: Colors.black45),
+            backgroundDecoration: const BoxDecoration(
+              color: Colors.black45,
+            ),
             itemCount: imageProviders.length,
             builder: (BuildContext context, int index) {
               final imageProvider = imageProviders.elementAt(index);
@@ -421,7 +425,7 @@ class DialogUtil {
     required String content,
     Color? barrierColor,
   }) {
-    final context = AppNavigator.key.currentContext!;
+    final context = AppNavigator.navigatorKey.currentContext!;
     final height = MediaQuery.sizeOf(context).height;
     final bottom = MediaQuery.paddingOf(context).bottom;
     showModalBottomSheet<void>(
@@ -467,7 +471,7 @@ class DialogUtil {
     required VoidPGColorCallback callback,
     int? color,
   }) {
-    final context = AppNavigator.key.currentContext!;
+    final context = AppNavigator.navigatorKey.currentContext!;
     showModalBottomSheet<void>(
       context: context,
       isDismissible: false,
@@ -490,7 +494,7 @@ class DialogUtil {
     required VoidPGFontCallback callback,
     String? font,
   }) {
-    final context = AppNavigator.key.currentContext!;
+    final context = AppNavigator.navigatorKey.currentContext!;
     showModalBottomSheet<void>(
       context: context,
       isDismissible: false,
@@ -509,7 +513,7 @@ class DialogUtil {
 
   ///
   static void showSettingsModal() {
-    final context = AppNavigator.key.currentContext!;
+    final context = AppNavigator.navigatorKey.currentContext!;
     showModalBottomSheet<void>(
       context: context,
       isDismissible: false,
@@ -524,7 +528,7 @@ class DialogUtil {
 
   ///
   static Future<void> showAboutModal() async {
-    final context = AppNavigator.key.currentContext!;
+    final context = AppNavigator.navigatorKey.currentContext!;
     final t = Translations.of(context);
     final appName = t.appName(flavor: AppConfig.shared.flavor);
     final packageInfo = await PackageInfo.fromPlatform();
@@ -535,27 +539,50 @@ class DialogUtil {
 
     final version = packageInfo.version;
     final buildNumber = packageInfo.buildNumber;
+    final titleName = t.menus.about(appName: appName);
 
     await showAboutPage(
       context: context,
-      title: Text(t.menus.about(appName: appName)),
+      title: Text(titleName),
       applicationIcon: Assets.logo.logo512.image(width: 100, height: 100),
       applicationName: appName,
-      applicationVersion: t.aboutPage.version(version: version, buildNumber: buildNumber),
-      applicationLegalese:
-          t.aboutPage.copyright(year: DateTime.now().year.toString(), appName: appName),
+      applicationVersion: t.aboutPage.version(
+        version: version,
+        buildNumber: buildNumber,
+      ),
+      applicationLegalese: t.aboutPage.copyright(
+        year: DateTime.now().year.toString(),
+        appName: appName,
+      ),
+      scaffoldBuilder: (
+        BuildContext context,
+        Widget title,
+        Widget child,
+      ) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return SelectionArea(
+          child: Scaffold(
+            appBar: PGAppBar(
+              titleName: titleName,
+              isDark: isDark,
+              showBottom: false,
+            ),
+            body: child,
+          ),
+        );
+      },
       applicationDescription: Text(
         t.aboutPage.slogan,
         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         textAlign: TextAlign.center,
       ),
       children: <Widget>[
-         MarkdownPageListTile(
+        MarkdownPageListTile(
           filename: 'README.md',
           title: Text(t.aboutPage.readme),
           icon: const Icon(Icons.all_inclusive),
         ),
-         MarkdownPageListTile(
+        MarkdownPageListTile(
           filename: 'LICENSE',
           title: Text(t.aboutPage.appLicense),
           icon: const Icon(Icons.description),
