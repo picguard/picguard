@@ -349,10 +349,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "7423298f08f6fc8cce05792bae329f9a93653fc9c08712831b1a55540127995d"
+      sha256: ee11ce89f8937c39181bc88d57a455972f7545b86150d8f287d0d9cf95bcdf0a
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.2"
+    version: "9.1.0"
   file_saver:
     dependency: "direct main"
     description:
@@ -426,10 +426,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_form_builder
-      sha256: "60237a24a4da373218eb77b0ef1a3c64ca17ff6c42250e149987755735cbd67c"
+      sha256: aa3901466c70b69ae6c7f3d03fcbccaec5fde179d3fded0b10203144b546ad28
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.0"
+    version: "10.0.1"
   flutter_gen:
     dependency: "direct main"
     description:
@@ -1588,4 +1588,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.7.0 <4.0.0"
-  flutter: ">=3.29.1"
+  flutter: ">=3.29.0"
