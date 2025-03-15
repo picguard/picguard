@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart' hide Translations;
@@ -120,6 +121,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final easyLoadingBuilder = EasyLoading.init();
+  final botToastBuilder = BotToastInit();
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +140,7 @@ class _MainAppState extends State<MainApp> {
           navigatorKey: AppNavigator.navigatorKey,
           scaffoldMessengerKey: AppNavigator.scaffoldMessengerKey,
           navigatorObservers: [
+            BotToastNavigatorObserver(),
             if (PgEnv.sentryEnabled) SentryNavigatorObserver(),
           ],
           themeMode: mainController.themeMode.value,
@@ -157,6 +160,7 @@ class _MainAppState extends State<MainApp> {
                   : child,
           builder: (BuildContext context, Widget? child) {
             child = easyLoadingBuilder(context, child);
+            child = botToastBuilder(context, child);
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(
                 textScaler: TextScaler.noScaling,

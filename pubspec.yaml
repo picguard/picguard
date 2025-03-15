@@ -23,6 +23,7 @@ environment:
 dependencies:
   about: ^2.2.0
   app_settings_plus: ^5.2.0+2
+  bot_toast: ^4.1.3
   cupertino_icons: ^1.0.8
   device_info_plus: ^11.3.3
   file_picker: ^9.0.2
@@ -55,6 +56,8 @@ dependencies:
   sentry_logging: ^8.14.0
   shared_preferences: ^2.5.2
   slang_flutter: ^4.5.0
+  super_clipboard: ^0.9.0-dev.6
+  super_drag_and_drop: ^0.9.0-dev.6
   syncfusion_flutter_sliders: ^28.2.11
   synchronized: ^3.3.1
   url_launcher: ^6.3.1
