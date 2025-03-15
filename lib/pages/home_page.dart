@@ -26,20 +26,18 @@ import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:path/path.dart' hide context;
-import 'package:uuid/uuid.dart';
 
 // Project imports:
 import 'package:picguard/app/config.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
+import 'package:picguard/constants/uuid.dart';
 import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/models/models.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
-
-const uuid = Uuid();
 
 ///
 class HomePage extends StatefulWidget {
@@ -249,7 +247,6 @@ class _HomePageState extends State<HomePage> {
                 foregroundColor: PGColors.primaryColor,
                 backgroundColor: PGColors.primaryBackgroundColor,
                 shape: const CircleBorder(),
-                angle: 3.14 * 2,
               ),
               closeButtonBuilder: FloatingActionButtonBuilder(
                 size: 44,

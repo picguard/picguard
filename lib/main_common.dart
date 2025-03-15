@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:developer';
-
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +45,7 @@ Future<void> runMainApp({
   Logger.root.level =
       kReleaseMode ? Level.OFF : Level.ALL; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {
-    log('${record.level.name}: ${record.time}: ${record.message}');
+    debugPrint('${record.level.name}: ${record.time}: ${record.message}');
   });
 
   if (PgEnv.sentryEnabled) {
