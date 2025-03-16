@@ -530,7 +530,8 @@ jobs:
         run: flutter pub get
 
       - name: Resolving ios dependencies
-        run: cd ios && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: ios
 
       - name: Install the Apple certificate and provisioning profile
         env:
@@ -577,19 +578,21 @@ jobs:
           mv $PP_PRO_DEV_PATH ~/Library/MobileDevice/Provisioning\ Profiles
           mv $PP_PRO_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: ios
+
       - name: Build ipa
         if: inputs.env == 'staging'
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to adhoc..."
           flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/debug.plist
 
       - name: Build ipa
         if: inputs.env == 'production'
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
           flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/release.plist
 
@@ -648,7 +651,8 @@ jobs:
         run: flutter pub get
 
       - name: Resolving ios dependencies
-        run: cd ios && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: ios
 
       - name: Install the Apple certificate and provisioning profile
         env:
@@ -695,19 +699,21 @@ jobs:
           mv $PP_PRO_DEV_PATH ~/Library/MobileDevice/Provisioning\ Profiles
           mv $PP_PRO_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: ios
+
       - name: Build ipa
         if: inputs.env == 'staging'
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to adhoc..."
           flutter build ipa --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/debug.plist
 
       - name: Build ipa
         if: inputs.env == 'production'
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
           flutter build ipa --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/release.plist
 
@@ -771,12 +777,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
@@ -895,12 +906,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
@@ -1022,12 +1038,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to mac app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
@@ -1156,12 +1177,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to mac app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro
 
@@ -1290,12 +1316,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
@@ -1420,12 +1451,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 

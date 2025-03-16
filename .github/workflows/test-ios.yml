@@ -31,7 +31,8 @@ jobs:
         run: flutter pub get
 
       - name: Resolving ios dependencies
-        run: cd ios && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: ios
 
       - name: Install the Apple certificate and provisioning profile
         env:
@@ -78,10 +79,14 @@ jobs:
           mv $PP_PRO_DEV_PATH ~/Library/MobileDevice/Provisioning\ Profiles
           mv $PP_PRO_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-      - name: Build Ipa
+      - name: Remove build cache
         run: |
           echo "╠ Removing build products and intermediate files from the build root..."
-          cd ios && xcodebuild clean && cd ..
+          xcodebuild clean
+        working-directory: ios
+
+      - name: Build Ipa
+        run: |
           echo "╠ Releasing to app store..."
           flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/debug.plist
 
