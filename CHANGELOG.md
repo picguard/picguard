@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0+440
+
+1. fix: update scripts
+2. feat: add menu bar
+3. chore(deps): update deps
+4. feat: add about page
+5. chore(deps): update deps
+
 ## 1.0.15+439
 
 1. fix: update flavors for iOS and macOS
