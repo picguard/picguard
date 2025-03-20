@@ -14,7 +14,7 @@ test -f PicGuard.dmg && rm -f PicGuard.dmg
 create-dmg \
   --volname "PicGuard" \
   --volicon "logo/logo.icns" \
-  --eula "privacy.rtf" \
+  --eula "eula.rtf" \
   --window-pos 200 120 \
   --window-size 600 400 \
   --icon-size 100 \
