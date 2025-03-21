@@ -14,13 +14,14 @@ test -f PicGuard.dmg && rm -f PicGuard.dmg
 create-dmg \
   --volname "PicGuard" \
   --volicon "logo/logo.icns" \
+  --background "images/background.png" \
   --eula "eula.rtf" \
-  --window-pos 200 120 \
-  --window-size 600 400 \
+  --window-pos 200 180 \
+  --window-size 660 500 \
   --icon-size 100 \
-  --icon "PicGuard.app" 200 180 \
+  --icon "PicGuard.app" 180 170 \
   --hide-extension "PicGuard.app" \
-  --app-drop-link 400 180 \
+  --app-drop-link 480 170 \
   "PicGuard.dmg" \
   "build/macos/Build/Products/Release-free/PicGuard.app"
 
