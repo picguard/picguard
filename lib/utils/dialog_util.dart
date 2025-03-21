@@ -551,7 +551,7 @@ class DialogUtil {
         buildNumber: buildNumber,
       ),
       applicationLegalese: t.aboutPage.copyright(
-        year: DateTime.now().year.toString(),
+        year: '2023-${DateTime.now().year}',
         appName: appName,
       ),
       scaffoldBuilder: (
@@ -595,6 +595,36 @@ class DialogUtil {
         LicensesPageListTile(
           icon: const Icon(Icons.favorite),
           title: Text(t.aboutPage.thirdPartyLicense),
+        ),
+        ListTile(
+          leading: const Icon(Icons.privacy_tip),
+          title: Text(t.menus.privacy),
+          trailing: Icon(
+                Directionality.of(context) == TextDirection.ltr
+                    ? Icons.chevron_right
+                    : Icons.chevron_left,
+              ),
+          onTap: gotoPrivacyPage,
+        ),
+        ListTile(
+          leading: const Icon(Icons.account_circle),
+          title: Text(t.menus.userAgreement),
+          trailing: Icon(
+            Directionality.of(context) == TextDirection.ltr
+                ? Icons.chevron_right
+                : Icons.chevron_left,
+          ),
+          onTap: gotoTermsOfUsePage,
+        ),
+        ListTile(
+          leading: const Icon(Icons.support),
+          title: Text(t.menus.support),
+          trailing: Icon(
+            Directionality.of(context) == TextDirection.ltr
+                ? Icons.chevron_right
+                : Icons.chevron_left,
+          ),
+          onTap: gotoSupportPage,
         ),
       ],
     );
