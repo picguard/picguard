@@ -62,11 +62,10 @@ app.*.map.json
 !.idea/dictionaries/
 !.idea/runConfigurations/
 
-/node_modules
 /*.dmg
 /*.pkg
-dist/
 /*.snap
+distribution.dist
 
 # local env files
 .env*.local

@@ -98,8 +98,8 @@ jobs:
       - ios-pro
       - macos-dmg
       - macos-pkg
-      - macos-appstore-free
-      - macos-appstore-pro
+      - macos-appstore-pkg-free
+      - macos-appstore-pkg-pro
       - macos-zip
       - macos-tar
       - linux-appimage
@@ -951,14 +951,29 @@ jobs:
         env:
           DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
 
-      - name: Build & Sign pkg
+      - name: Build pkg
         run: |
           # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
           xcrun pkgbuild --component "./PicGuard.app" --install-location /Applications --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard-unsigned.pkg
-          xcrun productbuild --package PicGuard-unsigned.pkg --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard.pkg
+          mv PicGuard-unsigned.pkg "$GITHUB_WORKSPACE/PicGuard-unsigned.pkg"
         env:
           DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY }}
         working-directory: build/macos/Build/Products/Release-free
+
+      - name: Building distribution file
+        run: |
+          xcrun productbuild --synthesize --product macos/packaging/pkg/requirements --package PicGuard-unsigned.pkg distribution.dist
+          sed -i '' '2 a\
+          \    <title>PicGuard</title>\
+          \    <license file="eula.rtf"/>\
+          ' distribution.dist
+
+      - name: Sign pkg
+        run: |
+          # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
+          xcrun productbuild --distribution distribution.dist --resources macos/packaging/base --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard.pkg
+        env:
+          DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY }}
 
       - name: Notarize & Staple
         run: |
@@ -973,7 +988,6 @@ jobs:
           # validated by macOS even when an internet connection is not available.
           echo "Attach staple"
           xcrun stapler staple "PicGuard.pkg"
-        working-directory: build/macos/Build/Products/Release-free
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
@@ -983,10 +997,10 @@ jobs:
       # Package the build.
       - name: Copy build for pkg
         run: |
-          rm -f PicGuard-unsigned.pkg
           ls -la *.pkg
-          mv PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_universal.pkg
-        working-directory: build/macos/Build/Products/Release-free
+          test -f PicGuard-unsigned.pkg && rm -f PicGuard-unsigned.pkg
+          mv PicGuard.pkg PicGuard_"$RELEASE"_macos_universal.pkg
+          ls -la *.pkg
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -1005,7 +1019,7 @@ jobs:
           fi
           rm -f .env
 
-  macos-appstore-free:
+  macos-appstore-pkg-free:
     name: Create macos pkg (appstore-free)
     runs-on: macos-14
     needs:
@@ -1144,7 +1158,7 @@ jobs:
           fi
           rm -f .env
 
-  macos-appstore-pro:
+  macos-appstore-pkg-pro:
     name: Create macos pkg (appstore-pro)
     runs-on: macos-14
     needs:
