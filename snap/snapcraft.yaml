@@ -16,11 +16,8 @@ license: GPL-3.0-only
 source-code: https://github.com/picguard/picguard
 issues: https://github.com/picguard/picguard/issues
 website: https://www.picguard.app
-architectures:
-  - build-on: [amd64]
-  - build-on: [arm64]
 confinement: strict
-base: core22
+base: core24
 grade: stable
 slots:
   dbus-picguard: # adjust accordingly to your app name
