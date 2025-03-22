@@ -101,7 +101,7 @@ jobs:
       - name: Copy build for iOS
         run: |
           ls -la
-          cp *.ipa $GITHUB_WORKSPACE/PicGuard_"$VERSION".pre-free.ipa
+          mv *.ipa $GITHUB_WORKSPACE/PicGuard_"$VERSION".ipa
         working-directory: build/ios/ipa
         env:
           VERSION: ${{ steps.version_step.outputs.version }}

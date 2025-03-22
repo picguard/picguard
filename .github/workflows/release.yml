@@ -222,9 +222,9 @@ jobs:
         run: |
           ls -la
           if [[ "$ENV" == "staging" ]]; then
-            cp app-freestaging-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.apk
+            cp app-freestaging-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE.apk
           else
-            cp app-freeproduction-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.apk
+            cp app-freeproduction-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE.apk
           fi
         working-directory: build/app/outputs/flutter-apk
         env:
@@ -304,9 +304,9 @@ jobs:
         run: |
           ls -la
           if [[ "$ENV" == "staging" ]]; then
-            cp app-prostaging-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.apk
+            cp app-prostaging-release.apk $GITHUB_WORKSPACE/PicGuard-Pro_$RELEASE.apk
           else
-            cp app-proproduction-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.apk
+            cp app-proproduction-release.apk $GITHUB_WORKSPACE/PicGuard-Pro_$RELEASE.apk
           fi
         working-directory: build/app/outputs/flutter-apk
         env:
@@ -386,7 +386,7 @@ jobs:
         if: inputs.env == 'staging'
         run: |
           ls -la
-          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.aab
+          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE.aab
         working-directory: build/app/outputs/bundle/freeStagingRelease
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -395,7 +395,7 @@ jobs:
         if: inputs.env == 'production'
         run: |
           ls -la
-          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.aab
+          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE.aab
         working-directory: build/app/outputs/bundle/freeProductionRelease
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -473,7 +473,7 @@ jobs:
         if: inputs.env == 'staging'
         run: |
           ls -la
-          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.aab
+          cp *.aab $GITHUB_WORKSPACE/PicGuard-Pro_$RELEASE.aab
         working-directory: build/app/outputs/bundle/proStagingRelease
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -482,7 +482,7 @@ jobs:
         if: inputs.env == 'production'
         run: |
           ls -la
-          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.aab
+          cp *.aab $GITHUB_WORKSPACE/PicGuard-Pro_$RELEASE.aab
         working-directory: build/app/outputs/bundle/proProductionRelease
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -600,7 +600,7 @@ jobs:
       - name: Copy build for iOS
         run: |
           ls -la
-          cp *.ipa $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.ipa
+          cp *.ipa $GITHUB_WORKSPACE/PicGuard_$RELEASE.ipa
         working-directory: build/ios/ipa
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -721,7 +721,7 @@ jobs:
       - name: Copy build for iOS
         run: |
           ls -la
-          cp *.ipa $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.ipa
+          cp *.ipa $GITHUB_WORKSPACE/PicGuard-Pro_$RELEASE.ipa
         working-directory: build/ios/ipa
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -1138,7 +1138,7 @@ jobs:
       - name: Copy build for pkg
         run: |
           ls -la *.pkg
-          cp PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore-free_universal.pkg
+          cp PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore_universal.pkg
         working-directory: build/macos/Build/Products/Release-free
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -1277,7 +1277,7 @@ jobs:
       - name: Copy build for pkg
         run: |
           ls -la *.pkg
-          cp PicGuard\ Pro.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore-pro_universal.pkg
+          cp PicGuard\ Pro.pkg $GITHUB_WORKSPACE/PicGuard-Pro_"$RELEASE"_macos_appstore_universal.pkg
         working-directory: build/macos/Build/Products/Release-pro
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -2444,7 +2444,7 @@ jobs:
         run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Create msix
-        run: dart run msix:create --store --build-windows false --output-name "picguard_$env:RELEASE`_windows_store-free_x64"
+        run: dart run msix:create --store --build-windows false --output-name "picguard_$env:RELEASE`_windows_store_x64"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -2567,7 +2567,7 @@ jobs:
         run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Create msix
-        run: dart run msix:create --store --build-windows false --output-name "picguard_$env:RELEASE`_windows_store-pro_x64"
+        run: dart run msix:create --store --build-windows false --output-name "picguard-pro_$env:RELEASE`_windows_store_x64"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 

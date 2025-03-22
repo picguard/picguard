@@ -126,14 +126,15 @@ jobs:
       # Package the build.
       - name: Copy build for zip
         run: |
-          rm -f PicGuard.zip
           ls -la *.zip
+          test -f PicGuard.zip && rm -f PicGuard.zip
+          mv *.zip $GITHUB_WORKSPACE/
         working-directory: build/macos/Build/Products/Release-free
 
       - uses: actions/upload-artifact@v4
         with:
           name: macos-zip-artifact
-          path: ./build/macos/Build/Products/Release-free/*.zip
+          path: ./*.zip
 
       - name: Clean up
         if: ${{ always() }}

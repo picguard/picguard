@@ -128,7 +128,7 @@ jobs:
         run: |
           echo "$VERSION"
           ls -la *.pkg
-          mv PicGuard.pkg PicGuardAppStore_"$VERSION"_macos_appstore_universal.pkg
+          mv PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$VERSION"_macos_appstore_universal.pkg
           ls -la *.pkg
         working-directory: build/macos/Build/Products/Release-free
         env:
@@ -137,7 +137,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: macos-pkg-appstore-artifact
-          path: ./build/macos/Build/Products/Release-free/*.pkg
+          path: ./*.pkg
 
       - name: Clean up
         if: ${{ always() }}
