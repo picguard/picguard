@@ -31,6 +31,9 @@
         <File Source="$(FlutterBuildOutputDir)\sentry.dll" />
       </Component>
       <Component>
+        <File Source="$(FlutterBuildOutputDir)\tray_manager_plugin.dll" />
+      </Component>
+      <Component>
         <File Source="$(FlutterBuildOutputDir)\url_launcher_windows_plugin.dll" />
       </Component>
       <Component>

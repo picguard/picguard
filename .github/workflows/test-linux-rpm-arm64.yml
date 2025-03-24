@@ -25,6 +25,11 @@ jobs:
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
           sudo apt-get install -y rpm patchelf
 
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
+
       - name: Setup Flutter
         shell: bash
         run: |
