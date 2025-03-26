@@ -24,7 +24,7 @@ dependencies:
   app_settings_plus: ^5.2.0+2
   cupertino_icons: ^1.0.8
   device_info_plus: ^11.3.3
-  file_picker: ^9.2.1
+  file_picker: ^9.2.2
   file_saver: ^0.2.14
   flutter:
     sdk: flutter
