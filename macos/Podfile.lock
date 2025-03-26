@@ -16,7 +16,7 @@ PODS:
     - Flutter
     - FlutterMacOS
   - Sentry/HybridSDK (8.46.0)
-  - sentry_flutter (8.14.0):
+  - sentry_flutter (8.14.1):
     - Flutter
     - FlutterMacOS
     - Sentry/HybridSDK (= 8.46.0)
@@ -82,7 +82,7 @@ SPEC CHECKSUMS:
   package_info_plus: f0052d280d17aa382b932f399edf32507174e870
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   Sentry: da60d980b197a46db0b35ea12cb8f39af48d8854
-  sentry_flutter: 44fca75bb5ef672c9aa43e0415ed89579c040795
+  sentry_flutter: 942017adbe00f963061cb11ec260414a990b7a42
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
   tray_manager: a104b5c81b578d83f3c3d0f40a997c8b10810166
   url_launcher_macos: 0fba8ddabfc33ce0a9afe7c5fef5aab3d8d2d673
