@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       version: ${{ steps.version_step.outputs.version }}
+      version_short: ${{ steps.version_step.outputs.version_short }}
+      build_number: ${{ steps.version_step.outputs.build_number }}
     steps:
       - uses: actions/checkout@v4
 
@@ -20,7 +22,16 @@ jobs:
         run: |
           VERSION=$(yq '.version' pubspec.yaml)
           echo "$VERSION"
+          
+          VERSION_SHORT=$(echo "$VERSION" | sed -e "s/+.*//")
+          echo "VERSION_SHORT: $VERSION_SHORT."
+
+          BUILD_NUMBER=$(echo "$VERSION" | sed -e "s/.*+//")
+          echo "BUILD_NUMBER: $BUILD_NUMBER."
+
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
 
       - name: Check version
         run: echo ${{ steps.version_step.outputs.version }}
@@ -98,9 +109,10 @@ jobs:
 
       - name: Crate msix
         run: |
-          dart run msix:create --build-windows false --output-name "picguard_$env:VERSION`_windows_x64"
+          dart run msix:create --build-windows false --output-name "picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-x64"
         env:
-          VERSION: ${{ needs.get-version.outputs.version }}
+          VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
+          BUILD_NUMBER: ${{ needs.get-version.outputs.build_number }}
 
       # Package the build.
       - name: Copy build for msix

@@ -105,16 +105,26 @@ jobs:
         id: version_step
         run: |
           VERSION=$(yq '.version' pubspec.yaml)
-          echo "$VERSION"
+          echo "VERSION: $VERSION."
+
+          VERSION_SHORT=$(echo "$VERSION" | sed -e "s/+.*//")
+          echo "VERSION_SHORT: $VERSION_SHORT."
+
+          BUILD_NUMBER=$(echo "$VERSION" | sed -e "s/.*+//")
+          echo "BUILD_NUMBER: $BUILD_NUMBER."
+
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
 
       - name: Build tar
         run: |
-          echo "$VERSION"
-          tar -czaf PicGuard_"$VERSION"_macos_universal.tar.gz ./PicGuard.app
+          echo "VERSION: $VERSION_SHORT.$BUILD_NUMBER"
+          tar -czaf PicGuard-"$VERSION_SHORT.$BUILD_NUMBER"-macos-universal.tar.gz ./PicGuard.app
         working-directory: build/macos/Build/Products/Release-free
         env:
-          VERSION: ${{ steps.version_step.outputs.version }}
+          VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
+          BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
 
       # Package the build.
       - name: Copy build for tar

@@ -101,13 +101,6 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
-      - name: Set version
-        id: version_step
-        run: |
-          VERSION=$(yq '.version' pubspec.yaml)
-          echo "$VERSION"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
       - name: Install p7zip
         run: |
           if ! command -v 7z >/dev/null 2>&1; then
@@ -115,13 +108,30 @@ jobs:
             brew install p7zip
           fi
 
+      - name: Set version
+        id: version_step
+        run: |
+          VERSION=$(yq '.version' pubspec.yaml)
+          echo "VERSION: $VERSION."
+
+          VERSION_SHORT=$(echo "$VERSION" | sed -e "s/+.*//")
+          echo "VERSION_SHORT: $VERSION_SHORT."
+
+          BUILD_NUMBER=$(echo "$VERSION" | sed -e "s/.*+//")
+          echo "BUILD_NUMBER: $BUILD_NUMBER."
+
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+
       - name: Build zip
         run: |
-          echo "$VERSION"
-          7z a PicGuard_"$VERSION"_macos_universal.zip ./PicGuard.app
+          echo "VERSION: $VERSION_SHORT.$BUILD_NUMBER"
+          7z a PicGuard-"$VERSION_SHORT.$BUILD_NUMBER"-macos-universal.zip ./PicGuard.app
         working-directory: build/macos/Build/Products/Release-free
         env:
-          VERSION: ${{ steps.version_step.outputs.version }}
+          VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
+          BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
 
       # Package the build.
       - name: Copy build for zip
