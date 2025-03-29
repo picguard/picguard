@@ -1412,7 +1412,7 @@ jobs:
       - name: Copy build for zip
         run: |
           ls -la *.zip
-          mv PicGuard_*_macos_universal.zip $GITHUB_WORKSPACE/
+          mv PicGuard-*-macos-universal.zip $GITHUB_WORKSPACE/
         working-directory: build/macos/Build/Products/Release-free
 
       - name: Upload assets
