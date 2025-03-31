@@ -2,16 +2,16 @@
 a[b][c]=a[b][c]||[]
 a[b][c].push({p:"main.dart.js_1",e:"beginPart"})})(self,"$__dart_deferred_initializers__","eventLog")
 $__dart_deferred_initializers__.current=function(a,b,c,$){var B,C,A={
-bbu(d,e,f){var w,v,u=x.c,t=new B.kB(C.oP,u)
-u=new A.a3R(t,new B.kB(C.fJ,u))
-u.IX(d,e,null)
-w=u.a
+bbJ(d,e,f){var w,v,u=null,t=new B.kA(C.oQ,x.c),s=new B.kA(C.fL,x.c)
+s=new A.a41(t,s)
+s.J4(d,u,e,u)
+w=s.a
 v=t.r
 v.toString
 w.r=v
-t.r=A.bvY(u)
-return u},
-bvV(d,e){switch(e){case"appName":return new A.aXW()
+t.r=A.bwg(s)
+return s},
+bwd(d,e){switch(e){case"appName":return new A.aY9()
 case"homePage.appPreview":return y.p
 case"homePage.imageDescription":return"Si prega di caricare le immagini."
 case"homePage.description":return y.M
@@ -34,9 +34,9 @@ case"homePage.preview":return"Anteprima"
 case"homePage.save":return"Salva"
 case"homePage.savedSuccess":return"Salvataggio riuscito"
 case"homePage.savedFailure":return"Impossibile salvare l'immagine(i)"
-case"homePage.saveInfo":return new A.aXX()
-case"aboutPage.version":return new A.aXY()
-case"aboutPage.copyright":return new A.aXZ()
+case"homePage.saveInfo":return new A.aYa()
+case"aboutPage.version":return new A.aYb()
+case"aboutPage.copyright":return new A.aYc()
 case"aboutPage.slogan":return"Le tue foto, la tua firma."
 case"aboutPage.readme":return"Introduzione del progetto"
 case"aboutPage.appLicense":return"Licenza di applicazione"
@@ -48,11 +48,11 @@ case"colors.black":return"Nero"
 case"colors.red":return"Rosso"
 case"colors.orange":return"Arancia"
 case"colors.blue":return"Blu"
-case"menus.about":return new A.aY_()
-case"menus.hide":return new A.aY0()
+case"menus.about":return new A.aYd()
+case"menus.hide":return new A.aYe()
 case"menus.hideOthers":return"Nascondere gli altri"
 case"menus.showAll":return"Mostra tutto"
-case"menus.exit":return new A.aY2()
+case"menus.exit":return new A.aYg()
 case"menus.help":return"Aiuto"
 case"menus.support":return"Supporto"
 case"menus.userAgreement":return"Accordo utente"
@@ -68,22 +68,22 @@ case"dialogs.exitConfirm.cancel":return"Annulla"
 case"dialogs.exitConfirm.title":return"Chiudi conferma"
 case"dialogs.exitConfirm.description":return"Sei sicuro di voler chiudere questa finestra?"
 case"dialogs.permissions.photos.title":return"Consenti l'accesso al tuo album"
-case"dialogs.permissions.photos.description":return new A.aY3()
+case"dialogs.permissions.photos.description":return new A.aYh()
 case"dialogs.permissions.storage.title":return"Consenti l'accesso al tuo archivio"
-case"dialogs.permissions.storage.description":return new A.aY4()
+case"dialogs.permissions.storage.description":return new A.aYi()
 case"dialogs.licenseDialog.licenseDialogTitle":return"Termini e Condizioni"
-case"dialogs.licenseDialog.licenseDialogContentContent":return new A.aY5()
+case"dialogs.licenseDialog.licenseDialogContentContent":return new A.aYj()
 case"dialogs.licenseDialog.licenseDialogContentTip":return y.n
 case"dialogs.licenseDialog.licenseDialogContentPrefix":return y.e
 case"dialogs.licenseDialog.licenseDialogContentUserAgreement":return"Contratto d'uso"
 case"dialogs.licenseDialog.licenseDialogContentAnd":return" e "
 case"dialogs.licenseDialog.licenseDialogContentPrivacyPolicy":return"L'accordo sulla privacy"
 case"dialogs.licenseDialog.licenseDialogContentSuffix":return y.k
-case"dialogs.licenseDialog.iosPermissions.0":return new A.aY6()
-case"dialogs.licenseDialog.androidPermissions.0":return new A.aY7()
-case"dialogs.licenseDialog.androidPermissions.1":return new A.aY8()
-case"dialogs.licenseDialog.androidPermissions.2":return new A.aY9()
-case"dialogs.licenseDialog.androidPermissions.3":return new A.aYa()
+case"dialogs.licenseDialog.iosPermissions.0":return new A.aYk()
+case"dialogs.licenseDialog.androidPermissions.0":return new A.aYl()
+case"dialogs.licenseDialog.androidPermissions.1":return new A.aYm()
+case"dialogs.licenseDialog.androidPermissions.2":return new A.aYn()
+case"dialogs.licenseDialog.androidPermissions.3":return new A.aYo()
 case"dialogs.settingsDialog.settings":return"Impostazioni"
 case"dialogs.settingsDialog.languages":return"Lingue"
 case"dialogs.settingsDialog.themes.manual":return"Modalit\xe0 manuale"
@@ -95,333 +95,338 @@ case"locales.en":return"English"
 case"locales.it":return"Italian"
 case"locales.zh":return"\u4e2d\u6587"
 default:return null}},
-bvY(d){return new A.aYk(d)},
-a3R:function a3R(d,e){var _=this
+bwg(d){return new A.aYy(d)},
+a41:function a41(d,e){var _=this
 _.x=d
 _.ay=_.ax=_.at=_.as=_.Q=_.z=_.y=$
 _.a=e
 _.w=_.r=_.f=_.e=_.d=_.c=_.b=$},
-aWJ:function aWJ(){},
-aWj:function aWj(){},
-aWn:function aWn(){},
-aWL:function aWL(){},
-aWl:function aWl(){},
-aWp:function aWp(d,e){var _=this
+aWX:function aWX(){},
+aWx:function aWx(){},
+aWB:function aWB(){},
+aWZ:function aWZ(){},
+aWz:function aWz(){},
+aWD:function aWD(d,e){var _=this
 _.f=d
 _.y=_.x=_.w=$
 _.a=e
 _.e=_.d=_.c=$},
-aWC:function aWC(d,e){var _=this
+aWQ:function aWQ(d,e){var _=this
 _.d=d
 _.f=_.e=$
 _.a=e
 _.c=_.b=$},
-aWq:function aWq(){},
-aWv:function aWv(){},
-aWr:function aWr(){},
-aWs:function aWs(){},
-aWt:function aWt(){},
-aWu:function aWu(){},
-aWE:function aWE(d,e){var _=this
+aWE:function aWE(){},
+aWJ:function aWJ(){},
+aWF:function aWF(){},
+aWG:function aWG(){},
+aWH:function aWH(){},
+aWI:function aWI(){},
+aWS:function aWS(d,e){var _=this
 _.c=d
 _.d=$
 _.a=e
 _.b=$},
-afP:function afP(){},
-afR:function afR(){},
-aWF:function aWF(){},
-aYk:function aYk(d){this.a=d},
-aXW:function aXW(){},
-aXX:function aXX(){},
-aXY:function aXY(){},
-aXZ:function aXZ(){},
-aY_:function aY_(){},
-aY0:function aY0(){},
-aY2:function aY2(){},
-aY3:function aY3(){},
-aY4:function aY4(){},
-aY5:function aY5(){},
-aY6:function aY6(){},
-aY7:function aY7(){},
-aY8:function aY8(){},
+ag0:function ag0(){},
+ag2:function ag2(){},
+aWT:function aWT(){},
+aYy:function aYy(d){this.a=d},
 aY9:function aY9(){},
-aYa:function aYa(){}}
+aYa:function aYa(){},
+aYb:function aYb(){},
+aYc:function aYc(){},
+aYd:function aYd(){},
+aYe:function aYe(){},
+aYg:function aYg(){},
+aYh:function aYh(){},
+aYi:function aYi(){},
+aYj:function aYj(){},
+aYk:function aYk(){},
+aYl:function aYl(){},
+aYm:function aYm(){},
+aYn:function aYn(){},
+aYo:function aYo(){}}
 B=c[0]
 C=c[2]
 A=a.updateHolder(c[3],A)
-A.a3R.prototype={
+A.a41.prototype={
 i(d,e){var w=this.x.wj(e)
 return w==null?this.a.wj(e):w},
 gu0(){var w=this.y
-if(w===$){w!==$&&B.ab()
+if(w===$){w!==$&&B.ac()
 w=this.y=this}return w},
-oX(d,e){switch(e.a){case 0:return"PicGuard"
+nC(d,e){switch(e.a){case 0:return"PicGuard"
 case 1:return"PicGuard Pro"}},
 geW(){var w=this,v=w.z
 if(v===$){w.gu0()
-w.z!==$&&B.ab()
-v=w.z=new A.aWJ()}return v},
-gnC(){var w=this,v=w.Q
+w.z!==$&&B.ac()
+v=w.z=new A.aWX()}return v},
+gnB(){var w=this,v=w.Q
 if(v===$){w.gu0()
-w.Q!==$&&B.ab()
-v=w.Q=new A.aWj()}return v},
+w.Q!==$&&B.ac()
+v=w.Q=new A.aWx()}return v},
 gpa(){var w=this,v=w.as
 if(v===$){w.gu0()
-w.as!==$&&B.ab()
-v=w.as=new A.aWn()}return v},
-gPX(){var w=this,v=w.at
+w.as!==$&&B.ac()
+v=w.as=new A.aWB()}return v},
+gll(){var w=this,v=w.at
 if(v===$){w.gu0()
-w.at!==$&&B.ab()
-v=w.at=new A.aWL()}return v},
-gdT(d){var w=this,v=w.ax
+w.at!==$&&B.ac()
+v=w.at=new A.aWZ()}return v},
+gdU(d){var w=this,v=w.ax
 if(v===$){w.gu0()
-w.ax!==$&&B.ab()
-v=w.ax=new A.aWl()}return v},
-ge1(){var w,v=this,u=v.ay
+w.ax!==$&&B.ac()
+v=w.ax=new A.aWz()}return v},
+gdV(){var w,v=this,u=v.ay
 if(u===$){w=v.gu0()
-v.ay!==$&&B.ab()
-u=v.ay=new A.aWp(w,w)}return u},
-gPN(){var w=x.g
-return B.ag(["en","English","it","Italian","zh","\u4e2d\u6587"],w,w)},
+v.ay!==$&&B.ac()
+u=v.ay=new A.aWD(w,w)}return u},
+gPZ(){var w=x.g
+return B.ab(["en","English","it","Italian","zh","\u4e2d\u6587"],w,w)},
 gt5(){return this.x}}
-A.aWJ.prototype={
-gMZ(){return y.p},
+A.aWX.prototype={
+gN7(){return y.p},
 gkb(d){return y.M},
-gQT(){return"Testo"},
-gQU(){return y._},
-gQV(){return"Inserisci il testo."},
-gQS(){return y.N},
-gNw(){return"Colore"},
-gNx(){return"Seleziona un colore."},
-gQ9(){return"Opacit\xe0"},
-gOQ(){return"Font"},
-gOR(){return y.s},
-gOT(){return"Seleziona un font."},
-gOS(){return"Dimensione del font"},
-gQR(){return"Spaziatura del testo"},
-gQQ(){return y.b},
-gQN(){return"Interlinea"},
-gQM(){return"La spaziatura tra ogni riga di testo"},
-gQp(){return"Anteprima"},
-gI2(d){return"Salva"},
-gI5(){return"Salvataggio riuscito"},
-gB2(){return"Impossibile salvare l'immagine(i)"},
-I3(d,e){return"Sono state salvate "+e+y.I+d+" l'immagine(i)."}}
-A.aWj.prototype={
-Ro(d,e,f){return"Versione "+f+"("+e+")"},
-NP(d,e){return"Copyright \xa9 "+e+" "+d+". Tutti i diritti riservati."},
-gIs(){return"Le tue foto, la tua firma."},
-gQx(){return"Introduzione del progetto"},
-gMY(){return"Licenza di applicazione"},
-gNn(){return"Changelog"},
-gR_(){return"Licenze di terze parti"}}
-A.aWn.prototype={
-gRz(){return"Bianco"},
-gI0(){return"Grigio"},
-gNa(){return"Nero"},
-grR(){return"Rosso"},
-gQa(){return"Arancia"},
+gR4(){return"Testo"},
+gR5(){return y._},
+gR6(){return"Inserisci il testo."},
+gR3(){return y.N},
+gNF(){return"Colore"},
+gNG(){return"Seleziona un colore."},
+gQl(){return"Opacit\xe0"},
+gP0(){return"Font"},
+gP1(){return y.s},
+gP3(){return"Seleziona un font."},
+gP2(){return"Dimensione del font"},
+gR2(){return"Spaziatura del testo"},
+gR1(){return y.b},
+gQZ(){return"Interlinea"},
+gQY(){return"La spaziatura tra ogni riga di testo"},
+gQB(){return"Anteprima"},
+gIa(d){return"Salva"},
+gId(){return"Salvataggio riuscito"},
+gB4(){return"Impossibile salvare l'immagine(i)"},
+Ib(d,e){return"Sono state salvate "+e+y.I+d+" l'immagine(i)."}}
+A.aWx.prototype={
+RA(d,e,f){return"Versione "+f+"("+e+")"},
+NZ(d,e){return"Copyright \xa9 "+e+" "+d+". Tutti i diritti riservati."},
+gIA(){return"Le tue foto, la tua firma."},
+gQJ(){return"Introduzione del progetto"},
+gN6(){return"Licenza di applicazione"},
+gNw(){return"Changelog"},
+gRc(){return"Licenze di terze parti"}}
+A.aWB.prototype={
+gRM(){return"Bianco"},
+gI8(){return"Grigio"},
+gNj(){return"Nero"},
+grS(){return"Rosso"},
+gQm(){return"Arancia"},
 gqP(){return"Blu"}}
-A.aWL.prototype={
-MH(d){return"Di "+d}}
-A.aWl.prototype={
-gMU(){return"Accetto"},
-gNg(d){return"Annulla"},
-gFZ(){return"Ignora"},
-gHz(){return"Accendi"}}
-A.aWp.prototype={
-gIa(){return"Seleziona un colore"},
-gIb(){return"Seleziona un carattere"},
-gmV(d){var w,v=this.w
+A.aWZ.prototype={
+E4(d){return"Di "+d},
+OG(d){return"Esentato "+d},
+gPr(){return"Aiuto"},
+gBD(){return"Supporto"},
+gHO(){return"Accordo utente"},
+gH9(){return"Politica sulla riservatezza"}}
+A.aWz.prototype={
+gN2(){return"Accetto"},
+gNp(d){return"Annulla"},
+gG2(){return"Ignora"},
+gHF(){return"Accendi"}}
+A.aWD.prototype={
+gIi(){return"Seleziona un colore"},
+gIj(){return"Seleziona un carattere"},
+gmU(d){var w,v=this.w
 if(v===$){w=this.f
-v!==$&&B.ab()
-v=this.w=new A.aWC(w,w)}return v},
+v!==$&&B.ac()
+v=this.w=new A.aWQ(w,w)}return v},
 glj(){var w=this.x
-if(w===$){w!==$&&B.ab()
-w=this.x=new A.aWq()}return w},
-gmt(){var w,v=this.y
+if(w===$){w!==$&&B.ac()
+w=this.x=new A.aWE()}return w},
+glz(){var w,v=this.y
 if(v===$){w=this.f
-v!==$&&B.ab()
-v=this.y=new A.aWE(w,w)}return v}}
-A.aWC.prototype={
+v!==$&&B.ac()
+v=this.y=new A.aWS(w,w)}return v}}
+A.aWQ.prototype={
 gvO(){var w=this.e
-if(w===$){w!==$&&B.ab()
-w=this.e=new A.afP()}return w},
+if(w===$){w!==$&&B.ac()
+w=this.e=new A.ag0()}return w},
 gtv(d){var w=this.f
-if(w===$){w!==$&&B.ab()
-w=this.f=new A.afR()}return w}}
-A.aWq.prototype={
-gPI(){return"Termini e Condizioni"},
-PC(d){return y.d+d+"."},
-gPG(){return y.n},
-gPD(){return y.e},
-gPH(){return"Contratto d'uso"},
-gPB(){return" e "},
-gPE(){return"L'accordo sulla privacy"},
-gPF(){return y.k},
-gPq(){return[new A.aWv()]},
-gMV(){return[new A.aWr(),new A.aWs(),new A.aWt(),new A.aWu()]}}
+if(w===$){w!==$&&B.ac()
+w=this.f=new A.ag2()}return w}}
 A.aWE.prototype={
-gIl(){return"Impostazioni"},
-gPv(d){return"Lingue"},
+gPU(){return"Termini e Condizioni"},
+PO(d){return y.d+d+"."},
+gPS(){return y.n},
+gPP(){return y.e},
+gPT(){return"Contratto d'uso"},
+gPN(){return" e "},
+gPQ(){return"L'accordo sulla privacy"},
+gPR(){return y.k},
+gPC(){return[new A.aWJ()]},
+gN3(){return[new A.aWF(),new A.aWG(),new A.aWH(),new A.aWI()]}}
+A.aWS.prototype={
+gBl(){return"Impostazioni"},
+gPH(d){return"Lingue"},
 gt_(){var w=this.d
-if(w===$){w!==$&&B.ab()
-w=this.d=new A.aWF()}return w},
-gQY(){return y.c}}
-A.afP.prototype={
-go7(d){return"Consenti l'accesso al tuo album"},
-lZ(d,e){return y.B+B.l(e)+y.S}}
-A.afR.prototype={
-go7(d){return"Consenti l'accesso al tuo archivio"},
-lZ(d,e){return y.g+B.l(e)+y.j}}
-A.aWF.prototype={
-gPT(){return"Modalit\xe0 manuale"},
-gIW(){return"Modalit\xe0 automatica"},
-gF0(){return"Modalit\xe0 scura"},
-gPJ(){return"Modalit\xe0 chiara"}}
+if(w===$){w!==$&&B.ac()
+w=this.d=new A.aWT()}return w},
+gRa(){return y.c}}
+A.ag0.prototype={
+go8(d){return"Consenti l'accesso al tuo album"},
+lY(d,e){return y.B+B.l(e)+y.S}}
+A.ag2.prototype={
+go8(d){return"Consenti l'accesso al tuo archivio"},
+lY(d,e){return y.g+B.l(e)+y.j}}
+A.aWT.prototype={
+gQ4(){return"Modalit\xe0 manuale"},
+gJ3(){return"Modalit\xe0 automatica"},
+gF4(){return"Modalit\xe0 scura"},
+gPV(){return"Modalit\xe0 chiara"}}
 var z=a.updateTypes(["i({appName!I})"])
-A.aWv.prototype={
+A.aWJ.prototype={
 $1$appName(d){return y.C+B.l(d)+y.Q},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aWr.prototype={
+A.aWF.prototype={
 $1$appName(d){return y.a+B.l(d)+y.l},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aWs.prototype={
+A.aWG.prototype={
 $1$appName(d){return"Per filigranare le tue immagini, "+B.l(d)+y.E},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aWt.prototype={
+A.aWH.prototype={
 $1$appName(d){return"Per poter salvare le immagini, "+B.l(d)+y.u},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aWu.prototype={
+A.aWI.prototype={
 $1$appName(d){return y.C+B.l(d)+y.T},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aYk.prototype={
-$1(d){return A.bvV(this.a,d)},
-$S:70}
-A.aXW.prototype={
+A.aYy.prototype={
+$1(d){return A.bwd(this.a,d)},
+$S:74}
+A.aY9.prototype={
 $1$flavor(d){switch(d.a){case 0:return"PicGuard"
 case 1:return"PicGuard Pro"}},
 $C:"$1$flavor",
 $R:0,
 $D(){return{flavor:C.t}},
-$S:118}
-A.aXX.prototype={
+$S:133}
+A.aYa.prototype={
 $2$failedNum$succeedNum(d,e){return"Sono state salvate "+B.l(e)+y.I+B.l(d)+" l'immagine(i)."},
 $C:"$2$failedNum$succeedNum",
 $R:0,
 $D(){return{failedNum:C.t,succeedNum:C.t}},
-$S:117}
-A.aXY.prototype={
+$S:132}
+A.aYb.prototype={
 $2$buildNumber$version(d,e){return"Versione "+B.l(e)+"("+B.l(d)+")"},
 $C:"$2$buildNumber$version",
 $R:0,
 $D(){return{buildNumber:C.t,version:C.t}},
-$S:116}
-A.aXZ.prototype={
+$S:131}
+A.aYc.prototype={
 $2$appName$year(d,e){return"Copyright \xa9 "+B.l(e)+" "+B.l(d)+". Tutti i diritti riservati."},
 $C:"$2$appName$year",
 $R:0,
 $D(){return{appName:C.t,year:C.t}},
-$S:115}
-A.aY_.prototype={
+$S:130}
+A.aYd.prototype={
 $1$appName(d){return"Di "+B.l(d)},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aY0.prototype={
+A.aYe.prototype={
 $1$appName(d){return"Nascondere "+B.l(d)},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aY2.prototype={
+A.aYg.prototype={
 $1$appName(d){return"Esentato "+B.l(d)},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aY3.prototype={
+A.aYh.prototype={
 $1$appName(d){return y.B+B.l(d)+y.S},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aY4.prototype={
+A.aYi.prototype={
 $1$appName(d){return y.g+B.l(d)+y.j},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aY5.prototype={
+A.aYj.prototype={
 $1$appName(d){return y.d+B.l(d)+"."},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aY6.prototype={
+A.aYk.prototype={
 $1$appName(d){return y.C+B.l(d)+y.Q},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aY7.prototype={
+A.aYl.prototype={
 $1$appName(d){return y.a+B.l(d)+y.l},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aY8.prototype={
+A.aYm.prototype={
 $1$appName(d){return"Per filigranare le tue immagini, "+B.l(d)+y.E},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aY9.prototype={
+A.aYn.prototype={
 $1$appName(d){return"Per poter salvare le immagini, "+B.l(d)+y.u},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4}
-A.aYa.prototype={
+A.aYo.prototype={
 $1$appName(d){return y.C+B.l(d)+y.T},
 $C:"$1$appName",
 $R:0,
 $D(){return{appName:C.t}},
 $S:4};(function installTearOffs(){var w=a.installInstanceTearOff
-w(A.afP.prototype,"gkb",1,0,null,["$1$appName"],["lZ"],0,0,0)
-w(A.afR.prototype,"gkb",1,0,null,["$1$appName"],["lZ"],0,0,0)})();(function inheritance(){var w=a.inherit,v=a.inheritMany
-w(A.a3R,B.fD)
-w(A.aWJ,B.L_)
-w(A.aWj,B.KS)
-w(A.aWn,B.KU)
-w(A.aWL,B.L0)
-w(A.aWl,B.KT)
-w(A.aWp,B.KV)
-w(A.aWC,B.KX)
-w(A.aWq,B.KW)
-v(B.m5,[A.aWv,A.aWr,A.aWs,A.aWt,A.aWu,A.aYk,A.aXW,A.aXX,A.aXY,A.aXZ,A.aY_,A.aY0,A.aY2,A.aY3,A.aY4,A.aY5,A.aY6,A.aY7,A.aY8,A.aY9,A.aYa])
-w(A.aWE,B.KY)
-w(A.afP,B.An)
-w(A.afR,B.Ao)
-w(A.aWF,B.KZ)})()
-B.b3w(b.typeUniverse,JSON.parse('{"a3R":{"fD":[],"j8":["eZ","fD"]}}'))
+w(A.ag0.prototype,"gkb",1,0,null,["$1$appName"],["lY"],0,0,0)
+w(A.ag2.prototype,"gkb",1,0,null,["$1$appName"],["lY"],0,0,0)})();(function inheritance(){var w=a.inherit,v=a.inheritMany
+w(A.a41,B.fF)
+w(A.aWX,B.L3)
+w(A.aWx,B.KW)
+w(A.aWB,B.KY)
+w(A.aWZ,B.L4)
+w(A.aWz,B.KX)
+w(A.aWD,B.KZ)
+w(A.aWQ,B.L0)
+w(A.aWE,B.L_)
+v(B.m5,[A.aWJ,A.aWF,A.aWG,A.aWH,A.aWI,A.aYy,A.aY9,A.aYa,A.aYb,A.aYc,A.aYd,A.aYe,A.aYg,A.aYh,A.aYi,A.aYj,A.aYk,A.aYl,A.aYm,A.aYn,A.aYo])
+w(A.aWS,B.L1)
+w(A.ag0,B.Ao)
+w(A.ag2,B.Ap)
+w(A.aWT,B.L2)})()
+B.b3M(b.typeUniverse,JSON.parse('{"a41":{"fF":[],"j8":["eZ","fF"]}}'))
 var y={E:" deve accedere al tuo spazio di archiviazione. (android.permission.READ_EXTERNAL_STORAGE)",u:" deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)",Q:" deve accedere alle tue foto. (NSPhotoLibraryUsageDescription)",T:" deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)",l:" deve avere accesso a Internet. (android.permission.INTERNET)",S:" l'autorizzazione a visitare il tuo album.",j:" l'autorizzazione ad accedere al tuo archivio.",I:" l'immagine(i) e non \xe8 stato possibile salvare ",k:", inizia a utilizzare i nostri servizi dopo aver accettato tutti i termini.",p:"ATTENZIONE: Versione di sviluppo, basata automaticamente su ogni commit",g:"Accedi alle Impostazioni del tuo telefono per concedere a ",b:"Alcune lingue non supportano i font personalizzati",n:"Di seguito \xe8 riportato l'elenco delle autorizzazioni richieste da questa APP:",c:"Dopo averlo attivato, la modalit\xe0 scura verr\xe0 attivata o disattivata in base al sistema",_:"Il testo verr\xe0 aggiunto all'immagine come filigrana",d:"La protezione della privacy e delle informazioni personali degli utenti \xe8 un principio fondamentale di ",C:"Per aggiungere una filigrana alle tue immagini, ",a:"Per poter utilizzare il servizio Sentry, ",e:"Prima di utilizzare i servizi di questa APP, ti preghiamo di leggere attentamente e accettare il ",M:"Questa app non caricher\xe0 alcuna immagine sul server, tutte le operazioni vengono completate localmente",N:"Questo certificato \xe8 utilizzato solo per la gestione di xx attivit\xe0 e non \xe8 valido per altri scopi.",s:"Some languages do not support custom fonts",B:"Vai alle Impostazioni del tuo telefono per concedere a "}
-var x={g:B.ar("i"),c:B.ar("kB<eZ,fD>")}};
+var x={g:B.ar("i"),c:B.ar("kA<eZ,fF>")}};
 ((a,b)=>{a[b]=a.current
-a.eventLog.push({p:"main.dart.js_1",e:"endPart",h:b})})($__dart_deferred_initializers__,"UHvjb22R9UrTlo8f3w19X36U7z0=");
+a.eventLog.push({p:"main.dart.js_1",e:"endPart",h:b})})($__dart_deferred_initializers__,"6mStezx+yAXEcBRCDFwhxCN8u+U=");
