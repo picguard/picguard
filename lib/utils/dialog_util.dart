@@ -257,7 +257,6 @@ class DialogUtil {
     Widget? contentWidget,
     String cancelText = 'Cancel',
     String okText = 'OK',
-    Color cancelColor = PGColors.secondaryTextColor,
     Color okColor = PGColors.primaryColor,
     bool hideCancel = false,
     bool barrierDismissible = false,
@@ -269,36 +268,74 @@ class DialogUtil {
     showDialog<void>(
       context: AppNavigator.navigatorKey.currentContext!,
       barrierDismissible: barrierDismissible,
-      builder: (BuildContext context) => AlertDialog(
-        title: titleWidget ??
-            (StringUtil.isNotBlank(title)
-                ? Text(
-                    title!,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: PGColors.primaryTextColor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+      builder: (BuildContext context) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return AlertDialog(
+          title: titleWidget ??
+              (StringUtil.isNotBlank(title)
+                  ? Text(
+                      title!,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color:
+                            isDark ? PGColors.white : PGColors.primaryTextColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    )
+                  : null),
+          content: contentWidget ??
+              (StringUtil.isNotBlank(content)
+                  ? Text(
+                      content!,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: isDark
+                            ? PGColors.white
+                            : PGColors.secondaryTextColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    )
+                  : null),
+          actions: [
+            Row(
+              children: [
+                if (!hideCancel) ...[
+                  TextButton(
+                    onPressed: onCancel ?? NavigatorUtil.pop,
+                    style: ButtonStyle(
+                      textStyle: WidgetStateProperty.all(
+                        const TextStyle(
+                          fontSize: 16,
+                          height: 1.375,
+                        ),
+                      ),
+                      overlayColor: WidgetStateProperty.all(
+                        isDark
+                            ? PGColors.warnTextColor.withValues(alpha: 0.1)
+                            : PGColors.secondaryBackgroundColor,
+                      ),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                      ),
                     ),
-                  )
-                : null),
-        content: contentWidget ??
-            (StringUtil.isNotBlank(content)
-                ? Text(
-                    content!,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: PGColors.secondaryTextColor,
-                      fontSize: 14,
+                    child: Text(
+                      cancelText,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color:
+                            isDark ? Colors.white : PGColors.secondaryTextColor,
+                      ),
                     ),
-                  )
-                : null),
-        actions: [
-          Row(
-            children: [
-              if (!hideCancel) ...[
+                  ).nestedSizedBox(height: _buttonHeight - 1).nestedExpanded(),
+                  const ColoredBox(color: PGColors.borderColor)
+                      .nestedSizedBox(width: 1, height: _buttonHeight),
+                ],
                 TextButton(
-                  onPressed: onCancel ?? NavigatorUtil.pop,
+                  onPressed: onOK,
                   style: ButtonStyle(
                     textStyle: WidgetStateProperty.all(
                       const TextStyle(
@@ -306,8 +343,11 @@ class DialogUtil {
                         height: 1.375,
                       ),
                     ),
-                    overlayColor:
-                        WidgetStateProperty.all(PGColors.backgroundColor),
+                    overlayColor: WidgetStateProperty.all(
+                      isDark
+                          ? PGColors.primaryHoverColor.withValues(alpha: 0.1)
+                          : PGColors.primaryBackgroundColor,
+                    ),
                     shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0),
@@ -315,59 +355,35 @@ class DialogUtil {
                     ),
                   ),
                   child: Text(
-                    cancelText,
+                    okText,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: cancelColor,
+                      color: okColor,
                     ),
                   ),
                 ).nestedSizedBox(height: _buttonHeight - 1).nestedExpanded(),
-                const ColoredBox(color: PGColors.borderColor)
-                    .nestedSizedBox(width: 1, height: _buttonHeight),
               ],
-              TextButton(
-                onPressed: onOK,
-                style: ButtonStyle(
-                  textStyle: WidgetStateProperty.all(
-                    const TextStyle(
-                      fontSize: 16,
-                      height: 1.375,
-                    ),
+            )
+                .nestedDecoratedBox(
+                  decoration: const BoxDecoration(
+                    border:
+                        Border(top: BorderSide(color: PGColors.borderColor)),
                   ),
-                  shape: WidgetStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0),
-                    ),
-                  ),
-                ),
-                child: Text(
-                  okText,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: okColor,
-                  ),
-                ),
-              ).nestedSizedBox(height: _buttonHeight - 1).nestedExpanded(),
-            ],
-          )
-              .nestedDecoratedBox(
-                decoration: const BoxDecoration(
-                  border: Border(top: BorderSide(color: PGColors.borderColor)),
-                ),
-              )
-              .nestedSizedBox(height: _buttonHeight),
-        ],
-        titlePadding: titlePadding,
-        contentPadding: contentPadding,
-        actionsPadding: EdgeInsets.zero,
-        buttonPadding: EdgeInsets.zero,
-        actionsOverflowButtonSpacing: 0,
-        actionsAlignment: MainAxisAlignment.center,
-        clipBehavior: Clip.hardEdge,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
+                )
+                .nestedSizedBox(height: _buttonHeight),
+          ],
+          titlePadding: titlePadding,
+          contentPadding: contentPadding,
+          actionsPadding: EdgeInsets.zero,
+          buttonPadding: EdgeInsets.zero,
+          actionsOverflowButtonSpacing: 0,
+          actionsAlignment: MainAxisAlignment.center,
+          clipBehavior: Clip.hardEdge,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        );
+      },
     );
   }
 
@@ -600,10 +616,10 @@ class DialogUtil {
           leading: const Icon(Icons.privacy_tip),
           title: Text(t.menus.privacy),
           trailing: Icon(
-                Directionality.of(context) == TextDirection.ltr
-                    ? Icons.chevron_right
-                    : Icons.chevron_left,
-              ),
+            Directionality.of(context) == TextDirection.ltr
+                ? Icons.chevron_right
+                : Icons.chevron_left,
+          ),
           onTap: gotoPrivacyPage,
         ),
         ListTile(
