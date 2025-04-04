@@ -134,7 +134,9 @@ class _MainAppState extends State<MainApp> with TrayListener {
     trayManager.addListener(this);
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timestamp) {
-      initTrayMenu();
+      if (isDesktop) {
+        initTrayMenu();
+      }
     });
   }
 

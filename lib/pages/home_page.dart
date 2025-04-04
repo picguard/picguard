@@ -26,12 +26,14 @@ import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:path/path.dart' hide context;
+import 'package:super_drag_and_drop/super_drag_and_drop.dart';
 
 // Project imports:
 import 'package:picguard/app/config.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/constants/uuid.dart';
+import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
@@ -53,6 +55,9 @@ class _HomePageState extends State<HomePage> {
   final _key = GlobalKey<ExpandableFabState>();
   final _formKey = GlobalKey<FormBuilderState>();
   final inputFocusNode = FocusNode();
+
+  List<DropItem> _dropItems = [];
+  bool _isDragOver = false;
 
   @override
   void initState() {
@@ -132,8 +137,9 @@ class _HomePageState extends State<HomePage> {
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;
           printDebugLog('maxWidth: $maxWidth');
+          late Widget child;
           if ((isWeb || isDesktop) && maxWidth >= 800) {
-            return SingleChildScrollView(
+            child = SingleChildScrollView(
               padding: padding,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -147,7 +153,11 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       spacing: 10,
                       children: [
-                        ImageGroup(controller: controller),
+                        ImageGroup(
+                          controller: controller,
+                          onDropOver: _onDropOver,
+                          onDropLeave: _onDropLeave,
+                        ),
                         const AppDescription(),
                       ],
                     ),
@@ -193,10 +203,14 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           } else {
-            return ListView(
+            child = ListView(
               padding: padding,
               children: [
-                ImageGroup(controller: controller),
+                ImageGroup(
+                  controller: controller,
+                  onDropOver: _onDropOver,
+                  onDropLeave: _onDropLeave,
+                ),
                 const Gap(10),
                 const AppDescription(),
                 const Gap(10),
@@ -228,6 +242,47 @@ class _HomePageState extends State<HomePage> {
               ],
             );
           }
+
+          if (isMobile) {
+            return child;
+          }
+
+          return Stack(
+            children: [
+              child,
+              Positioned(
+                left: 0,
+                bottom: 0,
+                right: 0,
+                child: IgnorePointer(
+                  child: AnimatedOpacity(
+                    opacity: _isDragOver ? 1.0 : 0.0,
+                    duration: const Duration(milliseconds: 200),
+                    child: _dropItems.isEmpty
+                        ? const SizedBox.shrink()
+                        : Padding(
+                            padding: const EdgeInsets.all(50),
+                            child: ListView(
+                              shrinkWrap: true,
+                              children: _dropItems
+                                  .map<Widget>(
+                                    (e) => _DropItemInfo(dropItem: e),
+                                  )
+                                  .intersperse(
+                                    Container(
+                                      height: 2,
+                                      color:
+                                          Colors.white.withValues(alpha: 0.7),
+                                    ),
+                                  )
+                                  .toList(growable: false),
+                            ),
+                          ),
+                  ),
+                ),
+              ),
+            ],
+          );
         },
       ),
       floatingActionButtonLocation: ExpandableFab.location,
@@ -309,6 +364,23 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void _onDropOver(DropOverEvent dropOverEvent) {
+    // You can inspect local data here, as well as formats of each item.
+    // However on certain platforms (mobile / web) the actual data is
+    // only available when the drop is accepted (onPerformDrop).
+    final items = dropOverEvent.session.items;
+    printDebugLog('[_onDropOver] items: ${items.length}');
+
+    setState(() {
+      _isDragOver = true;
+      _dropItems = items;
+    });
+  }
+
+  void _onDropLeave(DropEvent dropEvent) {
+    setState(() => _isDragOver = false);
+  }
+
   /// 预览
   Future<void> _preview() async {
     if (_formKey.currentState!.validate()) {
@@ -373,7 +445,9 @@ class _HomePageState extends State<HomePage> {
       final textGap = values['textGap'] as double?;
       final rowGap = values['rowGap'] as double?;
       printDebugLog(
-        'text: $text, color: $color, opacity: $opacity, fontFamily: $fontFamily, fontSize: $fontSize, textGap: $textGap, rowGap: $rowGap',
+        'text: $text, color: $color, opacity: $opacity, '
+        'fontFamily: $fontFamily, fontSize: $fontSize, '
+        'textGap: $textGap, rowGap: $rowGap',
       );
 
       final permission = await PermissionUtil.checkPermission();
@@ -672,8 +746,8 @@ class _HomePageState extends State<HomePage> {
     if (watermarkedBytes == null) return null;
 
     // final ext = extension(name);
-    final newFileName =
-        '${basenameWithoutExtension(name)}_${DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now())}';
+    final dateSuffix = DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now());
+    final newFileName = '${basenameWithoutExtension(name)}_$dateSuffix';
     final fileName = '$newFileName.png';
 
     return ReturnWrapper(bytes: watermarkedBytes, name: fileName);
@@ -722,5 +796,55 @@ class _HomePageState extends State<HomePage> {
     ).toList();
 
     return Future.wait(imageFutures);
+  }
+}
+
+class _DropItemInfo extends StatelessWidget {
+  const _DropItemInfo({
+    required this.dropItem,
+  });
+
+  final DropItem dropItem;
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      color: isDark ? PGColors.dialogBackgroundColor : Colors.white,
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+      child: DefaultTextStyle.merge(
+        style: const TextStyle(fontSize: 11),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          spacing: 4,
+          children: [
+            if (dropItem.localData != null)
+              Text.rich(
+                TextSpan(
+                  children: [
+                    const TextSpan(
+                      text: 'Local data: ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(text: '${dropItem.localData}'),
+                  ],
+                ),
+              ),
+            Text.rich(
+              TextSpan(
+                children: [
+                  const TextSpan(
+                    text: 'Native formats: ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: dropItem.platformFormats.join(', ')),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

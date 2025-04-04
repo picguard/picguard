@@ -23,10 +23,14 @@ import 'package:picguard/widgets/widgets.dart';
 class ImageGroup extends StatefulWidget {
   const ImageGroup({
     required this.controller,
+    this.onDropOver,
+    this.onDropLeave,
     super.key,
   });
 
   final MultiImagePickerController controller;
+  final void Function(DropOverEvent)? onDropOver;
+  final void Function(DropEvent)? onDropLeave;
 
   @override
   State<ImageGroup> createState() => _ImageGroupState();
@@ -49,7 +53,7 @@ class _ImageGroupState extends State<ImageGroup> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final width = constraints.maxWidth;
+        final maxWidth = constraints.maxWidth;
 
         // return MultiImagePickerView(
         //   controller: widget.controller,
@@ -101,7 +105,7 @@ class _ImageGroupState extends State<ImageGroup> {
         // );
 
         return SizedBox(
-          width: width,
+          width: maxWidth,
           height: double.maxFinite,
           child: Stack(
             children: [
@@ -123,9 +127,9 @@ class _ImageGroupState extends State<ImageGroup> {
                 initialWidget: DropZone(
                   onDropOver: _onDropOver,
                   onPerformDrop: _onPerformDrop,
-                  onDropEnter: _onDropEnter,
-                  onDropLeave: _onDropLeave,
-                  onDropEnded: _onDropEnded,
+                  // onDropEnter: _onDropEnter,
+                  onDropLeave: widget.onDropLeave,
+                  // onDropEnded: _onDropEnded,
                   body: InitialWidget(
                     margin: EdgeInsets.zero,
                     statesController: initWidgetStateController,
@@ -136,9 +140,9 @@ class _ImageGroupState extends State<ImageGroup> {
                 addMoreButton: DropZone(
                   onDropOver: _onDropOver,
                   onPerformDrop: _onPerformDrop,
-                  onDropEnter: _onDropEnter,
-                  onDropLeave: _onDropLeave,
-                  onDropEnded: _onDropEnded,
+                  // onDropEnter: _onDropEnter,
+                  onDropLeave: widget.onDropLeave,
+                  // onDropEnded: _onDropEnded,
                   body: AddMoreWidget(
                     statesController: addMoreWidgetStateController,
                     icon:
@@ -147,48 +151,12 @@ class _ImageGroupState extends State<ImageGroup> {
                 ),
                 // Use any Widget or DefaultAddMoreWidget. Use null to hide add more button.
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: width / 3,
+                  maxCrossAxisExtent: maxWidth / 3,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                 ),
                 shrinkWrap: true,
               ),
-              // Positioned.fill(
-              //   child: IgnorePointer(
-              //     child: AnimatedOpacity(
-              //       opacity: _isDragOver ? 1.0 : 0.0,
-              //       duration: const Duration(milliseconds: 200),
-              //       child: _dropItems.isEmpty
-              //           ? const SizedBox.shrink()
-              //           : Container(
-              //               decoration: BoxDecoration(
-              //                 borderRadius: BorderRadius.circular(13),
-              //                 color: Colors.black.withValues(alpha: 0.2),
-              //               ),
-              //               child: ConstrainedBox(
-              //                 constraints: BoxConstraints(maxHeight: maxHeight),
-              //                 child: Padding(
-              //                   padding: const EdgeInsets.all(50),
-              //                   child: ListView(
-              //                     shrinkWrap: true,
-              //                     children: _dropItems
-              //                         .map<Widget>(
-              //                             (e) => _DropItemInfo(dropItem: e))
-              //                         .intersperse(
-              //                           Container(
-              //                             height: 2,
-              //                             color: Colors.white
-              //                                 .withValues(alpha: 0.7),
-              //                           ),
-              //                         )
-              //                         .toList(growable: false),
-              //                   ),
-              //                 ),
-              //               ),
-              //             ),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         );
@@ -243,24 +211,6 @@ class _ImageGroupState extends State<ImageGroup> {
     );
   }
 
-  // DropOperation _onDropOver(DropOverEvent event) {
-  //   printDebugLog('_onDropOver, ${event.session.items.length}');
-  //   final items = event.session.items;
-  //   final unsupportedFormats = items.where(
-  //         (item) =>
-  //     !(item.canProvide(Formats.jpeg) || item.canProvide(Formats.png)),
-  //   );
-  //   if (unsupportedFormats.isNotEmpty) {
-  //     BotToast.showText(text: 'Only PNG and JPEG formats are supported');
-  //     return DropOperation.none;
-  //   }
-  //
-  //   final first = event.session.allowedOperations.firstOrNull;
-  //   debugPrint(first.toString());
-  //
-  //   return event.session.allowedOperations.firstOrNull ?? DropOperation.none;
-  // }
-  //
   // Future<void> _onPerformDrop(PerformDropEvent event) async {
   //   printDebugLog('_onPerformDrop');
   //   final items = event.session.items;
@@ -330,6 +280,8 @@ class _ImageGroupState extends State<ImageGroup> {
     // only available when the drop is accepted (onPerformDrop).
     final items = dropOverEvent.session.items;
     printDebugLog('[_onDropOver] items: ${items.length}');
+
+    widget.onDropOver?.call(dropOverEvent);
 
     final unsupportedFormats = items.where(
       (item) =>
@@ -438,35 +390,35 @@ class _ImageGroupState extends State<ImageGroup> {
     }
   }
 
-  void _onDropEnter(DropEvent dropEvent) {
-    printDebugLog('onDropEnter');
-    if (widget.controller.hasNoImages) {
-      initWidgetStateController.update(WidgetState.hovered, true);
-    } else {
-      addMoreWidgetStateController.update(WidgetState.hovered, true);
-    }
-    setState(() {});
-  }
-
-  void _onDropLeave(DropEvent dropEvent) {
-    printDebugLog('onDropLeave');
-    if (widget.controller.hasNoImages) {
-      initWidgetStateController.update(WidgetState.hovered, false);
-    } else {
-      addMoreWidgetStateController.update(WidgetState.hovered, false);
-    }
-    setState(() {});
-  }
-
-  void _onDropEnded(DropEvent dropEvent) {
-    printDebugLog('onDropEnded');
-    if (widget.controller.hasNoImages) {
-      initWidgetStateController.update(WidgetState.hovered, false);
-    } else {
-      addMoreWidgetStateController.update(WidgetState.hovered, false);
-    }
-    setState(() {});
-  }
+  // void _onDropEnter(DropEvent dropEvent) {
+  //   printDebugLog('_onDropEnter');
+  //   if (widget.controller.hasNoImages) {
+  //     initWidgetStateController.update(WidgetState.hovered, true);
+  //   } else {
+  //     addMoreWidgetStateController.update(WidgetState.hovered, true);
+  //   }
+  //   setState(() {});
+  // }
+  //
+  // void _onDropLeave(DropEvent dropEvent) {
+  //   printDebugLog('_onDropLeave');
+  //   if (widget.controller.hasNoImages) {
+  //     initWidgetStateController.update(WidgetState.hovered, false);
+  //   } else {
+  //     addMoreWidgetStateController.update(WidgetState.hovered, false);
+  //   }
+  //   setState(() {});
+  // }
+  //
+  // void _onDropEnded(DropEvent dropEvent) {
+  //   printDebugLog('_onDropEnded');
+  //   if (widget.controller.hasNoImages) {
+  //     initWidgetStateController.update(WidgetState.hovered, false);
+  //   } else {
+  //     addMoreWidgetStateController.update(WidgetState.hovered, false);
+  //   }
+  //   setState(() {});
+  // }
 
   void addImage(ImageFile image) {
     printDebugLog('addImage');
