@@ -23,7 +23,7 @@ permissions: read-all
 jobs:
   create-release:
     name: Create release
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     outputs:
       sha: ${{ steps.sha_step.outputs.sha }}
       version: ${{ steps.version_step.outputs.version }}
@@ -59,19 +59,19 @@ jobs:
           echo "BUILD_NUMBER: $BUILD_NUMBER."
 
           if [ "$ENV" == "staging" ]; then
-            TAG_NAME="$VERSION.pre"
+            SUFFIX=".pre"
           elif [[ "$ENV" == "production" && "$IS_LATEST" == "false" ]]; then
-            TAG_NAME="$VERSION.rc"
+            SUFFIX=".rc"
           else
-            TAG_NAME="$VERSION"
+            SUFFIX=""
           fi
-          echo "TAG_NAME: v$TAG_NAME."
+          echo "SUFFIX: $SUFFIX"
 
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
           echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
-          echo "release=$TAG_NAME" >> $GITHUB_OUTPUT
-          echo "tag_name=v$TAG_NAME" >> $GITHUB_OUTPUT
+          echo "release=$VERSION_SHORT.$BUILD_NUMBER$SUFFIX" >> $GITHUB_OUTPUT
+          echo "tag_name=v$VERSION$SUFFIX" >> $GITHUB_OUTPUT
         env:
           ENV: ${{ inputs.env }}
           IS_LATEST: ${{ inputs.latest }}
@@ -87,7 +87,7 @@ jobs:
 
   gen-shasum:
     name: Gen Shasum
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - create-release
       - apk-free
@@ -98,8 +98,8 @@ jobs:
       - ios-pro
       - macos-dmg
       - macos-pkg
-      - macos-appstore-free
-      - macos-appstore-pro
+      - macos-appstore-pkg-free
+      - macos-appstore-pkg-pro
       - macos-zip
       - macos-tar
       - linux-appimage
@@ -117,8 +117,6 @@ jobs:
       - windows-msix-pro
       - windows-exe
       - windows-zip
-      - web-free
-      - web-pro
     steps:
       - uses: actions/checkout@v4
 
@@ -164,7 +162,7 @@ jobs:
 
   apk-free:
     name: Create apk (free)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - create-release
     steps:
@@ -222,9 +220,9 @@ jobs:
         run: |
           ls -la
           if [[ "$ENV" == "staging" ]]; then
-            cp app-freestaging-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.apk
+            cp app-freestaging-release.apk $GITHUB_WORKSPACE/PicGuard-$RELEASE.apk
           else
-            cp app-freeproduction-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.apk
+            cp app-freeproduction-release.apk $GITHUB_WORKSPACE/PicGuard-$RELEASE.apk
           fi
         working-directory: build/app/outputs/flutter-apk
         env:
@@ -246,7 +244,7 @@ jobs:
           
   apk-pro:
     name: Create apk (pro)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - create-release
     steps:
@@ -304,9 +302,9 @@ jobs:
         run: |
           ls -la
           if [[ "$ENV" == "staging" ]]; then
-            cp app-prostaging-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.apk
+            cp app-prostaging-release.apk $GITHUB_WORKSPACE/PicGuard-Pro-$RELEASE.apk
           else
-            cp app-proproduction-release.apk $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.apk
+            cp app-proproduction-release.apk $GITHUB_WORKSPACE/PicGuard-Pro-$RELEASE.apk
           fi
         working-directory: build/app/outputs/flutter-apk
         env:
@@ -328,7 +326,7 @@ jobs:
 
   aab-free:
     name: Create appbundle (free)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - create-release
     steps:
@@ -386,7 +384,7 @@ jobs:
         if: inputs.env == 'staging'
         run: |
           ls -la
-          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.aab
+          cp *.aab $GITHUB_WORKSPACE/PicGuard-$RELEASE.aab
         working-directory: build/app/outputs/bundle/freeStagingRelease
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -395,7 +393,7 @@ jobs:
         if: inputs.env == 'production'
         run: |
           ls -la
-          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.aab
+          cp *.aab $GITHUB_WORKSPACE/PicGuard-$RELEASE.aab
         working-directory: build/app/outputs/bundle/freeProductionRelease
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -415,7 +413,7 @@ jobs:
 
   aab-pro:
     name: Create appbundle (pro)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - create-release
     steps:
@@ -473,7 +471,7 @@ jobs:
         if: inputs.env == 'staging'
         run: |
           ls -la
-          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.aab
+          cp *.aab $GITHUB_WORKSPACE/PicGuard-Pro-$RELEASE.aab
         working-directory: build/app/outputs/bundle/proStagingRelease
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -482,7 +480,7 @@ jobs:
         if: inputs.env == 'production'
         run: |
           ls -la
-          cp *.aab $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.aab
+          cp *.aab $GITHUB_WORKSPACE/PicGuard-Pro-$RELEASE.aab
         working-directory: build/app/outputs/bundle/proProductionRelease
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -530,7 +528,8 @@ jobs:
         run: flutter pub get
 
       - name: Resolving ios dependencies
-        run: cd ios && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: ios
 
       - name: Install the Apple certificate and provisioning profile
         env:
@@ -577,19 +576,21 @@ jobs:
           mv $PP_PRO_DEV_PATH ~/Library/MobileDevice/Provisioning\ Profiles
           mv $PP_PRO_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: ios
+
       - name: Build ipa
         if: inputs.env == 'staging'
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to adhoc..."
           flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/debug.plist
 
       - name: Build ipa
         if: inputs.env == 'production'
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
           flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/release.plist
 
@@ -597,7 +598,7 @@ jobs:
       - name: Copy build for iOS
         run: |
           ls -la
-          cp *.ipa $GITHUB_WORKSPACE/PicGuard_$RELEASE-free.ipa
+          cp *.ipa $GITHUB_WORKSPACE/PicGuard-$RELEASE.ipa
         working-directory: build/ios/ipa
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -648,7 +649,8 @@ jobs:
         run: flutter pub get
 
       - name: Resolving ios dependencies
-        run: cd ios && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: ios
 
       - name: Install the Apple certificate and provisioning profile
         env:
@@ -695,19 +697,21 @@ jobs:
           mv $PP_PRO_DEV_PATH ~/Library/MobileDevice/Provisioning\ Profiles
           mv $PP_PRO_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: ios
+
       - name: Build ipa
         if: inputs.env == 'staging'
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to adhoc..."
           flutter build ipa --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/debug.plist
 
       - name: Build ipa
         if: inputs.env == 'production'
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd ios && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
           flutter build ipa --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/release.plist
 
@@ -715,7 +719,7 @@ jobs:
       - name: Copy build for iOS
         run: |
           ls -la
-          cp *.ipa $GITHUB_WORKSPACE/PicGuard_$RELEASE-pro.ipa
+          cp *.ipa $GITHUB_WORKSPACE/PicGuard-Pro-$RELEASE.ipa
         working-directory: build/ios/ipa
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -771,12 +775,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
@@ -836,13 +845,10 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
-      - name: Install appdmg
-        run: npm install -g appdmg
-
       - name: Build DMG
         run: |
           bash scripts/build-dmg.sh
-          mv PicGuard.dmg PicGuard_"$RELEASE"_macos_universal.dmg
+          mv PicGuard.dmg PicGuard-"$RELEASE"-macos-universal.dmg
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -895,12 +901,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
@@ -938,14 +949,29 @@ jobs:
         env:
           DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
 
-      - name: Build & Sign pkg
+      - name: Build pkg
         run: |
           # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
           xcrun pkgbuild --component "./PicGuard.app" --install-location /Applications --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard-unsigned.pkg
-          xcrun productbuild --package PicGuard-unsigned.pkg --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard.pkg
+          mv PicGuard-unsigned.pkg "$GITHUB_WORKSPACE/PicGuard-unsigned.pkg"
         env:
           DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY }}
         working-directory: build/macos/Build/Products/Release-free
+
+      - name: Building distribution file
+        run: |
+          xcrun productbuild --synthesize --product macos/packaging/pkg/requirements --package PicGuard-unsigned.pkg distribution.dist
+          sed -i '' '2 a\
+          \    <title>PicGuard</title>\
+          \    <license file="eula.rtf"/>\
+          ' distribution.dist
+
+      - name: Sign pkg
+        run: |
+          # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
+          xcrun productbuild --distribution distribution.dist --resources macos/packaging/base --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard.pkg
+        env:
+          DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY }}
 
       - name: Notarize & Staple
         run: |
@@ -960,7 +986,6 @@ jobs:
           # validated by macOS even when an internet connection is not available.
           echo "Attach staple"
           xcrun stapler staple "PicGuard.pkg"
-        working-directory: build/macos/Build/Products/Release-free
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
@@ -970,10 +995,10 @@ jobs:
       # Package the build.
       - name: Copy build for pkg
         run: |
-          rm -f PicGuard-unsigned.pkg
           ls -la *.pkg
-          mv PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_universal.pkg
-        working-directory: build/macos/Build/Products/Release-free
+          test -f PicGuard-unsigned.pkg && rm -f PicGuard-unsigned.pkg
+          mv PicGuard.pkg PicGuard-"$RELEASE"-macos-universal.pkg
+          ls -la *.pkg
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -992,7 +1017,7 @@ jobs:
           fi
           rm -f .env
 
-  macos-appstore-free:
+  macos-appstore-pkg-free:
     name: Create macos pkg (appstore-free)
     runs-on: macos-14
     needs:
@@ -1022,12 +1047,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to mac app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
@@ -1106,7 +1136,7 @@ jobs:
       - name: Copy build for pkg
         run: |
           ls -la *.pkg
-          cp PicGuard.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore-free_universal.pkg
+          cp PicGuard.pkg $GITHUB_WORKSPACE/PicGuard-"$RELEASE"-macos-appstore-universal.pkg
         working-directory: build/macos/Build/Products/Release-free
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -1126,7 +1156,7 @@ jobs:
           fi
           rm -f .env
 
-  macos-appstore-pro:
+  macos-appstore-pkg-pro:
     name: Create macos pkg (appstore-pro)
     runs-on: macos-14
     needs:
@@ -1156,12 +1186,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to mac app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro
 
@@ -1240,7 +1275,7 @@ jobs:
       - name: Copy build for pkg
         run: |
           ls -la *.pkg
-          cp PicGuard\ Pro.pkg $GITHUB_WORKSPACE/PicGuard_"$RELEASE"_macos_appstore-pro_universal.pkg
+          cp PicGuard\ Pro.pkg $GITHUB_WORKSPACE/PicGuard-Pro-"$RELEASE"-macos-appstore-universal.pkg
         working-directory: build/macos/Build/Products/Release-pro
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -1290,12 +1325,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
@@ -1363,7 +1403,7 @@ jobs:
           fi
 
       - name: Build zip
-        run: 7z a PicGuard_"$RELEASE"_macos_universal.zip ./PicGuard.app
+        run: 7z a PicGuard-"$RELEASE"-macos-universal.zip ./PicGuard.app
         working-directory: build/macos/Build/Products/Release-free
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -1372,7 +1412,7 @@ jobs:
       - name: Copy build for zip
         run: |
           ls -la *.zip
-          mv PicGuard_*_macos_universal.zip $GITHUB_WORKSPACE/
+          mv PicGuard-*-macos-universal.zip $GITHUB_WORKSPACE/
         working-directory: build/macos/Build/Products/Release-free
 
       - name: Upload assets
@@ -1420,12 +1460,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
@@ -1486,7 +1531,7 @@ jobs:
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
       - name: Build tar
-        run: tar -czaf PicGuard_"$RELEASE"_macos_universal.tar.gz ./PicGuard.app
+        run: tar -czaf PicGuard-"$RELEASE"-macos-universal.tar.gz ./PicGuard.app
         working-directory: build/macos/Build/Products/Release-free
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
@@ -1515,7 +1560,7 @@ jobs:
           
   linux-appimage:
     name: Create linux AppImage
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - create-release
     steps:
@@ -1527,6 +1572,11 @@ jobs:
           sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
           sudo apt-get install -y locate libfuse2
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
           
       - name: Install appimagetool
         run: |
@@ -1551,16 +1601,16 @@ jobs:
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Build AppImage
         run: |
-          flutter_distributor package \
+          fastforge package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets appimage \
-            --artifact-name {{name}}_"$RELEASE"_{{platform}}_amd64.{{ext}}
+            --artifact-name {{name}}-"$RELEASE"-{{platform}}-amd64.{{ext}}
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -1583,7 +1633,7 @@ jobs:
 
   linux-appimage-aarch64:
     name: Create linux AppImage (aarch64)
-    runs-on: ubuntu-22.04-arm
+    runs-on: ubuntu-24.04-arm
     needs:
       - create-release
     steps:
@@ -1595,6 +1645,11 @@ jobs:
           sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
           sudo apt-get install -y locate libfuse2
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
 
       - name: Install appimagetool
         run: |
@@ -1621,20 +1676,20 @@ jobs:
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
-      - name: Install flutter_distributor
+      - name: Install fastforge
         run: |
           dart pub global activate \
-            --source git https://github.com/kjxbyz/flutter_distributor \
-            --git-ref pacman \
-            --git-path packages/flutter_distributor
+            --source git https://github.com/kjxbyz/fastforge \
+            --git-ref appimage-arm64 \
+            --git-path packages/fastforge
 
       - name: Build AppImage
         run: |
-          flutter_distributor package \
+          fastforge package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets appimage \
-            --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
+            --artifact-name {{name}}-"$RELEASE"-{{platform}}-aarch64.{{ext}}
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -1657,7 +1712,7 @@ jobs:
 
   linux-deb:
     name: Create linux deb
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - create-release
     steps:
@@ -1669,6 +1724,11 @@ jobs:
           sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
           sudo apt-get install -y rpm patchelf
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1688,16 +1748,16 @@ jobs:
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Build deb
         run: |
-          flutter_distributor package \
+          fastforge package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets deb \
-            --artifact-name {{name}}_"$RELEASE"_{{platform}}_amd64.{{ext}}
+            --artifact-name {{name}}-"$RELEASE"-{{platform}}-amd64.{{ext}}
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -1720,7 +1780,7 @@ jobs:
 
   linux-deb-aarch64:
     name: Create linux deb (aarch64)
-    runs-on: ubuntu-22.04-arm
+    runs-on: ubuntu-24.04-arm
     needs:
       - create-release
     steps:
@@ -1731,6 +1791,11 @@ jobs:
           sudo apt-get update -y && sudo apt-get upgrade -y
           sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
 
       - name: Setup Flutter
         shell: bash
@@ -1750,16 +1815,16 @@ jobs:
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Build deb
         run: |
-          flutter_distributor package \
+          fastforge package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets deb \
-            --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
+            --artifact-name {{name}}-"$RELEASE"-{{platform}}-aarch64.{{ext}}
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -1782,7 +1847,7 @@ jobs:
 
   linux-rpm:
     name: Create linux rpm
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - create-release
     steps:
@@ -1798,6 +1863,11 @@ jobs:
           sudo apt-get update -y && sudo apt-get upgrade -y
           sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1817,16 +1887,16 @@ jobs:
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Build RPM
         run: |
-          flutter_distributor package \
+          fastforge package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets rpm \
-            --artifact-name {{name}}_"$RELEASE"_{{platform}}_amd64.{{ext}}
+            --artifact-name {{name}}-"$RELEASE"-{{platform}}-amd64.{{ext}}
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -1849,7 +1919,7 @@ jobs:
 
   linux-rpm-aarch64:
     name: Create linux rpm (aarch64)
-    runs-on: ubuntu-22.04-arm
+    runs-on: ubuntu-24.04-arm
     needs:
       - create-release
     steps:
@@ -1866,6 +1936,11 @@ jobs:
           sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
           sudo apt-get install -y rpm patchelf
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
 
       - name: Setup Flutter
         shell: bash
@@ -1885,8 +1960,8 @@ jobs:
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Install yq
         run: |
@@ -1902,11 +1977,11 @@ jobs:
 
       - name: Build RPM
         run: |
-          flutter_distributor package \
+          fastforge package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets rpm \
-            --artifact-name {{name}}_"$RELEASE"_{{platform}}_aarch64.{{ext}}
+            --artifact-name {{name}}-"$RELEASE"-{{platform}}-aarch64.{{ext}}
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -1929,7 +2004,7 @@ jobs:
 
   linux-tar:
     name: Create linux tar
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - create-release
     steps:
@@ -1941,6 +2016,11 @@ jobs:
           sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
           sudo apt-get install -y p7zip-full p7zip-rar
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1968,10 +2048,10 @@ jobs:
 
       - name: Build tar
         run: |
-          archiveName="picguard_"$RELEASE"_linux_amd64.tar.gz"
-          cd build/linux/x64/release/bundle
+          archiveName="picguard-"$RELEASE"-linux-amd64.tar.gz"
           tar -czaf $archiveName ./*
           mv $archiveName $GITHUB_WORKSPACE/
+        working-directory: build/linux/x64/release/bundle
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -1991,7 +2071,7 @@ jobs:
 
   linux-tar-aarch64:
     name: Create linux tar (aarch64)
-    runs-on: ubuntu-22.04-arm
+    runs-on: ubuntu-24.04-arm
     needs:
       - create-release
     steps:
@@ -2003,6 +2083,11 @@ jobs:
           sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
           sudo apt-get install -y p7zip-full p7zip-rar
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
 
       - name: Setup Flutter
         shell: bash
@@ -2039,10 +2124,10 @@ jobs:
 
       - name: Build tar
         run: |
-          archiveName="picguard_"$RELEASE"_linux_aarch64.tar.gz"
-          cd build/linux/arm64/release/bundle
+          archiveName="picguard-"$RELEASE"-linux-aarch64.tar.gz"
           tar -czaf $archiveName ./*
           mv $archiveName $GITHUB_WORKSPACE/
+        working-directory: build/linux/arm64/release/bundle
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -2062,7 +2147,7 @@ jobs:
 
   linux-snap:
     name: Create linux snap
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       LXD_GROUP: lxd
     needs:
@@ -2098,7 +2183,7 @@ jobs:
       - name: Build snap
         run: |
           # https://snapcraft.io/docs/flutter-applications
-          sudo snapcraft --output picguard_"$RELEASE"_linux_amd64.snap
+          sudo snapcraft --output picguard-"$RELEASE"-linux-amd64.snap
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -2123,7 +2208,7 @@ jobs:
 
   linux-snap-aarch64:
     name: Create linux snap (aarch64)
-    runs-on: ubuntu-22.04-arm
+    runs-on: ubuntu-24.04-arm
     env:
       LXD_GROUP: lxd
     needs:
@@ -2167,7 +2252,7 @@ jobs:
       - name: Build snap
         run: |
           # https://snapcraft.io/docs/flutter-applications
-          sudo snapcraft --output "picguard_"$RELEASE"_linux_aarch64.snap"
+          sudo snapcraft --output "picguard-"$RELEASE"-linux-aarch64.snap"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -2290,8 +2375,8 @@ jobs:
       - name: Copy build for msi
         shell: pwsh
         run: |
-          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\en-US\picguard.msi" -NewName "picguard_$env:RELEASE`_windows_$env:Platform`_en-US.msi"
-          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\zh-CN\picguard.msi" -NewName "picguard_$env:RELEASE`_windows_$env:Platform`_zh-CN.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\en-US\picguard.msi" -NewName "picguard-$env:RELEASE`-windows-$env:Platform`-en-US.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\zh-CN\picguard.msi" -NewName "picguard-$env:RELEASE`-windows-$env:Platform`-zh-CN.msi"
           ls -R ".\msi\picguard\picguard\bin\$env:Platform\Release"
           cp ".\msi\picguard\picguard\bin\$env:Platform\Release\*\*.msi" "$env:GITHUB_WORKSPACE\"
         env:
@@ -2397,7 +2482,7 @@ jobs:
         run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Create msix
-        run: dart run msix:create --store --build-windows false --output-name "picguard_$env:RELEASE`_windows_store-free_x64"
+        run: dart run msix:create --store --build-windows false --output-name "picguard-$env:RELEASE`-windows-store-x64"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -2520,7 +2605,7 @@ jobs:
         run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Create msix
-        run: dart run msix:create --store --build-windows false --output-name "picguard_$env:RELEASE`_windows_store-pro_x64"
+        run: dart run msix:create --store --build-windows false --output-name "picguard-pro-$env:RELEASE`-windows-store-x64"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -2598,8 +2683,8 @@ jobs:
         run: |
           copy-item -Path windows\Languages\Unofficial\*.isl -Destination 'C:\Program Files (x86)\Inno Setup 6\Languages\'
 
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Install yq
         shell: pwsh
@@ -2610,33 +2695,30 @@ jobs:
       - name: Update config
         shell: pwsh
         run: |
-          $SETUP_ICON_FILE = "$pwd\windows\runner\resources\app_icon.ico"
-          echo $SETUP_ICON_FILE
-
           $yamlFile = ".\windows\packaging\exe\make_config.yaml"
           $yamlContent = Get-Content -Raw -Path $yamlFile
 
           # 获取环境变量的值
-          $appId = (Get-Item -Path Env:WINDOWS_APP_ID).Value
+          $appId = (Get-Item -Path Env:WINDOWS_EXE_APP_ID).Value
           $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME).Value
 
           # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".app_id = `"$appId`" | .publisher_name = `"$publisherName`" | .setup_icon_file = `"$SETUP_ICON_FILE`"" -
+          $updatedYamlContent = echo $yamlContent | yq e ".app_id = `"$appId`" | .publisher_name = `"$publisherName`"" -
 
           # 将更新后的内容写回文件
           Set-Content -Path $yamlFile -Value $updatedYamlContent
         env:
-          WINDOWS_APP_ID: ${{ secrets.WINDOWS_APP_ID }}
+          WINDOWS_EXE_APP_ID: ${{ secrets.WINDOWS_EXE_APP_ID }}
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
 
       - name: Build exe
         shell: pwsh
         run: |
-          flutter_distributor package `
+          fastforge package `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets exe `
-            --artifact-name "{{name}}_$env:RELEASE`_{{platform}}_x64.{{ext}}"
+            --artifact-name "{{name}}-$env:RELEASE`-{{platform}}-x64.{{ext}}"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -2719,17 +2801,17 @@ jobs:
       - name: copy LICENSE to the windows folder
         run: Copy-Item -Path "$pwd\LICENSE" -Destination "$pwd\windows\" -Force
 
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Build zip
         shell: pwsh
         run: |
-          flutter_distributor package `
+          fastforge package `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets zip `
-            --artifact-name "{{name}}_$env:RELEASE`_{{platform}}_x64.{{ext}}"
+            --artifact-name "{{name}}-$env:RELEASE`-{{platform}}-x64.{{ext}}"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -2758,117 +2840,4 @@ jobs:
           } else {
             echo "File($pwd\.env) doesn't exist."
           }
-
-  web-free:
-    name: Create web (free)
-    runs-on: ubuntu-22.04
-    if: ${{ inputs.env == 'production' }}
-    needs:
-      - create-release
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install dependencies for Linux
-        run: |
-          # https://github.com/getsentry/sentry-dart/issues/2504
-          sudo apt-get update -y && sudo apt-get upgrade -y
-          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
-          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          flutter-version: '3.29.2'
-
-      - name: Configure .env
-        run: |
-          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_BASE64" | base64 --decode > .env
-        env:
-          ENV: ${{ inputs.env }}
-          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
-          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Flutter doctor -v
-        run: flutter doctor -v
-
-      - name: Install flutter dependencies
-        run: flutter pub get
-
-      - name: Build flutter
-        run: flutter build web --dart-define-from-file=.env --dart-define GIT_COMMIT_SHA="$GIT_COMMIT_SHA" --target lib/main_free.dart --base-href /play/
-        env:
-          GIT_COMMIT_SHA: ${{ github.sha }}
-
-      - name: Copy files to flutter web
-        run: cp LICENSE README.md ./build/web
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.PG_PAGES_TOKEN }}
-          publish_dir: ./build/web
-          cname: picguard-web.picguard.app
-
-      - name: Clean up
-        if: ${{ always() }}
-        run: rm -f .env
-
-  web-pro:
-    name: Create web (pro)
-    runs-on: ubuntu-22.04
-    if: ${{ inputs.env == 'production' }}
-    needs:
-      - create-release
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install dependencies for Linux
-        run: |
-          # https://github.com/getsentry/sentry-dart/issues/2504
-          sudo apt-get update -y && sudo apt-get upgrade -y
-          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
-          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          flutter-version: '3.29.2'
-
-      - name: Configure .env
-        run: |
-          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_BASE64" | base64 --decode > .env
-        env:
-          ENV: ${{ inputs.env }}
-          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
-          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Flutter doctor -v
-        run: flutter doctor -v
-
-      - name: Install flutter dependencies
-        run: flutter pub get
-
-      - name: Build flutter
-        run: flutter build web --dart-define-from-file=.env --dart-define GIT_COMMIT_SHA="$GIT_COMMIT_SHA" --target lib/main_pro.dart --base-href /play/pro/
-        env:
-          GIT_COMMIT_SHA: ${{ github.sha }}
-
-      - name: Copy files to flutter web
-        run: cp LICENSE README.md ./build/web
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          personal_token: ${{ secrets.PG_PAGES_TOKEN }}
-          external_repository: picguard/pro-web
-          publish_branch: main  # default: gh-pages
-          publish_dir: ./build/web
-          cname: picguard-pro-web.picguard.app
-
-      - name: Clean up
-        if: ${{ always() }}
-        run: rm -f .env
+  

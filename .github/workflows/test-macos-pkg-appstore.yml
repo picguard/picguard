@@ -31,12 +31,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to mac app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
@@ -115,24 +120,34 @@ jobs:
         id: version_step
         run: |
           VERSION=$(yq '.version' pubspec.yaml)
-          echo "$VERSION"
+          echo "VERSION: $VERSION."
+
+          VERSION_SHORT=$(echo "$VERSION" | sed -e "s/+.*//")
+          echo "VERSION_SHORT: $VERSION_SHORT."
+
+          BUILD_NUMBER=$(echo "$VERSION" | sed -e "s/.*+//")
+          echo "BUILD_NUMBER: $BUILD_NUMBER."
+
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
 
       # Package the build.
       - name: Copy build for pkg
         run: |
-          echo "$VERSION"
+          echo "VERSION: $VERSION_SHORT.$BUILD_NUMBER"
           ls -la *.pkg
-          mv PicGuard.pkg PicGuardAppStore_"$VERSION"_macos_appstore_universal.pkg
+          mv PicGuard.pkg $GITHUB_WORKSPACE/PicGuard-"$VERSION_SHORT.$BUILD_NUMBER"-macos-appstore-universal.pkg
           ls -la *.pkg
         working-directory: build/macos/Build/Products/Release-free
         env:
-          VERSION: ${{ steps.version_step.outputs.version }}
+          VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
+          BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
 
       - uses: actions/upload-artifact@v4
         with:
           name: macos-pkg-appstore-artifact
-          path: ./build/macos/Build/Products/Release-free/*.pkg
+          path: ./*.pkg
 
       - name: Clean up
         if: ${{ always() }}

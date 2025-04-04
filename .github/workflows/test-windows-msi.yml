@@ -9,7 +9,7 @@ permissions: read-all
 jobs:
   get-version:
     name: Create release
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     outputs:
       version: ${{ steps.version_step.outputs.version }}
       version_short: ${{ steps.version_step.outputs.version_short }}
@@ -124,10 +124,11 @@ jobs:
       - name: Copy build for msi
         shell: pwsh
         run: |
-          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\en-US\picguard.msi" -NewName "picguard_$env:VERSION`_windows_$env:Platform`_en-US.msi"
-          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\zh-CN\picguard.msi" -NewName "picguard_$env:VERSION`_windows_$env:Platform`_zh-CN.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\en-US\picguard.msi" -NewName "picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform`-en-US.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\zh-CN\picguard.msi" -NewName "picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform`-zh-CN.msi"
         env:
-          VERSION: ${{ needs.get-version.outputs.version }}
+          VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
+          BUILD_NUMBER: ${{ needs.get-version.outputs.build_number }}
 
       - uses: actions/upload-artifact@v4
         with:

@@ -33,17 +33,17 @@ jobs:
       - name: copy LICENSE to the windows folder
         run: Copy-Item -Path "$pwd\LICENSE" -Destination "$pwd\windows\" -Force
 
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Build zip
         shell: pwsh
         run: |
-          flutter_distributor package `
+          fastforge package `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets zip `
-            --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_x64.{{ext}}'
+            --artifact-name '{{name}}-{{build_name}}.{{build_number}}-{{platform}}-x64.{{ext}}'
 
       # Package the build.
       - name: Copy build for zip

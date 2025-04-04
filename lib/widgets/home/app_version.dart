@@ -25,9 +25,8 @@ class AppVersion extends StatelessWidget {
           final appName = t.appName(flavor: AppConfig.shared.flavor);
           final packageInfo = snapshot.data;
           final version = packageInfo?.version;
-          final buildNumber = packageInfo?.buildNumber;
           return Text(
-            '$appName $version+$buildNumber${PgEnv.gitCommitShown ? "\n${PgEnv.gitCommitSha.substring(0, 8)}" : ""}',
+            '$appName $version${PgEnv.gitCommitShown ? "\n${PgEnv.gitCommitSha.substring(0, 8)}" : ""}',
             style: const TextStyle(
               color: PGColors.secondaryTextColor,
               fontSize: 12,

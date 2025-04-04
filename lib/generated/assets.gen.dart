@@ -24,11 +24,14 @@ class $LogoGen {
   /// File path: logo/logo-512.png
   AssetGenImage get logo512 => const AssetGenImage('logo/logo-512.png');
 
-  /// File path: logo/logo.icns
-  String get logoIcns => 'logo/logo.icns';
-
   /// File path: logo/logo.png
-  AssetGenImage get logoPng => const AssetGenImage('logo/logo.png');
+  AssetGenImage get logo => const AssetGenImage('logo/logo.png');
+
+  /// File path: logo/tray-icon.ico
+  String get trayIcon => 'logo/tray-icon.ico';
+
+  /// File path: logo/tray-logo.png
+  AssetGenImage get trayLogo => const AssetGenImage('logo/tray-logo.png');
 
   /// List of all assets
   List<dynamic> get values => [
@@ -36,8 +39,9 @@ class $LogoGen {
     logo256,
     logo32,
     logo512,
-    logoIcns,
-    logoPng,
+    logo,
+    trayIcon,
+    trayLogo,
   ];
 }
 

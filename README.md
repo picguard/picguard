@@ -1,5 +1,7 @@
 # PicGuard
 
+> This project is used to learn how to package Flutter applications and distribute them through app stores, package managers or binary packages.
+
 [![Test](https://github.com/picguard/picguard/actions/workflows/test.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/test.yml)
 [![Release](https://github.com/picguard/picguard/actions/workflows/release.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/release.yml)
 [![GitHub Release](https://img.shields.io/github/v/release/picguard/picguard)](https://github.com/picguard/picguard/releases/latest)
@@ -13,10 +15,6 @@
 [![Flathub Version](https://img.shields.io/flathub/v/com.kjxbyz.PicGuard)](https://flathub.org/apps/com.kjxbyz.PicGuard)
 [![Snapcraft Version](https://img.shields.io/snapcraft/v/picguard/latest/stable)](https://snapcraft.io/picguard)
 [![AUR Version](https://img.shields.io/aur/version/picguard-bin)](https://aur.archlinux.org/packages/picguard-bin)
-
-<h1>
-  This project is used to learn how to package Flutter applications and distribute them through app stores, package managers or binary packages.
-</h1>
 
 ## 📥 Download
 

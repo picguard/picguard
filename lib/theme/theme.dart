@@ -249,7 +249,7 @@ class AppTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          backgroundColor: Colors.white,
+          backgroundColor: PGColors.dialogBackgroundColor,
           foregroundColor: PGColors.primaryBackgroundColor,
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(

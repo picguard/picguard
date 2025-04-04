@@ -37,7 +37,7 @@ permissions: read-all
 jobs:
   apk:
     name: Create apk (free)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -115,7 +115,8 @@ jobs:
         run: flutter pub get
 
       - name: Resolving ios dependencies
-        run: cd ios && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: ios
 
       - name: Install the Apple certificate and provisioning profile
         env:
@@ -162,10 +163,14 @@ jobs:
           mv $PP_PRO_DEV_PATH ~/Library/MobileDevice/Provisioning\ Profiles
           mv $PP_PRO_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-      - name: Build Ipa
+      - name: Remove build cache
         run: |
           echo "╠ Removing build products and intermediate files from the build root..."
-          cd ios && xcodebuild clean && cd ..
+          xcodebuild clean
+        working-directory: ios
+
+      - name: Build Ipa
+        run: |
           echo "╠ Releasing to app store..."
           flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/debug.plist
 
@@ -213,12 +218,17 @@ jobs:
         run: flutter pub get
 
       - name: Resolving macos dependencies
-        run: cd macos && pod install --repo-update && cd ..
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
 
       - name: Build macOS
         run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          cd macos && xcodebuild clean && cd ..
           echo "╠ Releasing to app store..."
           flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
 
@@ -278,9 +288,6 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
-      - name: Install appdmg
-        run: npm install -g appdmg
-
       - name: Build DMG
         run: bash scripts/build-dmg.sh
 
@@ -299,7 +306,7 @@ jobs:
 
   linux:
     name: Create linux
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
@@ -310,6 +317,11 @@ jobs:
           sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
           sudo apt-get install -y p7zip-full p7zip-rar
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -372,8 +384,8 @@ jobs:
       - name: copy LICENSE to the windows folder
         run: Copy-Item -Path "$pwd\LICENSE" -Destination "$pwd\windows\" -Force
 
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -383,7 +395,7 @@ jobs:
 
       - name: Build zip
         run: |
-          flutter_distributor package `
+          fastforge package `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets zip `
@@ -407,7 +419,7 @@ jobs:
 
   web:
     name: Create web
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
