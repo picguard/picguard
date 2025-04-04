@@ -1,5 +1,5 @@
 // Dart imports:
-import 'dart:developer';
+import 'dart:io';
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
@@ -13,19 +13,22 @@ import 'package:get_storage/get_storage.dart';
 import 'package:logging/logging.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:tray_manager/tray_manager.dart';
 
 // Project imports:
 import 'package:picguard/app/config.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/controllers/controllers.dart';
+import 'package:picguard/enums/enums.dart';
+import 'package:picguard/generated/assets.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/pages/pages.dart';
 import 'package:picguard/rust/frb_generated.dart';
 import 'package:picguard/theme/theme.dart';
 import 'package:picguard/utils/utils.dart';
+import 'package:picguard/widgets/widgets.dart';
 
 Future<void> reportErrorAndLog(FlutterErrorDetails details) async {
   printErrorLog(details.exception, stackTrace: details.stack);
@@ -50,7 +53,7 @@ Future<void> runMainApp({
   Logger.root.level =
       kReleaseMode ? Level.OFF : Level.ALL; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {
-    log('${record.level.name}: ${record.time}: ${record.message}');
+    debugPrint('${record.level.name}: ${record.time}: ${record.message}');
   });
 
   if (PgEnv.sentryEnabled) {
@@ -75,7 +78,7 @@ Future<void> runMainApp({
           ..enableTimeToFullDisplayTracing = true
           ..maxRequestBodySize = MaxRequestBodySize.always
           ..maxResponseBodySize = MaxResponseBodySize.always
-          ..navigatorKey = AppNavigator.key;
+          ..navigatorKey = AppNavigator.navigatorKey;
       },
     );
   } else {
@@ -113,11 +116,7 @@ Future<void> runMainApp({
     );
   }
 
-  runApp(
-    TranslationProvider(
-      child: child,
-    ),
-  );
+  runApp(TranslationProvider(child: child));
 }
 
 class MainApp extends StatefulWidget {
@@ -127,29 +126,40 @@ class MainApp extends StatefulWidget {
   State<MainApp> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends State<MainApp> with TrayListener {
   final easyLoadingBuilder = EasyLoading.init();
 
-  bool showAll = false;
+  @override
+  void initState() {
+    trayManager.addListener(this);
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timestamp) {
+      initTrayMenu();
+    });
+  }
+
+  @override
+  void dispose() {
+    trayManager.removeListener(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final mainController = Get.find<SettingsController>();
     return Obx(
       () {
-        final t = Translations.of(context);
-        final appName = t.appName(flavor: AppConfig.shared.flavor);
-
         final child = DefaultTextStyle.merge(
           style: const TextStyle(
             fontFamily: 'NotoSansSC',
             fontWeight: FontWeight.normal,
           ),
-          child: const HomePage(),
+          child: const SelectionArea(child: HomePage()),
         );
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          navigatorKey: AppNavigator.key,
+          navigatorKey: AppNavigator.navigatorKey,
+          scaffoldMessengerKey: AppNavigator.scaffoldMessengerKey,
           navigatorObservers: [
             if (PgEnv.sentryEnabled) SentryNavigatorObserver(),
           ],
@@ -159,76 +169,15 @@ class _MainAppState extends State<MainApp> {
           locale: TranslationProvider.of(context).flutterLocale,
           supportedLocales: AppLocaleUtils.supportedLocales,
           localizationsDelegates: GlobalMaterialLocalizations.delegates,
-          home: defaultTargetPlatform == TargetPlatform.macOS
-              ? PlatformMenuBar(
-                  menus: <PlatformMenuItem>[
-                    PlatformMenu(
-                      label: appName,
-                      menus: <PlatformMenuItem>[
-                        const PlatformMenuItemGroup(
-                          members: <PlatformMenuItem>[
-                            PlatformProvidedMenuItem(
-                              type: PlatformProvidedMenuItemType.about,
-                            ),
-                          ],
-                        ),
-                        PlatformMenuItemGroup(
-                          members: <PlatformMenuItem>[
-                            PlatformMenuItem(
-                              onSelected: DialogUtil.showSettingsModal,
-                              shortcut:
-                                  const CharacterActivator(',', meta: true),
-                              label: t.dialogs.settingsDialog.settings,
-                            ),
-                          ],
-                        ),
-                        const PlatformProvidedMenuItem(
-                          type: PlatformProvidedMenuItemType.quit,
-                        ),
-                      ],
-                    ),
-                    PlatformMenu(
-                      label: t.menus.help,
-                      menus: <PlatformMenuItem>[
-                        PlatformMenuItemGroup(
-                          members: <PlatformMenuItem>[
-                            PlatformMenuItem(
-                              onSelected: () async {
-                                const uri = 'https://www.picguard.app/support';
-                                if (await canLaunchUrlString(uri)) {
-                                  await launchUrlString(uri);
-                                }
-                              },
-                              label: t.menus.support,
-                            ),
-                            PlatformMenuItem(
-                              onSelected: () async {
-                                const uri =
-                                    'https://www.picguard.app/legal/terms-of-use';
-                                if (await canLaunchUrlString(uri)) {
-                                  await launchUrlString(uri);
-                                }
-                              },
-                              label: t.menus.userAgreement,
-                            ),
-                            PlatformMenuItem(
-                              onSelected: () async {
-                                const uri =
-                                    'https://www.picguard.app/legal/privacy';
-                                if (await canLaunchUrlString(uri)) {
-                                  await launchUrlString(uri);
-                                }
-                              },
-                              label: t.menus.privacy,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                  child: child,
-                )
-              : child,
+          home: !isWeb && defaultTargetPlatform == TargetPlatform.macOS
+              ? MacOSMenuBar(child: child)
+              : !isWeb &&
+                      [
+                        TargetPlatform.windows,
+                        TargetPlatform.linux,
+                      ].contains(defaultTargetPlatform)
+                  ? DesktopMenuBar(child: child)
+                  : child,
           builder: (BuildContext context, Widget? child) {
             child = easyLoadingBuilder(context, child);
             return MediaQuery(
@@ -241,5 +190,77 @@ class _MainAppState extends State<MainApp> {
         );
       },
     );
+  }
+
+  Future<void> initTrayMenu() async {
+    final t = Translations.of(context);
+    final appName = t.appName(flavor: AppConfig.shared.flavor);
+    await trayManager.setIcon(
+      Platform.isWindows ? Assets.logo.trayIcon : Assets.logo.trayLogo.keyName,
+    );
+    final menu = Menu(
+      items: [
+        MenuItem(
+          key: Menus.about.name,
+          label: t.menus.about(appName: appName),
+        ),
+        MenuItem.separator(),
+        MenuItem(
+          key: Menus.settings.name,
+          label: t.dialogs.settingsDialog.settings,
+        ),
+        MenuItem.separator(),
+        MenuItem.submenu(
+          key: Menus.help.name,
+          label: t.menus.help,
+          submenu: Menu(
+            items: [
+              MenuItem(
+                key: Menus.support.name,
+                label: t.menus.support,
+              ),
+              MenuItem.separator(),
+              MenuItem(
+                key: Menus.userAgreement.name,
+                label: t.menus.userAgreement,
+              ),
+              MenuItem.separator(),
+              MenuItem(
+                key: Menus.privacy.name,
+                label: t.menus.privacy,
+              ),
+            ],
+          ),
+        ),
+        MenuItem.separator(),
+        MenuItem(
+          key: Menus.exit.name,
+          label: t.menus.exit(appName: appName),
+        ),
+      ],
+    );
+    await trayManager.setContextMenu(menu);
+  }
+
+  @override
+  void onTrayIconMouseDown() {
+    trayManager.popUpContextMenu();
+  }
+
+  @override
+  void onTrayMenuItemClick(MenuItem menuItem) {
+    if (menuItem.key == Menus.about.name) {
+      DialogUtil.showAboutModal();
+    } else if (menuItem.key == Menus.settings.name) {
+      DialogUtil.showSettingsModal();
+    } else if (menuItem.key == Menus.support.name) {
+      gotoSupportPage();
+    } else if (menuItem.key == Menus.userAgreement.name) {
+      gotoTermsOfUsePage();
+    } else if (menuItem.key == Menus.privacy.name) {
+      gotoPrivacyPage();
+    } else if (menuItem.key == Menus.exit.name) {
+      exit(0);
+    }
   }
 }

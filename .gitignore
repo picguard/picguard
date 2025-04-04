@@ -67,6 +67,7 @@ web/pkg/
 /*.dmg
 /*.pkg
 /*.snap
+distribution.dist
 
 # local env files
 .env*.local

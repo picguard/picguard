@@ -13,9 +13,9 @@ import 'package:slang/generated.dart';
 class TranslationsZh extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsZh({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	TranslationsZh({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.zh,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -34,6 +34,9 @@ class TranslationsZh extends Translations {
 
 	late final TranslationsZh _root = this; // ignore: unused_field
 
+	@override 
+	TranslationsZh $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsZh(meta: meta ?? this.$meta);
+
 	// Translations
 	@override String appName({required Flavor flavor}) {
 		switch (flavor) {
@@ -44,6 +47,7 @@ class TranslationsZh extends Translations {
 		}
 	}
 	@override late final _TranslationsHomePageZh homePage = _TranslationsHomePageZh._(_root);
+	@override late final _TranslationsAboutPageZh aboutPage = _TranslationsAboutPageZh._(_root);
 	@override late final _TranslationsColorsZh colors = _TranslationsColorsZh._(_root);
 	@override late final _TranslationsMenusZh menus = _TranslationsMenusZh._(_root);
 	@override late final _TranslationsButtonsZh buttons = _TranslationsButtonsZh._(_root);
@@ -62,6 +66,7 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
+	@override String get appPreview => '警告: 开发版本, 每个提交自动构建';
 	@override String get imageDescription => '请上传图片';
 	@override String get description => '本app不会上传任何图片到服务器, 所有操作均在本地完成';
 	@override String get textLabel => '文本';
@@ -86,6 +91,22 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
 }
 
+// Path: aboutPage
+class _TranslationsAboutPageZh extends TranslationsAboutPageEn {
+	_TranslationsAboutPageZh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version, required Object buildNumber}) => '版本号 ${version}(${buildNumber})';
+	@override String copyright({required Object year, required Object appName}) => '版权 © ${year} ${appName}. 版权所有。';
+	@override String get slogan => '给图片添加水印, 防止被恶意使用.';
+	@override String get readme => '项目简介';
+	@override String get appLicense => '应用许可证';
+	@override String get changelog => '变更日志';
+	@override String get thirdPartyLicense => '第三方许可证';
+}
+
 // Path: colors
 class _TranslationsColorsZh extends TranslationsColorsEn {
 	_TranslationsColorsZh._(TranslationsZh root) : this._root = root, super.internal(root);
@@ -108,6 +129,11 @@ class _TranslationsMenusZh extends TranslationsMenusEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
+	@override String about({required Object appName}) => '关于 ${appName}';
+	@override String hide({required Object appName}) => '隐藏 ${appName}';
+	@override String get hideOthers => '隐藏其它';
+	@override String get showAll => '显示全部';
+	@override String exit({required Object appName}) => '退出 ${appName}';
 	@override String get help => '帮助';
 	@override String get support => '支持';
 	@override String get userAgreement => '用户协议';
@@ -253,6 +279,7 @@ extension on TranslationsZh {
 						return 'PicGuard Pro';
 				}
 			};
+			case 'homePage.appPreview': return '警告: 开发版本, 每个提交自动构建';
 			case 'homePage.imageDescription': return '请上传图片';
 			case 'homePage.description': return '本app不会上传任何图片到服务器, 所有操作均在本地完成';
 			case 'homePage.textLabel': return '文本';
@@ -275,12 +302,24 @@ extension on TranslationsZh {
 			case 'homePage.savedSuccess': return '保存成功';
 			case 'homePage.savedFailure': return '保存失败';
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
+			case 'aboutPage.version': return ({required Object version, required Object buildNumber}) => '版本号 ${version}(${buildNumber})';
+			case 'aboutPage.copyright': return ({required Object year, required Object appName}) => '版权 © ${year} ${appName}. 版权所有。';
+			case 'aboutPage.slogan': return '给图片添加水印, 防止被恶意使用.';
+			case 'aboutPage.readme': return '项目简介';
+			case 'aboutPage.appLicense': return '应用许可证';
+			case 'aboutPage.changelog': return '变更日志';
+			case 'aboutPage.thirdPartyLicense': return '第三方许可证';
 			case 'colors.white': return '白色';
 			case 'colors.grey': return '灰色';
 			case 'colors.black': return '黑色';
 			case 'colors.red': return '红色';
 			case 'colors.orange': return '橙色';
 			case 'colors.blue': return '蓝色';
+			case 'menus.about': return ({required Object appName}) => '关于 ${appName}';
+			case 'menus.hide': return ({required Object appName}) => '隐藏 ${appName}';
+			case 'menus.hideOthers': return '隐藏其它';
+			case 'menus.showAll': return '显示全部';
+			case 'menus.exit': return ({required Object appName}) => '退出 ${appName}';
 			case 'menus.help': return '帮助';
 			case 'menus.support': return '支持';
 			case 'menus.userAgreement': return '用户协议';

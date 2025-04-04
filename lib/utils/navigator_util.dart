@@ -14,7 +14,7 @@ class NavigatorUtil {
     String? barrierLabel,
   }) {
     Navigator.push<T>(
-      AppNavigator.key.currentContext!,
+      AppNavigator.navigatorKey.currentContext!,
       MaterialPageRoute<T>(
         builder: (BuildContext context) => widget,
         settings: settings,
@@ -33,7 +33,7 @@ class NavigatorUtil {
     String? barrierLabel,
   }) {
     Navigator.pushAndRemoveUntil<T>(
-      AppNavigator.key.currentContext!,
+      AppNavigator.navigatorKey.currentContext!,
       MaterialPageRoute<T>(
         builder: (BuildContext context) => widget,
         settings: settings,
@@ -52,7 +52,7 @@ class NavigatorUtil {
     String? barrierLabel,
   }) {
     Navigator.pushReplacement<T, TO>(
-      AppNavigator.key.currentContext!,
+      AppNavigator.navigatorKey.currentContext!,
       MaterialPageRoute<T>(
         builder: (BuildContext context) => widget,
         settings: settings,
@@ -63,6 +63,6 @@ class NavigatorUtil {
   }
 
   static void pop() {
-    Navigator.pop(AppNavigator.key.currentContext!);
+    Navigator.pop(AppNavigator.navigatorKey.currentContext!);
   }
 }

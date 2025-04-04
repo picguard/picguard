@@ -1,5 +1,5 @@
 PODS:
-  - app_settings (5.1.1):
+  - "app_settings_plus (5.2.0+2)":
     - FlutterMacOS
   - device_info_plus (0.0.1):
     - FlutterMacOS
@@ -17,19 +17,21 @@ PODS:
     - FlutterMacOS
   - rust_lib_picguard (0.0.1):
     - FlutterMacOS
-  - Sentry/HybridSDK (8.44.0)
-  - sentry_flutter (8.13.2):
+  - Sentry/HybridSDK (8.46.0)
+  - sentry_flutter (8.14.1):
     - Flutter
     - FlutterMacOS
-    - Sentry/HybridSDK (= 8.44.0)
+    - Sentry/HybridSDK (= 8.46.0)
   - shared_preferences_foundation (0.0.1):
     - Flutter
+    - FlutterMacOS
+  - tray_manager (0.0.1):
     - FlutterMacOS
   - url_launcher_macos (0.0.1):
     - FlutterMacOS
 
 DEPENDENCIES:
-  - app_settings (from `Flutter/ephemeral/.symlinks/plugins/app_settings/macos`)
+  - app_settings_plus (from `Flutter/ephemeral/.symlinks/plugins/app_settings_plus/macos`)
   - device_info_plus (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos`)
   - file_picker (from `Flutter/ephemeral/.symlinks/plugins/file_picker/macos`)
   - file_saver (from `Flutter/ephemeral/.symlinks/plugins/file_saver/macos`)
@@ -40,6 +42,7 @@ DEPENDENCIES:
   - rust_lib_picguard (from `Flutter/ephemeral/.symlinks/plugins/rust_lib_picguard/macos`)
   - sentry_flutter (from `Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos`)
   - shared_preferences_foundation (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - tray_manager (from `Flutter/ephemeral/.symlinks/plugins/tray_manager/macos`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
 
 SPEC REPOS:
@@ -47,8 +50,8 @@ SPEC REPOS:
     - Sentry
 
 EXTERNAL SOURCES:
-  app_settings:
-    :path: Flutter/ephemeral/.symlinks/plugins/app_settings/macos
+  app_settings_plus:
+    :path: Flutter/ephemeral/.symlinks/plugins/app_settings_plus/macos
   device_info_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos
   file_picker:
@@ -69,11 +72,13 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/sentry_flutter/macos
   shared_preferences_foundation:
     :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin
+  tray_manager:
+    :path: Flutter/ephemeral/.symlinks/plugins/tray_manager/macos
   url_launcher_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
 
 SPEC CHECKSUMS:
-  app_settings: cd21e176b56f8172043640ade81322a98896bff4
+  app_settings_plus: c6f63a90cba9d851acb3255baafaa279314b2360
   device_info_plus: 4fb280989f669696856f8b129e4a5e3cd6c48f76
   file_picker: 7584aae6fa07a041af2b36a2655122d42f578c1a
   file_saver: e35bd97de451dde55ff8c38862ed7ad0f3418d0f
@@ -82,11 +87,12 @@ SPEC CHECKSUMS:
   package_info_plus: f0052d280d17aa382b932f399edf32507174e870
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   rust_lib_picguard: df7fa53faab7c30250cc9e71341f8a0c0149944f
-  Sentry: 0f9bc9adfc0b960e7f3bb5ec67e9a3d8193f3bdb
-  sentry_flutter: f4a0466dc8855998ffd59378ec33507c7dc32d7b
+  Sentry: da60d980b197a46db0b35ea12cb8f39af48d8854
+  sentry_flutter: 942017adbe00f963061cb11ec260414a990b7a42
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
+  tray_manager: a104b5c81b578d83f3c3d0f40a997c8b10810166
   url_launcher_macos: 0fba8ddabfc33ce0a9afe7c5fef5aab3d8d2d673
 
-PODFILE CHECKSUM: 267b5e8917c2b61380e7a303fab9269f7d936297
+PODFILE CHECKSUM: 4d1365c0c280397cc6d72c46c7203fa75e5d1730
 
 COCOAPODS: 1.16.2

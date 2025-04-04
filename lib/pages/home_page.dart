@@ -12,11 +12,12 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart' hide TextInput;
 
 // Package imports:
-import 'package:app_settings/app_settings.dart';
+import 'package:app_settings_plus/app_settings_plus.dart';
 import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:gap/gap.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
@@ -25,19 +26,18 @@ import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:path/path.dart' hide context;
-import 'package:uuid/uuid.dart';
 
 // Project imports:
 import 'package:picguard/app/config.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
+import 'package:picguard/constants/uuid.dart';
+import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/rust/api/picguard.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
-
-const uuid = Uuid();
 
 ///
 class HomePage extends StatefulWidget {
@@ -50,6 +50,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late MultiImagePickerController controller;
+  final _key = GlobalKey<ExpandableFabState>();
   final _formKey = GlobalKey<FormBuilderState>();
   final inputFocusNode = FocusNode();
 
@@ -59,18 +60,7 @@ class _HomePageState extends State<HomePage> {
     controller = MultiImagePickerController(
       maxImages: 9,
       images: <ImageFile>[],
-      picker: (bool allowMultiple) async {
-        final pickedImages = await _pickImages(allowMultiple);
-        if (pickedImages.length >
-            controller.maxImages - controller.images.length) {
-          return pickedImages.slice(
-            0,
-            controller.maxImages - controller.images.length,
-          );
-        }
-
-        return pickedImages;
-      },
+      picker: (limit, params) async => _pickImages(limit),
     )..addListener(() {
         if (mounted) {
           setState(() {});
@@ -109,9 +99,35 @@ class _HomePageState extends State<HomePage> {
           ? PGAppBar(
               titleWidget: Text(appName),
               isDark: isDark,
-              actions: const [SettingsBtn()],
+              actions: const [
+                IconBtn(
+                  icon: Icons.settings,
+                  onPressed: DialogUtil.showSettingsModal,
+                ),
+                IconBtn(
+                  icon: Icons.info,
+                  iconColor: PGColors.warnTextColor,
+                  overlayColor: PGColors.backgroundColor,
+                  onPressed: DialogUtil.showAboutModal,
+                ),
+              ],
             )
-          : null,
+          : isWeb && PgEnv.appPreviewEnabled
+              ? PGAppBar(
+                  titleWidget: Text(
+                    t.homePage.appPreview,
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                  ),
+                  isDark: isDark,
+                  showBottom: false,
+                )
+              : null,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;
@@ -214,12 +230,69 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
-      floatingActionButton: isWeb ||
-              [
-                TargetPlatform.windows,
-                TargetPlatform.linux,
-              ].contains(defaultTargetPlatform)
-          ? const SettingsBtn()
+      floatingActionButtonLocation: ExpandableFab.location,
+      floatingActionButton: isWeb
+          ? ExpandableFab(
+              key: _key,
+              duration: const Duration(milliseconds: 500),
+              distance: 60,
+              type: ExpandableFabType.up,
+              // pos: ExpandableFabPos.left,
+              // childrenOffset: const Offset(0, 20),
+              childrenAnimation: ExpandableFabAnimation.none,
+              fanAngle: 40,
+              openButtonBuilder: RotateFloatingActionButtonBuilder(
+                child: const Icon(Icons.menu),
+                fabSize: ExpandableFabSize.small,
+                foregroundColor: PGColors.primaryColor,
+                backgroundColor: PGColors.primaryBackgroundColor,
+                shape: const CircleBorder(),
+              ),
+              closeButtonBuilder: FloatingActionButtonBuilder(
+                size: 44,
+                builder: (
+                  BuildContext context,
+                  void Function()? onPressed,
+                  Animation<double> progress,
+                ) {
+                  return IconButton(
+                    onPressed: onPressed,
+                    style: ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all(PGColors.backgroundColor),
+                      foregroundColor:
+                          WidgetStateProperty.all(PGColors.warnTextColor),
+                    ),
+                    icon: const Icon(
+                      Icons.close,
+                      size: 24,
+                    ),
+                  );
+                },
+              ),
+              overlayStyle: ExpandableFabOverlayStyle(
+                color: Colors.black.withValues(alpha: 0.5),
+                blur: 5,
+              ),
+              children: [
+                IconBtn(
+                  icon: Icons.settings,
+                  onPressed: () {
+                    _key.currentState?.toggle();
+                    DialogUtil.showSettingsModal();
+                  },
+                ),
+                IconBtn(
+                  icon: Icons.info,
+                  iconColor: PGColors.warnTextColor,
+                  overlayColor: PGColors.backgroundColor,
+                  onPressed: () {
+                    _key.currentState?.toggle();
+                    DialogUtil.showAboutModal();
+                  },
+                ),
+              ],
+            )
           : null,
     );
 
@@ -311,7 +384,7 @@ class _HomePageState extends State<HomePage> {
 
       final permission = await PermissionUtil.checkPermission();
       if (permission != Permissions.none) {
-        final t = Translations.of(AppNavigator.key.currentContext!);
+        final t = Translations.of(AppNavigator.navigatorKey.currentContext!);
         final appName = t.appName(flavor: AppConfig.shared.flavor);
         final title = permission == Permissions.photos
             ? t.dialogs.permissions.photos.title
@@ -326,7 +399,7 @@ class _HomePageState extends State<HomePage> {
           okText: t.buttons.turnOn,
           onOK: () async {
             NavigatorUtil.pop();
-            await AppSettings.openAppSettings();
+            await AppSettingsPlus.openAppSettings();
           },
         );
         return;
@@ -617,10 +690,10 @@ class _HomePageState extends State<HomePage> {
     return ReturnWrapper(bytes: watermarkedBytes, name: fileName);
   }
 
-  Future<List<ImageFile>> _pickImages(bool allowMultiple) async {
+  Future<List<ImageFile>> _pickImages(int limit) async {
     final permission = await PermissionUtil.checkPermission();
     if (permission != Permissions.none) {
-      final t = Translations.of(AppNavigator.key.currentContext!);
+      final t = Translations.of(AppNavigator.navigatorKey.currentContext!);
       final appName = t.appName(flavor: AppConfig.shared.flavor);
       final title = permission == Permissions.photos
           ? t.dialogs.permissions.photos.title
@@ -635,46 +708,30 @@ class _HomePageState extends State<HomePage> {
         okText: t.buttons.turnOn,
         onOK: () async {
           NavigatorUtil.pop();
-          await AppSettings.openAppSettings();
+          await AppSettingsPlus.openAppSettings();
         },
       );
       return [];
     }
 
-    return _gotoPickImages(allowMultiple);
+    return _gotoPickImages(limit);
   }
 
-  Future<List<ImageFile>> _gotoPickImages(bool allowMultiple) async {
+  Future<List<ImageFile>> _gotoPickImages(int limit) async {
     final picker = ImagePicker();
-    if (allowMultiple) {
-      final images = await picker.pickMultiImage();
-      final imageFutures = images.mapIndexed(
-        (index, image) async {
-          return ImageFile(
-            'index_${uuid.v4()}',
-            name: image.name,
-            extension: extension(image.name),
-            path: image.path,
-            bytes: await image.readAsBytes(),
-          );
-        },
-      ).toList();
+    final images = await picker.pickMultiImage(limit: limit);
+    final imageFutures = images.mapIndexed(
+      (index, image) async {
+        return ImageFile(
+          'index_${uuid.v4()}',
+          name: image.name,
+          extension: extension(image.name),
+          path: image.path,
+          bytes: await image.readAsBytes(),
+        );
+      },
+    ).toList();
 
-      return Future.wait(imageFutures);
-    } else {
-      final image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        return [
-          ImageFile(
-            'index_${uuid.v4()}',
-            name: image.name,
-            extension: extension(image.name),
-            path: image.path,
-            bytes: await image.readAsBytes(),
-          ),
-        ];
-      }
-      return [];
-    }
+    return Future.wait(imageFutures);
   }
 }

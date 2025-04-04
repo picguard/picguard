@@ -9,7 +9,7 @@ permissions: read-all
 jobs:
   rpm:
     name: Create linux rpm (aarch64)
-    runs-on: ubuntu-22.04-arm
+    runs-on: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v4
 
@@ -25,6 +25,11 @@ jobs:
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
           sudo apt-get install -y rpm patchelf
 
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
+
       - name: Setup Flutter
         shell: bash
         run: |
@@ -39,8 +44,8 @@ jobs:
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
-      - name: Install flutter_distributor
-        run: dart pub global activate flutter_distributor
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Install yq
         run: |
@@ -56,11 +61,11 @@ jobs:
 
       - name: Build RPM
         run: |
-          flutter_distributor package \
+          fastforge package \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets rpm \
-            --artifact-name '{{name}}_{{build_name}}+{{build_number}}_{{platform}}_aarch64.{{ext}}'
+            --artifact-name '{{name}}-{{build_name}}.{{build_number}}-{{platform}}-aarch64.{{ext}}'
       
       # Package the build.
       - name: Copy build for rpm

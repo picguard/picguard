@@ -17,9 +17,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.en,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -36,6 +36,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	late final Translations _root = this; // ignore: unused_field
 
+	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
+
 	// Translations
 	String appName({required Flavor flavor}) {
 		switch (flavor) {
@@ -46,6 +48,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		}
 	}
 	late final TranslationsHomePageEn homePage = TranslationsHomePageEn.internal(_root);
+	late final TranslationsAboutPageEn aboutPage = TranslationsAboutPageEn.internal(_root);
 	late final TranslationsColorsEn colors = TranslationsColorsEn.internal(_root);
 	late final TranslationsMenusEn menus = TranslationsMenusEn.internal(_root);
 	late final TranslationsButtonsEn buttons = TranslationsButtonsEn.internal(_root);
@@ -64,6 +67,7 @@ class TranslationsHomePageEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	String get appPreview => 'WARNING: Development version, automatically built on each commit';
 	String get imageDescription => 'Please upload pictures.';
 	String get description => 'This app will not upload any pictures to the server, all operations are completed locally';
 	String get textLabel => 'Text';
@@ -88,6 +92,22 @@ class TranslationsHomePageEn {
 	String saveInfo({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
 }
 
+// Path: aboutPage
+class TranslationsAboutPageEn {
+	TranslationsAboutPageEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String version({required Object version, required Object buildNumber}) => 'Version ${version}(${buildNumber})';
+	String copyright({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. All rights reserved.';
+	String get slogan => 'Your pictures, your signature.';
+	String get readme => 'Readme';
+	String get appLicense => 'Application License';
+	String get changelog => 'Changelog';
+	String get thirdPartyLicense => 'Third Party Licenses';
+}
+
 // Path: colors
 class TranslationsColorsEn {
 	TranslationsColorsEn.internal(this._root);
@@ -110,6 +130,11 @@ class TranslationsMenusEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	String about({required Object appName}) => 'About ${appName}';
+	String hide({required Object appName}) => 'Hide ${appName}';
+	String get hideOthers => 'Hide Others';
+	String get showAll => 'Show All';
+	String exit({required Object appName}) => 'Quit ${appName}';
 	String get help => 'Help';
 	String get support => 'Support';
 	String get userAgreement => 'User Agreement';
@@ -255,6 +280,7 @@ extension on Translations {
 						return 'PicGuard Pro';
 				}
 			};
+			case 'homePage.appPreview': return 'WARNING: Development version, automatically built on each commit';
 			case 'homePage.imageDescription': return 'Please upload pictures.';
 			case 'homePage.description': return 'This app will not upload any pictures to the server, all operations are completed locally';
 			case 'homePage.textLabel': return 'Text';
@@ -277,12 +303,24 @@ extension on Translations {
 			case 'homePage.savedSuccess': return 'Saved successfully';
 			case 'homePage.savedFailure': return 'Failed to save image(s)';
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
+			case 'aboutPage.version': return ({required Object version, required Object buildNumber}) => 'Version ${version}(${buildNumber})';
+			case 'aboutPage.copyright': return ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. All rights reserved.';
+			case 'aboutPage.slogan': return 'Your pictures, your signature.';
+			case 'aboutPage.readme': return 'Readme';
+			case 'aboutPage.appLicense': return 'Application License';
+			case 'aboutPage.changelog': return 'Changelog';
+			case 'aboutPage.thirdPartyLicense': return 'Third Party Licenses';
 			case 'colors.white': return 'White';
 			case 'colors.grey': return 'Grey';
 			case 'colors.black': return 'Black';
 			case 'colors.red': return 'Red';
 			case 'colors.orange': return 'Orange';
 			case 'colors.blue': return 'Blue';
+			case 'menus.about': return ({required Object appName}) => 'About ${appName}';
+			case 'menus.hide': return ({required Object appName}) => 'Hide ${appName}';
+			case 'menus.hideOthers': return 'Hide Others';
+			case 'menus.showAll': return 'Show All';
+			case 'menus.exit': return ({required Object appName}) => 'Quit ${appName}';
 			case 'menus.help': return 'Help';
 			case 'menus.support': return 'Support';
 			case 'menus.userAgreement': return 'User Agreement';

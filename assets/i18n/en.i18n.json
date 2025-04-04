@@ -4,6 +4,7 @@
     "pro": "PicGuard Pro"
   },
   "homePage": {
+    "appPreview": "WARNING: Development version, automatically built on each commit",
     "imageDescription": "Please upload pictures.",
     "description": "This app will not upload any pictures to the server, all operations are completed locally",
     "textLabel": "Text",
@@ -27,6 +28,15 @@
     "savedFailure": "Failed to save image(s)",
     "saveInfo": "$succeedNum image(s) saved, $failedNum image(s) failed to save"
   },
+  "aboutPage": {
+    "version": "Version $version($buildNumber)",
+    "copyright": "Copyright © $year $appName. All rights reserved.",
+    "slogan": "Your pictures, your signature.",
+    "readme": "Readme",
+    "appLicense": "Application License",
+    "changelog": "Changelog",
+    "thirdPartyLicense": "Third Party Licenses"
+  },
   "colors": {
     "white": "White",
     "grey": "Grey",
@@ -36,6 +46,11 @@
     "blue": "Blue"
   },
   "menus": {
+    "about": "About $appName",
+    "hide": "Hide $appName",
+    "hideOthers": "Hide Others",
+    "showAll": "Show All",
+    "exit": "Quit $appName",
     "help": "Help",
     "support": "Support",
     "userAgreement": "User Agreement",

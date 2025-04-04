@@ -13,9 +13,9 @@ import 'package:slang/generated.dart';
 class TranslationsIt extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsIt({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	TranslationsIt({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.it,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -34,6 +34,9 @@ class TranslationsIt extends Translations {
 
 	late final TranslationsIt _root = this; // ignore: unused_field
 
+	@override 
+	TranslationsIt $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsIt(meta: meta ?? this.$meta);
+
 	// Translations
 	@override String appName({required Flavor flavor}) {
 		switch (flavor) {
@@ -44,6 +47,7 @@ class TranslationsIt extends Translations {
 		}
 	}
 	@override late final _TranslationsHomePageIt homePage = _TranslationsHomePageIt._(_root);
+	@override late final _TranslationsAboutPageIt aboutPage = _TranslationsAboutPageIt._(_root);
 	@override late final _TranslationsColorsIt colors = _TranslationsColorsIt._(_root);
 	@override late final _TranslationsMenusIt menus = _TranslationsMenusIt._(_root);
 	@override late final _TranslationsButtonsIt buttons = _TranslationsButtonsIt._(_root);
@@ -62,6 +66,7 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
+	@override String get appPreview => 'ATTENZIONE: Versione di sviluppo, basata automaticamente su ogni commit';
 	@override String get imageDescription => 'Si prega di caricare le immagini.';
 	@override String get description => 'Questa app non caricherà alcuna immagine sul server, tutte le operazioni vengono completate localmente';
 	@override String get textLabel => 'Testo';
@@ -86,6 +91,22 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
 }
 
+// Path: aboutPage
+class _TranslationsAboutPageIt extends TranslationsAboutPageEn {
+	_TranslationsAboutPageIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String version({required Object version, required Object buildNumber}) => 'Versione ${version}(${buildNumber})';
+	@override String copyright({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. Tutti i diritti riservati.';
+	@override String get slogan => 'Le tue foto, la tua firma.';
+	@override String get readme => 'Introduzione del progetto';
+	@override String get appLicense => 'Licenza di applicazione';
+	@override String get changelog => 'Changelog';
+	@override String get thirdPartyLicense => 'Licenze di terze parti';
+}
+
 // Path: colors
 class _TranslationsColorsIt extends TranslationsColorsEn {
 	_TranslationsColorsIt._(TranslationsIt root) : this._root = root, super.internal(root);
@@ -108,6 +129,11 @@ class _TranslationsMenusIt extends TranslationsMenusEn {
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
+	@override String about({required Object appName}) => 'Di ${appName}';
+	@override String hide({required Object appName}) => 'Nascondere ${appName}';
+	@override String get hideOthers => 'Nascondere gli altri';
+	@override String get showAll => 'Mostra tutto';
+	@override String exit({required Object appName}) => 'Esentato ${appName}';
 	@override String get help => 'Aiuto';
 	@override String get support => 'Supporto';
 	@override String get userAgreement => 'Accordo utente';
@@ -253,6 +279,7 @@ extension on TranslationsIt {
 						return 'PicGuard Pro';
 				}
 			};
+			case 'homePage.appPreview': return 'ATTENZIONE: Versione di sviluppo, basata automaticamente su ogni commit';
 			case 'homePage.imageDescription': return 'Si prega di caricare le immagini.';
 			case 'homePage.description': return 'Questa app non caricherà alcuna immagine sul server, tutte le operazioni vengono completate localmente';
 			case 'homePage.textLabel': return 'Testo';
@@ -275,12 +302,24 @@ extension on TranslationsIt {
 			case 'homePage.savedSuccess': return 'Salvataggio riuscito';
 			case 'homePage.savedFailure': return 'Impossibile salvare l\'immagine(i)';
 			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
+			case 'aboutPage.version': return ({required Object version, required Object buildNumber}) => 'Versione ${version}(${buildNumber})';
+			case 'aboutPage.copyright': return ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. Tutti i diritti riservati.';
+			case 'aboutPage.slogan': return 'Le tue foto, la tua firma.';
+			case 'aboutPage.readme': return 'Introduzione del progetto';
+			case 'aboutPage.appLicense': return 'Licenza di applicazione';
+			case 'aboutPage.changelog': return 'Changelog';
+			case 'aboutPage.thirdPartyLicense': return 'Licenze di terze parti';
 			case 'colors.white': return 'Bianco';
 			case 'colors.grey': return 'Grigio';
 			case 'colors.black': return 'Nero';
 			case 'colors.red': return 'Rosso';
 			case 'colors.orange': return 'Arancia';
 			case 'colors.blue': return 'Blu';
+			case 'menus.about': return ({required Object appName}) => 'Di ${appName}';
+			case 'menus.hide': return ({required Object appName}) => 'Nascondere ${appName}';
+			case 'menus.hideOthers': return 'Nascondere gli altri';
+			case 'menus.showAll': return 'Mostra tutto';
+			case 'menus.exit': return ({required Object appName}) => 'Esentato ${appName}';
 			case 'menus.help': return 'Aiuto';
 			case 'menus.support': return 'Supporto';
 			case 'menus.userAgreement': return 'Accordo utente';

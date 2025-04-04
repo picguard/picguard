@@ -73,3 +73,5 @@ const fontFamilies = <PGFont>[
     boldPath: 'fonts/SourceSans3-Bold.ttf',
   ),
 ];
+
+const websiteBaseUrl = 'https://www.picguard.app';

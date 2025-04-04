@@ -3,20 +3,27 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/utils/utils.dart';
 
 /// 设置按钮
-class SettingsBtn extends StatelessWidget {
-  const SettingsBtn({
+class IconBtn extends StatelessWidget {
+  const IconBtn({
+    required this.icon,
+    this.iconColor = PGColors.primaryColor,
+    this.overlayColor = PGColors.primaryBackgroundColor,
     this.padding = const EdgeInsets.all(10),
     this.iconSize = 24,
     this.borderRadius = const BorderRadius.all(Radius.circular(22)),
+    this.onPressed,
     super.key,
   });
 
+  final IconData icon;
+  final Color iconColor;
+  final Color overlayColor;
   final EdgeInsetsGeometry padding;
   final double iconSize;
   final BorderRadiusGeometry borderRadius;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +36,13 @@ class SettingsBtn extends StatelessWidget {
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(borderRadius: borderRadius),
         ),
-        overlayColor: WidgetStateProperty.all(PGColors.primaryBackgroundColor),
+        overlayColor: WidgetStateProperty.all(overlayColor),
       ),
-      onPressed: DialogUtil.showSettingsModal,
+      onPressed: onPressed,
       icon: Icon(
-        Icons.settings,
+        icon,
         size: iconSize,
-        color: PGColors.primaryColor,
+        color: iconColor,
       ),
     );
   }

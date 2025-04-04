@@ -169,6 +169,9 @@ class AppTheme {
       radioTheme: RadioThemeData(
         fillColor: WidgetStateProperty.all(PGColors.primaryColor),
       ),
+      dividerTheme: const DividerThemeData(
+        color: Colors.transparent,
+      ),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: const TextStyle(
           fontSize: 14,
@@ -246,7 +249,7 @@ class AppTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          backgroundColor: Colors.white,
+          backgroundColor: PGColors.dialogBackgroundColor,
           foregroundColor: PGColors.primaryBackgroundColor,
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(

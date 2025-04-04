@@ -4,6 +4,7 @@
     "pro": "PicGuard Pro"
   },
   "homePage": {
+    "appPreview": "警告: 开发版本, 每个提交自动构建",
     "imageDescription": "请上传图片",
     "description": "本app不会上传任何图片到服务器, 所有操作均在本地完成",
     "textLabel": "文本",
@@ -27,6 +28,15 @@
     "savedFailure": "保存失败",
     "saveInfo": "已保存$succeedNum张, 保存失败$failedNum张"
   },
+  "aboutPage": {
+    "version": "版本号 $version($buildNumber)",
+    "copyright": "版权 © $year $appName. 版权所有。",
+    "slogan": "给图片添加水印, 防止被恶意使用.",
+    "readme": "项目简介",
+    "appLicense": "应用许可证",
+    "changelog": "变更日志",
+    "thirdPartyLicense": "第三方许可证"
+  },
   "colors": {
     "white": "白色",
     "grey": "灰色",
@@ -36,6 +46,11 @@
     "blue": "蓝色"
   },
   "menus": {
+    "about": "关于 $appName",
+    "hide": "隐藏 $appName",
+    "hideOthers": "隐藏其它",
+    "showAll": "显示全部",
+    "exit": "退出 $appName",
     "help": "帮助",
     "support": "支持",
     "userAgreement": "用户协议",

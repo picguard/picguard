@@ -4,6 +4,7 @@
     "pro": "PicGuard Pro"
   },
   "homePage": {
+    "appPreview": "ATTENZIONE: Versione di sviluppo, basata automaticamente su ogni commit",
     "imageDescription": "Si prega di caricare le immagini.",
     "description": "Questa app non caricherà alcuna immagine sul server, tutte le operazioni vengono completate localmente",
     "textLabel": "Testo",
@@ -27,6 +28,15 @@
     "savedFailure": "Impossibile salvare l'immagine(i)",
     "saveInfo": "Sono state salvate $succeedNum l'immagine(i) e non è stato possibile salvare $failedNum l'immagine(i)."
   },
+  "aboutPage": {
+    "version": "Versione $version($buildNumber)",
+    "copyright": "Copyright © $year $appName. Tutti i diritti riservati.",
+    "slogan": "Le tue foto, la tua firma.",
+    "readme": "Introduzione del progetto",
+    "appLicense": "Licenza di applicazione",
+    "changelog": "Changelog",
+    "thirdPartyLicense": "Licenze di terze parti"
+  },
   "colors": {
     "white": "Bianco",
     "grey": "Grigio",
@@ -36,6 +46,11 @@
     "blue": "Blu"
   },
   "menus": {
+    "about": "Di $appName",
+    "hide": "Nascondere $appName",
+    "hideOthers": "Nascondere gli altri",
+    "showAll": "Mostra tutto",
+    "exit": "Esentato $appName",
     "help": "Aiuto",
     "support": "Supporto",
     "userAgreement": "Accordo utente",
