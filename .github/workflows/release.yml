@@ -23,7 +23,7 @@ permissions: read-all
 jobs:
   create-release:
     name: Create release
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     outputs:
       sha: ${{ steps.sha_step.outputs.sha }}
       version: ${{ steps.version_step.outputs.version }}
@@ -87,7 +87,7 @@ jobs:
 
   gen-shasum:
     name: Gen Shasum
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     needs:
       - create-release
       - apk-free
@@ -162,7 +162,7 @@ jobs:
 
   apk-free:
     name: Create apk (free)
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     needs:
       - create-release
     steps:
@@ -259,7 +259,7 @@ jobs:
           
   apk-pro:
     name: Create apk (pro)
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     needs:
       - create-release
     steps:
@@ -356,7 +356,7 @@ jobs:
 
   aab-free:
     name: Create appbundle (free)
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     needs:
       - create-release
     steps:
@@ -458,7 +458,7 @@ jobs:
 
   aab-pro:
     name: Create appbundle (pro)
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     needs:
       - create-release
     steps:
@@ -1620,7 +1620,7 @@ jobs:
           
   linux-appimage:
     name: Create linux AppImage
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     needs:
       - create-release
     steps:
@@ -1637,7 +1637,7 @@ jobs:
         run: |
           # used by tray_manager
           sudo apt-get install -y libayatana-appindicator3-dev
-          
+
       - name: Install appimagetool
         run: |
           wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
@@ -1693,7 +1693,7 @@ jobs:
 
   linux-appimage-aarch64:
     name: Create linux AppImage (aarch64)
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-22.04-arm
     needs:
       - create-release
     steps:
@@ -1772,7 +1772,7 @@ jobs:
 
   linux-deb:
     name: Create linux deb
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     needs:
       - create-release
     steps:
@@ -1840,7 +1840,7 @@ jobs:
 
   linux-deb-aarch64:
     name: Create linux deb (aarch64)
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-22.04-arm
     needs:
       - create-release
     steps:
@@ -1907,7 +1907,7 @@ jobs:
 
   linux-rpm:
     name: Create linux rpm
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     needs:
       - create-release
     steps:
@@ -1979,7 +1979,7 @@ jobs:
 
   linux-rpm-aarch64:
     name: Create linux rpm (aarch64)
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-22.04-arm
     needs:
       - create-release
     steps:
@@ -2064,7 +2064,7 @@ jobs:
 
   linux-tar:
     name: Create linux tar
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     needs:
       - create-release
     steps:
@@ -2131,7 +2131,7 @@ jobs:
 
   linux-tar-aarch64:
     name: Create linux tar (aarch64)
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-22.04-arm
     needs:
       - create-release
     steps:
@@ -2207,7 +2207,7 @@ jobs:
 
   linux-snap:
     name: Create linux snap
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     env:
       LXD_GROUP: lxd
     needs:
@@ -2268,7 +2268,7 @@ jobs:
 
   linux-snap-aarch64:
     name: Create linux snap (aarch64)
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-22.04-arm
     env:
       LXD_GROUP: lxd
     needs:
@@ -2900,4 +2900,3 @@ jobs:
           } else {
             echo "File($pwd\.env) doesn't exist."
           }
-  
