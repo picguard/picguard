@@ -84,6 +84,8 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String get textGapDescription => 'Alcune lingue non supportano i font personalizzati';
 	@override String get rowGapLabel => 'Interlinea';
 	@override String get rowGapDescription => 'La spaziatura tra ogni riga di testo';
+	@override String limitValidator({required Object maxImages, required Object lastImages}) => 'Supporta fino a ${maxImages} immagini, puoi anche caricare ${lastImages} immagini.';
+	@override String get formatValidator => 'Supportare solo i formati PNG e JPEG';
 	@override String get preview => 'Anteprima';
 	@override String get save => 'Salva';
 	@override String get savedSuccess => 'Salvataggio riuscito';
@@ -297,6 +299,8 @@ extension on TranslationsIt {
 			case 'homePage.textGapDescription': return 'Alcune lingue non supportano i font personalizzati';
 			case 'homePage.rowGapLabel': return 'Interlinea';
 			case 'homePage.rowGapDescription': return 'La spaziatura tra ogni riga di testo';
+			case 'homePage.limitValidator': return ({required Object maxImages, required Object lastImages}) => 'Supporta fino a ${maxImages} immagini, puoi anche caricare ${lastImages} immagini.';
+			case 'homePage.formatValidator': return 'Supportare solo i formati PNG e JPEG';
 			case 'homePage.preview': return 'Anteprima';
 			case 'homePage.save': return 'Salva';
 			case 'homePage.savedSuccess': return 'Salvataggio riuscito';

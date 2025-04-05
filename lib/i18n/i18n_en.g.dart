@@ -85,6 +85,8 @@ class TranslationsHomePageEn {
 	String get textGapDescription => 'The spacing between text in each line of text';
 	String get rowGapLabel => 'Line spacing';
 	String get rowGapDescription => 'The spacing between each line of text';
+	String limitValidator({required Object maxImages, required Object lastImages}) => 'Supports up to ${maxImages} pictures, you can also upload ${lastImages} picture(s).';
+	String get formatValidator => 'Only PNG and JPEG formats are supported.';
 	String get preview => 'Preview';
 	String get save => 'Save';
 	String get savedSuccess => 'Saved successfully';
@@ -298,6 +300,8 @@ extension on Translations {
 			case 'homePage.textGapDescription': return 'The spacing between text in each line of text';
 			case 'homePage.rowGapLabel': return 'Line spacing';
 			case 'homePage.rowGapDescription': return 'The spacing between each line of text';
+			case 'homePage.limitValidator': return ({required Object maxImages, required Object lastImages}) => 'Supports up to ${maxImages} pictures, you can also upload ${lastImages} picture(s).';
+			case 'homePage.formatValidator': return 'Only PNG and JPEG formats are supported.';
 			case 'homePage.preview': return 'Preview';
 			case 'homePage.save': return 'Save';
 			case 'homePage.savedSuccess': return 'Saved successfully';

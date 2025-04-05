@@ -178,6 +178,14 @@ jobs:
           channel: 'stable'
           flutter-version: '3.29.2'
 
+      - name: Reinstall rust toolchain
+        run: |
+          rustup --version
+          cargo --version
+          rustc --version
+          # https://github.com/rust-lang/rustup/issues/2729
+          rustup toolchain uninstall stable && rustup toolchain install stable
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -260,6 +268,14 @@ jobs:
           channel: 'stable'
           flutter-version: '3.29.2'
 
+      - name: Reinstall rust toolchain
+        run: |
+          rustup --version
+          cargo --version
+          rustc --version
+          # https://github.com/rust-lang/rustup/issues/2729
+          rustup toolchain uninstall stable && rustup toolchain install stable
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -341,6 +357,14 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: '3.29.2'
+
+      - name: Reinstall rust toolchain
+        run: |
+          rustup --version
+          cargo --version
+          rustc --version
+          # https://github.com/rust-lang/rustup/issues/2729
+          rustup toolchain uninstall stable && rustup toolchain install stable
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -428,6 +452,14 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: '3.29.2'
+
+      - name: Reinstall rust toolchain
+        run: |
+          rustup --version
+          cargo --version
+          rustc --version
+          # https://github.com/rust-lang/rustup/issues/2729
+          rustup toolchain uninstall stable && rustup toolchain install stable
 
       - name: Flutter doctor -v
         run: flutter doctor -v

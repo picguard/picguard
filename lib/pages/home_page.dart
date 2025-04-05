@@ -33,7 +33,6 @@ import 'package:picguard/app/config.dart';
 import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/constants/uuid.dart';
-import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
@@ -136,7 +135,7 @@ class _HomePageState extends State<HomePage> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;
-          printDebugLog('maxWidth: $maxWidth');
+          final maxHeight = constraints.maxHeight;
           late Widget child;
           if ((isWeb || isDesktop) && maxWidth >= 800) {
             child = SingleChildScrollView(
@@ -144,7 +143,7 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+                // mainAxisSize: MainAxisSize.min,
                 spacing: 10,
                 children: [
                   Flexible(
@@ -152,6 +151,7 @@ class _HomePageState extends State<HomePage> {
                     fit: FlexFit.tight,
                     child: Column(
                       spacing: 10,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         ImageGroup(
                           controller: controller,
@@ -166,6 +166,7 @@ class _HomePageState extends State<HomePage> {
                     flex: 4,
                     fit: FlexFit.tight,
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         FormBuilder(
                           key: _formKey,
@@ -205,6 +206,7 @@ class _HomePageState extends State<HomePage> {
           } else {
             child = ListView(
               padding: padding,
+              shrinkWrap: true,
               children: [
                 ImageGroup(
                   controller: controller,
@@ -243,11 +245,12 @@ class _HomePageState extends State<HomePage> {
             );
           }
 
-          if (isMobile) {
-            return child;
-          }
+          // if (isMobile) {
+          //   return child;
+          // }
 
           return Stack(
+            fit: StackFit.expand,
             children: [
               child,
               Positioned(
@@ -255,27 +258,37 @@ class _HomePageState extends State<HomePage> {
                 bottom: 0,
                 right: 0,
                 child: IgnorePointer(
+                  ignoring: !_isDragOver,
                   child: AnimatedOpacity(
                     opacity: _isDragOver ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 200),
                     child: _dropItems.isEmpty
                         ? const SizedBox.shrink()
-                        : Padding(
-                            padding: const EdgeInsets.all(50),
-                            child: ListView(
-                              shrinkWrap: true,
-                              children: _dropItems
-                                  .map<Widget>(
-                                    (e) => _DropItemInfo(dropItem: e),
-                                  )
-                                  .intersperse(
-                                    Container(
-                                      height: 2,
-                                      color:
-                                          Colors.white.withValues(alpha: 0.7),
-                                    ),
-                                  )
-                                  .toList(growable: false),
+                        : ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxHeight: math.min(maxHeight * 0.5, 200),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 50,
+                                vertical: 20,
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(6),
+                                clipBehavior: Clip.hardEdge,
+                                child: ListView.separated(
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.zero,
+                                  itemCount: _dropItems.length,
+                                  itemBuilder: (context, index) {
+                                    final item = _dropItems.elementAt(index);
+                                    return _DropItemInfo(dropItem: item);
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return const SizedBox(height: 1);
+                                  },
+                                ),
+                              ),
                             ),
                           ),
                   ),
@@ -369,7 +382,6 @@ class _HomePageState extends State<HomePage> {
     // However on certain platforms (mobile / web) the actual data is
     // only available when the drop is accepted (onPerformDrop).
     final items = dropOverEvent.session.items;
-    printDebugLog('[_onDropOver] items: ${items.length}');
 
     setState(() {
       _isDragOver = true;
@@ -378,7 +390,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onDropLeave(DropEvent dropEvent) {
-    setState(() => _isDragOver = false);
+    Future.delayed(const Duration(seconds: 5), () {
+      setState(() => _isDragOver = false);
+    });
   }
 
   /// 预览
@@ -810,13 +824,14 @@ class _DropItemInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      color: isDark ? PGColors.dialogBackgroundColor : Colors.white,
+      color:
+          isDark ? PGColors.dialogBackgroundColor : PGColors.primaryGrayColor,
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
       child: DefaultTextStyle.merge(
         style: const TextStyle(fontSize: 11),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+          // mainAxisSize: MainAxisSize.min,
           spacing: 4,
           children: [
             if (dropItem.localData != null)

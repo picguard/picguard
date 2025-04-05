@@ -22,6 +22,8 @@
     "textGapDescription": "Alcune lingue non supportano i font personalizzati",
     "rowGapLabel": "Interlinea",
     "rowGapDescription": "La spaziatura tra ogni riga di testo",
+    "limitValidator": "Supporta fino a $maxImages immagini, puoi anche caricare $lastImages immagini.",
+    "formatValidator": "Supportare solo i formati PNG e JPEG",
     "preview": "Anteprima",
     "save": "Salva",
     "savedSuccess": "Salvataggio riuscito",

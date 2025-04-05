@@ -204,7 +204,7 @@ class DropZone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropRegion(
-      formats: const [Formats.png, Formats.jpeg],
+      formats: Formats.standardFormats, // DON'T MODIFY THIS LINE
       hitTestBehavior: HitTestBehavior.opaque,
       onDropOver: onDropOver,
       onPerformDrop: onPerformDrop,
