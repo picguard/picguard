@@ -178,20 +178,11 @@ jobs:
           channel: 'stable'
           flutter-version: '3.29.2'
 
-      - name: Reinstall rust toolchain
-        run: |
-          # https://github.com/rust-lang/rustup/issues/1408
-          rm -rf ~/.cargo ~/.rustup
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-          source $HOME/.cargo/env
-          rustup uninstall stable && rustup update nightly && rustup update stable
-          
-          # https://github.com/rust-lang/rustup/issues/2729
-          rustup toolchain uninstall stable && rustup toolchain install stable
-          
-          rustup --version
-          cargo --version
-          rustc --version
+      - name: Remove target (if exists)
+        run: rustup target remove armv7-linux-androideabi || true
+
+      - name: Add Android target
+        run: rustup target add armv7-linux-androideabi
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -275,20 +266,11 @@ jobs:
           channel: 'stable'
           flutter-version: '3.29.2'
 
-      - name: Reinstall rust toolchain
-        run: |
-          # https://github.com/rust-lang/rustup/issues/1408
-          rm -rf ~/.cargo ~/.rustup
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-          source $HOME/.cargo/env
-          rustup uninstall stable && rustup update nightly && rustup update stable
-          
-          # https://github.com/rust-lang/rustup/issues/2729
-          rustup toolchain uninstall stable && rustup toolchain install stable
-          
-          rustup --version
-          cargo --version
-          rustc --version
+      - name: Remove target (if exists)
+        run: rustup target remove armv7-linux-androideabi || true
+
+      - name: Add Android target
+        run: rustup target add armv7-linux-androideabi
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -372,20 +354,11 @@ jobs:
           channel: 'stable'
           flutter-version: '3.29.2'
 
-      - name: Reinstall rust toolchain
-        run: |
-          # https://github.com/rust-lang/rustup/issues/1408
-          rm -rf ~/.cargo ~/.rustup
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-          source $HOME/.cargo/env
-          rustup uninstall stable && rustup update nightly && rustup update stable
-          
-          # https://github.com/rust-lang/rustup/issues/2729
-          rustup toolchain uninstall stable && rustup toolchain install stable
-          
-          rustup --version
-          cargo --version
-          rustc --version
+      - name: Remove target (if exists)
+        run: rustup target remove armv7-linux-androideabi || true
+
+      - name: Add Android target
+        run: rustup target add armv7-linux-androideabi
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -474,20 +447,11 @@ jobs:
           channel: 'stable'
           flutter-version: '3.29.2'
 
-      - name: Reinstall rust toolchain
-        run: |
-          # https://github.com/rust-lang/rustup/issues/1408
-          rm -rf ~/.cargo ~/.rustup
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-          source $HOME/.cargo/env
-          rustup uninstall stable && rustup update nightly && rustup update stable
-          
-          # https://github.com/rust-lang/rustup/issues/2729
-          rustup toolchain uninstall stable && rustup toolchain install stable
-          
-          rustup --version
-          cargo --version
-          rustc --version
+      - name: Remove target (if exists)
+        run: rustup target remove armv7-linux-androideabi || true
+
+      - name: Add Android target
+        run: rustup target add armv7-linux-androideabi
 
       - name: Flutter doctor -v
         run: flutter doctor -v
