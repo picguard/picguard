@@ -165,7 +165,6 @@ jobs:
           ls -la *.pkg
           test -f PicGuard-unsigned.pkg && rm -f PicGuard-unsigned.pkg
           mv PicGuard.pkg PicGuard-"$VERSION_SHORT.$BUILD_NUMBER"-macos-universal.pkg
-          ls -la *.pkg
         env:
           VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
           BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}

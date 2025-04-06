@@ -138,7 +138,6 @@ jobs:
           echo "VERSION: $VERSION_SHORT.$BUILD_NUMBER"
           ls -la *.pkg
           mv PicGuard.pkg $GITHUB_WORKSPACE/PicGuard-"$VERSION_SHORT.$BUILD_NUMBER"-macos-appstore-universal.pkg
-          ls -la *.pkg
         working-directory: build/macos/Build/Products/Release-free
         env:
           VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}

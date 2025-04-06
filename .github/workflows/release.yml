@@ -1022,7 +1022,6 @@ jobs:
           ls -la *.pkg
           test -f PicGuard-unsigned.pkg && rm -f PicGuard-unsigned.pkg
           mv PicGuard.pkg PicGuard-"$RELEASE"-macos-universal.pkg
-          ls -la *.pkg
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
