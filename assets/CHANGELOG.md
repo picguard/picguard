@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1+442
+
+1. fix: update the color of the privacy dialog in dark mode
+2. chore(deps): update deps
+3. fix(macos): update macOS deployment target to 11.0
+
 ## 2.0.0+441
 
 1. feat: add eula file to dmg and pkg 
