@@ -59,6 +59,10 @@ parts:
       - FLUTTER_VERSION: 3.29.2
       - FLUTTER_TARGET: lib/main_free.dart
     override-build: |
+      # https://github.com/superlistapp/super_native_extensions/issues/497#issuecomment-2782786522
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+      source $HOME/.cargo/env
+      
       # https://github.com/canonical/snapcraft/blob/main/snapcraft/parts/plugins/flutter_plugin.py
       PG_FLUTTER_BUILD_DIR="$CRAFT_PART_BUILD/flutter-distro"
       if [ -d "$PG_FLUTTER_BUILD_DIR" ]; then
