@@ -104,6 +104,6 @@ flutter_native_splash:
   # If you have changed the name(s) of your info.plist file(s), you can specify the filename(s)
   # with the info_plist_files parameter.  Remove only the # characters in the three lines below,
   # do not remove any spaces:
-#  info_plist_files:
-#    - 'ios/Runner/External.plist'
-#    - 'ios/Runner/Internal.plist'
+  info_plist_files:
+    - 'ios/Runner/Info.plist'
+    - 'ios/Runner/Info-Pro.plist'
