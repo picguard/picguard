@@ -67,7 +67,7 @@
 		25D32C4970278FA4EB7F6A4A /* Pods_PicGuardMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicGuardMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E22E73F2BEA5ABF0084157E /* AppStore-Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "AppStore-Release.entitlements"; sourceTree = "<group>"; };
 		2E4AE6612C5F7D010014EC6E /* AppStorePro-Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "AppStorePro-Release.entitlements"; sourceTree = "<group>"; };
-		2E4AE66E2C5F7E4A0014EC6E /* Info-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Info-Pro.plist"; path = "Runner/Info-Pro.plist"; sourceTree = "<group>"; };
+		2E4AE66E2C5F7E4A0014EC6E /* Info-pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Info-pro.plist"; path = "Runner/Info-pro.plist"; sourceTree = "<group>"; };
 		2E4AE6702C5F88EB0014EC6E /* AppInfo-Pro.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "AppInfo-Pro.xcconfig"; sourceTree = "<group>"; };
 		2E82EE702D69F58A00199BE7 /* Debug-pro.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug-pro.xcconfig"; sourceTree = "<group>"; };
 		2E82EE712D69F58A00199BE7 /* Release-pro.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-pro.xcconfig"; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 		33CC11242044D66E0003C045 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2E4AE66E2C5F7E4A0014EC6E /* Info-Pro.plist */,
+				2E4AE66E2C5F7E4A0014EC6E /* Info-pro.plist */,
 				33CC10F22044A3C60003C045 /* Assets.xcassets */,
 				33CC10F42044A3C60003C045 /* MainMenu.xib */,
 				33CC10F72044A3C60003C045 /* Info.plist */,
@@ -564,7 +564,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E4AE6702C5F88EB0014EC6E /* AppInfo-Pro.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Pro";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-pro";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/DebugProfile.entitlements;
 				CODE_SIGN_IDENTITY = "";
@@ -573,7 +573,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 43V9N6VW8L;
 				ENABLE_APP_SANDBOX = YES;
-				INFOPLIST_FILE = "Runner/Info-Pro.plist";
+				INFOPLIST_FILE = "Runner/Info-pro.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "PicGuard Pro";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -668,7 +668,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E4AE6702C5F88EB0014EC6E /* AppInfo-Pro.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Pro";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-pro";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Release.entitlements;
 				CODE_SIGN_IDENTITY = "";
@@ -678,7 +678,7 @@
 				DEVELOPMENT_TEAM = 43V9N6VW8L;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = "Runner/Info-Pro.plist";
+				INFOPLIST_FILE = "Runner/Info-pro.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "PicGuard Pro";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -772,7 +772,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E4AE6702C5F88EB0014EC6E /* AppInfo-Pro.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Pro";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-pro";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/DebugProfile.entitlements;
 				CODE_SIGN_IDENTITY = "";
@@ -781,7 +781,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 43V9N6VW8L;
 				ENABLE_APP_SANDBOX = YES;
-				INFOPLIST_FILE = "Runner/Info-Pro.plist";
+				INFOPLIST_FILE = "Runner/Info-pro.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "PicGuard Pro";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
