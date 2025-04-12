@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.5.0+443
+
+1. drag and drop files to app
+2. fix: add license.rtf to the windows folder
+3. Revert "ci: update linux runner to ubuntu-24.04"
+4. ci: update macos runner to macos-15
+5. ci: update workflows
+
 ## 2.0.1+442
 
 1. fix: update the color of the privacy dialog in dark mode
