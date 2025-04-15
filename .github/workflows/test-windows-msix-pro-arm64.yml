@@ -1,4 +1,4 @@
-name: Test Windows msix (pro)
+name: Test Windows msix (pro arm64)
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ permissions: read-all
 
 jobs:
   get-version:
-    name: Create release
+    name: Create release (pro arm64)
     runs-on: ubuntu-22.04
     outputs:
       version: ${{ steps.version_step.outputs.version }}
@@ -40,7 +40,7 @@ jobs:
     name: Create msix (pro)
     runs-on: windows-2022
     env:
-      Platform: x64
+      Platform: arm64
     needs:
       - get-version
     steps:
@@ -112,7 +112,9 @@ jobs:
         run: flutter pub get
 
       - name: Build windows
-        run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
+        run: |
+          set FLUTTER_WINDOWS_PLATFORM="$env:Platform"
+          flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Crate msix
         run: |
