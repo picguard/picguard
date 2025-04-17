@@ -106,15 +106,11 @@ class MacOSMenuBar extends StatelessWidget {
                 ),
               ],
             ),
-            PlatformMenuItemGroup(
+            const PlatformMenuItemGroup(
               members: <PlatformMenuItem>[
-                PlatformMenuItem(
-                  onSelected: () {
-                    exit(0);
-                  },
-                  shortcut: const CharacterActivator('Q', meta: true),
-                  label: t.menus.exit(appName: appName),
-                ),
+                PlatformProvidedMenuItem(
+                  type: PlatformProvidedMenuItemType.quit,
+                )
               ],
             ),
           ],
