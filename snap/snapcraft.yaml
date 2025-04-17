@@ -56,7 +56,7 @@ parts:
       - libayatana-appindicator3-dev
     build-environment:
       - FLUTTER_REPO: https://github.com/flutter/flutter.git
-      - FLUTTER_VERSION: 3.29.2
+      - FLUTTER_VERSION: 3.29.3
       - FLUTTER_TARGET: lib/main_free.dart
     override-build: |
       # https://github.com/superlistapp/super_native_extensions/issues/497#issuecomment-2782786522

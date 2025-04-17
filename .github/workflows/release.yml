@@ -176,7 +176,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Remove target (if exists)
         run: rustup target remove armv7-linux-androideabi || true
@@ -264,7 +264,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Remove target (if exists)
         run: rustup target remove armv7-linux-androideabi || true
@@ -352,7 +352,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Remove target (if exists)
         run: rustup target remove armv7-linux-androideabi || true
@@ -445,7 +445,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Remove target (if exists)
         run: rustup target remove armv7-linux-androideabi || true
@@ -534,7 +534,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -655,7 +655,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -781,7 +781,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -907,7 +907,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -1052,7 +1052,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -1191,7 +1191,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -1330,7 +1330,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -1465,7 +1465,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -1610,7 +1610,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -1757,7 +1757,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -1896,7 +1896,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -2049,7 +2049,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -2312,7 +2312,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -2442,7 +2442,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -2560,7 +2560,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -2683,7 +2683,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -2805,7 +2805,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.29.2'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
