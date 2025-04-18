@@ -15,7 +15,7 @@
     "colorValidator": "Seleziona un colore.",
     "opacityLabel": "Opacità",
     "fontLabel": "Font",
-    "fontLabelDescription": "Some languages do not support custom fonts",
+    "fontLabelDescription": "Alcune lingue non supportano i font personalizzati",
     "fontValidator": "Seleziona un font.",
     "fontSizeLabel": "Dimensione del font",
     "textGapLabel": "Spaziatura del testo",
@@ -44,7 +44,7 @@
     "grey": "Grigio",
     "black": "Nero",
     "red": "Rosso",
-    "orange": "Arancia",
+    "orange": "Arancione",
     "blue": "Blu"
   },
   "menus": {
