@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:io';
-
 // Package imports:
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -17,7 +14,7 @@ enum Permissions {
 class PermissionUtil {
   static Future<Permissions> checkPermission() async {
     if (isWeb) return Permissions.none;
-    if (Platform.isAndroid) {
+    if (isAndroid) {
       final deviceInfo = DeviceInfoPlugin();
       final androidInfo = await deviceInfo.androidInfo;
       if (androidInfo.version.sdkInt >= 33) {
@@ -35,7 +32,7 @@ class PermissionUtil {
         ].contains(status);
         return denied ? Permissions.storage : Permissions.none;
       }
-    } else if (Platform.isIOS) {
+    } else if (isIOS) {
       final status = await Permission.photos.request();
       final denied = [
         PermissionStatus.permanentlyDenied,

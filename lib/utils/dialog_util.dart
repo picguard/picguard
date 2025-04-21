@@ -1,5 +1,4 @@
 // Dart imports:
-import 'dart:io';
 import 'dart:math';
 
 // Flutter imports:
@@ -110,8 +109,8 @@ class DialogUtil {
                     fontSize: 14,
                   ),
                 ).nestedPadding(padding: const EdgeInsets.only(top: 8)),
-                if (Platform.isAndroid) ...androidPermissionTexts,
-                if (Platform.isIOS) ...iosPermissionTexts,
+                if (isAndroid) ...androidPermissionTexts,
+                if (isIOS) ...iosPermissionTexts,
                 RichText(
                   text: TextSpan(
                     children: [

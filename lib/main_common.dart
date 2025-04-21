@@ -134,9 +134,7 @@ class _MainAppState extends State<MainApp> with TrayListener {
     trayManager.addListener(this);
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timestamp) {
-      if (isDesktop) {
-        initTrayMenu();
-      }
+      initTrayMenu();
     });
   }
 
@@ -172,13 +170,9 @@ class _MainAppState extends State<MainApp> with TrayListener {
           locale: TranslationProvider.of(context).flutterLocale,
           supportedLocales: AppLocaleUtils.supportedLocales,
           localizationsDelegates: GlobalMaterialLocalizations.delegates,
-          home: !isWeb && defaultTargetPlatform == TargetPlatform.macOS
+          home: isMacOS
               ? MacOSMenuBar(child: child)
-              : !isWeb &&
-                      [
-                        TargetPlatform.windows,
-                        TargetPlatform.linux,
-                      ].contains(defaultTargetPlatform)
+              : (isWindows || isLinux)
                   ? DesktopMenuBar(child: child)
                   : child,
           builder: (BuildContext context, Widget? child) {
@@ -197,10 +191,14 @@ class _MainAppState extends State<MainApp> with TrayListener {
   }
 
   Future<void> initTrayMenu() async {
+    if (!isDesktop) {
+      return;
+    }
+
     final t = Translations.of(context);
     final appName = t.appName(flavor: AppConfig.shared.flavor);
     await trayManager.setIcon(
-      Platform.isWindows ? Assets.logo.trayIcon : Assets.logo.trayLogo.keyName,
+      isWindows ? Assets.logo.trayIcon : Assets.logo.trayLogo.keyName,
     );
     final menu = Menu(
       items: [
