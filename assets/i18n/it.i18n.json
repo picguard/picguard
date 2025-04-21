@@ -15,11 +15,11 @@
     "colorValidator": "Seleziona un colore.",
     "opacityLabel": "Opacità",
     "fontLabel": "Font",
-    "fontLabelDescription": "Some languages do not support custom fonts",
+    "fontLabelDescription": "Alcune lingue non supportano i font personalizzati",
     "fontValidator": "Seleziona un font.",
     "fontSizeLabel": "Dimensione del font",
     "textGapLabel": "Spaziatura del testo",
-    "textGapDescription": "Alcune lingue non supportano i font personalizzati",
+    "textGapDescription": "La spaziatura tra il testo in ogni riga di testo",
     "rowGapLabel": "Interlinea",
     "rowGapDescription": "La spaziatura tra ogni riga di testo",
     "limitValidator": "Supporta fino a $maxImages immagini, puoi anche caricare $lastImages immagini.",
@@ -44,7 +44,7 @@
     "grey": "Grigio",
     "black": "Nero",
     "red": "Rosso",
-    "orange": "Arancia",
+    "orange": "Arancione",
     "blue": "Blu"
   },
   "menus": {

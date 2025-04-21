@@ -77,11 +77,11 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String get colorValidator => 'Seleziona un colore.';
 	@override String get opacityLabel => 'Opacità';
 	@override String get fontLabel => 'Font';
-	@override String get fontLabelDescription => 'Some languages do not support custom fonts';
+	@override String get fontLabelDescription => 'Alcune lingue non supportano i font personalizzati';
 	@override String get fontValidator => 'Seleziona un font.';
 	@override String get fontSizeLabel => 'Dimensione del font';
 	@override String get textGapLabel => 'Spaziatura del testo';
-	@override String get textGapDescription => 'Alcune lingue non supportano i font personalizzati';
+	@override String get textGapDescription => 'La spaziatura tra il testo in ogni riga di testo';
 	@override String get rowGapLabel => 'Interlinea';
 	@override String get rowGapDescription => 'La spaziatura tra ogni riga di testo';
 	@override String limitValidator({required Object maxImages, required Object lastImages}) => 'Supporta fino a ${maxImages} immagini, puoi anche caricare ${lastImages} immagini.';
@@ -120,7 +120,7 @@ class _TranslationsColorsIt extends TranslationsColorsEn {
 	@override String get grey => 'Grigio';
 	@override String get black => 'Nero';
 	@override String get red => 'Rosso';
-	@override String get orange => 'Arancia';
+	@override String get orange => 'Arancione';
 	@override String get blue => 'Blu';
 }
 
@@ -292,11 +292,11 @@ extension on TranslationsIt {
 			case 'homePage.colorValidator': return 'Seleziona un colore.';
 			case 'homePage.opacityLabel': return 'Opacità';
 			case 'homePage.fontLabel': return 'Font';
-			case 'homePage.fontLabelDescription': return 'Some languages do not support custom fonts';
+			case 'homePage.fontLabelDescription': return 'Alcune lingue non supportano i font personalizzati';
 			case 'homePage.fontValidator': return 'Seleziona un font.';
 			case 'homePage.fontSizeLabel': return 'Dimensione del font';
 			case 'homePage.textGapLabel': return 'Spaziatura del testo';
-			case 'homePage.textGapDescription': return 'Alcune lingue non supportano i font personalizzati';
+			case 'homePage.textGapDescription': return 'La spaziatura tra il testo in ogni riga di testo';
 			case 'homePage.rowGapLabel': return 'Interlinea';
 			case 'homePage.rowGapDescription': return 'La spaziatura tra ogni riga di testo';
 			case 'homePage.limitValidator': return ({required Object maxImages, required Object lastImages}) => 'Supporta fino a ${maxImages} immagini, puoi anche caricare ${lastImages} immagini.';
@@ -317,7 +317,7 @@ extension on TranslationsIt {
 			case 'colors.grey': return 'Grigio';
 			case 'colors.black': return 'Nero';
 			case 'colors.red': return 'Rosso';
-			case 'colors.orange': return 'Arancia';
+			case 'colors.orange': return 'Arancione';
 			case 'colors.blue': return 'Blu';
 			case 'menus.about': return ({required Object appName}) => 'Di ${appName}';
 			case 'menus.hide': return ({required Object appName}) => 'Nascondere ${appName}';
