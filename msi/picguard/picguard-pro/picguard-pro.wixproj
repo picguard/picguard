@@ -1,0 +1,26 @@
+﻿<Project Sdk="WixToolset.Sdk/5.0.0">
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <Platform>$(Platform)</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'"></PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"></PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'"></PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'"></PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'"></PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'"></PropertyGroup>
+  <ItemGroup>
+    <Content Include="$(IconPath)" />
+  </ItemGroup>
+  <ItemGroup>
+    <HarvestDirectory Include="$(FLUTTER_BUILD_OUTPUT_DIR)\data\flutter_assets">
+      <DirectoryRefId>FLUTTERASSETSFOLDER</DirectoryRefId>
+      <ComponentGroupName>FlutterAssetsComponents</ComponentGroupName>
+      <SuppressRootDirectory>true</SuppressRootDirectory>
+    </HarvestDirectory>
+
+    <BindPath Include="$(FLUTTER_BUILD_OUTPUT_DIR)\data\flutter_assets" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="WixToolset.Heat" />
+  </ItemGroup>
+</Project>

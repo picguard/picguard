@@ -57,7 +57,6 @@ jobs:
 
       - name: Configure .env
         run: |
-          echo "$pwd"
           $bytes = echo $env:ENV_KEY | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
         env:
@@ -75,7 +74,6 @@ jobs:
       - name: Update config
         shell: pwsh
         run: |
-          echo $env:RUNNER_TEMP
           # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
           # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
           $certificatePath = "$env:RUNNER_TEMP\picguard.pfx"
@@ -110,8 +108,7 @@ jobs:
         run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Crate msix
-        run: |
-          dart run msix:create --build-windows false --output-name "picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform"
+        run: dart run msix:create --build-windows false --output-name "picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform"
         env:
           VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
           BUILD_NUMBER: ${{ needs.get-version.outputs.build_number }}

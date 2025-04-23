@@ -1,4 +1,4 @@
-name: Test Windows msi (arm64)
+name: Test Windows msi (free arm64)
 
 on:
   workflow_dispatch:
@@ -64,7 +64,6 @@ jobs:
 
       - name: Configure .env
         run: |
-          echo "$pwd"
           $bytes = echo $env:ENV_KEY | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
         env:
@@ -106,7 +105,6 @@ jobs:
       - name: Create msi
         shell: pwsh
         run: |
-          echo $env:RUNNER_TEMP
           $certificatePath = "$env:RUNNER_TEMP\picguard.pfx"
           # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
           # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell

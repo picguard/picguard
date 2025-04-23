@@ -1,0 +1,122 @@
+name: Test Windows exe (pro)
+
+on:
+  workflow_dispatch:
+
+# Declare default permissions as readonly.
+permissions: read-all
+
+jobs:
+  exe:
+    name: Create exe
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.3'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: |
+          echo "$pwd"
+          $bytes = echo $env:ENV_KEY | %{[Convert]::FromBase64String($_)}
+          [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
+
+      - name: copy eula-pro.rtf to the windows folder
+        run: Copy-Item -Path "$pwd\macos\packaging\base\eula-pro.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
+
+      - name: Copy ChineseSimplified.isl to C:\Program Files (x86)\Inno Setup 6\Languages\
+        run: |
+          copy-item -Path windows\Languages\Unofficial\*.isl -Destination 'C:\Program Files (x86)\Inno Setup 6\Languages\'
+
+      - name: Install fastforge
+        run: dart pub global activate fastforge
+
+      - name: Install yq
+        shell: pwsh
+        run: |
+          choco install yq
+          yq --version
+
+      - name: Update config
+        shell: pwsh
+        run: |
+          Copy-Item -Path "$pwd\windows\pro\CMakeLists.txt" -Destination "$pwd\windows\CMakeLists.txt" -Force
+          Copy-Item -Path "$pwd\windows\pro\main.cpp" -Destination "$pwd\windows\runner\main.cpp" -Force
+          Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
+          Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
+          
+          $yamlFile = ".\windows\packaging\exe\make_config.yaml"
+          $yamlContent = Get-Content -Raw -Path $yamlFile
+          
+          # 获取环境变量的值
+          $appId = (Get-Item -Path Env:WINDOWS_EXE_APP_ID_PRO).Value
+          $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME_PRO).Value
+          
+          # 使用 yq 更新多个字段
+          $updatedYamlContent = echo $yamlContent | yq e ".app_id = `"$appId`" | .publisher_name = `"$publisherName`" | .display_name = `"PicGuard Pro`"" -
+          
+          # 将更新后的内容写回文件
+          Set-Content -Path $yamlFile -Value $updatedYamlContent
+        env:
+          WINDOWS_EXE_APP_ID_PRO: ${{ secrets.WINDOWS_EXE_APP_ID_PRO }}
+          WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
+
+      - name: Build exe
+        shell: pwsh
+        run: |
+          fastforge package `
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
+            --platform windows `
+            --targets exe `
+            --artifact-name '{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-x64.{{ext}}'
+
+      # Package the build.
+      - name: Copy build for exe
+        run: ls -R
+        working-directory: dist
+
+      - name: Signing
+        run: |
+          $certificatePath = "$env:RUNNER_TEMP\picguard-pro.pfx"
+          # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
+          # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
+          $bytes = echo $env:WINDOWS_CERTIFICATE_PRO | %{[Convert]::FromBase64String($_)}
+          [IO.File]::WriteAllBytes("$certificatePath", $bytes)
+          $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
+          & $signtool sign /f "$certificatePath" /fd SHA256 /t http://timestamp.comodoca.com/authenticode /p "$env:WINDOWS_CERTIFICATE_PASSWORD_PRO" /n "$env:WINDOWS_PUBLISHER_NAME_PRO" (get-item ".\**\*.exe")
+        env:
+          WINDOWS_CERTIFICATE_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PRO }}
+          WINDOWS_CERTIFICATE_PASSWORD_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD_PRO }}
+          WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
+        working-directory: dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-exe-pro-artifact
+          path: .\dist\**\*.exe
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          ls
+          if (test-path -Path "$env:RUNNER_TEMP\picguard-pro.pfx") {
+            echo "$env:RUNNER_TEMP\picguard-pro.pfx"
+            remove-item -Path "$env:RUNNER_TEMP\picguard-pro.pfx" -Force -ErrorAction SilentlyContinue
+          } else {
+            echo "File($env:RUNNER_TEMP\picguard-pro.pfx) doesn't exist."
+          }
+          if (test-path -Path "$pwd\.env") {
+            echo "Remove file($pwd\.env)"
+            remove-item -Path "$pwd\.env" -Force -ErrorAction SilentlyContinue
+          } else {
+            echo "File($pwd\.env) doesn't exist."
+          }

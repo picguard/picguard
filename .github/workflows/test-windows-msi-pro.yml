@@ -1,4 +1,4 @@
-name: Test Windows msix (pro)
+name: Test Windows msi (pro)
 
 on:
   workflow_dispatch:
@@ -21,8 +21,8 @@ jobs:
         id: version_step
         run: |
           VERSION=$(yq '.version' pubspec.yaml)
-          echo "$VERSION"
-          
+          echo "VERSION: $VERSION."
+
           VERSION_SHORT=$(echo "$VERSION" | sed -e "s/+.*//")
           echo "VERSION_SHORT: $VERSION_SHORT."
 
@@ -33,11 +33,8 @@ jobs:
           echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
           echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
 
-      - name: Check version
-        run: echo ${{ steps.version_step.outputs.version }}
-
-  msix_pro:
-    name: Create msix (pro)
+  msi:
+    name: Create msi
     runs-on: windows-2022
     env:
       Platform: x64
@@ -55,6 +52,18 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Install yq
+        shell: pwsh
+        run: |
+          choco install yq
+          yq --version
+
+      - name: Install wix toolset
+        shell: pwsh
+        run: |
+          dotnet tool install --global wix
+          wix --version
+
       - name: Configure .env
         run: |
           $bytes = echo $env:ENV_KEY | %{[Convert]::FromBase64String($_)}
@@ -62,15 +71,12 @@ jobs:
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
 
-      - name: copy eula.rtf to the windows folder
-        run: Copy-Item -Path "$pwd\macos\packaging\base\eula.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
+      - name: copy eula-pro.rtf to the windows folder
+        run: Copy-Item -Path "$pwd\macos\packaging\base\eula-pro.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
 
-      - name: Install yq
-        shell: pwsh
-        run: |
-          choco install yq
-          yq --version
-
+      - name: Install flutter dependencies
+        run: flutter pub get
+        
       - name: Update config
         shell: pwsh
         run: |
@@ -79,55 +85,61 @@ jobs:
           Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
           Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
 
-          # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
-          # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
-          $certificatePath = "$env:RUNNER_TEMP\picguard-pro.pfx"
-          $bytes = echo $env:WINDOWS_CERTIFICATE_PRO | %{[Convert]::FromBase64String($_)}
-          [IO.File]::WriteAllBytes("$certificatePath", $bytes)
-
-          $yamlFile = ".\pubspec.yaml"
-          $yamlContent = Get-Content -Raw -Path $yamlFile
-
-          # 获取环境变量的值
-          # $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME_PRO).Value
-          # $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER_PRO).Value
-          # $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME_PRO).Value
-          $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD_PRO).Value
-
-          # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".msix_config.display_name = `"PicGuard Pro`" | .msix_config.certificate_path = `"$certificatePath`" | .msix_config.certificate_password = `"$certificatePassword`" | .msix_config.architecture = `"$env:Platform`" | del(.msix_config.identity_name) | del(.msix_config.publisher) | del(.msix_config.publisher_display_name)" -
-
-          # 将更新后的内容写回文件
-          Set-Content -Path $yamlFile -Value $updatedYamlContent
-        env:
-          WINDOWS_CERTIFICATE_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PRO }}
-          WINDOWS_CERTIFICATE_PASSWORD_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD_PRO }}
-          WINDOWS_IDENTITY_NAME_PRO: ${{ secrets.WINDOWS_IDENTITY_NAME_PRO }}
-          WINDOWS_PUBLISHER_PRO: ${{ secrets.WINDOWS_PUBLISHER_PRO }}
-          WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
-
-      - name: Install flutter dependencies
-        run: flutter pub get
-
       - name: Build windows
         run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
-      - name: Crate msix
+      - name: Update msi version
+        shell: pwsh
         run: |
-          dart run msix:create --build-windows false --output-name "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform"
+          # 文件路径
+          $filePath = "msi\picguard\picguard-pro\Package.wxs"
+
+          # 读取文件内容
+          $content = Get-Content -Path $filePath -Raw
+
+          # 替换使用正则表达式
+          $newContent = $content -replace "\b\d{1,4}\.\d{1,4}\.\d{1,4}\.\d{1,4}\b", "$env:VERSION_SHORT.$env:BUILD_NUMBER"
+
+          # 写回文件
+          Set-Content -Path $filePath -Value $newContent -NoNewline
         env:
           VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
           BUILD_NUMBER: ${{ needs.get-version.outputs.build_number }}
 
+      - name: Create msi
+        shell: pwsh
+        run: |
+          $certificatePath = "$env:RUNNER_TEMP\picguard-pro.pfx"
+          # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
+          # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
+          $bytes = echo $env:WINDOWS_CERTIFICATE_PRO | %{[Convert]::FromBase64String($_)}
+          [IO.File]::WriteAllBytes("$certificatePath", $bytes)
+
+          $env:IconPath = "$pwd\windows\runner\resources\app_icon.ico"
+          $env:FLUTTER_BUILD_OUTPUT_DIR = "$pwd\build\windows\$env:Platform\runner\Release"
+          dotnet build .\msi\picguard\picguard-pro\picguard-pro.wixproj --arch "$env:Platform" --configuration Release
+
+          $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
+          & $signtool sign /v /f "$certificatePath" /fd SHA256 /t http://timestamp.comodoca.com/authenticode /p "$env:WINDOWS_CERTIFICATE_PASSWORD_PRO" /n "$env:WINDOWS_PUBLISHER_NAME_PRO" (get-item ".\msi\picguard\picguard-pro\bin\$env:Platform\Release\*\*.msi")
+        env:
+          WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
+          WINDOWS_CERTIFICATE_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PRO }}
+          WINDOWS_CERTIFICATE_PASSWORD_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD_PRO }}
+
       # Package the build.
-      - name: Copy build for msix
-        run: ls
-        working-directory: build\windows\${{ env.Platform }}\runner\Release
+      - name: Copy build for msi
+        shell: pwsh
+        run: |
+          Rename-Item -Path "$pwd\msi\picguard\picguard-pro\bin\$env:Platform\Release\en-US\picguard-pro.msi" -NewName "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform`-en-US.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard-pro\bin\$env:Platform\Release\zh-CN\picguard-pro.msi" -NewName "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform`-zh-CN.msi"
+        env:
+          VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
+          BUILD_NUMBER: ${{ needs.get-version.outputs.build_number }}
 
       - uses: actions/upload-artifact@v4
         with:
-          name: windows-msix-pro-artifact
-          path: .\build\windows\${{ env.Platform }}\runner\Release\*.msix
+          name: windows-msi-pro-artifact
+          path: .\msi\picguard\picguard-pro\bin\${{ env.Platform }}\Release\*\*.msi
 
       - name: Clean up
         if: ${{ always() }}

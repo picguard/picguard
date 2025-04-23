@@ -55,7 +55,6 @@ jobs:
 
       - name: Configure .env
         run: |
-          echo "$pwd"
           $bytes = echo $env:ENV_KEY | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
         env:
@@ -73,11 +72,10 @@ jobs:
       - name: Update config
         shell: pwsh
         run: |
-          echo $env:RUNNER_TEMP
-
-          Copy-Item -Path "windows\pro\CMakeLists.txt" -Destination "windows\CMakeLists.txt" -Force
-          Copy-Item -Path "windows\pro\main.cpp" -Destination "windows\runner\main.cpp" -Force
-          Copy-Item -Path "windows\pro\Runner.rc" -Destination "windows\runner\Runner.rc" -Force
+          Copy-Item -Path "$pwd\windows\pro\CMakeLists.txt" -Destination "$pwd\windows\CMakeLists.txt" -Force
+          Copy-Item -Path "$pwd\windows\pro\main.cpp" -Destination "$pwd\windows\runner\main.cpp" -Force
+          Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
+          Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
 
           # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
           # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
@@ -115,8 +113,7 @@ jobs:
           flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Crate msix
-        run: |
-          dart run msix:create --build-windows false --output-name "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform"
+        run: dart run msix:create --build-windows false --output-name "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform"
         env:
           VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
           BUILD_NUMBER: ${{ needs.get-version.outputs.build_number }}

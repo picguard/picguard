@@ -1,4 +1,4 @@
-name: Test Windows exe
+name: Test Windows exe (free arm64)
 
 on:
   workflow_dispatch:
@@ -8,23 +8,20 @@ permissions: read-all
 
 jobs:
   exe:
-    name: Create exe
-    runs-on: windows-2022
+    name: Create exe (arm64)
+    runs-on: windows-11-arm
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          flutter-version: '3.29.3'
+        shell: pwsh
+        run: .\scripts\install-flutter-github-actions.ps1
 
       - name: Flutter doctor -v
         run: flutter doctor -v
 
       - name: Configure .env
         run: |
-          echo "$pwd"
           $bytes = echo $env:ENV_KEY | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
         env:
@@ -39,6 +36,10 @@ jobs:
 
       - name: Install fastforge
         run: dart pub global activate fastforge
+
+      - name: Get SignTool path
+        run: Get-Command signtool.exe
+        shell: pwsh
 
       - name: Install yq
         shell: pwsh
@@ -65,14 +66,26 @@ jobs:
           WINDOWS_EXE_APP_ID: ${{ secrets.WINDOWS_EXE_APP_ID }}
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
 
+      - name: Rename inno_setup_arm64.iss to inno_setup.iss
+        run: |
+          # 移除旧的 inno_setup.iss 文件
+          remove-item -Path "$pwd\windows\packaging\exe\inno_setup.iss" -Force -ErrorAction SilentlyContinue
+          
+          # 重命名 inno_setup_arm64.iss 文件
+          $sourcePath = ".\windows\packaging\exe\inno_setup_arm64.iss"
+          $destinationPath = ".\windows\packaging\exe\inno_setup.iss"
+          Rename-Item -Path $sourcePath -NewName $destinationPath
+        shell: pwsh
+
       - name: Build exe
         shell: pwsh
         run: |
+          set FLUTTER_WINDOWS_PLATFORM=arm64
           fastforge package `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets exe `
-            --artifact-name '{{name}}-{{build_name}}.{{build_number}}-{{platform}}-x64.{{ext}}'
+            --artifact-name '{{name}}-{{build_name}}.{{build_number}}-{{platform}}-arm64.{{ext}}'
 
       # Package the build.
       - name: Copy build for exe
