@@ -102,16 +102,16 @@ jobs:
       - macos-appstore-pkg-pro
       - macos-zip
       - macos-tar
-      - linux-appimage
-      - linux-appimage-aarch64
-      - linux-deb
-      - linux-deb-aarch64
-      - linux-rpm
-      - linux-rpm-aarch64
-      - linux-tar
-      - linux-tar-aarch64
-      - linux-snap
-      - linux-snap-aarch64
+      - linux-appimage-free
+      - linux-appimage-free-arm64
+      - linux-deb-free
+      - linux-deb-free-arm64
+      - linux-rpm-free
+      - linux-rpm-free-arm64
+      - linux-tar-free
+      - linux-tar-free-arm64
+      - linux-snap-free
+      - linux-snap-free-arm64
       - windows-exe-free
       - windows-exe-pro
       - windows-msi-free
@@ -1584,8 +1584,8 @@ jobs:
           fi
           rm -f .env
           
-  linux-appimage:
-    name: Create linux AppImage
+  linux-appimage-free:
+    name: Create linux AppImage (free)
     runs-on: ubuntu-22.04
     needs:
       - create-release
@@ -1629,6 +1629,9 @@ jobs:
 
       - name: Install fastforge
         run: dart pub global activate fastforge
+        
+      - name: Remove unused files
+        run: rm -f "$(pwd)/linux/packaging/appimage/make_config-pro.yaml"
 
       - name: Build AppImage
         run: |
@@ -1657,8 +1660,8 @@ jobs:
         if: ${{ always() }}
         run: rm -f .env
 
-  linux-appimage-aarch64:
-    name: Create linux AppImage (aarch64)
+  linux-appimage-free-arm64:
+    name: Create linux AppImage (free arm64)
     runs-on: ubuntu-22.04-arm
     needs:
       - create-release
@@ -1708,6 +1711,9 @@ jobs:
             --source git https://github.com/kjxbyz/fastforge \
             --git-ref appimage-arm64 \
             --git-path packages/fastforge
+          
+      - name: Remove unused files
+        run: rm -f "$(pwd)/linux/packaging/appimage/make_config-pro.yaml"
 
       - name: Build AppImage
         run: |
@@ -1736,8 +1742,8 @@ jobs:
         if: ${{ always() }}
         run: rm -f .env
 
-  linux-deb:
-    name: Create linux deb
+  linux-deb-free:
+    name: Create linux deb (free)
     runs-on: ubuntu-22.04
     needs:
       - create-release
@@ -1776,6 +1782,9 @@ jobs:
 
       - name: Install fastforge
         run: dart pub global activate fastforge
+        
+      - name: Remove unused files
+        run: rm -f "$(pwd)/linux/packaging/deb/make_config-pro.yaml"
 
       - name: Build deb
         run: |
@@ -1804,8 +1813,8 @@ jobs:
         if: ${{ always() }}
         run: rm -f .env
 
-  linux-deb-aarch64:
-    name: Create linux deb (aarch64)
+  linux-deb-free-arm64:
+    name: Create linux deb (free arm64)
     runs-on: ubuntu-22.04-arm
     needs:
       - create-release
@@ -1843,6 +1852,9 @@ jobs:
 
       - name: Install fastforge
         run: dart pub global activate fastforge
+        
+      - name: Remove unused files
+        run: rm -f "$(pwd)/linux/packaging/deb/make_config-pro.yaml"
 
       - name: Build deb
         run: |
@@ -1871,8 +1883,8 @@ jobs:
         if: ${{ always() }}
         run: rm -f .env
 
-  linux-rpm:
-    name: Create linux rpm
+  linux-rpm-free:
+    name: Create linux rpm (free)
     runs-on: ubuntu-22.04
     needs:
       - create-release
@@ -1915,6 +1927,9 @@ jobs:
 
       - name: Install fastforge
         run: dart pub global activate fastforge
+        
+      - name: Remove unused files
+        run: rm -f "$(pwd)/linux/packaging/rpm/make_config-pro.yaml"
 
       - name: Build RPM
         run: |
@@ -1943,8 +1958,8 @@ jobs:
         if: ${{ always() }}
         run: rm -f .env
 
-  linux-rpm-aarch64:
-    name: Create linux rpm (aarch64)
+  linux-rpm-free-arm64:
+    name: Create linux rpm (free arm64)
     runs-on: ubuntu-22.04-arm
     needs:
       - create-release
@@ -1999,7 +2014,9 @@ jobs:
           yq --version
 
       - name: Update make_config.yaml
-        run: yq -i '.build_arch = "aarch64"' linux/packaging/rpm/make_config.yaml
+        run: |
+          rm -f "$(pwd)/linux/packaging/rpm/make_config-pro.yaml"
+          yq -i '.build_arch = "aarch64"' "$(pwd)/linux/packaging/rpm/make_config.yaml"
 
       - name: Build RPM
         run: |
@@ -2028,8 +2045,8 @@ jobs:
         if: ${{ always() }}
         run: rm -f .env
 
-  linux-tar:
-    name: Create linux tar
+  linux-tar-free:
+    name: Create linux tar (free)
     runs-on: ubuntu-22.04
     needs:
       - create-release
@@ -2095,8 +2112,8 @@ jobs:
         if: ${{ always() }}
         run: rm -f .env
 
-  linux-tar-aarch64:
-    name: Create linux tar (aarch64)
+  linux-tar-free-arm64:
+    name: Create linux tar (free arm64)
     runs-on: ubuntu-22.04-arm
     needs:
       - create-release
@@ -2171,8 +2188,8 @@ jobs:
         if: ${{ always() }}
         run: rm -f .env
 
-  linux-snap:
-    name: Create linux snap
+  linux-snap-free:
+    name: Create linux snap (free)
     runs-on: ubuntu-22.04
     env:
       LXD_GROUP: lxd
@@ -2195,7 +2212,13 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
+        
+      - name: Remove unused files
+        run: |
+          rm -f "$(pwd)/snap/gui/picguard-pro.desktop"
+          rm -f "$(pwd)/snap/gui/picguard-pro.png"
+          rm -f "$(pwd)/snap/snapcraft-pro.yaml"
+          
       - name: Install snapcraft
         run: sudo snap install snapcraft --classic
 
@@ -2232,8 +2255,8 @@ jobs:
             sudo snapcraft clean
           fi
 
-  linux-snap-aarch64:
-    name: Create linux snap (aarch64)
+  linux-snap-free-arm64:
+    name: Create linux snap (free arm64)
     runs-on: ubuntu-22.04-arm
     env:
       LXD_GROUP: lxd
@@ -2264,6 +2287,12 @@ jobs:
             sudo snap install -y yq
           fi
           yq --version
+          
+      - name: Remove unused files
+        run: |
+          rm -f "$(pwd)/snap/gui/picguard-pro.desktop"
+          rm -f "$(pwd)/snap/gui/picguard-pro.png"
+          rm -f "$(pwd)/snap/snapcraft-pro.yaml"
 
       - name: Update snapcraft.yaml
         run: |

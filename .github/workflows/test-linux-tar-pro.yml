@@ -1,4 +1,4 @@
-name: Test Linux tar
+name: Test Linux tar (pro)
 
 on:
   workflow_dispatch:
@@ -39,11 +39,16 @@ jobs:
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
+      - name: Copy files to the linux folder
+        run: |
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+
       - name: Install flutter dependencies
         run: flutter pub get
 
       - name: Build flutter
-        run: flutter build linux --dart-define-from-file=.env --target lib/main_free.dart
+        run: flutter build linux --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Set version
         id: version_step
@@ -64,7 +69,7 @@ jobs:
       - name: Build tar
         run: |
           echo "VERSION: $VERSION_SHORT.$BUILD_NUMBER"
-          archiveName="picguard-"$VERSION_SHORT.$BUILD_NUMBER"-linux-amd64.tar.gz"
+          archiveName="picguard-pro-"$VERSION_SHORT.$BUILD_NUMBER"-linux-amd64.tar.gz"
           tar -czaf $archiveName ./*
           mv $archiveName "$GITHUB_WORKSPACE/"
         working-directory: build/linux/x64/release/bundle
@@ -78,7 +83,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: linux-tar-artifact
+          name: linux-tar-pro-artifact
           path: ./*.tar.gz
 
       - name: Clean up

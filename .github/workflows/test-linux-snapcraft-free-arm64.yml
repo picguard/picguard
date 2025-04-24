@@ -1,4 +1,4 @@
-name: Test Linux Snapcraft (arm64)
+name: Test Linux Snapcraft (free arm64)
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ permissions: read-all
 
 jobs:
   snap:
-    name: Create linux snap (aarch64)
+    name: Create linux snap
     runs-on: ubuntu-22.04-arm
     env:
       LXD_GROUP: lxd
@@ -52,6 +52,12 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
           echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+
+      - name: Remove unused files
+        run: |
+          rm -f "$(pwd)/snap/gui/picguard-pro.desktop"
+          rm -f "$(pwd)/snap/gui/picguard-pro.png"
+          rm -f "$(pwd)/snap/snapcraft-pro.yaml"
 
       - name: Build snap
         run: |

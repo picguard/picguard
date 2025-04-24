@@ -1,0 +1,86 @@
+name: Test Linux tar (free)
+
+on:
+  workflow_dispatch:
+
+# Declare default permissions as readonly.
+permissions: read-all
+
+jobs:
+  tar:
+    name: Create linux tar
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y p7zip-full p7zip-rar
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.3'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build flutter
+        run: flutter build linux --dart-define-from-file=.env --target lib/main_free.dart
+
+      - name: Set version
+        id: version_step
+        run: |
+          VERSION=$(yq '.version' pubspec.yaml)
+          echo "VERSION: $VERSION."
+
+          VERSION_SHORT=$(echo "$VERSION" | sed -e "s/+.*//")
+          echo "VERSION_SHORT: $VERSION_SHORT."
+
+          BUILD_NUMBER=$(echo "$VERSION" | sed -e "s/.*+//")
+          echo "BUILD_NUMBER: $BUILD_NUMBER."
+
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+
+      - name: Build tar
+        run: |
+          echo "VERSION: $VERSION_SHORT.$BUILD_NUMBER"
+          archiveName="picguard-"$VERSION_SHORT.$BUILD_NUMBER"-linux-amd64.tar.gz"
+          tar -czaf $archiveName ./*
+          mv $archiveName "$GITHUB_WORKSPACE/"
+        working-directory: build/linux/x64/release/bundle
+        env:
+          VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
+          BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
+
+      # Package the build.
+      - name: Copy build for tar
+        run: ls -la *.tar.gz
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-tar-artifact
+          path: ./*.tar.gz
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: rm -f .env

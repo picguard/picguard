@@ -1,0 +1,85 @@
+name: Test Linux Snapcraft (pro)
+
+on:
+  workflow_dispatch:
+
+# Declare default permissions as readonly.
+permissions: read-all
+
+jobs:
+  snap:
+    name: Create linux snap
+    runs-on: ubuntu-22.04
+    env:
+      LXD_GROUP: lxd
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup LXD
+        uses: canonical/setup-lxd@v0.1.2
+        with:
+          channel: latest/stable
+          group: ${{ env.LXD_GROUP }}
+
+      - name: Configure .env
+        run: echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
+
+      - name: Copy files to the linux folder
+        run: |
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+
+      - name: Install snapcraft
+        run: sudo snap install snapcraft --classic
+
+      - name: Set version
+        id: version_step
+        run: |
+          VERSION=$(yq '.version' pubspec.yaml)
+          echo "VERSION: $VERSION."
+
+          VERSION_SHORT=$(echo "$VERSION" | sed -e "s/+.*//")
+          echo "VERSION_SHORT: $VERSION_SHORT."
+
+          BUILD_NUMBER=$(echo "$VERSION" | sed -e "s/.*+//")
+          echo "BUILD_NUMBER: $BUILD_NUMBER."
+
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+
+      - name: Remove unused files
+        run: |
+          rm -f "$(pwd)/snap/gui/picguard.desktop"
+          rm -f "$(pwd)/snap/gui/picguard.png"
+          rm -f "$(pwd)/snap/snapcraft.yaml"
+          mv "$(pwd)/snap/snapcraft-pro.yaml" "$(pwd)/snap/snapcraft.yaml"
+
+      - name: Build snap
+        run: |
+          # https://snapcraft.io/docs/flutter-applications
+          echo "VERSION: $VERSION_SHORT.$BUILD_NUMBER"
+          sudo snapcraft --output "picguard-pro-"$VERSION_SHORT.$BUILD_NUMBER"-linux-amd64.snap"
+        env:
+          VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
+          BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
+
+      # Package the build.
+      - name: Copy build for snap
+        run: ls -la *.snap
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-snap-pro-artifact
+          path: ./*.snap
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
+          if which snapcraft >/dev/null 2>&1; then
+            echo "snapcraft exists"
+            sudo snapcraft clean
+          fi

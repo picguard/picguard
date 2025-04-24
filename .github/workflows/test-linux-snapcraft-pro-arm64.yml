@@ -1,4 +1,4 @@
-name: Test Linux Snapcraft
+name: Test Linux Snapcraft (pro arm64)
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions: read-all
 jobs:
   snap:
     name: Create linux snap
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04-arm
     env:
       LXD_GROUP: lxd
     steps:
@@ -25,6 +25,19 @@ jobs:
         run: echo "$ENV_KEY" | base64 --decode > .env
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
+
+      - name: Copy files to the linux folder
+        run: |
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+
+      - name: Install yq
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            sudo snap install -y yq
+          fi
+          yq --version
 
       - name: Install snapcraft
         run: sudo snap install snapcraft --classic
@@ -45,11 +58,18 @@ jobs:
           echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
           echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
 
+      - name: Remove unused files
+        run: |
+          rm -f "$(pwd)/snap/gui/picguard.desktop"
+          rm -f "$(pwd)/snap/gui/picguard.png"
+          rm -f "$(pwd)/snap/snapcraft.yaml"
+          mv "$(pwd)/snap/snapcraft-pro.yaml" "$(pwd)/snap/snapcraft.yaml"
+
       - name: Build snap
         run: |
           # https://snapcraft.io/docs/flutter-applications
           echo "VERSION: $VERSION_SHORT.$BUILD_NUMBER"
-          sudo snapcraft --output "picguard-"$VERSION_SHORT.$BUILD_NUMBER"-linux-amd64.snap"
+          sudo snapcraft --output "picguard-pro-"$VERSION_SHORT.$BUILD_NUMBER"-linux-aarch64.snap"
         env:
           VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
           BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
@@ -60,7 +80,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: linux-snap-artifact
+          name: linux-snap-pro-arm64-artifact
           path: ./*.snap
 
       - name: Clean up

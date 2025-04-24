@@ -1,4 +1,4 @@
-name: Test Linux AppImage (arm64)
+name: Test Linux AppImage (free)
 
 on:
   workflow_dispatch:
@@ -8,8 +8,8 @@ permissions: read-all
 
 jobs:
   appimage:
-    name: Create linux appimage (aarch64)
-    runs-on: ubuntu-22.04-arm
+    name: Create linux appimage
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
 
@@ -24,19 +24,17 @@ jobs:
         run: |
           # used by tray_manager
           sudo apt-get install -y libayatana-appindicator3-dev
-
+          
       - name: Install appimagetool
         run: |
-          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-aarch64.AppImage"
-          # https://github.com/AppImage/AppImageKit/issues/1056#issuecomment-643382397
-          # sed -i 's|AI\x02|\x00\x00\x00|' appimagetool
+          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
           chmod +x appimagetool && mv appimagetool /usr/local/bin/
 
       - name: Setup Flutter
-        shell: bash
-        run: |
-          chmod +x ./scripts/install-flutter-github-actions.sh
-          ./scripts/install-flutter-github-actions.sh
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.3'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -47,11 +45,10 @@ jobs:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
       - name: Install fastforge
-        run: |
-          dart pub global activate \
-            --source git https://github.com/kjxbyz/fastforge \
-            --git-ref appimage-arm64 \
-            --git-path packages/fastforge
+        run: dart pub global activate fastforge
+
+      - name: Remove unused files
+        run: rm -f "$(pwd)/linux/packaging/appimage/make_config-pro.yaml"
 
       - name: Build AppImage
         run: |
@@ -59,7 +56,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets appimage \
-            --artifact-name '{{name}}-{{build_name}}.{{build_number}}-{{platform}}-aarch64.{{ext}}'
+            --artifact-name '{{name}}-{{build_name}}.{{build_number}}-{{platform}}-amd64.{{ext}}'
 
       # Package the build.
       - name: Copy build for AppImage
@@ -68,7 +65,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: linux-appimage-arm64-artifact
+          name: linux-appimage-artifact
           path: ./dist/**/*.AppImage
 
       - name: Clean up

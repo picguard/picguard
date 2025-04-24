@@ -1,4 +1,4 @@
-name: Test Linux deb
+name: Test Linux deb (free)
 
 on:
   workflow_dispatch:
@@ -40,6 +40,9 @@ jobs:
 
       - name: Install fastforge
         run: dart pub global activate fastforge
+
+      - name: Update make_config.yaml
+        run: rm -f "$(pwd)/linux/packaging/deb/make_config-pro.yaml"
 
       - name: Build deb
         run: |

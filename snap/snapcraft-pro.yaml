@@ -1,0 +1,85 @@
+name: picguard-pro
+version: 2.5.0.443
+summary: Your pictures, your signature.
+description: |
+  Introducing **PicGuard Pro** - the ultimate solution for securing and customizing your digital photos. With our app, you can easily add watermarks to your images to protect your creative work and maintain your privacy.
+
+  **PicGuard Pro** offers robust privacy protection features, ensuring your personal and sensitive information remains safeguarded. It's highly customizable, allowing you to personalize watermarks with various fonts, styles, and designs to suit your needs.
+
+  Accessible on web, mobile, and desktop, you can seamlessly integrate and manage your watermarking tasks across all your devices. **PicGuard Pro**, as an open-source tool, it's not only free but also continuously improved by a community of developers dedicated to providing the best user experience.
+
+  Download **PicGuard Pro** today and take control of your photo security and personalization like never before!
+icon: snap/gui/picguard-pro.png
+title: PicGuard Pro
+contact: hello@kjxbyz.com
+license: GPL-3.0-only
+source-code: https://github.com/picguard/picguard
+issues: https://github.com/picguard/picguard/issues
+website: https://www.picguard.app
+confinement: strict
+base: core22
+grade: stable
+slots:
+  dbus-picguard-pro: # adjust accordingly to your app name
+    interface: dbus
+    bus: session
+    name: com.kjxbyz.PicGuard.Pro # adjust accordingly to your app name and
+apps:
+  picguard-pro:
+    command: picguard-pro
+    extensions: [gnome] # gnome includes the libraries required by flutter
+    plugs:
+      - network
+      - home
+    slots:
+      - dbus-picguard-pro
+parts:
+  picguard-pro:
+    source: .
+    plugin: flutter
+    # flutter-target: lib/main.dart # The main entry-point file of the application
+    build-packages:
+      - curl
+      - libcurl4-openssl-dev
+      - git
+      - unzip
+      - xz-utils
+      - zip
+      - libglu1-mesa
+      - clang
+      - cmake
+      - ninja-build
+      - pkg-config
+      - libgtk-3-dev
+      - liblzma-dev
+      - libstdc++-12-dev
+      - libayatana-appindicator3-dev
+    build-environment:
+      - FLUTTER_REPO: https://github.com/flutter/flutter.git
+      - FLUTTER_VERSION: 3.29.3
+      - FLUTTER_TARGET: lib/main_pro.dart
+    override-build: |
+      # https://github.com/superlistapp/super_native_extensions/issues/497#issuecomment-2782786522
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+      source $HOME/.cargo/env
+      
+      # https://github.com/canonical/snapcraft/blob/main/snapcraft/parts/plugins/flutter_plugin.py
+      PG_FLUTTER_BUILD_DIR="$CRAFT_PART_BUILD/flutter-distro"
+      if [ -d "$PG_FLUTTER_BUILD_DIR" ]; then
+        echo "$PG_FLUTTER_BUILD_DIR"
+        rm -rf $PG_FLUTTER_BUILD_DIR
+      fi
+      git clone --depth 1 -b $FLUTTER_VERSION $FLUTTER_REPO $PG_FLUTTER_BUILD_DIR
+      
+      # https://github.com/canonical/snapcraft/pull/5264
+      # Fixed in 3.29.1
+      # rm -f "$PG_FLUTTER_BUILD_DIR/engine/src/.gn"
+      flutter doctor -v
+      flutter precache --linux
+      flutter pub get
+      
+      cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+      cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+      
+      flutter build linux --release --dart-define-from-file=.env --target $FLUTTER_TARGET
+      cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/

@@ -1,4 +1,4 @@
-name: Test Linux tar (arm64)
+name: Test Linux rpm (pro arm64)
 
 on:
   workflow_dispatch:
@@ -7,18 +7,23 @@ on:
 permissions: read-all
 
 jobs:
-  tar:
-    name: Create linux tar (aarch64)
+  rpm:
+    name: Create linux rpm
     runs-on: ubuntu-22.04-arm
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: "17.x"
+          distribution: 'temurin'
 
       - name: Install dependencies for Linux
         run: |
           sudo apt-get update -y && sudo apt-get upgrade -y
           sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
-          sudo apt-get install -y p7zip-full p7zip-rar
+          sudo apt-get install -y rpm patchelf
 
       - name: Install ayatana-appindicator3-0.1
         run: |
@@ -39,11 +44,13 @@ jobs:
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
-      - name: Install flutter dependencies
-        run: flutter pub get
+      - name: Copy files to the linux folder
+        run: |
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
 
-      - name: Build app
-        run: flutter build linux --dart-define-from-file=.env --target lib/main_free.dart
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Install yq
         run: |
@@ -54,41 +61,29 @@ jobs:
           fi
           yq --version
 
-      - name: Set version
-        id: version_step
+      - name: Update make_config.yaml
         run: |
-          VERSION=$(yq '.version' pubspec.yaml)
-          echo "VERSION: $VERSION."
+          rm -f "$(pwd)/linux/packaging/rpm/make_config.yaml"
+          mv "$(pwd)/linux/packaging/rpm/make_config-pro.yaml" "$(pwd)/linux/packaging/rpm/make_config.yaml"
+          yq -i '.build_arch = "aarch64"' linux/packaging/rpm/make_config.yaml
 
-          VERSION_SHORT=$(echo "$VERSION" | sed -e "s/+.*//")
-          echo "VERSION_SHORT: $VERSION_SHORT."
-
-          BUILD_NUMBER=$(echo "$VERSION" | sed -e "s/.*+//")
-          echo "BUILD_NUMBER: $BUILD_NUMBER."
-
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
-          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
-
-      - name: Build tar
+      - name: Build RPM
         run: |
-          echo "VERSION: $VERSION_SHORT.$BUILD_NUMBER"
-          archiveName="picguard-"$VERSION_SHORT.$BUILD_NUMBER"-linux-aarch64.tar.gz"
-          tar -czaf $archiveName ./*
-          mv $archiveName "$GITHUB_WORKSPACE/"
-        working-directory: build/linux/arm64/release/bundle
-        env:
-          VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
-          BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
-
+          fastforge package \
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
+            --platform linux \
+            --targets rpm \
+            --artifact-name '{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-aarch64.{{ext}}'
+      
       # Package the build.
-      - name: Copy build for tar
-        run: ls -la *.tar.gz
+      - name: Copy build for rpm
+        run: ls -laR
+        working-directory: dist
 
       - uses: actions/upload-artifact@v4
         with:
-          name: linux-tar-arm64-artifact
-          path: ./*.tar.gz
+          name: linux-rpm-pro-arm64-artifact
+          path: ./dist/**/*.rpm
 
       - name: Clean up
         if: ${{ always() }}
