@@ -1,4 +1,4 @@
-name: Test Windows zip (pro)
+name: Test Windows zip (pro arm64)
 
 on:
   workflow_dispatch:

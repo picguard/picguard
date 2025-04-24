@@ -1,4 +1,4 @@
-name: Test Windows msi (pro)
+name: Test Windows msi (pro arm64)
 
 on:
   workflow_dispatch:

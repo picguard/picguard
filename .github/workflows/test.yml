@@ -313,7 +313,7 @@ jobs:
           rm -f .env
 
   linux:
-    name: Create linux
+    name: Create linux (free)
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
@@ -370,7 +370,7 @@ jobs:
         run: rm -f .env
 
   windows:
-    name: Create windows
+    name: Create windows (free)
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
@@ -426,7 +426,7 @@ jobs:
           }
 
   web:
-    name: Create web
+    name: Create web (free)
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4

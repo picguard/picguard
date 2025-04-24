@@ -1,4 +1,4 @@
-name: Test Windows exe (pro)
+name: Test Windows exe (pro arm64)
 
 on:
   workflow_dispatch:
