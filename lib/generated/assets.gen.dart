@@ -27,11 +27,50 @@ class $LogoGen {
   /// File path: logo/logo.png
   AssetGenImage get logo => const AssetGenImage('logo/logo.png');
 
+  /// Directory path: logo/pro
+  $LogoProGen get pro => const $LogoProGen();
+
   /// File path: logo/tray-icon.ico
   String get trayIcon => 'logo/tray-icon.ico';
 
   /// File path: logo/tray-logo.png
   AssetGenImage get trayLogo => const AssetGenImage('logo/tray-logo.png');
+
+  /// List of all assets
+  List<dynamic> get values => [
+    logo128,
+    logo256,
+    logo32,
+    logo512,
+    logo,
+    trayIcon,
+    trayLogo,
+  ];
+}
+
+class $LogoProGen {
+  const $LogoProGen();
+
+  /// File path: logo/pro/logo-128.png
+  AssetGenImage get logo128 => const AssetGenImage('logo/pro/logo-128.png');
+
+  /// File path: logo/pro/logo-256.png
+  AssetGenImage get logo256 => const AssetGenImage('logo/pro/logo-256.png');
+
+  /// File path: logo/pro/logo-32.png
+  AssetGenImage get logo32 => const AssetGenImage('logo/pro/logo-32.png');
+
+  /// File path: logo/pro/logo-512.png
+  AssetGenImage get logo512 => const AssetGenImage('logo/pro/logo-512.png');
+
+  /// File path: logo/pro/logo.png
+  AssetGenImage get logo => const AssetGenImage('logo/pro/logo.png');
+
+  /// File path: logo/pro/tray-icon.ico
+  String get trayIcon => 'logo/pro/tray-icon.ico';
+
+  /// File path: logo/pro/tray-logo.png
+  AssetGenImage get trayLogo => const AssetGenImage('logo/pro/tray-logo.png');
 
   /// List of all assets
   List<dynamic> get values => [

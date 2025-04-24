@@ -1,0 +1,25 @@
+display_name: PicGuard Pro
+package_name: picguard-pro
+maintainer:
+  name: kjxbyz
+  email: hello@kjxbyz.com
+priority: optional
+section: x11
+installed_size: 12000
+essential: false
+icon: logo/pro/logo-512.png
+metainfo: linux/shared/picguard-pro.metainfo.xml
+
+keywords:
+  - PicGuard
+  - PicGuard Pro
+  - Watermark
+  - Assistant
+  - Watermark Assistant
+
+generic_name: PicGuard Pro
+
+categories:
+  - Utility
+
+startup_notify: true

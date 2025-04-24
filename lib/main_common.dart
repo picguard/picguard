@@ -197,9 +197,15 @@ class _MainAppState extends State<MainApp> with TrayListener {
 
     final t = Translations.of(context);
     final appName = t.appName(flavor: AppConfig.shared.flavor);
-    await trayManager.setIcon(
-      isWindows ? Assets.logo.trayIcon : Assets.logo.trayLogo.keyName,
-    );
+    final isPro = AppConfig.shared.isPro;
+    final trayIcon =
+        isWindows
+            ? (isPro ? Assets.logo.pro.trayIcon : Assets.logo.trayIcon)
+            : (isPro
+                ? Assets.logo.pro.trayLogo.keyName
+                : Assets.logo.trayLogo.keyName);
+    await trayManager.setIcon(trayIcon);
+
     final menu = Menu(
       items: [
         MenuItem(
