@@ -1,4 +1,4 @@
-name: Test Windows msi (free arm64)
+name: Test Windows msi (pro)
 
 on:
   workflow_dispatch:
@@ -69,26 +69,30 @@ jobs:
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
 
-      - name: copy eula.rtf to the windows folder
-        run: Copy-Item -Path "$pwd\macos\packaging\base\eula.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
-
-      - name: Get SignTool path
-        run: Get-Command signtool.exe
-        shell: pwsh
+      - name: copy eula-pro.rtf to the windows folder
+        run: Copy-Item -Path "$pwd\macos\packaging\base\eula-pro.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
 
       - name: Install flutter dependencies
         run: flutter pub get
+        
+      - name: Update config
+        shell: pwsh
+        run: |
+          Copy-Item -Path "$pwd\windows\pro\CMakeLists.txt" -Destination "$pwd\windows\CMakeLists.txt" -Force
+          Copy-Item -Path "$pwd\windows\pro\main.cpp" -Destination "$pwd\windows\runner\main.cpp" -Force
+          Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
+          Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
 
       - name: Build windows
         run: |
           set FLUTTER_WINDOWS_PLATFORM=arm64
-          flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
+          flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Update msi version
         shell: pwsh
         run: |
           # 文件路径
-          $filePath = "msi\picguard\picguard\Package.wxs"
+          $filePath = "msi\picguard\picguard-pro\Package.wxs"
 
           # 读取文件内容
           $content = Get-Content -Path $filePath -Raw
@@ -105,47 +109,47 @@ jobs:
       - name: Create msi
         shell: pwsh
         run: |
-          $certificatePath = "$env:RUNNER_TEMP\picguard.pfx"
+          $certificatePath = "$env:RUNNER_TEMP\picguard-pro.pfx"
           # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
           # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
-          $bytes = echo $env:WINDOWS_CERTIFICATE | %{[Convert]::FromBase64String($_)}
+          $bytes = echo $env:WINDOWS_CERTIFICATE_PRO | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$certificatePath", $bytes)
 
           $env:IconPath = "$pwd\windows\runner\resources\app_icon.ico"
           $env:FLUTTER_BUILD_OUTPUT_DIR = "$pwd\build\windows\$env:Platform\runner\Release"
-          dotnet build .\msi\picguard\picguard\picguard.wixproj --arch "$env:Platform" --configuration Release
+          dotnet build .\msi\picguard\picguard-pro\picguard-pro.wixproj --arch "$env:Platform" --configuration Release
 
           $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
-          & $signtool sign /v /f "$certificatePath" /fd SHA256 /t http://timestamp.comodoca.com/authenticode /p "$env:WINDOWS_CERTIFICATE_PASSWORD" /n "$env:WINDOWS_PUBLISHER_NAME" (get-item ".\msi\picguard\picguard\bin\$env:Platform\Release\*\*.msi")
+          & $signtool sign /v /f "$certificatePath" /fd SHA256 /t http://timestamp.comodoca.com/authenticode /p "$env:WINDOWS_CERTIFICATE_PASSWORD_PRO" /n "$env:WINDOWS_PUBLISHER_NAME_PRO" (get-item ".\msi\picguard\picguard-pro\bin\$env:Platform\Release\*\*.msi")
         env:
-          WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
-          WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
-          WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+          WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
+          WINDOWS_CERTIFICATE_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PRO }}
+          WINDOWS_CERTIFICATE_PASSWORD_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD_PRO }}
 
       # Package the build.
       - name: Copy build for msi
         shell: pwsh
         run: |
-          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\en-US\picguard.msi" -NewName "picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform`-en-US.msi"
-          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\zh-CN\picguard.msi" -NewName "picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform`-zh-CN.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard-pro\bin\$env:Platform\Release\en-US\picguard-pro.msi" -NewName "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform`-en-US.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard-pro\bin\$env:Platform\Release\zh-CN\picguard-pro.msi" -NewName "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform`-zh-CN.msi"
         env:
           VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
           BUILD_NUMBER: ${{ needs.get-version.outputs.build_number }}
 
       - uses: actions/upload-artifact@v4
         with:
-          name: windows-msi-artifact
-          path: .\msi\picguard\picguard\bin\${{ env.Platform }}\Release\*\*.msi
+          name: windows-msi-pro-artifact
+          path: .\msi\picguard\picguard-pro\bin\${{ env.Platform }}\Release\*\*.msi
 
       - name: Clean up
         if: ${{ always() }}
         run: |
           ls
-          if (test-path -Path "$env:RUNNER_TEMP\picguard.pfx") {
-            echo "$env:RUNNER_TEMP\picguard.pfx"
-            remove-item -Path "$env:RUNNER_TEMP\picguard.pfx" -Force -ErrorAction SilentlyContinue
+          if (test-path -Path "$env:RUNNER_TEMP\picguard-pro.pfx") {
+            echo "$env:RUNNER_TEMP\picguard-pro.pfx"
+            remove-item -Path "$env:RUNNER_TEMP\picguard-pro.pfx" -Force -ErrorAction SilentlyContinue
           } else {
-            echo "File($env:RUNNER_TEMP\picguard.pfx) doesn't exist."
+            echo "File($env:RUNNER_TEMP\picguard-pro.pfx) doesn't exist."
           }
           if (test-path -Path "$pwd\.env") {
             echo "Remove file($pwd\.env)"

@@ -37,8 +37,8 @@ jobs:
         run: echo ${{ steps.version_step.outputs.version }}
 
   msix_pro:
-    name: Create msix (pro)
-    runs-on: windows-2022
+    name: Create msix
+    runs-on: windows-11-arm
     env:
       Platform: arm64
     needs:

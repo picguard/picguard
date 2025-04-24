@@ -1,4 +1,4 @@
-name: Test Windows zip (free arm64)
+name: Test Windows zip (pro)
 
 on:
   workflow_dispatch:
@@ -27,21 +27,29 @@ jobs:
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
 
-      - name: copy eula.rtf to the windows folder
-        run: Copy-Item -Path "$pwd\macos\packaging\base\eula.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
+      - name: copy eula-pro.rtf to the windows folder
+        run: Copy-Item -Path "$pwd\macos\packaging\base\eula-pro.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
 
       - name: Install fastforge
         run: dart pub global activate fastforge
+
+      - name: Update config
+        shell: pwsh
+        run: |
+          Copy-Item -Path "$pwd\windows\pro\CMakeLists.txt" -Destination "$pwd\windows\CMakeLists.txt" -Force
+          Copy-Item -Path "$pwd\windows\pro\main.cpp" -Destination "$pwd\windows\runner\main.cpp" -Force
+          Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
+          Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
 
       - name: Build zip
         shell: pwsh
         run: |
           set FLUTTER_WINDOWS_PLATFORM=arm64
           fastforge package `
-            --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
             --platform windows `
             --targets zip `
-            --artifact-name '{{name}}-{{build_name}}.{{build_number}}-{{platform}}-arm64.{{ext}}'
+            --artifact-name '{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-arm64.{{ext}}'
 
       # Package the build.
       - name: Copy build for zip
@@ -50,7 +58,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: windows-zip-artifact
+          name: windows-zip-pro-artifact
           path: .\dist\**\*.zip
 
       - name: Clean up

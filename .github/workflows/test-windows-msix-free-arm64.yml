@@ -37,7 +37,7 @@ jobs:
         run: echo ${{ steps.version_step.outputs.version }}
 
   msix_free:
-    name: Create msix (free arm64)
+    name: Create msix
     runs-on: windows-11-arm
     env:
       Platform: arm64
