@@ -1,4 +1,4 @@
-name: Test Linux AppImage (free)
+name: Test Linux AppImage (pro)
 
 on:
   workflow_dispatch:

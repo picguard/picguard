@@ -1,4 +1,4 @@
-name: Test Linux AppImage (free arm64)
+name: Test Linux AppImage (pro arm64)
 
 on:
   workflow_dispatch:
