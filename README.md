@@ -4,6 +4,7 @@
 
 [![Test](https://github.com/picguard/picguard/actions/workflows/test.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/test.yml)
 [![Release](https://github.com/picguard/picguard/actions/workflows/release.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/release.yml)
+[![Release Web](https://github.com/picguard/picguard/actions/workflows/release-web.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/release-web.yml)
 [![GitHub Release](https://img.shields.io/github/v/release/picguard/picguard)](https://github.com/picguard/picguard/releases/latest)
 [![iTunes App Store](https://img.shields.io/itunes/v/6737562561?label=PicGuard%20on%20the%20App%20Store)](https://apps.apple.com/app/id6737562561)
 [![iTunes App Store](https://img.shields.io/itunes/v/6737562597?label=PicGuard%20Pro%20on%20the%20App%20Store)](https://apps.apple.com/app/id6737562597)
