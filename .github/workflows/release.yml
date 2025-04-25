@@ -100,18 +100,28 @@ jobs:
       - macos-pkg
       - macos-appstore-pkg-free
       - macos-appstore-pkg-pro
-      - macos-zip
       - macos-tar
+      - macos-zip
       - linux-appimage-free
       - linux-appimage-free-arm64
+      - linux-appimage-pro
+      - linux-appimage-pro-arm64
       - linux-deb-free
       - linux-deb-free-arm64
+      - linux-deb-pro
+      - linux-deb-pro-arm64
       - linux-rpm-free
       - linux-rpm-free-arm64
-      - linux-tar-free
-      - linux-tar-free-arm64
+      - linux-rpm-pro
+      - linux-rpm-pro-arm64
       - linux-snap-free
       - linux-snap-free-arm64
+      - linux-snap-pro
+      - linux-snap-pro-arm64
+      - linux-tar-free
+      - linux-tar-free-arm64
+      - linux-tar-pro
+      - linux-tar-pro-arm64
       - windows-exe-free
       - windows-exe-pro
       - windows-msi-free
@@ -1321,6 +1331,134 @@ jobs:
           fi
           rm -f .env
 
+  macos-tar:
+    name: Create macos tar
+    runs-on: macos-15
+    needs:
+      - create-release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.3'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_BASE64" | base64 --decode > .env
+        env:
+          ENV: ${{ inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Resolving flutter dependencies
+        run: flutter pub get
+
+      - name: Resolving macos dependencies
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
+
+      - name: Build macOS
+        run: |
+          echo "╠ Releasing to app store..."
+          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
+
+      - name: Install certificates
+        env:
+          DEVELOPER_ID_APPLICATION_P12_BASE64_MAC: ${{ secrets.DEVELOPER_ID_APPLICATION_P12_BASE64_MAC }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          # create variables
+          DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH=$RUNNER_TEMP/build_developerID_application_certificate.p12
+          KEYCHAIN_PATH=$RUNNER_TEMP/pg-signing.keychain-db
+
+          # import certificate and provisioning profile from secrets
+          echo -n "$DEVELOPER_ID_APPLICATION_P12_BASE64_MAC" | base64 --decode --output $DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH
+
+          # create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          # security default-keychain -s $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+      - name: Code Signing
+        run: /usr/bin/codesign --deep --force -s "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY" --options runtime PicGuard.app -v
+        working-directory: build/macos/Build/Products/Release-free
+        env:
+          DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
+
+      - name: Notarize app
+        run: |
+          # We can't notarize an app bundle directly, but we need to compress it as an archive.
+          # Therefore, we create a zip file containing our app bundle, so that we can send it to the
+          # notarization service
+          echo "Creating temp notarization archive"
+          ditto -c -k --keepParent "PicGuard.app" "PicGuard.zip"
+
+          # Here we send the notarization request to the Apple's Notarization service, waiting for the result.
+          # This typically takes a few seconds inside a CI environment, but it might take more depending on the App
+          # characteristics. Visit the Notarization docs for more information and strategies on how to optimize it if
+          # you're curious
+          echo "Notarize app"
+          xcrun notarytool submit "PicGuard.zip" --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --password "$APPLE_PASSWORD" --wait
+
+          # Finally, we need to "attach the staple" to our executable, which will allow our app to be
+          # validated by macOS even when an internet connection is not available.
+          echo "Attach staple"
+          xcrun stapler staple "PicGuard.app"
+        working-directory: build/macos/Build/Products/Release-free
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+
+      - name: Build tar
+        run: tar -czaf PicGuard-"$RELEASE"-macos-universal.tar.gz ./PicGuard.app
+        working-directory: build/macos/Build/Products/Release-free
+        env:
+          RELEASE: ${{ needs.create-release.outputs.release }}
+
+      # Package the build.
+      - name: Copy build for tar
+        run: |
+          ls -la *.tar.gz
+          mv *.tar.gz $GITHUB_WORKSPACE/
+        working-directory: build/macos/Build/Products/Release-free
+
+      - name: Upload assets
+        run: gh release upload "$TAG_NAME" ./*.tar.gz
+        env:
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          if [ -f "$RUNNER_TEMP/pg-signing.keychain-db" ]; then
+            echo "$RUNNER_TEMP/pg-signing.keychain-db"
+            security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
+          fi
+          rm -f .env
+
   macos-zip:
     name: Create macos zip
     runs-on: macos-15
@@ -1456,134 +1594,6 @@ jobs:
           fi
           rm -f .env
 
-  macos-tar:
-    name: Create macos tar
-    runs-on: macos-15
-    needs:
-      - create-release
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          flutter-version: '3.29.3'
-
-      - name: Flutter doctor -v
-        run: flutter doctor -v
-
-      - name: Configure .env
-        run: |
-          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_BASE64" | base64 --decode > .env
-        env:
-          ENV: ${{ inputs.env }}
-          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
-          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Resolving flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
-
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: macos
-
-      - name: Build macOS
-        run: |
-          echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
-
-      - name: Install certificates
-        env:
-          DEVELOPER_ID_APPLICATION_P12_BASE64_MAC: ${{ secrets.DEVELOPER_ID_APPLICATION_P12_BASE64_MAC }}
-          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-        run: |
-          # create variables
-          DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH=$RUNNER_TEMP/build_developerID_application_certificate.p12
-          KEYCHAIN_PATH=$RUNNER_TEMP/pg-signing.keychain-db
-
-          # import certificate and provisioning profile from secrets
-          echo -n "$DEVELOPER_ID_APPLICATION_P12_BASE64_MAC" | base64 --decode --output $DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH
-
-          # create temporary keychain
-          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          # security default-keychain -s $KEYCHAIN_PATH
-          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-
-          # import certificate to keychain
-          security import $DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security list-keychain -d user -s $KEYCHAIN_PATH
-          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-
-      - name: Code Signing
-        run: /usr/bin/codesign --deep --force -s "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY" --options runtime PicGuard.app -v
-        working-directory: build/macos/Build/Products/Release-free
-        env:
-          DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
-
-      - name: Notarize app
-        run: |
-          # We can't notarize an app bundle directly, but we need to compress it as an archive.
-          # Therefore, we create a zip file containing our app bundle, so that we can send it to the
-          # notarization service
-          echo "Creating temp notarization archive"
-          ditto -c -k --keepParent "PicGuard.app" "PicGuard.zip"
-
-          # Here we send the notarization request to the Apple's Notarization service, waiting for the result.
-          # This typically takes a few seconds inside a CI environment, but it might take more depending on the App
-          # characteristics. Visit the Notarization docs for more information and strategies on how to optimize it if
-          # you're curious
-          echo "Notarize app"
-          xcrun notarytool submit "PicGuard.zip" --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --password "$APPLE_PASSWORD" --wait
-
-          # Finally, we need to "attach the staple" to our executable, which will allow our app to be
-          # validated by macOS even when an internet connection is not available.
-          echo "Attach staple"
-          xcrun stapler staple "PicGuard.app"
-        working-directory: build/macos/Build/Products/Release-free
-        env:
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-
-      - name: Build tar
-        run: tar -czaf PicGuard-"$RELEASE"-macos-universal.tar.gz ./PicGuard.app
-        working-directory: build/macos/Build/Products/Release-free
-        env:
-          RELEASE: ${{ needs.create-release.outputs.release }}
-
-      # Package the build.
-      - name: Copy build for tar
-        run: |
-          ls -la *.tar.gz
-          mv *.tar.gz $GITHUB_WORKSPACE/
-        working-directory: build/macos/Build/Products/Release-free
-
-      - name: Upload assets
-        run: gh release upload "$TAG_NAME" ./*.tar.gz
-        env:
-          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
-
-      - name: Clean up
-        if: ${{ always() }}
-        run: |
-          if [ -f "$RUNNER_TEMP/pg-signing.keychain-db" ]; then
-            echo "$RUNNER_TEMP/pg-signing.keychain-db"
-            security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
-          fi
-          rm -f .env
-          
   linux-appimage-free:
     name: Create linux AppImage (free)
     runs-on: ubuntu-22.04
@@ -1742,6 +1752,178 @@ jobs:
         if: ${{ always() }}
         run: rm -f .env
 
+  linux-appimage-pro:
+    name: Create linux AppImage (pro)
+    runs-on: ubuntu-22.04
+    needs:
+      - create-release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y locate libfuse2
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
+
+      - name: Install appimagetool
+        run: |
+          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          chmod +x appimagetool && mv appimagetool /usr/local/bin/
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.3'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_BASE64" | base64 --decode > .env
+        env:
+          ENV: ${{ inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Copy files to the linux folder
+        run: |
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+
+      - name: Install fastforge
+        run: dart pub global activate fastforge
+
+      - name: Update make_config.yaml
+        run: |
+          rm -f "$(pwd)/linux/packaging/appimage/make_config.yaml"
+          mv "$(pwd)/linux/packaging/appimage/make_config-pro.yaml" "$(pwd)/linux/packaging/appimage/make_config.yaml"
+
+      - name: Build AppImage
+        run: |
+          fastforge package \
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
+            --platform linux \
+            --targets appimage \
+            --artifact-name {{name}}-pro-"$RELEASE"-{{platform}}-amd64.{{ext}}
+        env:
+          RELEASE: ${{ needs.create-release.outputs.release }}
+
+      # Package the build.
+      - name: Copy build for AppImage
+        run: |
+          ls -laR
+          cp ./**/*.AppImage $GITHUB_WORKSPACE/
+        working-directory: dist
+
+      - name: Upload assets
+        run: gh release upload "$TAG_NAME" ./*.AppImage
+        env:
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: rm -f .env
+
+  linux-appimage-pro-arm64:
+    name: Create linux AppImage (pro arm64)
+    runs-on: ubuntu-22.04-arm
+    needs:
+      - create-release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y locate libfuse2
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
+
+      - name: Install appimagetool
+        run: |
+          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-aarch64.AppImage"
+          # https://github.com/AppImage/AppImageKit/issues/1056#issuecomment-643382397
+          # sed -i 's|AI\x02|\x00\x00\x00|' appimagetool
+          chmod +x appimagetool && mv appimagetool /usr/local/bin/
+
+      - name: Setup Flutter
+        shell: bash
+        run: |
+          chmod +x ./scripts/install-flutter-github-actions.sh
+          ./scripts/install-flutter-github-actions.sh
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_BASE64" | base64 --decode > .env
+        env:
+          ENV: ${{ inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Copy files to the linux folder
+        run: |
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+
+      - name: Install fastforge
+        run: |
+          dart pub global activate \
+            --source git https://github.com/kjxbyz/fastforge \
+            --git-ref appimage-arm64 \
+            --git-path packages/fastforge
+
+      - name: Update make_config.yaml
+        run: |
+          rm -f "$(pwd)/linux/packaging/appimage/make_config.yaml"
+          mv "$(pwd)/linux/packaging/appimage/make_config-pro.yaml" "$(pwd)/linux/packaging/appimage/make_config.yaml"
+
+      - name: Build AppImage
+        run: |
+          fastforge package \
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
+            --platform linux \
+            --targets appimage \
+            --artifact-name {{name}}-pro-"$RELEASE"-{{platform}}-aarch64.{{ext}}
+        env:
+          RELEASE: ${{ needs.create-release.outputs.release }}
+
+      # Package the build.
+      - name: Copy build for AppImage
+        run: |
+          ls -laR
+          cp ./**/*.AppImage $GITHUB_WORKSPACE/
+        working-directory: dist
+
+      - name: Upload assets
+        run: gh release upload "$TAG_NAME" ./*.AppImage
+        env:
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: rm -f .env
+
   linux-deb-free:
     name: Create linux deb (free)
     runs-on: ubuntu-22.04
@@ -1863,6 +2045,161 @@ jobs:
             --platform linux \
             --targets deb \
             --artifact-name {{name}}-"$RELEASE"-{{platform}}-aarch64.{{ext}}
+        env:
+          RELEASE: ${{ needs.create-release.outputs.release }}
+
+      # Package the build.
+      - name: Copy build for deb
+        run: |
+          ls -laR
+          cp ./**/*.deb $GITHUB_WORKSPACE/
+        working-directory: dist
+
+      - name: Upload assets
+        run: gh release upload "$TAG_NAME" ./*.deb
+        env:
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: rm -f .env
+
+  linux-deb-pro:
+    name: Create linux deb (pro)
+    runs-on: ubuntu-22.04
+    needs:
+      - create-release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y rpm patchelf
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.3'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_BASE64" | base64 --decode > .env
+        env:
+          ENV: ${{ inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Copy files to the linux folder
+        run: |
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+
+      - name: Install fastforge
+        run: dart pub global activate fastforge
+
+      - name: Update make_config.yaml
+        run: |
+          rm -f "$(pwd)/linux/packaging/deb/make_config.yaml"
+          mv "$(pwd)/linux/packaging/deb/make_config-pro.yaml" "$(pwd)/linux/packaging/deb/make_config.yaml"
+
+      - name: Build deb
+        run: |
+          fastforge package \
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
+            --platform linux \
+            --targets deb \
+            --artifact-name {{name}}-pro-"$RELEASE"-{{platform}}-amd64.{{ext}}
+        env:
+          RELEASE: ${{ needs.create-release.outputs.release }}
+
+      # Package the build.
+      - name: Copy build for deb
+        run: |
+          ls -laR
+          cp ./**/*.deb $GITHUB_WORKSPACE/
+        working-directory: dist
+
+      - name: Upload assets
+        run: gh release upload "$TAG_NAME" ./*.deb
+        env:
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: rm -f .env
+
+  linux-deb-pro-arm64:
+    name: Create linux deb (pro arm64)
+    runs-on: ubuntu-22.04-arm
+    needs:
+      - create-release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
+
+      - name: Setup Flutter
+        shell: bash
+        run: |
+          chmod +x ./scripts/install-flutter-github-actions.sh
+          ./scripts/install-flutter-github-actions.sh
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_BASE64" | base64 --decode > .env
+        env:
+          ENV: ${{ inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Copy files to the linux folder
+        run: |
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+
+      - name: Install fastforge
+        run: dart pub global activate fastforge
+
+      - name: Update make_config.yaml
+        run: |
+          rm -f "$(pwd)/linux/packaging/deb/make_config.yaml"
+          mv "$(pwd)/linux/packaging/deb/make_config-pro.yaml" "$(pwd)/linux/packaging/deb/make_config.yaml"
+
+      - name: Build deb
+        run: |
+          fastforge package \
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
+            --platform linux \
+            --targets deb \
+            --artifact-name {{name}}-pro-"$RELEASE"-{{platform}}-aarch64.{{ext}}
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -2045,6 +2382,477 @@ jobs:
         if: ${{ always() }}
         run: rm -f .env
 
+  linux-rpm-pro:
+    name: Create linux rpm (pro)
+    runs-on: ubuntu-22.04
+    needs:
+      - create-release
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17.x"
+          distribution: 'temurin'
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.3'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_BASE64" | base64 --decode > .env
+        env:
+          ENV: ${{ inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Copy files to the linux folder
+        run: |
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+
+      - name: Install fastforge
+        run: dart pub global activate fastforge
+
+      - name: Update make_config.yaml
+        run: |
+          rm -f "$(pwd)/linux/packaging/rpm/make_config.yaml"
+          mv "$(pwd)/linux/packaging/rpm/make_config-pro.yaml" "$(pwd)/linux/packaging/rpm/make_config.yaml"
+
+      - name: Build RPM
+        run: |
+          fastforge package \
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
+            --platform linux \
+            --targets rpm \
+            --artifact-name {{name}}-pro-"$RELEASE"-{{platform}}-amd64.{{ext}}
+        env:
+          RELEASE: ${{ needs.create-release.outputs.release }}
+
+      # Package the build.
+      - name: Copy build for rpm
+        run: |
+          ls -laR
+          cp ./**/*.rpm $GITHUB_WORKSPACE/
+        working-directory: dist
+
+      - name: Upload assets
+        run: gh release upload "$TAG_NAME" ./*.rpm
+        env:
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: rm -f .env
+
+  linux-rpm-pro-arm64:
+    name: Create linux rpm (pro arm64)
+    runs-on: ubuntu-22.04-arm
+    needs:
+      - create-release
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: "17.x"
+          distribution: 'temurin'
+
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y rpm patchelf
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
+
+      - name: Setup Flutter
+        shell: bash
+        run: |
+          chmod +x ./scripts/install-flutter-github-actions.sh
+          ./scripts/install-flutter-github-actions.sh
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_BASE64" | base64 --decode > .env
+        env:
+          ENV: ${{ inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Copy files to the linux folder
+        run: |
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+
+      - name: Install fastforge
+        run: dart pub global activate fastforge
+
+      - name: Install yq
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_arm64 -O /usr/bin/yq &&\
+            chmod +x /usr/bin/yq
+          fi
+          yq --version
+
+      - name: Update make_config.yaml
+        run: |
+          rm -f "$(pwd)/linux/packaging/rpm/make_config.yaml"
+          mv "$(pwd)/linux/packaging/rpm/make_config-pro.yaml" "$(pwd)/linux/packaging/rpm/make_config.yaml"
+          yq -i '.build_arch = "aarch64"' linux/packaging/rpm/make_config.yaml
+
+      - name: Build RPM
+        run: |
+          fastforge package \
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
+            --platform linux \
+            --targets rpm \
+            --artifact-name {{name}}-pro-"$RELEASE"-{{platform}}-aarch64.{{ext}}
+        env:
+          RELEASE: ${{ needs.create-release.outputs.release }}
+
+      # Package the build.
+      - name: Copy build for rpm
+        run: |
+          ls -laR
+          cp ./**/*.rpm $GITHUB_WORKSPACE/
+        working-directory: dist
+
+      - name: Upload assets
+        run: gh release upload "$TAG_NAME" ./*.rpm
+        env:
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: rm -f .env
+
+  linux-snap-free:
+    name: Create linux snap (free)
+    runs-on: ubuntu-22.04
+    env:
+      LXD_GROUP: lxd
+    needs:
+      - create-release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup LXD
+        uses: canonical/setup-lxd@v0.1.2
+        with:
+          channel: latest/stable
+          group: ${{ env.LXD_GROUP }}
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_BASE64" | base64 --decode > .env
+        env:
+          ENV: ${{ inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Remove unused files
+        run: |
+          rm -f "$(pwd)/snap/gui/picguard-pro.desktop" \
+            "$(pwd)/snap/gui/picguard-pro.png" \
+            "$(pwd)/snap/snapcraft-pro.yaml"
+
+      - name: Install snapcraft
+        run: sudo snap install snapcraft --classic
+
+      - name: Update snapcraft.yaml
+        run: |
+          VERSION="$VERSION_SHORT.$BUILD_NUMBER" yq -i '.version = strenv(VERSION)' snap/snapcraft.yaml
+        env:
+          VERSION_SHORT: ${{ needs.create-release.outputs.version_short }}
+          BUILD_NUMBER: ${{ needs.create-release.outputs.build_number }}
+
+      - name: Build snap
+        run: |
+          # https://snapcraft.io/docs/flutter-applications
+          sudo snapcraft --output picguard-"$RELEASE"-linux-amd64.snap
+        env:
+          RELEASE: ${{ needs.create-release.outputs.release }}
+
+      # Package the build.
+      - name: Copy build for snap
+        run: ls -la *.snap
+
+      - name: Upload assets
+        run: gh release upload "$TAG_NAME" ./*.snap
+        env:
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
+          if which snapcraft >/dev/null 2>&1; then
+            echo "snapcraft exists"
+            sudo snapcraft clean
+          fi
+
+  linux-snap-free-arm64:
+    name: Create linux snap (free arm64)
+    runs-on: ubuntu-22.04-arm
+    env:
+      LXD_GROUP: lxd
+    needs:
+      - create-release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup LXD
+        uses: canonical/setup-lxd@v0.1.2
+        with:
+          channel: latest/stable
+          group: ${{ env.LXD_GROUP }}
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_BASE64" | base64 --decode > .env
+        env:
+          ENV: ${{ inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Install yq
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            sudo snap install -y yq
+          fi
+          yq --version
+
+      - name: Remove unused files
+        run: |
+          rm -f "$(pwd)/snap/gui/picguard-pro.desktop" \
+            "$(pwd)/snap/gui/picguard-pro.png" \
+            "$(pwd)/snap/snapcraft-pro.yaml"
+
+      - name: Update snapcraft.yaml
+        run: |
+          VERSION="$VERSION_SHORT.$BUILD_NUMBER" yq -i '.version = strenv(VERSION)' snap/snapcraft.yaml
+        env:
+          VERSION_SHORT: ${{ needs.create-release.outputs.version_short }}
+          BUILD_NUMBER: ${{ needs.create-release.outputs.build_number }}
+
+      - name: Install snapcraft
+        run: sudo snap install snapcraft --classic
+
+      - name: Build snap
+        run: |
+          # https://snapcraft.io/docs/flutter-applications
+          sudo snapcraft --output "picguard-"$RELEASE"-linux-aarch64.snap"
+        env:
+          RELEASE: ${{ needs.create-release.outputs.release }}
+
+      # Package the build.
+      - name: Copy build for snap
+        run: ls -la *.snap
+
+      - name: Upload assets
+        run: gh release upload "$TAG_NAME" ./*.snap
+        env:
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
+          if which snapcraft >/dev/null 2>&1; then
+            echo "snapcraft exists"
+            sudo snapcraft clean
+          fi
+
+  linux-snap-pro:
+    name: Create linux snap (pro)
+    runs-on: ubuntu-22.04
+    env:
+      LXD_GROUP: lxd
+    needs:
+      - create-release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup LXD
+        uses: canonical/setup-lxd@v0.1.2
+        with:
+          channel: latest/stable
+          group: ${{ env.LXD_GROUP }}
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_BASE64" | base64 --decode > .env
+        env:
+          ENV: ${{ inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Copy files to the linux folder
+        run: |
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+
+      - name: Remove unused files
+        run: |
+          rm -f "$(pwd)/snap/gui/picguard.desktop" \
+            "$(pwd)/snap/gui/picguard.png" \
+            "$(pwd)/snap/snapcraft.yaml"
+          mv "$(pwd)/snap/snapcraft-pro.yaml" "$(pwd)/snap/snapcraft.yaml"
+
+      - name: Install snapcraft
+        run: sudo snap install snapcraft --classic
+
+      - name: Update snapcraft.yaml
+        run: |
+          VERSION="$VERSION_SHORT.$BUILD_NUMBER" yq -i '.version = strenv(VERSION)' snap/snapcraft.yaml
+        env:
+          VERSION_SHORT: ${{ needs.create-release.outputs.version_short }}
+          BUILD_NUMBER: ${{ needs.create-release.outputs.build_number }}
+
+      - name: Build snap
+        run: |
+          # https://snapcraft.io/docs/flutter-applications
+          sudo snapcraft --output picguard-pro-"$RELEASE"-linux-amd64.snap
+        env:
+          RELEASE: ${{ needs.create-release.outputs.release }}
+
+      # Package the build.
+      - name: Copy build for snap
+        run: ls -la *.snap
+
+      - name: Upload assets
+        run: gh release upload "$TAG_NAME" ./*.snap
+        env:
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
+          if which snapcraft >/dev/null 2>&1; then
+            echo "snapcraft exists"
+            sudo snapcraft clean
+          fi
+
+  linux-snap-pro-arm64:
+    name: Create linux snap (pro arm64)
+    runs-on: ubuntu-22.04-arm
+    env:
+      LXD_GROUP: lxd
+    needs:
+      - create-release
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup LXD
+        uses: canonical/setup-lxd@v0.1.2
+        with:
+          channel: latest/stable
+          group: ${{ env.LXD_GROUP }}
+
+      - name: Configure .env
+        run: |
+          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+          echo "$ENV_BASE64" | base64 --decode > .env
+        env:
+          ENV: ${{ inputs.env }}
+          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Copy files to the linux folder
+        run: |
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+
+      - name: Remove unused files
+        run: |
+          rm -f "$(pwd)/snap/gui/picguard.desktop" \
+            "$(pwd)/snap/gui/picguard.png" \
+            "$(pwd)/snap/snapcraft.yaml"
+          mv "$(pwd)/snap/snapcraft-pro.yaml" "$(pwd)/snap/snapcraft.yaml"
+
+      - name: Install yq
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "yq not exists"
+            sudo snap install -y yq
+          fi
+          yq --version
+
+      - name: Update snapcraft.yaml
+        run: |
+          VERSION="$VERSION_SHORT.$BUILD_NUMBER" yq -i '.version = strenv(VERSION)' snap/snapcraft.yaml
+        env:
+          VERSION_SHORT: ${{ needs.create-release.outputs.version_short }}
+          BUILD_NUMBER: ${{ needs.create-release.outputs.build_number }}
+
+      - name: Install snapcraft
+        run: sudo snap install snapcraft --classic
+
+      - name: Build snap
+        run: |
+          # https://snapcraft.io/docs/flutter-applications
+          sudo snapcraft --output "picguard-pro-"$RELEASE"-linux-aarch64.snap"
+        env:
+          RELEASE: ${{ needs.create-release.outputs.release }}
+
+      # Package the build.
+      - name: Copy build for snap
+        run: ls -la *.snap
+
+      - name: Upload assets
+        run: gh release upload "$TAG_NAME" ./*.snap
+        env:
+          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          rm -f .env
+          if which snapcraft >/dev/null 2>&1; then
+            echo "snapcraft exists"
+            sudo snapcraft clean
+          fi
+
   linux-tar-free:
     name: Create linux tar (free)
     runs-on: ubuntu-22.04
@@ -2188,21 +2996,34 @@ jobs:
         if: ${{ always() }}
         run: rm -f .env
 
-  linux-snap-free:
-    name: Create linux snap (free)
+  linux-tar-pro:
+    name: Create linux tar (pro)
     runs-on: ubuntu-22.04
-    env:
-      LXD_GROUP: lxd
     needs:
       - create-release
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup LXD
-        uses: canonical/setup-lxd@v0.1.2
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y p7zip-full p7zip-rar
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          channel: latest/stable
-          group: ${{ env.LXD_GROUP }}
+          channel: 'stable'
+          flutter-version: '3.29.3'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
 
       - name: Configure .env
         run: |
@@ -2212,64 +3033,69 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-        
-      - name: Remove unused files
-        run: |
-          rm -f "$(pwd)/snap/gui/picguard-pro.desktop"
-          rm -f "$(pwd)/snap/gui/picguard-pro.png"
-          rm -f "$(pwd)/snap/snapcraft-pro.yaml"
-          
-      - name: Install snapcraft
-        run: sudo snap install snapcraft --classic
 
-      - name: Update snapcraft.yaml
+      - name: Copy files to the linux folder
         run: |
-          VERSION="$VERSION_SHORT.$BUILD_NUMBER" yq -i '.version = strenv(VERSION)' snap/snapcraft.yaml
-        env:
-          VERSION_SHORT: ${{ needs.create-release.outputs.version_short }}
-          BUILD_NUMBER: ${{ needs.create-release.outputs.build_number }}
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
 
-      - name: Build snap
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build flutter
+        run: flutter build linux --dart-define-from-file=.env --target lib/main_pro.dart
+
+      - name: Build tar
         run: |
-          # https://snapcraft.io/docs/flutter-applications
-          sudo snapcraft --output picguard-"$RELEASE"-linux-amd64.snap
+          archiveName="picguard-pro-"$RELEASE"-linux-amd64.tar.gz"
+          tar -czaf $archiveName ./*
+          mv $archiveName $GITHUB_WORKSPACE/
+        working-directory: build/linux/x64/release/bundle
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
-      - name: Copy build for snap
-        run: ls -la *.snap
+      - name: Copy build for tar
+        run: ls -la
 
       - name: Upload assets
-        run: gh release upload "$TAG_NAME" ./*.snap
+        run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
         if: ${{ always() }}
-        run: |
-          rm -f .env
-          if which snapcraft >/dev/null 2>&1; then
-            echo "snapcraft exists"
-            sudo snapcraft clean
-          fi
+        run: rm -f .env
 
-  linux-snap-free-arm64:
-    name: Create linux snap (free arm64)
+  linux-tar-pro-arm64:
+    name: Create linux tar (pro arm64)
     runs-on: ubuntu-22.04-arm
-    env:
-      LXD_GROUP: lxd
     needs:
       - create-release
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup LXD
-        uses: canonical/setup-lxd@v0.1.2
-        with:
-          channel: latest/stable
-          group: ${{ env.LXD_GROUP }}
+      - name: Install dependencies for Linux
+        run: |
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install -y p7zip-full p7zip-rar
+
+      - name: Install ayatana-appindicator3-0.1
+        run: |
+          # used by tray_manager
+          sudo apt-get install -y libayatana-appindicator3-dev
+
+      - name: Setup Flutter
+        shell: bash
+        run: |
+          chmod +x ./scripts/install-flutter-github-actions.sh
+          ./scripts/install-flutter-github-actions.sh
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
 
       - name: Configure .env
         run: |
@@ -2279,56 +3105,49 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+
+      - name: Copy files to the linux folder
+        run: |
+          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build app
+        run: flutter build linux --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Install yq
         run: |
           if ! command -v yq >/dev/null 2>&1; then
             echo "yq not exists"
-            sudo snap install -y yq
+            wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_arm64 -O /usr/bin/yq &&\
+            chmod +x /usr/bin/yq
           fi
           yq --version
-          
-      - name: Remove unused files
-        run: |
-          rm -f "$(pwd)/snap/gui/picguard-pro.desktop"
-          rm -f "$(pwd)/snap/gui/picguard-pro.png"
-          rm -f "$(pwd)/snap/snapcraft-pro.yaml"
 
-      - name: Update snapcraft.yaml
+      - name: Build tar
         run: |
-          VERSION="$VERSION_SHORT.$BUILD_NUMBER" yq -i '.version = strenv(VERSION)' snap/snapcraft.yaml
-        env:
-          VERSION_SHORT: ${{ needs.create-release.outputs.version_short }}
-          BUILD_NUMBER: ${{ needs.create-release.outputs.build_number }}
-
-      - name: Install snapcraft
-        run: sudo snap install snapcraft --classic
-
-      - name: Build snap
-        run: |
-          # https://snapcraft.io/docs/flutter-applications
-          sudo snapcraft --output "picguard-"$RELEASE"-linux-aarch64.snap"
+          archiveName="picguard-pro-"$RELEASE"-linux-aarch64.tar.gz"
+          tar -czaf $archiveName ./*
+          mv $archiveName $GITHUB_WORKSPACE/
+        working-directory: build/linux/arm64/release/bundle
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
-      - name: Copy build for snap
-        run: ls -la *.snap
+      - name: Copy build for tar
+        run: ls -la *.tar.gz
 
       - name: Upload assets
-        run: gh release upload "$TAG_NAME" ./*.snap
+        run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
 
       - name: Clean up
         if: ${{ always() }}
-        run: |
-          rm -f .env
-          if which snapcraft >/dev/null 2>&1; then
-            echo "snapcraft exists"
-            sudo snapcraft clean
-          fi
+        run: rm -f .env
 
   windows-exe-free:
     name: Create windows exe (free)

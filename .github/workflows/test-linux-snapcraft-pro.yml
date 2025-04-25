@@ -52,9 +52,9 @@ jobs:
 
       - name: Remove unused files
         run: |
-          rm -f "$(pwd)/snap/gui/picguard.desktop"
-          rm -f "$(pwd)/snap/gui/picguard.png"
-          rm -f "$(pwd)/snap/snapcraft.yaml"
+          rm -f "$(pwd)/snap/gui/picguard.desktop" \
+            "$(pwd)/snap/gui/picguard.png" \
+            "$(pwd)/snap/snapcraft.yaml"
           mv "$(pwd)/snap/snapcraft-pro.yaml" "$(pwd)/snap/snapcraft.yaml"
 
       - name: Build snap
