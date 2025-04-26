@@ -3152,6 +3152,8 @@ jobs:
   windows-exe-free:
     name: Create windows exe (free)
     runs-on: windows-2022
+    env:
+      Platform: x64
     needs:
       - create-release
     steps:
@@ -3218,7 +3220,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets exe `
-            --artifact-name "{{name}}-$env:RELEASE`-{{platform}}-x64.{{ext}}"
+            --artifact-name "{{name}}-$env:RELEASE`-{{platform}}-$env:Platform`.{{ext}}"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -3272,6 +3274,8 @@ jobs:
   windows-exe-pro:
     name: Create windows exe (pro)
     runs-on: windows-2022
+    env:
+      Platform: x64
     needs:
       - create-release
     steps:
@@ -3343,7 +3347,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
             --platform windows `
             --targets exe `
-            --artifact-name "{{name}}-pro-$env:RELEASE`-{{platform}}-x64.{{ext}}"
+            --artifact-name "{{name}}-pro-$env:RELEASE`-{{platform}}-$env:Platform`.{{ext}}"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -3661,6 +3665,8 @@ jobs:
   windows-msix-free:
     name: Create windows msix (free)
     runs-on: windows-2022
+    env:
+      Platform: x64
     needs:
       - create-release
     steps:
@@ -3731,7 +3737,7 @@ jobs:
         run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Create msix
-        run: dart run msix:create --store --build-windows false --output-name "picguard-$env:RELEASE`-windows-store-x64"
+        run: dart run msix:create --store --build-windows false --output-name "picguard-$env:RELEASE`-windows-store-$env:Platform"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -3740,7 +3746,7 @@ jobs:
         run: |
           ls
           cp .\*.msix "$env:GITHUB_WORKSPACE\"
-        working-directory: build\windows\x64\runner\Release
+        working-directory: build\windows\${{ env.Platform }}\runner\Release
 
       - name: Upload assets
         run: |
@@ -3777,6 +3783,8 @@ jobs:
   windows-msix-pro:
     name: Create windows msix (pro)
     runs-on: windows-2022
+    env:
+      Platform: x64
     needs:
       - create-release
     steps:
@@ -3851,7 +3859,7 @@ jobs:
         run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Create msix
-        run: dart run msix:create --store --build-windows false --output-name "picguard-pro-$env:RELEASE`-windows-store-x64"
+        run: dart run msix:create --store --build-windows false --output-name "picguard-pro-$env:RELEASE`-windows-store-$env:Platform"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -3860,7 +3868,7 @@ jobs:
         run: |
           ls
           cp .\*.msix "$env:GITHUB_WORKSPACE\"
-        working-directory: build\windows\x64\runner\Release
+        working-directory: build\windows\${{ env.Platform }}\runner\Release
 
       - name: Upload assets
         run: |
@@ -3897,6 +3905,8 @@ jobs:
   windows-zip-free:
     name: Create windows zip (free)
     runs-on: windows-2022
+    env:
+      Platform: x64
     needs:
       - create-release
     steps:
@@ -3934,7 +3944,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets zip `
-            --artifact-name "{{name}}-$env:RELEASE`-{{platform}}-x64.{{ext}}"
+            --artifact-name "{{name}}-$env:RELEASE`-{{platform}}-$env:Platform.{{ext}}"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -3967,6 +3977,8 @@ jobs:
   windows-zip-pro:
     name: Create windows zip (pro)
     runs-on: windows-2022
+    env:
+      Platform: x64
     needs:
       - create-release
     steps:
@@ -4012,7 +4024,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
             --platform windows `
             --targets zip `
-            --artifact-name "{{name}}-pro-$env:RELEASE`-{{platform}}-x64.{{ext}}"
+            --artifact-name "{{name}}-pro-$env:RELEASE`-{{platform}}-$env:Platform.{{ext}}"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 

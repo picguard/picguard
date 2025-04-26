@@ -10,6 +10,8 @@ jobs:
   exe:
     name: Create exe
     runs-on: windows-2022
+    env:
+      Platform: x64
     steps:
       - uses: actions/checkout@v4
 
@@ -77,7 +79,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
             --platform windows `
             --targets exe `
-            --artifact-name '{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-x64.{{ext}}'
+            --artifact-name '{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-$env:Platform`.{{ext}}'
 
       # Package the build.
       - name: Copy build for exe

@@ -10,6 +10,8 @@ jobs:
   zip:
     name: Create zip
     runs-on: windows-11-arm
+    env:
+      Platform: arm64
     steps:
       - uses: actions/checkout@v4
 
@@ -44,12 +46,12 @@ jobs:
       - name: Build zip
         shell: pwsh
         run: |
-          set FLUTTER_WINDOWS_PLATFORM=arm64
+          set FLUTTER_WINDOWS_PLATFORM="$env:Platform"
           fastforge package `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
             --platform windows `
             --targets zip `
-            --artifact-name '{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-arm64.{{ext}}'
+            --artifact-name '{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-$env:Platform`.{{ext}}'
 
       # Package the build.
       - name: Copy build for zip

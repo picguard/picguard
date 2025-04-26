@@ -10,6 +10,8 @@ jobs:
   exe:
     name: Create exe
     runs-on: windows-11-arm
+    env:
+      Platform: arm64
     steps:
       - uses: actions/checkout@v4
 
@@ -80,12 +82,12 @@ jobs:
       - name: Build exe
         shell: pwsh
         run: |
-          set FLUTTER_WINDOWS_PLATFORM=arm64
+          set FLUTTER_WINDOWS_PLATFORM="$env:Platform"
           fastforge package `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets exe `
-            --artifact-name '{{name}}-{{build_name}}.{{build_number}}-{{platform}}-arm64.{{ext}}'
+            --artifact-name '{{name}}-{{build_name}}.{{build_number}}-{{platform}}-$env:Platform`.{{ext}}'
 
       # Package the build.
       - name: Copy build for exe
