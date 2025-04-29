@@ -3322,7 +3322,9 @@ jobs:
           enigmavirtualbox generate . `
             --input "$pwd\PicGuard.exe" `
             --output "$env:GITHUB_WORKSPACE\picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-portable-$env:Platform`.exe" `
-            --exclude **/PicGuard.exe
+            --exclude **/PicGuard.exe `
+            --evbOptions.compressFiles False `
+            --evbOptions.deleteExtractedOnExit False
         working-directory: build\windows\${{ env.Platform }}\runner\Release
         env:
           VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
@@ -3567,7 +3569,9 @@ jobs:
           enigmavirtualbox generate . `
             --input "$pwd\PicGuardPro.exe" `
             --output "$env:GITHUB_WORKSPACE\picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-portable-$env:Platform`.exe" `
-            --exclude **/PicGuardPro.exe
+            --exclude **/PicGuardPro.exe `
+            --evbOptions.compressFiles False `
+            --evbOptions.deleteExtractedOnExit False
         working-directory: build\windows\${{ env.Platform }}\runner\Release
         env:
           VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
