@@ -89,14 +89,8 @@ jobs:
             --targets exe `
             --artifact-name '{{name}}-{{build_name}}.{{build_number}}-{{platform}}-setup-$env:Platform`.{{ext}}'
 
-      # Package the build.
-      - name: Copy build for exe
-        run: ls -R
-        working-directory: dist
-
       - name: Signing
         run: |
-          echo $env:RUNNER_TEMP
           $certificatePath = "$env:RUNNER_TEMP\picguard.pfx"
           # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
           # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
@@ -118,7 +112,6 @@ jobs:
       - name: Clean up
         if: ${{ always() }}
         run: |
-          ls
           if (test-path -Path "$env:RUNNER_TEMP\picguard.pfx") {
             echo "$env:RUNNER_TEMP\picguard.pfx"
             remove-item -Path "$env:RUNNER_TEMP\picguard.pfx" -Force -ErrorAction SilentlyContinue

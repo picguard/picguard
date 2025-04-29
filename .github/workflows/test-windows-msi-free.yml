@@ -136,7 +136,6 @@ jobs:
       - name: Clean up
         if: ${{ always() }}
         run: |
-          ls
           if (test-path -Path "$env:RUNNER_TEMP\picguard.pfx") {
             echo "$env:RUNNER_TEMP\picguard.pfx"
             remove-item -Path "$env:RUNNER_TEMP\picguard.pfx" -Force -ErrorAction SilentlyContinue

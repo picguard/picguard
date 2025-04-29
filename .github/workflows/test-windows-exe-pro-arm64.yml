@@ -24,7 +24,6 @@ jobs:
 
       - name: Configure .env
         run: |
-          echo "$pwd"
           $bytes = echo $env:ENV_KEY | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
         env:
@@ -91,11 +90,6 @@ jobs:
             --targets exe `
             --artifact-name '{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-setup-$env:Platform`.{{ext}}'
 
-      # Package the build.
-      - name: Copy build for exe
-        run: ls -R
-        working-directory: dist
-
       - name: Signing
         run: |
           $certificatePath = "$env:RUNNER_TEMP\picguard-pro.pfx"
@@ -119,7 +113,6 @@ jobs:
       - name: Clean up
         if: ${{ always() }}
         run: |
-          ls
           if (test-path -Path "$env:RUNNER_TEMP\picguard-pro.pfx") {
             echo "$env:RUNNER_TEMP\picguard-pro.pfx"
             remove-item -Path "$env:RUNNER_TEMP\picguard-pro.pfx" -Force -ErrorAction SilentlyContinue

@@ -54,11 +54,6 @@ jobs:
             --targets zip `
             --artifact-name '{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-$env:Platform`.{{ext}}'
 
-      # Package the build.
-      - name: Copy build for zip
-        run: ls -R
-        working-directory: dist
-
       - uses: actions/upload-artifact@v4
         with:
           name: windows-zip-pro-artifact
@@ -67,7 +62,6 @@ jobs:
       - name: Clean up
         if: ${{ always() }}
         run: |
-          ls
           if (test-path -Path "$pwd\.env") {
             echo "Remove file($pwd\.env)"
             remove-item -Path "$pwd\.env" -Force -ErrorAction SilentlyContinue

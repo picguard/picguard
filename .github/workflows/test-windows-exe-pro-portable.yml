@@ -58,7 +58,6 @@ jobs:
 
       - name: Configure .env
         run: |
-          echo "$pwd"
           $bytes = echo $env:ENV_KEY | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
         env:
@@ -130,10 +129,6 @@ jobs:
           WINDOWS_CERTIFICATE_PASSWORD_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD_PRO }}
           WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
 
-      # Package the build.
-      - name: Copy build for exe
-        run: ls
-
       - uses: actions/upload-artifact@v4
         with:
           name: windows-exe-pro-portable-artifact
@@ -142,7 +137,6 @@ jobs:
       - name: Clean up
         if: ${{ always() }}
         run: |
-          ls
           if (test-path -Path "$env:RUNNER_TEMP\picguard-pro.pfx") {
             echo "$env:RUNNER_TEMP\picguard-pro.pfx"
             remove-item -Path "$env:RUNNER_TEMP\picguard-pro.pfx" -Force -ErrorAction SilentlyContinue
