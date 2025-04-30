@@ -81,7 +81,7 @@ jobs:
           enigmavirtualbox generate . `
             --input "$pwd\PicGuard.exe" `
             --output "$env:GITHUB_WORKSPACE\picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-portable-$env:Platform`.exe" `
-            --exclude **/PicGuard.exe `
+            --exclude "**/*.{exe,evb}" `
             --evbOptions.compressFiles False `
             --evbOptions.deleteExtractedOnExit False
         working-directory: build\windows\${{ env.Platform }}\runner\Release
@@ -117,7 +117,7 @@ jobs:
           $bytes = echo $env:WINDOWS_CERTIFICATE | %{[Convert]::FromBase64String($_)}
           [IO.File]::WriteAllBytes("$certificatePath", $bytes)
           $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
-          & $signtool sign /f "$certificatePath" /fd SHA256 /t http://timestamp.comodoca.com/authenticode /p "$env:WINDOWS_CERTIFICATE_PASSWORD" /n "$env:WINDOWS_PUBLISHER_NAME" (get-item ".\*.exe")
+          & $signtool sign /f "$certificatePath" /fd SHA256 /t http://timestamp.comodoca.com/authenticode /p "$env:WINDOWS_CERTIFICATE_PASSWORD" /n "$env:WINDOWS_PUBLISHER_NAME" (get-item ".\picguard-*.exe")
         env:
           WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
           WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
@@ -126,7 +126,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: windows-exe-portable-artifact
-          path: .\*.exe
+          path: .\picguard-*.exe
 
       - name: Clean up
         if: ${{ always() }}
