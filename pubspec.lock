@@ -418,10 +418,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_expandable_fab
-      sha256: "4d03f54e5384897e32606e9959cef5e7857e5a203e24684f95dfbb5f7fb9b88e"
+      sha256: "9de10aad89ebff35956d8eb4ceb0d8749835dc1184d3ab17b721eb06c778c519"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.1"
+    version: "2.5.0"
   flutter_form_builder:
     dependency: "direct main"
     description:
@@ -1326,18 +1326,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "720ea28f0ab8f8c19fc613c20b978e514c7e4e431171fd85ed8da528e01298e0"
+      sha256: "458fb70ad9a6a5fa286a0062ddafa536038d21d6afffe2b0cd057e091108311f"
       url: "https://pub.dev"
     source: hosted
-    version: "29.1.39"
+    version: "29.1.40"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "1d1403755b6a89de780712d026813857fa2d995eb4d9ee953699380d1968d838"
+      sha256: eef97f1fc8e69bf8ec232bae1f62407652d38252839da73014efae41b8df445f
       url: "https://pub.dev"
     source: hosted
-    version: "29.1.39"
+    version: "29.1.40"
   synchronized:
     dependency: "direct main"
     description:
