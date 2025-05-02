@@ -6,10 +6,14 @@
     https://www.freedesktop.org/software/appstream/docs/chap-Quickstart.html#sect-Quickstart-DesktopApps
 -->
 <component type="desktop-application">
-    <id>com.kjxbyz.PicGuard.Pro</id>
+    <id>com.kjxbyz.PicGuardPro</id>
     <provides>
+        <id>com.kjxbyz.PicGuard.Pro</id>
         <id>picguard-pro</id>
     </provides>
+    <replaces>
+        <id>com.kjxbyz.PicGuard.Pro</id>
+    </replaces>
     <name>PicGuard Pro</name>
     <summary>Your pictures, your signature</summary>
     <summary xml:lang="zh">给图片添加水印, 防止被恶意使用</summary>
@@ -45,7 +49,7 @@
         <p>Download PicGuard Pro today and take control of your photo security and personalization like never before!</p>
         <p xml:lang="zh">立即下载PicGuard Pro，以前所未有的方式控制您的照片安全和个性化！</p>
     </description>
-    <launchable type="desktop-id">com.kjxbyz.PicGuard.Pro.desktop</launchable>
+    <launchable type="desktop-id">com.kjxbyz.PicGuardPro.desktop</launchable>
     <screenshots>
         <screenshot type="default">
             <image>https://raw.githubusercontent.com/picguard/picguard/v2.5.1+444/screenshots/pro/desktop.png</image>

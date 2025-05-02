@@ -23,7 +23,7 @@ slots:
   dbus-picguard-pro: # adjust accordingly to your app name
     interface: dbus
     bus: session
-    name: com.kjxbyz.PicGuard.Pro # adjust accordingly to your app name and
+    name: com.kjxbyz.PicGuardPro # adjust accordingly to your app name and
 apps:
   picguard-pro:
     command: picguard-pro
