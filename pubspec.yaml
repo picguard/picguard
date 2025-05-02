@@ -19,6 +19,17 @@ version: 2.5.0+443
 environment:
   sdk: '>=3.7.0 <4.0.0'
 
+workspace:
+  - plugins/super_clipboard
+  - plugins/super_clipboard/example
+  - plugins/super_context_menu
+  - plugins/super_context_menu/example
+  - plugins/super_drag_and_drop
+  - plugins/super_drag_and_drop/example
+  - plugins/super_keyboard_layout
+  - plugins/super_keyboard_layout/example
+  - plugins/super_native_extensions
+
 dependencies:
   about: ^2.2.0
   app_settings_plus: ^5.2.0+2

@@ -199,6 +199,9 @@ jobs:
       - name: Add Android target
         run: rustup target add armv7-linux-androideabi
 
+      - name: Update the default toolchain version for Cargokit
+        run: sed -i -e "s/'stable'/'1.86.0'/" plugins/super_native_extensions/cargokit/build_tool/lib/src/builder.dart
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -287,6 +290,9 @@ jobs:
       - name: Add Android target
         run: rustup target add armv7-linux-androideabi
 
+      - name: Update the default toolchain version for Cargokit
+        run: sed -i -e "s/'stable'/'1.86.0'/" plugins/super_native_extensions/cargokit/build_tool/lib/src/builder.dart
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -374,6 +380,9 @@ jobs:
 
       - name: Add Android target
         run: rustup target add armv7-linux-androideabi
+
+      - name: Update the default toolchain version for Cargokit
+        run: sed -i -e "s/'stable'/'1.86.0'/" plugins/super_native_extensions/cargokit/build_tool/lib/src/builder.dart
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -467,6 +476,9 @@ jobs:
 
       - name: Add Android target
         run: rustup target add armv7-linux-androideabi
+
+      - name: Update the default toolchain version for Cargokit
+        run: sed -i -e "s/'stable'/'1.86.0'/" plugins/super_native_extensions/cargokit/build_tool/lib/src/builder.dart
 
       - name: Flutter doctor -v
         run: flutter doctor -v

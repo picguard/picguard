@@ -110,7 +110,7 @@ class MacOSMenuBar extends StatelessWidget {
               members: <PlatformMenuItem>[
                 PlatformProvidedMenuItem(
                   type: PlatformProvidedMenuItemType.quit,
-                )
+                ),
               ],
             ),
           ],
