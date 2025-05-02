@@ -8,7 +8,7 @@
 <component type="desktop-application">
     <id>com.kjxbyz.PicGuard.Pro</id>
     <provides>
-        <id>picguard-pro/id>
+        <id>picguard-pro</id>
     </provides>
     <name>PicGuard Pro</name>
     <summary>Your pictures, your signature</summary>
