@@ -1,5 +1,5 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-<Package Name="PicGuard Pro" Manufacturer="Insco" Version="2.5.0.443" UpgradeCode="64bdde9d-fe72-49e2-abfb-19cf4d1ba55f">
+<Package Name="PicGuard Pro" Manufacturer="Insco" Version="2.5.1.444" UpgradeCode="64bdde9d-fe72-49e2-abfb-19cf4d1ba55f">
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
 
     <!-- Set an icon for Windows Settings > Apps -->

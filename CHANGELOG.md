@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.5.1+444
+
+1. feat: add pro version for windows
+2. feat: add pro version for linux
+3. fix: Error information: "Error: SignerSign() failed."
+4. ci: update workflows
+5. chore(deps): update deps
+6. test: add portable windows exe
+7. fix(macos): modify the default window size
+8. fix: update the default toolchain version for cargokit
+9. fix: The element id in picguard-pro.metainfo.xml is not closed
+
 ## 2.5.0+443
 
 1. drag and drop files to app
