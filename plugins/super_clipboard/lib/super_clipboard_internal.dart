@@ -1,3 +1,3 @@
-library super_clipboard_internal;
+library;
 
 export 'src/writer_data_provider.dart';

@@ -107,8 +107,8 @@ class DragOverlayMobile extends StatefulWidget {
   const DragOverlayMobile({
     required this.snapshot,
     required this.initialPosition,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final TargetedWidgetSnapshot snapshot;
   final Offset initialPosition;

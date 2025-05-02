@@ -1,4 +1,4 @@
-library super_clipboard;
+library;
 
 export 'src/format.dart';
 export 'src/standard_formats.dart';

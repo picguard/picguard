@@ -1,3 +1,3 @@
-library super_keyboard_layout;
+library;
 
 export 'src/super_keyboard_layout.dart';

@@ -632,11 +632,10 @@ class _MenuItemScaffold extends StatelessWidget {
 
 class _AnimatedChevron extends StatelessWidget {
   const _AnimatedChevron({
-    Key? key,
     required this.isExpanded,
     required this.duration,
     required this.color,
-  }) : super(key: key);
+  });
 
   final bool isExpanded;
 

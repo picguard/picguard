@@ -1,4 +1,4 @@
-library super_context_menu;
+library;
 
 export 'src/menu_model.dart';
 export 'src/menu.dart';

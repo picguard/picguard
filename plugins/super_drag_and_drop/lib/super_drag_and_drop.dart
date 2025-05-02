@@ -1,4 +1,4 @@
-library super_drag_and_drop;
+library;
 
 export 'package:super_clipboard/src/format.dart';
 export 'package:super_clipboard/src/standard_formats.dart';
