@@ -13,6 +13,7 @@
     </provides>
     <replaces>
         <id>com.kjxbyz.PicGuard.Pro</id>
+        <id>picguard-pro</id>
     </replaces>
     <name>PicGuard Pro</name>
     <summary>Your pictures, your signature</summary>

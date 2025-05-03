@@ -10,6 +10,9 @@
     <provides>
         <id>picguard</id>
     </provides>
+    <replaces>
+        <id>picguard</id>
+    </replaces>
     <name>PicGuard</name>
     <summary>Your pictures, your signature</summary>
     <summary xml:lang="zh">给图片添加水印, 防止被恶意使用</summary>
