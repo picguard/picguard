@@ -114,7 +114,7 @@ jobs:
 
       - name: Crate msix
         run: |
-          dart run msix:create --build-windows false --output-name "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform"
+          dart run msix:create --build-windows false --output-name "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER-windows-$env:Platform"
         env:
           VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
           BUILD_NUMBER: ${{ needs.get-version.outputs.build_number }}

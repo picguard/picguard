@@ -52,7 +52,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
             --platform windows `
             --targets zip `
-            --artifact-name '{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-$env:Platform`.{{ext}}'
+            --artifact-name "{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-$env:Platform.{{ext}}"
 
       - uses: actions/upload-artifact@v4
         with:

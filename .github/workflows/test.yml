@@ -416,7 +416,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets zip `
-            --artifact-name '{{name}}_{{build_name}}+{{build_number}}.{{ext}}'
+            --artifact-name "{{name}}-{{build_name}}+{{build_number}}.{{ext}}"
 
       # Package the build.
       - name: Copy build for zip

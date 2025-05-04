@@ -3244,7 +3244,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets exe `
-            --artifact-name "{{name}}-$env:RELEASE`-{{platform}}-setup-$env:Platform`.{{ext}}"
+            --artifact-name "{{name}}-$env:RELEASE-{{platform}}-setup-$env:Platform.{{ext}}"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -3369,7 +3369,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
             --platform windows `
             --targets exe `
-            --artifact-name "{{name}}-pro-$env:RELEASE`-{{platform}}-setup-$env:Platform`.{{ext}}"
+            --artifact-name "{{name}}-pro-$env:RELEASE-{{platform}}-setup-$env:Platform.{{ext}}"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -3516,8 +3516,8 @@ jobs:
       - name: Copy build for msi
         shell: pwsh
         run: |
-          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\en-US\picguard.msi" -NewName "picguard-$env:RELEASE`-windows-$env:Platform`-en-US.msi"
-          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\zh-CN\picguard.msi" -NewName "picguard-$env:RELEASE`-windows-$env:Platform`-zh-CN.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\en-US\picguard.msi" -NewName "picguard-$env:RELEASE-windows-$env:Platform-en-US.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\zh-CN\picguard.msi" -NewName "picguard-$env:RELEASE-windows-$env:Platform-zh-CN.msi"
           ls -R ".\msi\picguard\picguard\bin\$env:Platform\Release"
           cp ".\msi\picguard\picguard\bin\$env:Platform\Release\*\*.msi" "$env:GITHUB_WORKSPACE\"
         env:
@@ -3647,8 +3647,8 @@ jobs:
       - name: Copy build for msi
         shell: pwsh
         run: |
-          Rename-Item -Path "$pwd\msi\picguard\picguard-pro\bin\$env:Platform\Release\en-US\picguard-pro.msi" -NewName "picguard-pro-$env:RELEASE`-windows-$env:Platform`-en-US.msi"
-          Rename-Item -Path "$pwd\msi\picguard\picguard-pro\bin\$env:Platform\Release\zh-CN\picguard-pro.msi" -NewName "picguard-pro-$env:RELEASE`-windows-$env:Platform`-zh-CN.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard-pro\bin\$env:Platform\Release\en-US\picguard-pro.msi" -NewName "picguard-pro-$env:RELEASE-windows-$env:Platform-en-US.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard-pro\bin\$env:Platform\Release\zh-CN\picguard-pro.msi" -NewName "picguard-pro-$env:RELEASE-windows-$env:Platform-zh-CN.msi"
           ls -R ".\msi\picguard\picguard-pro\bin\$env:Platform\Release"
           cp ".\msi\picguard\picguard-pro\bin\$env:Platform\Release\*\*.msi" "$env:GITHUB_WORKSPACE\"
         env:
@@ -3753,7 +3753,7 @@ jobs:
         run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Create msix
-        run: dart run msix:create --store --build-windows false --output-name "picguard-$env:RELEASE`-windows-store-$env:Platform"
+        run: dart run msix:create --store --build-windows false --output-name "picguard-$env:RELEASE-windows-store-$env:Platform"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -3873,7 +3873,7 @@ jobs:
         run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Create msix
-        run: dart run msix:create --store --build-windows false --output-name "picguard-pro-$env:RELEASE`-windows-store-$env:Platform"
+        run: dart run msix:create --store --build-windows false --output-name "picguard-pro-$env:RELEASE-windows-store-$env:Platform"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -3956,7 +3956,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets zip `
-            --artifact-name "{{name}}-$env:RELEASE`-{{platform}}-$env:Platform.{{ext}}"
+            --artifact-name "{{name}}-$env:RELEASE-{{platform}}-$env:Platform.{{ext}}"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -4033,7 +4033,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
             --platform windows `
             --targets zip `
-            --artifact-name "{{name}}-pro-$env:RELEASE`-{{platform}}-$env:Platform.{{ext}}"
+            --artifact-name "{{name}}-pro-$env:RELEASE-{{platform}}-$env:Platform.{{ext}}"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 

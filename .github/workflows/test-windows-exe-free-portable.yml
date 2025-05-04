@@ -80,7 +80,7 @@ jobs:
         run: |
           enigmavirtualbox generate . `
             --input "$pwd\PicGuard.exe" `
-            --output "$env:GITHUB_WORKSPACE\picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-portable-$env:Platform`.exe" `
+            --output "$env:GITHUB_WORKSPACE\picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER-windows-portable-$env:Platform.exe" `
             --exclude "**/*.{exe,evb}" `
             --evbOptions.compressFiles False `
             --evbOptions.deleteExtractedOnExit False
@@ -103,7 +103,7 @@ jobs:
       - name: Create portable exe
         shell: pwsh
         run: |
-          & "C:\Program Files (x86)\Enigma Virtual Box\EnigmaVBConsole.exe" project.evb  -input "$pwd\PicGuard.exe" -output "$env:GITHUB_WORKSPACE\picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-portable-$env:Platform`.exe"
+          & "C:\Program Files (x86)\Enigma Virtual Box\EnigmaVBConsole.exe" project.evb  -input "$pwd\PicGuard.exe" -output "$env:GITHUB_WORKSPACE\picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER-windows-portable-$env:Platform.exe"
         working-directory: build\windows\${{ env.Platform }}\runner\Release
         env:
           VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}

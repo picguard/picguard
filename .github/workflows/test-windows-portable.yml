@@ -80,7 +80,7 @@ jobs:
         run: |
           enigmavirtualbox generate . `
             --input "$pwd\PicGuard.exe" `
-            --output "$env:GITHUB_WORKSPACE\picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-portable-$env:Platform`.exe" `
+            --output "$env:GITHUB_WORKSPACE\picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER-windows-portable-$env:Platform.exe" `
             --exclude "**/*.{exe,evb}" `
             --evbOptions.compressFiles False `
             --evbOptions.deleteExtractedOnExit False

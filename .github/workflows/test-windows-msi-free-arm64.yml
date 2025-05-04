@@ -126,8 +126,8 @@ jobs:
       - name: Copy build for msi
         shell: pwsh
         run: |
-          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\en-US\picguard.msi" -NewName "picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform`-en-US.msi"
-          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\zh-CN\picguard.msi" -NewName "picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform`-zh-CN.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\en-US\picguard.msi" -NewName "picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER-windows-$env:Platform-en-US.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard\bin\$env:Platform\Release\zh-CN\picguard.msi" -NewName "picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER-windows-$env:Platform-zh-CN.msi"
         env:
           VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
           BUILD_NUMBER: ${{ needs.get-version.outputs.build_number }}

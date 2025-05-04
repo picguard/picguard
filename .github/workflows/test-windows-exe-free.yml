@@ -73,7 +73,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets exe `
-            --artifact-name '{{name}}-{{build_name}}.{{build_number}}-{{platform}}-setup-$env:Platform`.{{ext}}'
+            --artifact-name "{{name}}-{{build_name}}.{{build_number}}-{{platform}}-setup-$env:Platform.{{ext}}"
 
       - name: Signing
         run: |

@@ -108,7 +108,7 @@ jobs:
         run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Crate msix
-        run: dart run msix:create --build-windows false --output-name "picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER`-windows-$env:Platform"
+        run: dart run msix:create --build-windows false --output-name "picguard-$env:VERSION_SHORT.$env:BUILD_NUMBER-windows-$env:Platform"
         env:
           VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
           BUILD_NUMBER: ${{ needs.get-version.outputs.build_number }}
