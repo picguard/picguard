@@ -26,7 +26,7 @@ PrivilegesRequired={{PRIVILEGES_REQUIRED}}
 PrivilegesRequiredOverridesAllowed=dialog
 ArchitecturesAllowed=x64compatible and not arm64
 ArchitecturesInstallIn64BitMode=x64compatible and not arm64
-AppCopyright=Copyright (C) 2023-present Insco.
+AppCopyright=Copyright (C) 2023 Insco. All Rights Reserved.
 AppReadmeFile=https://raw.githubusercontent.com/picguard/picguard/main/README.md
 LicenseFile={{SOURCE_DIR}}\LICENSE.rtf
 
