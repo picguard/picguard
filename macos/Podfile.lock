@@ -1,5 +1,5 @@
 PODS:
-  - "app_settings_plus (5.2.0+2)":
+  - app_settings (5.1.1):
     - FlutterMacOS
   - device_info_plus (0.0.1):
     - FlutterMacOS
@@ -33,7 +33,7 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
-  - app_settings_plus (from `Flutter/ephemeral/.symlinks/plugins/app_settings_plus/macos`)
+  - app_settings (from `Flutter/ephemeral/.symlinks/plugins/app_settings/macos`)
   - device_info_plus (from `Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos`)
   - file_picker (from `Flutter/ephemeral/.symlinks/plugins/file_picker/macos`)
   - file_saver (from `Flutter/ephemeral/.symlinks/plugins/file_saver/macos`)
@@ -53,8 +53,8 @@ SPEC REPOS:
     - Sentry
 
 EXTERNAL SOURCES:
-  app_settings_plus:
-    :path: Flutter/ephemeral/.symlinks/plugins/app_settings_plus/macos
+  app_settings:
+    :path: Flutter/ephemeral/.symlinks/plugins/app_settings/macos
   device_info_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/device_info_plus/macos
   file_picker:
@@ -83,7 +83,7 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
 
 SPEC CHECKSUMS:
-  app_settings_plus: c6f63a90cba9d851acb3255baafaa279314b2360
+  app_settings: cd21e176b56f8172043640ade81322a98896bff4
   device_info_plus: 4fb280989f669696856f8b129e4a5e3cd6c48f76
   file_picker: 7584aae6fa07a041af2b36a2655122d42f578c1a
   file_saver: e35bd97de451dde55ff8c38862ed7ad0f3418d0f
