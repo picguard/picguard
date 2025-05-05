@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.5.2+445
+
+1. fix: add `rust-version` to the environment variables
+2. fix(linux): update application id for pro version
+3. fix: update icons for pro version
+4. ci: add `run-name` to release-web.yml
+5. fix: add the old id tag to a replaces tag
+6. chore(deps): update deps
+
 ## 2.5.1+444
 
 1. feat: add pro version for windows
