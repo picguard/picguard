@@ -1,0 +1,102 @@
+name: Test Windows portable action
+
+on:
+  workflow_dispatch:
+
+# Declare default permissions as readonly.
+permissions: read-all
+
+jobs:
+  get-version:
+    name: Create release
+    runs-on: ubuntu-22.04
+    outputs:
+      version: ${{ steps.version_step.outputs.version }}
+      version_short: ${{ steps.version_step.outputs.version_short }}
+      build_number: ${{ steps.version_step.outputs.build_number }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set version
+        id: version_step
+        run: |
+          VERSION=$(yq '.version' pubspec.yaml)
+          echo "VERSION: $VERSION."
+
+          VERSION_SHORT=$(echo "$VERSION" | sed -e "s/+.*//")
+          echo "VERSION_SHORT: $VERSION_SHORT."
+
+          BUILD_NUMBER=$(echo "$VERSION" | sed -e "s/.*+//")
+          echo "BUILD_NUMBER: $BUILD_NUMBER."
+
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+
+  exe:
+    name: Create exe
+    runs-on: windows-2022
+    env:
+      Platform: x64
+    needs:
+      - get-version
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.3'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: |
+          $bytes = echo $env:ENV_KEY | %{[Convert]::FromBase64String($_)}
+          [IO.File]::WriteAllBytes("$pwd\.env", $bytes)
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
+
+      - name: copy eula.rtf to the windows folder
+        run: Copy-Item -Path "$pwd\macos\packaging\base\eula.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
+
+      - name: Install flutter dependencies
+        run: flutter pub get
+
+      - name: Build windows
+        run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
+
+      - name: Generate EnigmaVB config file
+        id: test-action
+        uses: insco-inc/enigma-virtualbox-action@v1
+        with:
+          entry: build\windows\${{ env.Platform }}\runner\Release
+          input: build\windows\${{ env.Platform }}\runner\Release\PicGuard.exe
+          output: ${{ env.GITHUB_WORKSPACE }}\picguard-${{ needs.get-version.outputs.version_short }}.${{ needs.get-version.outputs.build_number }}-windows-portable-${{ env.Platform }}.exe
+          exclude: '**/*.{exe,evb}'
+
+      - name: Print Output
+        run: echo "${{ steps.test-action.outputs.config-path }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-portable-source-action-artifact
+          path: ${{ steps.test-action.outputs.config-path }}
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          if (test-path -Path "$env:RUNNER_TEMP\picguard.pfx") {
+            echo "$env:RUNNER_TEMP\picguard.pfx"
+            remove-item -Path "$env:RUNNER_TEMP\picguard.pfx" -Force -ErrorAction SilentlyContinue
+          } else {
+            echo "File($env:RUNNER_TEMP\picguard.pfx) doesn't exist."
+          }
+          if (test-path -Path "$pwd\.env") {
+            echo "Remove file($pwd\.env)"
+            remove-item -Path "$pwd\.env" -Force -ErrorAction SilentlyContinue
+          } else {
+            echo "File($pwd\.env) doesn't exist."
+          }
