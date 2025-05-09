@@ -89,7 +89,9 @@ jobs:
         run: flutter pub get
 
       - name: Build flutter
-        run: flutter build web --dart-define-from-file=.env --dart-define GIT_COMMIT_SHA="$GIT_COMMIT_SHA" --target lib/main_pro.dart --base-href /play/pro/
+        run: |
+          cp -r $GITHUB_WORKSPACE/web/pro/* $GITHUB_WORKSPACE/web/
+          flutter build web --dart-define-from-file=.env --dart-define GIT_COMMIT_SHA="$GIT_COMMIT_SHA" --target lib/main_pro.dart --base-href /play/pro/
         env:
           GIT_COMMIT_SHA: ${{ github.sha }}
 
