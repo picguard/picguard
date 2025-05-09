@@ -545,6 +545,8 @@ class DialogUtil {
   static Future<void> showAboutModal() async {
     final context = AppNavigator.navigatorKey.currentContext!;
     final t = Translations.of(context);
+    final isPro = AppConfig.shared.isPro;
+    final logo = isPro ? Assets.logo.pro.logo512 : Assets.logo.logo512;
     final appName = t.appName(flavor: AppConfig.shared.flavor);
     final packageInfo = await PackageInfo.fromPlatform();
 
@@ -559,7 +561,7 @@ class DialogUtil {
     await showAboutPage(
       context: context,
       title: Text(titleName),
-      applicationIcon: Assets.logo.logo512.image(width: 100, height: 100),
+      applicationIcon: logo.image(width: 100, height: 100),
       applicationName: appName,
       applicationVersion: t.aboutPage.version(
         version: version,
