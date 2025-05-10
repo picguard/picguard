@@ -6,9 +6,11 @@
 
 1. The build target is in `dmg` format and the certificate type is `Developer ID Application`
 
-2. The build target is in `pkg` format and the certificate types are `Developer ID Application` and `Developer ID Installer`
+2. The build target is in `pkg` format and the certificate types are `Developer ID Application` and
+   `Developer ID Installer`
 
-3. The build target is in `pkg` format, distributed to Mac App Store, and the certificate types are `Mac App Distribution` and `Mac Installer Distribution`
+3. The build target is in `pkg` format, distributed to Mac App Store, and the certificate types are
+   `Mac App Distribution` and `Mac Installer Distribution`
 
 4. The build target is in `zip` format and the certificate type is `Developer ID Application`
 

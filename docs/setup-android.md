@@ -15,9 +15,11 @@ make ENV=<dev|stg|prod> <appbundle_free|appbundle_pro>
 [//]: # (## Tests)
 
 [//]: # ()
+
 [//]: # (### Deep Links on Android &#40;app links&#41;)
 
 [//]: # ()
+
 [//]: # (```shell)
 
 [//]: # (adb shell am start -a android.intent.action.VIEW -d "pg://debug")

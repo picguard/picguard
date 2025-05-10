@@ -3,7 +3,8 @@
 ## Requirements
 
 > Self-signed .pfx certificate information format <br>
-> subject=C=`<Country Name (2 letter code)>`, ST=`<State or Province Name>`, L=`<Locality Name>`, O=`<Publisher Name>`, OU=`<Publisher Name>`, CN=`<Publisher Name>`, emailAddress=`<Email Address>`
+> subject=C=`<Country Name (2 letter code)>`, ST=`<State or Province Name>`, L=`<Locality Name>`, O=`<Publisher Name>`,
+> OU=`<Publisher Name>`, CN=`<Publisher Name>`, emailAddress=`<Email Address>`
 
 ```powershell
 $PFX_FILE = get-content 'C:\temp\cert.pfx' -Encoding Byte
