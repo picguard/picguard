@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.5.3+446
+
+1. fix: add libayatana-appindicator
+2. fix(exe): specifies which architectures Setup is allowed to run on
+3. ci(windows): remove invalid characters "`" in workflows
+4. fix(exe): update the default installation directory
+5. fix: update copyright
+6. fix: replace `app_settings_plus` with `app_settings`
+7. chore(deps): update deps
+8. fix(web): update icons for pro version
+9. fix: update the icon for the about page
+10. docs: update readme
+11. ci(snaps): update workflows
+
 ## 2.5.2+445
 
 1. fix: add `rust-version` to the environment variables
