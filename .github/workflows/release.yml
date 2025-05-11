@@ -809,11 +809,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -1289,7 +1284,7 @@ jobs:
           # apply provisioning profile
           # https://developer.apple.com/documentation/bundleresources/placing_content_in_a_bundle/
           # security cms -D -i picguard_pro_mac_appstore.provisionprofile
-          mv $THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PP_PRO_PATH build/macos/Build/Products/Release-pro/PicGuard\ Pro.app/Contents/embedded.provisionprofile
+          mv $THIRD_PARTY_MAC_DEVELOPER_APPLICATION_PP_PRO_PATH "build/macos/Build/Products/Release-pro/PicGuard Pro.app/Contents/embedded.provisionprofile"
         env:
           THIRD_PARTY_MAC_DEVELOPER_INSTALLER_P12_BASE64_MAC: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_INSTALLER_P12_BASE64_MAC }}
           THIRD_PARTY_MAC_DEVELOPER_APPLICATION_P12_BASE64_MAC: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_APPLICATION_P12_BASE64_MAC }}
@@ -1315,7 +1310,7 @@ jobs:
           
           # 3. Just to confirm all is well, verify the code signing
           # No response means that there were no errors and it is code signed.
-          # /usr/bin/codesign --verify build/macos/Build/Products/Release-pro/PicGuard\ Pro.app
+          # /usr/bin/codesign --verify "build/macos/Build/Products/Release-pro/PicGuard Pro.app"
         env:
           THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_APPLICATION_SIGNING_IDENTITY }}
 
@@ -1326,7 +1321,7 @@ jobs:
           # It will go through the installation process to confirm that the installer package is OK.
           # NOTE: If the app is signed for distribution to the Mac App Store the resulting app will not run locally.
           # sudo installer -store -package <path_to_app_pkg_file> -target /
-          xcrun productbuild --sign "$THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY" --component PicGuard\ Pro.app /Applications PicGuard\ Pro.pkg
+          xcrun productbuild --sign "$THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY" --component "PicGuard Pro.app" /Applications "PicGuard Pro.pkg"
         env:
           THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY: ${{ secrets.THIRD_PARTY_MAC_DEVELOPER_INSTALLER_SIGNING_IDENTITY }}
         working-directory: build/macos/Build/Products/Release-pro
@@ -1335,7 +1330,7 @@ jobs:
       - name: Copy build for pkg
         run: |
           ls -la *.pkg
-          cp PicGuard\ Pro.pkg $GITHUB_WORKSPACE/PicGuard-Pro-"$RELEASE"-macos-appstore-universal.pkg
+          cp "PicGuard Pro.pkg" $GITHUB_WORKSPACE/PicGuard-Pro-"$RELEASE"-macos-appstore-universal.pkg
         working-directory: build/macos/Build/Products/Release-pro
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}

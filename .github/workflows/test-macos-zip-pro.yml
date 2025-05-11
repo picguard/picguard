@@ -1,4 +1,4 @@
-name: Test macOS zip
+name: Test macOS zip (pro)
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ permissions: read-all
 
 jobs:
   macos-zip:
-    name: Create macos zip (free)
+    name: Create macos zip
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
@@ -43,7 +43,7 @@ jobs:
       - name: Build macOS
         run: |
           echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
+          flutter build macos --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro
 
       - name: Install certificates
         env:
@@ -70,8 +70,8 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
 
       - name: Code Signing
-        run: /usr/bin/codesign --deep --force -s "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY" --options runtime PicGuard.app -v
-        working-directory: build/macos/Build/Products/Release-free
+        run: /usr/bin/codesign --deep --force -s "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY" --options runtime "PicGuard Pro.app" -v
+        working-directory: build/macos/Build/Products/Release-pro
         env:
           DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
 
@@ -81,20 +81,20 @@ jobs:
           # Therefore, we create a zip file containing our app bundle, so that we can send it to the
           # notarization service
           echo "Creating temp notarization archive"
-          ditto -c -k --keepParent "PicGuard.app" "PicGuard.zip"
+          ditto -c -k --keepParent "PicGuard Pro.app" "PicGuard Pro.zip"
 
           # Here we send the notarization request to the Apple's Notarization service, waiting for the result.
           # This typically takes a few seconds inside a CI environment, but it might take more depending on the App
           # characteristics. Visit the Notarization docs for more information and strategies on how to optimize it if
           # you're curious
           echo "Notarize app"
-          xcrun notarytool submit "PicGuard.zip" --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --password "$APPLE_PASSWORD" --wait
+          xcrun notarytool submit "PicGuard Pro.zip" --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --password "$APPLE_PASSWORD" --wait
 
           # Finally, we need to "attach the staple" to our executable, which will allow our app to be
           # validated by macOS even when an internet connection is not available.
           echo "Attach staple"
-          xcrun stapler staple "PicGuard.app"
-        working-directory: build/macos/Build/Products/Release-free
+          xcrun stapler staple "PicGuard Pro.app"
+        working-directory: build/macos/Build/Products/Release-pro
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
@@ -127,8 +127,8 @@ jobs:
       - name: Build zip
         run: |
           echo "VERSION: $VERSION_SHORT.$BUILD_NUMBER"
-          7z a PicGuard-"$VERSION_SHORT.$BUILD_NUMBER"-macos-universal.zip ./PicGuard.app
-        working-directory: build/macos/Build/Products/Release-free
+          7z a PicGuard-Pro-"$VERSION_SHORT.$BUILD_NUMBER"-macos-universal.zip ./PicGuard\ Pro.app
+        working-directory: build/macos/Build/Products/Release-pro
         env:
           VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
           BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
@@ -137,13 +137,13 @@ jobs:
       - name: Copy build for zip
         run: |
           ls -la *.zip
-          test -f PicGuard.zip && rm -f PicGuard.zip
+          test -f "PicGuard Pro.zip" && rm -f "PicGuard Pro.zip"
           mv *.zip $GITHUB_WORKSPACE/
-        working-directory: build/macos/Build/Products/Release-free
+        working-directory: build/macos/Build/Products/Release-pro
 
       - uses: actions/upload-artifact@v4
         with:
-          name: macos-zip-artifact
+          name: macos-zip-pro-artifact
           path: ./*.zip
 
       - name: Clean up

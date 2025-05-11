@@ -1,4 +1,4 @@
-name: Test macOS dmg
+name: Test macOS zip (free)
 
 on:
   workflow_dispatch:
@@ -7,16 +7,11 @@ on:
 permissions: read-all
 
 jobs:
-  dmg:
-    name: Create dmg (free)
+  macos-zip:
+    name: Create macos zip
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
-
-      - name: setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -106,8 +101,12 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
-      - name: Build DMG
-        run: bash scripts/build-dmg.sh
+      - name: Install p7zip
+        run: |
+          if ! command -v 7z >/dev/null 2>&1; then
+            echo "7z not exists"
+            brew install p7zip
+          fi
 
       - name: Set version
         id: version_step
@@ -125,21 +124,27 @@ jobs:
           echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
           echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
 
-      # Package the build.
-      - name: Copy build for dmg
+      - name: Build zip
         run: |
           echo "VERSION: $VERSION_SHORT.$BUILD_NUMBER"
-          ls -la *.dmg
-          mv PicGuard.dmg PicGuard-"$VERSION_SHORT.$BUILD_NUMBER"-macos-universal.dmg
-          ls -la *.dmg
+          7z a PicGuard-"$VERSION_SHORT.$BUILD_NUMBER"-macos-universal.zip ./PicGuard.app
+        working-directory: build/macos/Build/Products/Release-free
         env:
           VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
           BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
 
+      # Package the build.
+      - name: Copy build for zip
+        run: |
+          ls -la *.zip
+          test -f PicGuard.zip && rm -f PicGuard.zip
+          mv *.zip $GITHUB_WORKSPACE/
+        working-directory: build/macos/Build/Products/Release-free
+
       - uses: actions/upload-artifact@v4
         with:
-          name: macos-dmg-artifact
-          path: ./*.dmg
+          name: macos-zip-artifact
+          path: ./*.zip
 
       - name: Clean up
         if: ${{ always() }}

@@ -1,0 +1,184 @@
+name: Test macOS pkg (free)
+
+on:
+  workflow_dispatch:
+
+# Declare default permissions as readonly.
+permissions: read-all
+
+jobs:
+  pkg:
+    name: Create pkg
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.29.3'
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Configure .env
+        run: echo "$ENV_KEY" | base64 --decode > .env
+        env:
+          ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
+
+      - name: Resolving flutter dependencies
+        run: flutter pub get
+
+      - name: Resolving macos dependencies
+        run: pod install --repo-update
+        working-directory: macos
+
+      - name: Remove build cache
+        run: |
+          echo "╠ Removing build products and intermediate files from the build root..."
+          xcodebuild clean
+        working-directory: macos
+
+      - name: Build macOS
+        run: |
+          echo "╠ Releasing to app store..."
+          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
+
+      - name: Install certificates
+        run: |
+          # create variables
+          DEVELOPER_ID_INSTALLER_CERTIFICATE_PATH=$RUNNER_TEMP/build_developerID_installer_certificate.p12
+          DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH=$RUNNER_TEMP/build_developerID_application_certificate.p12
+          KEYCHAIN_PATH=$RUNNER_TEMP/pg-signing.keychain-db
+
+          # import certificate and provisioning profile from secrets
+          echo -n "$DEVELOPER_ID_INSTALLER_P12_BASE64_MAC" | base64 --decode --output $DEVELOPER_ID_INSTALLER_CERTIFICATE_PATH
+          echo -n "$DEVELOPER_ID_APPLICATION_P12_BASE64_MAC" | base64 --decode --output $DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH
+
+          # create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $DEVELOPER_ID_INSTALLER_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security import $DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+          # security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+        env:
+          DEVELOPER_ID_INSTALLER_P12_BASE64_MAC: ${{ secrets.DEVELOPER_ID_INSTALLER_P12_BASE64_MAC }}
+          DEVELOPER_ID_APPLICATION_P12_BASE64_MAC: ${{ secrets.DEVELOPER_ID_APPLICATION_P12_BASE64_MAC }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+
+      - name: Code Signing
+        run: |
+          # https://stackoverflow.com/questions/70991268/how-to-sign-and-notarize-a-pkg-within-a-github-actions-macos-runner
+          bash scripts/sign-macos-pkg.sh "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY"
+        env:
+          DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
+
+      - name: Build pkg
+        run: |
+          # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
+          xcrun pkgbuild --component "./PicGuard.app" --install-location /Applications --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard-unsigned.pkg
+          mv PicGuard-unsigned.pkg "$GITHUB_WORKSPACE/PicGuard-unsigned.pkg"
+        env:
+          DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY }}
+        working-directory: build/macos/Build/Products/Release-free
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-pkg-artifact
+          path: ./PicGuard-unsigned.pkg
+
+      - name: Building distribution file
+        run: |
+          xcrun productbuild --synthesize --product macos/packaging/pkg/requirements --package PicGuard-unsigned.pkg distribution.dist
+          sed -i '' '2 a\
+          \    <title>PicGuard</title>\
+          \    <license file="eula.rtf"/>\
+          ' distribution.dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: distribution-artifact
+          path: ./distribution.dist
+
+      - name: Sign pkg
+        run: |
+          # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
+          xcrun productbuild --distribution distribution.dist --resources macos/packaging/base --sign "$DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY" PicGuard.pkg
+        env:
+          DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pkg-artifact
+          path: ./PicGuard.pkg
+
+#      - name: Check sign status
+#        run: |
+#          # https://www.hexnode.com/mobile-device-management/help/how-to-sign-macos-pkg-files-for-deployment-with-hexnode-mdm/
+#          pkgutil –-check-signature PicGuard.pkg
+
+      - name: Notarize & Staple
+        run: |
+          # Here we send the notarization request to the Apple's Notarization service, waiting for the result.
+          # This typically takes a few seconds inside a CI environment, but it might take more depending on the App
+          # characteristics. Visit the Notarization docs for more information and strategies on how to optimize it if
+          # you're curious
+          echo "Notarize pkg"
+          xcrun notarytool submit "PicGuard.pkg" --apple-id "$APPLE_ID" --password "$APPLE_PASSWORD" --team-id "$APPLE_TEAM_ID" --output-format "json" --wait
+
+          # Finally, we need to "attach the staple" to our executable, which will allow our app to be
+          # validated by macOS even when an internet connection is not available.
+          echo "Attach staple"
+          xcrun stapler staple "PicGuard.pkg"
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+
+      - name: Set version
+        id: version_step
+        run: |
+          VERSION=$(yq '.version' pubspec.yaml)
+          echo "VERSION: $VERSION."
+
+          VERSION_SHORT=$(echo "$VERSION" | sed -e "s/+.*//")
+          echo "VERSION_SHORT: $VERSION_SHORT."
+
+          BUILD_NUMBER=$(echo "$VERSION" | sed -e "s/.*+//")
+          echo "BUILD_NUMBER: $BUILD_NUMBER."
+
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+
+      # Package the build.
+      - name: Copy build for pkg
+        run: |
+          echo "VERSION: $VERSION_SHORT.$BUILD_NUMBER"
+          ls -la *.pkg
+          test -f PicGuard-unsigned.pkg && rm -f PicGuard-unsigned.pkg
+          mv PicGuard.pkg PicGuard-"$VERSION_SHORT.$BUILD_NUMBER"-macos-universal.pkg
+        env:
+          VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
+          BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stapled-pkg-artifact
+          path: ./*.pkg
+
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          if [ -f "$RUNNER_TEMP/pg-signing.keychain-db" ]; then
+            echo "$RUNNER_TEMP/pg-signing.keychain-db"
+            security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
+          fi
+          rm -f .env
