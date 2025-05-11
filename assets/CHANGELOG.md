@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.5.3+446
+
+1. fix: add libayatana-appindicator
+2. fix(exe): specifies which architectures Setup is allowed to run on
+3. ci(windows): remove invalid characters "`" in workflows
+4. fix(exe): update the default installation directory
+5. fix: update copyright
+6. fix: replace `app_settings_plus` with `app_settings`
+7. chore(deps): update deps
+8. fix(web): update icons for pro version
+9. fix: update the icon for the about page
+10. docs: update readme
+11. ci(snaps): update workflows
+
 ## 2.5.2+445
 
 1. fix: add `rust-version` to the environment variables
@@ -37,12 +51,12 @@
 
 ## 2.0.0+441
 
-1. feat: add eula file to dmg and pkg 
-2. ci: update linux runner to ubuntu-24.04 
-3. build: migrate flutter_distributor to fastforge 
-4. fix: can not set icon file when packaging exe 
-5. feat: add tray manager 
-6. chore(deps): update deps 
+1. feat: add eula file to dmg and pkg
+2. ci: update linux runner to ubuntu-24.04
+3. build: migrate flutter_distributor to fastforge
+4. fix: can not set icon file when packaging exe
+5. feat: add tray manager
+6. chore(deps): update deps
 7. fix: update workflows
 
 ## 1.1.0+440
