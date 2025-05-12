@@ -59,7 +59,7 @@ jobs:
       - name: Install wix toolset
         shell: pwsh
         run: |
-          dotnet tool install --global wix
+          dotnet tool install --global wix --version 4.0.5
           wix --version
 
       - name: Configure .env
@@ -70,7 +70,9 @@ jobs:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
 
       - name: copy eula.rtf to the windows folder
-        run: Copy-Item -Path "$pwd\macos\packaging\base\eula.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
+        run: |
+          Copy-Item -Path "$pwd\macos\packaging\base\eula.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
+          Copy-Item -Path "$pwd\macos\packaging\base\eula.rtf" -Destination "$pwd\msi\picguard\picguard\License.rtf" -Force
 
       - name: Get SignTool path
         run: Get-Command signtool.exe
@@ -113,6 +115,7 @@ jobs:
 
           $env:IconPath = "$pwd\windows\runner\resources\app_icon.ico"
           $env:FLUTTER_BUILD_OUTPUT_DIR = "$pwd\build\windows\$env:Platform\runner\Release"
+          $env:LicensePath = "$env:FLUTTER_BUILD_OUTPUT_DIR\LICENSE.rtf"
           dotnet build .\msi\picguard\picguard\picguard.wixproj --arch "$env:Platform" --configuration Release
 
           $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
