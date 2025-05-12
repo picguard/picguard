@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.4+447
+
+1. feat: add pro version for macos
+
 ## 2.5.3+446
 
 1. fix: add libayatana-appindicator
