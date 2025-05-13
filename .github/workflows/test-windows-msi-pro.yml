@@ -38,6 +38,7 @@ jobs:
     runs-on: windows-2022
     env:
       Platform: x64
+      Configuration: Release
     needs:
       - get-version
     steps:
@@ -72,9 +73,7 @@ jobs:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64_WINDOWS }}
 
       - name: copy eula-pro.rtf to the windows folder
-        run: |
-          Copy-Item -Path "$pwd\macos\packaging\base\eula-pro.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
-          Copy-Item -Path "$pwd\macos\packaging\base\eula-pro.rtf" -Destination "$pwd\msi\picguard\picguard-pro\License.rtf" -Force
+        run: Copy-Item -Path "$pwd\macos\packaging\base\eula-pro.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
 
       - name: Install flutter dependencies
         run: flutter pub get
@@ -120,10 +119,10 @@ jobs:
           $env:IconPath = "$pwd\windows\runner\resources\app_icon.ico"
           $env:FLUTTER_BUILD_OUTPUT_DIR = "$pwd\build\windows\$env:Platform\runner\Release"
           $env:LicensePath = "$env:FLUTTER_BUILD_OUTPUT_DIR\LICENSE.rtf"
-          dotnet build .\msi\picguard\picguard-pro\picguard-pro.wixproj --arch "$env:Platform" --configuration Release
+          dotnet build .\msi\picguard\picguard-pro\picguard-pro.wixproj --arch "$env:Platform" --configuration "$env:Configuration"
 
           $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
-          & $signtool sign /v /f "$certificatePath" /fd SHA256 /t http://timestamp.comodoca.com/authenticode /p "$env:WINDOWS_CERTIFICATE_PASSWORD_PRO" /n "$env:WINDOWS_PUBLISHER_NAME_PRO" (get-item ".\msi\picguard\picguard-pro\bin\$env:Platform\Release\*\*.msi")
+          & $signtool sign /v /f "$certificatePath" /fd SHA256 /t http://timestamp.comodoca.com/authenticode /p "$env:WINDOWS_CERTIFICATE_PASSWORD_PRO" /n "$env:WINDOWS_PUBLISHER_NAME_PRO" (get-item ".\msi\picguard\picguard-pro\bin\$env:Platform\$env:Configuration\*\*.msi")
         env:
           WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
           WINDOWS_CERTIFICATE_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PRO }}
@@ -133,8 +132,8 @@ jobs:
       - name: Copy build for msi
         shell: pwsh
         run: |
-          Rename-Item -Path "$pwd\msi\picguard\picguard-pro\bin\$env:Platform\Release\en-US\picguard-pro.msi" -NewName "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER-windows-$env:Platform-en-US.msi"
-          Rename-Item -Path "$pwd\msi\picguard\picguard-pro\bin\$env:Platform\Release\zh-CN\picguard-pro.msi" -NewName "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER-windows-$env:Platform-zh-CN.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard-pro\bin\$env:Platform\$env:Configuration\en-US\picguard-pro.msi" -NewName "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER-windows-$env:Platform-en-US.msi"
+          Rename-Item -Path "$pwd\msi\picguard\picguard-pro\bin\$env:Platform\$env:Configuration\zh-CN\picguard-pro.msi" -NewName "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER-windows-$env:Platform-zh-CN.msi"
         env:
           VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
           BUILD_NUMBER: ${{ needs.get-version.outputs.build_number }}
@@ -142,7 +141,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: windows-msi-pro-artifact
-          path: .\msi\picguard\picguard-pro\bin\${{ env.Platform }}\Release\*\*.msi
+          path: .\msi\picguard\picguard-pro\bin\${{ env.Platform }}\${{ env.Configuration }}\*\*.msi
 
       - name: Clean up
         if: ${{ always() }}
