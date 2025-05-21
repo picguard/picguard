@@ -3125,7 +3125,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup LXD
-        uses: canonical/setup-lxd@v0.1.2
+        uses: canonical/setup-lxd@v0.1.3
         with:
           channel: latest/stable
           group: ${{ env.LXD_GROUP }}
@@ -3192,7 +3192,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup LXD
-        uses: canonical/setup-lxd@v0.1.2
+        uses: canonical/setup-lxd@v0.1.3
         with:
           channel: latest/stable
           group: ${{ env.LXD_GROUP }}
@@ -3267,7 +3267,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup LXD
-        uses: canonical/setup-lxd@v0.1.2
+        uses: canonical/setup-lxd@v0.1.3
         with:
           channel: latest/stable
           group: ${{ env.LXD_GROUP }}
@@ -3338,7 +3338,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup LXD
-        uses: canonical/setup-lxd@v0.1.2
+        uses: canonical/setup-lxd@v0.1.3
         with:
           channel: latest/stable
           group: ${{ env.LXD_GROUP }}
