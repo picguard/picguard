@@ -2,21 +2,6 @@ name: Test
 
 on:
   workflow_dispatch:
-  pull_request:
-    paths-ignore:
-      - '.github/workflows/test-*.yml'
-      - '.github/FUNDING.yml'
-      - 'docs/**'
-      - 'metadata/**'
-      - 'msi/picguard/LICENSE'
-      - 'msi/picguard/README.md'
-      - '.gitignore'
-      - 'CHANGELOG.md'
-      - 'LICENSE'
-      - 'Makefile'
-      - 'README.md'
-    branches:
-      - main
   push:
     paths-ignore:
       - '.github/workflows/test-*.yml'
