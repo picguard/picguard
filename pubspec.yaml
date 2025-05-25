@@ -17,7 +17,7 @@ publish_to: 'none'
 version: 2.5.4+447
 
 environment:
-  sdk: '>=3.7.0 <4.0.0'
+  sdk: '>=3.8.0 <4.0.0'
 
 workspace:
   - plugins/super_clipboard

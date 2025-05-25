@@ -33,7 +33,7 @@ class AppTheme {
       dividerTheme: const DividerThemeData(
         color: Colors.transparent,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         clipBehavior: Clip.hardEdge,
         color: Colors.white,
         shadowColor: Colors.transparent,
@@ -93,10 +93,10 @@ class AppTheme {
       colorScheme: ColorScheme.fromSwatch(
         accentColor: PGColors.primaryColor,
       ),
-      tabBarTheme: const TabBarTheme(
+      tabBarTheme: const TabBarThemeData(
         tabAlignment: TabAlignment.start,
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
@@ -223,10 +223,10 @@ class AppTheme {
         brightness: Brightness.dark,
         accentColor: PGColors.primaryColor,
       ),
-      tabBarTheme: const TabBarTheme(
+      tabBarTheme: const TabBarThemeData(
         tabAlignment: TabAlignment.start,
       ),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: PGColors.dialogBackgroundColor,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
