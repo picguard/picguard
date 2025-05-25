@@ -79,7 +79,7 @@ def make_parser():
         help='Connection type, e.g. "incoming", "outgoing". Default is empty, means incoming-outgoing',
     )
     parser.add_argument(
-        "--app-name", type=str, default="PicGuard Pro", help="The app name."
+        "--app-name", type=str, default="PicGuardPro", help="The app name."
     )
     parser.add_argument(
         "--description", type=str, default="Your pictures, your signature.", help="The app description."
@@ -199,7 +199,7 @@ def replace_app_name_in_langs(app_name):
         with open(file_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
         for i, line in enumerate(lines):
-            lines[i] = line.replace("PicGuard Pro", app_name)
+            lines[i] = line.replace("PicGuardPro", app_name)
         with open(file_path, "w", encoding="utf-8") as f:
             f.writelines(lines)
 
@@ -480,7 +480,7 @@ if __name__ == "__main__":
     if not gen_pre_vars(args, dist_dir, icon_src):
         sys.exit(-1)
 
-    if app_name != "PicGuard Pro":
+    if app_name != "PicGuardPro":
         replace_component_guids_in_wxs()
 
     if not gen_upgrade_info():
