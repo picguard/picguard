@@ -82,6 +82,9 @@ def make_parser():
         "--app-name", type=str, default="PicGuardPro", help="The app name."
     )
     parser.add_argument(
+        "--display-name", type=str, default="PicGuard Pro", help="The display name."
+    )
+    parser.add_argument(
         "--description", type=str, default="Your pictures, your signature.", help="The app description."
     )
     parser.add_argument(
@@ -100,7 +103,7 @@ def make_parser():
     parser.add_argument(
         "--upgrade-code",
         type=str,
-        default="62eb3032-f9fb-4440-8def-b9d7bdffd9f4",
+        default="64bdde9d-fe72-49e2-abfb-19cf4d1ba55f",
         help="The UpgradeCode must be consistent for each product.",
     )
     return parser
@@ -172,6 +175,7 @@ def gen_pre_vars(args, dist_dir, icon_path):
             f'{indent}<?define Version="{args.version}" ?>\n',
             f'{indent}<?define Manufacturer="{args.manufacturer}" ?>\n',
             f'{indent}<?define Product="{args.app_name}" ?>\n',
+            f'{indent}<?define DisplayName="{args.display_name}" ?>\n',
             f'{indent}<?define Description="{args.description}" ?>\n',
             f'{indent}<?define ProductLower="{args.app_name.lower()}" ?>\n',
             f'{indent}<?define RegKeyRoot=".$(var.ProductLower)" ?>\n',
@@ -193,13 +197,13 @@ def gen_pre_vars(args, dist_dir, icon_path):
     )
 
 
-def replace_app_name_in_langs(app_name):
+def replace_app_name_in_langs(display_name):
     langs_dir = Path(sys.argv[0]).parent.joinpath("picguard-pro/Language")
     for file_path in langs_dir.glob("*.wxl"):
         with open(file_path, "r", encoding="utf-8") as f:
             lines = f.readlines()
         for i, line in enumerate(lines):
-            lines[i] = line.replace("PicGuardPro", app_name)
+            lines[i] = line.replace("PicGuard Pro", display_name)
         with open(file_path, "w", encoding="utf-8") as f:
             f.writelines(lines)
 
@@ -313,7 +317,7 @@ def gen_custom_ARPSYSTEMCOMPONENT_True(args, dist_dir):
             f"{indent}<!--https://learn.microsoft.com/en-us/windows/win32/msi/property-reference-->\n"
         )
         lines_new.append(
-            f'{indent}<RegistryValue Type="string" Name="DisplayName" Value="{args.app_name}" />\n'
+            f'{indent}<RegistryValue Type="string" Name="DisplayName" Value="{args.display_name}" />\n'
         )
         lines_new.append(
             f'{indent}<RegistryValue Type="string" Name="DisplayIcon" Value="[INSTALLFOLDER_INNER]{args.app_name}.exe" />\n'
@@ -498,4 +502,4 @@ if __name__ == "__main__":
     if not gen_custom_dialog_bitmaps():
         sys.exit(-1)
 
-    replace_app_name_in_langs(args.app_name)
+    replace_app_name_in_langs(args.display_name)
