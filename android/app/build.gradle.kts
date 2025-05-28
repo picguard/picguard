@@ -22,7 +22,7 @@ if (proKeystorePropertiesFile.exists()) {
 android {
     namespace = "com.kjxbyz.picguard"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion "27.2.12479018"
+    ndkVersion = "27.2.12479018"
 //    ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -34,8 +34,8 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+    sourceSets.getByName("main") {
+        java.setSrcDirs(listOf("src/main/java", "src/main/kotlin"))
     }
 
     defaultConfig {
