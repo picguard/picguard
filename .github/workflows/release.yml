@@ -4473,7 +4473,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets zip `
-            --artifact-name "{{name}}-$env:RELEASE-{{platform}}-$env:Platform.{{ext}}"
+            --artifact-name "{{name}}-$env:RELEASE-{{platform}}-portable-$env:Platform.{{ext}}"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
@@ -4550,7 +4550,7 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
             --platform windows `
             --targets zip `
-            --artifact-name "{{name}}-pro-$env:RELEASE-{{platform}}-$env:Platform.{{ext}}"
+            --artifact-name "{{name}}-pro-$env:RELEASE-{{platform}}-portable-$env:Platform.{{ext}}"
         env:
           RELEASE: ${{ needs.create-release.outputs.release }}
 
