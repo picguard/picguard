@@ -39,7 +39,7 @@ class DragState {
   /// Touch position in global coordinates
   final Offset globalPosition;
 
-  copyWith({
+  DragState copyWith({
     double? liftFactor,
     double? menuFactor,
     double? dragFactor,

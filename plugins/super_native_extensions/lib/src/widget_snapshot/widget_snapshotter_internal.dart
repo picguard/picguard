@@ -343,8 +343,6 @@ class SnapshotSettingsState extends State<SnapshotSettings> {
 
 class _SnapshotLayout extends MultiChildRenderObjectWidget {
   const _SnapshotLayout({
-    // ignore: unused_element
-    super.key,
     required super.children,
   });
 

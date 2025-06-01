@@ -126,8 +126,8 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> with TrayListener {
-  final easyLoadingBuilder = EasyLoading.init();
-  final botToastBuilder = BotToastInit();
+  final TransitionBuilder easyLoadingBuilder = EasyLoading.init();
+  final TransitionBuilder botToastBuilder = BotToastInit();
 
   @override
   void initState() {

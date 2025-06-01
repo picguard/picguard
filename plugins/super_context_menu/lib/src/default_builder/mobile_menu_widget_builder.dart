@@ -379,8 +379,6 @@ extension on Menu {
 
 class _MenuItem extends StatelessWidget {
   const _MenuItem({
-    // ignore: unused_element
-    super.key,
     required this.menuInfo,
     required this.state,
     required this.element,
@@ -463,8 +461,6 @@ class _MenuItem extends StatelessWidget {
 
 class _MenuHeader extends StatelessWidget {
   const _MenuHeader({
-    // ignore: unused_element
-    super.key,
     required this.menuInfo,
     required this.state,
     required this.theme,
@@ -526,8 +522,6 @@ class _MenuHeader extends StatelessWidget {
 
 class _MenuItemScaffold extends StatelessWidget {
   const _MenuItemScaffold({
-    // ignore: unused_element
-    super.key,
     this.prefix,
     this.suffix,
     required this.menuInfo,
