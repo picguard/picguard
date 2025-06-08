@@ -53,21 +53,21 @@
     <launchable type="desktop-id">com.kjxbyz.PicGuardPro.desktop</launchable>
     <screenshots>
         <screenshot type="default">
-            <image>https://raw.githubusercontent.com/picguard/picguard/v2.5.4+447/screenshots/pro/desktop.png</image>
+            <image>https://raw.githubusercontent.com/picguard/picguard/v3.0.0+448/screenshots/pro/desktop.png</image>
             <caption>Default screenshot for desktop</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/picguard/picguard/v2.5.4+447/screenshots/pro/desktop-zh.png</image>
+            <image>https://raw.githubusercontent.com/picguard/picguard/v3.0.0+448/screenshots/pro/desktop-zh.png</image>
             <caption>Support Chinese</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/picguard/picguard/v2.5.4+447/screenshots/pro/desktop-dark.png</image>
+            <image>https://raw.githubusercontent.com/picguard/picguard/v3.0.0+448/screenshots/pro/desktop-dark.png</image>
             <caption>Dark Mode</caption>
         </screenshot>
     </screenshots>
     <releases>
-        <release version="v2.5.4+447" date="2025-05-12">
-            <url type="details">https://github.com/picguard/picguard/blob/v2.5.4+447/CHANGELOG.md</url>
+        <release version="v3.0.0+448" date="2025-06-08">
+            <url type="details">https://github.com/picguard/picguard/blob/v3.0.0+448/CHANGELOG.md</url>
         </release>
     </releases>
     <content_rating type="oars-1.1">
