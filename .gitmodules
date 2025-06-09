@@ -1,3 +1,0 @@
-[submodule "plugins"]
-	path = plugins
-	url = git@github.com:PicGuard/super_native_extensions.git

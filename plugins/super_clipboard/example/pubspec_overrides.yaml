@@ -1,6 +1,0 @@
-# melos_managed_dependency_overrides: super_clipboard,super_native_extensions
-dependency_overrides:
-  super_clipboard:
-    path: ..
-  super_native_extensions:
-    path: ../../super_native_extensions
