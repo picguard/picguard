@@ -37,6 +37,8 @@ jobs:
       tag_name: ${{ steps.version_step.outputs.tag_name }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Set sha
         id: sha_step
@@ -140,6 +142,8 @@ jobs:
       - windows-zip-pro
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - uses: actions/setup-node@v4
         with:
@@ -188,6 +192,9 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
       - uses: actions/setup-java@v4
         with:
           java-version: "17.x"
@@ -198,6 +205,12 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: ${{ env.flutter-version }}
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Remove target (if exists)
         run: rustup target remove armv7-linux-androideabi || true
@@ -210,9 +223,6 @@ jobs:
         env:
           RUST_VERSION: ${{ env.rust-version }}
 
-      - name: Flutter doctor -v
-        run: flutter doctor -v
-
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -221,9 +231,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Install Deps
-        run: flutter pub get
 
       - name: Configure Keystore for Android
         run: |
@@ -281,6 +288,9 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
       - uses: actions/setup-java@v4
         with:
           java-version: "17.x"
@@ -291,6 +301,12 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: ${{ env.flutter-version }}
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Remove target (if exists)
         run: rustup target remove armv7-linux-androideabi || true
@@ -303,9 +319,6 @@ jobs:
         env:
           RUST_VERSION: ${{ env.rust-version }}
 
-      - name: Flutter doctor -v
-        run: flutter doctor -v
-
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -314,9 +327,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Install Deps
-        run: flutter pub get
 
       - name: Configure Keystore for Android
         run: |
@@ -374,6 +384,9 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
       - uses: actions/setup-java@v4
         with:
           java-version: "17.x"
@@ -384,6 +397,12 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: ${{ env.flutter-version }}
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Remove target (if exists)
         run: rustup target remove armv7-linux-androideabi || true
@@ -396,9 +415,6 @@ jobs:
         env:
           RUST_VERSION: ${{ env.rust-version }}
 
-      - name: Flutter doctor -v
-        run: flutter doctor -v
-
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -407,9 +423,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Install Deps
-        run: flutter pub get
 
       - name: Configure Keystore for Android
         run: |
@@ -472,6 +485,9 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
       - uses: actions/setup-java@v4
         with:
           java-version: "17.x"
@@ -482,6 +498,12 @@ jobs:
         with:
           channel: 'stable'
           flutter-version: ${{ env.flutter-version }}
+
+      - name: Flutter doctor -v
+        run: flutter doctor -v
+
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Remove target (if exists)
         run: rustup target remove armv7-linux-androideabi || true
@@ -494,9 +516,6 @@ jobs:
         env:
           RUST_VERSION: ${{ env.rust-version }}
 
-      - name: Flutter doctor -v
-        run: flutter doctor -v
-
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -505,9 +524,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Install Deps
-        run: flutter pub get
 
       - name: Configure Keystore for Android
         run: |
@@ -570,6 +586,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -580,6 +598,13 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
+      - name: Resolving ios dependencies
+        run: pod install --repo-update
+        working-directory: ios
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -588,13 +613,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Resolving flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving ios dependencies
-        run: pod install --repo-update
-        working-directory: ios
 
       - name: Install the Apple certificate and provisioning profile
         env:
@@ -691,6 +709,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -701,6 +721,13 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
+      - name: Resolving ios dependencies
+        run: pod install --repo-update
+        working-directory: ios
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -709,13 +736,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Resolving flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving ios dependencies
-        run: pod install --repo-update
-        working-directory: ios
 
       - name: Install the Apple certificate and provisioning profile
         env:
@@ -812,6 +832,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -822,6 +844,13 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
+      - name: Resolving macos dependencies
+        run: pod install --repo-update
+        working-directory: macos
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -830,13 +859,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Resolving flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Remove build cache
         run: |
@@ -938,6 +960,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -948,6 +972,13 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
+      - name: Resolving macos dependencies
+        run: pod install --repo-update
+        working-directory: macos
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -956,13 +987,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Resolving flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Remove build cache
         run: |
@@ -1064,6 +1088,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1074,6 +1100,13 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
+      - name: Resolving macos dependencies
+        run: pod install --repo-update
+        working-directory: macos
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -1082,13 +1115,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Resolving flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Remove build cache
         run: |
@@ -1209,6 +1235,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1219,6 +1247,13 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
+      - name: Resolving macos dependencies
+        run: pod install --repo-update
+        working-directory: macos
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -1227,13 +1262,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Resolving flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Remove build cache
         run: |
@@ -1354,6 +1382,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1364,6 +1394,13 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
+      - name: Resolving macos dependencies
+        run: pod install --repo-update
+        working-directory: macos
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -1372,13 +1409,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Resolving flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Remove build cache
         run: |
@@ -1493,6 +1523,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1503,6 +1535,13 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
+      - name: Resolving macos dependencies
+        run: pod install --repo-update
+        working-directory: macos
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -1511,13 +1550,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Resolving flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Remove build cache
         run: |
@@ -1632,6 +1664,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1642,6 +1676,13 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
+      - name: Resolving macos dependencies
+        run: pod install --repo-update
+        working-directory: macos
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -1650,13 +1691,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Resolving flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Remove build cache
         run: |
@@ -1760,6 +1794,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1770,6 +1806,13 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
+      - name: Resolving macos dependencies
+        run: pod install --repo-update
+        working-directory: macos
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -1778,13 +1821,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Resolving flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Remove build cache
         run: |
@@ -1888,6 +1924,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1898,6 +1936,13 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
+      - name: Resolving macos dependencies
+        run: pod install --repo-update
+        working-directory: macos
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -1906,13 +1951,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Resolving flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Remove build cache
         run: |
@@ -2023,6 +2061,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -2033,6 +2073,13 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
+      - name: Resolving macos dependencies
+        run: pod install --repo-update
+        working-directory: macos
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -2041,13 +2088,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Resolving flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Remove build cache
         run: |
@@ -2158,6 +2198,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2185,6 +2227,9 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -2203,6 +2248,7 @@ jobs:
       - name: Build AppImage
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets appimage \
@@ -2234,6 +2280,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2263,6 +2311,9 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -2285,6 +2336,7 @@ jobs:
       - name: Build AppImage
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets appimage \
@@ -2316,6 +2368,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2343,6 +2397,9 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -2368,6 +2425,7 @@ jobs:
       - name: Build AppImage
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
             --platform linux \
             --targets appimage \
@@ -2399,6 +2457,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2427,6 +2487,9 @@ jobs:
 
       - name: Flutter doctor -v
         run: flutter doctor -v
+
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Configure .env
         run: |
@@ -2457,6 +2520,7 @@ jobs:
       - name: Build AppImage
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
             --platform linux \
             --targets appimage \
@@ -2488,6 +2552,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2510,6 +2576,9 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -2528,6 +2597,7 @@ jobs:
       - name: Build deb
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets deb \
@@ -2559,6 +2629,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2580,6 +2652,9 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -2598,6 +2673,7 @@ jobs:
       - name: Build deb
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets deb \
@@ -2629,6 +2705,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2650,6 +2728,9 @@ jobs:
 
       - name: Flutter doctor -v
         run: flutter doctor -v
+
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Configure .env
         run: |
@@ -2676,6 +2757,7 @@ jobs:
       - name: Build deb
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
             --platform linux \
             --targets deb \
@@ -2707,6 +2789,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2727,6 +2811,9 @@ jobs:
 
       - name: Flutter doctor -v
         run: flutter doctor -v
+
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Configure .env
         run: |
@@ -2753,6 +2840,7 @@ jobs:
       - name: Build deb
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
             --platform linux \
             --targets deb \
@@ -2784,6 +2872,9 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -2810,6 +2901,9 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -2828,6 +2922,7 @@ jobs:
       - name: Build RPM
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets rpm \
@@ -2859,6 +2954,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - uses: actions/setup-java@v4
         with:
@@ -2885,6 +2982,9 @@ jobs:
 
       - name: Flutter doctor -v
         run: flutter doctor -v
+
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Configure .env
         run: |
@@ -2915,6 +3015,7 @@ jobs:
       - name: Build RPM
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
             --platform linux \
             --targets rpm \
@@ -2946,6 +3047,9 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -2972,6 +3076,9 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -2997,6 +3104,7 @@ jobs:
       - name: Build RPM
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
             --platform linux \
             --targets rpm \
@@ -3028,6 +3136,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - uses: actions/setup-java@v4
         with:
@@ -3054,6 +3164,9 @@ jobs:
 
       - name: Flutter doctor -v
         run: flutter doctor -v
+
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Configure .env
         run: |
@@ -3090,6 +3203,7 @@ jobs:
       - name: Build RPM
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
             --platform linux \
             --targets rpm \
@@ -3123,6 +3237,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -3190,6 +3306,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -3265,6 +3383,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -3336,6 +3456,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -3413,6 +3535,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -3435,6 +3559,9 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -3443,9 +3570,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Install flutter dependencies
-        run: flutter pub get
 
       - name: Build flutter
         run: flutter build linux --dart-define-from-file=.env --target lib/main_free.dart
@@ -3480,6 +3604,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -3502,6 +3628,9 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -3510,9 +3639,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Install flutter dependencies
-        run: flutter pub get
 
       - name: Build app
         run: flutter build linux --dart-define-from-file=.env --target lib/main_free.dart
@@ -3556,6 +3682,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -3578,6 +3706,9 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -3591,9 +3722,6 @@ jobs:
         run: |
           cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
           cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
-
-      - name: Install flutter dependencies
-        run: flutter pub get
 
       - name: Build flutter
         run: flutter build linux --dart-define-from-file=.env --target lib/main_pro.dart
@@ -3628,6 +3756,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -3650,6 +3780,9 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -3663,9 +3796,6 @@ jobs:
         run: |
           cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
           cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
-
-      - name: Install flutter dependencies
-        run: flutter pub get
 
       - name: Build app
         run: flutter build linux --dart-define-from-file=.env --target lib/main_pro.dart
@@ -3711,6 +3841,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -3766,10 +3898,14 @@ jobs:
           WINDOWS_EXE_APP_ID: ${{ secrets.WINDOWS_EXE_APP_ID }}
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Build exe
         shell: pwsh
         run: |
           fastforge package `
+            --skip-clean `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets exe `
@@ -3831,6 +3967,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -3891,10 +4029,14 @@ jobs:
           WINDOWS_EXE_APP_ID_PRO: ${{ secrets.WINDOWS_EXE_APP_ID_PRO }}
           WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Build exe
         shell: pwsh
         run: |
           fastforge package `
+            --skip-clean `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
             --platform windows `
             --targets exe `
@@ -3957,6 +4099,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -3998,8 +4142,8 @@ jobs:
           choco install yq
           yq --version
 
-      - name: Install flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Build windows
         run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
@@ -4080,6 +4224,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4115,9 +4261,6 @@ jobs:
       - name: copy eula-pro.rtf to the windows folder
         run: Copy-Item -Path "$pwd\macos\packaging\base\eula-pro.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
 
-      - name: Install flutter dependencies
-        run: flutter pub get
-
       - name: Update config
         shell: pwsh
         run: |
@@ -4125,6 +4268,9 @@ jobs:
           Copy-Item -Path "$pwd\windows\pro\main.cpp" -Destination "$pwd\windows\runner\main.cpp" -Force
           Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
           Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
+
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Build windows
         run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
@@ -4204,6 +4350,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4263,8 +4411,8 @@ jobs:
           WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER }}
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
 
-      - name: Install flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Build windows
         run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
@@ -4320,6 +4468,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4383,8 +4533,8 @@ jobs:
           WINDOWS_PUBLISHER_PRO: ${{ secrets.WINDOWS_PUBLISHER_PRO }}
           WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
 
-      - name: Install flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Build windows
         run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
@@ -4440,6 +4590,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4466,10 +4618,14 @@ jobs:
       - name: Install fastforge
         run: dart pub global activate fastforge
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Build zip
         shell: pwsh
         run: |
           fastforge package `
+            --skip-clean `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets zip `
@@ -4509,6 +4665,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4543,10 +4701,14 @@ jobs:
           Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
           Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Build zip
         shell: pwsh
         run: |
           fastforge package `
+            --skip-clean `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
             --platform windows `
             --targets zip `

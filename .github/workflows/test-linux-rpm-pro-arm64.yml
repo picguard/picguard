@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-22.04-arm
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - uses: actions/setup-java@v4
         with:
@@ -67,9 +69,13 @@ jobs:
           mv "$(pwd)/linux/packaging/rpm/make_config-pro.yaml" "$(pwd)/linux/packaging/rpm/make_config.yaml"
           yq -i '.build_arch = "aarch64"' linux/packaging/rpm/make_config.yaml
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Build RPM
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
             --platform linux \
             --targets rpm \

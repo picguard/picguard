@@ -78,10 +78,12 @@ parts:
       # rm -f "$PG_FLUTTER_BUILD_DIR/engine/src/.gn"
       flutter doctor -v
       flutter precache --linux
-      flutter pub get
+      dart pub global activate melos
       
       cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
       cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+      
+      melos bootstrap
       
       flutter build linux --release --dart-define-from-file=.env --target $FLUTTER_TARGET
       cp -r build/linux/*/release/bundle/* $CRAFT_PART_INSTALL/

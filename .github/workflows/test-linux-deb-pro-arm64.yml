@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-22.04-arm
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -51,9 +53,13 @@ jobs:
           rm -f "$(pwd)/linux/packaging/deb/make_config.yaml"
           mv "$(pwd)/linux/packaging/deb/make_config-pro.yaml" "$(pwd)/linux/packaging/deb/make_config.yaml"
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Build deb
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
             --platform linux \
             --targets deb \

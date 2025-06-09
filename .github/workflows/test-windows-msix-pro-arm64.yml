@@ -16,6 +16,8 @@ jobs:
       build_number: ${{ steps.version_step.outputs.build_number }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Set version
         id: version_step
@@ -45,6 +47,8 @@ jobs:
       - get-version
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         shell: pwsh
@@ -104,8 +108,10 @@ jobs:
           WINDOWS_PUBLISHER_PRO: ${{ secrets.WINDOWS_PUBLISHER_PRO }}
           WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
 
-      - name: Install flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+        with:
+          run-bootstrap: true
 
       - name: Build windows
         run: |
