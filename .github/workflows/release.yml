@@ -37,6 +37,8 @@ jobs:
       tag_name: ${{ steps.version_step.outputs.tag_name }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Set sha
         id: sha_step
@@ -140,6 +142,8 @@ jobs:
       - windows-zip-pro
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - uses: actions/setup-node@v4
         with:
@@ -188,6 +192,9 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
       - uses: actions/setup-java@v4
         with:
           java-version: "17.x"
@@ -281,6 +288,9 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
       - uses: actions/setup-java@v4
         with:
           java-version: "17.x"
@@ -374,6 +384,9 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
       - uses: actions/setup-java@v4
         with:
           java-version: "17.x"
@@ -472,6 +485,9 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
       - uses: actions/setup-java@v4
         with:
           java-version: "17.x"
@@ -570,6 +586,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -691,6 +709,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -812,6 +832,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -938,6 +960,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1064,6 +1088,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1209,6 +1235,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1354,6 +1382,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1493,6 +1523,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1632,6 +1664,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1760,6 +1794,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1888,6 +1924,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -2023,6 +2061,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -2158,6 +2198,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2238,6 +2280,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2324,6 +2368,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2411,6 +2457,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2504,6 +2552,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2579,6 +2629,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2653,6 +2705,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2735,6 +2789,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2816,6 +2872,9 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -2895,6 +2954,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - uses: actions/setup-java@v4
         with:
@@ -2986,6 +3047,9 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -3072,6 +3136,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - uses: actions/setup-java@v4
         with:
@@ -3171,6 +3237,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -3238,6 +3306,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -3313,6 +3383,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -3384,6 +3456,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -3461,6 +3535,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -3528,6 +3604,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -3604,6 +3682,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -3676,6 +3756,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -3759,6 +3841,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -3883,6 +3967,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4013,6 +4099,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4136,6 +4224,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4260,6 +4350,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4376,6 +4468,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4496,6 +4590,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4569,6 +4665,8 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
