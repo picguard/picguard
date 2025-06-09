@@ -1,0 +1,21 @@
+name: picguard
+
+#sdkPath: .fvm/flutter_sdk
+ide:
+  intellij:
+    enabled: true
+    moduleNamePrefix: ''
+
+packages:
+  - .
+  - plugins/super_clipboard
+  - plugins/super_clipboard/example
+  - plugins/super_context_menu
+  - plugins/super_context_menu/example
+  - plugins/super_drag_and_drop
+  - plugins/super_drag_and_drop/example
+  - plugins/super_hot_key
+  - plugins/super_keyboard_layout
+  - plugins/super_keyboard_layout/example
+  - plugins/super_native_extensions
+  - plugins/super_native_extensions/cargokit/build_tool

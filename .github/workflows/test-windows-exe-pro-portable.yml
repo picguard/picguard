@@ -74,8 +74,10 @@ jobs:
           Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
           Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
 
-      - name: Install flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+        with:
+          run-bootstrap: true
 
       - name: Build windows
         run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart

@@ -39,8 +39,8 @@ jobs:
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
-      - name: Install flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Build flutter
         run: flutter build linux --dart-define-from-file=.env --target lib/main_free.dart

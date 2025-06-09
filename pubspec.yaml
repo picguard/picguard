@@ -19,17 +19,6 @@ version: 3.0.0+448
 environment:
   sdk: '>=3.8.0 <4.0.0'
 
-workspace:
-  - plugins/super_clipboard
-  - plugins/super_clipboard/example
-  - plugins/super_context_menu
-  - plugins/super_context_menu/example
-  - plugins/super_drag_and_drop
-  - plugins/super_drag_and_drop/example
-  - plugins/super_keyboard_layout
-  - plugins/super_keyboard_layout/example
-  - plugins/super_native_extensions
-
 dependencies:
   about: ^2.2.0
   app_settings: ^6.1.1
@@ -66,7 +55,7 @@ dependencies:
   sentry_logging: ^8.14.2
   shared_preferences: ^2.5.3
   slang_flutter: ^4.7.0
-  super_drag_and_drop: ^0.9.0-dev.6
+  super_drag_and_drop: ^0.9.0
   syncfusion_flutter_sliders: ^29.2.9
   synchronized: ^3.3.1
   tray_manager: ^0.5.0
@@ -79,6 +68,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   import_sorter: ^4.6.0
+  melos: ^6.3.3
   msix: ^3.16.9
   slang_build_runner: ^4.7.0
   very_good_analysis: ^9.0.0

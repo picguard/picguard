@@ -61,8 +61,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Install Deps
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Configure Keystore for Android
         run: |
@@ -113,8 +113,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Resolving flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Resolving ios dependencies
         run: pod install --repo-update
@@ -211,8 +211,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Resolving flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Resolving macos dependencies
         run: pod install --repo-update
@@ -334,8 +334,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Install flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Build flutter
         run: flutter build linux --dart-define-from-file=.env --target lib/main_free.dart
@@ -387,8 +387,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Install flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Build zip
         run: |
@@ -441,8 +441,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Install flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Build flutter
         run: flutter build web --dart-define-from-file=.env --target lib/main_free.dart

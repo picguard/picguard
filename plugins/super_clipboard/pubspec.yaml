@@ -1,25 +1,24 @@
 name: super_clipboard
 description: Comprehensive clipboard access package for Flutter. Supports reading and writing of rich text, images and other formats.
-version: 0.9.0-dev.6
+version: 0.9.0
 homepage: https://github.com/superlistapp/super_native_extensions
 repository: https://github.com/superlistapp/super_native_extensions/tree/main/super_clipboard
 issue_tracker: https://github.com/superlistapp/super_native_extensions/tree/main/super_clipboard/issues
 
 environment:
-  sdk: ">=3.5.0 <4.0.0"
-
-resolution: workspace
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   collection: ^1.16.0
   meta: ^1.7.0
-  super_native_extensions: ^0.9.0-dev.6
+  super_native_extensions: ^0.9.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
+  flutter_lints: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

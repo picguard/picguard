@@ -379,6 +379,8 @@ extension on Menu {
 
 class _MenuItem extends StatelessWidget {
   const _MenuItem({
+    // ignore: unused_element_parameter
+    super.key,
     required this.menuInfo,
     required this.state,
     required this.element,
@@ -461,6 +463,8 @@ class _MenuItem extends StatelessWidget {
 
 class _MenuHeader extends StatelessWidget {
   const _MenuHeader({
+    // ignore: unused_element_parameter
+    super.key,
     required this.menuInfo,
     required this.state,
     required this.theme,
@@ -522,6 +526,8 @@ class _MenuHeader extends StatelessWidget {
 
 class _MenuItemScaffold extends StatelessWidget {
   const _MenuItemScaffold({
+    // ignore: unused_element_parameter
+    super.key,
     this.prefix,
     this.suffix,
     required this.menuInfo,
@@ -626,10 +632,11 @@ class _MenuItemScaffold extends StatelessWidget {
 
 class _AnimatedChevron extends StatelessWidget {
   const _AnimatedChevron({
+    Key? key,
     required this.isExpanded,
     required this.duration,
     required this.color,
-  });
+  }) : super(key: key);
 
   final bool isExpanded;
 

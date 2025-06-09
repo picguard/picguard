@@ -1,0 +1,6 @@
+# melos_managed_dependency_overrides: super_keyboard_layout,super_native_extensions
+dependency_overrides:
+  super_keyboard_layout:
+    path: ../super_keyboard_layout
+  super_native_extensions:
+    path: ../super_native_extensions

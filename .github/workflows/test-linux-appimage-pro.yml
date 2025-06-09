@@ -57,9 +57,13 @@ jobs:
           rm -f "$(pwd)/linux/packaging/appimage/make_config.yaml"
           mv "$(pwd)/linux/packaging/appimage/make_config-pro.yaml" "$(pwd)/linux/packaging/appimage/make_config.yaml"
 
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+
       - name: Build AppImage
         run: |
           fastforge package \
+            --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
             --platform linux \
             --targets appimage \

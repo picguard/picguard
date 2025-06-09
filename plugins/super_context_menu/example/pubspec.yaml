@@ -4,20 +4,18 @@ publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: ">=3.5.0 <4.0.0"
-
-resolution: workspace
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  super_context_menu: ^0.9.0-dev.6
-  super_drag_and_drop: ^0.9.0-dev.6
+  super_context_menu: ^0.9.0
+  super_drag_and_drop: ^0.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
+  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true

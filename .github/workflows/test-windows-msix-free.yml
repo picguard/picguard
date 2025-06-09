@@ -101,8 +101,10 @@ jobs:
           WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER }}
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
 
-      - name: Install flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+        with:
+          run-bootstrap: true
 
       - name: Build windows
         run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart

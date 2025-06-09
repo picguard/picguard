@@ -77,8 +77,10 @@ jobs:
         run: Get-Command signtool.exe
         shell: pwsh
 
-      - name: Install flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
+        with:
+          run-bootstrap: true
 
       - name: Build windows
         run: |

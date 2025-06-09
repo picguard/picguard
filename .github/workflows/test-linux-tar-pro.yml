@@ -44,8 +44,8 @@ jobs:
           cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
           cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
 
-      - name: Install flutter dependencies
-        run: flutter pub get
+      - name: Setup Melos
+        uses: bluefireteam/melos-action@v3
 
       - name: Build flutter
         run: flutter build linux --dart-define-from-file=.env --target lib/main_pro.dart
