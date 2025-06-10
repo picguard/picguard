@@ -1341,40 +1341,43 @@ packages:
   super_clipboard:
     dependency: "direct overridden"
     description:
-      path: "plugins/super_clipboard"
-      relative: true
-    source: path
+      name: super_clipboard
+      sha256: "561d49f845c75638fde034add6a785c36f1077e912663dabd08231b22adb6570"
+      url: "https://pub.dev"
+    source: hosted
     version: "0.9.0"
   super_drag_and_drop:
     dependency: "direct main"
     description:
-      path: "plugins/super_drag_and_drop"
-      relative: true
-    source: path
+      name: super_drag_and_drop
+      sha256: "199c7c6c103a3cb5bd8118e46693713806cf6514307815ac886b8d326c066b9c"
+      url: "https://pub.dev"
+    source: hosted
     version: "0.9.0"
   super_native_extensions:
     dependency: "direct overridden"
     description:
-      path: "plugins/super_native_extensions"
-      relative: true
-    source: path
+      name: super_native_extensions
+      sha256: "8613401d387a7ca321eb4a4535873749bd881421b7ccdcab6c44ebe0163cdd47"
+      url: "https://pub.dev"
+    source: hosted
     version: "0.9.0"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "104aaad3cfc0bea1f63dfa96b1f0cbb1e3ca46856f127dc8d182271c61ba87b1"
+      sha256: "0e1e1f50edca35bf1a36c75ebd9c4bef722d3ff9998dac9cee3bf11745639d6a"
       url: "https://pub.dev"
     source: hosted
-    version: "29.2.9"
+    version: "29.2.10"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "6d221f8a62df45181cb3b743c46672f51486b7ba1a0e990329a77107be558b6e"
+      sha256: "42bfbc8802a4a9481e210abd506aab89e3f0cd779ce2b74e46beae9dba221b04"
       url: "https://pub.dev"
     source: hosted
-    version: "29.2.9"
+    version: "29.2.10"
   synchronized:
     dependency: "direct main"
     description:
