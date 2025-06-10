@@ -61,6 +61,8 @@ parts:
       - FLUTTER_VERSION: 3.32.2
       - FLUTTER_TARGET: lib/main_pro.dart
     override-build: |
+      export PATH="$PATH":"$HOME/.pub-cache/bin"
+
       # https://github.com/superlistapp/super_native_extensions/issues/497#issuecomment-2782786522
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
       source $HOME/.cargo/env
