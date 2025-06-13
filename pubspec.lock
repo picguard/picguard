@@ -365,10 +365,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "77f8e81d22d2a07d0dee2c62e1dda71dc1da73bf43bb2d45af09727406167964"
+      sha256: ef9908739bdd9c476353d6adff72e88fd00c625f5b959ae23f7567bd5137db0a
       url: "https://pub.dev"
     source: hosted
-    version: "10.1.9"
+    version: "10.2.0"
   file_saver:
     dependency: "direct main"
     description:
@@ -761,10 +761,10 @@ packages:
     dependency: transitive
     description:
       name: irondash_engine_context
-      sha256: cd7b769db11a2b5243b037c8a9b1ecaef02e1ae27a2d909ffa78c1dad747bb10
+      sha256: "2bb0bc13dfda9f5aaef8dde06ecc5feb1379f5bb387d59716d799554f3f305d7"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.4"
+    version: "0.5.5"
   irondash_message_channel:
     dependency: transitive
     description:
@@ -1344,37 +1344,37 @@ packages:
       path: "plugins/super_clipboard"
       relative: true
     source: path
-    version: "0.9.0"
+    version: "0.9.1"
   super_drag_and_drop:
     dependency: "direct main"
     description:
       path: "plugins/super_drag_and_drop"
       relative: true
     source: path
-    version: "0.9.0"
+    version: "0.9.1"
   super_native_extensions:
     dependency: "direct overridden"
     description:
       path: "plugins/super_native_extensions"
       relative: true
     source: path
-    version: "0.9.0"
+    version: "0.9.1"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "104aaad3cfc0bea1f63dfa96b1f0cbb1e3ca46856f127dc8d182271c61ba87b1"
+      sha256: "0e1e1f50edca35bf1a36c75ebd9c4bef722d3ff9998dac9cee3bf11745639d6a"
       url: "https://pub.dev"
     source: hosted
-    version: "29.2.9"
+    version: "29.2.10"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "6d221f8a62df45181cb3b743c46672f51486b7ba1a0e990329a77107be558b6e"
+      sha256: "42bfbc8802a4a9481e210abd506aab89e3f0cd779ce2b74e46beae9dba221b04"
       url: "https://pub.dev"
     source: hosted
-    version: "29.2.9"
+    version: "29.2.10"
   synchronized:
     dependency: "direct main"
     description:
