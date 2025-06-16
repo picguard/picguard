@@ -1,12 +1,18 @@
 # Changelog
 
+## 3.0.1+449
+
+1. refactor: update plugins
+2. chore(deps): update deps
+3. Update flutter to 3.32.4
+
 ## 3.0.0+448
 
 1. feat(msi): add license dialog
 2. chore(deps): update deps
 3. refactor: update wix project (#394)
 4. Migrate Gradle scripts to KTS (#398)
-5. fix: rename the zip file to portable file (#399)
+5. fix: rename the zip file to a portable file (#399)
 6. Update flutter to 3.32.2
 
 ## 2.5.4+447
