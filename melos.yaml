@@ -19,3 +19,6 @@ packages:
   - plugins/super_keyboard_layout/example
   - plugins/super_native_extensions
   - plugins/super_native_extensions/cargokit/build_tool
+
+scripts:
+  install: melos bootstrap --sdk-path=.fvm/flutter_sdk
