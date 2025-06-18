@@ -30,7 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_easyloading: ^3.0.5
-  flutter_expandable_fab: ^2.5.1
+  flutter_expandable_fab: ^2.5.2
   flutter_form_builder: ^10.0.1
   flutter_gen: ^5.10.0
   flutter_localizations:
