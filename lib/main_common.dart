@@ -76,7 +76,6 @@ Future<void> runMainApp({
           ..spotlight = Spotlight(enabled: true)
           ..enableTimeToFullDisplayTracing = true
           ..maxRequestBodySize = MaxRequestBodySize.always
-          ..maxResponseBodySize = MaxResponseBodySize.always
           ..navigatorKey = AppNavigator.navigatorKey;
       },
     );

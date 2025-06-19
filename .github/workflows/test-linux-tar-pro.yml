@@ -50,7 +50,9 @@ jobs:
         uses: bluefireteam/melos-action@v3
 
       - name: Build flutter
-        run: flutter build linux --dart-define-from-file=.env --target lib/main_pro.dart
+        run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
+          flutter build linux --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Set version
         id: version_step

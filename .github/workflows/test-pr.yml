@@ -177,7 +177,9 @@ jobs:
           run-bootstrap: true
 
       - name: Build flutter
-        run: flutter build linux --target lib/main_free.dart
+        run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
+          flutter build linux --target lib/main_free.dart
 
   windows:
     name: Create windows (free)

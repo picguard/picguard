@@ -68,6 +68,7 @@ jobs:
 
       - name: Build RPM
         run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
           fastforge package \
             --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \

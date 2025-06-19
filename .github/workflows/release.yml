@@ -2247,6 +2247,7 @@ jobs:
 
       - name: Build AppImage
         run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
           fastforge package \
             --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
@@ -2335,6 +2336,7 @@ jobs:
 
       - name: Build AppImage
         run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
           fastforge package \
             --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
@@ -2424,6 +2426,7 @@ jobs:
 
       - name: Build AppImage
         run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
           fastforge package \
             --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
@@ -2519,6 +2522,7 @@ jobs:
 
       - name: Build AppImage
         run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
           fastforge package \
             --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
@@ -2596,6 +2600,7 @@ jobs:
 
       - name: Build deb
         run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
           fastforge package \
             --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
@@ -2672,6 +2677,7 @@ jobs:
 
       - name: Build deb
         run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
           fastforge package \
             --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
@@ -2756,6 +2762,7 @@ jobs:
 
       - name: Build deb
         run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
           fastforge package \
             --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
@@ -2839,6 +2846,7 @@ jobs:
 
       - name: Build deb
         run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
           fastforge package \
             --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
@@ -2921,6 +2929,7 @@ jobs:
 
       - name: Build RPM
         run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
           fastforge package \
             --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
@@ -3014,6 +3023,7 @@ jobs:
 
       - name: Build RPM
         run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
           fastforge package \
             --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
@@ -3103,6 +3113,7 @@ jobs:
 
       - name: Build RPM
         run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
           fastforge package \
             --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
@@ -3202,6 +3213,7 @@ jobs:
 
       - name: Build RPM
         run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
           fastforge package \
             --skip-clean \
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
@@ -3572,7 +3584,9 @@ jobs:
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
       - name: Build flutter
-        run: flutter build linux --dart-define-from-file=.env --target lib/main_free.dart
+        run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
+          flutter build linux --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Build tar
         run: |
@@ -3641,7 +3655,9 @@ jobs:
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
       - name: Build app
-        run: flutter build linux --dart-define-from-file=.env --target lib/main_free.dart
+        run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
+          flutter build linux --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Install yq
         run: |
@@ -3724,7 +3740,9 @@ jobs:
           cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
 
       - name: Build flutter
-        run: flutter build linux --dart-define-from-file=.env --target lib/main_pro.dart
+        run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
+          flutter build linux --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Build tar
         run: |
@@ -3798,7 +3816,9 @@ jobs:
           cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
 
       - name: Build app
-        run: flutter build linux --dart-define-from-file=.env --target lib/main_pro.dart
+        run: |
+          export SENTRY_NATIVE_BACKEND=breakpad
+          flutter build linux --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Install yq
         run: |

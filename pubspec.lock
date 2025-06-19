@@ -93,10 +93,10 @@ packages:
     dependency: transitive
     description:
       name: build
-      sha256: cef23f1eda9b57566c81e2133d196f8e3df48f244b317368d65c5943d91148f0
+      sha256: "7cf79af8eb6023bee797a77b067fb6e63ac5650f3789546e023958098feb776e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.2"
+    version: "2.5.2"
   build_config:
     dependency: transitive
     description:
@@ -117,26 +117,26 @@ packages:
     dependency: transitive
     description:
       name: build_resolvers
-      sha256: b9e4fda21d846e192628e7a4f6deda6888c36b5b69ba02ff291a01fd529140f0
+      sha256: "7a507e6026abe52074836d51a945bfad456daa7493eb7a6cac565e490e7d5b54"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.4"
+    version: "2.5.2"
   build_runner:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "058fe9dce1de7d69c4b84fada934df3e0153dd000758c4d65964d0166779aa99"
+      sha256: "1ce1e5063b564f26c27bda54c82a3d38339df69ec58f90e0017f447de77e4839"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.15"
+    version: "2.5.2"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
-      sha256: "22e3aa1c80e0ada3722fe5b63fd43d9c8990759d0a2cf489c8c5d7b2bdebc021"
+      sha256: "564230f3fd9363df7870058fef11ec5502ee620aec3b1ee8106b943be5c63a76"
       url: "https://pub.dev"
     source: hosted
-    version: "8.0.0"
+    version: "9.1.0"
   built_collection:
     dependency: transitive
     description:
@@ -309,18 +309,18 @@ packages:
     dependency: "direct main"
     description:
       name: device_info_plus
-      sha256: "0c6396126421b590089447154c5f98a5de423b70cfb15b1578fd018843ee6f53"
+      sha256: "98f28b42168cc509abc92f88518882fd58061ea372d7999aecc424345c7bff6a"
       url: "https://pub.dev"
     source: hosted
-    version: "11.4.0"
+    version: "11.5.0"
   device_info_plus_platform_interface:
     dependency: transitive
     description:
       name: device_info_plus_platform_interface
-      sha256: "0b04e02b30791224b31969eb1b50d723498f402971bff3630bca2ba839bd1ed2"
+      sha256: e1ea89119e34903dca74b883d0dd78eb762814f97fb6c76f35e9ff74d261a18f
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.2"
+    version: "7.0.3"
   dio:
     dependency: transitive
     description:
@@ -434,10 +434,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_expandable_fab
-      sha256: c2936d398169166064d025df91a3bb417109a859e725d9b80c6ef7f04e01b6ab
+      sha256: "2a488600924fd2a041679ad889807ee5670414a7a518cf11d4854b9898b3504f"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.1"
+    version: "2.5.2"
   flutter_form_builder:
     dependency: "direct main"
     description:
@@ -773,6 +773,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.0"
+  jni:
+    dependency: transitive
+    description:
+      name: jni
+      sha256: cfd663ec90d87ec6abd338da7e21189e503bf6753a0027c1862796f5826adba6
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.14.1"
   js:
     dependency: transitive
     description:
@@ -1153,26 +1161,26 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: "599701ca0693a74da361bc780b0752e1abc98226cf5095f6b069648116c896bb"
+      sha256: ed887adfe4fc1c2a4e512bb5cd5607d4c0192a4ec669df5a29b4f1037a346190
       url: "https://pub.dev"
     source: hosted
-    version: "8.14.2"
+    version: "9.0.0"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
-      sha256: "5ba2cf40646a77d113b37a07bd69f61bb3ec8a73cbabe5537b05a7c89d2656f8"
+      sha256: "964b8ccf6568dab01737ad8216f97deac777c8e6fe6006f7c2d6592ec2170a48"
       url: "https://pub.dev"
     source: hosted
-    version: "8.14.2"
+    version: "9.0.0"
   sentry_logging:
     dependency: "direct main"
     description:
       name: sentry_logging
-      sha256: "16b54d77819193bc7e268461eda399ec4c566e20b73864847849508fa867e8ed"
+      sha256: b4b5bee8cb71a3998642e4d52fa57c74d5abb8e1d72c1bf3c9d2d7465ef66cb1
       url: "https://pub.dev"
     source: hosted
-    version: "8.14.2"
+    version: "9.0.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -1363,18 +1371,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "0e1e1f50edca35bf1a36c75ebd9c4bef722d3ff9998dac9cee3bf11745639d6a"
+      sha256: bee87cdfe527b31705190162e3bd27bf468d591ae7c68182244bdfd94e21f737
       url: "https://pub.dev"
     source: hosted
-    version: "29.2.10"
+    version: "29.2.11"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "42bfbc8802a4a9481e210abd506aab89e3f0cd779ce2b74e46beae9dba221b04"
+      sha256: "84ba05823f00e30cb0fdb98ad300a204617db4a6407de7c184f9836276f386b9"
       url: "https://pub.dev"
     source: hosted
-    version: "29.2.10"
+    version: "29.2.11"
   synchronized:
     dependency: "direct main"
     description:
@@ -1563,10 +1571,10 @@ packages:
     dependency: transitive
     description:
       name: watcher
-      sha256: "69da27e49efa56a15f8afe8f4438c4ec02eff0a117df1b22ea4aad194fe1c104"
+      sha256: "0b7fd4a0bbc4b92641dbf20adfd7e3fd1398fe17102d94b674234563e110088a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.2"
   web:
     dependency: transitive
     description:
@@ -1595,10 +1603,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "329edf97fdd893e0f1e3b9e88d6a0e627128cc17cc316a8d67fda8f1451178ba"
+      sha256: "66814138c3562338d05613a6e368ed8cfb237ad6d64a9e9334be3f309acfca03"
       url: "https://pub.dev"
     source: hosted
-    version: "5.13.0"
+    version: "5.14.0"
   win32_registry:
     dependency: transitive
     description:

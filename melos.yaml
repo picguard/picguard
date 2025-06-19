@@ -21,4 +21,4 @@ packages:
   - plugins/super_native_extensions/cargokit/build_tool
 
 scripts:
-  install: melos bootstrap --sdk-path=.fvm/flutter_sdk
+  get: melos bootstrap --sdk-path=.fvm/flutter_sdk
