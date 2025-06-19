@@ -61,7 +61,21 @@ parts:
       - FLUTTER_VERSION: 3.32.4
       - FLUTTER_TARGET: lib/main_pro.dart
     override-build: |
-      export PATH="$PATH":"$HOME/.pub-cache/bin"
+      apt update
+      apt install -y openjdk-21-jdk
+      
+      arch=$(uname -m)
+      if [[ "$arch" == "aarch64" ]]; then
+        export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-arm64
+      elif [[ "$arch" == "x86_64" ]]; then
+        export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+      else
+        echo "Unknown arch"
+      fi
+      
+      export PATH="$PATH":"$HOME/.pub-cache/bin":":$JAVA_HOME/bin"
+
+      java -version
 
       # https://github.com/superlistapp/super_native_extensions/issues/497#issuecomment-2782786522
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
