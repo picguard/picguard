@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "33CC10EC2044A3C60003C045"
                BuildableName = "PicGuard.app"
-               BlueprintName = "PicGuardMac"
-               ReferencedContainer = "container:PicGuardMac.xcodeproj">
+               BlueprintName = "PicGuard"
+               ReferencedContainer = "container:PicGuard.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,8 +46,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "33CC10EC2044A3C60003C045"
             BuildableName = "PicGuard.app"
-            BlueprintName = "PicGuardMac"
-            ReferencedContainer = "container:PicGuardMac.xcodeproj">
+            BlueprintName = "PicGuard"
+            ReferencedContainer = "container:PicGuard.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "33CC10EC2044A3C60003C045"
             BuildableName = "PicGuard.app"
-            BlueprintName = "PicGuardMac"
-            ReferencedContainer = "container:PicGuardMac.xcodeproj">
+            BlueprintName = "PicGuard"
+            ReferencedContainer = "container:PicGuard.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

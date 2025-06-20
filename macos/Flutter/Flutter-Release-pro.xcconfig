@@ -1,2 +1,2 @@
-#include? "Pods/Target Support Files/Pods-PicGuardMac/Pods-PicGuardMac.release-pro.xcconfig"
+#include? "Pods/Target Support Files/Pods-PicGuard/Pods-PicGuard.release-pro.xcconfig"
 #include "ephemeral/Flutter-Generated.xcconfig"
