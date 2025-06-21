@@ -8,6 +8,10 @@ ide:
 
 packages:
   - .
+  - irondash/engine_context/dart
+  - irondash/message_channel/dart
+  - irondash/message_channel/dart/example
+  - irondash/texture/example
   - plugins/super_clipboard
   - plugins/super_clipboard/example
   - plugins/super_context_menu

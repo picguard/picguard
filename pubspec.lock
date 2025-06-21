@@ -758,20 +758,18 @@ packages:
     source: hosted
     version: "1.0.5"
   irondash_engine_context:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: irondash_engine_context
-      sha256: "2bb0bc13dfda9f5aaef8dde06ecc5feb1379f5bb387d59716d799554f3f305d7"
-      url: "https://pub.dev"
-    source: hosted
+      path: "irondash/engine_context/dart"
+      relative: true
+    source: path
     version: "0.5.5"
   irondash_message_channel:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: irondash_message_channel
-      sha256: b4101669776509c76133b8917ab8cfc704d3ad92a8c450b92934dd8884a2f060
-      url: "https://pub.dev"
-    source: hosted
+      path: "irondash/message_channel/dart"
+      relative: true
+    source: path
     version: "0.7.0"
   jni:
     dependency: transitive

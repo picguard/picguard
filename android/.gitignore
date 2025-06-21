@@ -13,5 +13,6 @@ key-pro.properties
 **/*.keystore
 **/*.jks
 
-.kotlin
-.cxx
+.kotlin/
+.cxx/
+build/

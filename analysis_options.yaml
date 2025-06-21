@@ -16,6 +16,10 @@ analyzer:
     - lib/**/*.gen.dart
     - lib/generated/**
     - lib/i18n/**
+    - irondash/cargokit/**
+    - irondash/engine_context/dart/cargokit/**
+    - irondash/message_channel/dart/example/cargokit/**
+    - irondash/texture/example/cargokit/**
     - plugins/super_native_extensions/cargokit/**
 
 linter:
