@@ -14,8 +14,6 @@ jobs:
       LXD_GROUP: lxd
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3

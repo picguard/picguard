@@ -22,7 +22,6 @@ permissions: read-all
 
 env:
   flutter-version: '3.32.4'
-  rust-version: '1.86.0'
 
 jobs:
   create-release:
@@ -37,8 +36,6 @@ jobs:
       tag_name: ${{ steps.version_step.outputs.tag_name }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Set sha
         id: sha_step
@@ -142,8 +139,6 @@ jobs:
       - windows-zip-pro
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - uses: actions/setup-node@v4
         with:
@@ -192,8 +187,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - uses: actions/setup-java@v4
         with:
@@ -209,19 +202,14 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Remove target (if exists)
         run: rustup target remove armv7-linux-androideabi || true
 
       - name: Add Android target
         run: rustup target add armv7-linux-androideabi
-
-      - name: Update the default toolchain version for Cargokit
-        run: sed -i -e "s/'stable'/'$RUST_VERSION'/" extensions/super_native_extensions/cargokit/build_tool/lib/src/builder.dart
-        env:
-          RUST_VERSION: ${{ env.rust-version }}
 
       - name: Configure .env
         run: |
@@ -288,8 +276,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - uses: actions/setup-java@v4
         with:
@@ -305,19 +291,14 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Remove target (if exists)
         run: rustup target remove armv7-linux-androideabi || true
 
       - name: Add Android target
         run: rustup target add armv7-linux-androideabi
-
-      - name: Update the default toolchain version for Cargokit
-        run: sed -i -e "s/'stable'/'$RUST_VERSION'/" extensions/super_native_extensions/cargokit/build_tool/lib/src/builder.dart
-        env:
-          RUST_VERSION: ${{ env.rust-version }}
 
       - name: Configure .env
         run: |
@@ -384,8 +365,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - uses: actions/setup-java@v4
         with:
@@ -401,19 +380,14 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Remove target (if exists)
         run: rustup target remove armv7-linux-androideabi || true
 
       - name: Add Android target
         run: rustup target add armv7-linux-androideabi
-
-      - name: Update the default toolchain version for Cargokit
-        run: sed -i -e "s/'stable'/'$RUST_VERSION'/" extensions/super_native_extensions/cargokit/build_tool/lib/src/builder.dart
-        env:
-          RUST_VERSION: ${{ env.rust-version }}
 
       - name: Configure .env
         run: |
@@ -485,8 +459,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - uses: actions/setup-java@v4
         with:
@@ -502,19 +474,14 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Remove target (if exists)
         run: rustup target remove armv7-linux-androideabi || true
 
       - name: Add Android target
         run: rustup target add armv7-linux-androideabi
-
-      - name: Update the default toolchain version for Cargokit
-        run: sed -i -e "s/'stable'/'$RUST_VERSION'/" extensions/super_native_extensions/cargokit/build_tool/lib/src/builder.dart
-        env:
-          RUST_VERSION: ${{ env.rust-version }}
 
       - name: Configure .env
         run: |
@@ -586,8 +553,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -598,8 +563,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving ios dependencies
         run: pod install --repo-update
@@ -709,8 +674,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -721,8 +684,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving ios dependencies
         run: pod install --repo-update
@@ -832,8 +795,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -844,8 +805,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving macos dependencies
         run: pod install --repo-update
@@ -960,8 +921,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -972,8 +931,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving macos dependencies
         run: pod install --repo-update
@@ -1088,8 +1047,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1100,8 +1057,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving macos dependencies
         run: pod install --repo-update
@@ -1235,8 +1192,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1247,8 +1202,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving macos dependencies
         run: pod install --repo-update
@@ -1382,8 +1337,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1394,8 +1347,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving macos dependencies
         run: pod install --repo-update
@@ -1523,8 +1476,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1535,8 +1486,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving macos dependencies
         run: pod install --repo-update
@@ -1664,8 +1615,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1676,8 +1625,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving macos dependencies
         run: pod install --repo-update
@@ -1794,8 +1743,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1806,8 +1753,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving macos dependencies
         run: pod install --repo-update
@@ -1924,8 +1871,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1936,8 +1881,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving macos dependencies
         run: pod install --repo-update
@@ -2061,8 +2006,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -2073,8 +2016,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving macos dependencies
         run: pod install --repo-update
@@ -2198,8 +2141,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2227,8 +2168,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -2281,8 +2222,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2312,8 +2251,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -2370,8 +2309,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2399,8 +2336,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -2460,8 +2397,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2491,8 +2426,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -2556,8 +2491,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2580,8 +2513,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -2634,8 +2567,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2657,8 +2588,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -2711,8 +2642,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2735,8 +2664,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -2796,8 +2725,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -2819,8 +2746,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -2880,8 +2807,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -2909,8 +2834,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -2963,8 +2888,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - uses: actions/setup-java@v4
         with:
@@ -2992,8 +2915,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -3057,8 +2980,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -3086,8 +3007,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -3147,8 +3068,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - uses: actions/setup-java@v4
         with:
@@ -3176,8 +3095,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -3249,8 +3168,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -3318,8 +3235,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -3395,8 +3310,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -3468,8 +3381,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -3547,8 +3458,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -3571,8 +3480,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -3618,8 +3527,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -3642,8 +3549,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -3698,8 +3605,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -3722,8 +3627,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -3774,8 +3679,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -3798,8 +3701,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure .env
         run: |
@@ -3861,8 +3764,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -3918,8 +3819,8 @@ jobs:
           WINDOWS_EXE_APP_ID: ${{ secrets.WINDOWS_EXE_APP_ID }}
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build exe
         shell: pwsh
@@ -3987,8 +3888,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4049,8 +3948,8 @@ jobs:
           WINDOWS_EXE_APP_ID_PRO: ${{ secrets.WINDOWS_EXE_APP_ID_PRO }}
           WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build exe
         shell: pwsh
@@ -4119,8 +4018,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4162,8 +4059,8 @@ jobs:
           choco install yq
           yq --version
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build windows
         run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
@@ -4244,8 +4141,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4289,8 +4184,8 @@ jobs:
           Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
           Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build windows
         run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
@@ -4370,8 +4265,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4431,8 +4324,8 @@ jobs:
           WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER }}
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build windows
         run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
@@ -4488,8 +4381,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4553,8 +4444,8 @@ jobs:
           WINDOWS_PUBLISHER_PRO: ${{ secrets.WINDOWS_PUBLISHER_PRO }}
           WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build windows
         run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
@@ -4610,8 +4501,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4638,8 +4527,8 @@ jobs:
       - name: Install fastforge
         run: dart pub global activate fastforge
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build zip
         shell: pwsh
@@ -4685,8 +4574,6 @@ jobs:
       - create-release
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4721,8 +4608,8 @@ jobs:
           Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
           Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build zip
         shell: pwsh

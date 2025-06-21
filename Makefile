@@ -3,10 +3,6 @@ get:
 	echo "╠ Installing dependencies..."
 	fvm flutter pub get
 
-bootstrap:
-	echo "╠ Installing dependencies..."
-	melos bootstrap --sdk-path=.fvm/flutter_sdk
-
 outdated:
 	echo "╠ Resolving dependencies..."
 	fvm flutter pub outdated

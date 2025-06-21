@@ -14,8 +14,6 @@ jobs:
       Platform: arm64
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         shell: pwsh
@@ -81,10 +79,8 @@ jobs:
           $destinationPath = "$pwd\windows\packaging\exe\inno_setup.iss"
           Rename-Item -Path $sourcePath -NewName $destinationPath
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
-        with:
-          run-bootstrap: true
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build exe
         shell: pwsh

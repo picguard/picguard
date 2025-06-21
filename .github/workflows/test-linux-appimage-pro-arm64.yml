@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-22.04-arm
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -53,8 +51,8 @@ jobs:
           cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
           cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Install fastforge
         run: |

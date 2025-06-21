@@ -94,9 +94,7 @@ parts:
       # rm -f "$PG_FLUTTER_BUILD_DIR/engine/src/.gn"
       flutter doctor -v
       flutter precache --linux
-
-      dart pub global activate melos
-      melos bootstrap
+      flutter pub get
 
       export SENTRY_NATIVE_BACKEND=breakpad
       flutter build linux --release --dart-define-from-file=.env --target $FLUTTER_TARGET

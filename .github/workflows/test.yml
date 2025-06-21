@@ -7,7 +7,6 @@ on:
       - '.github/workflows/test-*.yml'
       - '.github/FUNDING.yml'
       - 'docs/**'
-      - 'metadata/**'
       - 'msi/picguard/LICENSE'
       - 'msi/picguard/README.md'
       - '.gitignore'
@@ -23,7 +22,6 @@ permissions: read-all
 
 env:
   flutter-version: '3.32.4'
-  rust-version: '1.86.0'
 
 jobs:
   apk:
@@ -31,8 +29,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - uses: actions/setup-java@v4
         with:
@@ -51,11 +47,6 @@ jobs:
       - name: Add Android target
         run: rustup target add armv7-linux-androideabi
 
-      - name: Update the default toolchain version for Cargokit
-        run: sed -i -e "s/'stable'/'$RUST_VERSION'/" extensions/super_native_extensions/cargokit/build_tool/lib/src/builder.dart
-        env:
-          RUST_VERSION: ${{ env.rust-version }}
-
       - name: Configure .env
         run: echo "$ENV_KEY" | base64 --decode > .env
         env:
@@ -64,8 +55,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Configure Keystore for Android
         run: |
@@ -101,8 +92,6 @@ jobs:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -118,8 +107,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving ios dependencies
         run: pod install --repo-update
@@ -201,8 +190,6 @@ jobs:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -218,8 +205,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving macos dependencies
         run: pod install --repo-update
@@ -313,8 +300,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -343,8 +328,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build flutter
         run: |
@@ -374,8 +359,6 @@ jobs:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -400,8 +383,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build zip
         run: |
@@ -432,8 +415,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -456,8 +437,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build flutter
         run: flutter build web --dart-define-from-file=.env --target lib/main_free.dart

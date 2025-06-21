@@ -14,8 +14,6 @@ jobs:
       Platform: arm64
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         shell: pwsh
@@ -37,10 +35,8 @@ jobs:
       - name: Install fastforge
         run: dart pub global activate fastforge
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
-        with:
-          run-bootstrap: true
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build zip
         shell: pwsh

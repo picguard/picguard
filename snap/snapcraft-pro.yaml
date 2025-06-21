@@ -98,8 +98,7 @@ parts:
       cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
       cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
       
-      dart pub global activate melos
-      melos bootstrap
+      flutter pub get
       
       export SENTRY_NATIVE_BACKEND=breakpad
       flutter build linux --release --dart-define-from-file=.env --target $FLUTTER_TARGET

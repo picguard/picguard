@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -36,10 +34,8 @@ jobs:
         env:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
-        with:
-          run-bootstrap: true
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build flutter
         run: flutter build web --dart-define-from-file=.env --target lib/main_free.dart

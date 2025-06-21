@@ -7,7 +7,6 @@ on:
       - '.github/workflows/test-*.yml'
       - '.github/FUNDING.yml'
       - 'docs/**'
-      - 'metadata/**'
       - 'msi/picguard/LICENSE'
       - 'msi/picguard/README.md'
       - '.gitignore'
@@ -23,7 +22,6 @@ permissions: read-all
 
 env:
   flutter-version: '3.32.4'
-  rust-version: '1.86.0'
 
 jobs:
   apk:
@@ -31,8 +29,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - uses: actions/setup-java@v4
         with:
@@ -54,15 +50,8 @@ jobs:
       - name: Add Android target
         run: rustup target add armv7-linux-androideabi
 
-      - name: Update the default toolchain version for Cargokit
-        run: sed -i -e "s/'stable'/'$RUST_VERSION'/" extensions/super_native_extensions/cargokit/build_tool/lib/src/builder.dart
-        env:
-          RUST_VERSION: ${{ env.rust-version }}
-
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
-        with:
-          run-bootstrap: true
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build Apk
         run: flutter build apk --debug --no-tree-shake-icons --target lib/main_free.dart --flavor freeStaging
@@ -72,8 +61,6 @@ jobs:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -84,10 +71,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
-        with:
-          run-bootstrap: true
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving ios dependencies
         run: pod install --repo-update
@@ -109,8 +94,6 @@ jobs:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -121,10 +104,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
-        with:
-          run-bootstrap: true
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Resolving macos dependencies
         run: pod install --repo-update
@@ -146,8 +127,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -171,10 +150,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
-        with:
-          run-bootstrap: true
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build flutter
         run: |
@@ -186,8 +163,6 @@ jobs:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -204,10 +179,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
-        with:
-          run-bootstrap: true
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build flutter
         run: flutter build windows --target lib/main_free.dart
@@ -217,8 +190,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Install dependencies for Linux
         run: |
@@ -236,10 +207,8 @@ jobs:
       - name: Flutter doctor -v
         run: flutter doctor -v
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
-        with:
-          run-bootstrap: true
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build flutter
         run: flutter build web --target lib/main_free.dart

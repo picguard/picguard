@@ -14,8 +14,6 @@ jobs:
       Platform: x64
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -68,10 +66,8 @@ jobs:
           WINDOWS_EXE_APP_ID: ${{ secrets.WINDOWS_EXE_APP_ID }}
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
 
-      - name: Setup Melos
-        uses: bluefireteam/melos-action@v3
-        with:
-          run-bootstrap: true
+      - name: Install Flutter dependencies
+        run: flutter pub get
 
       - name: Build exe
         shell: pwsh
