@@ -1,6 +1,6 @@
-[submodule "plugins"]
-	path = plugins
-	url = https://github.com/insco-inc/super_native_extensions.git
 [submodule "irondash"]
 	path = irondash
 	url = https://github.com/insco-inc/irondash.git
+[submodule "extensions"]
+	path = extensions
+	url = https://github.com/insco-inc/super_native_extensions.git

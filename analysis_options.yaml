@@ -20,7 +20,7 @@ analyzer:
     - irondash/engine_context/dart/cargokit/**
     - irondash/message_channel/dart/example/cargokit/**
     - irondash/texture/example/cargokit/**
-    - plugins/super_native_extensions/cargokit/**
+    - extensions/super_native_extensions/cargokit/**
 
 linter:
   # The lint rules applied to this project can be customized in the

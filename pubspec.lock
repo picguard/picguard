@@ -1347,21 +1347,21 @@ packages:
   super_clipboard:
     dependency: "direct overridden"
     description:
-      path: "plugins/super_clipboard"
+      path: "extensions/super_clipboard"
       relative: true
     source: path
     version: "0.9.1"
   super_drag_and_drop:
     dependency: "direct main"
     description:
-      path: "plugins/super_drag_and_drop"
+      path: "extensions/super_drag_and_drop"
       relative: true
     source: path
     version: "0.9.1"
   super_native_extensions:
     dependency: "direct overridden"
     description:
-      path: "plugins/super_native_extensions"
+      path: "extensions/super_native_extensions"
       relative: true
     source: path
     version: "0.9.1"

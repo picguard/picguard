@@ -52,7 +52,7 @@ jobs:
         run: rustup target add armv7-linux-androideabi
 
       - name: Update the default toolchain version for Cargokit
-        run: sed -i -e "s/'stable'/'$RUST_VERSION'/" plugins/super_native_extensions/cargokit/build_tool/lib/src/builder.dart
+        run: sed -i -e "s/'stable'/'$RUST_VERSION'/" extensions/super_native_extensions/cargokit/build_tool/lib/src/builder.dart
         env:
           RUST_VERSION: ${{ env.rust-version }}
 
