@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.2+450
+
+1. fix(macos): update entitlements
+2. chore(deps): update deps
+
 ## 3.0.1+449
 
 1. refactor: update plugins
