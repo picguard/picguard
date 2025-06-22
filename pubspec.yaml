@@ -38,7 +38,7 @@ dependencies:
   flutter_native_splash: ^2.4.6
   flutter_switch: ^0.3.2
   fluttertoast: ^8.2.12
-  form_builder_validators: ^11.1.2
+  form_builder_validators: ^11.2.0
   gap: ^3.0.1
   get: ^4.7.2
   get_storage: ^2.1.1
@@ -63,7 +63,7 @@ dependencies:
   uuid: ^4.5.1
 
 dev_dependencies:
-  build_runner: ^2.5.2
+  build_runner: ^2.5.3
   flutter_gen_runner: ^5.10.0
   flutter_test:
     sdk: flutter
