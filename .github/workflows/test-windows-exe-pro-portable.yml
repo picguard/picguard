@@ -78,7 +78,9 @@ jobs:
         run: flutter pub get
 
       - name: Build windows
-        run: flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
+        run: |
+          $env:SENTRY_NATIVE_BACKEND = "breakpad"
+          flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Install @insco/enigma-virtualbox
         run: npm i -g @insco/enigma-virtualbox

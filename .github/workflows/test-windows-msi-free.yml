@@ -79,7 +79,9 @@ jobs:
         run: flutter pub get
 
       - name: Build windows
-        run: flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
+        run: |
+          $env:SENTRY_NATIVE_BACKEND = "breakpad"
+          flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2

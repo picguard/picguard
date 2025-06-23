@@ -85,7 +85,8 @@ jobs:
       - name: Build exe
         shell: pwsh
         run: |
-          set FLUTTER_WINDOWS_PLATFORM="$env:Platform"
+          $env:SENTRY_NATIVE_BACKEND = "breakpad"
+          $env:FLUTTER_WINDOWS_PLATFORM = "$env:Platform"
           fastforge package `
             --skip-clean `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `

@@ -183,7 +183,9 @@ jobs:
         run: flutter pub get
 
       - name: Build flutter
-        run: flutter build windows --target lib/main_free.dart
+        run: |
+          $env:SENTRY_NATIVE_BACKEND = "breakpad"
+          flutter build windows --target lib/main_free.dart
 
   web:
     name: Create web (free)

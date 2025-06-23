@@ -109,7 +109,8 @@ jobs:
 
       - name: Build windows
         run: |
-          set FLUTTER_WINDOWS_PLATFORM="$env:Platform"
+          $env:SENTRY_NATIVE_BACKEND = "breakpad"
+          $env:FLUTTER_WINDOWS_PLATFORM = "$env:Platform"
           flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Crate msix

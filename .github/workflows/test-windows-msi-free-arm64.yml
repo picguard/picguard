@@ -82,7 +82,8 @@ jobs:
 
       - name: Build windows
         run: |
-          set FLUTTER_WINDOWS_PLATFORM=arm64
+          $env:SENTRY_NATIVE_BACKEND = "breakpad"
+          $env:FLUTTER_WINDOWS_PLATFORM = "arm64"
           flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Add MSBuild to PATH
