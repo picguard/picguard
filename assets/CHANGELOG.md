@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.3+451
+
+1. fix(macos): update product name
+2. ci(windows): set SENTRY_NATIVE_BACKEND to breakpad
+3. refactor: remove git submodules
+
 ## 3.0.2+450
 
 1. fix(macos): update entitlements
