@@ -231,6 +231,13 @@ class DesktopMenuBar extends StatelessWidget {
   }
 }
 
+Future<void> gotoPage(String pageUrl) async {
+  final uri = '$githubBaseUrl$pageUrl';
+  if (await canLaunchUrlString(uri)) {
+    await launchUrlString(uri);
+  }
+}
+
 Future<void> gotoSupportPage() async {
   const uri = '$websiteBaseUrl/support';
   if (await canLaunchUrlString(uri)) {

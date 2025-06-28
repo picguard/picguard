@@ -594,20 +594,35 @@ class DialogUtil {
         textAlign: TextAlign.center,
       ),
       children: <Widget>[
-        MarkdownPageListTile(
-          filename: 'README.md',
+        ListTile(
+          leading: const Icon(Icons.all_inclusive),
           title: Text(t.aboutPage.readme),
-          icon: const Icon(Icons.all_inclusive),
+          trailing: Icon(
+            Directionality.of(context) == TextDirection.ltr
+                ? Icons.chevron_right
+                : Icons.chevron_left,
+          ),
+          onTap: () => gotoPage('/blob/v$version+$buildNumber/README.md'),
         ),
-        MarkdownPageListTile(
-          filename: 'LICENSE',
+        ListTile(
+          leading: const Icon(Icons.description),
           title: Text(t.aboutPage.appLicense),
-          icon: const Icon(Icons.description),
+          trailing: Icon(
+            Directionality.of(context) == TextDirection.ltr
+                ? Icons.chevron_right
+                : Icons.chevron_left,
+          ),
+          onTap: () => gotoPage('/blob/v$version+$buildNumber/LICENSE'),
         ),
-        MarkdownPageListTile(
-          icon: const Icon(Icons.list),
+        ListTile(
+          leading: const Icon(Icons.list),
           title: Text(t.aboutPage.changelog),
-          filename: 'CHANGELOG.md',
+          trailing: Icon(
+            Directionality.of(context) == TextDirection.ltr
+                ? Icons.chevron_right
+                : Icons.chevron_left,
+          ),
+          onTap: () => gotoPage('/releases/tag/v$version+$buildNumber'),
         ),
         LicensesPageListTile(
           icon: const Icon(Icons.favorite),
