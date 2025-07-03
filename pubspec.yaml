@@ -49,7 +49,7 @@ dependencies:
   menu_bar: ^0.5.3
   multi_image_picker_view: ^3.0.0
   package_info_plus: ^8.3.0
-  permission_handler: ^12.0.0+1
+  permission_handler: ^12.0.1
   photo_view: ^0.15.0
   sentry_flutter: ^9.2.0
   sentry_logging: ^9.2.0
