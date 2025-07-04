@@ -1017,10 +1017,10 @@ packages:
     dependency: "direct main"
     description:
       name: permission_handler
-      sha256: "2d070d8684b68efb580a5997eb62f675e8a885ef0be6e754fb9ef489c177470f"
+      sha256: bc917da36261b00137bbc8896bf1482169cd76f866282368948f032c8c1caae1
       url: "https://pub.dev"
     source: hosted
-    version: "12.0.0+1"
+    version: "12.0.1"
   permission_handler_android:
     dependency: transitive
     description:
@@ -1161,26 +1161,26 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: "40583b61f5f4dc0ea7095a34c03cd71e17b43bd8866fba34972398f70806b464"
+      sha256: df2a59d19bf494a15e2ddf630edd78dd831f521b4d074eea9a1a22f01091884d
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.0"
+    version: "9.3.0"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
-      sha256: "12a855e6d415d9433e1a0f4462e5c06862d2ecf6f4b0b22de52d76cff03e594a"
+      sha256: "759cbead3531c39e1b1f4298c4a09281937e8dd6115b241739fd525b4fb3715c"
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.0"
+    version: "9.3.0"
   sentry_logging:
     dependency: "direct main"
     description:
       name: sentry_logging
-      sha256: "26df532f4ae09c98ed55794df2c105d27769020ce5f4ee010469b766f7c49f4e"
+      sha256: "06b606c42e5cdda40c5e4275e4d746f2faecaece52c93cb4887a7b2035e5183a"
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.0"
+    version: "9.3.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -1374,18 +1374,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: b86e8e24fc44c6a2759adfebd02bf27f2954062e6f3bd52343faa16966039b85
+      sha256: ea496f84e6a2c368076678a253264cf1a38e2a6ce417e656359aa5d1f7239f3a
       url: "https://pub.dev"
     source: hosted
-    version: "30.1.37"
+    version: "30.1.38"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: ce178199b2be2aad57723ef481f0eec0c5d4051976f5a4cfe80840d2da82026f
+      sha256: b921395ed5ea8eba9c7ac4929bb1e0d8cf2e5f1ce2cf7c9e516c4ff871271c5c
       url: "https://pub.dev"
     source: hosted
-    version: "30.1.37"
+    version: "30.1.38"
   synchronized:
     dependency: "direct main"
     description:
