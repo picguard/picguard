@@ -55,11 +55,18 @@ jobs:
           rm -f "$(pwd)/snap/gui/picguard.desktop" "$(pwd)/snap/gui/picguard.png"
           mv "$(pwd)/snap/snapcraft-pro.yaml" "$(pwd)/snap/snapcraft.yaml"
 
+      - name: Update snapcraft.yaml
+        run: |
+          VERSION="$VERSION_SHORT-dev.$BUILD_NUMBER" yq -i '.version = strenv(VERSION)' snap/snapcraft.yaml
+        env:
+          VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
+          BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
+
       - name: Build snap
         run: |
           # https://snapcraft.io/docs/flutter-applications
           echo "VERSION: $VERSION_SHORT.$BUILD_NUMBER"
-          sudo snapcraft --output "picguard-pro-"$VERSION_SHORT.$BUILD_NUMBER"-linux-amd64.snap"
+          sudo snapcraft --output "picguard-pro-"$VERSION_SHORT.$BUILD_NUMBER.dev"-linux-amd64.snap"
         env:
           VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
           BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
