@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0+452
+
+1. chore(deps): update deps
+2. fix: update snap version
+3. Update flutter to 3.32.6
+
 ## 3.0.3+451
 
 1. fix(macos): update product name
