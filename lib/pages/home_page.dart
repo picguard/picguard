@@ -553,7 +553,7 @@ class _HomePageState extends State<HomePage> {
       await FileSaver.instance.saveFile(
         name: fileName,
         bytes: bytes,
-        ext: ext,
+        fileExtension: ext,
       );
       return true;
     } else if (isDesktop) {
