@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.1+453
+
+1. chore(deps): update deps
+2. Revert "feat: add drag and drop support"
+
 ## 4.0.0+452
 
 1. chore(deps): update deps
