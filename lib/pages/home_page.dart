@@ -26,7 +26,6 @@ import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:path/path.dart' hide context;
-import 'package:super_drag_and_drop/super_drag_and_drop.dart';
 
 // Project imports:
 import 'package:picguard/app/config.dart';
@@ -54,9 +53,6 @@ class _HomePageState extends State<HomePage> {
   final _key = GlobalKey<ExpandableFabState>();
   final _formKey = GlobalKey<FormBuilderState>();
   final inputFocusNode = FocusNode();
-
-  List<DropItem> _dropItems = [];
-  bool _isDragOver = false;
 
   @override
   void initState() {
@@ -135,7 +131,7 @@ class _HomePageState extends State<HomePage> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = constraints.maxWidth;
-          final maxHeight = constraints.maxHeight;
+          // final maxHeight = constraints.maxHeight;
           late Widget child;
           if ((isWeb || isDesktop) && maxWidth >= 800) {
             child = SingleChildScrollView(
@@ -155,8 +151,6 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         ImageGroup(
                           controller: controller,
-                          onDropOver: _onDropOver,
-                          onDropLeave: _onDropLeave,
                         ),
                         const AppDescription(),
                       ],
@@ -210,8 +204,6 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ImageGroup(
                   controller: controller,
-                  onDropOver: _onDropOver,
-                  onDropLeave: _onDropLeave,
                 ),
                 const Gap(10),
                 const AppDescription(),
@@ -249,53 +241,7 @@ class _HomePageState extends State<HomePage> {
           //   return child;
           // }
 
-          return Stack(
-            fit: StackFit.expand,
-            children: [
-              child,
-              Positioned(
-                left: 0,
-                bottom: 0,
-                right: 0,
-                child: IgnorePointer(
-                  ignoring: !_isDragOver,
-                  child: AnimatedOpacity(
-                    opacity: _isDragOver ? 1.0 : 0.0,
-                    duration: const Duration(milliseconds: 200),
-                    child: _dropItems.isEmpty
-                        ? const SizedBox.shrink()
-                        : ConstrainedBox(
-                            constraints: BoxConstraints(
-                              maxHeight: math.min(maxHeight * 0.5, 200),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 50,
-                                vertical: 20,
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(6),
-                                clipBehavior: Clip.hardEdge,
-                                child: ListView.separated(
-                                  shrinkWrap: true,
-                                  padding: EdgeInsets.zero,
-                                  itemCount: _dropItems.length,
-                                  itemBuilder: (context, index) {
-                                    final item = _dropItems.elementAt(index);
-                                    return _DropItemInfo(dropItem: item);
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return const SizedBox(height: 1);
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                  ),
-                ),
-              ),
-            ],
-          );
+          return child;
         },
       ),
       floatingActionButtonLocation: ExpandableFab.location,
@@ -375,24 +321,6 @@ class _HomePageState extends State<HomePage> {
     return KeyboardDismisser(
       child: child,
     );
-  }
-
-  void _onDropOver(DropOverEvent dropOverEvent) {
-    // You can inspect local data here, as well as formats of each item.
-    // However on certain platforms (mobile / web) the actual data is
-    // only available when the drop is accepted (onPerformDrop).
-    final items = dropOverEvent.session.items;
-
-    setState(() {
-      _isDragOver = true;
-      _dropItems = items;
-    });
-  }
-
-  void _onDropLeave(DropEvent dropEvent) {
-    Future.delayed(const Duration(seconds: 5), () {
-      setState(() => _isDragOver = false);
-    });
   }
 
   /// 预览
@@ -808,56 +736,5 @@ class _HomePageState extends State<HomePage> {
     ).toList();
 
     return Future.wait(imageFutures);
-  }
-}
-
-class _DropItemInfo extends StatelessWidget {
-  const _DropItemInfo({
-    required this.dropItem,
-  });
-
-  final DropItem dropItem;
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Container(
-      color:
-          isDark ? PGColors.dialogBackgroundColor : PGColors.primaryGrayColor,
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-      child: DefaultTextStyle.merge(
-        style: const TextStyle(fontSize: 11),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisSize: MainAxisSize.min,
-          spacing: 4,
-          children: [
-            if (dropItem.localData != null)
-              Text.rich(
-                TextSpan(
-                  children: [
-                    const TextSpan(
-                      text: 'Local data: ',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    TextSpan(text: '${dropItem.localData}'),
-                  ],
-                ),
-              ),
-            Text.rich(
-              TextSpan(
-                children: [
-                  const TextSpan(
-                    text: 'Native formats: ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(text: dropItem.platformFormats.join(', ')),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

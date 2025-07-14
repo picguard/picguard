@@ -2,7 +2,6 @@ export 'add_more_widget.dart';
 export 'app_description.dart';
 export 'app_version.dart';
 export 'color_picker.dart';
-export 'drop_area.dart';
 export 'font_picker.dart';
 export 'fontsize_picker.dart';
 export 'icon_button.dart';

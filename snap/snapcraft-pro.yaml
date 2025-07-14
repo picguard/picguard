@@ -61,8 +61,8 @@ parts:
       - FLUTTER_VERSION: 3.32.6
       - FLUTTER_TARGET: lib/main_pro.dart
     override-build: |
-      apt update
-      apt install -y openjdk-21-jdk
+      # Sentry
+      apt update && apt install -y openjdk-21-jdk
       
       arch=$(uname -m)
       if [[ "$arch" == "aarch64" ]]; then
@@ -77,10 +77,6 @@ parts:
 
       java -version
 
-      # https://github.com/superlistapp/super_native_extensions/issues/497#issuecomment-2782786522
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-      source $HOME/.cargo/env
-      
       # https://github.com/canonical/snapcraft/blob/main/snapcraft/parts/plugins/flutter_plugin.py
       PG_FLUTTER_BUILD_DIR="$CRAFT_PART_BUILD/flutter-distro"
       if [ -d "$PG_FLUTTER_BUILD_DIR" ]; then

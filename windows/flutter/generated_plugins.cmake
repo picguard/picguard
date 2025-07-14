@@ -5,10 +5,8 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   file_saver
   file_selector_windows
-  irondash_engine_context
   permission_handler_windows
   sentry_flutter
-  super_native_extensions
   tray_manager
   url_launcher_windows
 )
