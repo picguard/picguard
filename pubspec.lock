@@ -21,10 +21,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: de617bfdc64f3d8b00835ec2957441ceca0a29cdf7881f7ab231bc14f71159c0
+      sha256: "754aed101003afceca3e6637fe88150dbe9739068e0135788a62645a131867bb"
       url: "https://pub.dev"
     source: hosted
-    version: "7.5.6"
+    version: "7.5.9"
   ansi_styles:
     dependency: transitive
     description:
@@ -1137,26 +1137,26 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: "0609ce3be0c39ac9cd7febbb9b2a14c2f298a085216bb23cde8c22a8b9adf14e"
+      sha256: "38e01aac14de963ef686ca9c85fcdc4e636991a2203c11e67382972f766e6778"
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.0"
+    version: "9.4.1"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
-      sha256: "003dcebeffe4d52cd965e6587f7a777f1f1e25746b07ae21ab0de9316cacbf21"
+      sha256: fe69f91c7300b1184ae87cfa7524048bf1e9b8b262ddeb287671b1844fa9bfc8
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.0"
+    version: "9.4.1"
   sentry_logging:
     dependency: "direct main"
     description:
       name: sentry_logging
-      sha256: e141a26ed0454a741fbe1e0423cdbd783a6a46c69261661230515d3b6d22df66
+      sha256: "13cdc11704132386a2457d1e445180bf5dddd903643b0f8616073fd0a09b8496"
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.0"
+    version: "9.4.1"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -1326,18 +1326,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: df52b3d5c9c593c2954a7e776f6c7a8776a583819832ee32fb16697bb1bfbc27
+      sha256: "27cbeb650b780d1f3ab254b26ac64e2b06e92e2d64349537b0db3f714ff1e962"
       url: "https://pub.dev"
     source: hosted
-    version: "30.1.39"
+    version: "30.1.40"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: d05dbbf8aa50761118a893fd609492c87e7648284c61968cf27da18cee564132
+      sha256: fc6c0e61d9e348018eeea3afcd1632982bf501c7aa898e3c16ef1389ddcf63b2
       url: "https://pub.dev"
     source: hosted
-    version: "30.1.39"
+    version: "30.1.40"
   synchronized:
     dependency: "direct main"
     description:
