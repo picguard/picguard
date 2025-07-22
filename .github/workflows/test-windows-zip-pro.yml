@@ -44,6 +44,7 @@ jobs:
           Copy-Item -Path "$pwd\windows\pro\main.cpp" -Destination "$pwd\windows\runner\main.cpp" -Force
           Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
           Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
+          Copy-Item -Path "$pwd\windows\pro\LICENSE.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
 
       - name: Install Flutter dependencies
         run: flutter pub get

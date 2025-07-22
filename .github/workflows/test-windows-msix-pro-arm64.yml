@@ -76,6 +76,7 @@ jobs:
           Copy-Item -Path "$pwd\windows\pro\main.cpp" -Destination "$pwd\windows\runner\main.cpp" -Force
           Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
           Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
+          Copy-Item -Path "$pwd\windows\pro\LICENSE.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
 
           # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
           # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
