@@ -68,7 +68,7 @@ dev_dependencies:
     sdk: flutter
   import_sorter: ^4.6.0
   melos: ^6.3.3
-  msix: ^3.16.9
+  msix: ^3.16.10
   slang_build_runner: ^4.7.0
   very_good_analysis: ^9.0.0
 
