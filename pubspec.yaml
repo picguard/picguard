@@ -55,7 +55,7 @@ dependencies:
   sentry_logging: ^9.5.0
   shared_preferences: ^2.5.3
   slang_flutter: ^4.7.0
-  syncfusion_flutter_sliders: ^30.1.41
+  syncfusion_flutter_sliders: ^30.1.42
   synchronized: ^3.4.0
   tray_manager: ^0.5.0
   url_launcher: ^6.3.2
@@ -68,7 +68,7 @@ dev_dependencies:
     sdk: flutter
   import_sorter: ^4.6.0
   melos: ^6.3.3
-  msix: ^3.16.9
+  msix: ^3.16.10
   slang_build_runner: ^4.7.0
   very_good_analysis: ^9.0.0
 
