@@ -39,6 +39,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
+
+	/// en: '(free) {PicGuard} (pro) {PicGuard Pro}'
 	String appName({required Flavor flavor}) {
 		switch (flavor) {
 			case Flavor.free:
@@ -47,6 +49,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 				return 'PicGuard Pro';
 		}
 	}
+
 	late final TranslationsHomePageEn homePage = TranslationsHomePageEn.internal(_root);
 	late final TranslationsAboutPageEn aboutPage = TranslationsAboutPageEn.internal(_root);
 	late final TranslationsColorsEn colors = TranslationsColorsEn.internal(_root);
@@ -67,30 +70,80 @@ class TranslationsHomePageEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'WARNING: Development version, automatically built on each commit'
 	String get appPreview => 'WARNING: Development version, automatically built on each commit';
+
+	/// en: 'Please upload pictures.'
 	String get imageDescription => 'Please upload pictures.';
+
+	/// en: 'This app will not upload any pictures to the server, all operations are completed locally'
 	String get description => 'This app will not upload any pictures to the server, all operations are completed locally';
+
+	/// en: 'Text'
 	String get textLabel => 'Text';
+
+	/// en: 'Text will be added to the image as a watermark'
 	String get textLabelDescription => 'Text will be added to the image as a watermark';
+
+	/// en: 'Please enter text.'
 	String get textValidator => 'Please enter text.';
+
+	/// en: 'This certificate is only used for handling xx business, and is invalid for other purposes.'
 	String get textInput => 'This certificate is only used for handling xx business, and is invalid for other purposes.';
+
+	/// en: 'Color'
 	String get colorLabel => 'Color';
+
+	/// en: 'Please select a color.'
 	String get colorValidator => 'Please select a color.';
+
+	/// en: 'Opacity'
 	String get opacityLabel => 'Opacity';
+
+	/// en: 'Font'
 	String get fontLabel => 'Font';
+
+	/// en: 'Some languages do not support custom fonts'
 	String get fontLabelDescription => 'Some languages do not support custom fonts';
+
+	/// en: 'Please select a font.'
 	String get fontValidator => 'Please select a font.';
+
+	/// en: 'Font size'
 	String get fontSizeLabel => 'Font size';
+
+	/// en: 'Text spacing'
 	String get textGapLabel => 'Text spacing';
+
+	/// en: 'The spacing between text in each line of text'
 	String get textGapDescription => 'The spacing between text in each line of text';
+
+	/// en: 'Line spacing'
 	String get rowGapLabel => 'Line spacing';
+
+	/// en: 'The spacing between each line of text'
 	String get rowGapDescription => 'The spacing between each line of text';
+
+	/// en: 'Supports up to $maxImages pictures, you can also upload $lastImages picture(s).'
 	String limitValidator({required Object maxImages, required Object lastImages}) => 'Supports up to ${maxImages} pictures, you can also upload ${lastImages} picture(s).';
+
+	/// en: 'Only PNG and JPEG formats are supported.'
 	String get formatValidator => 'Only PNG and JPEG formats are supported.';
+
+	/// en: 'Preview'
 	String get preview => 'Preview';
+
+	/// en: 'Save'
 	String get save => 'Save';
+
+	/// en: 'Saved successfully'
 	String get savedSuccess => 'Saved successfully';
+
+	/// en: 'Failed to save image(s)'
 	String get savedFailure => 'Failed to save image(s)';
+
+	/// en: '$succeedNum image(s) saved, $failedNum image(s) failed to save'
 	String saveInfo({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
 }
 
@@ -101,12 +154,26 @@ class TranslationsAboutPageEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Version $version($buildNumber)'
 	String version({required Object version, required Object buildNumber}) => 'Version ${version}(${buildNumber})';
+
+	/// en: 'Copyright © $year $appName. All rights reserved.'
 	String copyright({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. All rights reserved.';
+
+	/// en: 'Your pictures, your signature.'
 	String get slogan => 'Your pictures, your signature.';
+
+	/// en: 'Readme'
 	String get readme => 'Readme';
+
+	/// en: 'Application License'
 	String get appLicense => 'Application License';
+
+	/// en: 'Changelog'
 	String get changelog => 'Changelog';
+
+	/// en: 'Third Party Licenses'
 	String get thirdPartyLicense => 'Third Party Licenses';
 }
 
@@ -117,11 +184,23 @@ class TranslationsColorsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'White'
 	String get white => 'White';
+
+	/// en: 'Grey'
 	String get grey => 'Grey';
+
+	/// en: 'Black'
 	String get black => 'Black';
+
+	/// en: 'Red'
 	String get red => 'Red';
+
+	/// en: 'Orange'
 	String get orange => 'Orange';
+
+	/// en: 'Blue'
 	String get blue => 'Blue';
 }
 
@@ -132,14 +211,32 @@ class TranslationsMenusEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'About $appName'
 	String about({required Object appName}) => 'About ${appName}';
+
+	/// en: 'Hide $appName'
 	String hide({required Object appName}) => 'Hide ${appName}';
+
+	/// en: 'Hide Others'
 	String get hideOthers => 'Hide Others';
+
+	/// en: 'Show All'
 	String get showAll => 'Show All';
+
+	/// en: 'Quit $appName'
 	String exit({required Object appName}) => 'Quit ${appName}';
+
+	/// en: 'Help'
 	String get help => 'Help';
+
+	/// en: 'Support'
 	String get support => 'Support';
+
+	/// en: 'User Agreement'
 	String get userAgreement => 'User Agreement';
+
+	/// en: 'Privacy Policy'
 	String get privacy => 'Privacy Policy';
 }
 
@@ -150,9 +247,17 @@ class TranslationsButtonsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Agree'
 	String get agree => 'Agree';
+
+	/// en: 'Cancel'
 	String get cancel => 'Cancel';
+
+	/// en: 'Ignore'
 	String get ignore => 'Ignore';
+
+	/// en: 'Turn On'
 	String get turnOn => 'Turn On';
 }
 
@@ -163,8 +268,13 @@ class TranslationsDialogsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Select a color'
 	String get selectColor => 'Select a color';
+
+	/// en: 'Select a font'
 	String get selectFont => 'Select a font';
+
 	late final TranslationsDialogsExitConfirmEn exitConfirm = TranslationsDialogsExitConfirmEn.internal(_root);
 	late final TranslationsDialogsPermissionsEn permissions = TranslationsDialogsPermissionsEn.internal(_root);
 	late final TranslationsDialogsLicenseDialogEn licenseDialog = TranslationsDialogsLicenseDialogEn.internal(_root);
@@ -178,9 +288,17 @@ class TranslationsDialogsExitConfirmEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Exit'
 	String get exit => 'Exit';
+
+	/// en: 'Cancel'
 	String get cancel => 'Cancel';
+
+	/// en: 'Close confirmation'
 	String get title => 'Close confirmation';
+
+	/// en: 'Are you sure you want to close this window?'
 	String get description => 'Are you sure you want to close this window?';
 }
 
@@ -202,14 +320,31 @@ class TranslationsDialogsLicenseDialogEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Terms and Conditions'
 	String get licenseDialogTitle => 'Terms and Conditions';
+
+	/// en: 'Protecting user's privacy and personal information is a fundamental principle of $appName.'
 	String licenseDialogContentContent({required Object appName}) => 'Protecting user\'s privacy and personal information is a fundamental principle of ${appName}.';
+
+	/// en: 'Below is a list of permissions required by this APP:'
 	String get licenseDialogContentTip => 'Below is a list of permissions required by this APP:';
+
+	/// en: 'Before you use this APP's services, please carefully read and agree to the '
 	String get licenseDialogContentPrefix => 'Before you use this APP\'s services, please carefully read and agree to the ';
+
+	/// en: 'User Agreement'
 	String get licenseDialogContentUserAgreement => 'User Agreement';
+
+	/// en: ' and '
 	String get licenseDialogContentAnd => ' and ';
+
+	/// en: 'Privacy Policy'
 	String get licenseDialogContentPrivacyPolicy => 'Privacy Policy';
+
+	/// en: ', start using our services after you agree and accept all terms.'
 	String get licenseDialogContentSuffix => ', start using our services after you agree and accept all terms.';
+
 	List<dynamic> get iosPermissions => [
 		({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (NSPhotoLibraryUsageDescription)',
 	];
@@ -228,9 +363,16 @@ class TranslationsDialogsSettingsDialogEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Settings'
 	String get settings => 'Settings';
+
+	/// en: 'Languages'
 	String get languages => 'Languages';
+
 	late final TranslationsDialogsSettingsDialogThemesEn themes = TranslationsDialogsSettingsDialogThemesEn.internal(_root);
+
+	/// en: 'After turning it on, the dark mode will be turned on or off according to the system'
 	String get themesDescription => 'After turning it on, the dark mode will be turned on or off according to the system';
 }
 
@@ -241,7 +383,11 @@ class TranslationsDialogsPermissionsPhotosEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Allow access to your album'
 	String get title => 'Allow access to your album';
+
+	/// en: 'Please go to your phone Settings to grant $appName the permission to visit your album.'
 	String description({required Object appName}) => 'Please go to your phone Settings to grant ${appName} the permission to visit your album.';
 }
 
@@ -252,7 +398,11 @@ class TranslationsDialogsPermissionsStorageEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Allow access to your storage'
 	String get title => 'Allow access to your storage';
+
+	/// en: 'Please go to your phone Settings to grant $appName the permission to visit your storage.'
 	String description({required Object appName}) => 'Please go to your phone Settings to grant ${appName} the permission to visit your storage.';
 }
 
@@ -263,9 +413,17 @@ class TranslationsDialogsSettingsDialogThemesEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// en: 'Manual Mode'
 	String get manual => 'Manual Mode';
+
+	/// en: 'Auto Mode'
 	String get system => 'Auto Mode';
+
+	/// en: 'Dark Mode'
 	String get dark => 'Dark Mode';
+
+	/// en: 'Light Mode'
 	String get light => 'Light Mode';
 }
 
