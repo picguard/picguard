@@ -21,6 +21,7 @@ on:
 permissions: read-all
 
 env:
+  flutter-channel: 'stable'
   flutter-version: '3.32.8'
 
 jobs:
@@ -73,8 +74,8 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
           echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
-          echo "release=$VERSION_SHORT.$BUILD_NUMBER$SUFFIX" >> $GITHUB_OUTPUT
-          echo "tag_name=v$VERSION$SUFFIX" >> $GITHUB_OUTPUT
+          echo "release=$VERSION_SHORT$SUFFIX" >> $GITHUB_OUTPUT
+          echo "tag_name=v$VERSION_SHORT$SUFFIX" >> $GITHUB_OUTPUT
         env:
           ENV: ${{ inputs.env }}
           IS_LATEST: ${{ inputs.latest }}
@@ -166,7 +167,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -249,7 +250,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -332,7 +333,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -420,7 +421,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -503,7 +504,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -624,7 +625,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -745,7 +746,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -871,7 +872,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -997,7 +998,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -1142,7 +1143,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -1287,7 +1288,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -1426,7 +1427,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -1565,7 +1566,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -1693,7 +1694,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -1821,7 +1822,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -1956,7 +1957,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -2103,7 +2104,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -2254,7 +2255,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -2424,7 +2425,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -2597,7 +2598,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -3106,7 +3107,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -3253,7 +3254,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -3400,7 +3401,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -3525,7 +3526,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -3657,7 +3658,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -3782,7 +3783,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -3909,7 +3910,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -4027,7 +4028,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -4150,7 +4151,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
@@ -4224,7 +4225,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
       - name: Flutter doctor -v
