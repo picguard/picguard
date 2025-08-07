@@ -104,10 +104,8 @@ jobs:
       - macos-dmg-pro
       - macos-pkg-free
       - macos-pkg-pro
-      - macos-appstore-pkg-free
-      - macos-appstore-pkg-pro
-      - macos-tar-free
-      - macos-tar-pro
+      - macos-appstore-free
+      - macos-appstore-pro
       - macos-zip-free
       - macos-zip-pro
       - linux-deb-free
@@ -130,8 +128,8 @@ jobs:
       - windows-exe-pro
       - windows-msi-free
       - windows-msi-pro
-      - windows-msix-free
-      - windows-msix-pro
+      - windows-store-free
+      - windows-store-pro
       - windows-zip-free
       - windows-zip-pro
     steps:
@@ -1277,8 +1275,8 @@ jobs:
           fi
           rm -f .env
 
-  macos-appstore-pkg-free:
-    name: Create macos pkg (appstore-free)
+  macos-appstore-free:
+    name: Create macos appstore (free)
     runs-on: macos-15
     needs:
       - create-release
@@ -1416,8 +1414,8 @@ jobs:
           fi
           rm -f .env
 
-  macos-appstore-pkg-pro:
-    name: Create macos pkg (appstore-pro)
+  macos-appstore-pro:
+    name: Create macos appstore (pro)
     runs-on: macos-15
     needs:
       - create-release
@@ -1542,262 +1540,6 @@ jobs:
 
       - name: Upload assets
         run: gh release upload "$TAG_NAME" ./*.pkg
-        env:
-          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
-
-      - name: Clean up
-        if: ${{ always() }}
-        run: |
-          if [ -f "$RUNNER_TEMP/pg-signing.keychain-db" ]; then
-            echo "$RUNNER_TEMP/pg-signing.keychain-db"
-            security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
-          fi
-          rm -f .env
-
-  macos-tar-free:
-    name: Create macos tar (free)
-    runs-on: macos-15
-    needs:
-      - create-release
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: ${{ env.flutter-channel }}
-          flutter-version: ${{ env.flutter-version }}
-
-      - name: Flutter doctor -v
-        run: flutter doctor -v
-
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
-
-      - name: Configure .env
-        run: |
-          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_BASE64" | base64 --decode > .env
-        env:
-          ENV: ${{ inputs.env }}
-          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
-          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: macos
-
-      - name: Build macOS
-        run: |
-          echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
-
-      - name: Install certificates
-        env:
-          DEVELOPER_ID_APPLICATION_P12_BASE64_MAC: ${{ secrets.DEVELOPER_ID_APPLICATION_P12_BASE64_MAC }}
-          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-        run: |
-          # create variables
-          DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH=$RUNNER_TEMP/build_developerID_application_certificate.p12
-          KEYCHAIN_PATH=$RUNNER_TEMP/pg-signing.keychain-db
-
-          # import certificate and provisioning profile from secrets
-          echo -n "$DEVELOPER_ID_APPLICATION_P12_BASE64_MAC" | base64 --decode --output $DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH
-
-          # create temporary keychain
-          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          # security default-keychain -s $KEYCHAIN_PATH
-          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-
-          # import certificate to keychain
-          security import $DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security list-keychain -d user -s $KEYCHAIN_PATH
-          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-
-      - name: Code Signing
-        run: /usr/bin/codesign --deep --force -s "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY" --options runtime PicGuard.app -v
-        working-directory: build/macos/Build/Products/Release-free
-        env:
-          DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
-
-      - name: Notarize app
-        run: |
-          # We can't notarize an app bundle directly, but we need to compress it as an archive.
-          # Therefore, we create a zip file containing our app bundle, so that we can send it to the
-          # notarization service
-          echo "Creating temp notarization archive"
-          ditto -c -k --keepParent "PicGuard.app" "PicGuard.zip"
-
-          # Here we send the notarization request to the Apple's Notarization service, waiting for the result.
-          # This typically takes a few seconds inside a CI environment, but it might take more depending on the App
-          # characteristics. Visit the Notarization docs for more information and strategies on how to optimize it if
-          # you're curious
-          echo "Notarize app"
-          xcrun notarytool submit "PicGuard.zip" --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --password "$APPLE_PASSWORD" --wait
-
-          # Finally, we need to "attach the staple" to our executable, which will allow our app to be
-          # validated by macOS even when an internet connection is not available.
-          echo "Attach staple"
-          xcrun stapler staple "PicGuard.app"
-        working-directory: build/macos/Build/Products/Release-free
-        env:
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-
-      - name: Build tar
-        run: tar -czaf PicGuard-"$RELEASE"-macos-universal.tar.gz ./PicGuard.app
-        working-directory: build/macos/Build/Products/Release-free
-        env:
-          RELEASE: ${{ needs.create-release.outputs.release }}
-
-      # Package the build.
-      - name: Copy build for tar
-        run: |
-          ls -la *.tar.gz
-          mv *.tar.gz $GITHUB_WORKSPACE/
-        working-directory: build/macos/Build/Products/Release-free
-
-      - name: Upload assets
-        run: gh release upload "$TAG_NAME" ./*.tar.gz
-        env:
-          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
-
-      - name: Clean up
-        if: ${{ always() }}
-        run: |
-          if [ -f "$RUNNER_TEMP/pg-signing.keychain-db" ]; then
-            echo "$RUNNER_TEMP/pg-signing.keychain-db"
-            security delete-keychain $RUNNER_TEMP/pg-signing.keychain-db
-          fi
-          rm -f .env
-
-  macos-tar-pro:
-    name: Create macos tar (pro)
-    runs-on: macos-15
-    needs:
-      - create-release
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: ${{ env.flutter-channel }}
-          flutter-version: ${{ env.flutter-version }}
-
-      - name: Flutter doctor -v
-        run: flutter doctor -v
-
-      - name: Install Flutter dependencies
-        run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
-
-      - name: Configure .env
-        run: |
-          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
-          echo "$ENV_BASE64" | base64 --decode > .env
-        env:
-          ENV: ${{ inputs.env }}
-          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
-          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: macos
-
-      - name: Build macOS
-        run: |
-          echo "╠ Releasing to app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro
-
-      - name: Install certificates
-        env:
-          DEVELOPER_ID_APPLICATION_P12_BASE64_MAC: ${{ secrets.DEVELOPER_ID_APPLICATION_P12_BASE64_MAC }}
-          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-        run: |
-          # create variables
-          DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH=$RUNNER_TEMP/build_developerID_application_certificate.p12
-          KEYCHAIN_PATH=$RUNNER_TEMP/pg-signing.keychain-db
-
-          # import certificate and provisioning profile from secrets
-          echo -n "$DEVELOPER_ID_APPLICATION_P12_BASE64_MAC" | base64 --decode --output $DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH
-
-          # create temporary keychain
-          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          # security default-keychain -s $KEYCHAIN_PATH
-          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-
-          # import certificate to keychain
-          security import $DEVELOPER_ID_APPLICATION_CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security list-keychain -d user -s $KEYCHAIN_PATH
-          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-
-      - name: Code Signing
-        run: /usr/bin/codesign --deep --force -s "$DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY" --options runtime "PicGuard Pro.app" -v
-        working-directory: build/macos/Build/Products/Release-pro
-        env:
-          DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_APPLICATION_SIGNING_IDENTITY }}
-
-      - name: Notarize app
-        run: |
-          # We can't notarize an app bundle directly, but we need to compress it as an archive.
-          # Therefore, we create a zip file containing our app bundle, so that we can send it to the
-          # notarization service
-          echo "Creating temp notarization archive"
-          ditto -c -k --keepParent "PicGuard Pro.app" "PicGuard Pro.zip"
-
-          # Here we send the notarization request to the Apple's Notarization service, waiting for the result.
-          # This typically takes a few seconds inside a CI environment, but it might take more depending on the App
-          # characteristics. Visit the Notarization docs for more information and strategies on how to optimize it if
-          # you're curious
-          echo "Notarize app"
-          xcrun notarytool submit "PicGuard Pro.zip" --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --password "$APPLE_PASSWORD" --wait
-
-          # Finally, we need to "attach the staple" to our executable, which will allow our app to be
-          # validated by macOS even when an internet connection is not available.
-          echo "Attach staple"
-          xcrun stapler staple "PicGuard Pro.app"
-        working-directory: build/macos/Build/Products/Release-pro
-        env:
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-
-      - name: Build tar
-        run: tar -czaf PicGuard-Pro-"$RELEASE"-macos-universal.tar.gz ./PicGuard\ Pro.app
-        working-directory: build/macos/Build/Products/Release-pro
-        env:
-          RELEASE: ${{ needs.create-release.outputs.release }}
-
-      # Package the build.
-      - name: Copy build for tar
-        run: |
-          ls -la *.tar.gz
-          mv *.tar.gz $GITHUB_WORKSPACE/
-        working-directory: build/macos/Build/Products/Release-pro
-
-      - name: Upload assets
-        run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
           GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
@@ -3897,8 +3639,8 @@ jobs:
             echo "File($pwd\.env) doesn't exist."
           }
 
-  windows-msix-free:
-    name: Create windows msix (free)
+  windows-store-free:
+    name: Create windows store (free)
     runs-on: windows-2022
     env:
       Platform: x64
@@ -4015,8 +3757,8 @@ jobs:
             echo "File($pwd\.env) doesn't exist."
           }
 
-  windows-msix-pro:
-    name: Create windows msix (pro)
+  windows-store-pro:
+    name: Create windows store (pro)
     runs-on: windows-2022
     env:
       Platform: x64
