@@ -2,7 +2,7 @@ display_name: PicGuard
 package_name: picguard
 maintainer:
   name: kjxbyz
-  email: hello@kjxbyz.com
+  email: support@picguard.app
 priority: optional
 section: x11
 installed_size: 12000
