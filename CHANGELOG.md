@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.0.2
+
+1. chore(deps): update deps
+2. Update flutter to 3.32.8
+3. ci: remove the tar.gz format for macOS
+4. ci: remove the appimage format for Linux
+5. fix: update privacy
+
 ## 4.0.1+453
 
 1. chore(deps): update deps
