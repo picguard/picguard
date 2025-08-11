@@ -25,7 +25,7 @@ dependencies:
   bot_toast: ^4.1.3
   cupertino_icons: ^1.0.8
   device_info_plus: ^11.5.0
-  file_picker: ^10.2.3
+  file_picker: ^10.2.4
   file_saver: ^0.3.1
   flutter:
     sdk: flutter
@@ -68,7 +68,7 @@ dev_dependencies:
     sdk: flutter
   import_sorter: ^4.6.0
   melos: ^6.3.3
-  msix: ^3.16.10
+  msix: ^3.16.12
   slang_build_runner: ^4.8.0
   very_good_analysis: ^9.0.0
 
