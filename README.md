@@ -7,7 +7,6 @@
 [![Test](https://github.com/picguard/picguard/actions/workflows/test.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/test.yml)
 [![Release](https://github.com/picguard/picguard/actions/workflows/release.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/release.yml)
 [![Release Web](https://github.com/picguard/picguard/actions/workflows/release-web.yml/badge.svg)](https://github.com/picguard/picguard/actions/workflows/release-web.yml)
-[![GitHub Release](https://img.shields.io/github/v/release/picguard/picguard)](https://github.com/picguard/picguard/releases/latest)
 
 ## Versions
 
