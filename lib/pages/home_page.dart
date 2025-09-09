@@ -10,10 +10,13 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 // Flutter imports:
+import 'package:bot_toast/bot_toast.dart';
+import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart' hide TextInput;
+import 'package:mime/mime.dart';
 
 // Package imports:
 import 'package:app_settings/app_settings.dart';
@@ -61,15 +64,16 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    controller = MultiImagePickerController(
-      maxImages: 9,
-      images: <ImageFile>[],
-      picker: (limit, params) async => _pickImages(limit),
-    )..addListener(() {
-        if (mounted) {
-          setState(() {});
-        }
-      });
+    controller =
+        MultiImagePickerController(
+          maxImages: 9,
+          images: <ImageFile>[],
+          picker: (limit, params) async => _pickImages(limit),
+        )..addListener(() {
+          if (mounted) {
+            setState(() {});
+          }
+        });
 
     LocaleSettings.getLocaleStream().listen((event) {
       printDebugLog('locale changed: $event');
@@ -117,136 +121,148 @@ class _HomePageState extends State<HomePage> {
               ],
             )
           : isWeb && PgEnv.appPreviewEnabled
-              ? PGAppBar(
-                  titleWidget: Text(
-                    t.homePage.appPreview,
-                    style: const TextStyle(
-                      color: Colors.red,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 2,
-                    textAlign: TextAlign.center,
-                  ),
-                  isDark: isDark,
-                  showBottom: false,
-                )
-              : null,
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final maxWidth = constraints.maxWidth;
-          // final maxHeight = constraints.maxHeight;
-          late Widget child;
-          if ((isWeb || isDesktop) && maxWidth >= 800) {
-            child = SingleChildScrollView(
-              padding: padding,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisSize: MainAxisSize.min,
-                spacing: 10,
-                children: [
-                  Flexible(
-                    flex: 6,
-                    fit: FlexFit.tight,
-                    child: Column(
-                      spacing: 10,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ImageGroup(
-                          controller: controller,
-                        ),
-                        const AppDescription(),
-                      ],
-                    ),
-                  ),
-                  Flexible(
-                    flex: 4,
-                    fit: FlexFit.tight,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        FormBuilder(
-                          key: _formKey,
-                          child: Column(
-                            spacing: 5,
-                            children: [
-                              TextInput(focusNode: inputFocusNode),
-                              const ColorPicker(),
-                              const OpacityPicker(),
-                              if (AppConfig.shared.isPro) ...[
-                                const FontPicker(),
-                                const FontSizePicker(),
-                                const TextColumnGap(),
-                                const TextRowGap(),
-                              ],
-                            ],
-                          ),
-                        ),
-                        const Gap(20),
-                        PreviewBtn(
-                          onPressed:
-                              controller.images.isNotEmpty ? _preview : null,
-                        ),
-                        const Gap(10),
-                        SaveBtn(
-                          onPressed:
-                              controller.images.isNotEmpty ? _save : null,
-                        ),
-                        const Gap(14),
-                        const AppVersion(),
-                      ],
-                    ),
-                  ),
-                ],
+          ? PGAppBar(
+              titleWidget: Text(
+                t.homePage.appPreview,
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                maxLines: 2,
+                textAlign: TextAlign.center,
               ),
-            );
-          } else {
-            child = ListView(
-              padding: padding,
-              shrinkWrap: true,
-              children: [
-                ImageGroup(
-                  controller: controller,
+              isDark: isDark,
+              showBottom: false,
+            )
+          : null,
+      body: DropArea(
+        onDragEntered: _onDragEntered,
+        onDragExited: _onDragExited,
+        onDragDone: _onDragDone,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final maxWidth = constraints.maxWidth;
+            late Widget child;
+            if ((isWeb || isDesktop) && maxWidth >= 800) {
+              child = SingleChildScrollView(
+                padding: padding,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 10,
+                  children: [
+                    Flexible(
+                      flex: 6,
+                      fit: FlexFit.tight,
+                      child: Column(
+                        spacing: 10,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ImageGroup(
+                            controller: controller,
+                          ),
+                          const AppDescription(),
+                        ],
+                      ),
+                    ),
+                    Flexible(
+                      flex: 4,
+                      fit: FlexFit.tight,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          FormBuilder(
+                            key: _formKey,
+                            child: Column(
+                              spacing: 5,
+                              children: [
+                                TextInput(focusNode: inputFocusNode),
+                                const ColorPicker(),
+                                const OpacityPicker(),
+                                if (AppConfig.shared.isPro) ...[
+                                  const FontPicker(),
+                                  const FontSizePicker(),
+                                  const TextColumnGap(),
+                                  const TextRowGap(),
+                                ],
+                              ],
+                            ),
+                          ),
+                          const Gap(20),
+                          PreviewBtn(
+                            onPressed: controller.images.isNotEmpty
+                                ? _preview
+                                : null,
+                          ),
+                          const Gap(10),
+                          SaveBtn(
+                            onPressed: controller.images.isNotEmpty
+                                ? _save
+                                : null,
+                          ),
+                          const Gap(14),
+                          const AppVersion(),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const Gap(10),
-                const AppDescription(),
-                const Gap(10),
-                FormBuilder(
-                  key: _formKey,
-                  child: Column(
-                    spacing: 5,
-                    children: [
-                      TextInput(focusNode: inputFocusNode),
-                      const ColorPicker(),
-                      const OpacityPicker(),
-                      if (AppConfig.shared.isPro) ...[
-                        const FontPicker(),
-                        const FontSizePicker(),
-                        const TextColumnGap(),
-                        const TextRowGap(),
-                      ],
-                    ],
+              );
+            } else {
+              child = ListView(
+                padding: padding,
+                shrinkWrap: true,
+                children: [
+                  ImageGroup(
+                    controller: controller,
                   ),
-                ),
-                const Gap(20),
-                PreviewBtn(
-                  onPressed: controller.images.isNotEmpty ? _preview : null,
-                ),
-                const Gap(10),
-                SaveBtn(onPressed: controller.images.isNotEmpty ? _save : null),
-                const Gap(14),
-                const AppVersion(),
+                  const Gap(10),
+                  const AppDescription(),
+                  const Gap(10),
+                  FormBuilder(
+                    key: _formKey,
+                    child: Column(
+                      spacing: 5,
+                      children: [
+                        TextInput(focusNode: inputFocusNode),
+                        const ColorPicker(),
+                        const OpacityPicker(),
+                        if (AppConfig.shared.isPro) ...[
+                          const FontPicker(),
+                          const FontSizePicker(),
+                          const TextColumnGap(),
+                          const TextRowGap(),
+                        ],
+                      ],
+                    ),
+                  ),
+                  const Gap(20),
+                  PreviewBtn(
+                    onPressed: controller.images.isNotEmpty ? _preview : null,
+                  ),
+                  const Gap(10),
+                  SaveBtn(
+                    onPressed: controller.images.isNotEmpty ? _save : null,
+                  ),
+                  const Gap(14),
+                  const AppVersion(),
+                ],
+              );
+            }
+
+            // if (isMobile) {
+            //   return child;
+            // }
+
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                child,
               ],
             );
-          }
-
-          // if (isMobile) {
-          //   return child;
-          // }
-
-          return child;
-        },
+          },
+        ),
       ),
       floatingActionButtonLocation: ExpandableFab.location,
       floatingActionButton: isWeb
@@ -268,25 +284,28 @@ class _HomePageState extends State<HomePage> {
               ),
               closeButtonBuilder: FloatingActionButtonBuilder(
                 size: 44,
-                builder: (
-                  BuildContext context,
-                  void Function()? onPressed,
-                  Animation<double> progress,
-                ) {
-                  return IconButton(
-                    onPressed: onPressed,
-                    style: ButtonStyle(
-                      backgroundColor:
-                          WidgetStateProperty.all(PGColors.backgroundColor),
-                      foregroundColor:
-                          WidgetStateProperty.all(PGColors.warnTextColor),
-                    ),
-                    icon: const Icon(
-                      Icons.close,
-                      size: 24,
-                    ),
-                  );
-                },
+                builder:
+                    (
+                      BuildContext context,
+                      void Function()? onPressed,
+                      Animation<double> progress,
+                    ) {
+                      return IconButton(
+                        onPressed: onPressed,
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all(
+                            PGColors.backgroundColor,
+                          ),
+                          foregroundColor: WidgetStateProperty.all(
+                            PGColors.warnTextColor,
+                          ),
+                        ),
+                        icon: const Icon(
+                          Icons.close,
+                          size: 24,
+                        ),
+                      );
+                    },
               ),
               overlayStyle: ExpandableFabOverlayStyle(
                 color: Colors.black.withValues(alpha: 0.5),
@@ -325,6 +344,58 @@ class _HomePageState extends State<HomePage> {
     return KeyboardDismisser(
       child: child,
     );
+  }
+
+  void _onDragEntered(DropEventDetails details) {
+    BotToast.showText(text: t.homePage.dragging, duration: const Duration(seconds: 1));
+  }
+
+  void _onDragExited(DropEventDetails details) {
+    // BotToast.showText(text: t.homePage.cancelDrag);
+  }
+
+  Future<void> _onDragDone(DropDoneDetails details) async {
+    final items = details.files;
+    final maxImages = controller.maxImages;
+    final currentImages = controller.images.length;
+
+    if (currentImages + items.length > maxImages) {
+      BotToast.showText(
+        text: t.homePage.limitValidator(
+          maxImages: maxImages,
+          lastImages: maxImages - currentImages,
+        ),
+      );
+      return;
+    }
+
+    final supportedFormats = items.where(
+      (item) {
+        final mimeType = lookupMimeType(item.name);
+        return ['image/jpeg', 'image/png'].contains(mimeType);
+      },
+    );
+
+    if (supportedFormats.length != items.length) {
+      BotToast.showText(text: t.homePage.formatValidator);
+      return;
+    }
+
+    for (final item in supportedFormats) {
+      final fileName = item.name;
+      final data = await item.readAsBytes();
+      final imageFile = ImageFile(
+        'index_${uuid.v4()}',
+        name: fileName,
+        extension: extension(fileName),
+        bytes: data,
+      );
+
+      if (maxImages > currentImages) {
+        controller.addImage(imageFile);
+        setState(() {});
+      }
+    }
   }
 
   /// 预览
@@ -368,8 +439,9 @@ class _HomePageState extends State<HomePage> {
         final images = await Future.wait(imageFutures);
         printDebugLog('Length of images: ${images.length}');
         await EasyLoading.dismiss();
-        final imageProviders =
-            images.nonNulls.map((item) => MemoryImage(item.bytes)).toList();
+        final imageProviders = images.nonNulls
+            .map((item) => MemoryImage(item.bytes))
+            .toList();
         DialogUtil.showImagePreviewDialog(imageProviders);
       } on Exception catch (error, stackTrace) {
         await EasyLoading.dismiss();
@@ -573,9 +645,10 @@ class _HomePageState extends State<HomePage> {
 
     final multiply = (hypotenuseLength / (textPainter.width + textGap)).ceil();
     if (multiply > 1) {
-      final watermarks = List.generate(multiply, (index) => index)
-          .map((e) => TextSpan(text: watermark))
-          .toList();
+      final watermarks = List.generate(
+        multiply,
+        (index) => index,
+      ).map((e) => TextSpan(text: watermark)).toList();
 
       final children = <InlineSpan>[];
       final dimensions = <PlaceholderDimensions>[];
@@ -631,17 +704,18 @@ class _HomePageState extends State<HomePage> {
         }
       }
 
-      textPainter = TextPainter(
-        text: TextSpan(
-          children: children,
-          style: textStyle,
-        ),
-        textAlign: TextAlign.center,
-        textDirection: TextDirection.ltr,
-        maxLines: 1,
-      )
-        ..setPlaceholderDimensions(dimensions)
-        ..layout(maxWidth: hypotenuseLength);
+      textPainter =
+          TextPainter(
+              text: TextSpan(
+                children: children,
+                style: textStyle,
+              ),
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.ltr,
+              maxLines: 1,
+            )
+            ..setPlaceholderDimensions(dimensions)
+            ..layout(maxWidth: hypotenuseLength);
     }
 
     // 计算角度
@@ -658,9 +732,10 @@ class _HomePageState extends State<HomePage> {
     printDebugLog('Height of textPainter: ${textPainter.height}');
 
     // 绘制剩余文本
-    final lines = (((hypotenuseLength - textPainter.height) / 2) /
-            (textPainter.height + rowGap))
-        .floor();
+    final lines =
+        (((hypotenuseLength - textPainter.height) / 2) /
+                (textPainter.height + rowGap))
+            .floor();
 
     for (var i = 0; i < lines; i++) {
       textPainter

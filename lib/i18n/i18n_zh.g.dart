@@ -84,6 +84,8 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 	@override String get textGapDescription => '每行文本中, 文本与文本之间的间距';
 	@override String get rowGapLabel => '行间距';
 	@override String get rowGapDescription => '每行文本与每行文本之间的间距';
+	@override String get dragging => '拖拽中';
+	@override String get cancelDrag => '拖拽已取消';
 	@override String limitValidator({required Object maxImages, required Object lastImages}) => '最多支持${maxImages}张图片，您还可以上传${lastImages}张图片.';
 	@override String get formatValidator => '仅支持PNG和JPEG格式.';
 	@override String get preview => '预览';
@@ -299,6 +301,8 @@ extension on TranslationsZh {
 			case 'homePage.textGapDescription': return '每行文本中, 文本与文本之间的间距';
 			case 'homePage.rowGapLabel': return '行间距';
 			case 'homePage.rowGapDescription': return '每行文本与每行文本之间的间距';
+			case 'homePage.dragging': return '拖拽中';
+			case 'homePage.cancelDrag': return '拖拽已取消';
 			case 'homePage.limitValidator': return ({required Object maxImages, required Object lastImages}) => '最多支持${maxImages}张图片，您还可以上传${lastImages}张图片.';
 			case 'homePage.formatValidator': return '仅支持PNG和JPEG格式.';
 			case 'homePage.preview': return '预览';

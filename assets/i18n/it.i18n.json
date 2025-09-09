@@ -22,6 +22,8 @@
     "textGapDescription": "La spaziatura tra il testo in ogni riga di testo",
     "rowGapLabel": "Interlinea",
     "rowGapDescription": "La spaziatura tra ogni riga di testo",
+    "dragging": "Trascinamento",
+    "cancelDrag": "Trascinamento annullato",
     "limitValidator": "Supporta fino a $maxImages immagini, puoi anche caricare $lastImages immagini.",
     "formatValidator": "Supportare solo i formati PNG e JPEG",
     "preview": "Anteprima",

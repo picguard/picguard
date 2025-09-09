@@ -22,6 +22,8 @@
     "textGapDescription": "The spacing between text in each line of text",
     "rowGapLabel": "Line spacing",
     "rowGapDescription": "The spacing between each line of text",
+    "dragging": "Dragging",
+    "cancelDrag": "Drag canceled",
     "limitValidator": "Supports up to $maxImages pictures, you can also upload $lastImages picture(s).",
     "formatValidator": "Only PNG and JPEG formats are supported.",
     "preview": "Preview",

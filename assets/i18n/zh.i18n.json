@@ -22,6 +22,8 @@
     "textGapDescription": "每行文本中, 文本与文本之间的间距",
     "rowGapLabel": "行间距",
     "rowGapDescription": "每行文本与每行文本之间的间距",
+    "dragging": "拖拽中",
+    "cancelDrag": "拖拽已取消",
     "limitValidator": "最多支持$maxImages张图片，您还可以上传$lastImages张图片.",
     "formatValidator": "仅支持PNG和JPEG格式.",
     "preview": "预览",
