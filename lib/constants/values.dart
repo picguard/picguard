@@ -30,4 +30,4 @@ const fontFamilies = <PGFont>[
 
 const websiteBaseUrl = 'https://www.picguard.app';
 
-const githubBaseUrl = 'https://github.com/PicGuard/picguard';
+const githubBaseUrl = 'https://github.com/picguard/picguard';

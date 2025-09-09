@@ -606,7 +606,7 @@ class DialogUtil {
                 ? Icons.chevron_right
                 : Icons.chevron_left,
           ),
-          onTap: () => gotoPage('/blob/v$version+$buildNumber/README.md'),
+          onTap: () => gotoPage('/blob/v$version/README.md'),
         ),
         ListTile(
           leading: const Icon(Icons.description),
@@ -616,7 +616,7 @@ class DialogUtil {
                 ? Icons.chevron_right
                 : Icons.chevron_left,
           ),
-          onTap: () => gotoPage('/blob/v$version+$buildNumber/LICENSE'),
+          onTap: () => gotoPage('/blob/v$version/LICENSE'),
         ),
         ListTile(
           leading: const Icon(Icons.list),
@@ -626,7 +626,7 @@ class DialogUtil {
                 ? Icons.chevron_right
                 : Icons.chevron_left,
           ),
-          onTap: () => gotoPage('/releases/tag/v$version+$buildNumber'),
+          onTap: () => gotoPage('/releases/tag/v$version'),
         ),
         LicensesPageListTile(
           icon: const Icon(Icons.favorite),
