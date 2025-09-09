@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.0
+
+1. chore(deps): update deps
+2. Update flutter to 3.35.3
+3. feat: add drag and drop support
+4. build(deps): bump actions/setup-node from 4 to 5 (#450)
+
 ## 4.0.3
 
 1. chore(deps): update deps
