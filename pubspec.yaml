@@ -56,7 +56,7 @@ dependencies:
   sentry_logging: ^9.6.0
   shared_preferences: ^2.5.3
   slang_flutter: ^4.8.0
-  syncfusion_flutter_sliders: ^31.1.17
+  syncfusion_flutter_sliders: ^31.1.18
   synchronized: ^3.4.0
   tray_manager: ^0.5.1
   url_launcher: ^6.3.2
@@ -69,7 +69,7 @@ dev_dependencies:
     sdk: flutter
   import_sorter: ^4.6.0
   msix: ^3.16.12
-  slang_build_runner: ^4.8.0
+  slang_build_runner: ^4.8.1
   very_good_analysis: ^9.0.0
 
 # For information on the generic Dart part of this file, see the
