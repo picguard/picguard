@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.1
+
+1. chore(deps): update deps
+2. feat: Add metadata for F-Droid
+3. ci: Remove build id, required by F-Droid
+
 ## 5.0.0
 
 1. chore(deps): update deps
