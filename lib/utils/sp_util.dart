@@ -2,14 +2,11 @@
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
-// Dart imports:
 import 'dart:async';
 
-// Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:synchronized/synchronized.dart';
 
-// Project imports:
 import 'package:picguard/utils/utils.dart';
 
 class SpUtil {

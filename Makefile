@@ -7,10 +7,6 @@ outdated:
 	echo "╠ Resolving dependencies..."
 	fvm flutter pub outdated
 
-format:
-	echo "╠ Sorting imports..."
-	fvm dart run import_sorter:main lib\/* test\/*
-
 clean: ## Cleans the environment
 	echo "╠ Cleaning the project..."
 	fvm flutter clean

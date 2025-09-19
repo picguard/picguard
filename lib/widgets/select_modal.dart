@@ -2,14 +2,11 @@
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart' hide Translations;
 
-// Project imports:
 import 'package:picguard/controllers/controllers.dart';
 import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/generated/colors.gen.dart';

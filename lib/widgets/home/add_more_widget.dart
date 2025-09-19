@@ -2,13 +2,10 @@
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
-// Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
-// Project imports:
 import 'package:picguard/generated/colors.gen.dart';
 
 class AddMoreWidget extends StatelessWidget {
