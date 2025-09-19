@@ -21,7 +21,7 @@ on:
 permissions: read-all
 
 env:
-  flutter-version: '3.35.3'
+  flutter-version: '3.35.4'
 
 jobs:
   apk:
@@ -37,6 +37,7 @@ jobs:
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
+        id: flutter-action
         with:
           channel: 'stable'
           flutter-version: ${{ env.flutter-version }}
@@ -46,6 +47,9 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
+
+      - name: Remove build id
+        run: sed -i -e 's/-Wl,/-Wl,--build-id=none,/' ${{ steps.flutter-action.outputs.PUB-CACHE-PATH }}/hosted/pub.dev/jni-*/src/CMakeLists.txt
 
       - name: Build Apk
         run: flutter build apk --debug --no-tree-shake-icons --target lib/main_free.dart --flavor freeStaging
