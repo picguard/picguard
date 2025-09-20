@@ -9,7 +9,6 @@ import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import 'package:picguard/constants/constants.dart';
-import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/utils/utils.dart';
@@ -37,72 +36,85 @@ class _TextColumnGapState extends State<TextColumnGap> {
           content: t.homePage.textGapDescription,
         );
       },
-      child: FormBuilderField<double>(
-        name: 'textGap',
-        initialValue: textGapNotifier.value,
-        builder: (FormFieldState<double> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 8,
-            children: [
-              Row(
-                spacing: 4,
-                children: [
-                  SfSliderTheme(
-                    data: const SfSliderThemeData(
-                      activeTrackHeight: 4,
-                      activeTrackColor: PGColors.primaryColor,
-                      inactiveTrackColor: PGColors.primaryBackgroundColor,
-                      thumbRadius: 6,
-                      thumbColor: PGColors.primaryColor,
-                      overlayRadius: 0,
-                      tooltipBackgroundColor: PGColors.primaryColor,
-                    ),
-                    child: SfSlider(
-                      min: initialGap / 2,
-                      max: initialGap * 2,
-                      stepSize: 10,
-                      value: field.value,
-                      enableTooltip: true,
-                      onChanged: (dynamic value) {
-                        final newValue = value as double? ?? initialGap;
-                        textGapNotifier.value = newValue;
-                        field
-                          ..didChange(newValue)
-                          ..validate();
-                      },
-                    ),
-                  ).nestedAlign().nestedSizedBox(height: 30).nestedExpanded(),
-                  ValueListenableBuilder(
-                    valueListenable: textGapNotifier,
-                    builder: (
-                        BuildContext context,
-                        double value,
-                        Widget? child,
-                        ) =>
-                        Text(
-                          value.toStringAsFixed(0),
-                          textAlign: TextAlign.center,
-                        ).nestedSizedBox(width: 28),
-                  ),
-                ],
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: PGColors.errorTextColor,
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(left: 8),
-                ),
-            ],
-          );
-        },
-      ).nestedPadding(
+      child: Padding(
         padding: const EdgeInsets.only(top: 8.5),
+        child: FormBuilderField<double>(
+          name: 'textGap',
+          initialValue: textGapNotifier.value,
+          builder: (FormFieldState<double> field) {
+            final hasError = StringUtil.isNotBlank(field.errorText);
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 8,
+              children: [
+                Row(
+                  spacing: 4,
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 30,
+                        child: Align(
+                          child: SfSliderTheme(
+                            data: const SfSliderThemeData(
+                              activeTrackHeight: 4,
+                              activeTrackColor: PGColors.primaryColor,
+                              inactiveTrackColor:
+                                  PGColors.primaryBackgroundColor,
+                              thumbRadius: 6,
+                              thumbColor: PGColors.primaryColor,
+                              overlayRadius: 0,
+                              tooltipBackgroundColor: PGColors.primaryColor,
+                            ),
+                            child: SfSlider(
+                              min: initialGap / 2,
+                              max: initialGap * 2,
+                              stepSize: 10,
+                              value: field.value,
+                              enableTooltip: true,
+                              onChanged: (dynamic value) {
+                                final newValue = value as double? ?? initialGap;
+                                textGapNotifier.value = newValue;
+                                field
+                                  ..didChange(newValue)
+                                  ..validate();
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: textGapNotifier,
+                      builder:
+                          (
+                            BuildContext context,
+                            double value,
+                            Widget? child,
+                          ) => SizedBox(
+                            width: 28,
+                            child: Text(
+                              value.toStringAsFixed(0),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                    ),
+                  ],
+                ),
+                if (hasError)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text(
+                      field.errorText!,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: PGColors.errorTextColor,
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

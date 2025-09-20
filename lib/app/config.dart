@@ -19,7 +19,7 @@ class AppConfig {
 
   bool get isPro => !isFree;
 
-  String get container => isPro ? 'PicGuardPro' : 'PicGuard';
+  String get container => isPro ? 'picguard_pro' : 'picguard';
 
   static AppConfig shared = AppConfig.create();
 }

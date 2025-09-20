@@ -29,10 +29,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:path/path.dart' hide context;
 
 import 'package:picguard/app/config.dart';
-import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/constants/uuid.dart';
 import 'package:picguard/generated/colors.gen.dart';
@@ -466,7 +466,7 @@ class _HomePageState extends State<HomePage> {
 
       final permission = await PermissionUtil.checkPermission();
       if (permission != Permissions.none) {
-        final t = Translations.of(AppNavigator.navigatorKey.currentContext!);
+        final t = Translations.of(navigatorKey.currentContext!);
         final appName = t.appName(flavor: AppConfig.shared.flavor);
         final title = permission == Permissions.photos
             ? t.dialogs.permissions.photos.title
@@ -772,7 +772,7 @@ class _HomePageState extends State<HomePage> {
   Future<List<ImageFile>> _pickImages(int limit) async {
     final permission = await PermissionUtil.checkPermission();
     if (permission != Permissions.none) {
-      final t = Translations.of(AppNavigator.navigatorKey.currentContext!);
+      final t = Translations.of(navigatorKey.currentContext!);
       final appName = t.appName(flavor: AppConfig.shared.flavor);
       final title = permission == Permissions.photos
           ? t.dialogs.permissions.photos.title

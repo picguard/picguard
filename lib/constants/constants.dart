@@ -3,6 +3,5 @@
 // See the LICENSE file in the project root for full license information.
 
 export 'env.dart';
-export 'get.dart';
 export 'keys.dart';
 export 'values.dart';

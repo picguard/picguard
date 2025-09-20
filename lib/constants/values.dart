@@ -2,7 +2,7 @@
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
-import 'package:picguard/constants/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:picguard/models/models.dart';
 
 const spacing = 8.0;

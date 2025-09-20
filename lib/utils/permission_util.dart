@@ -3,9 +3,8 @@
 // See the LICENSE file in the project root for full license information.
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-import 'package:picguard/constants/constants.dart';
 
 enum Permissions {
   photos,

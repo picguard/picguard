@@ -4,7 +4,6 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/generated/colors.gen.dart';
 
 typedef BaseFormItemCallback = void Function();
@@ -43,27 +42,34 @@ class _BaseFormItemState extends State<BaseFormItem> {
   @override
   Widget build(BuildContext context) {
     return widget.title != null
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: widget.mainAxisSize,
-            children: [
-              if (!widget.showTip)
-                content
-              else
-                content
-                    .addWidgetAsList(
-                      widget.tipWidget == null
-                          ? tips
-                          : widget.tipWidget!.nestedTap(
-                              () {
-                                widget.onTipTap?.call();
-                              },
-                            ),
-                    )
-                    .nestedRow(mainAxisAlignment: widget.mainAxisAlignment),
-              widget.child,
-            ],
-          ).nestedPadding(padding: widget.padding)
+        ? Padding(
+            padding: widget.padding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: widget.mainAxisSize,
+              children: [
+                if (!widget.showTip)
+                  content
+                else
+                  Row(
+                    mainAxisAlignment: widget.mainAxisAlignment,
+                    children: [
+                      content,
+                      if (widget.tipWidget == null)
+                        tips
+                      else
+                        GestureDetector(
+                          onTap: () {
+                            widget.onTipTap?.call();
+                          },
+                          child: widget.tipWidget,
+                        ),
+                    ],
+                  ),
+                widget.child,
+              ],
+            ),
+          )
         : Padding(
             padding: widget.padding,
             child: widget.child,
@@ -99,19 +105,22 @@ class _BaseFormItemState extends State<BaseFormItem> {
   }
 
   Widget get tips {
-    return IconButton(
-      style: ButtonStyle(
-        padding: WidgetStateProperty.all(EdgeInsets.zero),
-        elevation: WidgetStateProperty.all(0),
-        minimumSize: WidgetStateProperty.all(Size.zero),
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    return Padding(
+      padding: const EdgeInsets.only(left: 4),
+      child: IconButton(
+        style: ButtonStyle(
+          padding: WidgetStateProperty.all(EdgeInsets.zero),
+          elevation: WidgetStateProperty.all(0),
+          minimumSize: WidgetStateProperty.all(Size.zero),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+        onPressed: widget.onTipTap,
+        icon: const Icon(
+          Icons.info,
+          size: 16,
+          color: PGColors.primaryColor,
+        ),
       ),
-      onPressed: widget.onTipTap,
-      icon: const Icon(
-        Icons.info,
-        size: 16,
-        color: PGColors.primaryColor,
-      ),
-    ).nestedPadding(padding: const EdgeInsets.only(left: 4));
+    );
   }
 }

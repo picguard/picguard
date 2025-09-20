@@ -4,7 +4,6 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/utils/utils.dart';
 
@@ -43,25 +42,30 @@ class MineSectionItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           if (leading != null) leading!,
-          Text(
-            name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: isDark ? Colors.white : labelColor,
-              fontSize: 16,
-              fontWeight: FontWeight.normal,
-              height: 1.43,
-            ),
-          ).nestedExpanded(),
-          if (StringUtil.isNotBlank(tips))
-            Text(
-              tips!,
-              style: const TextStyle(
-                color: PGColors.secondaryTextColor,
-                fontSize: 12,
+          Expanded(
+            child: Text(
+              name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: isDark ? Colors.white : labelColor,
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+                height: 1.43,
               ),
-            ).nestedPadding(padding: EdgeInsets.only(right: showIcon ? 4 : 0)),
+            ),
+          ),
+          if (StringUtil.isNotBlank(tips))
+            Padding(
+              padding: EdgeInsets.only(right: showIcon ? 4 : 0),
+              child: Text(
+                tips!,
+                style: const TextStyle(
+                  color: PGColors.secondaryTextColor,
+                  fontSize: 12,
+                ),
+              ),
+            ),
           if (showIcon)
             const Icon(
               Icons.arrow_forward_ios,
@@ -75,33 +79,39 @@ class MineSectionItem extends StatelessWidget {
       child = Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (leading != null) leading!,
-              Text(
-                name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: labelColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                  height: 1.43,
-                ),
-              ),
-              if (StringUtil.isNotBlank(tips))
-                Text(
-                  tips!,
-                  style: const TextStyle(
-                    color: PGColors.secondaryTextColor,
-                    fontSize: 12,
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(right: showIcon ? 4 : 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (leading != null) leading!,
+                  Text(
+                    name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: labelColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      height: 1.43,
+                    ),
                   ),
-                ).nestedPadding(padding: const EdgeInsets.only(top: 4)),
-            ],
-          )
-              .nestedPadding(padding: EdgeInsets.only(right: showIcon ? 4 : 0))
-              .nestedExpanded(),
+                  if (StringUtil.isNotBlank(tips))
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        tips!,
+                        style: const TextStyle(
+                          color: PGColors.secondaryTextColor,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
           if (showIcon)
             const Icon(
               Icons.arrow_forward_ios,
@@ -129,18 +139,20 @@ class MineSectionItem extends StatelessWidget {
         child: child,
       );
     } else {
-      child = child.nestedPadding(
+      child = Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+        child: child,
       );
     }
 
     if (showBorder) {
-      child = child.nestedDecoratedBox(
+      child = DecoratedBox(
         decoration: const BoxDecoration(
           border: Border(
             bottom: BorderSide(color: PGColors.borderColor, width: 0.5),
           ),
         ),
+        child: child,
       );
     }
 
@@ -163,68 +175,77 @@ class MineSectionGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final itemWidgets = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: List.generate(
-        items.length,
-        (index) {
-          final item = items.elementAt(index);
-          return MineSectionItem(
-            name: item.title,
-            showBorder: !(index == items.length - 1),
-            labelColor: item.color,
-            overlayColor: item.overlayColor,
-            callback: item.callback,
-            showIcon: item.showIcon,
-            direction: item.direction,
-            tips: item.tips,
-            leading: item.leading,
-            trailing: item.trailing,
-          );
-        },
-      ),
-    ).nestedDecoratedBox(
+    final itemWidgets = DecoratedBox(
       decoration: BoxDecoration(
         color: isDark ? Colors.black12 : PGColors.secondaryGrayColor,
         borderRadius: BorderRadius.circular(6),
       ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: List.generate(
+          items.length,
+          (index) {
+            final item = items.elementAt(index);
+            return MineSectionItem(
+              name: item.title,
+              showBorder: !(index == items.length - 1),
+              labelColor: item.color,
+              overlayColor: item.overlayColor,
+              callback: item.callback,
+              showIcon: item.showIcon,
+              direction: item.direction,
+              tips: item.tips,
+              leading: item.leading,
+              trailing: item.trailing,
+            );
+          },
+        ),
+      ),
     );
 
     if (StringUtil.isNotBlank(title) || StringUtil.isNotBlank(description)) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (StringUtil.isNotBlank(title))
-            Text(
-              title!,
-              style: TextStyle(
-                color: isDark ? PGColors.secondaryBorderColor : PGColors.secondaryTextColor,
-                fontSize: 12,
-                height: 1.67,
-              ),
-            ).nestedPadding(
-              padding: const EdgeInsets.only(left: 10, bottom: 10),
-            ),
-          itemWidgets,
-          if (StringUtil.isNotBlank(description))
-            Text(
-              description!,
-              style: TextStyle(
-                color: isDark ? PGColors.secondaryBorderColor : PGColors.secondaryTextColor,
-                fontSize: 12,
-                height: 1.67,
-              ),
-            ).nestedPadding(
-              padding: const EdgeInsets.only(left: 10, top: 10),
-            ),
-        ],
-      ).nestedPadding(
+      return Padding(
         padding: const EdgeInsets.only(top: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (StringUtil.isNotBlank(title))
+              Padding(
+                padding: const EdgeInsets.only(left: 10, bottom: 10),
+                child: Text(
+                  title!,
+                  style: TextStyle(
+                    color: isDark
+                        ? PGColors.secondaryBorderColor
+                        : PGColors.secondaryTextColor,
+                    fontSize: 12,
+                    height: 1.67,
+                  ),
+                ),
+              ),
+            itemWidgets,
+            if (StringUtil.isNotBlank(description))
+              Padding(
+                padding: const EdgeInsets.only(left: 10, top: 10),
+                child: Text(
+                  description!,
+                  style: TextStyle(
+                    color: isDark
+                        ? PGColors.secondaryBorderColor
+                        : PGColors.secondaryTextColor,
+                    fontSize: 12,
+                    height: 1.67,
+                  ),
+                ),
+              ),
+          ],
+        ),
       );
     }
 
-    return itemWidgets.nestedPadding(
+    return Padding(
       padding: const EdgeInsets.only(top: 20),
+      child: itemWidgets,
     );
   }
 }
