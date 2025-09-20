@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.0.3
+
+1. Update flutter to 3.35.4
+2. chore(deps): update deps
+3. build: Don't contains timestamp
+4. style: remove `import_sorter`
+5. refactor: Replace `get` with `provider`
+
 ## 5.0.2
 
 1. fix(android): add themed icons
