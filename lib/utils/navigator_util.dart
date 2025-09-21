@@ -2,11 +2,8 @@
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
-// Flutter imports:
 import 'package:flutter/material.dart';
-
-// Project imports:
-import 'package:picguard/app/navigator.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 ///
 class NavigatorUtil {
@@ -18,7 +15,7 @@ class NavigatorUtil {
     String? barrierLabel,
   }) {
     Navigator.push<T>(
-      AppNavigator.navigatorKey.currentContext!,
+      navigatorKey.currentContext!,
       MaterialPageRoute<T>(
         builder: (BuildContext context) => widget,
         settings: settings,
@@ -37,7 +34,7 @@ class NavigatorUtil {
     String? barrierLabel,
   }) {
     Navigator.pushAndRemoveUntil<T>(
-      AppNavigator.navigatorKey.currentContext!,
+      navigatorKey.currentContext!,
       MaterialPageRoute<T>(
         builder: (BuildContext context) => widget,
         settings: settings,
@@ -56,7 +53,7 @@ class NavigatorUtil {
     String? barrierLabel,
   }) {
     Navigator.pushReplacement<T, TO>(
-      AppNavigator.navigatorKey.currentContext!,
+      navigatorKey.currentContext!,
       MaterialPageRoute<T>(
         builder: (BuildContext context) => widget,
         settings: settings,
@@ -67,6 +64,6 @@ class NavigatorUtil {
   }
 
   static void pop() {
-    Navigator.pop(AppNavigator.navigatorKey.currentContext!);
+    Navigator.pop(navigatorKey.currentContext!);
   }
 }

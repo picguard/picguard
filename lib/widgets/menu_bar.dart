@@ -2,18 +2,14 @@
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
-// Dart imports:
 import 'dart:io';
 
-// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// Package imports:
 import 'package:menu_bar/menu_bar.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-// Project imports:
 import 'package:picguard/app/config.dart';
 import 'package:picguard/constants/values.dart';
 import 'package:picguard/generated/colors.gen.dart';

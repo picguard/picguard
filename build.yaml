@@ -20,6 +20,7 @@ targets:
           input_directory: assets/i18n
           output_directory: lib/i18n
           output_file_name: i18n.g.dart
+          timestamp: false
           maps:
             - locales
           contexts:

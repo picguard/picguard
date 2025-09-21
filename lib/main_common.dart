@@ -2,29 +2,23 @@
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
-// Dart imports:
 import 'dart:io';
 
-// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:get/get.dart' hide Translations;
-import 'package:get_storage/get_storage.dart';
 import 'package:logging/logging.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'package:tray_manager/tray_manager.dart';
 
-// Project imports:
 import 'package:picguard/app/config.dart';
-import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
-import 'package:picguard/controllers/controllers.dart';
 import 'package:picguard/enums/enums.dart';
 import 'package:picguard/generated/assets.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
@@ -32,6 +26,7 @@ import 'package:picguard/logger/logger.dart';
 import 'package:picguard/pages/pages.dart';
 import 'package:picguard/theme/theme.dart';
 import 'package:picguard/utils/utils.dart';
+import 'package:picguard/viewmodels/viewmodels.dart';
 import 'package:picguard/widgets/widgets.dart';
 
 Future<void> reportErrorAndLog(FlutterErrorDetails details) async {
@@ -49,12 +44,13 @@ Future<void> runMainApp({
   Flavor flavor = Flavor.free,
 }) async {
   SentryWidgetsFlutterBinding.ensureInitialized();
-  await SpUtil.getInstance();
+  await initialize();
 
   AppConfig.create(flavor: flavor);
 
-  Logger.root.level =
-      kReleaseMode ? Level.OFF : Level.ALL; // defaults to Level.INFO
+  Logger.root.level = kReleaseMode
+      ? Level.OFF
+      : Level.ALL; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {
     debugPrint('${record.level.name}: ${record.time}: ${record.message}');
   });
@@ -80,7 +76,7 @@ Future<void> runMainApp({
           ..spotlight = Spotlight(enabled: true)
           ..enableTimeToFullDisplayTracing = true
           ..maxRequestBodySize = MaxRequestBodySize.always
-          ..navigatorKey = AppNavigator.navigatorKey;
+          ..navigatorKey = navigatorKey;
       },
     );
   } else {
@@ -105,10 +101,12 @@ Future<void> runMainApp({
   // initialize with the right locale
   await LocaleSettings.useDeviceLocale();
 
-  await GetStorage.init(AppConfig.shared.container);
-  Get.lazyPut(SettingsController.new, fenix: true);
-
-  Widget child = const MainApp();
+  Widget child = MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => GlobalProvider()),
+    ],
+    child: const MainApp(),
+  );
   if (PgEnv.sentryEnabled) {
     child = SentryWidget(
       child: DefaultAssetBundle(
@@ -149,45 +147,42 @@ class _MainAppState extends State<MainApp> with TrayListener {
 
   @override
   Widget build(BuildContext context) {
-    final mainController = Get.find<SettingsController>();
-    return Obx(
-      () {
-        final child = DefaultTextStyle.merge(
-          style: const TextStyle(
-            fontFamily: 'NotoSansSC',
-            fontWeight: FontWeight.normal,
+    final themeMode = context.select<GlobalProvider, ThemeMode>(
+      (provider) => provider.themeMode,
+    );
+    final child = DefaultTextStyle.merge(
+      style: const TextStyle(
+        fontFamily: 'NotoSansSC',
+        fontWeight: FontWeight.normal,
+      ),
+      child: const SelectionArea(child: HomePage()),
+    );
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
+      navigatorObservers: [
+        BotToastNavigatorObserver(),
+        if (PgEnv.sentryEnabled) SentryNavigatorObserver(),
+      ],
+      themeMode: themeMode,
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      locale: TranslationProvider.of(context).flutterLocale,
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      home: isMacOS
+          ? MacOSMenuBar(child: child)
+          : (isWindows || isLinux)
+          ? DesktopMenuBar(child: child)
+          : child,
+      builder: (BuildContext context, Widget? child) {
+        child = easyLoadingBuilder(context, child);
+        child = botToastBuilder(context, child);
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: TextScaler.noScaling,
           ),
-          child: const SelectionArea(child: HomePage()),
-        );
-        return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          navigatorKey: AppNavigator.navigatorKey,
-          scaffoldMessengerKey: AppNavigator.scaffoldMessengerKey,
-          navigatorObservers: [
-            BotToastNavigatorObserver(),
-            if (PgEnv.sentryEnabled) SentryNavigatorObserver(),
-          ],
-          themeMode: mainController.themeMode.value,
-          theme: AppTheme.light,
-          darkTheme: AppTheme.dark,
-          locale: TranslationProvider.of(context).flutterLocale,
-          supportedLocales: AppLocaleUtils.supportedLocales,
-          localizationsDelegates: GlobalMaterialLocalizations.delegates,
-          home: isMacOS
-              ? MacOSMenuBar(child: child)
-              : (isWindows || isLinux)
-                  ? DesktopMenuBar(child: child)
-                  : child,
-          builder: (BuildContext context, Widget? child) {
-            child = easyLoadingBuilder(context, child);
-            child = botToastBuilder(context, child);
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(
-                textScaler: TextScaler.noScaling,
-              ),
-              child: child,
-            );
-          },
+          child: child,
         );
       },
     );
@@ -201,12 +196,11 @@ class _MainAppState extends State<MainApp> with TrayListener {
     final t = Translations.of(context);
     final appName = t.appName(flavor: AppConfig.shared.flavor);
     final isPro = AppConfig.shared.isPro;
-    final trayIcon =
-        isWindows
-            ? (isPro ? Assets.logo.pro.trayIcon : Assets.logo.trayIcon)
-            : (isPro
-                ? Assets.logo.pro.trayLogo.keyName
-                : Assets.logo.trayLogo.keyName);
+    final trayIcon = isWindows
+        ? (isPro ? Assets.logo.pro.trayIcon : Assets.logo.trayIcon)
+        : (isPro
+              ? Assets.logo.pro.trayLogo.keyName
+              : Assets.logo.trayLogo.keyName);
     await trayManager.setIcon(trayIcon);
 
     final menu = Menu(

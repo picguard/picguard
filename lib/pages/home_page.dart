@@ -2,14 +2,12 @@
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
-// Dart imports:
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
-// Flutter imports:
 import 'package:bot_toast/bot_toast.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/foundation.dart';
@@ -18,7 +16,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart' hide TextInput;
 import 'package:mime/mime.dart';
 
-// Package imports:
 import 'package:app_settings/app_settings.dart';
 import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
@@ -32,11 +29,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:path/path.dart' hide context;
 
-// Project imports:
 import 'package:picguard/app/config.dart';
-import 'package:picguard/app/navigator.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/constants/uuid.dart';
 import 'package:picguard/generated/colors.gen.dart';
@@ -470,7 +466,7 @@ class _HomePageState extends State<HomePage> {
 
       final permission = await PermissionUtil.checkPermission();
       if (permission != Permissions.none) {
-        final t = Translations.of(AppNavigator.navigatorKey.currentContext!);
+        final t = Translations.of(navigatorKey.currentContext!);
         final appName = t.appName(flavor: AppConfig.shared.flavor);
         final title = permission == Permissions.photos
             ? t.dialogs.permissions.photos.title
@@ -776,7 +772,7 @@ class _HomePageState extends State<HomePage> {
   Future<List<ImageFile>> _pickImages(int limit) async {
     final permission = await PermissionUtil.checkPermission();
     if (permission != Permissions.none) {
-      final t = Translations.of(AppNavigator.navigatorKey.currentContext!);
+      final t = Translations.of(navigatorKey.currentContext!);
       final appName = t.appName(flavor: AppConfig.shared.flavor);
       final title = permission == Permissions.photos
           ? t.dialogs.permissions.photos.title

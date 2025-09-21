@@ -2,15 +2,11 @@
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
-// Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-// Package imports:
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-// Project imports:
-import 'package:picguard/extensions/extensions.dart';
 import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
@@ -32,104 +28,107 @@ class ColorPicker extends StatelessWidget {
       title: t.homePage.colorLabel,
       required: false,
       showTip: false,
-      child: FormBuilderField<int>(
-        name: 'color',
-        initialValue: colors.elementAt(1).color,
-        builder: (FormFieldState<int> field) {
-          final hasError = StringUtil.isNotBlank(field.errorText);
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 8,
-            children: [
-              DropdownButtonFormField<int>(
-                value: field.value,
-                onTap: () => onColorTap(colors, field),
-                style: DefaultTextStyle.of(context).style.copyWith(
-                      color: isDark ? Colors.white : PGColors.primaryTextColor,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                icon: const Icon(
-                  Icons.arrow_drop_down,
-                  color: PGColors.borderColor,
-                  size: 20,
-                ),
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
-                  enabledBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: PGColors.errorTextColor,
-                          ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: PGColors.borderColor,
-                          ),
-                          gapPadding: 0,
-                        ),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                      color: PGColors.borderColor,
-                    ),
-                    gapPadding: 0,
-                  ),
-                  focusedBorder: hasError
-                      ? OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: PGColors.errorTextColor,
-                          ),
-                          // borderSide: BorderSide.none,
-                          gapPadding: 0,
-                        )
-                      : OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                            color: PGColors.primaryColor,
-                          ),
-                          gapPadding: 0,
-                        ),
-                ),
-                items: colors.map(
-                  (item) {
-                    return DropdownMenuItem<int>(
-                      enabled: item.color != field.value,
-                      value: item.color,
-                      child: Text(item.label).nestedAlign(
-                        alignment: Alignment.centerLeft,
-                      ),
-                    );
-                  },
-                ).toList(),
-                onChanged: (value) {},
-              ),
-              if (hasError)
-                Text(
-                  field.errorText!,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: PGColors.errorTextColor,
-                  ),
-                ).nestedPadding(
-                  padding: const EdgeInsets.only(left: 8),
-                ),
-            ],
-          );
-        },
-        validator: (value) {
-          if (value == null) {
-            return t.homePage.colorValidator;
-          }
-          return null;
-        },
-      ).nestedPadding(
+      child: Padding(
         padding: const EdgeInsets.only(top: 8.5),
+        child: FormBuilderField<int>(
+          name: 'color',
+          initialValue: colors.elementAt(1).color,
+          builder: (FormFieldState<int> field) {
+            final hasError = StringUtil.isNotBlank(field.errorText);
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 8,
+              children: [
+                DropdownButtonFormField<int>(
+                  initialValue: field.value,
+                  onTap: () => onColorTap(colors, field),
+                  style: DefaultTextStyle.of(context).style.copyWith(
+                    color: isDark ? Colors.white : PGColors.primaryTextColor,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  icon: const Icon(
+                    Icons.arrow_drop_down,
+                    color: PGColors.borderColor,
+                    size: 20,
+                  ),
+                  decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
+                    enabledBorder: hasError
+                        ? OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                              color: PGColors.errorTextColor,
+                            ),
+                            // borderSide: BorderSide.none,
+                            gapPadding: 0,
+                          )
+                        : OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                              color: PGColors.borderColor,
+                            ),
+                            gapPadding: 0,
+                          ),
+                    disabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                        color: PGColors.borderColor,
+                      ),
+                      gapPadding: 0,
+                    ),
+                    focusedBorder: hasError
+                        ? OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                              color: PGColors.errorTextColor,
+                            ),
+                            // borderSide: BorderSide.none,
+                            gapPadding: 0,
+                          )
+                        : OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                              color: PGColors.primaryColor,
+                            ),
+                            gapPadding: 0,
+                          ),
+                  ),
+                  items: colors.map(
+                    (item) {
+                      return DropdownMenuItem<int>(
+                        enabled: item.color != field.value,
+                        value: item.color,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(item.label),
+                        ),
+                      );
+                    },
+                  ).toList(),
+                  onChanged: (value) {},
+                ),
+                if (hasError)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text(
+                      field.errorText!,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: PGColors.errorTextColor,
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          },
+          validator: (value) {
+            if (value == null) {
+              return t.homePage.colorValidator;
+            }
+            return null;
+          },
+        ),
       ),
     );
   }
