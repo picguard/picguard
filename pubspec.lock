@@ -1105,10 +1105,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: a2608114b1ffdcbc9c120eb71a0e207c71da56202852d4aab8a5e30a82269e74
+      sha256: bd14436108211b0d4ee5038689a56d4ae3620fd72fd6036e113bf1345bc74d9e
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.12"
+    version: "2.4.13"
   shared_preferences_foundation:
     dependency: transitive
     description:
@@ -1262,18 +1262,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: e8e351522b7c3442609e04f1613f29b7917147bb3de41dbd3c1ec4169cf1888d
+      sha256: "7c700778e2b390412f3a364aa38fbc010570ade19684b9d6613d17e7ca284898"
       url: "https://pub.dev"
     source: hosted
-    version: "31.1.20"
+    version: "31.1.21"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "6d5bf3508571dce1801a408d242eec580693af32fc1bd1312f2db9209cb5f4a9"
+      sha256: "22fe6955785f72a471ece371460a3e417cda1353bdfe8b89b6e8e68183df5c77"
       url: "https://pub.dev"
     source: hosted
-    version: "31.1.20"
+    version: "31.1.21"
   synchronized:
     dependency: "direct main"
     description:
