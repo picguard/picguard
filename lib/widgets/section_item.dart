@@ -160,9 +160,11 @@ class MineSectionItem extends StatelessWidget {
   }
 }
 
-class MineSectionGroup extends StatelessWidget {
+class MineSectionGroup<T> extends StatelessWidget {
   const MineSectionGroup({
     required this.items,
+    this.groupValue,
+    this.onChanged,
     this.title,
     this.description,
     super.key,
@@ -170,6 +172,8 @@ class MineSectionGroup extends StatelessWidget {
 
   final String? title;
   final String? description;
+  final T? groupValue;
+  final ValueChanged<T?>? onChanged;
   final List<MineSectionModel> items;
 
   @override
@@ -223,7 +227,14 @@ class MineSectionGroup extends StatelessWidget {
                   ),
                 ),
               ),
-            itemWidgets,
+            if (groupValue != null && onChanged != null)
+              RadioGroup(
+                groupValue: groupValue,
+                onChanged: onChanged!,
+                child: itemWidgets,
+              )
+            else
+              itemWidgets,
             if (StringUtil.isNotBlank(description))
               Padding(
                 padding: const EdgeInsets.only(left: 10, top: 10),

@@ -394,7 +394,7 @@ class SettingsModal extends StatelessWidget {
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          MineSectionGroup(
+                          MineSectionGroup<void>(
                             title: t.dialogs.settingsDialog.themes.dark,
                             description:
                                 t.dialogs.settingsDialog.themesDescription,
@@ -431,53 +431,53 @@ class SettingsModal extends StatelessWidget {
                             ],
                           ),
                           if (!auto)
-                            MineSectionGroup(
+                            MineSectionGroup<ThemeMode>(
                               title: t.dialogs.settingsDialog.themes.manual,
+                              groupValue: themeMode,
+                              onChanged: (ThemeMode? value) {
+                                if (value != null) {
+                                  model.switchThemeMode(value);
+                                }
+                              },
                               items: [
                                 MineSectionModel(
                                   title: t.dialogs.settingsDialog.themes.light,
                                   showIcon: false,
-                                  trailing: Radio<ThemeMode>(
+                                  trailing: const Radio<ThemeMode>(
                                     value: ThemeMode.light,
-                                    groupValue: themeMode,
                                     materialTapTargetSize:
                                         MaterialTapTargetSize.shrinkWrap,
-                                    visualDensity: const VisualDensity(
+                                    visualDensity: VisualDensity(
                                       horizontal: VisualDensity.minimumDensity,
                                       vertical: VisualDensity.minimumDensity,
                                     ),
-                                    onChanged: (ThemeMode? value) {
-                                      if (value != null) {
-                                        model.switchThemeMode(value);
-                                      }
-                                    },
                                   ),
                                 ),
                                 MineSectionModel(
                                   title: t.dialogs.settingsDialog.themes.dark,
                                   showIcon: false,
-                                  trailing: Radio<ThemeMode>(
+                                  trailing: const Radio<ThemeMode>(
                                     value: ThemeMode.dark,
-                                    groupValue: themeMode,
                                     materialTapTargetSize:
                                         MaterialTapTargetSize.shrinkWrap,
-                                    visualDensity: const VisualDensity(
+                                    visualDensity: VisualDensity(
                                       horizontal: VisualDensity.minimumDensity,
                                       vertical: VisualDensity.minimumDensity,
                                     ),
-                                    onChanged: (ThemeMode? value) {
-                                      if (value != null) {
-                                        model.switchThemeMode(value);
-                                      }
-                                    },
                                   ),
                                 ),
                               ],
                             ),
                         ],
                       ),
-                      MineSectionGroup(
+                      MineSectionGroup<String>(
                         title: t.dialogs.settingsDialog.languages,
+                        groupValue: languageCode,
+                        onChanged: (String? value) {
+                          if (value != null && value.isNotEmpty) {
+                            LocaleSettings.setLocaleRaw(value);
+                          }
+                        },
                         items: t.locales.entries.map(
                           (MapEntry<String, String> entry) {
                             final appLocale = AppLocaleUtils.parse(entry.key);
@@ -486,18 +486,12 @@ class SettingsModal extends StatelessWidget {
                               showIcon: false,
                               trailing: Radio<String>(
                                 value: appLocale.languageCode,
-                                groupValue: languageCode,
                                 materialTapTargetSize:
                                     MaterialTapTargetSize.shrinkWrap,
                                 visualDensity: const VisualDensity(
                                   horizontal: VisualDensity.minimumDensity,
                                   vertical: VisualDensity.minimumDensity,
                                 ),
-                                onChanged: (String? value) {
-                                  if (value != null && value.isNotEmpty) {
-                                    LocaleSettings.setLocaleRaw(value);
-                                  }
-                                },
                               ),
                             );
                           },
