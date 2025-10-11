@@ -38,7 +38,7 @@ jobs:
 
   store-pro:
     name: Create store
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
     needs:
@@ -67,9 +67,7 @@ jobs:
 
       - name: Install yq
         shell: pwsh
-        run: |
-          choco install yq
-          yq --version
+        run: choco install yq --no-progress
 
       - name: Update config
         shell: pwsh
