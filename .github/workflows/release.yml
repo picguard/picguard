@@ -2195,6 +2195,9 @@ jobs:
           # used by tray_manager
           sudo dnf install -y libayatana-appindicator-gtk3
 
+      - name: Install jq
+        run: sudo dnf install -y jq
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -2277,6 +2280,9 @@ jobs:
         run: |
           # used by tray_manager
           sudo dnf install -y libayatana-appindicator-gtk3
+
+      - name: Install jq
+        run: sudo dnf install -y jq
 
       - name: Setup Flutter
         shell: bash
@@ -2373,6 +2379,9 @@ jobs:
           # used by tray_manager
           sudo dnf install -y libayatana-appindicator-gtk3
 
+      - name: Install jq
+        run: sudo dnf install -y jq
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -2462,6 +2471,9 @@ jobs:
         run: |
           # used by tray_manager
           sudo dnf install -y libayatana-appindicator-gtk3
+
+      - name: Install jq
+        run: sudo dnf install -y jq
 
       - name: Setup Flutter
         shell: bash
