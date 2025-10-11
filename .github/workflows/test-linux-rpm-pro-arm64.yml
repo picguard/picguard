@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies for Linux
         run: |
           sudo dnf update -y && sudo dnf upgrade -y
-          sudo dnf install -y curl which git unzip xz zip mesa-libGLU
+          sudo dnf install -y curl libcurl-devel which git unzip xz zip mesa-libGLU
           sudo dnf install -y clang cmake ninja-build pkgconf-pkg-config gtk3-devel xz-devel libstdc++-devel
           sudo dnf install -y rpm-build patchelf
 
