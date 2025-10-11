@@ -27,10 +27,10 @@ jobs:
           sudo dnf install -y clang cmake ninja-build pkgconf-pkg-config gtk3-devel xz-devel libstdc++-devel
           sudo dnf install -y rpm-build patchelf
 
-      - name: Install libayatana-appindicator-gtk3
+      - name: Install libappindicator-gtk3-devel
         run: |
           # used by tray_manager
-          sudo dnf install -y libayatana-appindicator-gtk3
+          sudo dnf install -y libappindicator-gtk3-devel
 
       - name: Install jq
         run: sudo dnf install -y jq
