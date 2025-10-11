@@ -2170,6 +2170,8 @@ jobs:
   linux-rpm-free:
     name: Create linux rpm (free)
     runs-on: ubuntu-22.04
+    container:
+      image: fedora:40
     needs:
       - create-release
     steps:
@@ -2183,14 +2185,15 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt-get update -y && sudo apt-get upgrade -y
-          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
-          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo dnf update -y && sudo dnf upgrade -y
+          sudo dnf install -y curl git unzip xz zip mesa-libGLU
+          sudo dnf install -y clang cmake ninja-build pkgconf-pkg-config gtk3-devel xz-devel libstdc++-devel
+          sudo dnf install -y rpm-build patchelf
 
-      - name: Install ayatana-appindicator3-0.1
+      - name: Install libayatana-appindicator-gtk3
         run: |
           # used by tray_manager
-          sudo apt-get install -y libayatana-appindicator3-dev
+          sudo dnf install -y libayatana-appindicator-gtk3
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -2251,6 +2254,8 @@ jobs:
   linux-rpm-free-arm64:
     name: Create linux rpm (free arm64)
     runs-on: ubuntu-22.04-arm
+    container:
+      image: fedora:40
     needs:
       - create-release
     steps:
@@ -2263,15 +2268,15 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt-get update -y && sudo apt-get upgrade -y
-          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
-          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
-          sudo apt-get install -y rpm patchelf
+          sudo dnf update -y && sudo dnf upgrade -y
+          sudo dnf install -y curl git unzip xz zip mesa-libGLU
+          sudo dnf install -y clang cmake ninja-build pkgconf-pkg-config gtk3-devel xz-devel libstdc++-devel
+          sudo dnf install -y rpm-build patchelf
 
-      - name: Install ayatana-appindicator3-0.1
+      - name: Install libayatana-appindicator-gtk3
         run: |
           # used by tray_manager
-          sudo apt-get install -y libayatana-appindicator3-dev
+          sudo dnf install -y libayatana-appindicator-gtk3
 
       - name: Setup Flutter
         shell: bash
@@ -2343,6 +2348,8 @@ jobs:
   linux-rpm-pro:
     name: Create linux rpm (pro)
     runs-on: ubuntu-22.04
+    container:
+      image: fedora:40
     needs:
       - create-release
     steps:
@@ -2356,14 +2363,15 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt-get update -y && sudo apt-get upgrade -y
-          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
-          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo dnf update -y && sudo dnf upgrade -y
+          sudo dnf install -y curl git unzip xz zip mesa-libGLU
+          sudo dnf install -y clang cmake ninja-build pkgconf-pkg-config gtk3-devel xz-devel libstdc++-devel
+          sudo dnf install -y rpm-build patchelf
 
-      - name: Install ayatana-appindicator3-0.1
+      - name: Install libayatana-appindicator-gtk3
         run: |
           # used by tray_manager
-          sudo apt-get install -y libayatana-appindicator3-dev
+          sudo dnf install -y libayatana-appindicator-gtk3
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -2431,6 +2439,8 @@ jobs:
   linux-rpm-pro-arm64:
     name: Create linux rpm (pro arm64)
     runs-on: ubuntu-22.04-arm
+    container:
+      image: fedora:40
     needs:
       - create-release
     steps:
@@ -2443,15 +2453,15 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt-get update -y && sudo apt-get upgrade -y
-          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
-          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
-          sudo apt-get install -y rpm patchelf
+          sudo dnf update -y && sudo dnf upgrade -y
+          sudo dnf install -y curl git unzip xz zip mesa-libGLU
+          sudo dnf install -y clang cmake ninja-build pkgconf-pkg-config gtk3-devel xz-devel libstdc++-devel
+          sudo dnf install -y rpm-build patchelf
 
-      - name: Install ayatana-appindicator3-0.1
+      - name: Install libayatana-appindicator-gtk3
         run: |
           # used by tray_manager
-          sudo apt-get install -y libayatana-appindicator3-dev
+          sudo dnf install -y libayatana-appindicator-gtk3
 
       - name: Setup Flutter
         shell: bash
