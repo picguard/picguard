@@ -3156,7 +3156,7 @@ jobs:
 
   windows-exe-free:
     name: Create windows exe (free)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
     needs:
@@ -3281,7 +3281,7 @@ jobs:
 
   windows-exe-pro:
     name: Create windows exe (pro)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
     needs:
@@ -3412,7 +3412,7 @@ jobs:
 
   windows-msi-free:
     name: Create windows msi (free)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
       Configuration: Release
@@ -3537,7 +3537,7 @@ jobs:
 
   windows-msi-pro:
     name: Create windows msi (pro)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
       Configuration: Release
@@ -3665,7 +3665,7 @@ jobs:
 
   windows-store-free:
     name: Create windows store (free)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
     needs:
@@ -3783,7 +3783,7 @@ jobs:
 
   windows-store-pro:
     name: Create windows store (pro)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
     needs:
@@ -3906,7 +3906,7 @@ jobs:
 
   windows-zip-free:
     name: Create windows zip (free)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
     needs:
@@ -3980,7 +3980,7 @@ jobs:
 
   windows-zip-pro:
     name: Create windows zip (pro)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
     needs:
