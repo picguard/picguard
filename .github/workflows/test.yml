@@ -26,7 +26,7 @@ env:
 jobs:
   apk:
     name: Create apk (free)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
 
@@ -301,7 +301,7 @@ jobs:
 
   linux:
     name: Create linux (free)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
 
@@ -417,7 +417,7 @@ jobs:
 
   web:
     name: Create web (free)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
 

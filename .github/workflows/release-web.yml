@@ -11,7 +11,7 @@ permissions: read-all
 jobs:
   web-free:
     name: Create web (free)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
 
@@ -60,7 +60,7 @@ jobs:
 
   web-pro:
     name: Create web (pro)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
 

@@ -17,7 +17,7 @@ source-code: https://github.com/picguard/picguard
 issues: https://github.com/picguard/picguard/issues
 website: https://www.picguard.app
 confinement: strict
-base: core22
+base: core24
 grade: stable
 slots:
   dbus-picguard: # adjust accordingly to your app name
