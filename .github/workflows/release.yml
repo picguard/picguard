@@ -3156,7 +3156,7 @@ jobs:
 
   windows-exe-free:
     name: Create windows exe (free)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
     needs:
@@ -3186,6 +3186,9 @@ jobs:
       - name: copy eula.rtf to the windows folder
         run: Copy-Item -Path "$pwd\macos\packaging\base\eula.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
 
+      - name: Install Inno Setup
+        run: choco install innosetup --no-progress
+
       - name: Copy ChineseSimplified.isl to C:\Program Files (x86)\Inno Setup 6\Languages\
         run: |
           copy-item -Path windows\Languages\Unofficial\*.isl -Destination 'C:\Program Files (x86)\Inno Setup 6\Languages\'
@@ -3195,9 +3198,7 @@ jobs:
 
       - name: Install yq
         shell: pwsh
-        run: |
-          choco install yq
-          yq --version
+        run: choco install yq --no-progress
 
       - name: Update config
         shell: pwsh
@@ -3281,7 +3282,7 @@ jobs:
 
   windows-exe-pro:
     name: Create windows exe (pro)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
     needs:
@@ -3311,6 +3312,9 @@ jobs:
       - name: copy eula-pro.rtf to the windows folder
         run: Copy-Item -Path "$pwd\macos\packaging\base\eula-pro.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
 
+      - name: Install Inno Setup
+        run: choco install innosetup --no-progress
+
       - name: Copy ChineseSimplified.isl to C:\Program Files (x86)\Inno Setup 6\Languages\
         run: |
           copy-item -Path windows\Languages\Unofficial\*.isl -Destination 'C:\Program Files (x86)\Inno Setup 6\Languages\'
@@ -3320,9 +3324,7 @@ jobs:
 
       - name: Install yq
         shell: pwsh
-        run: |
-          choco install yq
-          yq --version
+        run: choco install yq --no-progress
 
       - name: Update config
         shell: pwsh
@@ -3412,7 +3414,7 @@ jobs:
 
   windows-msi-free:
     name: Create windows msi (free)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
       Configuration: Release
@@ -3432,9 +3434,7 @@ jobs:
 
       - name: Install yq
         shell: pwsh
-        run: |
-          choco install yq
-          yq --version
+        run: choco install yq --no-progress
 
       - name: Install wix toolset
         shell: pwsh
@@ -3457,9 +3457,7 @@ jobs:
 
       - name: Install yq
         shell: pwsh
-        run: |
-          choco install yq
-          yq --version
+        run: choco install yq --no-progress
 
       - name: Install Flutter dependencies
         run: flutter pub get
@@ -3537,7 +3535,7 @@ jobs:
 
   windows-msi-pro:
     name: Create windows msi (pro)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
       Configuration: Release
@@ -3557,9 +3555,7 @@ jobs:
 
       - name: Install yq
         shell: pwsh
-        run: |
-          choco install yq
-          yq --version
+        run: choco install yq --no-progress
 
       - name: Install wix toolset
         shell: pwsh
@@ -3665,7 +3661,7 @@ jobs:
 
   windows-store-free:
     name: Create windows store (free)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
     needs:
@@ -3697,9 +3693,7 @@ jobs:
 
       - name: Install yq
         shell: pwsh
-        run: |
-          choco install yq
-          yq --version
+        run: choco install yq --no-progress
 
       - name: Update config
         shell: pwsh
@@ -3783,7 +3777,7 @@ jobs:
 
   windows-store-pro:
     name: Create windows store (pro)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
     needs:
@@ -3815,9 +3809,7 @@ jobs:
 
       - name: Install yq
         shell: pwsh
-        run: |
-          choco install yq
-          yq --version
+        run: choco install yq --no-progress
 
       - name: Update config
         shell: pwsh
@@ -3906,7 +3898,7 @@ jobs:
 
   windows-zip-free:
     name: Create windows zip (free)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
     needs:
@@ -3980,7 +3972,7 @@ jobs:
 
   windows-zip-pro:
     name: Create windows zip (pro)
-    runs-on: windows-2022
+    runs-on: windows-2025
     env:
       Platform: x64
     needs:
