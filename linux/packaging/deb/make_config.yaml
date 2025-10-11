@@ -21,11 +21,14 @@ generic_name: PicGuard
 categories:
   - Utility
 
+# refer: https://www.debian.org/doc/debian-policy/ch-relationships.html
+build_dependencies:
+  - libc6 (>= 2.38)
+
 # direct dependencies required by the application
 # refer: https://www.debian.org/doc/debian-policy/ch-relationships.html
 # https://www.debian.org/distrib/packages#search_packages
 dependencies:
-  - libc6 (>= 2.38)
   - libayatana-appindicator3-1
 
 startup_notify: true

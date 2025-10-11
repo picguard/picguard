@@ -30,11 +30,15 @@ generic_name: PicGuard Pro
 categories:
   - Utility
 
+# direct build-time dependencies for the application
+# https://docs.redhat.com/zh-cn/documentation/red_hat_enterprise_linux/8/html/packaging_and_distributing_software/working-with-spec-files_packaging-software
+build_requires:
+  - glibc >= 2.38
+
 # direct dependencies required by the application
 # https://docs.redhat.com/zh-cn/documentation/red_hat_enterprise_linux/8/html/packaging_and_distributing_software/working-with-spec-files_packaging-software
 # https://packages.fedoraproject.org/
 requires:
-  - glibc >= 2.38
   - libayatana-appindicator3-1
 
 startup_notify: true
