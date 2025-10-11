@@ -36,6 +36,6 @@ build_requires:
 # https://docs.redhat.com/zh-cn/documentation/red_hat_enterprise_linux/8/html/packaging_and_distributing_software/working-with-spec-files_packaging-software
 # https://packages.fedoraproject.org/
 requires:
-  - libayatana-appindicator3-1
+  - libayatana-appindicator-gtk3
 
 startup_notify: true
