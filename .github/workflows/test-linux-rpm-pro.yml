@@ -42,6 +42,9 @@ jobs:
           channel: 'stable'
           flutter-version: '3.35.5'
 
+      - name: Fix git safe directory issue
+        run: git config --global --add safe.directory "$FLUTTER_ROOT"
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 

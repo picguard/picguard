@@ -2204,6 +2204,9 @@ jobs:
           channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
 
+      - name: Fix git safe directory issue
+        run: git config --global --add safe.directory "$FLUTTER_ROOT"
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -2387,6 +2390,9 @@ jobs:
         with:
           channel: ${{ env.flutter-channel }}
           flutter-version: ${{ env.flutter-version }}
+
+      - name: Fix git safe directory issue
+        run: git config --global --add safe.directory "$FLUTTER_ROOT"
 
       - name: Flutter doctor -v
         run: flutter doctor -v
