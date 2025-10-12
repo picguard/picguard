@@ -25,7 +25,7 @@ jobs:
           sudo dnf update -y && sudo dnf upgrade -y
           sudo dnf install -y curl libcurl-devel which git unzip xz zip mesa-libGLU
           sudo dnf install -y clang cmake ninja-build pkgconf-pkg-config gtk3-devel xz-devel libstdc++-devel
-          sudo dnf install -y rpm-build patchelf
+          sudo dnf install -y gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools patchelf
 
       - name: Install libappindicator-gtk3-devel
         run: |
