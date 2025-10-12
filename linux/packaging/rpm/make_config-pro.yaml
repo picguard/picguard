@@ -38,6 +38,6 @@ requires:
   - libappindicator-gtk3
 
 build_requires:
-  - libcurl
+  - libcurl-devel
 
 startup_notify: true
