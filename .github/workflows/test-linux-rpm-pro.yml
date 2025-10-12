@@ -59,7 +59,8 @@ jobs:
           cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
 
       - name: Install fastforge
-        run: dart pub global activate fastforge
+        run: |
+          dart pub global activate --source git https://github.com/kjxbyz/fastforge --git-ref rpm --git-path packages/fastforge
 
       - name: Update make_config.yaml
         run: |

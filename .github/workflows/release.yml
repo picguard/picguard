@@ -2223,7 +2223,8 @@ jobs:
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
       - name: Install fastforge
-        run: dart pub global activate fastforge
+        run: |
+          dart pub global activate --source git https://github.com/kjxbyz/fastforge --git-ref rpm --git-path packages/fastforge
         
       - name: Remove unused files
         run: rm -f "$(pwd)/linux/packaging/rpm/make_config-pro.yaml"
@@ -2309,7 +2310,8 @@ jobs:
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
       - name: Install fastforge
-        run: dart pub global activate fastforge
+        run: |
+          dart pub global activate --source git https://github.com/kjxbyz/fastforge --git-ref rpm --git-path packages/fastforge
 
       - name: Install yq
         run: |
@@ -2415,7 +2417,8 @@ jobs:
           cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
 
       - name: Install fastforge
-        run: dart pub global activate fastforge
+        run: |
+          dart pub global activate --source git https://github.com/kjxbyz/fastforge --git-ref rpm --git-path packages/fastforge
 
       - name: Update make_config.yaml
         run: |
@@ -2508,7 +2511,8 @@ jobs:
           cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
 
       - name: Install fastforge
-        run: dart pub global activate fastforge
+        run: |
+          dart pub global activate --source git https://github.com/kjxbyz/fastforge --git-ref rpm --git-path packages/fastforge
 
       - name: Install yq
         run: |

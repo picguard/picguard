@@ -54,7 +54,8 @@ jobs:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
       - name: Install fastforge
-        run: dart pub global activate fastforge
+        run: |
+          dart pub global activate --source git https://github.com/kjxbyz/fastforge --git-ref rpm --git-path packages/fastforge
 
       - name: Update make_config.yaml
         run: rm -f "$(pwd)/linux/packaging/rpm/make_config-pro.yaml"

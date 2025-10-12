@@ -50,7 +50,8 @@ jobs:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
       - name: Install fastforge
-        run: dart pub global activate fastforge
+        run: |
+          dart pub global activate --source git https://github.com/kjxbyz/fastforge --git-ref rpm --git-path packages/fastforge
 
       - name: Install yq
         run: |
