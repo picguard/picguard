@@ -10,6 +10,8 @@ jobs:
   rpm:
     name: Create linux rpm
     runs-on: ubuntu-22.04
+    container:
+      image: fedora:40
     steps:
       - uses: actions/checkout@v5
 
