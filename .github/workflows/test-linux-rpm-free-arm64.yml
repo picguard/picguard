@@ -10,6 +10,8 @@ jobs:
   rpm:
     name: Create linux rpm
     runs-on: ubuntu-22.04-arm
+    container:
+      image: fedora:40
     steps:
       - uses: actions/checkout@v5
 
@@ -20,15 +22,18 @@ jobs:
 
       - name: Install dependencies for Linux
         run: |
-          sudo apt-get update -y && sudo apt-get upgrade -y
-          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
-          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
-          sudo apt-get install -y rpm patchelf
+          sudo dnf update -y && sudo dnf upgrade -y
+          sudo dnf install -y curl libcurl-devel which git unzip xz zip mesa-libGLU
+          sudo dnf install -y clang cmake ninja-build pkgconf-pkg-config gtk3-devel xz-devel libstdc++-devel
+          sudo dnf install -y gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools patchelf
 
-      - name: Install ayatana-appindicator3-0.1
+      - name: Install libappindicator-gtk3-devel
         run: |
           # used by tray_manager
-          sudo apt-get install -y libayatana-appindicator3-dev
+          sudo dnf install -y libappindicator-gtk3-devel
+
+      - name: Install jq
+        run: sudo dnf install -y jq
 
       - name: Setup Flutter
         shell: bash
@@ -45,7 +50,8 @@ jobs:
           ENV_KEY: ${{ secrets.ENV_STG_BASE64 }}
 
       - name: Install fastforge
-        run: dart pub global activate fastforge
+        run: |
+          dart pub global activate --source git https://github.com/kjxbyz/fastforge --git-ref rpm --git-path packages/fastforge
 
       - name: Install yq
         run: |
