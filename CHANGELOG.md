@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.0.4
+
+1. Update flutter to 3.35.6
+2. chore(deps): update deps
+3. ci: update windows runner to windows-2025 (#474)
+
 ## 5.0.3
 
 1. Update flutter to 3.35.4
