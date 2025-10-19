@@ -1,5 +1,5 @@
 name: picguard-pro
-version: 5.0.3
+version: 5.0.4
 summary: Your pictures, your signature.
 description: |
   Introducing **PicGuard Pro** - the ultimate solution for securing and customizing your digital photos. With our app, you can easily add watermarks to your images to protect your creative work and maintain your privacy.
@@ -58,7 +58,7 @@ parts:
       - libayatana-appindicator3-1
     build-environment:
       - FLUTTER_REPO: https://github.com/flutter/flutter.git
-      - FLUTTER_VERSION: 3.35.5
+      - FLUTTER_VERSION: 3.35.6
       - FLUTTER_TARGET: lib/main_pro.dart
     override-build: |
       # Sentry

@@ -21,7 +21,7 @@ on:
 permissions: read-all
 
 env:
-  flutter-version: '3.35.5'
+  flutter-version: '3.35.6'
 
 jobs:
   apk:
@@ -360,7 +360,7 @@ jobs:
 
   windows:
     name: Create windows (free)
-    runs-on: windows-2022
+    runs-on: windows-2025
     steps:
       - uses: actions/checkout@v5
 
