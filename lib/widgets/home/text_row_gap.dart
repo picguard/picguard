@@ -31,8 +31,8 @@ class _TextRowGapState extends State<TextRowGap> {
     return BaseFormItem(
       title: t.homePage.rowGapLabel,
       required: false,
-      onTipTap: () {
-        DialogUtil.showBottomSheetDialog(
+      onTipTap: () async {
+        await DialogUtil.showBottomSheetDialog(
           content: t.homePage.rowGapDescription,
         );
       },

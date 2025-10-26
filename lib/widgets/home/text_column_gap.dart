@@ -31,8 +31,8 @@ class _TextColumnGapState extends State<TextColumnGap> {
     return BaseFormItem(
       title: t.homePage.textGapLabel,
       required: false,
-      onTipTap: () {
-        DialogUtil.showBottomSheetDialog(
+      onTipTap: () async {
+        await DialogUtil.showBottomSheetDialog(
           content: t.homePage.textGapDescription,
         );
       },
