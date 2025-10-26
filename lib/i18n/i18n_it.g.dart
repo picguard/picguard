@@ -170,6 +170,7 @@ class _TranslationsDialogsIt extends TranslationsDialogsEn {
 	@override late final _TranslationsDialogsPermissionsIt permissions = _TranslationsDialogsPermissionsIt._(_root);
 	@override late final _TranslationsDialogsLicenseDialogIt licenseDialog = _TranslationsDialogsLicenseDialogIt._(_root);
 	@override late final _TranslationsDialogsSettingsDialogIt settingsDialog = _TranslationsDialogsSettingsDialogIt._(_root);
+	@override late final _TranslationsDialogsExitDialogIt exitDialog = _TranslationsDialogsExitDialogIt._(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -233,6 +234,17 @@ class _TranslationsDialogsSettingsDialogIt extends TranslationsDialogsSettingsDi
 	@override String get languages => 'Lingue';
 	@override late final _TranslationsDialogsSettingsDialogThemesIt themes = _TranslationsDialogsSettingsDialogThemesIt._(_root);
 	@override String get themesDescription => 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
+}
+
+// Path: dialogs.exitDialog
+class _TranslationsDialogsExitDialogIt extends TranslationsDialogsExitDialogEn {
+	_TranslationsDialogsExitDialogIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Uscita?';
+	@override String get description => 'Sei sicuro di voler uscire?';
 }
 
 // Path: dialogs.permissions.photos
@@ -373,6 +385,8 @@ extension on TranslationsIt {
 			case 'dialogs.settingsDialog.themes.dark': return 'Modalità scura';
 			case 'dialogs.settingsDialog.themes.light': return 'Modalità chiara';
 			case 'dialogs.settingsDialog.themesDescription': return 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
+			case 'dialogs.exitDialog.title': return 'Uscita?';
+			case 'dialogs.exitDialog.description': return 'Sei sicuro di voler uscire?';
 			case 'locales.en': return 'English';
 			case 'locales.it': return 'Italian';
 			case 'locales.zh': return '中文';

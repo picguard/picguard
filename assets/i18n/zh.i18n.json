@@ -114,6 +114,10 @@
         "light": "浅色模式"
       },
       "themesDescription": "开启后, 将跟随系统打开或关闭深色模式"
+    },
+    "exitDialog": {
+      "title": "退出登录?",
+      "description": "您确定要退出登录应用吗?"
     }
   },
   "locales(map)": {

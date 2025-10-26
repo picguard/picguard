@@ -2,8 +2,6 @@
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -193,9 +191,7 @@ class DesktopMenuBar extends StatelessWidget {
               const MenuDivider(height: 1),
               MenuButton(
                 text: Text(t.menus.exit(appName: appName)),
-                onTap: () {
-                  exit(0);
-                },
+                onTap: SystemNavigator.pop,
                 icon: const Icon(Icons.exit_to_app),
                 shortcut: const CharacterActivator('Q', control: true),
                 shortcutText: 'Ctrl+Q',

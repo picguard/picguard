@@ -114,6 +114,10 @@
         "light": "Modalità chiara"
       },
       "themesDescription": "Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema"
+    },
+    "exitDialog": {
+      "title": "Uscita?",
+      "description": "Sei sicuro di voler uscire?"
     }
   },
   "locales(map)": {

@@ -285,6 +285,7 @@ class TranslationsDialogsEn {
 	late final TranslationsDialogsPermissionsEn permissions = TranslationsDialogsPermissionsEn.internal(_root);
 	late final TranslationsDialogsLicenseDialogEn licenseDialog = TranslationsDialogsLicenseDialogEn.internal(_root);
 	late final TranslationsDialogsSettingsDialogEn settingsDialog = TranslationsDialogsSettingsDialogEn.internal(_root);
+	late final TranslationsDialogsExitDialogEn exitDialog = TranslationsDialogsExitDialogEn.internal(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -380,6 +381,21 @@ class TranslationsDialogsSettingsDialogEn {
 
 	/// en: 'After turning it on, the dark mode will be turned on or off according to the system'
 	String get themesDescription => 'After turning it on, the dark mode will be turned on or off according to the system';
+}
+
+// Path: dialogs.exitDialog
+class TranslationsDialogsExitDialogEn {
+	TranslationsDialogsExitDialogEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Log out?'
+	String get title => 'Log out?';
+
+	/// en: 'Are you sure you want to exit?'
+	String get description => 'Are you sure you want to exit?';
 }
 
 // Path: dialogs.permissions.photos
@@ -536,6 +552,8 @@ extension on Translations {
 			case 'dialogs.settingsDialog.themes.dark': return 'Dark Mode';
 			case 'dialogs.settingsDialog.themes.light': return 'Light Mode';
 			case 'dialogs.settingsDialog.themesDescription': return 'After turning it on, the dark mode will be turned on or off according to the system';
+			case 'dialogs.exitDialog.title': return 'Log out?';
+			case 'dialogs.exitDialog.description': return 'Are you sure you want to exit?';
 			case 'locales.en': return 'English';
 			case 'locales.it': return 'Italian';
 			case 'locales.zh': return '中文';

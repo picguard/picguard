@@ -170,6 +170,7 @@ class _TranslationsDialogsZh extends TranslationsDialogsEn {
 	@override late final _TranslationsDialogsPermissionsZh permissions = _TranslationsDialogsPermissionsZh._(_root);
 	@override late final _TranslationsDialogsLicenseDialogZh licenseDialog = _TranslationsDialogsLicenseDialogZh._(_root);
 	@override late final _TranslationsDialogsSettingsDialogZh settingsDialog = _TranslationsDialogsSettingsDialogZh._(_root);
+	@override late final _TranslationsDialogsExitDialogZh exitDialog = _TranslationsDialogsExitDialogZh._(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -233,6 +234,17 @@ class _TranslationsDialogsSettingsDialogZh extends TranslationsDialogsSettingsDi
 	@override String get languages => '语言';
 	@override late final _TranslationsDialogsSettingsDialogThemesZh themes = _TranslationsDialogsSettingsDialogThemesZh._(_root);
 	@override String get themesDescription => '开启后, 将跟随系统打开或关闭深色模式';
+}
+
+// Path: dialogs.exitDialog
+class _TranslationsDialogsExitDialogZh extends TranslationsDialogsExitDialogEn {
+	_TranslationsDialogsExitDialogZh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '退出登录?';
+	@override String get description => '您确定要退出登录应用吗?';
 }
 
 // Path: dialogs.permissions.photos
@@ -373,6 +385,8 @@ extension on TranslationsZh {
 			case 'dialogs.settingsDialog.themes.dark': return '深色模式';
 			case 'dialogs.settingsDialog.themes.light': return '浅色模式';
 			case 'dialogs.settingsDialog.themesDescription': return '开启后, 将跟随系统打开或关闭深色模式';
+			case 'dialogs.exitDialog.title': return '退出登录?';
+			case 'dialogs.exitDialog.description': return '您确定要退出登录应用吗?';
 			case 'locales.en': return 'English';
 			case 'locales.it': return 'Italian';
 			case 'locales.zh': return '中文';
