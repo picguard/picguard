@@ -114,6 +114,10 @@
         "light": "Light Mode"
       },
       "themesDescription": "After turning it on, the dark mode will be turned on or off according to the system"
+    },
+    "exitDialog": {
+      "title": "Log out?",
+      "description": "Are you sure you want to exit?"
     }
   },
   "locales(map)": {

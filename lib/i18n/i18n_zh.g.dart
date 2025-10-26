@@ -170,6 +170,7 @@ class _TranslationsDialogsZh extends TranslationsDialogsEn {
 	@override late final _TranslationsDialogsPermissionsZh permissions = _TranslationsDialogsPermissionsZh._(_root);
 	@override late final _TranslationsDialogsLicenseDialogZh licenseDialog = _TranslationsDialogsLicenseDialogZh._(_root);
 	@override late final _TranslationsDialogsSettingsDialogZh settingsDialog = _TranslationsDialogsSettingsDialogZh._(_root);
+	@override late final _TranslationsDialogsExitDialogZh exitDialog = _TranslationsDialogsExitDialogZh._(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -235,6 +236,17 @@ class _TranslationsDialogsSettingsDialogZh extends TranslationsDialogsSettingsDi
 	@override String get themesDescription => '开启后, 将跟随系统打开或关闭深色模式';
 }
 
+// Path: dialogs.exitDialog
+class _TranslationsDialogsExitDialogZh extends TranslationsDialogsExitDialogEn {
+	_TranslationsDialogsExitDialogZh._(TranslationsZh root) : this._root = root, super.internal(root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '退出登录?';
+	@override String get description => '您确定要退出登录应用吗?';
+}
+
 // Path: dialogs.permissions.photos
 class _TranslationsDialogsPermissionsPhotosZh extends TranslationsDialogsPermissionsPhotosEn {
 	_TranslationsDialogsPermissionsPhotosZh._(TranslationsZh root) : this._root = root, super.internal(root);
@@ -270,10 +282,17 @@ class _TranslationsDialogsSettingsDialogThemesZh extends TranslationsDialogsSett
 	@override String get light => '浅色模式';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <zh>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsZh {
 	dynamic _flatMapFunction(String path) {
+		return _flatMapFunction$0(path);
+	}
+
+	dynamic _flatMapFunction$0(String path) {
 		switch (path) {
 			case 'appName': return ({required Flavor flavor}) {
 				switch (flavor) {
@@ -366,6 +385,8 @@ extension on TranslationsZh {
 			case 'dialogs.settingsDialog.themes.dark': return '深色模式';
 			case 'dialogs.settingsDialog.themes.light': return '浅色模式';
 			case 'dialogs.settingsDialog.themesDescription': return '开启后, 将跟随系统打开或关闭深色模式';
+			case 'dialogs.exitDialog.title': return '退出登录?';
+			case 'dialogs.exitDialog.description': return '您确定要退出登录应用吗?';
 			case 'locales.en': return 'English';
 			case 'locales.it': return 'Italian';
 			case 'locales.zh': return '中文';

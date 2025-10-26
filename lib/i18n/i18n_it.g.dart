@@ -170,6 +170,7 @@ class _TranslationsDialogsIt extends TranslationsDialogsEn {
 	@override late final _TranslationsDialogsPermissionsIt permissions = _TranslationsDialogsPermissionsIt._(_root);
 	@override late final _TranslationsDialogsLicenseDialogIt licenseDialog = _TranslationsDialogsLicenseDialogIt._(_root);
 	@override late final _TranslationsDialogsSettingsDialogIt settingsDialog = _TranslationsDialogsSettingsDialogIt._(_root);
+	@override late final _TranslationsDialogsExitDialogIt exitDialog = _TranslationsDialogsExitDialogIt._(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -235,6 +236,17 @@ class _TranslationsDialogsSettingsDialogIt extends TranslationsDialogsSettingsDi
 	@override String get themesDescription => 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
 }
 
+// Path: dialogs.exitDialog
+class _TranslationsDialogsExitDialogIt extends TranslationsDialogsExitDialogEn {
+	_TranslationsDialogsExitDialogIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Uscita?';
+	@override String get description => 'Sei sicuro di voler uscire?';
+}
+
 // Path: dialogs.permissions.photos
 class _TranslationsDialogsPermissionsPhotosIt extends TranslationsDialogsPermissionsPhotosEn {
 	_TranslationsDialogsPermissionsPhotosIt._(TranslationsIt root) : this._root = root, super.internal(root);
@@ -270,10 +282,17 @@ class _TranslationsDialogsSettingsDialogThemesIt extends TranslationsDialogsSett
 	@override String get light => 'Modalità chiara';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <it>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsIt {
 	dynamic _flatMapFunction(String path) {
+		return _flatMapFunction$0(path);
+	}
+
+	dynamic _flatMapFunction$0(String path) {
 		switch (path) {
 			case 'appName': return ({required Flavor flavor}) {
 				switch (flavor) {
@@ -366,6 +385,8 @@ extension on TranslationsIt {
 			case 'dialogs.settingsDialog.themes.dark': return 'Modalità scura';
 			case 'dialogs.settingsDialog.themes.light': return 'Modalità chiara';
 			case 'dialogs.settingsDialog.themesDescription': return 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
+			case 'dialogs.exitDialog.title': return 'Uscita?';
+			case 'dialogs.exitDialog.description': return 'Sei sicuro di voler uscire?';
 			case 'locales.en': return 'English';
 			case 'locales.it': return 'Italian';
 			case 'locales.zh': return '中文';
