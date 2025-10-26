@@ -30,7 +30,7 @@ const double _buttonHeight = 54;
 
 ///
 class DialogUtil {
-  static void showLicenseDialog() {
+  static Future<void> showLicenseDialog() async {
     final context = navigatorKey.currentContext!;
     final isContainsKey = getBoolAsync(Keys.licenseKey);
 
@@ -45,7 +45,7 @@ class DialogUtil {
       final width = MediaQuery.sizeOf(context).width;
       final height = MediaQuery.sizeOf(context).height;
 
-      showDialog<void>(
+      await showDialog<void>(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
@@ -226,8 +226,8 @@ class DialogUtil {
                   children: [
                     Expanded(
                       child: GestureDetector(
-                        onTap: () {
-                          setValue(Keys.licenseKey, false);
+                        onTap: () async {
+                          await setValue(Keys.licenseKey, false);
                           NavigatorUtil.pop();
                           // exit(0);
                         },
@@ -249,8 +249,8 @@ class DialogUtil {
                     ),
                     Expanded(
                       child: GestureDetector(
-                        onTap: () {
-                          setValue(Keys.licenseKey, true);
+                        onTap: () async {
+                          await setValue(Keys.licenseKey, true);
                           NavigatorUtil.pop();
                         },
                         child: DecoratedBox(
@@ -291,7 +291,7 @@ class DialogUtil {
   }
 
   ///
-  static void showCustomDialog({
+  static Future<void> showCustomDialog({
     String? title,
     String? content,
     Widget? titleWidget,
@@ -305,8 +305,8 @@ class DialogUtil {
     VoidCallback? onOK,
     EdgeInsetsGeometry? titlePadding,
     EdgeInsetsGeometry? contentPadding,
-  }) {
-    showDialog<void>(
+  }) async {
+    await showDialog<void>(
       context: navigatorKey.currentContext!,
       barrierDismissible: barrierDismissible,
       builder: (BuildContext context) {
@@ -455,13 +455,13 @@ class DialogUtil {
   }
 
   ///
-  static void showImagePreviewDialog(
+  static Future<void> showImagePreviewDialog(
     List<ImageProvider> imageProviders, {
     int initialPage = 0,
-  }) {
+  }) async {
     final context = navigatorKey.currentContext!;
     final pageController = PageController(initialPage: initialPage);
-    showDialog<void>(
+    await showDialog<void>(
       context: context,
       builder: (context) => Stack(
         alignment: Alignment.center,
@@ -505,14 +505,14 @@ class DialogUtil {
   }
 
   ///
-  static void showBottomSheetDialog({
+  static Future<void> showBottomSheetDialog({
     required String content,
     Color? barrierColor,
-  }) {
+  }) async {
     final context = navigatorKey.currentContext!;
     final height = MediaQuery.sizeOf(context).height;
     final bottom = MediaQuery.paddingOf(context).bottom;
-    showModalBottomSheet<void>(
+    await showModalBottomSheet<void>(
       context: context,
       barrierColor: barrierColor,
       showDragHandle: true,
@@ -553,13 +553,13 @@ class DialogUtil {
   }
 
   ///
-  static void showPGColorModal({
+  static Future<void> showPGColorModal({
     required List<PGColor> items,
     required VoidPGColorCallback callback,
     int? color,
-  }) {
+  }) async {
     final context = navigatorKey.currentContext!;
-    showModalBottomSheet<void>(
+    await showModalBottomSheet<void>(
       context: context,
       isDismissible: false,
       enableDrag: false,
@@ -576,13 +576,13 @@ class DialogUtil {
   }
 
   ///
-  static void showFontModal({
+  static Future<void> showFontModal({
     required List<PGFont> items,
     required VoidPGFontCallback callback,
     String? font,
-  }) {
+  }) async {
     final context = navigatorKey.currentContext!;
-    showModalBottomSheet<void>(
+    await showModalBottomSheet<void>(
       context: context,
       isDismissible: false,
       enableDrag: false,
@@ -599,9 +599,9 @@ class DialogUtil {
   }
 
   ///
-  static void showSettingsModal() {
+  static Future<void> showSettingsModal() async {
     final context = navigatorKey.currentContext!;
-    showModalBottomSheet<void>(
+    await showModalBottomSheet<void>(
       context: context,
       isDismissible: false,
       enableDrag: false,

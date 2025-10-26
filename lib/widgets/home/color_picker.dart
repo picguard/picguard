@@ -133,10 +133,10 @@ class ColorPicker extends StatelessWidget {
     );
   }
 
-  void onColorTap(List<PGColor> colors, FormFieldState<int> field) {
+  Future<void> onColorTap(List<PGColor> colors, FormFieldState<int> field) async {
     // DO NOT REMOVE THIS LINE: 消除下拉选择默认弹窗
     NavigatorUtil.pop();
-    DialogUtil.showPGColorModal(
+    await DialogUtil.showPGColorModal(
       items: colors,
       color: field.value,
       callback: (PGColor item) {

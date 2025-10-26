@@ -75,9 +75,9 @@ class _HomePageState extends State<HomePage> {
       printDebugLog('locale changed: $event');
     });
 
-    SchedulerBinding.instance.addPostFrameCallback((timestamp) {
+    SchedulerBinding.instance.addPostFrameCallback((timestamp) async {
       if (isMobile) {
-        DialogUtil.showLicenseDialog();
+        await DialogUtil.showLicenseDialog();
       }
     });
   }
@@ -310,18 +310,18 @@ class _HomePageState extends State<HomePage> {
               children: [
                 IconBtn(
                   icon: Icons.settings,
-                  onPressed: () {
+                  onPressed: () async {
                     _key.currentState?.toggle();
-                    DialogUtil.showSettingsModal();
+                    await DialogUtil.showSettingsModal();
                   },
                 ),
                 IconBtn(
                   icon: Icons.info,
                   iconColor: PGColors.warnTextColor,
                   overlayColor: PGColors.backgroundColor,
-                  onPressed: () {
+                  onPressed: () async {
                     _key.currentState?.toggle();
-                    DialogUtil.showAboutModal();
+                    await DialogUtil.showAboutModal();
                   },
                 ),
               ],
@@ -438,7 +438,7 @@ class _HomePageState extends State<HomePage> {
         final imageProviders = images.nonNulls
             .map((item) => MemoryImage(item.bytes))
             .toList();
-        DialogUtil.showImagePreviewDialog(imageProviders);
+        await DialogUtil.showImagePreviewDialog(imageProviders);
       } on Exception catch (error, stackTrace) {
         await EasyLoading.dismiss();
         printErrorLog(error, stackTrace: stackTrace);
@@ -474,7 +474,7 @@ class _HomePageState extends State<HomePage> {
         final description = permission == Permissions.photos
             ? t.dialogs.permissions.photos.description
             : t.dialogs.permissions.storage.description;
-        DialogUtil.showCustomDialog(
+        await DialogUtil.showCustomDialog(
           title: title,
           content: description(appName: appName),
           cancelText: t.buttons.ignore,
@@ -780,7 +780,7 @@ class _HomePageState extends State<HomePage> {
       final description = permission == Permissions.photos
           ? t.dialogs.permissions.photos.description
           : t.dialogs.permissions.storage.description;
-      DialogUtil.showCustomDialog(
+      await DialogUtil.showCustomDialog(
         title: title,
         content: description(appName: appName),
         cancelText: t.buttons.ignore,

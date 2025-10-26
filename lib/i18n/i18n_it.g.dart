@@ -270,10 +270,17 @@ class _TranslationsDialogsSettingsDialogThemesIt extends TranslationsDialogsSett
 	@override String get light => 'Modalità chiara';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <it>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsIt {
 	dynamic _flatMapFunction(String path) {
+		return _flatMapFunction$0(path);
+	}
+
+	dynamic _flatMapFunction$0(String path) {
 		switch (path) {
 			case 'appName': return ({required Flavor flavor}) {
 				switch (flavor) {
