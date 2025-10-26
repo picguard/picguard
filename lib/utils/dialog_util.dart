@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for full license information.
 
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -288,6 +289,109 @@ class DialogUtil {
         },
       );
     }
+  }
+
+  static Future<AppExitResponse?> showExitDialog() async {
+    final context = navigatorKey.currentContext!;
+
+    return showDialog<AppExitResponse>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        final t = Translations.of(context);
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+
+        final width = MediaQuery.sizeOf(context).width;
+        final height = MediaQuery.sizeOf(context).height;
+
+        return AlertDialog(
+          title: Text(
+            t.dialogs.exitDialog.title,
+            style: TextStyle(
+              color: isDark ? Colors.white : PGColors.primaryTextColor,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          content: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: min(width, 600),
+              maxHeight: height * 0.4,
+            ),
+            child:Text(
+              t.dialogs.exitDialog.description,
+              style: TextStyle(
+                color: isDark
+                    ? Colors.white
+                    : PGColors.primaryTextColor,
+                fontSize: 14,
+              ),
+            ),
+          ),
+          actions: [
+            DecoratedBox(
+              decoration: const BoxDecoration(
+                border: Border(top: BorderSide(color: PGColors.borderColor)),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => NavigatorUtil.pop(AppExitResponse.cancel),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: Text(
+                          t.buttons.cancel,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: isDark
+                                ? Colors.white70
+                                : PGColors.secondaryTextColor,
+                            fontSize: 16,
+                            height: 1.375,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => NavigatorUtil.pop(AppExitResponse.exit),
+                      child: DecoratedBox(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            left: BorderSide(color: PGColors.borderColor),
+                          ),
+                        ),
+                        child: Text(
+                          t.dialogs.exitConfirm.exit,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: PGColors.primaryColor,
+                            fontSize: 16,
+                            height: 1.375,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+          actionsPadding: EdgeInsets.zero,
+          buttonPadding: EdgeInsets.zero,
+          actionsOverflowButtonSpacing: 0,
+          actionsAlignment: MainAxisAlignment.center,
+          contentPadding: const EdgeInsets.all(20),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        );
+      },
+    );
   }
 
   ///

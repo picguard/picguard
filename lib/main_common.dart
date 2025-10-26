@@ -3,10 +3,11 @@
 // See the LICENSE file in the project root for full license information.
 
 import 'dart:async';
-import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -136,10 +137,15 @@ class _MainAppState extends State<MainApp> with TrayListener {
   final TransitionBuilder easyLoadingBuilder = EasyLoading.init();
   final TransitionBuilder botToastBuilder = BotToastInit();
 
+  late final AppLifecycleListener _listener;
+
   @override
   void initState() {
     trayManager.addListener(this);
     super.initState();
+
+    _listener = AppLifecycleListener(onExitRequested: _onExitRequested);
+
     WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
       await initTrayMenu();
     });
@@ -147,6 +153,7 @@ class _MainAppState extends State<MainApp> with TrayListener {
 
   @override
   void dispose() {
+    _listener.dispose();
     trayManager.removeListener(this);
     super.dispose();
   }
@@ -271,7 +278,16 @@ class _MainAppState extends State<MainApp> with TrayListener {
     } else if (menuItem.key == Menus.privacy.name) {
       await gotoPrivacyPage();
     } else if (menuItem.key == Menus.exit.name) {
-      exit(0);
+      await SystemNavigator.pop();
     }
+  }
+
+  // Ask the user if they want to exit the app. If the user
+  // cancels the exit, return AppExitResponse.cancel. Otherwise,
+  // return AppExitResponse.exit.
+  Future<AppExitResponse> _onExitRequested() async {
+    final response = await DialogUtil.showExitDialog();
+
+    return response ?? AppExitResponse.exit;
   }
 }
