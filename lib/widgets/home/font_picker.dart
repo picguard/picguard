@@ -29,8 +29,8 @@ class FontPicker extends StatelessWidget {
     return BaseFormItem(
       title: t.homePage.fontLabel,
       required: false,
-      onTipTap: () {
-        DialogUtil.showBottomSheetDialog(
+      onTipTap: () async {
+        await DialogUtil.showBottomSheetDialog(
           content: t.homePage.fontLabelDescription,
         );
       },
@@ -144,10 +144,10 @@ class FontPicker extends StatelessWidget {
     );
   }
 
-  void onFontTap(FormFieldState<String> field) {
+  Future<void> onFontTap(FormFieldState<String> field) async {
     // DO NOT REMOVE THIS LINE: 消除下拉选择默认弹窗
     NavigatorUtil.pop();
-    DialogUtil.showFontModal(
+    await DialogUtil.showFontModal(
       items: fontFamilies,
       font: field.value,
       callback: (PGFont font) {

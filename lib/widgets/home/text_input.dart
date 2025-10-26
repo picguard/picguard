@@ -23,8 +23,8 @@ class TextInput extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return BaseFormItem(
       title: t.homePage.textLabel,
-      onTipTap: () {
-        DialogUtil.showBottomSheetDialog(
+      onTipTap: () async {
+        await DialogUtil.showBottomSheetDialog(
           content: t.homePage.textLabelDescription,
         );
       },

@@ -15,9 +15,9 @@ class GlobalProvider extends ChangeNotifier {
 
   ThemeMode themeMode = ThemeMode.system;
 
-  void switchThemeMode(ThemeMode themeMode) {
+  Future<void> switchThemeMode(ThemeMode themeMode) async {
     this.themeMode = themeMode;
-    setValue('${AppConfig.shared.container}_theme_mode', themeMode.name);
+    await setValue('${AppConfig.shared.container}_theme_mode', themeMode.name);
     notifyListeners();
   }
 

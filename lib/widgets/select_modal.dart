@@ -409,7 +409,7 @@ class SettingsModal extends StatelessWidget {
                                   value: auto,
                                   borderRadius: 15,
                                   activeColor: PGColors.primaryColor,
-                                  onToggle: (value) {
+                                  onToggle: (value) async {
                                     final isDark =
                                         Theme.of(
                                           context,
@@ -418,13 +418,9 @@ class SettingsModal extends StatelessWidget {
                                     final currentMode = isDark
                                         ? ThemeMode.dark
                                         : ThemeMode.light;
-                                    value
-                                        ? model.switchThemeMode(
-                                            ThemeMode.system,
-                                          )
-                                        : model.switchThemeMode(
-                                            currentMode,
-                                          );
+                                    await model.switchThemeMode(
+                                      value ? ThemeMode.system : currentMode,
+                                    );
                                   },
                                 ),
                               ),
@@ -434,9 +430,9 @@ class SettingsModal extends StatelessWidget {
                             MineSectionGroup<ThemeMode>(
                               title: t.dialogs.settingsDialog.themes.manual,
                               groupValue: themeMode,
-                              onChanged: (ThemeMode? value) {
+                              onChanged: (ThemeMode? value) async {
                                 if (value != null) {
-                                  model.switchThemeMode(value);
+                                  await model.switchThemeMode(value);
                                 }
                               },
                               items: [
@@ -473,9 +469,9 @@ class SettingsModal extends StatelessWidget {
                       MineSectionGroup<String>(
                         title: t.dialogs.settingsDialog.languages,
                         groupValue: languageCode,
-                        onChanged: (String? value) {
+                        onChanged: (String? value) async {
                           if (value != null && value.isNotEmpty) {
-                            LocaleSettings.setLocaleRaw(value);
+                            await LocaleSettings.setLocaleRaw(value);
                           }
                         },
                         items: t.locales.entries.map(
