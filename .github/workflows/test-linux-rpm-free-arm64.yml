@@ -79,7 +79,7 @@ jobs:
         run: ls -laR
         working-directory: dist
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: linux-rpm-arm64-artifact
           path: ./dist/**/*.rpm
