@@ -60,7 +60,7 @@ jobs:
             --targets zip `
             --artifact-name "{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-portable-$env:Platform.{{ext}}"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: windows-zip-pro-artifact
           path: .\dist\**\*.zip

@@ -82,7 +82,7 @@ jobs:
       - name: Print Output
         run: echo "${{ steps.test-action.outputs.config-path }}"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: windows-portable-source-action-artifact
           path: ${{ steps.test-action.outputs.config-path }}
