@@ -52,7 +52,7 @@ jobs:
         with:
           github_token: ${{ secrets.PG_PAGES_TOKEN }}
           publish_dir: ./build/web
-          cname: picguard-web.picguard.app
+          cname: web.picguard.app
 
       - name: Clean up
         if: ${{ always() }}
@@ -105,7 +105,7 @@ jobs:
           external_repository: picguard/pro-web
           publish_branch: main  # default: gh-pages
           publish_dir: ./build/web
-          cname: picguard-pro-web.picguard.app
+          cname: pro.picguard.app
 
       - name: Clean up
         if: ${{ always() }}
