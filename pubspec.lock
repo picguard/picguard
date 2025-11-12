@@ -1254,18 +1254,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "825670efc828e18e14ff310cbcf6de91c8ff73b55c75ae6868a2b3cd87e88b6c"
+      sha256: "8118f13264d1401a7085d12a0aaeac1ebd5cd939046b8c565d195879646daad6"
       url: "https://pub.dev"
     source: hosted
-    version: "31.2.5"
+    version: "31.2.10"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: a21ce298e5f36b7d28019413cb63a1888fe8dc775e429ca3fb1b1c1bd42c7868
+      sha256: "051dfc128480aefe5af8e6889eb66f0244b171131aeebb5b196a7b2ee5413ed7"
       url: "https://pub.dev"
     source: hosted
-    version: "31.2.5"
+    version: "31.2.10"
   synchronized:
     dependency: "direct main"
     description:
