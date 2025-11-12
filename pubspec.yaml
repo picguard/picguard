@@ -40,7 +40,7 @@ dependencies:
   form_builder_validators: ^11.2.0
   gap: ^3.0.1
   image_gallery_saver_plus: ^4.0.1
-  image_picker: ^1.2.0
+  image_picker: ^1.2.1
   keyboard_dismisser: ^3.0.0
   logging: ^1.3.0
   menu_bar: ^0.5.3
