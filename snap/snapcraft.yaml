@@ -15,7 +15,7 @@ contact: support@picguard.app
 license: GPL-3.0-only
 source-code: https://github.com/picguard/picguard
 issues: https://github.com/picguard/picguard/issues
-website: https://www.picguard.app
+website: https://picguard.app
 confinement: strict
 base: core22
 grade: stable
