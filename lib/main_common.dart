@@ -102,7 +102,7 @@ Future<void> runMainApp({
     return true;
   };
 
-  EasyLoading.instance.maskType = EasyLoadingMaskType.clear;
+  EasyLoading.instance.maskType = .clear;
 
   // initialize with the right locale
   await LocaleSettings.useDeviceLocale();
@@ -186,7 +186,7 @@ class _MainAppState extends State<MainApp> with TrayListener {
         child = botToastBuilder(context, child);
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(
-            textScaler: TextScaler.noScaling,
+            textScaler: .noScaling,
           ),
           child: child,
         );

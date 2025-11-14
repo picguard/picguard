@@ -22,8 +22,8 @@ class AppDescription extends StatelessWidget {
         height: 1.5,
       ),
       maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-      textAlign: TextAlign.center,
+      overflow: .ellipsis,
+      textAlign: .center,
     );
   }
 }

@@ -33,10 +33,10 @@ class PGColorModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == .dark;
     final bottom = MediaQuery.paddingOf(context).bottom;
     return Padding(
-      padding: EdgeInsets.only(bottom: 20 + bottom),
+      padding: .only(bottom: 20 + bottom),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxHeight: 400),
         child: Column(
@@ -52,9 +52,9 @@ class PGColorModal extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
+                padding: const .fromLTRB(16, 12, 8, 12),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: .spaceBetween,
                   children: [
                     Text(
                       t.dialogs.selectColor,
@@ -63,29 +63,27 @@ class PGColorModal extends StatelessWidget {
                             ? Colors.white
                             : PGColors.primaryTextColor,
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: .w500,
                         height: 1.43,
                       ),
                     ),
                     IconButton(
                       style: ButtonStyle(
-                        padding: WidgetStateProperty.all(
-                          const EdgeInsets.all(8),
-                        ),
-                        minimumSize: WidgetStateProperty.all(Size.zero),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        elevation: WidgetStateProperty.all(0),
+                        padding: .all(const EdgeInsets.all(8)),
+                        minimumSize: .all(Size.zero),
+                        tapTargetSize: .shrinkWrap,
+                        elevation: .all(0),
                       ),
                       onPressed: NavigatorUtil.pop,
                       icon: DecoratedBox(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: .circular(10),
                           color: isDark
                               ? PGColors.placeholderTextColor
                               : PGColors.primaryGrayColor,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(2),
+                          padding: const .all(2),
                           child: Icon(
                             Icons.close,
                             color: isDark
@@ -102,7 +100,7 @@ class PGColorModal extends StatelessWidget {
             ),
             Flexible(
               child: ListView.builder(
-                padding: const EdgeInsets.only(top: 5),
+                padding: const .only(top: 5),
                 shrinkWrap: true,
                 itemCount: items.length,
                 itemBuilder: (context, index) {
@@ -113,17 +111,17 @@ class PGColorModal extends StatelessWidget {
                       : Colors.transparent;
                   return TextButton(
                     style: ButtonStyle(
-                      padding: WidgetStateProperty.all(
-                        const EdgeInsets.symmetric(horizontal: 16),
+                      padding: .all(
+                        const .symmetric(horizontal: 16),
                       ),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      backgroundColor: WidgetStateProperty.all(backgroundColor),
-                      overlayColor: WidgetStateProperty.all(
+                      tapTargetSize: .shrinkWrap,
+                      backgroundColor: .all(backgroundColor),
+                      overlayColor: .all(
                         isDark
                             ? PGColors.primaryTextColor
                             : PGColors.primaryBackgroundColor,
                       ),
-                      shape: WidgetStateProperty.all(
+                      shape: .all(
                         const RoundedRectangleBorder(),
                       ),
                     ),
@@ -131,7 +129,7 @@ class PGColorModal extends StatelessWidget {
                     child: SizedBox(
                       width: double.maxFinite,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        padding: const .symmetric(vertical: 10),
                         child: Text(
                           item.label,
                           style: TextStyle(
@@ -143,9 +141,9 @@ class PGColorModal extends StatelessWidget {
                             fontSize: 14,
                             height: 1.43,
                           ),
-                          textAlign: TextAlign.start,
+                          textAlign: .start,
                           maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                          overflow: .ellipsis,
                         ),
                       ),
                     ),
@@ -175,7 +173,7 @@ class FontModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == .dark;
     final bottom = MediaQuery.paddingOf(context).bottom;
     final height = MediaQuery.sizeOf(context).height;
     return Padding(
@@ -197,7 +195,7 @@ class FontModal extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: .spaceBetween,
                   children: [
                     Text(
                       t.dialogs.selectFont,
@@ -206,29 +204,27 @@ class FontModal extends StatelessWidget {
                             ? Colors.white
                             : PGColors.primaryTextColor,
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: .w500,
                         height: 1.43,
                       ),
                     ),
                     IconButton(
                       style: ButtonStyle(
-                        padding: WidgetStateProperty.all(
-                          const EdgeInsets.all(8),
-                        ),
-                        minimumSize: WidgetStateProperty.all(Size.zero),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        elevation: WidgetStateProperty.all(0),
+                        padding: .all(const .all(8)),
+                        minimumSize: .all(Size.zero),
+                        tapTargetSize: .shrinkWrap,
+                        elevation: .all(0),
                       ),
                       onPressed: NavigatorUtil.pop,
                       icon: DecoratedBox(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: .circular(10),
                           color: isDark
                               ? PGColors.placeholderTextColor
                               : PGColors.primaryGrayColor,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(2),
+                          padding: const .all(2),
                           child: Icon(
                             Icons.close,
                             color: isDark
@@ -245,7 +241,7 @@ class FontModal extends StatelessWidget {
             ),
             Flexible(
               child: ListView.builder(
-                padding: const EdgeInsets.only(top: 5),
+                padding: const .only(top: 5),
                 shrinkWrap: true,
                 itemCount: items.length,
                 itemBuilder: (context, index) {
@@ -256,25 +252,21 @@ class FontModal extends StatelessWidget {
                       : Colors.transparent;
                   return TextButton(
                     style: ButtonStyle(
-                      padding: WidgetStateProperty.all(
-                        const EdgeInsets.symmetric(horizontal: 16),
-                      ),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      backgroundColor: WidgetStateProperty.all(backgroundColor),
-                      overlayColor: WidgetStateProperty.all(
+                      padding: .all(const .symmetric(horizontal: 16)),
+                      tapTargetSize: .shrinkWrap,
+                      backgroundColor: .all(backgroundColor),
+                      overlayColor: .all(
                         isDark
                             ? PGColors.primaryTextColor
                             : PGColors.primaryBackgroundColor,
                       ),
-                      shape: WidgetStateProperty.all(
-                        const RoundedRectangleBorder(),
-                      ),
+                      shape: .all(const RoundedRectangleBorder()),
                     ),
                     onPressed: () => callback(items[index]),
                     child: SizedBox(
                       width: double.maxFinite,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        padding: const .symmetric(vertical: 10),
                         child: Text(
                           item.name,
                           style: TextStyle(
@@ -287,9 +279,9 @@ class FontModal extends StatelessWidget {
                             height: 1.43,
                             fontFamily: item.fontFamily,
                           ),
-                          textAlign: TextAlign.start,
+                          textAlign: .start,
                           maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                          overflow: .ellipsis,
                         ),
                       ),
                     ),

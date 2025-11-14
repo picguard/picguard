@@ -30,7 +30,7 @@ class AddMoreWidget extends StatelessWidget {
     return Container(
       margin: margin ?? pickerView.padding,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: .circular(20),
         color: bgColor,
       ),
       width: double.infinity,
@@ -39,7 +39,7 @@ class AddMoreWidget extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          overlayColor: WidgetStateProperty.resolveWith((states) {
+          overlayColor: .resolveWith((states) {
             if (states.contains(WidgetState.pressed)) {
               return PGColors.primaryColor.withValues(alpha: 0.15);
             }
@@ -55,7 +55,7 @@ class AddMoreWidget extends StatelessWidget {
             child: CircleAvatar(
               radius: 25,
               child: Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const .all(10),
                 child: icon ?? const Icon(Icons.add, color: PGColors.white),
               ),
             ),

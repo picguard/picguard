@@ -22,14 +22,14 @@ class PGAppBar extends AppBar {
               : Text(
                   titleName,
                   maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                  overflow: .ellipsis,
                 ),
           centerTitle: true,
           elevation: 0,
           bottom: !showBottom
               ? null
               : PreferredSize(
-                  preferredSize: const Size.fromHeight(0.5),
+                  preferredSize: const .fromHeight(0.5),
                   child: Container(
                     color: isDark
                         ? PGColors.secondaryTextColor

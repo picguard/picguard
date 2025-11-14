@@ -43,7 +43,7 @@ class _FontSizePickerState extends State<FontSizePicker> {
           builder: (FormFieldState<double> field) {
             final hasError = StringUtil.isNotBlank(field.errorText);
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               spacing: 8,
               children: [
                 Row(
@@ -94,7 +94,7 @@ class _FontSizePickerState extends State<FontSizePicker> {
                             width: 28,
                             child: Text(
                               value.toStringAsFixed(0),
-                              textAlign: TextAlign.center,
+                              textAlign: .center,
                             ),
                           ),
                     ),

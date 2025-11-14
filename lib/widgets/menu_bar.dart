@@ -109,7 +109,7 @@ class MacOSMenuBar extends StatelessWidget {
             const PlatformMenuItemGroup(
               members: <PlatformMenuItem>[
                 PlatformProvidedMenuItem(
-                  type: PlatformProvidedMenuItemType.quit,
+                  type: .quit,
                 ),
               ],
             ),
@@ -151,22 +151,22 @@ class DesktopMenuBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
-    final isDark = brightness == Brightness.dark;
+    final isDark = brightness == .dark;
     final t = Translations.of(context);
     final appName = t.appName(flavor: AppConfig.shared.flavor);
     return MenuBarWidget(
       barStyle: MenuStyle(
-        backgroundColor: WidgetStateProperty.all(
+        backgroundColor: .all(
           isDark ? PGColors.primaryTextColor : PGColors.primaryBackgroundColor,
         ),
       ),
       barButtonStyle: ButtonStyle(
-        overlayColor: WidgetStateProperty.all(
+        overlayColor: .all(
           PGColors.primaryHoverColor.withValues(alpha: 0.3),
         ),
       ),
       menuButtonStyle: ButtonStyle(
-        overlayColor: WidgetStateProperty.all(
+        overlayColor: .all(
           PGColors.primaryHoverColor.withValues(alpha: 0.3),
         ),
       ),
@@ -204,7 +204,7 @@ class DesktopMenuBar extends StatelessWidget {
           ),
         ),
         BarButton(
-          text: Text(t.menus.help, textAlign: TextAlign.center),
+          text: Text(t.menus.help, textAlign: .center),
           submenu: SubMenu(
             menuItems: [
               MenuButton(
