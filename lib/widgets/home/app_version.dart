@@ -20,8 +20,7 @@ class AppVersion extends StatelessWidget {
     return FutureBuilder<PackageInfo>(
       future: PackageInfo.fromPlatform(),
       builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.hasData) {
+        if (snapshot.connectionState == .done && snapshot.hasData) {
           final t = Translations.of(context);
           final appName = t.appName(flavor: AppConfig.shared.flavor);
           final packageInfo = snapshot.data;
@@ -32,7 +31,7 @@ class AppVersion extends StatelessWidget {
               color: PGColors.secondaryTextColor,
               fontSize: 12,
             ),
-            textAlign: TextAlign.center,
+            textAlign: .center,
           );
         }
         return const SizedBox.shrink();

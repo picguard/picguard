@@ -14,33 +14,33 @@ enum Permissions {
 
 class PermissionUtil {
   static Future<Permissions> checkPermission() async {
-    if (isWeb) return Permissions.none;
+    if (isWeb) return .none;
     if (isAndroid) {
       final deviceInfo = DeviceInfoPlugin();
       final androidInfo = await deviceInfo.androidInfo;
       if (androidInfo.version.sdkInt >= 33) {
         final status = await Permission.photos.request();
-        final denied = [
-          PermissionStatus.permanentlyDenied,
-          PermissionStatus.denied,
+        final denied = <PermissionStatus>[
+          .permanentlyDenied,
+          .denied,
         ].contains(status);
-        return denied ? Permissions.photos : Permissions.none;
+        return denied ? .photos : .none;
       } else {
         final status = await Permission.storage.request();
-        final denied = [
-          PermissionStatus.permanentlyDenied,
-          PermissionStatus.denied,
+        final denied = <PermissionStatus>[
+          .permanentlyDenied,
+          .denied,
         ].contains(status);
-        return denied ? Permissions.storage : Permissions.none;
+        return denied ? .storage : .none;
       }
     } else if (isIOS) {
       final status = await Permission.photos.request();
-      final denied = [
-        PermissionStatus.permanentlyDenied,
-        PermissionStatus.denied,
+      final denied = <PermissionStatus>[
+        .permanentlyDenied,
+        .denied,
       ].contains(status);
-      return denied ? Permissions.photos : Permissions.none;
+      return denied ? .photos : .none;
     }
-    return Permissions.none;
+    return .none;
   }
 }

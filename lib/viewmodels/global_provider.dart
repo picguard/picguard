@@ -13,7 +13,7 @@ class GlobalProvider extends ChangeNotifier {
     getThemeMode();
   }
 
-  ThemeMode themeMode = ThemeMode.system;
+  ThemeMode themeMode = .system;
 
   Future<void> switchThemeMode(ThemeMode themeMode) async {
     this.themeMode = themeMode;

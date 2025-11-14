@@ -21,7 +21,7 @@ class ColorPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == .dark;
     const colors = PGColor.values;
 
     return BaseFormItem(
@@ -29,14 +29,14 @@ class ColorPicker extends StatelessWidget {
       required: false,
       showTip: false,
       child: Padding(
-        padding: const EdgeInsets.only(top: 8.5),
+        padding: const .only(top: 8.5),
         child: FormBuilderField<int>(
           name: 'color',
           initialValue: colors.elementAt(1).color,
           builder: (FormFieldState<int> field) {
             final hasError = StringUtil.isNotBlank(field.errorText);
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               spacing: 8,
               children: [
                 DropdownButtonFormField<int>(
@@ -44,7 +44,7 @@ class ColorPicker extends StatelessWidget {
                   onTap: () => onColorTap(colors, field),
                   style: DefaultTextStyle.of(context).style.copyWith(
                     color: isDark ? Colors.white : PGColors.primaryTextColor,
-                    overflow: TextOverflow.ellipsis,
+                    overflow: .ellipsis,
                   ),
                   icon: const Icon(
                     Icons.arrow_drop_down,
@@ -53,10 +53,10 @@ class ColorPicker extends StatelessWidget {
                   ),
                   decoration: InputDecoration(
                     isDense: true,
-                    contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
+                    contentPadding: const .fromLTRB(10, 10, 5, 10),
                     enabledBorder: hasError
                         ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.errorTextColor,
                             ),
@@ -64,14 +64,14 @@ class ColorPicker extends StatelessWidget {
                             gapPadding: 0,
                           )
                         : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.borderColor,
                             ),
                             gapPadding: 0,
                           ),
                     disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: .circular(4),
                       borderSide: const BorderSide(
                         color: PGColors.borderColor,
                       ),
@@ -79,7 +79,7 @@ class ColorPicker extends StatelessWidget {
                     ),
                     focusedBorder: hasError
                         ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.errorTextColor,
                             ),
@@ -87,7 +87,7 @@ class ColorPicker extends StatelessWidget {
                             gapPadding: 0,
                           )
                         : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.primaryColor,
                             ),
@@ -100,7 +100,7 @@ class ColorPicker extends StatelessWidget {
                         enabled: item.color != field.value,
                         value: item.color,
                         child: Align(
-                          alignment: Alignment.centerLeft,
+                          alignment: .centerLeft,
                           child: Text(item.label),
                         ),
                       );
@@ -110,7 +110,7 @@ class ColorPicker extends StatelessWidget {
                 ),
                 if (hasError)
                   Padding(
-                    padding: const EdgeInsets.only(left: 8),
+                    padding: const .only(left: 8),
                     child: Text(
                       field.errorText!,
                       style: const TextStyle(

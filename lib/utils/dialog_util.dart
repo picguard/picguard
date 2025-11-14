@@ -94,9 +94,9 @@ class DialogUtil {
               style: TextStyle(
                 color: isDark ? Colors.white : PGColors.primaryTextColor,
                 fontSize: 18,
-                fontWeight: FontWeight.w500,
+                fontWeight: .w500,
               ),
-              textAlign: TextAlign.center,
+              textAlign: .center,
             ),
             content: ConstrainedBox(
               constraints: BoxConstraints(
@@ -105,7 +105,7 @@ class DialogUtil {
               ),
               child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: .start,
                   children: [
                     Text(
                       t.dialogs.licenseDialog.licenseDialogContentContent(
@@ -119,7 +119,7 @@ class DialogUtil {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8),
+                      padding: const .only(top: 8),
                       child: Text(
                         t.dialogs.licenseDialog.licenseDialogContentTip,
                         style: TextStyle(
@@ -133,7 +133,7 @@ class DialogUtil {
                     if (isAndroid) ...androidPermissionTexts,
                     if (isIOS) ...iosPermissionTexts,
                     Padding(
-                      padding: const EdgeInsets.only(top: 8),
+                      padding: const .only(top: 8),
                       child: RichText(
                         text: TextSpan(
                           children: [
@@ -232,10 +232,10 @@ class DialogUtil {
                           // exit(0);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          padding: const .symmetric(vertical: 16),
                           child: Text(
                             t.buttons.cancel,
-                            textAlign: TextAlign.center,
+                            textAlign: .center,
                             style: TextStyle(
                               color: isDark
                                   ? Colors.white70
@@ -261,7 +261,7 @@ class DialogUtil {
                           ),
                           child: Text(
                             t.buttons.agree,
-                            textAlign: TextAlign.center,
+                            textAlign: .center,
                             style: const TextStyle(
                               color: PGColors.primaryColor,
                               fontSize: 16,
@@ -275,14 +275,14 @@ class DialogUtil {
                 ),
               ),
             ],
-            actionsPadding: EdgeInsets.zero,
-            buttonPadding: EdgeInsets.zero,
+            actionsPadding: .zero,
+            buttonPadding: .zero,
             actionsOverflowButtonSpacing: 0,
-            actionsAlignment: MainAxisAlignment.center,
-            contentPadding: const EdgeInsets.all(20),
-            insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+            actionsAlignment: .center,
+            contentPadding: const .all(20),
+            insetPadding: const .symmetric(horizontal: 20),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: .circular(10),
             ),
           );
         },
@@ -310,20 +310,20 @@ class DialogUtil {
       context: navigatorKey.currentContext!,
       barrierDismissible: barrierDismissible,
       builder: (BuildContext context) {
-        final isDark = Theme.of(context).brightness == Brightness.dark;
+        final isDark = Theme.of(context).brightness == .dark;
         return AlertDialog(
           title:
               titleWidget ??
               (StringUtil.isNotBlank(title)
                   ? Text(
                       title!,
-                      textAlign: TextAlign.center,
+                      textAlign: .center,
                       style: TextStyle(
                         color: isDark
                             ? PGColors.white
                             : PGColors.primaryTextColor,
                         fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: .w700,
                       ),
                     )
                   : null),
@@ -332,13 +332,13 @@ class DialogUtil {
               (StringUtil.isNotBlank(content)
                   ? Text(
                       content!,
-                      textAlign: TextAlign.center,
+                      textAlign: .center,
                       style: TextStyle(
                         color: isDark
                             ? PGColors.white
                             : PGColors.secondaryTextColor,
                         fontSize: 14,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: .w400,
                       ),
                     )
                   : null),
@@ -360,28 +360,28 @@ class DialogUtil {
                           child: TextButton(
                             onPressed: onCancel ?? NavigatorUtil.pop,
                             style: ButtonStyle(
-                              textStyle: WidgetStateProperty.all(
+                              textStyle: .all(
                                 const TextStyle(
                                   fontSize: 16,
                                   height: 1.375,
                                 ),
                               ),
-                              overlayColor: WidgetStateProperty.all(
+                              overlayColor: .all(
                                 isDark
                                     ? PGColors.warnTextColor.withValues(
                                         alpha: 0.1,
                                       )
                                     : PGColors.secondaryBackgroundColor,
                               ),
-                              shape: WidgetStateProperty.all(
+                              shape: .all(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0),
+                                  borderRadius: .circular(0),
                                 ),
                               ),
                             ),
                             child: Text(
                               cancelText,
-                              textAlign: TextAlign.center,
+                              textAlign: .center,
                               style: TextStyle(
                                 color: isDark
                                     ? Colors.white
@@ -405,28 +405,28 @@ class DialogUtil {
                         child: TextButton(
                           onPressed: onOK,
                           style: ButtonStyle(
-                            textStyle: WidgetStateProperty.all(
+                            textStyle: .all(
                               const TextStyle(
                                 fontSize: 16,
                                 height: 1.375,
                               ),
                             ),
-                            overlayColor: WidgetStateProperty.all(
+                            overlayColor: .all(
                               isDark
                                   ? PGColors.primaryHoverColor.withValues(
                                       alpha: 0.1,
                                     )
                                   : PGColors.primaryBackgroundColor,
                             ),
-                            shape: WidgetStateProperty.all(
+                            shape: .all(
                               RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(0),
+                                borderRadius: .circular(0),
                               ),
                             ),
                           ),
                           child: Text(
                             okText,
-                            textAlign: TextAlign.center,
+                            textAlign: .center,
                             style: TextStyle(
                               color: okColor,
                             ),
@@ -441,13 +441,13 @@ class DialogUtil {
           ],
           titlePadding: titlePadding,
           contentPadding: contentPadding,
-          actionsPadding: EdgeInsets.zero,
-          buttonPadding: EdgeInsets.zero,
+          actionsPadding: .zero,
+          buttonPadding: .zero,
           actionsOverflowButtonSpacing: 0,
-          actionsAlignment: MainAxisAlignment.center,
-          clipBehavior: Clip.hardEdge,
+          actionsAlignment: .center,
+          clipBehavior: .hardEdge,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: .circular(10),
           ),
         );
       },
@@ -464,7 +464,7 @@ class DialogUtil {
     await showDialog<void>(
       context: context,
       builder: (context) => Stack(
-        alignment: Alignment.center,
+        alignment: .center,
         children: [
           PhotoViewGallery.builder(
             pageController: pageController,
@@ -487,11 +487,11 @@ class DialogUtil {
             right: 8,
             child: IconButton(
               style: ButtonStyle(
-                padding: WidgetStateProperty.all(const EdgeInsets.all(4)),
-                minimumSize: WidgetStateProperty.all(Size.zero),
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                iconColor: WidgetStateProperty.all(Colors.red),
-                backgroundColor: WidgetStateProperty.all(
+                padding: .all(const EdgeInsets.all(4)),
+                minimumSize: .all(Size.zero),
+                tapTargetSize: .shrinkWrap,
+                iconColor: .all(Colors.red),
+                backgroundColor: .all(
                   PGColors.backgroundColor,
                 ),
               ),
@@ -518,10 +518,10 @@ class DialogUtil {
       showDragHandle: true,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+        borderRadius: .vertical(top: .circular(10)),
       ),
       builder: (BuildContext context) {
-        final isDark = Theme.of(context).brightness == Brightness.dark;
+        final isDark = Theme.of(context).brightness == .dark;
 
         final Widget contentWidget = Text(
           content,
@@ -535,7 +535,7 @@ class DialogUtil {
         return ConstrainedBox(
           constraints: BoxConstraints(maxHeight: height * 0.7),
           child: Padding(
-            padding: EdgeInsets.only(
+            padding: .only(
               left: 16,
               right: 16,
               bottom: 20 + bottom,
@@ -565,7 +565,7 @@ class DialogUtil {
       enableDrag: false,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+        borderRadius: .vertical(top: .circular(10)),
       ),
       builder: (BuildContext context) => PGColorModal(
         items: items,
@@ -588,7 +588,7 @@ class DialogUtil {
       enableDrag: false,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+        borderRadius: .vertical(top: .circular(10)),
       ),
       builder: (BuildContext context) => FontModal(
         items: items,
@@ -607,7 +607,7 @@ class DialogUtil {
       enableDrag: false,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+        borderRadius: .vertical(top: .circular(10)),
       ),
       builder: (BuildContext context) => const SettingsModal(),
     );
@@ -649,7 +649,7 @@ class DialogUtil {
             Widget title,
             Widget child,
           ) {
-            final isDark = Theme.of(context).brightness == Brightness.dark;
+            final isDark = Theme.of(context).brightness == .dark;
             return SelectionArea(
               child: Scaffold(
                 appBar: PGAppBar(
@@ -663,7 +663,7 @@ class DialogUtil {
           },
       applicationDescription: Text(
         t.aboutPage.slogan,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 18, fontWeight: .bold),
         textAlign: TextAlign.center,
       ),
       children: <Widget>[
@@ -671,7 +671,7 @@ class DialogUtil {
           leading: const Icon(Icons.all_inclusive),
           title: Text(t.aboutPage.readme),
           trailing: Icon(
-            Directionality.of(context) == TextDirection.ltr
+            Directionality.of(context) == .ltr
                 ? Icons.chevron_right
                 : Icons.chevron_left,
           ),
@@ -681,7 +681,7 @@ class DialogUtil {
           leading: const Icon(Icons.description),
           title: Text(t.aboutPage.appLicense),
           trailing: Icon(
-            Directionality.of(context) == TextDirection.ltr
+            Directionality.of(context) == .ltr
                 ? Icons.chevron_right
                 : Icons.chevron_left,
           ),
@@ -691,7 +691,7 @@ class DialogUtil {
           leading: const Icon(Icons.list),
           title: Text(t.aboutPage.changelog),
           trailing: Icon(
-            Directionality.of(context) == TextDirection.ltr
+            Directionality.of(context) == .ltr
                 ? Icons.chevron_right
                 : Icons.chevron_left,
           ),
@@ -705,7 +705,7 @@ class DialogUtil {
           leading: const Icon(Icons.privacy_tip),
           title: Text(t.menus.privacy),
           trailing: Icon(
-            Directionality.of(context) == TextDirection.ltr
+            Directionality.of(context) == .ltr
                 ? Icons.chevron_right
                 : Icons.chevron_left,
           ),
@@ -715,7 +715,7 @@ class DialogUtil {
           leading: const Icon(Icons.account_circle),
           title: Text(t.menus.userAgreement),
           trailing: Icon(
-            Directionality.of(context) == TextDirection.ltr
+            Directionality.of(context) == .ltr
                 ? Icons.chevron_right
                 : Icons.chevron_left,
           ),
@@ -725,7 +725,7 @@ class DialogUtil {
           leading: const Icon(Icons.support),
           title: Text(t.menus.support),
           trailing: Icon(
-            Directionality.of(context) == TextDirection.ltr
+            Directionality.of(context) == .ltr
                 ? Icons.chevron_right
                 : Icons.chevron_left,
           ),

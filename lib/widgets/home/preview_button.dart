@@ -24,10 +24,10 @@ class PreviewBtn extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(
+              backgroundColor: .all(
                 Colors.white,
               ),
-              foregroundColor: WidgetStateProperty.resolveWith((
+              foregroundColor: .resolveWith((
                 Set<WidgetState> states,
               ) {
                 if (states.contains(WidgetState.disabled)) {
@@ -35,7 +35,7 @@ class PreviewBtn extends StatelessWidget {
                 }
                 return PGColors.primaryColor;
               }),
-              shape: WidgetStateProperty.resolveWith((
+              shape: .resolveWith((
                 Set<WidgetState> states,
               ) {
                 if (states.contains(WidgetState.disabled)) {
@@ -43,15 +43,15 @@ class PreviewBtn extends StatelessWidget {
                     side: const BorderSide(
                       color: PGColors.secondaryBorderColor,
                     ),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: .circular(10),
                   );
                 }
                 return RoundedRectangleBorder(
                   side: const BorderSide(color: PGColors.primaryColor),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: .circular(10),
                 );
               }),
-              elevation: WidgetStateProperty.all(0),
+              elevation: .all(0),
             ),
             child: Text(
               t.homePage.preview,

@@ -32,16 +32,16 @@ class InitialWidget extends StatelessWidget {
     return Container(
       margin: margin ?? pickerView.padding,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: .circular(20),
         color: bgColor,
       ),
       width: double.infinity,
       height: height ?? 160,
-      clipBehavior: Clip.hardEdge,
+      clipBehavior: .hardEdge,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          overlayColor: WidgetStateProperty.resolveWith((states) {
+          overlayColor: .resolveWith((states) {
             if (states.contains(WidgetState.pressed)) {
               return PGColors.primaryColor.withValues(alpha: 0.15);
             }
@@ -50,13 +50,13 @@ class InitialWidget extends StatelessWidget {
             }
             return PGColors.primaryColor.withValues(alpha: 0.07);
           }),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: .circular(4),
           onTap: pickerView.controller.pickImages,
           statesController: statesController,
           child: Center(
             child: child ??
                 Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: .min,
                   children: [
                     Icon(
                       Icons.add_photo_alternate_outlined,
@@ -68,7 +68,7 @@ class InitialWidget extends StatelessWidget {
                       'ADD IMAGES',
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: .w400,
                         fontSize: 14,
                       ),
                     ),

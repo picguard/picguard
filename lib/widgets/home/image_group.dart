@@ -48,18 +48,18 @@ class _ImageGroupState extends State<ImageGroup> {
               return DefaultDraggableItemWidget(
                 imageFile: imageFile,
                 boxDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: .circular(10),
                 ),
                 closeButtonIcon: const Icon(
                   Icons.delete_rounded,
                   color: Colors.red,
                   size: 16,
                 ),
-                closeButtonMargin: const EdgeInsets.all(3),
+                closeButtonMargin: const .all(3),
               );
             },
             initialWidget: InitialWidget(
-              margin: EdgeInsets.zero,
+              margin: .zero,
               statesController: initWidgetStateController,
               height: initialWeightHeight,
               child: const Icon(Icons.add_a_photo),

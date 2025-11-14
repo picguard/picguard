@@ -44,7 +44,7 @@ class _TextColumnGapState extends State<TextColumnGap> {
           builder: (FormFieldState<double> field) {
             final hasError = StringUtil.isNotBlank(field.errorText);
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               spacing: 8,
               children: [
                 Row(
@@ -94,7 +94,7 @@ class _TextColumnGapState extends State<TextColumnGap> {
                             width: 28,
                             child: Text(
                               value.toStringAsFixed(0),
-                              textAlign: TextAlign.center,
+                              textAlign: .center,
                             ),
                           ),
                     ),

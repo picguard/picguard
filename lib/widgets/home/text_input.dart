@@ -20,7 +20,7 @@ class TextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == .dark;
     return BaseFormItem(
       title: t.homePage.textLabel,
       onTipTap: () async {
@@ -29,14 +29,14 @@ class TextInput extends StatelessWidget {
         );
       },
       child: Padding(
-        padding: const EdgeInsets.only(top: 8.5),
+        padding: const .only(top: 8.5),
         child: FormBuilderField<String>(
           name: 'text',
           focusNode: focusNode,
           builder: (FormFieldState<String> field) {
             final hasError = StringUtil.isNotBlank(field.errorText);
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               spacing: 8,
               children: [
                 TextFormField(
@@ -57,7 +57,7 @@ class TextInput extends StatelessWidget {
                   },
                   decoration: InputDecoration(
                     isDense: true,
-                    contentPadding: const EdgeInsets.fromLTRB(
+                    contentPadding: const .fromLTRB(
                       10,
                       11.5,
                       5,
@@ -65,7 +65,7 @@ class TextInput extends StatelessWidget {
                     ),
                     enabledBorder: hasError
                         ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.errorTextColor,
                             ),
@@ -73,14 +73,14 @@ class TextInput extends StatelessWidget {
                             gapPadding: 0,
                           )
                         : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.borderColor,
                             ),
                             gapPadding: 0,
                           ),
                     disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: .circular(4),
                       borderSide: const BorderSide(
                         color: PGColors.borderColor,
                       ),
@@ -94,7 +94,7 @@ class TextInput extends StatelessWidget {
                     ),
                     focusedBorder: hasError
                         ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.errorTextColor,
                             ),
@@ -102,7 +102,7 @@ class TextInput extends StatelessWidget {
                             gapPadding: 0,
                           )
                         : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.primaryColor,
                             ),
@@ -113,7 +113,7 @@ class TextInput extends StatelessWidget {
                 ),
                 if (hasError)
                   Padding(
-                    padding: const EdgeInsets.only(left: 8),
+                    padding: const .only(left: 8),
                     child: Text(
                       field.errorText!,
                       style: const TextStyle(
