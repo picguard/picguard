@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.0.5
+
+1. Update flutter to 3.38.1
+2. chore(deps): update deps
+
 ## 5.0.4
 
 1. Update flutter to 3.35.6
