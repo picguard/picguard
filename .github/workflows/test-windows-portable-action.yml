@@ -72,7 +72,7 @@ jobs:
 
       - name: Generate EnigmaVB config file
         id: test-action
-        uses: insco-inc/enigma-virtualbox-action@v1
+        uses: qiazo/enigma-virtualbox-action@v1
         with:
           entry: build\windows\${{ env.Platform }}\runner\Release
           input: build\windows\${{ env.Platform }}\runner\Release\PicGuard.exe

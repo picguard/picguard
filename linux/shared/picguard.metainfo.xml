@@ -16,8 +16,8 @@
     <name>PicGuard</name>
     <summary>Your pictures, your signature</summary>
     <summary xml:lang="zh">给图片添加水印, 防止被恶意使用</summary>
-    <developer id="io.insco">
-        <name>Insco</name>
+    <developer id="com.qiazo">
+        <name>Qiazo</name>
     </developer>
     <url type="bugtracker">https://github.com/picguard/picguard/issues</url>
     <url type="homepage">https://picguard.app</url>
