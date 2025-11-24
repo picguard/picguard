@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
 
 // Path: <root>
-class TranslationsZh extends Translations {
+class TranslationsZh extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsZh({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -278,10 +278,6 @@ class _TranslationsDialogsSettingsDialogThemesZh extends TranslationsDialogsSett
 /// so the map is split into smaller functions (512 entries each).
 extension on TranslationsZh {
 	dynamic _flatMapFunction(String path) {
-		return _flatMapFunction$0(path);
-	}
-
-	dynamic _flatMapFunction$0(String path) {
 		return switch (path) {
 			'appName' => ({required Flavor flavor}) { switch (flavor) { case Flavor.free: return 'PicGuard'; case Flavor.pro: return 'PicGuard Pro'; } }, 
 			'homePage.appPreview' => '警告: 开发版本, 每个提交自动构建',
@@ -374,4 +370,3 @@ extension on TranslationsZh {
 		};
 	}
 }
-
