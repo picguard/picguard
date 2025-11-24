@@ -9,7 +9,7 @@ part of 'i18n.g.dart';
 
 // Path: <root>
 typedef TranslationsEn = Translations; // ignore: unused_element
-class Translations implements BaseTranslations<AppLocale, Translations> {
+class Translations with BaseTranslations<AppLocale, Translations> {
 	/// Returns the current translations of the given [context].
 	///
 	/// Usage:
@@ -441,10 +441,6 @@ class TranslationsDialogsSettingsDialogThemesEn {
 /// so the map is split into smaller functions (512 entries each).
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
-		return _flatMapFunction$0(path);
-	}
-
-	dynamic _flatMapFunction$0(String path) {
 		return switch (path) {
 			'appName' => ({required Flavor flavor}) { switch (flavor) { case Flavor.free: return 'PicGuard'; case Flavor.pro: return 'PicGuard Pro'; } }, 
 			'homePage.appPreview' => 'WARNING: Development version, automatically built on each commit',
@@ -537,4 +533,3 @@ extension on Translations {
 		};
 	}
 }
-
