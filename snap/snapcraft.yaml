@@ -58,7 +58,7 @@ parts:
       - libayatana-appindicator3-1
     build-environment:
       - FLUTTER_REPO: https://github.com/flutter/flutter.git
-      - FLUTTER_VERSION: 3.38.1
+      - FLUTTER_VERSION: 3.38.3
       - FLUTTER_TARGET: lib/main_free.dart
     override-build: |
       # Sentry
