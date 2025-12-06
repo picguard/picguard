@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.0
+
+1. fix: Moved to Qiazo
+2. chore(deps): update deps
+3. Update flutter to 3.38.4
+
 ## 5.0.5
 
 1. Update flutter to 3.38.1
