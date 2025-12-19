@@ -349,10 +349,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "7872545770c277236fd32b022767576c562ba28366204ff1a5628853cf8f2200"
+      sha256: d974b6ba2606371ac71dd94254beefb6fa81185bde0b59bdc1df09885da85fde
       url: "https://pub.dev"
     source: hosted
-    version: "10.3.7"
+    version: "10.3.8"
   file_saver:
     dependency: "direct main"
     description:
@@ -601,10 +601,10 @@ packages:
     dependency: transitive
     description:
       name: image
-      sha256: "51555e36056541237b15b57afc31a0f53d4f9aefd9bd00873a6dc0090e54e332"
+      sha256: "48c11d0943b93b6fb29103d956ff89aafeae48f6058a3939649be2093dcff0bf"
       url: "https://pub.dev"
     source: hosted
-    version: "4.6.0"
+    version: "4.7.1"
   image_gallery_saver_plus:
     dependency: "direct main"
     description:
@@ -1065,26 +1065,26 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: a421de454ad1daa9b1af585ad0f2d14b2f1af4c65384338f01b30dc3c6f066f0
+      sha256: "9b2fe138df1a104f6e41d8ebf2b1e4fe39d4370d2200eb4eea29913d38b8b33b"
       url: "https://pub.dev"
     source: hosted
-    version: "9.9.0"
+    version: "9.9.1"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
-      sha256: "820a1f087bdd7cd44ae3f4ab263c37432b4350336e287c957c1cf645435d8c63"
+      sha256: "698e0d47c0cf7362ad3b8034f6af5e9f3b2175d7a0cf58f78a967c29b43072b7"
       url: "https://pub.dev"
     source: hosted
-    version: "9.9.0"
+    version: "9.9.1"
   sentry_logging:
     dependency: "direct main"
     description:
       name: sentry_logging
-      sha256: "9feea6f698f4ae5fd0099293c37367f945a16879a0ff2b89e6a9ab922017ec8e"
+      sha256: "9cd3ee1f7a10d49cee179ed18ce8acd9e859cff4d118d9ba21b0df494ea8e7c1"
       url: "https://pub.dev"
     source: hosted
-    version: "9.9.0"
+    version: "9.9.1"
   shared_preferences:
     dependency: "direct main"
     description:
