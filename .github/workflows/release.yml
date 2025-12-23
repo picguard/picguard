@@ -18,7 +18,7 @@ on:
         required: false
 
 # Declare default permissions as readonly.
-permissions: read-all
+permissions: write-all
 
 env:
   flutter-channel: 'stable'
@@ -87,7 +87,7 @@ jobs:
         env:
           SHA: ${{ steps.sha_step.outputs.sha }}
           TAG_NAME: ${{ steps.version_step.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
   publish:
     name: Publish
@@ -147,7 +147,7 @@ jobs:
           IS_LATEST: ${{ inputs.latest }}
           SHA: ${{ needs.create-release.outputs.sha }}
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
   apk-free:
     name: Create apk (free)
@@ -227,7 +227,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.apk
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -314,7 +314,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.apk
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -406,7 +406,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.aab
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -498,7 +498,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.aab
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -622,7 +622,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.ipa
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -749,7 +749,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.ipa
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -876,7 +876,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.dmg
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1002,7 +1002,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.dmg
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1147,7 +1147,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.pkg
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1292,7 +1292,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.pkg
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1431,7 +1431,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.pkg
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1570,7 +1570,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.pkg
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1705,7 +1705,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.zip
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1840,7 +1840,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.zip
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1921,7 +1921,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.deb
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1996,7 +1996,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.deb
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2079,7 +2079,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.deb
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2161,7 +2161,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.deb
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2242,7 +2242,7 @@ jobs:
 #        run: gh release upload "$TAG_NAME" ./*.rpm
 #        env:
 #          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-#          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+#          GH_TOKEN: ${{ github.token }}
 #
 #      - name: Clean up
 #        if: ${{ always() }}
@@ -2334,7 +2334,7 @@ jobs:
 #        run: gh release upload "$TAG_NAME" ./*.rpm
 #        env:
 #          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-#          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+#          GH_TOKEN: ${{ github.token }}
 #
 #      - name: Clean up
 #        if: ${{ always() }}
@@ -2422,7 +2422,7 @@ jobs:
 #        run: gh release upload "$TAG_NAME" ./*.rpm
 #        env:
 #          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-#          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+#          GH_TOKEN: ${{ github.token }}
 #
 #      - name: Clean up
 #        if: ${{ always() }}
@@ -2520,7 +2520,7 @@ jobs:
 #        run: gh release upload "$TAG_NAME" ./*.rpm
 #        env:
 #          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-#          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+#          GH_TOKEN: ${{ github.token }}
 #
 #      - name: Clean up
 #        if: ${{ always() }}
@@ -2590,7 +2590,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.snap
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2673,7 +2673,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.snap
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2752,7 +2752,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.snap
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2839,7 +2839,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.snap
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2913,7 +2913,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2991,7 +2991,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3065,7 +3065,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3148,7 +3148,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3261,7 +3261,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.exe)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3393,7 +3393,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.exe)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3515,7 +3515,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.msi)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3641,7 +3641,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.msi)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3750,7 +3750,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.msix)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3872,7 +3872,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.msix)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3960,7 +3960,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.zip)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -4043,7 +4043,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.zip)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
