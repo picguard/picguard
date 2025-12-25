@@ -54,7 +54,8 @@ class InitialWidget extends StatelessWidget {
           onTap: pickerView.controller.pickImages,
           statesController: statesController,
           child: Center(
-            child: child ??
+            child:
+                child ??
                 Column(
                   mainAxisSize: .min,
                   children: [

@@ -17,27 +17,27 @@ class PGAppBar extends AppBar {
     super.key,
     super.actions,
   }) : super(
-          title: titleName == null
-              ? titleWidget
-              : Text(
-                  titleName,
-                  maxLines: 1,
-                  overflow: .ellipsis,
-                ),
-          centerTitle: true,
-          elevation: 0,
-          bottom: !showBottom
-              ? null
-              : PreferredSize(
-                  preferredSize: const .fromHeight(0.5),
-                  child: Container(
-                    color: isDark
-                        ? PGColors.secondaryTextColor
-                        : PGColors.borderColor,
-                    height: 1,
-                  ),
-                ),
-        );
+         title: titleName == null
+             ? titleWidget
+             : Text(
+                 titleName,
+                 maxLines: 1,
+                 overflow: .ellipsis,
+               ),
+         centerTitle: true,
+         elevation: 0,
+         bottom: !showBottom
+             ? null
+             : PreferredSize(
+                 preferredSize: const .fromHeight(0.5),
+                 child: Container(
+                   color: isDark
+                       ? PGColors.secondaryTextColor
+                       : PGColors.borderColor,
+                   height: 1,
+                 ),
+               ),
+       );
 
   final String? titleName;
   final Widget? titleWidget;
