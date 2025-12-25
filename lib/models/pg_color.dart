@@ -11,7 +11,8 @@ enum PGColor {
   black(0xFF000000),
   red(0xFFF44336),
   orange(0xFFFF9800),
-  blue(0xFF2196F3);
+  blue(0xFF2196F3),
+  ;
 
   ///
   const PGColor(this.color);
