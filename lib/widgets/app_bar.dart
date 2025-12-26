@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -17,27 +17,27 @@ class PGAppBar extends AppBar {
     super.key,
     super.actions,
   }) : super(
-          title: titleName == null
-              ? titleWidget
-              : Text(
-                  titleName,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-          centerTitle: true,
-          elevation: 0,
-          bottom: !showBottom
-              ? null
-              : PreferredSize(
-                  preferredSize: const Size.fromHeight(0.5),
-                  child: Container(
-                    color: isDark
-                        ? PGColors.secondaryTextColor
-                        : PGColors.borderColor,
-                    height: 1,
-                  ),
-                ),
-        );
+         title: titleName == null
+             ? titleWidget
+             : Text(
+                 titleName,
+                 maxLines: 1,
+                 overflow: .ellipsis,
+               ),
+         centerTitle: true,
+         elevation: 0,
+         bottom: !showBottom
+             ? null
+             : PreferredSize(
+                 preferredSize: const .fromHeight(0.5),
+                 child: Container(
+                   color: isDark
+                       ? PGColors.secondaryTextColor
+                       : PGColors.borderColor,
+                   height: 1,
+                 ),
+               ),
+       );
 
   final String? titleName;
   final Widget? titleWidget;

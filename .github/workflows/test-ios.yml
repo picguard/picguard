@@ -17,13 +17,13 @@ jobs:
       - name: print Xcode version
         run: xcodebuild -version
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.35.7'
+          flutter-version: '3.38.5'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -123,7 +123,7 @@ jobs:
           VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
           BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: ios-ipa-artifact
           path: ./*.ipa

@@ -13,7 +13,7 @@ jobs:
     name: Create web (free)
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install dependencies for Linux
         run: |
@@ -26,7 +26,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.35.7'
+          flutter-version: '3.38.5'
 
       - name: Configure .env
         run: echo "$ENV_PROD_BASE64" | base64 --decode > .env
@@ -40,7 +40,7 @@ jobs:
         run: flutter pub get
 
       - name: Build flutter
-        run: flutter build web --dart-define-from-file=.env --dart-define GIT_COMMIT_SHA="$GIT_COMMIT_SHA" --target lib/main_free.dart --base-href /play/
+        run: flutter build web --dart-define-from-file=.env --dart-define GIT_COMMIT_SHA="$GIT_COMMIT_SHA" --target lib/main_free.dart
         env:
           GIT_COMMIT_SHA: ${{ github.sha }}
 
@@ -52,7 +52,7 @@ jobs:
         with:
           github_token: ${{ secrets.PG_PAGES_TOKEN }}
           publish_dir: ./build/web
-          cname: picguard-web.picguard.app
+          cname: web.picguard.app
 
       - name: Clean up
         if: ${{ always() }}
@@ -62,7 +62,7 @@ jobs:
     name: Create web (pro)
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install dependencies for Linux
         run: |
@@ -75,7 +75,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.35.7'
+          flutter-version: '3.38.5'
 
       - name: Configure .env
         run: echo "$ENV_PROD_BASE64" | base64 --decode > .env
@@ -91,7 +91,7 @@ jobs:
       - name: Build flutter
         run: |
           cp -r $GITHUB_WORKSPACE/web/pro/* $GITHUB_WORKSPACE/web/
-          flutter build web --dart-define-from-file=.env --dart-define GIT_COMMIT_SHA="$GIT_COMMIT_SHA" --target lib/main_pro.dart --base-href /play/pro/
+          flutter build web --dart-define-from-file=.env --dart-define GIT_COMMIT_SHA="$GIT_COMMIT_SHA" --target lib/main_pro.dart
         env:
           GIT_COMMIT_SHA: ${{ github.sha }}
 
@@ -105,7 +105,7 @@ jobs:
           external_repository: picguard/pro-web
           publish_branch: main  # default: gh-pages
           publish_dir: ./build/web
-          cname: picguard-pro-web.picguard.app
+          cname: pro.picguard.app
 
       - name: Clean up
         if: ${{ always() }}

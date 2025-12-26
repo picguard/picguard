@@ -13,7 +13,7 @@ jobs:
     env:
       LXD_GROUP: lxd
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -75,7 +75,7 @@ jobs:
       - name: Copy build for snap
         run: ls -la *.snap
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: linux-snap-pro-artifact
           path: ./*.snap

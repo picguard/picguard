@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -24,7 +24,7 @@ class SaveBtn extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.resolveWith((
+              backgroundColor: .resolveWith((
                 Set<WidgetState> states,
               ) {
                 if (states.contains(WidgetState.disabled)) {
@@ -32,7 +32,7 @@ class SaveBtn extends StatelessWidget {
                 }
                 return PGColors.primaryColor;
               }),
-              foregroundColor: WidgetStateProperty.resolveWith((
+              foregroundColor: .resolveWith((
                 Set<WidgetState> states,
               ) {
                 if (states.contains(WidgetState.disabled)) {
@@ -40,7 +40,7 @@ class SaveBtn extends StatelessWidget {
                 }
                 return Colors.white;
               }),
-              elevation: WidgetStateProperty.all(0),
+              elevation: .all(0),
             ),
             child: Text(
               t.homePage.save,

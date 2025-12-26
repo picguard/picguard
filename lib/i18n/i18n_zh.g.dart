@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'i18n.g.dart';
 import 'package:flutter/widgets.dart';
@@ -10,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
 
 // Path: <root>
-class TranslationsZh extends Translations {
+class TranslationsZh extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsZh({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -270,107 +271,102 @@ class _TranslationsDialogsSettingsDialogThemesZh extends TranslationsDialogsSett
 	@override String get light => '浅色模式';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <zh>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on TranslationsZh {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'appName': return ({required Flavor flavor}) {
-				switch (flavor) {
-					case Flavor.free:
-						return 'PicGuard';
-					case Flavor.pro:
-						return 'PicGuard Pro';
-				}
-			};
-			case 'homePage.appPreview': return '警告: 开发版本, 每个提交自动构建';
-			case 'homePage.imageDescription': return '请上传图片';
-			case 'homePage.description': return '本app不会上传任何图片到服务器, 所有操作均在本地完成';
-			case 'homePage.textLabel': return '文本';
-			case 'homePage.textLabelDescription': return '文本会以水印添加到图片上';
-			case 'homePage.textValidator': return '请输入文本.';
-			case 'homePage.textInput': return '此证件仅用于办理xx业务, 其他用途无效';
-			case 'homePage.colorLabel': return '颜色';
-			case 'homePage.colorValidator': return '请选择颜色.';
-			case 'homePage.opacityLabel': return '不透明度';
-			case 'homePage.fontLabel': return '字体';
-			case 'homePage.fontLabelDescription': return '部分语言不支持自定义字体';
-			case 'homePage.fontValidator': return '请选择字体.';
-			case 'homePage.fontSizeLabel': return '字体大小';
-			case 'homePage.textGapLabel': return '文本间距';
-			case 'homePage.textGapDescription': return '每行文本中, 文本与文本之间的间距';
-			case 'homePage.rowGapLabel': return '行间距';
-			case 'homePage.rowGapDescription': return '每行文本与每行文本之间的间距';
-			case 'homePage.dragging': return '拖拽中';
-			case 'homePage.cancelDrag': return '拖拽已取消';
-			case 'homePage.limitValidator': return ({required Object maxImages, required Object lastImages}) => '最多支持${maxImages}张图片，您还可以上传${lastImages}张图片.';
-			case 'homePage.formatValidator': return '仅支持PNG和JPEG格式.';
-			case 'homePage.preview': return '预览';
-			case 'homePage.save': return '保存';
-			case 'homePage.savedSuccess': return '保存成功';
-			case 'homePage.savedFailure': return '保存失败';
-			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
-			case 'aboutPage.version': return ({required Object version, required Object buildNumber}) => '版本号 ${version}(${buildNumber})';
-			case 'aboutPage.copyright': return ({required Object year, required Object appName}) => '版权 © ${year} ${appName}. 版权所有。';
-			case 'aboutPage.slogan': return '给图片添加水印, 防止被恶意使用.';
-			case 'aboutPage.readme': return '项目简介';
-			case 'aboutPage.appLicense': return '应用许可证';
-			case 'aboutPage.changelog': return '变更日志';
-			case 'aboutPage.thirdPartyLicense': return '第三方许可证';
-			case 'colors.white': return '白色';
-			case 'colors.grey': return '灰色';
-			case 'colors.black': return '黑色';
-			case 'colors.red': return '红色';
-			case 'colors.orange': return '橙色';
-			case 'colors.blue': return '蓝色';
-			case 'menus.about': return ({required Object appName}) => '关于 ${appName}';
-			case 'menus.hide': return ({required Object appName}) => '隐藏 ${appName}';
-			case 'menus.hideOthers': return '隐藏其它';
-			case 'menus.showAll': return '显示全部';
-			case 'menus.exit': return ({required Object appName}) => '退出 ${appName}';
-			case 'menus.help': return '帮助';
-			case 'menus.support': return '支持';
-			case 'menus.userAgreement': return '用户协议';
-			case 'menus.privacy': return '隐私政策';
-			case 'buttons.agree': return '同意';
-			case 'buttons.cancel': return '再想想';
-			case 'buttons.ignore': return '忽略';
-			case 'buttons.turnOn': return '打开';
-			case 'dialogs.selectColor': return '选择颜色';
-			case 'dialogs.selectFont': return '选择字体';
-			case 'dialogs.exitConfirm.exit': return '退出';
-			case 'dialogs.exitConfirm.cancel': return '取消';
-			case 'dialogs.exitConfirm.title': return '关闭确认';
-			case 'dialogs.exitConfirm.description': return '您确定要关闭此窗口吗?';
-			case 'dialogs.permissions.photos.title': return '允许访问您的相册';
-			case 'dialogs.permissions.photos.description': return ({required Object appName}) => '请前往您的手机设置，授予${appName}访问您相册的权限.';
-			case 'dialogs.permissions.storage.title': return '允许访问您的存储';
-			case 'dialogs.permissions.storage.description': return ({required Object appName}) => '请前往您的手机设置，授予${appName}访问您存储的权限.';
-			case 'dialogs.licenseDialog.licenseDialogTitle': return '隐私条款';
-			case 'dialogs.licenseDialog.licenseDialogContentContent': return ({required Object appName}) => '${appName}非常重视你的隐私保护和个人信息保护.';
-			case 'dialogs.licenseDialog.licenseDialogContentTip': return '以下是该APP所需的权限列表:';
-			case 'dialogs.licenseDialog.licenseDialogContentPrefix': return '在使用APP服务前, 请认真阅读 ';
-			case 'dialogs.licenseDialog.licenseDialogContentUserAgreement': return '《用户服务协议》';
-			case 'dialogs.licenseDialog.licenseDialogContentAnd': return '和';
-			case 'dialogs.licenseDialog.licenseDialogContentPrivacyPolicy': return '《隐私政策》';
-			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', 你同意并接受全部条款后开始使用我们的服务.';
-			case 'dialogs.licenseDialog.iosPermissions.0': return ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (NSPhotoLibraryUsageDescription)';
-			case 'dialogs.licenseDialog.androidPermissions.0': return ({required Object appName}) => '为了使用 Sentry 服务, ${appName}需要访问您的互联网. (android.permission.INTERNET)';
-			case 'dialogs.licenseDialog.androidPermissions.1': return ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)';
-			case 'dialogs.settingsDialog.settings': return '设置';
-			case 'dialogs.settingsDialog.languages': return '语言';
-			case 'dialogs.settingsDialog.themes.manual': return '手动模式';
-			case 'dialogs.settingsDialog.themes.system': return '跟随系统';
-			case 'dialogs.settingsDialog.themes.dark': return '深色模式';
-			case 'dialogs.settingsDialog.themes.light': return '浅色模式';
-			case 'dialogs.settingsDialog.themesDescription': return '开启后, 将跟随系统打开或关闭深色模式';
-			case 'locales.en': return 'English';
-			case 'locales.it': return 'Italian';
-			case 'locales.zh': return '中文';
-			default: return null;
-		}
+		return switch (path) {
+			'appName' => ({required Flavor flavor}) { switch (flavor) { case Flavor.free: return 'PicGuard'; case Flavor.pro: return 'PicGuard Pro'; } }, 
+			'homePage.appPreview' => '警告: 开发版本, 每个提交自动构建',
+			'homePage.imageDescription' => '请上传图片',
+			'homePage.description' => '本app不会上传任何图片到服务器, 所有操作均在本地完成',
+			'homePage.textLabel' => '文本',
+			'homePage.textLabelDescription' => '文本会以水印添加到图片上',
+			'homePage.textValidator' => '请输入文本.',
+			'homePage.textInput' => '此证件仅用于办理xx业务, 其他用途无效',
+			'homePage.colorLabel' => '颜色',
+			'homePage.colorValidator' => '请选择颜色.',
+			'homePage.opacityLabel' => '不透明度',
+			'homePage.fontLabel' => '字体',
+			'homePage.fontLabelDescription' => '部分语言不支持自定义字体',
+			'homePage.fontValidator' => '请选择字体.',
+			'homePage.fontSizeLabel' => '字体大小',
+			'homePage.textGapLabel' => '文本间距',
+			'homePage.textGapDescription' => '每行文本中, 文本与文本之间的间距',
+			'homePage.rowGapLabel' => '行间距',
+			'homePage.rowGapDescription' => '每行文本与每行文本之间的间距',
+			'homePage.dragging' => '拖拽中',
+			'homePage.cancelDrag' => '拖拽已取消',
+			'homePage.limitValidator' => ({required Object maxImages, required Object lastImages}) => '最多支持${maxImages}张图片，您还可以上传${lastImages}张图片.',
+			'homePage.formatValidator' => '仅支持PNG和JPEG格式.',
+			'homePage.preview' => '预览',
+			'homePage.save' => '保存',
+			'homePage.savedSuccess' => '保存成功',
+			'homePage.savedFailure' => '保存失败',
+			'homePage.saveInfo' => ({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张',
+			'aboutPage.version' => ({required Object version, required Object buildNumber}) => '版本号 ${version}(${buildNumber})',
+			'aboutPage.copyright' => ({required Object year, required Object appName}) => '版权 © ${year} ${appName}. 版权所有。',
+			'aboutPage.slogan' => '给图片添加水印, 防止被恶意使用.',
+			'aboutPage.readme' => '项目简介',
+			'aboutPage.appLicense' => '应用许可证',
+			'aboutPage.changelog' => '变更日志',
+			'aboutPage.thirdPartyLicense' => '第三方许可证',
+			'colors.white' => '白色',
+			'colors.grey' => '灰色',
+			'colors.black' => '黑色',
+			'colors.red' => '红色',
+			'colors.orange' => '橙色',
+			'colors.blue' => '蓝色',
+			'menus.about' => ({required Object appName}) => '关于 ${appName}',
+			'menus.hide' => ({required Object appName}) => '隐藏 ${appName}',
+			'menus.hideOthers' => '隐藏其它',
+			'menus.showAll' => '显示全部',
+			'menus.exit' => ({required Object appName}) => '退出 ${appName}',
+			'menus.help' => '帮助',
+			'menus.support' => '支持',
+			'menus.userAgreement' => '用户协议',
+			'menus.privacy' => '隐私政策',
+			'buttons.agree' => '同意',
+			'buttons.cancel' => '再想想',
+			'buttons.ignore' => '忽略',
+			'buttons.turnOn' => '打开',
+			'dialogs.selectColor' => '选择颜色',
+			'dialogs.selectFont' => '选择字体',
+			'dialogs.exitConfirm.exit' => '退出',
+			'dialogs.exitConfirm.cancel' => '取消',
+			'dialogs.exitConfirm.title' => '关闭确认',
+			'dialogs.exitConfirm.description' => '您确定要关闭此窗口吗?',
+			'dialogs.permissions.photos.title' => '允许访问您的相册',
+			'dialogs.permissions.photos.description' => ({required Object appName}) => '请前往您的手机设置，授予${appName}访问您相册的权限.',
+			'dialogs.permissions.storage.title' => '允许访问您的存储',
+			'dialogs.permissions.storage.description' => ({required Object appName}) => '请前往您的手机设置，授予${appName}访问您存储的权限.',
+			'dialogs.licenseDialog.licenseDialogTitle' => '隐私条款',
+			'dialogs.licenseDialog.licenseDialogContentContent' => ({required Object appName}) => '${appName}非常重视你的隐私保护和个人信息保护.',
+			'dialogs.licenseDialog.licenseDialogContentTip' => '以下是该APP所需的权限列表:',
+			'dialogs.licenseDialog.licenseDialogContentPrefix' => '在使用APP服务前, 请认真阅读 ',
+			'dialogs.licenseDialog.licenseDialogContentUserAgreement' => '《用户服务协议》',
+			'dialogs.licenseDialog.licenseDialogContentAnd' => '和',
+			'dialogs.licenseDialog.licenseDialogContentPrivacyPolicy' => '《隐私政策》',
+			'dialogs.licenseDialog.licenseDialogContentSuffix' => ', 你同意并接受全部条款后开始使用我们的服务.',
+			'dialogs.licenseDialog.iosPermissions.0' => ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (NSPhotoLibraryUsageDescription)',
+			'dialogs.licenseDialog.androidPermissions.0' => ({required Object appName}) => '为了使用 Sentry 服务, ${appName}需要访问您的互联网. (android.permission.INTERNET)',
+			'dialogs.licenseDialog.androidPermissions.1' => ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)',
+			'dialogs.licenseDialog.androidPermissions.2' => ({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
+			'dialogs.licenseDialog.androidPermissions.3' => ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
+			'dialogs.settingsDialog.settings' => '设置',
+			'dialogs.settingsDialog.languages' => '语言',
+			'dialogs.settingsDialog.themes.manual' => '手动模式',
+			'dialogs.settingsDialog.themes.system' => '跟随系统',
+			'dialogs.settingsDialog.themes.dark' => '深色模式',
+			'dialogs.settingsDialog.themes.light' => '浅色模式',
+			'dialogs.settingsDialog.themesDescription' => '开启后, 将跟随系统打开或关闭深色模式',
+			'locales.en' => 'English',
+			'locales.it' => 'Italian',
+			'locales.zh' => '中文',
+			_ => null,
+		};
 	}
 }
-

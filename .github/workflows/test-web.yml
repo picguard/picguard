@@ -11,7 +11,7 @@ jobs:
     name: Create web
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install dependencies for Linux
         run: |
@@ -24,7 +24,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.35.7'
+          flutter-version: '3.38.5'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -40,7 +40,7 @@ jobs:
       - name: Build flutter
         run: flutter build web --dart-define-from-file=.env --target lib/main_free.dart
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: web-artifact
           path: ./build/web

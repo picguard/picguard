@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -48,18 +48,18 @@ class _ImageGroupState extends State<ImageGroup> {
               return DefaultDraggableItemWidget(
                 imageFile: imageFile,
                 boxDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: .circular(10),
                 ),
                 closeButtonIcon: const Icon(
                   Icons.delete_rounded,
                   color: Colors.red,
                   size: 16,
                 ),
-                closeButtonMargin: const EdgeInsets.all(3),
+                closeButtonMargin: const .all(3),
               );
             },
             initialWidget: InitialWidget(
-              margin: EdgeInsets.zero,
+              margin: .zero,
               statesController: initWidgetStateController,
               height: initialWeightHeight,
               child: const Icon(Icons.add_a_photo),

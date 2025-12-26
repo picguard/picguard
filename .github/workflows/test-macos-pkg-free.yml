@@ -11,13 +11,13 @@ jobs:
     name: Create pkg
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.35.7'
+          flutter-version: '3.38.5'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -88,7 +88,7 @@ jobs:
           DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY }}
         working-directory: build/macos/Build/Products/Release-free
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: unsigned-pkg-artifact
           path: ./PicGuard-unsigned.pkg
@@ -101,7 +101,7 @@ jobs:
           \    <license file="eula.rtf"/>\
           ' distribution.dist
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: distribution-artifact
           path: ./distribution.dist
@@ -113,7 +113,7 @@ jobs:
         env:
           DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY: ${{ secrets.DEVELOPER_ID_INSTALLER_SIGNING_IDENTITY }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: pkg-artifact
           path: ./PicGuard.pkg
@@ -169,7 +169,7 @@ jobs:
           VERSION_SHORT: ${{ steps.version_step.outputs.version_short }}
           BUILD_NUMBER: ${{ steps.version_step.outputs.build_number }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: stapled-pkg-artifact
           path: ./*.pkg

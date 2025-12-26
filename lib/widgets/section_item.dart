@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -41,7 +41,7 @@ class MineSectionItem extends StatelessWidget {
       child = Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (leading != null) leading!,
+          ?leading,
           Expanded(
             child: Text(
               name,
@@ -72,7 +72,7 @@ class MineSectionItem extends StatelessWidget {
               color: PGColors.borderColor,
               size: 14,
             ),
-          if (trailing != null) trailing!,
+          ?trailing,
         ],
       );
     } else {
@@ -85,7 +85,7 @@ class MineSectionItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (leading != null) leading!,
+                  ?leading,
                   Text(
                     name,
                     maxLines: 1,
@@ -118,7 +118,7 @@ class MineSectionItem extends StatelessWidget {
               color: PGColors.borderColor,
               size: 14,
             ),
-          if (trailing != null) trailing!,
+          ?trailing,
         ],
       );
     }
@@ -126,7 +126,7 @@ class MineSectionItem extends StatelessWidget {
     if (callback != null) {
       child = TextButton(
         style: ButtonStyle(
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          tapTargetSize: .shrinkWrap,
           minimumSize: WidgetStateProperty.all(Size.zero),
           padding: WidgetStateProperty.all(
             const EdgeInsets.symmetric(vertical: 16, horizontal: 10),

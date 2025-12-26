@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -7,14 +7,14 @@ import 'package:nb_utils/nb_utils.dart';
 
 ///
 class NavigatorUtil {
-  static void push<T extends Object?>(
+  static Future<void> push<T extends Object?>(
     Widget widget, {
     RouteSettings? settings,
     bool maintainState = true,
     bool fullscreenDialog = false,
     String? barrierLabel,
-  }) {
-    Navigator.push<T>(
+  }) async {
+    await Navigator.push<T>(
       navigatorKey.currentContext!,
       MaterialPageRoute<T>(
         builder: (BuildContext context) => widget,
@@ -25,15 +25,15 @@ class NavigatorUtil {
     );
   }
 
-  static void pushAndRemoveUntil<T extends Object?>(
+  static Future<void> pushAndRemoveUntil<T extends Object?>(
     Widget widget,
     RoutePredicate predicate, {
     RouteSettings? settings,
     bool maintainState = true,
     bool fullscreenDialog = false,
     String? barrierLabel,
-  }) {
-    Navigator.pushAndRemoveUntil<T>(
+  }) async {
+    await Navigator.pushAndRemoveUntil<T>(
       navigatorKey.currentContext!,
       MaterialPageRoute<T>(
         builder: (BuildContext context) => widget,
@@ -45,14 +45,14 @@ class NavigatorUtil {
     );
   }
 
-  static void pushReplacement<T extends Object?, TO extends Object?>(
+  static Future<void> pushReplacement<T extends Object?, TO extends Object?>(
     Widget widget, {
     RouteSettings? settings,
     bool maintainState = true,
     bool fullscreenDialog = false,
     String? barrierLabel,
-  }) {
-    Navigator.pushReplacement<T, TO>(
+  }) async {
+    await Navigator.pushReplacement<T, TO>(
       navigatorKey.currentContext!,
       MaterialPageRoute<T>(
         builder: (BuildContext context) => widget,

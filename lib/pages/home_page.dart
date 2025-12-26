@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -75,9 +75,9 @@ class _HomePageState extends State<HomePage> {
       printDebugLog('locale changed: $event');
     });
 
-    SchedulerBinding.instance.addPostFrameCallback((timestamp) {
+    SchedulerBinding.instance.addPostFrameCallback((timestamp) async {
       if (isMobile) {
-        DialogUtil.showLicenseDialog();
+        await DialogUtil.showLicenseDialog();
       }
     });
   }
@@ -123,10 +123,10 @@ class _HomePageState extends State<HomePage> {
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: .bold,
                 ),
                 maxLines: 2,
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
               isDark: isDark,
               showBottom: false,
@@ -144,8 +144,8 @@ class _HomePageState extends State<HomePage> {
               child = SingleChildScrollView(
                 padding: padding,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: .spaceBetween,
+                  crossAxisAlignment: .start,
                   spacing: 10,
                   children: [
                     Flexible(
@@ -153,20 +153,18 @@ class _HomePageState extends State<HomePage> {
                       fit: FlexFit.tight,
                       child: Column(
                         spacing: 10,
-                        mainAxisSize: MainAxisSize.min,
+                        mainAxisSize: .min,
                         children: [
-                          ImageGroup(
-                            controller: controller,
-                          ),
+                          ImageGroup(controller: controller),
                           const AppDescription(),
                         ],
                       ),
                     ),
                     Flexible(
                       flex: 4,
-                      fit: FlexFit.tight,
+                      fit: .tight,
                       child: Column(
-                        mainAxisSize: MainAxisSize.min,
+                        mainAxisSize: .min,
                         children: [
                           FormBuilder(
                             key: _formKey,
@@ -210,9 +208,7 @@ class _HomePageState extends State<HomePage> {
                 padding: padding,
                 shrinkWrap: true,
                 children: [
-                  ImageGroup(
-                    controller: controller,
-                  ),
+                  ImageGroup(controller: controller),
                   const Gap(10),
                   const AppDescription(),
                   const Gap(10),
@@ -252,10 +248,8 @@ class _HomePageState extends State<HomePage> {
             // }
 
             return Stack(
-              fit: StackFit.expand,
-              children: [
-                child,
-              ],
+              fit: .expand,
+              children: [child],
             );
           },
         ),
@@ -266,14 +260,14 @@ class _HomePageState extends State<HomePage> {
               key: _key,
               duration: const Duration(milliseconds: 500),
               distance: 60,
-              type: ExpandableFabType.up,
+              type: .up,
               // pos: ExpandableFabPos.left,
               // childrenOffset: const Offset(0, 20),
-              childrenAnimation: ExpandableFabAnimation.none,
+              childrenAnimation: .none,
               fanAngle: 40,
               openButtonBuilder: RotateFloatingActionButtonBuilder(
                 child: const Icon(Icons.menu),
-                fabSize: ExpandableFabSize.small,
+                fabSize: .small,
                 foregroundColor: PGColors.primaryColor,
                 backgroundColor: PGColors.primaryBackgroundColor,
                 shape: const CircleBorder(),
@@ -310,18 +304,18 @@ class _HomePageState extends State<HomePage> {
               children: [
                 IconBtn(
                   icon: Icons.settings,
-                  onPressed: () {
+                  onPressed: () async {
                     _key.currentState?.toggle();
-                    DialogUtil.showSettingsModal();
+                    await DialogUtil.showSettingsModal();
                   },
                 ),
                 IconBtn(
                   icon: Icons.info,
                   iconColor: PGColors.warnTextColor,
                   overlayColor: PGColors.backgroundColor,
-                  onPressed: () {
+                  onPressed: () async {
                     _key.currentState?.toggle();
-                    DialogUtil.showAboutModal();
+                    await DialogUtil.showAboutModal();
                   },
                 ),
               ],
@@ -343,7 +337,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onDragEntered(DropEventDetails details) {
-    BotToast.showText(text: t.homePage.dragging, duration: const Duration(seconds: 1));
+    BotToast.showText(
+      text: t.homePage.dragging,
+      duration: const Duration(seconds: 1),
+    );
   }
 
   void _onDragExited(DropEventDetails details) {
@@ -438,7 +435,7 @@ class _HomePageState extends State<HomePage> {
         final imageProviders = images.nonNulls
             .map((item) => MemoryImage(item.bytes))
             .toList();
-        DialogUtil.showImagePreviewDialog(imageProviders);
+        await DialogUtil.showImagePreviewDialog(imageProviders);
       } on Exception catch (error, stackTrace) {
         await EasyLoading.dismiss();
         printErrorLog(error, stackTrace: stackTrace);
@@ -465,16 +462,16 @@ class _HomePageState extends State<HomePage> {
       );
 
       final permission = await PermissionUtil.checkPermission();
-      if (permission != Permissions.none) {
+      if (permission != .none) {
         final t = Translations.of(navigatorKey.currentContext!);
         final appName = t.appName(flavor: AppConfig.shared.flavor);
-        final title = permission == Permissions.photos
+        final title = permission == .photos
             ? t.dialogs.permissions.photos.title
             : t.dialogs.permissions.storage.title;
-        final description = permission == Permissions.photos
+        final description = permission == .photos
             ? t.dialogs.permissions.photos.description
             : t.dialogs.permissions.storage.description;
-        DialogUtil.showCustomDialog(
+        await DialogUtil.showCustomDialog(
           title: title,
           content: description(appName: appName),
           cancelText: t.buttons.ignore,
@@ -624,15 +621,15 @@ class _HomePageState extends State<HomePage> {
     final textStyle = TextStyle(
       color: Color(colorValue).withAlpha((255.0 * opacity).round()),
       fontSize: fontSize ?? initialFontSize,
-      fontWeight: FontWeight.normal,
+      fontWeight: .normal,
       fontFamily: fontFamily,
     );
 
     // 创建文本画笔
     var textPainter = TextPainter(
       text: TextSpan(text: watermark, style: textStyle),
-      // textAlign: TextAlign.center,
-      textDirection: TextDirection.ltr,
+      // textAlign: .center,
+      textDirection: .ltr,
       maxLines: 1,
     )..layout(maxWidth: hypotenuseLength);
 
@@ -661,7 +658,7 @@ class _HomePageState extends State<HomePage> {
           dimensions.add(
             PlaceholderDimensions(
               size: Size(textGap / 2, 1),
-              alignment: ui.PlaceholderAlignment.bottom,
+              alignment: .bottom,
             ),
           );
         }
@@ -678,7 +675,7 @@ class _HomePageState extends State<HomePage> {
           dimensions.add(
             PlaceholderDimensions(
               size: Size(textGap, 1),
-              alignment: ui.PlaceholderAlignment.bottom,
+              alignment: .bottom,
             ),
           );
         }
@@ -694,7 +691,7 @@ class _HomePageState extends State<HomePage> {
           dimensions.add(
             PlaceholderDimensions(
               size: Size(textGap / 2, 1),
-              alignment: ui.PlaceholderAlignment.bottom,
+              alignment: .bottom,
             ),
           );
         }
@@ -706,8 +703,8 @@ class _HomePageState extends State<HomePage> {
                 children: children,
                 style: textStyle,
               ),
-              textAlign: TextAlign.center,
-              textDirection: TextDirection.ltr,
+              textAlign: .center,
+              textDirection: .ltr,
               maxLines: 1,
             )
             ..setPlaceholderDimensions(dimensions)
@@ -771,16 +768,16 @@ class _HomePageState extends State<HomePage> {
 
   Future<List<ImageFile>> _pickImages(int limit) async {
     final permission = await PermissionUtil.checkPermission();
-    if (permission != Permissions.none) {
+    if (permission != .none) {
       final t = Translations.of(navigatorKey.currentContext!);
       final appName = t.appName(flavor: AppConfig.shared.flavor);
-      final title = permission == Permissions.photos
+      final title = permission == .photos
           ? t.dialogs.permissions.photos.title
           : t.dialogs.permissions.storage.title;
-      final description = permission == Permissions.photos
+      final description = permission == .photos
           ? t.dialogs.permissions.photos.description
           : t.dialogs.permissions.storage.description;
-      DialogUtil.showCustomDialog(
+      await DialogUtil.showCustomDialog(
         title: title,
         content: description(appName: appName),
         cancelText: t.buttons.ignore,

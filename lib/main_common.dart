@@ -1,7 +1,8 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -29,10 +30,15 @@ import 'package:picguard/utils/utils.dart';
 import 'package:picguard/viewmodels/viewmodels.dart';
 import 'package:picguard/widgets/widgets.dart';
 
-Future<void> reportErrorAndLog(FlutterErrorDetails details) async {
+void reportErrorAndLog(FlutterErrorDetails details) {
   printErrorLog(details.exception, stackTrace: details.stack);
   if (PgEnv.sentryEnabled) {
-    await Sentry.captureException(details.exception, stackTrace: details.stack);
+    unawaited(
+      Sentry.captureException(
+        details.exception,
+        stackTrace: details.stack,
+      ),
+    );
   }
 }
 
@@ -96,7 +102,7 @@ Future<void> runMainApp({
     return true;
   };
 
-  EasyLoading.instance.maskType = EasyLoadingMaskType.clear;
+  EasyLoading.instance.maskType = .clear;
 
   // initialize with the right locale
   await LocaleSettings.useDeviceLocale();
@@ -134,8 +140,8 @@ class _MainAppState extends State<MainApp> with TrayListener {
   void initState() {
     trayManager.addListener(this);
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timestamp) {
-      initTrayMenu();
+    WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
+      await initTrayMenu();
     });
   }
 
@@ -180,7 +186,7 @@ class _MainAppState extends State<MainApp> with TrayListener {
         child = botToastBuilder(context, child);
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(
-            textScaler: TextScaler.noScaling,
+            textScaler: .noScaling,
           ),
           child: child,
         );
@@ -248,22 +254,22 @@ class _MainAppState extends State<MainApp> with TrayListener {
   }
 
   @override
-  void onTrayIconMouseDown() {
-    trayManager.popUpContextMenu();
+  Future<void> onTrayIconMouseDown() async {
+    await trayManager.popUpContextMenu();
   }
 
   @override
-  void onTrayMenuItemClick(MenuItem menuItem) {
+  Future<void> onTrayMenuItemClick(MenuItem menuItem) async {
     if (menuItem.key == Menus.about.name) {
-      DialogUtil.showAboutModal();
+      await DialogUtil.showAboutModal();
     } else if (menuItem.key == Menus.settings.name) {
-      DialogUtil.showSettingsModal();
+      await DialogUtil.showSettingsModal();
     } else if (menuItem.key == Menus.support.name) {
-      gotoSupportPage();
+      await gotoSupportPage();
     } else if (menuItem.key == Menus.userAgreement.name) {
-      gotoTermsOfUsePage();
+      await gotoTermsOfUsePage();
     } else if (menuItem.key == Menus.privacy.name) {
-      gotoPrivacyPage();
+      await gotoPrivacyPage();
     } else if (menuItem.key == Menus.exit.name) {
       exit(0);
     }

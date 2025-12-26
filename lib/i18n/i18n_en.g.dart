@@ -3,12 +3,13 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 part of 'i18n.g.dart';
 
 // Path: <root>
 typedef TranslationsEn = Translations; // ignore: unused_element
-class Translations implements BaseTranslations<AppLocale, Translations> {
+class Translations with BaseTranslations<AppLocale, Translations> {
 	/// Returns the current translations of the given [context].
 	///
 	/// Usage:
@@ -433,107 +434,102 @@ class TranslationsDialogsSettingsDialogThemesEn {
 	String get light => 'Light Mode';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'appName': return ({required Flavor flavor}) {
-				switch (flavor) {
-					case Flavor.free:
-						return 'PicGuard';
-					case Flavor.pro:
-						return 'PicGuard Pro';
-				}
-			};
-			case 'homePage.appPreview': return 'WARNING: Development version, automatically built on each commit';
-			case 'homePage.imageDescription': return 'Please upload pictures.';
-			case 'homePage.description': return 'This app will not upload any pictures to the server, all operations are completed locally';
-			case 'homePage.textLabel': return 'Text';
-			case 'homePage.textLabelDescription': return 'Text will be added to the image as a watermark';
-			case 'homePage.textValidator': return 'Please enter text.';
-			case 'homePage.textInput': return 'This certificate is only used for handling xx business, and is invalid for other purposes.';
-			case 'homePage.colorLabel': return 'Color';
-			case 'homePage.colorValidator': return 'Please select a color.';
-			case 'homePage.opacityLabel': return 'Opacity';
-			case 'homePage.fontLabel': return 'Font';
-			case 'homePage.fontLabelDescription': return 'Some languages do not support custom fonts';
-			case 'homePage.fontValidator': return 'Please select a font.';
-			case 'homePage.fontSizeLabel': return 'Font size';
-			case 'homePage.textGapLabel': return 'Text spacing';
-			case 'homePage.textGapDescription': return 'The spacing between text in each line of text';
-			case 'homePage.rowGapLabel': return 'Line spacing';
-			case 'homePage.rowGapDescription': return 'The spacing between each line of text';
-			case 'homePage.dragging': return 'Dragging';
-			case 'homePage.cancelDrag': return 'Drag canceled';
-			case 'homePage.limitValidator': return ({required Object maxImages, required Object lastImages}) => 'Supports up to ${maxImages} pictures, you can also upload ${lastImages} picture(s).';
-			case 'homePage.formatValidator': return 'Only PNG and JPEG formats are supported.';
-			case 'homePage.preview': return 'Preview';
-			case 'homePage.save': return 'Save';
-			case 'homePage.savedSuccess': return 'Saved successfully';
-			case 'homePage.savedFailure': return 'Failed to save image(s)';
-			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
-			case 'aboutPage.version': return ({required Object version, required Object buildNumber}) => 'Version ${version}(${buildNumber})';
-			case 'aboutPage.copyright': return ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. All rights reserved.';
-			case 'aboutPage.slogan': return 'Your pictures, your signature.';
-			case 'aboutPage.readme': return 'Readme';
-			case 'aboutPage.appLicense': return 'Application License';
-			case 'aboutPage.changelog': return 'Changelog';
-			case 'aboutPage.thirdPartyLicense': return 'Third Party Licenses';
-			case 'colors.white': return 'White';
-			case 'colors.grey': return 'Grey';
-			case 'colors.black': return 'Black';
-			case 'colors.red': return 'Red';
-			case 'colors.orange': return 'Orange';
-			case 'colors.blue': return 'Blue';
-			case 'menus.about': return ({required Object appName}) => 'About ${appName}';
-			case 'menus.hide': return ({required Object appName}) => 'Hide ${appName}';
-			case 'menus.hideOthers': return 'Hide Others';
-			case 'menus.showAll': return 'Show All';
-			case 'menus.exit': return ({required Object appName}) => 'Quit ${appName}';
-			case 'menus.help': return 'Help';
-			case 'menus.support': return 'Support';
-			case 'menus.userAgreement': return 'User Agreement';
-			case 'menus.privacy': return 'Privacy Policy';
-			case 'buttons.agree': return 'Agree';
-			case 'buttons.cancel': return 'Cancel';
-			case 'buttons.ignore': return 'Ignore';
-			case 'buttons.turnOn': return 'Turn On';
-			case 'dialogs.selectColor': return 'Select a color';
-			case 'dialogs.selectFont': return 'Select a font';
-			case 'dialogs.exitConfirm.exit': return 'Exit';
-			case 'dialogs.exitConfirm.cancel': return 'Cancel';
-			case 'dialogs.exitConfirm.title': return 'Close confirmation';
-			case 'dialogs.exitConfirm.description': return 'Are you sure you want to close this window?';
-			case 'dialogs.permissions.photos.title': return 'Allow access to your album';
-			case 'dialogs.permissions.photos.description': return ({required Object appName}) => 'Please go to your phone Settings to grant ${appName} the permission to visit your album.';
-			case 'dialogs.permissions.storage.title': return 'Allow access to your storage';
-			case 'dialogs.permissions.storage.description': return ({required Object appName}) => 'Please go to your phone Settings to grant ${appName} the permission to visit your storage.';
-			case 'dialogs.licenseDialog.licenseDialogTitle': return 'Terms and Conditions';
-			case 'dialogs.licenseDialog.licenseDialogContentContent': return ({required Object appName}) => 'Protecting user\'s privacy and personal information is a fundamental principle of ${appName}.';
-			case 'dialogs.licenseDialog.licenseDialogContentTip': return 'Below is a list of permissions required by this APP:';
-			case 'dialogs.licenseDialog.licenseDialogContentPrefix': return 'Before you use this APP\'s services, please carefully read and agree to the ';
-			case 'dialogs.licenseDialog.licenseDialogContentUserAgreement': return 'User Agreement';
-			case 'dialogs.licenseDialog.licenseDialogContentAnd': return ' and ';
-			case 'dialogs.licenseDialog.licenseDialogContentPrivacyPolicy': return 'Privacy Policy';
-			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', start using our services after you agree and accept all terms.';
-			case 'dialogs.licenseDialog.iosPermissions.0': return ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (NSPhotoLibraryUsageDescription)';
-			case 'dialogs.licenseDialog.androidPermissions.0': return ({required Object appName}) => 'In order to use the Sentry Service, ${appName} needs access to your Internet. (android.permission.INTERNET)';
-			case 'dialogs.licenseDialog.androidPermissions.1': return ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => 'In order to save images, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)';
-			case 'dialogs.settingsDialog.settings': return 'Settings';
-			case 'dialogs.settingsDialog.languages': return 'Languages';
-			case 'dialogs.settingsDialog.themes.manual': return 'Manual Mode';
-			case 'dialogs.settingsDialog.themes.system': return 'Auto Mode';
-			case 'dialogs.settingsDialog.themes.dark': return 'Dark Mode';
-			case 'dialogs.settingsDialog.themes.light': return 'Light Mode';
-			case 'dialogs.settingsDialog.themesDescription': return 'After turning it on, the dark mode will be turned on or off according to the system';
-			case 'locales.en': return 'English';
-			case 'locales.it': return 'Italian';
-			case 'locales.zh': return '中文';
-			default: return null;
-		}
+		return switch (path) {
+			'appName' => ({required Flavor flavor}) { switch (flavor) { case Flavor.free: return 'PicGuard'; case Flavor.pro: return 'PicGuard Pro'; } }, 
+			'homePage.appPreview' => 'WARNING: Development version, automatically built on each commit',
+			'homePage.imageDescription' => 'Please upload pictures.',
+			'homePage.description' => 'This app will not upload any pictures to the server, all operations are completed locally',
+			'homePage.textLabel' => 'Text',
+			'homePage.textLabelDescription' => 'Text will be added to the image as a watermark',
+			'homePage.textValidator' => 'Please enter text.',
+			'homePage.textInput' => 'This certificate is only used for handling xx business, and is invalid for other purposes.',
+			'homePage.colorLabel' => 'Color',
+			'homePage.colorValidator' => 'Please select a color.',
+			'homePage.opacityLabel' => 'Opacity',
+			'homePage.fontLabel' => 'Font',
+			'homePage.fontLabelDescription' => 'Some languages do not support custom fonts',
+			'homePage.fontValidator' => 'Please select a font.',
+			'homePage.fontSizeLabel' => 'Font size',
+			'homePage.textGapLabel' => 'Text spacing',
+			'homePage.textGapDescription' => 'The spacing between text in each line of text',
+			'homePage.rowGapLabel' => 'Line spacing',
+			'homePage.rowGapDescription' => 'The spacing between each line of text',
+			'homePage.dragging' => 'Dragging',
+			'homePage.cancelDrag' => 'Drag canceled',
+			'homePage.limitValidator' => ({required Object maxImages, required Object lastImages}) => 'Supports up to ${maxImages} pictures, you can also upload ${lastImages} picture(s).',
+			'homePage.formatValidator' => 'Only PNG and JPEG formats are supported.',
+			'homePage.preview' => 'Preview',
+			'homePage.save' => 'Save',
+			'homePage.savedSuccess' => 'Saved successfully',
+			'homePage.savedFailure' => 'Failed to save image(s)',
+			'homePage.saveInfo' => ({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save',
+			'aboutPage.version' => ({required Object version, required Object buildNumber}) => 'Version ${version}(${buildNumber})',
+			'aboutPage.copyright' => ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. All rights reserved.',
+			'aboutPage.slogan' => 'Your pictures, your signature.',
+			'aboutPage.readme' => 'Readme',
+			'aboutPage.appLicense' => 'Application License',
+			'aboutPage.changelog' => 'Changelog',
+			'aboutPage.thirdPartyLicense' => 'Third Party Licenses',
+			'colors.white' => 'White',
+			'colors.grey' => 'Grey',
+			'colors.black' => 'Black',
+			'colors.red' => 'Red',
+			'colors.orange' => 'Orange',
+			'colors.blue' => 'Blue',
+			'menus.about' => ({required Object appName}) => 'About ${appName}',
+			'menus.hide' => ({required Object appName}) => 'Hide ${appName}',
+			'menus.hideOthers' => 'Hide Others',
+			'menus.showAll' => 'Show All',
+			'menus.exit' => ({required Object appName}) => 'Quit ${appName}',
+			'menus.help' => 'Help',
+			'menus.support' => 'Support',
+			'menus.userAgreement' => 'User Agreement',
+			'menus.privacy' => 'Privacy Policy',
+			'buttons.agree' => 'Agree',
+			'buttons.cancel' => 'Cancel',
+			'buttons.ignore' => 'Ignore',
+			'buttons.turnOn' => 'Turn On',
+			'dialogs.selectColor' => 'Select a color',
+			'dialogs.selectFont' => 'Select a font',
+			'dialogs.exitConfirm.exit' => 'Exit',
+			'dialogs.exitConfirm.cancel' => 'Cancel',
+			'dialogs.exitConfirm.title' => 'Close confirmation',
+			'dialogs.exitConfirm.description' => 'Are you sure you want to close this window?',
+			'dialogs.permissions.photos.title' => 'Allow access to your album',
+			'dialogs.permissions.photos.description' => ({required Object appName}) => 'Please go to your phone Settings to grant ${appName} the permission to visit your album.',
+			'dialogs.permissions.storage.title' => 'Allow access to your storage',
+			'dialogs.permissions.storage.description' => ({required Object appName}) => 'Please go to your phone Settings to grant ${appName} the permission to visit your storage.',
+			'dialogs.licenseDialog.licenseDialogTitle' => 'Terms and Conditions',
+			'dialogs.licenseDialog.licenseDialogContentContent' => ({required Object appName}) => 'Protecting user\'s privacy and personal information is a fundamental principle of ${appName}.',
+			'dialogs.licenseDialog.licenseDialogContentTip' => 'Below is a list of permissions required by this APP:',
+			'dialogs.licenseDialog.licenseDialogContentPrefix' => 'Before you use this APP\'s services, please carefully read and agree to the ',
+			'dialogs.licenseDialog.licenseDialogContentUserAgreement' => 'User Agreement',
+			'dialogs.licenseDialog.licenseDialogContentAnd' => ' and ',
+			'dialogs.licenseDialog.licenseDialogContentPrivacyPolicy' => 'Privacy Policy',
+			'dialogs.licenseDialog.licenseDialogContentSuffix' => ', start using our services after you agree and accept all terms.',
+			'dialogs.licenseDialog.iosPermissions.0' => ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (NSPhotoLibraryUsageDescription)',
+			'dialogs.licenseDialog.androidPermissions.0' => ({required Object appName}) => 'In order to use the Sentry Service, ${appName} needs access to your Internet. (android.permission.INTERNET)',
+			'dialogs.licenseDialog.androidPermissions.1' => ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)',
+			'dialogs.licenseDialog.androidPermissions.2' => ({required Object appName}) => 'In order to save images, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
+			'dialogs.licenseDialog.androidPermissions.3' => ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)',
+			'dialogs.settingsDialog.settings' => 'Settings',
+			'dialogs.settingsDialog.languages' => 'Languages',
+			'dialogs.settingsDialog.themes.manual' => 'Manual Mode',
+			'dialogs.settingsDialog.themes.system' => 'Auto Mode',
+			'dialogs.settingsDialog.themes.dark' => 'Dark Mode',
+			'dialogs.settingsDialog.themes.light' => 'Light Mode',
+			'dialogs.settingsDialog.themesDescription' => 'After turning it on, the dark mode will be turned on or off according to the system',
+			'locales.en' => 'English',
+			'locales.it' => 'Italian',
+			'locales.zh' => '中文',
+			_ => null,
+		};
 	}
 }
-

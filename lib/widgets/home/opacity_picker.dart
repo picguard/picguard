@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -33,14 +33,14 @@ class _OpacityPickerState extends State<OpacityPicker> {
       required: false,
       showTip: false,
       child: Padding(
-        padding: const EdgeInsets.only(top: 8.5),
+        padding: const .only(top: 8.5),
         child: FormBuilderField<double>(
           name: 'opacity',
           initialValue: opacityNotifier.value,
           builder: (FormFieldState<double> field) {
             final hasError = StringUtil.isNotBlank(field.errorText);
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               spacing: 8,
               children: [
                 Row(
@@ -89,7 +89,7 @@ class _OpacityPickerState extends State<OpacityPicker> {
                             width: 28,
                             child: Text(
                               value.toStringAsFixed(1),
-                              textAlign: TextAlign.center,
+                              textAlign: .center,
                             ),
                           ),
                     ),

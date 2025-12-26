@@ -13,7 +13,7 @@ jobs:
     env:
       Platform: arm64
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         shell: pwsh
@@ -109,7 +109,7 @@ jobs:
           WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
         working-directory: dist
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: windows-exe-pro-artifact
           path: .\dist\**\*.exe

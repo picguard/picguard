@@ -18,11 +18,11 @@
     <name>PicGuard Pro</name>
     <summary>Your pictures, your signature</summary>
     <summary xml:lang="zh">给图片添加水印, 防止被恶意使用</summary>
-    <developer id="io.insco">
-        <name>Insco</name>
+    <developer id="com.qiazo">
+        <name>Qiazo</name>
     </developer>
     <url type="bugtracker">https://github.com/picguard/picguard/issues</url>
-    <url type="homepage">https://www.picguard.app</url>
+    <url type="homepage">https://picguard.app</url>
     <url type="donation">https://buymeacoffee.com/wangying</url>
     <url type="faq">https://github.com/picguard/picguard/discussions</url>
     <url type="translate">https://crowdin.com/project/picguard</url>
@@ -53,21 +53,21 @@
     <launchable type="desktop-id">com.kjxbyz.PicGuardPro.desktop</launchable>
     <screenshots>
         <screenshot type="default">
-            <image>https://raw.githubusercontent.com/picguard/picguard/v5.0.4/screenshots/pro/desktop.png</image>
+            <image>https://raw.githubusercontent.com/picguard/picguard/v5.1.0/screenshots/pro/desktop.png</image>
             <caption>Default screenshot for desktop</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/picguard/picguard/v5.0.4/screenshots/pro/desktop-zh.png</image>
+            <image>https://raw.githubusercontent.com/picguard/picguard/v5.1.0/screenshots/pro/desktop-zh.png</image>
             <caption>Support Chinese</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/picguard/picguard/v5.0.4/screenshots/pro/desktop-dark.png</image>
+            <image>https://raw.githubusercontent.com/picguard/picguard/v5.1.0/screenshots/pro/desktop-dark.png</image>
             <caption>Dark Mode</caption>
         </screenshot>
     </screenshots>
     <releases>
-        <release version="v5.0.4" date="2025-10-19">
-            <url type="details">https://github.com/picguard/picguard/blob/v5.0.4/CHANGELOG.md</url>
+        <release version="v5.1.0" date="2025-12-06">
+            <url type="details">https://github.com/picguard/picguard/blob/v5.1.0/CHANGELOG.md</url>
         </release>
     </releases>
     <content_rating type="oars-1.1">

@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -16,9 +16,9 @@ class BaseFormItem extends StatefulWidget {
     this.title,
     this.required = true,
     this.showTip = true,
-    this.padding = const EdgeInsets.only(top: 10),
-    this.mainAxisAlignment = MainAxisAlignment.start,
-    this.mainAxisSize = MainAxisSize.max,
+    this.padding = const .only(top: 10),
+    this.mainAxisAlignment = .start,
+    this.mainAxisSize = .max,
     this.tipWidget,
     this.onTipTap,
     super.key,
@@ -45,7 +45,7 @@ class _BaseFormItemState extends State<BaseFormItem> {
         ? Padding(
             padding: widget.padding,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               mainAxisSize: widget.mainAxisSize,
               children: [
                 if (!widget.showTip)
@@ -78,7 +78,7 @@ class _BaseFormItemState extends State<BaseFormItem> {
 
   Widget get content {
     final brightness = Theme.of(context).brightness;
-    final isDark = brightness == Brightness.dark;
+    final isDark = brightness == .dark;
     return Text.rich(
       TextSpan(
         children: [
@@ -100,19 +100,19 @@ class _BaseFormItemState extends State<BaseFormItem> {
         ],
       ),
       maxLines: 2,
-      overflow: TextOverflow.ellipsis,
+      overflow: .ellipsis,
     );
   }
 
   Widget get tips {
     return Padding(
-      padding: const EdgeInsets.only(left: 4),
+      padding: const .only(left: 4),
       child: IconButton(
         style: ButtonStyle(
-          padding: WidgetStateProperty.all(EdgeInsets.zero),
-          elevation: WidgetStateProperty.all(0),
-          minimumSize: WidgetStateProperty.all(Size.zero),
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          padding: .all(EdgeInsets.zero),
+          elevation: .all(0),
+          minimumSize: .all(Size.zero),
+          tapTargetSize: .shrinkWrap,
         ),
         onPressed: widget.onTipTap,
         icon: const Icon(
