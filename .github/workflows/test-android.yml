@@ -7,7 +7,7 @@ on:
 permissions: read-all
 
 env:
-  flutter-version: '3.38.7'
+  flutter-version: '3.38.9'
 
 jobs:
   apk:
