@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.2.0
+
+1. chore(deps): update deps
+2. Update flutter to 3.38.9
+3. fix: set Xcode version to 26.2 (#569)
+4. fix: replace `nuget restore` with `msbuild -restore` (#552)
+
 ## 5.1.0
 
 1. fix: Moved to Qiazo
