@@ -46,6 +46,7 @@ parts:
       - xz-utils
       - zip
       - libglu1-mesa
+      - lld
       - clang
       - cmake
       - ninja-build
@@ -60,6 +61,8 @@ parts:
       - FLUTTER_REPO: https://github.com/flutter/flutter.git
       - FLUTTER_VERSION: 3.38.9
       - FLUTTER_TARGET: lib/main_free.dart
+      - CFLAGS: -fuse-ld=lld
+      - CXXFLAGS: -fuse-ld=lld
     override-build: |
       # Sentry
       apt update && apt install -y openjdk-21-jdk
