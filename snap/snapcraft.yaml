@@ -16,6 +16,7 @@ license: GPL-3.0-only
 source-code: https://github.com/picguard/picguard
 issues: https://github.com/picguard/picguard/issues
 website: https://picguard.app
+donation: https://picguard.app/sponsors
 confinement: strict
 base: core22
 grade: stable
@@ -53,6 +54,7 @@ parts:
       - cmake
       - ninja-build
       - pkg-config
+      - openjdk-21-jdk
       - libgtk-3-dev
       - liblzma-dev
       - libstdc++-12-dev
@@ -74,17 +76,7 @@ parts:
       ln -sf "$(command -v ld)"     /usr/lib/llvm-14/bin/ld
       
       # Sentry
-      apt update && apt install -y openjdk-21-jdk
-      
-      arch=$(uname -m)
-      if [[ "$arch" == "aarch64" ]]; then
-        export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-arm64
-      elif [[ "$arch" == "x86_64" ]]; then
-        export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
-      else
-        echo "Unknown arch"
-      fi
-      
+      export JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(which java)")")")"
       export PATH="$PATH":"$HOME/.pub-cache/bin":":$JAVA_HOME/bin"
 
       java -version
