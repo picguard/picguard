@@ -47,6 +47,8 @@ parts:
       - zip
       - libglu1-mesa
       - lld
+      - llvm-14
+      - binutils
       - clang
       - cmake
       - ninja-build
@@ -61,9 +63,16 @@ parts:
       - FLUTTER_REPO: https://github.com/flutter/flutter.git
       - FLUTTER_VERSION: 3.38.9
       - FLUTTER_TARGET: lib/main_free.dart
-      - CFLAGS: -fuse-ld=lld
-      - CXXFLAGS: -fuse-ld=lld
     override-build: |
+      set -eux
+
+      if [ ! -d "/usr/lib/llvm-14/bin" ]; then
+        echo "🟩 Removing flutter directory"
+        mkdir -p /usr/lib/llvm-14/bin
+      fi
+      ln -sf "$(command -v ld.lld)" /usr/lib/llvm-14/bin/ld.lld
+      ln -sf "$(command -v ld)"     /usr/lib/llvm-14/bin/ld
+      
       # Sentry
       apt update && apt install -y openjdk-21-jdk
       
