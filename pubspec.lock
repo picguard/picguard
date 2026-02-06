@@ -109,10 +109,10 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: b4d854962a32fd9f8efc0b76f98214790b833af8b2e9b2df6bfc927c0415a072
+      sha256: ac78098de97893812b7aff1154f29008fa2464cad9e8e7044d39bc905dad4fbc
       url: "https://pub.dev"
     source: hosted
-    version: "2.10.5"
+    version: "2.11.0"
   built_collection:
     dependency: transitive
     description:
@@ -285,10 +285,10 @@ packages:
     dependency: transitive
     description:
       name: dbus
-      sha256: "79e0c23480ff85dc68de79e2cd6334add97e48f7f4865d17686dd6ea81a47e8c"
+      sha256: d0c98dcd4f5169878b6cf8f6e0a52403a9dff371a3e2f019697accbf6f44a270
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.11"
+    version: "0.7.12"
   desktop_drop:
     dependency: "direct main"
     description:
@@ -881,10 +881,10 @@ packages:
     dependency: transitive
     description:
       name: objective_c
-      sha256: "983c7fa1501f6dcc0cb7af4e42072e9993cb28d73604d25ebf4dab08165d997e"
+      sha256: "100a1c87616ab6ed41ec263b083c0ef3261ee6cd1dc3b0f35f8ddfa4f996fe52"
       url: "https://pub.dev"
     source: hosted
-    version: "9.2.5"
+    version: "9.3.0"
   package_config:
     dependency: transitive
     description:
@@ -1097,26 +1097,26 @@ packages:
     dependency: transitive
     description:
       name: sentry
-      sha256: aad20a9073e674c29a0db32bea5f70b4181c059b5a2da4430d67888d349b0eef
+      sha256: "80b2a6667db8e0bb148ad70b2af242eb6aa8da9b56b56e72332a4221d93bc01d"
       url: "https://pub.dev"
     source: hosted
-    version: "9.11.0"
+    version: "9.12.0"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
-      sha256: cb1c8fb5da69c3e2c207422017b92eb625f5056e80783d052569af9a932e1f20
+      sha256: df09c63e0111a9ad5c4a13a89def67327fc2028bec0f55c246d8c083d486e418
       url: "https://pub.dev"
     source: hosted
-    version: "9.11.0"
+    version: "9.12.0"
   sentry_logging:
     dependency: "direct main"
     description:
       name: sentry_logging
-      sha256: "6c994305d7d872e43c47999c0ee4340ee63d2f882802225a6300227d84fc799a"
+      sha256: d546a7dc7734d3b61b3b09ab8fbf2026393eb72dbbede5442062080016f7a1d0
       url: "https://pub.dev"
     source: hosted
-    version: "9.11.0"
+    version: "9.12.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -1238,10 +1238,10 @@ packages:
     dependency: transitive
     description:
       name: source_span
-      sha256: "254ee5351d6cb365c859e20ee823c3bb479bf4a293c22d17a9f1bf144ce86f7c"
+      sha256: "56a02f1f4cd1a2d96303c0144c93bd6d909eea6bee6bf5a0e0b685edbd4c47ab"
       url: "https://pub.dev"
     source: hosted
-    version: "1.10.1"
+    version: "1.10.2"
   stack_trace:
     dependency: transitive
     description:
@@ -1278,18 +1278,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "44ec7f2bc3257d4d5ecae9ad2ed73ec1ca123323e0b1662441bc7f756530844f"
+      sha256: "0fdd1d5e435c3fc89a5d9558ddfd9cb9272500433b141fa2068e9e5607d1c63a"
       url: "https://pub.dev"
     source: hosted
-    version: "32.1.25"
+    version: "32.2.3"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "7dd108c8eabe4a9874daf1f5361cb21697c8a29136da9c583d4cf9e6db279343"
+      sha256: "5768d122cd6311b4469d6e337d7e7f98372ed9c210a7366079aede27b3a9a375"
       url: "https://pub.dev"
     source: hosted
-    version: "32.1.25"
+    version: "32.2.3"
   synchronized:
     dependency: "direct main"
     description:
