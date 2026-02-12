@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.1
+
+1. chore(deps): update deps
+2. Update flutter to 3.38.10
+3. Failed to find any of [ld.lld, ld] in LocalDirectory: '/usr/lib/llvm-14/bin' (#577)
+
 ## 5.2.0
 
 1. chore(deps): update deps
