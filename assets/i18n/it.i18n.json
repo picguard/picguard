@@ -63,7 +63,8 @@
     "support": "Supporto",
     "userAgreement": "Accordo utente",
     "privacy": "Politica sulla riservatezza",
-    "updates": "Aggiornamenti"
+    "updates": "Aggiornamenti",
+    "debug": "Debug"
   },
   "buttons": {
     "agree": "Accetto",

@@ -260,6 +260,9 @@ class TranslationsMenusEn {
 
 	/// en: 'Updates'
 	String get updates => 'Updates';
+
+	/// en: 'Debug'
+	String get debug => 'Debug';
 }
 
 // Path: buttons
@@ -512,6 +515,7 @@ extension on Translations {
 			'menus.userAgreement' => 'User Agreement',
 			'menus.privacy' => 'Privacy Policy',
 			'menus.updates' => 'Updates',
+			'menus.debug' => 'Debug',
 			'buttons.agree' => 'Agree',
 			'buttons.cancel' => 'Cancel',
 			'buttons.ignore' => 'Ignore',

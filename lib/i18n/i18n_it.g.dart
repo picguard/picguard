@@ -148,6 +148,7 @@ class _TranslationsMenusIt extends TranslationsMenusEn {
 	@override String get userAgreement => 'Accordo utente';
 	@override String get privacy => 'Politica sulla riservatezza';
 	@override String get updates => 'Aggiornamenti';
+	@override String get debug => 'Debug';
 }
 
 // Path: buttons
@@ -339,6 +340,7 @@ extension on TranslationsIt {
 			'menus.userAgreement' => 'Accordo utente',
 			'menus.privacy' => 'Politica sulla riservatezza',
 			'menus.updates' => 'Aggiornamenti',
+			'menus.debug' => 'Debug',
 			'buttons.agree' => 'Accetto',
 			'buttons.cancel' => 'Annulla',
 			'buttons.ignore' => 'Ignora',

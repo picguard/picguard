@@ -63,7 +63,8 @@
     "support": "支持",
     "userAgreement": "用户协议",
     "privacy": "隐私政策",
-    "updates": "更新"
+    "updates": "更新",
+    "debug": "调试"
   },
   "buttons": {
     "agree": "同意",
