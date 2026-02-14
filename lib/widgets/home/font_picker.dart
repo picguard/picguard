@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -11,7 +11,6 @@ import 'package:picguard/constants/constants.dart';
 import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
-import 'package:picguard/models/models.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
 
@@ -22,7 +21,7 @@ class FontPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == .dark;
     final languageCode = LocaleSettings.currentLocale.languageCode;
     printDebugLog('languageCode: $languageCode');
 
@@ -39,10 +38,10 @@ class FontPicker extends StatelessWidget {
         child: FormBuilderField<String>(
           name: 'font',
           initialValue: fontFamilies.elementAt(0).fontFamily,
-          builder: (FormFieldState<String> field) {
+          builder: (field) {
             final hasError = StringUtil.isNotBlank(field.errorText);
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               spacing: 8,
               children: [
                 DropdownButtonFormField<String>(
@@ -62,7 +61,7 @@ class FontPicker extends StatelessWidget {
                     contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
                     enabledBorder: hasError
                         ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.errorTextColor,
                             ),
@@ -70,14 +69,14 @@ class FontPicker extends StatelessWidget {
                             gapPadding: 0,
                           )
                         : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.borderColor,
                             ),
                             gapPadding: 0,
                           ),
                     disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: .circular(4),
                       borderSide: const BorderSide(
                         color: PGColors.borderColor,
                       ),
@@ -85,7 +84,7 @@ class FontPicker extends StatelessWidget {
                     ),
                     focusedBorder: hasError
                         ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.errorTextColor,
                             ),
@@ -93,7 +92,7 @@ class FontPicker extends StatelessWidget {
                             gapPadding: 0,
                           )
                         : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.primaryColor,
                             ),
@@ -105,7 +104,7 @@ class FontPicker extends StatelessWidget {
                       return DropdownMenuItem<String>(
                         value: fontFamily.fontFamily,
                         child: Align(
-                          alignment: Alignment.centerLeft,
+                          alignment: .centerLeft,
                           child: Text(
                             fontFamily.name,
                             style: TextStyle(
@@ -121,7 +120,7 @@ class FontPicker extends StatelessWidget {
                 ),
                 if (hasError)
                   Padding(
-                    padding: const EdgeInsets.only(left: 8),
+                    padding: const .only(left: 8),
                     child: Text(
                       field.errorText!,
                       style: const TextStyle(
@@ -150,7 +149,7 @@ class FontPicker extends StatelessWidget {
     await DialogUtil.showFontModal(
       items: fontFamilies,
       font: field.value,
-      callback: (PGFont font) {
+      callback: (font) {
         if (kDebugMode) {
           printDebugLog('fontFamily: ${font.fontFamily}, name: ${font.name}');
         }

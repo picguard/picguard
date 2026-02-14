@@ -1,5 +1,29 @@
 # Changelog
 
+## 5.2.1
+
+1. chore(deps): update deps
+2. Update flutter to 3.38.10
+3. Failed to find any of [ld.lld, ld] in LocalDirectory: '/usr/lib/llvm-14/bin' (#577)
+
+## 5.2.0
+
+1. chore(deps): update deps
+2. Update flutter to 3.38.9
+3. fix: set Xcode version to 26.2 (#569)
+4. fix: replace `nuget restore` with `msbuild -restore` (#552)
+
+## 5.1.0
+
+1. fix: Moved to Qiazo
+2. chore(deps): update deps
+3. Update flutter to 3.38.4
+
+## 5.0.5
+
+1. Update flutter to 3.38.1
+2. chore(deps): update deps
+
 ## 5.0.4
 
 1. Update flutter to 3.35.6

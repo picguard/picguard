@@ -3,6 +3,7 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 import 'i18n.g.dart';
 import 'package:flutter/widgets.dart';
@@ -10,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
 
 // Path: <root>
-class TranslationsIt extends Translations {
+class TranslationsIt extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsIt({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -93,6 +94,10 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String get savedSuccess => 'Salvataggio riuscito';
 	@override String get savedFailure => 'Impossibile salvare l\'immagine(i)';
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
+	@override String get appNoUpdates => 'L\'app è aggiornata.';
+	@override String get backgroundCheckingStopped => 'Background checking stopped';
+	@override String backgroundCheckingAvailable({required Object latestVersion}) => 'Background check: Update ${latestVersion} available!';
+	@override String backgroundCheckingStarted({required Object seconds}) => 'Background checking started (every ${seconds}s)';
 }
 
 // Path: aboutPage
@@ -142,6 +147,8 @@ class _TranslationsMenusIt extends TranslationsMenusEn {
 	@override String get support => 'Supporto';
 	@override String get userAgreement => 'Accordo utente';
 	@override String get privacy => 'Politica sulla riservatezza';
+	@override String get updates => 'Aggiornamenti';
+	@override String get debug => 'Debug';
 }
 
 // Path: buttons
@@ -289,109 +296,103 @@ class _TranslationsDialogsSettingsDialogThemesIt extends TranslationsDialogsSett
 /// so the map is split into smaller functions (512 entries each).
 extension on TranslationsIt {
 	dynamic _flatMapFunction(String path) {
-		return _flatMapFunction$0(path);
-	}
-
-	dynamic _flatMapFunction$0(String path) {
-		switch (path) {
-			case 'appName': return ({required Flavor flavor}) {
-				switch (flavor) {
-					case Flavor.free:
-						return 'PicGuard';
-					case Flavor.pro:
-						return 'PicGuard Pro';
-				}
-			};
-			case 'homePage.appPreview': return 'ATTENZIONE: Versione di sviluppo, basata automaticamente su ogni commit';
-			case 'homePage.imageDescription': return 'Si prega di caricare le immagini.';
-			case 'homePage.description': return 'Questa app non caricherà alcuna immagine sul server, tutte le operazioni vengono completate localmente';
-			case 'homePage.textLabel': return 'Testo';
-			case 'homePage.textLabelDescription': return 'Il testo verrà aggiunto all\'immagine come filigrana';
-			case 'homePage.textValidator': return 'Inserisci il testo.';
-			case 'homePage.textInput': return 'Questo certificato è utilizzato solo per la gestione di xx attività e non è valido per altri scopi.';
-			case 'homePage.colorLabel': return 'Colore';
-			case 'homePage.colorValidator': return 'Seleziona un colore.';
-			case 'homePage.opacityLabel': return 'Opacità';
-			case 'homePage.fontLabel': return 'Font';
-			case 'homePage.fontLabelDescription': return 'Alcune lingue non supportano i font personalizzati';
-			case 'homePage.fontValidator': return 'Seleziona un font.';
-			case 'homePage.fontSizeLabel': return 'Dimensione del font';
-			case 'homePage.textGapLabel': return 'Spaziatura del testo';
-			case 'homePage.textGapDescription': return 'La spaziatura tra il testo in ogni riga di testo';
-			case 'homePage.rowGapLabel': return 'Interlinea';
-			case 'homePage.rowGapDescription': return 'La spaziatura tra ogni riga di testo';
-			case 'homePage.dragging': return 'Trascinamento';
-			case 'homePage.cancelDrag': return 'Trascinamento annullato';
-			case 'homePage.limitValidator': return ({required Object maxImages, required Object lastImages}) => 'Supporta fino a ${maxImages} immagini, puoi anche caricare ${lastImages} immagini.';
-			case 'homePage.formatValidator': return 'Supportare solo i formati PNG e JPEG';
-			case 'homePage.preview': return 'Anteprima';
-			case 'homePage.save': return 'Salva';
-			case 'homePage.savedSuccess': return 'Salvataggio riuscito';
-			case 'homePage.savedFailure': return 'Impossibile salvare l\'immagine(i)';
-			case 'homePage.saveInfo': return ({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
-			case 'aboutPage.version': return ({required Object version, required Object buildNumber}) => 'Versione ${version}(${buildNumber})';
-			case 'aboutPage.copyright': return ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. Tutti i diritti riservati.';
-			case 'aboutPage.slogan': return 'Le tue foto, la tua firma.';
-			case 'aboutPage.readme': return 'Introduzione del progetto';
-			case 'aboutPage.appLicense': return 'Licenza di applicazione';
-			case 'aboutPage.changelog': return 'Changelog';
-			case 'aboutPage.thirdPartyLicense': return 'Licenze di terze parti';
-			case 'colors.white': return 'Bianco';
-			case 'colors.grey': return 'Grigio';
-			case 'colors.black': return 'Nero';
-			case 'colors.red': return 'Rosso';
-			case 'colors.orange': return 'Arancione';
-			case 'colors.blue': return 'Blu';
-			case 'menus.about': return ({required Object appName}) => 'Di ${appName}';
-			case 'menus.hide': return ({required Object appName}) => 'Nascondere ${appName}';
-			case 'menus.hideOthers': return 'Nascondere gli altri';
-			case 'menus.showAll': return 'Mostra tutto';
-			case 'menus.exit': return ({required Object appName}) => 'Esentato ${appName}';
-			case 'menus.help': return 'Aiuto';
-			case 'menus.support': return 'Supporto';
-			case 'menus.userAgreement': return 'Accordo utente';
-			case 'menus.privacy': return 'Politica sulla riservatezza';
-			case 'buttons.agree': return 'Accetto';
-			case 'buttons.cancel': return 'Annulla';
-			case 'buttons.ignore': return 'Ignora';
-			case 'buttons.turnOn': return 'Accendi';
-			case 'dialogs.selectColor': return 'Seleziona un colore';
-			case 'dialogs.selectFont': return 'Seleziona un carattere';
-			case 'dialogs.exitConfirm.exit': return 'Uscita';
-			case 'dialogs.exitConfirm.cancel': return 'Annulla';
-			case 'dialogs.exitConfirm.title': return 'Chiudi conferma';
-			case 'dialogs.exitConfirm.description': return 'Sei sicuro di voler chiudere questa finestra?';
-			case 'dialogs.permissions.photos.title': return 'Consenti l\'accesso al tuo album';
-			case 'dialogs.permissions.photos.description': return ({required Object appName}) => 'Vai alle Impostazioni del tuo telefono per concedere a ${appName} l\'autorizzazione a visitare il tuo album.';
-			case 'dialogs.permissions.storage.title': return 'Consenti l\'accesso al tuo archivio';
-			case 'dialogs.permissions.storage.description': return ({required Object appName}) => 'Accedi alle Impostazioni del tuo telefono per concedere a ${appName} l\'autorizzazione ad accedere al tuo archivio.';
-			case 'dialogs.licenseDialog.licenseDialogTitle': return 'Termini e Condizioni';
-			case 'dialogs.licenseDialog.licenseDialogContentContent': return ({required Object appName}) => 'La protezione della privacy e delle informazioni personali degli utenti è un principio fondamentale di ${appName}.';
-			case 'dialogs.licenseDialog.licenseDialogContentTip': return 'Di seguito è riportato l\'elenco delle autorizzazioni richieste da questa APP:';
-			case 'dialogs.licenseDialog.licenseDialogContentPrefix': return 'Prima di utilizzare i servizi di questa APP, ti preghiamo di leggere attentamente e accettare il ';
-			case 'dialogs.licenseDialog.licenseDialogContentUserAgreement': return 'Contratto d\'uso';
-			case 'dialogs.licenseDialog.licenseDialogContentAnd': return ' e ';
-			case 'dialogs.licenseDialog.licenseDialogContentPrivacyPolicy': return 'L\'accordo sulla privacy';
-			case 'dialogs.licenseDialog.licenseDialogContentSuffix': return ', inizia a utilizzare i nostri servizi dopo aver accettato tutti i termini.';
-			case 'dialogs.licenseDialog.iosPermissions.0': return ({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (NSPhotoLibraryUsageDescription)';
-			case 'dialogs.licenseDialog.androidPermissions.0': return ({required Object appName}) => 'Per poter utilizzare il servizio Sentry, ${appName} deve avere accesso a Internet. (android.permission.INTERNET)';
-			case 'dialogs.licenseDialog.androidPermissions.1': return ({required Object appName}) => 'Per filigranare le tue immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.READ_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.2': return ({required Object appName}) => 'Per poter salvare le immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)';
-			case 'dialogs.licenseDialog.androidPermissions.3': return ({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)';
-			case 'dialogs.settingsDialog.settings': return 'Impostazioni';
-			case 'dialogs.settingsDialog.languages': return 'Lingue';
-			case 'dialogs.settingsDialog.themes.manual': return 'Modalità manuale';
-			case 'dialogs.settingsDialog.themes.system': return 'Modalità automatica';
-			case 'dialogs.settingsDialog.themes.dark': return 'Modalità scura';
-			case 'dialogs.settingsDialog.themes.light': return 'Modalità chiara';
-			case 'dialogs.settingsDialog.themesDescription': return 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
-			case 'dialogs.exitDialog.title': return 'Uscita?';
-			case 'dialogs.exitDialog.description': return 'Sei sicuro di voler uscire?';
-			case 'locales.en': return 'English';
-			case 'locales.it': return 'Italian';
-			case 'locales.zh': return '中文';
-			default: return null;
-		}
+		return switch (path) {
+			'appName' => ({required Flavor flavor}) { switch (flavor) { case Flavor.free: return 'PicGuard'; case Flavor.pro: return 'PicGuard Pro'; } }, 
+			'homePage.appPreview' => 'ATTENZIONE: Versione di sviluppo, basata automaticamente su ogni commit',
+			'homePage.imageDescription' => 'Si prega di caricare le immagini.',
+			'homePage.description' => 'Questa app non caricherà alcuna immagine sul server, tutte le operazioni vengono completate localmente',
+			'homePage.textLabel' => 'Testo',
+			'homePage.textLabelDescription' => 'Il testo verrà aggiunto all\'immagine come filigrana',
+			'homePage.textValidator' => 'Inserisci il testo.',
+			'homePage.textInput' => 'Questo certificato è utilizzato solo per la gestione di xx attività e non è valido per altri scopi.',
+			'homePage.colorLabel' => 'Colore',
+			'homePage.colorValidator' => 'Seleziona un colore.',
+			'homePage.opacityLabel' => 'Opacità',
+			'homePage.fontLabel' => 'Font',
+			'homePage.fontLabelDescription' => 'Alcune lingue non supportano i font personalizzati',
+			'homePage.fontValidator' => 'Seleziona un font.',
+			'homePage.fontSizeLabel' => 'Dimensione del font',
+			'homePage.textGapLabel' => 'Spaziatura del testo',
+			'homePage.textGapDescription' => 'La spaziatura tra il testo in ogni riga di testo',
+			'homePage.rowGapLabel' => 'Interlinea',
+			'homePage.rowGapDescription' => 'La spaziatura tra ogni riga di testo',
+			'homePage.dragging' => 'Trascinamento',
+			'homePage.cancelDrag' => 'Trascinamento annullato',
+			'homePage.limitValidator' => ({required Object maxImages, required Object lastImages}) => 'Supporta fino a ${maxImages} immagini, puoi anche caricare ${lastImages} immagini.',
+			'homePage.formatValidator' => 'Supportare solo i formati PNG e JPEG',
+			'homePage.preview' => 'Anteprima',
+			'homePage.save' => 'Salva',
+			'homePage.savedSuccess' => 'Salvataggio riuscito',
+			'homePage.savedFailure' => 'Impossibile salvare l\'immagine(i)',
+			'homePage.saveInfo' => ({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).',
+			'homePage.appNoUpdates' => 'L\'app è aggiornata.',
+			'homePage.backgroundCheckingStopped' => 'Background checking stopped',
+			'homePage.backgroundCheckingAvailable' => ({required Object latestVersion}) => 'Background check: Update ${latestVersion} available!',
+			'homePage.backgroundCheckingStarted' => ({required Object seconds}) => 'Background checking started (every ${seconds}s)',
+			'aboutPage.version' => ({required Object version, required Object buildNumber}) => 'Versione ${version}(${buildNumber})',
+			'aboutPage.copyright' => ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. Tutti i diritti riservati.',
+			'aboutPage.slogan' => 'Le tue foto, la tua firma.',
+			'aboutPage.readme' => 'Introduzione del progetto',
+			'aboutPage.appLicense' => 'Licenza di applicazione',
+			'aboutPage.changelog' => 'Changelog',
+			'aboutPage.thirdPartyLicense' => 'Licenze di terze parti',
+			'colors.white' => 'Bianco',
+			'colors.grey' => 'Grigio',
+			'colors.black' => 'Nero',
+			'colors.red' => 'Rosso',
+			'colors.orange' => 'Arancione',
+			'colors.blue' => 'Blu',
+			'menus.about' => ({required Object appName}) => 'Di ${appName}',
+			'menus.hide' => ({required Object appName}) => 'Nascondere ${appName}',
+			'menus.hideOthers' => 'Nascondere gli altri',
+			'menus.showAll' => 'Mostra tutto',
+			'menus.exit' => ({required Object appName}) => 'Esentato ${appName}',
+			'menus.help' => 'Aiuto',
+			'menus.support' => 'Supporto',
+			'menus.userAgreement' => 'Accordo utente',
+			'menus.privacy' => 'Politica sulla riservatezza',
+			'menus.updates' => 'Aggiornamenti',
+			'menus.debug' => 'Debug',
+			'buttons.agree' => 'Accetto',
+			'buttons.cancel' => 'Annulla',
+			'buttons.ignore' => 'Ignora',
+			'buttons.turnOn' => 'Accendi',
+			'dialogs.selectColor' => 'Seleziona un colore',
+			'dialogs.selectFont' => 'Seleziona un carattere',
+			'dialogs.exitConfirm.exit' => 'Uscita',
+			'dialogs.exitConfirm.cancel' => 'Annulla',
+			'dialogs.exitConfirm.title' => 'Chiudi conferma',
+			'dialogs.exitConfirm.description' => 'Sei sicuro di voler chiudere questa finestra?',
+			'dialogs.permissions.photos.title' => 'Consenti l\'accesso al tuo album',
+			'dialogs.permissions.photos.description' => ({required Object appName}) => 'Vai alle Impostazioni del tuo telefono per concedere a ${appName} l\'autorizzazione a visitare il tuo album.',
+			'dialogs.permissions.storage.title' => 'Consenti l\'accesso al tuo archivio',
+			'dialogs.permissions.storage.description' => ({required Object appName}) => 'Accedi alle Impostazioni del tuo telefono per concedere a ${appName} l\'autorizzazione ad accedere al tuo archivio.',
+			'dialogs.licenseDialog.licenseDialogTitle' => 'Termini e Condizioni',
+			'dialogs.licenseDialog.licenseDialogContentContent' => ({required Object appName}) => 'La protezione della privacy e delle informazioni personali degli utenti è un principio fondamentale di ${appName}.',
+			'dialogs.licenseDialog.licenseDialogContentTip' => 'Di seguito è riportato l\'elenco delle autorizzazioni richieste da questa APP:',
+			'dialogs.licenseDialog.licenseDialogContentPrefix' => 'Prima di utilizzare i servizi di questa APP, ti preghiamo di leggere attentamente e accettare il ',
+			'dialogs.licenseDialog.licenseDialogContentUserAgreement' => 'Contratto d\'uso',
+			'dialogs.licenseDialog.licenseDialogContentAnd' => ' e ',
+			'dialogs.licenseDialog.licenseDialogContentPrivacyPolicy' => 'L\'accordo sulla privacy',
+			'dialogs.licenseDialog.licenseDialogContentSuffix' => ', inizia a utilizzare i nostri servizi dopo aver accettato tutti i termini.',
+			'dialogs.licenseDialog.iosPermissions.0' => ({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (NSPhotoLibraryUsageDescription)',
+			'dialogs.licenseDialog.androidPermissions.0' => ({required Object appName}) => 'Per poter utilizzare il servizio Sentry, ${appName} deve avere accesso a Internet. (android.permission.INTERNET)',
+			'dialogs.licenseDialog.androidPermissions.1' => ({required Object appName}) => 'Per filigranare le tue immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.READ_EXTERNAL_STORAGE)',
+			'dialogs.licenseDialog.androidPermissions.2' => ({required Object appName}) => 'Per poter salvare le immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)',
+			'dialogs.licenseDialog.androidPermissions.3' => ({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)',
+			'dialogs.settingsDialog.settings' => 'Impostazioni',
+			'dialogs.settingsDialog.languages' => 'Lingue',
+			'dialogs.settingsDialog.themes.manual' => 'Modalità manuale',
+			'dialogs.settingsDialog.themes.system' => 'Modalità automatica',
+			'dialogs.settingsDialog.themes.dark' => 'Modalità scura',
+			'dialogs.settingsDialog.themes.light' => 'Modalità chiara',
+			'dialogs.settingsDialog.themesDescription' => 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema',
+			'dialogs.exitDialog.title' => 'Uscita?',
+			'dialogs.exitDialog.description' => 'Sei sicuro di voler uscire?',
+			'locales.en' => 'English',
+			'locales.it' => 'Italian',
+			'locales.zh' => '中文',
+			_ => null,
+		};
 	}
 }
-

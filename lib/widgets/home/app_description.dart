@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -22,8 +22,8 @@ class AppDescription extends StatelessWidget {
         height: 1.5,
       ),
       maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-      textAlign: TextAlign.center,
+      overflow: .ellipsis,
+      textAlign: .center,
     );
   }
 }

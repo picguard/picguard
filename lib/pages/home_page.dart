@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -8,11 +8,11 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
+import 'package:app_updater/app_updater.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart' hide TextInput;
 import 'package:mime/mime.dart';
 
@@ -35,6 +35,7 @@ import 'package:path/path.dart' hide context;
 import 'package:picguard/app/config.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/constants/uuid.dart';
+import 'package:picguard/events/events.dart';
 import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
@@ -53,13 +54,77 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late MultiImagePickerController controller;
+
   final _key = GlobalKey<ExpandableFabState>();
   final _formKey = GlobalKey<FormBuilderState>();
+
   final inputFocusNode = FocusNode();
+
+  // Create AppUpdater instance with all new features configured
+  late final AppUpdater appUpdater;
+
+  // Stream subscription for background updates
+  StreamSubscription<UpdateInfo>? _updateSubscription;
+
+  // Track if background checking is active
+  bool _isBackgroundCheckingActive = false;
+
+  late final AppLifecycleListener _listener;
+
+  late final StreamSubscription<AppUpdatesEvent> _appUpdatesStreamSubscription;
 
   @override
   void initState() {
     super.initState();
+    appUpdater = AppUpdater.configure(
+      // Mobile
+      iosAppId: AppConfig.shared.iosAppId,
+      // androidPackageName is auto-detected!
+
+      // Desktop
+      macAppId: AppConfig.shared.macAppId,
+      microsoftProductId: AppConfig.shared.microsoftProductId,
+      snapName: AppConfig.shared.snapName,
+      flathubAppId: AppConfig.shared.flathubAppId,
+
+      // GitHub Releases support
+      githubOwner: 'picguard',
+      githubRepo: 'picguard',
+
+      // Update frequency control - only check once per day
+      checkFrequency: const Duration(days: 1),
+
+      // Force update if below this version
+      minimumVersion: '1.0.0',
+
+      // Analytics callback
+      onAnalyticsEvent: (event) {
+        printDebugLog('Analytics Event: ${event.eventName}');
+        printDebugLog('  Platform: ${event.platform}');
+        printDebugLog('  Current Version: ${event.currentVersion}');
+        if (event.latestVersion != null) {
+          printDebugLog('  Latest Version: ${event.latestVersion}');
+        }
+        if (event.urgency != null) {
+          printDebugLog('  Urgency: ${event.urgency}');
+        }
+      },
+    );
+
+    _appUpdatesStreamSubscription = eventBus.on<AppUpdatesEvent>().listen((
+      event,
+    ) async {
+      if (isMobile || isDesktop) {
+        await _checkForUpdates();
+        // await _showDialogWithOptions();
+      }
+    });
+
+    _listener = AppLifecycleListener(
+      onShow: _toggleBackgroundChecking,
+      onHide: _toggleBackgroundChecking,
+    );
+
     controller =
         MultiImagePickerController(
           maxImages: 9,
@@ -75,15 +140,23 @@ class _HomePageState extends State<HomePage> {
       printDebugLog('locale changed: $event');
     });
 
-    SchedulerBinding.instance.addPostFrameCallback((timestamp) async {
-      if (isMobile) {
-        await DialogUtil.showLicenseDialog();
+    WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
+      if (isMobile || isDesktop) {
+        if (isMobile) {
+          await DialogUtil.showLicenseDialog();
+        }
+        await _checkForUpdates();
+        // await _showDialogWithOptions();
       }
     });
   }
 
   @override
   void dispose() {
+    _appUpdatesStreamSubscription.cancel();
+    _listener.dispose();
+    _updateSubscription?.cancel();
+    appUpdater.dispose();
     controller.dispose();
     super.dispose();
   }
@@ -123,10 +196,10 @@ class _HomePageState extends State<HomePage> {
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: .bold,
                 ),
                 maxLines: 2,
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
               isDark: isDark,
               showBottom: false,
@@ -144,8 +217,8 @@ class _HomePageState extends State<HomePage> {
               child = SingleChildScrollView(
                 padding: padding,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: .spaceBetween,
+                  crossAxisAlignment: .start,
                   spacing: 10,
                   children: [
                     Flexible(
@@ -153,20 +226,18 @@ class _HomePageState extends State<HomePage> {
                       fit: FlexFit.tight,
                       child: Column(
                         spacing: 10,
-                        mainAxisSize: MainAxisSize.min,
+                        mainAxisSize: .min,
                         children: [
-                          ImageGroup(
-                            controller: controller,
-                          ),
+                          ImageGroup(controller: controller),
                           const AppDescription(),
                         ],
                       ),
                     ),
                     Flexible(
                       flex: 4,
-                      fit: FlexFit.tight,
+                      fit: .tight,
                       child: Column(
-                        mainAxisSize: MainAxisSize.min,
+                        mainAxisSize: .min,
                         children: [
                           FormBuilder(
                             key: _formKey,
@@ -210,9 +281,7 @@ class _HomePageState extends State<HomePage> {
                 padding: padding,
                 shrinkWrap: true,
                 children: [
-                  ImageGroup(
-                    controller: controller,
-                  ),
+                  ImageGroup(controller: controller),
                   const Gap(10),
                   const AppDescription(),
                   const Gap(10),
@@ -252,10 +321,8 @@ class _HomePageState extends State<HomePage> {
             // }
 
             return Stack(
-              fit: StackFit.expand,
-              children: [
-                child,
-              ],
+              fit: .expand,
+              children: [child],
             );
           },
         ),
@@ -266,14 +333,14 @@ class _HomePageState extends State<HomePage> {
               key: _key,
               duration: const Duration(milliseconds: 500),
               distance: 60,
-              type: ExpandableFabType.up,
+              type: .up,
               // pos: ExpandableFabPos.left,
               // childrenOffset: const Offset(0, 20),
-              childrenAnimation: ExpandableFabAnimation.none,
+              childrenAnimation: .none,
               fanAngle: 40,
               openButtonBuilder: RotateFloatingActionButtonBuilder(
                 child: const Icon(Icons.menu),
-                fabSize: ExpandableFabSize.small,
+                fabSize: .small,
                 foregroundColor: PGColors.primaryColor,
                 backgroundColor: PGColors.primaryBackgroundColor,
                 shape: const CircleBorder(),
@@ -282,9 +349,9 @@ class _HomePageState extends State<HomePage> {
                 size: 44,
                 builder:
                     (
-                      BuildContext context,
+                      context,
                       void Function()? onPressed,
-                      Animation<double> progress,
+                      progress,
                     ) {
                       return IconButton(
                         onPressed: onPressed,
@@ -342,8 +409,112 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Future<void> _checkForUpdates() async {
+    final t = Translations.of(context);
+    final updateInfo = await appUpdater.checkAndShowUpdateDialog(
+      context,
+      showSkipVersion: true,
+      showDoNotAskAgain: true,
+      onNoUpdate: () {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(t.homePage.appNoUpdates)),
+          );
+        }
+      },
+      onUpdate: () => appUpdater.openStore(),
+      onCancel: () => printDebugLog('User cancelled update'),
+    );
+
+    printDebugLog('Current version: ${updateInfo.currentVersion}');
+    printDebugLog('Latest version: ${updateInfo.latestVersion}');
+    printDebugLog('Update available: ${updateInfo.updateAvailable}');
+    printDebugLog('Release notes: ${updateInfo.releaseNotes}');
+    printDebugLog('Urgency: ${updateInfo.urgency}');
+  }
+
+  void _showSnackBar(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
+
+  void _toggleBackgroundChecking() {
+    final t = Translations.of(context);
+    setState(() {
+      if (_isBackgroundCheckingActive) {
+        // Stop background checking
+        appUpdater.stopBackgroundChecking();
+        _updateSubscription?.cancel();
+        _updateSubscription = null;
+        _isBackgroundCheckingActive = false;
+        _showSnackBar(t.homePage.backgroundCheckingStopped);
+      } else {
+        // Start background checking every 30 seconds (for demo purposes)
+        appUpdater.startBackgroundChecking(const Duration(seconds: 30));
+
+        // Listen for updates
+        _updateSubscription = appUpdater.updateStream.listen((updateInfo) {
+          if (updateInfo.updateAvailable && mounted) {
+            _showSnackBar(
+              t.homePage.backgroundCheckingAvailable(
+                latestVersion: updateInfo.latestVersion!,
+              ),
+            );
+          }
+        });
+
+        _isBackgroundCheckingActive = true;
+        _showSnackBar(t.homePage.backgroundCheckingStarted(seconds: 30));
+      }
+    });
+  }
+
+  Future<void> _showDialogWithOptions() async {
+    await appUpdater.showUpdateDialog(
+      context,
+      updateInfo: _createMockUpdateInfo(),
+      showSkipVersion: true,
+      showDoNotAskAgain: true,
+      onUpdate: () {
+        _showSnackBar('Update button pressed!');
+      },
+      onCancel: () {
+        _showSnackBar('Cancel button pressed');
+      },
+    );
+  }
+
+  // Mock UpdateInfo for demonstrations with release notes
+  UpdateInfo _createMockUpdateInfo({
+    UpdateUrgency urgency = UpdateUrgency.medium,
+    bool isMandatory = false,
+    String? releaseNotes,
+  }) {
+    return UpdateInfo(
+      currentVersion: '1.0.0',
+      latestVersion: '2.0.0',
+      updateUrl: 'https://example.com',
+      updateAvailable: true,
+      urgency: urgency,
+      isMandatory: isMandatory,
+      releaseNotes:
+          releaseNotes ??
+          '• New dark mode support\n'
+              '• Performance improvements\n'
+              '• Bug fixes and stability improvements\n'
+              '• Updated UI components',
+      releaseDate: DateTime.now().subtract(const Duration(days: 2)),
+      updateSizeBytes: 15728640, // 15 MB
+    );
+  }
+
   void _onDragEntered(DropEventDetails details) {
-    BotToast.showText(text: t.homePage.dragging, duration: const Duration(seconds: 1));
+    BotToast.showText(
+      text: t.homePage.dragging,
+      duration: const Duration(seconds: 1),
+    );
   }
 
   void _onDragExited(DropEventDetails details) {
@@ -465,13 +636,13 @@ class _HomePageState extends State<HomePage> {
       );
 
       final permission = await PermissionUtil.checkPermission();
-      if (permission != Permissions.none) {
+      if (permission != .none) {
         final t = Translations.of(navigatorKey.currentContext!);
         final appName = t.appName(flavor: AppConfig.shared.flavor);
-        final title = permission == Permissions.photos
+        final title = permission == .photos
             ? t.dialogs.permissions.photos.title
             : t.dialogs.permissions.storage.title;
-        final description = permission == Permissions.photos
+        final description = permission == .photos
             ? t.dialogs.permissions.photos.description
             : t.dialogs.permissions.storage.description;
         await DialogUtil.showCustomDialog(
@@ -624,15 +795,15 @@ class _HomePageState extends State<HomePage> {
     final textStyle = TextStyle(
       color: Color(colorValue).withAlpha((255.0 * opacity).round()),
       fontSize: fontSize ?? initialFontSize,
-      fontWeight: FontWeight.normal,
+      fontWeight: .normal,
       fontFamily: fontFamily,
     );
 
     // 创建文本画笔
     var textPainter = TextPainter(
       text: TextSpan(text: watermark, style: textStyle),
-      // textAlign: TextAlign.center,
-      textDirection: TextDirection.ltr,
+      // textAlign: .center,
+      textDirection: .ltr,
       maxLines: 1,
     )..layout(maxWidth: hypotenuseLength);
 
@@ -661,7 +832,7 @@ class _HomePageState extends State<HomePage> {
           dimensions.add(
             PlaceholderDimensions(
               size: Size(textGap / 2, 1),
-              alignment: ui.PlaceholderAlignment.bottom,
+              alignment: .bottom,
             ),
           );
         }
@@ -678,7 +849,7 @@ class _HomePageState extends State<HomePage> {
           dimensions.add(
             PlaceholderDimensions(
               size: Size(textGap, 1),
-              alignment: ui.PlaceholderAlignment.bottom,
+              alignment: .bottom,
             ),
           );
         }
@@ -694,7 +865,7 @@ class _HomePageState extends State<HomePage> {
           dimensions.add(
             PlaceholderDimensions(
               size: Size(textGap / 2, 1),
-              alignment: ui.PlaceholderAlignment.bottom,
+              alignment: .bottom,
             ),
           );
         }
@@ -706,8 +877,8 @@ class _HomePageState extends State<HomePage> {
                 children: children,
                 style: textStyle,
               ),
-              textAlign: TextAlign.center,
-              textDirection: TextDirection.ltr,
+              textAlign: .center,
+              textDirection: .ltr,
               maxLines: 1,
             )
             ..setPlaceholderDimensions(dimensions)
@@ -771,13 +942,13 @@ class _HomePageState extends State<HomePage> {
 
   Future<List<ImageFile>> _pickImages(int limit) async {
     final permission = await PermissionUtil.checkPermission();
-    if (permission != Permissions.none) {
+    if (permission != .none) {
       final t = Translations.of(navigatorKey.currentContext!);
       final appName = t.appName(flavor: AppConfig.shared.flavor);
-      final title = permission == Permissions.photos
+      final title = permission == .photos
           ? t.dialogs.permissions.photos.title
           : t.dialogs.permissions.storage.title;
-      final description = permission == Permissions.photos
+      final description = permission == .photos
           ? t.dialogs.permissions.photos.description
           : t.dialogs.permissions.storage.description;
       await DialogUtil.showCustomDialog(

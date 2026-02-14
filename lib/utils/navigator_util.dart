@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -17,7 +17,7 @@ class NavigatorUtil {
     await Navigator.push<T>(
       navigatorKey.currentContext!,
       MaterialPageRoute<T>(
-        builder: (BuildContext context) => widget,
+        builder: (context) => widget,
         settings: settings,
         maintainState: maintainState,
         fullscreenDialog: fullscreenDialog,
@@ -36,7 +36,7 @@ class NavigatorUtil {
     await Navigator.pushAndRemoveUntil<T>(
       navigatorKey.currentContext!,
       MaterialPageRoute<T>(
-        builder: (BuildContext context) => widget,
+        builder: (context) => widget,
         settings: settings,
         maintainState: maintainState,
         fullscreenDialog: fullscreenDialog,
@@ -55,7 +55,7 @@ class NavigatorUtil {
     await Navigator.pushReplacement<T, TO>(
       navigatorKey.currentContext!,
       MaterialPageRoute<T>(
-        builder: (BuildContext context) => widget,
+        builder: (context) => widget,
         settings: settings,
         maintainState: maintainState,
         fullscreenDialog: fullscreenDialog,

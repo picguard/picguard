@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -17,6 +17,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:tray_manager/tray_manager.dart';
 
 import 'package:picguard/app/config.dart';
@@ -54,13 +55,6 @@ Future<void> runMainApp({
   await initialize();
 
   AppConfig.create(flavor: flavor);
-
-  Logger.root.level = kReleaseMode
-      ? Level.OFF
-      : Level.ALL; // defaults to Level.INFO
-  Logger.root.onRecord.listen((record) {
-    debugPrint('${record.level.name}: ${record.time}: ${record.message}');
-  });
 
   if (PgEnv.sentryEnabled) {
     await SentryFlutter.init(
@@ -103,7 +97,7 @@ Future<void> runMainApp({
     return true;
   };
 
-  EasyLoading.instance.maskType = EasyLoadingMaskType.clear;
+  EasyLoading.instance.maskType = .clear;
 
   // initialize with the right locale
   await LocaleSettings.useDeviceLocale();
@@ -176,6 +170,7 @@ class _MainAppState extends State<MainApp> with TrayListener {
       navigatorObservers: [
         BotToastNavigatorObserver(),
         if (PgEnv.sentryEnabled) SentryNavigatorObserver(),
+        TalkerRouteObserver(talker),
       ],
       themeMode: themeMode,
       theme: AppTheme.light,
@@ -188,12 +183,12 @@ class _MainAppState extends State<MainApp> with TrayListener {
           : (isWindows || isLinux)
           ? DesktopMenuBar(child: child)
           : child,
-      builder: (BuildContext context, Widget? child) {
+      builder: (context, child) {
         child = easyLoadingBuilder(context, child);
         child = botToastBuilder(context, child);
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(
-            textScaler: TextScaler.noScaling,
+            textScaler: .noScaling,
           ),
           child: child,
         );
@@ -208,12 +203,9 @@ class _MainAppState extends State<MainApp> with TrayListener {
 
     final t = Translations.of(context);
     final appName = t.appName(flavor: AppConfig.shared.flavor);
-    final isPro = AppConfig.shared.isPro;
     final trayIcon = isWindows
-        ? (isPro ? Assets.logo.pro.trayIcon : Assets.logo.trayIcon)
-        : (isPro
-              ? Assets.logo.pro.trayLogo.keyName
-              : Assets.logo.trayLogo.keyName);
+        ? AppConfig.shared.trayIcon
+        : AppConfig.shared.trayLogo;
     await trayManager.setIcon(trayIcon);
 
     final menu = Menu(
@@ -222,6 +214,13 @@ class _MainAppState extends State<MainApp> with TrayListener {
           key: Menus.about.name,
           label: t.menus.about(appName: appName),
         ),
+        if (PgEnv.updatesEnabled) ...[
+          MenuItem.separator(),
+          MenuItem(
+            key: Menus.updates.name,
+            label: t.menus.updates,
+          ),
+        ],
         MenuItem.separator(),
         MenuItem(
           key: Menus.settings.name,
@@ -237,15 +236,18 @@ class _MainAppState extends State<MainApp> with TrayListener {
                 key: Menus.support.name,
                 label: t.menus.support,
               ),
-              MenuItem.separator(),
               MenuItem(
                 key: Menus.userAgreement.name,
                 label: t.menus.userAgreement,
               ),
-              MenuItem.separator(),
               MenuItem(
                 key: Menus.privacy.name,
                 label: t.menus.privacy,
+              ),
+              MenuItem.separator(),
+              MenuItem(
+                key: Menus.debug.name,
+                label: t.menus.debug,
               ),
             ],
           ),
@@ -269,6 +271,8 @@ class _MainAppState extends State<MainApp> with TrayListener {
   Future<void> onTrayMenuItemClick(MenuItem menuItem) async {
     if (menuItem.key == Menus.about.name) {
       await DialogUtil.showAboutModal();
+    } else if (menuItem.key == Menus.updates.name) {
+      await DialogUtil.checkUpdates();
     } else if (menuItem.key == Menus.settings.name) {
       await DialogUtil.showSettingsModal();
     } else if (menuItem.key == Menus.support.name) {
@@ -277,6 +281,8 @@ class _MainAppState extends State<MainApp> with TrayListener {
       await gotoTermsOfUsePage();
     } else if (menuItem.key == Menus.privacy.name) {
       await gotoPrivacyPage();
+    } else if (menuItem.key == Menus.debug.name) {
+      await DialogUtil.openDebugPage();
     } else if (menuItem.key == Menus.exit.name) {
       await SystemNavigator.pop();
     }
