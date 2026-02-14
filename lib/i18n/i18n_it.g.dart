@@ -95,9 +95,9 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String get savedFailure => 'Impossibile salvare l\'immagine(i)';
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
 	@override String get appNoUpdates => 'L\'app è aggiornata.';
-	@override String get backgroundCheckingStopped => 'Background checking stopped';
-	@override String backgroundCheckingAvailable({required Object latestVersion}) => 'Background check: Update ${latestVersion} available!';
-	@override String backgroundCheckingStarted({required Object seconds}) => 'Background checking started (every ${seconds}s)';
+	@override String get backgroundCheckingStopped => 'Il controllo dei precedenti è stato interrotto';
+	@override String backgroundCheckingAvailable({required Object latestVersion}) => 'Controllo dei precedenti: aggiornamento ${latestVersion} disponibile!';
+	@override String backgroundCheckingStarted({required Object seconds}) => 'Controllo dei precedenti avviato (ogni ${seconds}s)';
 }
 
 // Path: aboutPage
@@ -177,6 +177,7 @@ class _TranslationsDialogsIt extends TranslationsDialogsEn {
 	@override late final _TranslationsDialogsPermissionsIt permissions = _TranslationsDialogsPermissionsIt._(_root);
 	@override late final _TranslationsDialogsLicenseDialogIt licenseDialog = _TranslationsDialogsLicenseDialogIt._(_root);
 	@override late final _TranslationsDialogsSettingsDialogIt settingsDialog = _TranslationsDialogsSettingsDialogIt._(_root);
+	@override late final _TranslationsDialogsUpdatesDialogIt updatesDialog = _TranslationsDialogsUpdatesDialogIt._(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -240,6 +241,27 @@ class _TranslationsDialogsSettingsDialogIt extends TranslationsDialogsSettingsDi
 	@override String get languages => 'Lingue';
 	@override late final _TranslationsDialogsSettingsDialogThemesIt themes = _TranslationsDialogsSettingsDialogThemesIt._(_root);
 	@override String get themesDescription => 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
+}
+
+// Path: dialogs.updatesDialog
+class _TranslationsDialogsUpdatesDialogIt extends TranslationsDialogsUpdatesDialogEn {
+	_TranslationsDialogsUpdatesDialogIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get updateAvailableTitle => 'Aggiornamento disponibile';
+	@override String get updateAvailableMessage => 'È disponibile una nuova versione ({latestVersion}). Attualmente sei sulla versione {currentVersion}.';
+	@override String get updateButton => 'Aggiornamento ora';
+	@override String get laterButton => 'Successivamente';
+	@override String get skipVersionButton => 'Salta questa versione';
+	@override String get doNotAskAgainButton => 'Non ricordarmelo di nuovo';
+	@override String get criticalUpdateTitle => 'Aggiornamento critico richiesto';
+	@override String get criticalUpdateMessage => 'Questo aggiornamento contiene correzioni importanti. Per favore, aggiorna per continuare.';
+	@override String get releaseNotesTitle => 'Cosa c\'è di nuovo';
+	@override String get loadingText => 'Controllo aggiornamenti...';
+	@override String get errorText => 'Impossibile controllare gli aggiornamenti';
+	@override String get upToDateText => 'La tua app è aggiornata!';
 }
 
 // Path: dialogs.permissions.photos
@@ -314,9 +336,9 @@ extension on TranslationsIt {
 			'homePage.savedFailure' => 'Impossibile salvare l\'immagine(i)',
 			'homePage.saveInfo' => ({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).',
 			'homePage.appNoUpdates' => 'L\'app è aggiornata.',
-			'homePage.backgroundCheckingStopped' => 'Background checking stopped',
-			'homePage.backgroundCheckingAvailable' => ({required Object latestVersion}) => 'Background check: Update ${latestVersion} available!',
-			'homePage.backgroundCheckingStarted' => ({required Object seconds}) => 'Background checking started (every ${seconds}s)',
+			'homePage.backgroundCheckingStopped' => 'Il controllo dei precedenti è stato interrotto',
+			'homePage.backgroundCheckingAvailable' => ({required Object latestVersion}) => 'Controllo dei precedenti: aggiornamento ${latestVersion} disponibile!',
+			'homePage.backgroundCheckingStarted' => ({required Object seconds}) => 'Controllo dei precedenti avviato (ogni ${seconds}s)',
 			'aboutPage.version' => ({required Object version, required Object buildNumber}) => 'Versione ${version}(${buildNumber})',
 			'aboutPage.copyright' => ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. Tutti i diritti riservati.',
 			'aboutPage.slogan' => 'Le tue foto, la tua firma.',
@@ -375,6 +397,18 @@ extension on TranslationsIt {
 			'dialogs.settingsDialog.themes.dark' => 'Modalità scura',
 			'dialogs.settingsDialog.themes.light' => 'Modalità chiara',
 			'dialogs.settingsDialog.themesDescription' => 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema',
+			'dialogs.updatesDialog.updateAvailableTitle' => 'Aggiornamento disponibile',
+			'dialogs.updatesDialog.updateAvailableMessage' => 'È disponibile una nuova versione ({latestVersion}). Attualmente sei sulla versione {currentVersion}.',
+			'dialogs.updatesDialog.updateButton' => 'Aggiornamento ora',
+			'dialogs.updatesDialog.laterButton' => 'Successivamente',
+			'dialogs.updatesDialog.skipVersionButton' => 'Salta questa versione',
+			'dialogs.updatesDialog.doNotAskAgainButton' => 'Non ricordarmelo di nuovo',
+			'dialogs.updatesDialog.criticalUpdateTitle' => 'Aggiornamento critico richiesto',
+			'dialogs.updatesDialog.criticalUpdateMessage' => 'Questo aggiornamento contiene correzioni importanti. Per favore, aggiorna per continuare.',
+			'dialogs.updatesDialog.releaseNotesTitle' => 'Cosa c\'è di nuovo',
+			'dialogs.updatesDialog.loadingText' => 'Controllo aggiornamenti...',
+			'dialogs.updatesDialog.errorText' => 'Impossibile controllare gli aggiornamenti',
+			'dialogs.updatesDialog.upToDateText' => 'La tua app è aggiornata!',
 			'locales.en' => 'English',
 			'locales.it' => 'Italian',
 			'locales.zh' => '中文',

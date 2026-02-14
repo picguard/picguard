@@ -22,7 +22,6 @@ import 'package:tray_manager/tray_manager.dart';
 import 'package:picguard/app/config.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/enums/enums.dart';
-import 'package:picguard/generated/assets.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
 import 'package:picguard/pages/pages.dart';

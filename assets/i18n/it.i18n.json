@@ -32,9 +32,9 @@
     "savedFailure": "Impossibile salvare l'immagine(i)",
     "saveInfo": "Sono state salvate $succeedNum l'immagine(i) e non è stato possibile salvare $failedNum l'immagine(i).",
     "appNoUpdates": "L'app è aggiornata.",
-    "backgroundCheckingStopped": "Background checking stopped",
-    "backgroundCheckingAvailable": "Background check: Update $latestVersion available!",
-    "backgroundCheckingStarted": "Background checking started (every ${seconds}s)"
+    "backgroundCheckingStopped": "Il controllo dei precedenti è stato interrotto",
+    "backgroundCheckingAvailable": "Controllo dei precedenti: aggiornamento $latestVersion disponibile!",
+    "backgroundCheckingStarted": "Controllo dei precedenti avviato (ogni ${seconds}s)"
   },
   "aboutPage": {
     "version": "Versione $version($buildNumber)",
@@ -120,6 +120,20 @@
         "light": "Modalità chiara"
       },
       "themesDescription": "Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema"
+    },
+    "updatesDialog": {
+      "updateAvailableTitle": "Aggiornamento disponibile",
+      "updateAvailableMessage": "È disponibile una nuova versione ({latestVersion}). Attualmente sei sulla versione {currentVersion}.",
+      "updateButton": "Aggiornamento ora",
+      "laterButton": "Successivamente",
+      "skipVersionButton": "Salta questa versione",
+      "doNotAskAgainButton": "Non ricordarmelo di nuovo",
+      "criticalUpdateTitle": "Aggiornamento critico richiesto",
+      "criticalUpdateMessage": "Questo aggiornamento contiene correzioni importanti. Per favore, aggiorna per continuare.",
+      "releaseNotesTitle": "Cosa c'è di nuovo",
+      "loadingText": "Controllo aggiornamenti...",
+      "errorText": "Impossibile controllare gli aggiornamenti",
+      "upToDateText": "La tua app è aggiornata!"
     }
   },
   "locales(map)": {

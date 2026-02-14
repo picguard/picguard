@@ -120,6 +120,20 @@
         "light": "Light Mode"
       },
       "themesDescription": "After turning it on, the dark mode will be turned on or off according to the system"
+    },
+    "updatesDialog": {
+      "updateAvailableTitle": "Update Available",
+      "updateAvailableMessage": "A new version ({latestVersion}) is available. You are currently on version {currentVersion}.",
+      "updateButton": "Update Now",
+      "laterButton": "Later",
+      "skipVersionButton": "Skip this version",
+      "doNotAskAgainButton": "Don't remind me again",
+      "criticalUpdateTitle": "Critical Update Required",
+      "criticalUpdateMessage": "This update contains important fixes. Please update to continue.",
+      "releaseNotesTitle": "What's New",
+      "loadingText": "Checking for updates...",
+      "errorText": "Unable to check for updates",
+      "upToDateText": "Your app is up to date!"
     }
   },
   "locales(map)": {
