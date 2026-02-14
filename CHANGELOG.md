@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.0
+
+1. chore(deps): update deps
+2. feat: in-app update (#594)
+3. refactor: change `logging` to `talker` (#597)
+
 ## 5.2.1
 
 1. chore(deps): update deps
