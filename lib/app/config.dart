@@ -21,5 +21,11 @@ class AppConfig {
 
   String get container => isPro ? 'picguard_pro' : 'picguard';
 
+  String get iosAppId => isPro ? '6737562597' : '6737562561';
+  String get macAppId => iosAppId;
+  String get microsoftProductId => isPro ? '9N0ZV9Q5SVCX' : '9NCC0LJBG7TB';
+  String get snapName => isPro ? 'picguard-pro' : 'picguard';
+  String get flathubAppId => isPro ? 'com.kjxbyz.PicGuardPro' : 'com.kjxbyz.PicGuard';
+
   static AppConfig shared = AppConfig.create();
 }

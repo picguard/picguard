@@ -152,6 +152,18 @@ class TranslationsHomePageEn {
 
 	/// en: '$succeedNum image(s) saved, $failedNum image(s) failed to save'
 	String saveInfo({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save';
+
+	/// en: 'App is up to date!'
+	String get appNoUpdates => 'App is up to date!';
+
+	/// en: 'Background checking stopped'
+	String get backgroundCheckingStopped => 'Background checking stopped';
+
+	/// en: 'Background check: Update $latestVersion available!'
+	String backgroundCheckingAvailable({required Object latestVersion}) => 'Background check: Update ${latestVersion} available!';
+
+	/// en: 'Background checking started (every ${seconds}s)'
+	String backgroundCheckingStarted({required Object seconds}) => 'Background checking started (every ${seconds}s)';
 }
 
 // Path: aboutPage
@@ -245,6 +257,9 @@ class TranslationsMenusEn {
 
 	/// en: 'Privacy Policy'
 	String get privacy => 'Privacy Policy';
+
+	/// en: 'Updates'
+	String get updates => 'Updates';
 }
 
 // Path: buttons
@@ -470,6 +485,10 @@ extension on Translations {
 			'homePage.savedSuccess' => 'Saved successfully',
 			'homePage.savedFailure' => 'Failed to save image(s)',
 			'homePage.saveInfo' => ({required Object succeedNum, required Object failedNum}) => '${succeedNum} image(s) saved, ${failedNum} image(s) failed to save',
+			'homePage.appNoUpdates' => 'App is up to date!',
+			'homePage.backgroundCheckingStopped' => 'Background checking stopped',
+			'homePage.backgroundCheckingAvailable' => ({required Object latestVersion}) => 'Background check: Update ${latestVersion} available!',
+			'homePage.backgroundCheckingStarted' => ({required Object seconds}) => 'Background checking started (every ${seconds}s)',
 			'aboutPage.version' => ({required Object version, required Object buildNumber}) => 'Version ${version}(${buildNumber})',
 			'aboutPage.copyright' => ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. All rights reserved.',
 			'aboutPage.slogan' => 'Your pictures, your signature.',
@@ -492,6 +511,7 @@ extension on Translations {
 			'menus.support' => 'Support',
 			'menus.userAgreement' => 'User Agreement',
 			'menus.privacy' => 'Privacy Policy',
+			'menus.updates' => 'Updates',
 			'buttons.agree' => 'Agree',
 			'buttons.cancel' => 'Cancel',
 			'buttons.ignore' => 'Ignore',

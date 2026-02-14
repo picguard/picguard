@@ -13,6 +13,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:picguard/events/events.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:picguard/app/config.dart';
@@ -48,7 +49,7 @@ class DialogUtil {
       await showDialog<void>(
         context: context,
         barrierDismissible: false,
-        builder: (BuildContext context) {
+        builder: (context) {
           final isDark = Theme.of(context).brightness == Brightness.dark;
 
           final androidPermissionTexts = t
@@ -309,7 +310,7 @@ class DialogUtil {
     await showDialog<void>(
       context: navigatorKey.currentContext!,
       barrierDismissible: barrierDismissible,
-      builder: (BuildContext context) {
+      builder: (context) {
         final isDark = Theme.of(context).brightness == .dark;
         return AlertDialog(
           title:
@@ -473,7 +474,7 @@ class DialogUtil {
               color: Colors.black45,
             ),
             itemCount: imageProviders.length,
-            builder: (BuildContext context, int index) {
+            builder: (context, index) {
               final imageProvider = imageProviders.elementAt(index);
               return PhotoViewGalleryPageOptions(
                 initialScale: PhotoViewComputedScale.contained,
@@ -520,7 +521,7 @@ class DialogUtil {
       shape: const RoundedRectangleBorder(
         borderRadius: .vertical(top: .circular(10)),
       ),
-      builder: (BuildContext context) {
+      builder: (context) {
         final isDark = Theme.of(context).brightness == .dark;
 
         final Widget contentWidget = Text(
@@ -567,7 +568,7 @@ class DialogUtil {
       shape: const RoundedRectangleBorder(
         borderRadius: .vertical(top: .circular(10)),
       ),
-      builder: (BuildContext context) => PGColorModal(
+      builder: (context) => PGColorModal(
         items: items,
         callback: callback,
         color: color,
@@ -590,7 +591,7 @@ class DialogUtil {
       shape: const RoundedRectangleBorder(
         borderRadius: .vertical(top: .circular(10)),
       ),
-      builder: (BuildContext context) => FontModal(
+      builder: (context) => FontModal(
         items: items,
         callback: callback,
         font: font,
@@ -609,7 +610,7 @@ class DialogUtil {
       shape: const RoundedRectangleBorder(
         borderRadius: .vertical(top: .circular(10)),
       ),
-      builder: (BuildContext context) => const SettingsModal(),
+      builder: (context) => const SettingsModal(),
     );
   }
 
@@ -645,9 +646,9 @@ class DialogUtil {
       ),
       scaffoldBuilder:
           (
-            BuildContext context,
-            Widget title,
-            Widget child,
+            context,
+            title,
+            child,
           ) {
             final isDark = Theme.of(context).brightness == .dark;
             return SelectionArea(
@@ -733,5 +734,10 @@ class DialogUtil {
         ),
       ],
     );
+  }
+
+  /// check updates
+  static Future<void> checkUpdates() async {
+    eventBus.fire(const AppUpdatesEvent());
   }
 }

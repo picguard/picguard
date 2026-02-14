@@ -94,6 +94,10 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String get savedSuccess => 'Salvataggio riuscito';
 	@override String get savedFailure => 'Impossibile salvare l\'immagine(i)';
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).';
+	@override String get appNoUpdates => 'L\'app è aggiornata.';
+	@override String get backgroundCheckingStopped => 'Background checking stopped';
+	@override String backgroundCheckingAvailable({required Object latestVersion}) => 'Background check: Update ${latestVersion} available!';
+	@override String backgroundCheckingStarted({required Object seconds}) => 'Background checking started (every ${seconds}s)';
 }
 
 // Path: aboutPage
@@ -143,6 +147,7 @@ class _TranslationsMenusIt extends TranslationsMenusEn {
 	@override String get support => 'Supporto';
 	@override String get userAgreement => 'Accordo utente';
 	@override String get privacy => 'Politica sulla riservatezza';
+	@override String get updates => 'Aggiornamenti';
 }
 
 // Path: buttons
@@ -307,6 +312,10 @@ extension on TranslationsIt {
 			'homePage.savedSuccess' => 'Salvataggio riuscito',
 			'homePage.savedFailure' => 'Impossibile salvare l\'immagine(i)',
 			'homePage.saveInfo' => ({required Object succeedNum, required Object failedNum}) => 'Sono state salvate ${succeedNum} l\'immagine(i) e non è stato possibile salvare ${failedNum} l\'immagine(i).',
+			'homePage.appNoUpdates' => 'L\'app è aggiornata.',
+			'homePage.backgroundCheckingStopped' => 'Background checking stopped',
+			'homePage.backgroundCheckingAvailable' => ({required Object latestVersion}) => 'Background check: Update ${latestVersion} available!',
+			'homePage.backgroundCheckingStarted' => ({required Object seconds}) => 'Background checking started (every ${seconds}s)',
 			'aboutPage.version' => ({required Object version, required Object buildNumber}) => 'Versione ${version}(${buildNumber})',
 			'aboutPage.copyright' => ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. Tutti i diritti riservati.',
 			'aboutPage.slogan' => 'Le tue foto, la tua firma.',
@@ -329,6 +338,7 @@ extension on TranslationsIt {
 			'menus.support' => 'Supporto',
 			'menus.userAgreement' => 'Accordo utente',
 			'menus.privacy' => 'Politica sulla riservatezza',
+			'menus.updates' => 'Aggiornamenti',
 			'buttons.agree' => 'Accetto',
 			'buttons.cancel' => 'Annulla',
 			'buttons.ignore' => 'Ignora',

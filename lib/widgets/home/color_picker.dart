@@ -33,7 +33,7 @@ class ColorPicker extends StatelessWidget {
         child: FormBuilderField<int>(
           name: 'color',
           initialValue: colors.elementAt(1).color,
-          builder: (FormFieldState<int> field) {
+          builder: (field) {
             final hasError = StringUtil.isNotBlank(field.errorText);
             return Column(
               crossAxisAlignment: .start,
@@ -142,7 +142,7 @@ class ColorPicker extends StatelessWidget {
     await DialogUtil.showPGColorModal(
       items: colors,
       color: field.value,
-      callback: (PGColor item) {
+      callback: (item) {
         if (kDebugMode) {
           printDebugLog('id: ${item.color}, name: ${item.label}');
         }

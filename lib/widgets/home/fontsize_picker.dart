@@ -40,7 +40,7 @@ class _FontSizePickerState extends State<FontSizePicker> {
         child: FormBuilderField<double>(
           name: 'fontSize',
           initialValue: fontSizeNotifier.value,
-          builder: (FormFieldState<double> field) {
+          builder: (field) {
             final hasError = StringUtil.isNotBlank(field.errorText);
             return Column(
               crossAxisAlignment: .start,
@@ -87,9 +87,9 @@ class _FontSizePickerState extends State<FontSizePicker> {
                       valueListenable: fontSizeNotifier,
                       builder:
                           (
-                            BuildContext context,
-                            double value,
-                            Widget? child,
+                            context,
+                            value,
+                            child,
                           ) => SizedBox(
                             width: 28,
                             child: Text(

@@ -30,7 +30,11 @@
     "save": "Salva",
     "savedSuccess": "Salvataggio riuscito",
     "savedFailure": "Impossibile salvare l'immagine(i)",
-    "saveInfo": "Sono state salvate $succeedNum l'immagine(i) e non è stato possibile salvare $failedNum l'immagine(i)."
+    "saveInfo": "Sono state salvate $succeedNum l'immagine(i) e non è stato possibile salvare $failedNum l'immagine(i).",
+    "appNoUpdates": "L'app è aggiornata.",
+    "backgroundCheckingStopped": "Background checking stopped",
+    "backgroundCheckingAvailable": "Background check: Update $latestVersion available!",
+    "backgroundCheckingStarted": "Background checking started (every ${seconds}s)"
   },
   "aboutPage": {
     "version": "Versione $version($buildNumber)",
@@ -58,7 +62,8 @@
     "help": "Aiuto",
     "support": "Supporto",
     "userAgreement": "Accordo utente",
-    "privacy": "Politica sulla riservatezza"
+    "privacy": "Politica sulla riservatezza",
+    "updates": "Aggiornamenti"
   },
   "buttons": {
     "agree": "Accetto",

@@ -19,7 +19,7 @@ class AppVersion extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<PackageInfo>(
       future: PackageInfo.fromPlatform(),
-      builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+      builder: (context, snapshot) {
         if (snapshot.connectionState == .done && snapshot.hasData) {
           final t = Translations.of(context);
           final appName = t.appName(flavor: AppConfig.shared.flavor);

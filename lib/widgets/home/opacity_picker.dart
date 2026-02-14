@@ -37,7 +37,7 @@ class _OpacityPickerState extends State<OpacityPicker> {
         child: FormBuilderField<double>(
           name: 'opacity',
           initialValue: opacityNotifier.value,
-          builder: (FormFieldState<double> field) {
+          builder: (field) {
             final hasError = StringUtil.isNotBlank(field.errorText);
             return Column(
               crossAxisAlignment: .start,
@@ -82,9 +82,9 @@ class _OpacityPickerState extends State<OpacityPicker> {
                       valueListenable: opacityNotifier,
                       builder:
                           (
-                            BuildContext context,
-                            double value,
-                            Widget? child,
+                            context,
+                            value,
+                            child,
                           ) => SizedBox(
                             width: 28,
                             child: Text(
