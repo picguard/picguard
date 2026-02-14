@@ -143,6 +143,14 @@ class MacOSMenuBar extends StatelessWidget {
                 ),
               ],
             ),
+            PlatformMenuItemGroup(
+              members: <PlatformMenuItem>[
+                PlatformMenuItem(
+                  onSelected: DialogUtil.openDebugPage,
+                  label: t.menus.debug,
+                ),
+              ],
+            ),
           ],
         ),
       ],
@@ -238,6 +246,12 @@ class DesktopMenuBar extends StatelessWidget {
                 text: Text(t.menus.privacy),
                 onTap: gotoPrivacyPage,
                 icon: const Icon(Icons.privacy_tip),
+              ),
+              const MenuDivider(height: 1),
+              MenuButton(
+                text: Text(t.menus.debug),
+                onTap: DialogUtil.openDebugPage,
+                icon: const Icon(Icons.exit_to_app),
               ),
             ],
           ),

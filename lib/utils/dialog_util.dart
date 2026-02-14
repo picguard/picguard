@@ -14,6 +14,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:picguard/events/events.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:picguard/app/config.dart';
@@ -739,5 +740,19 @@ class DialogUtil {
   /// check updates
   static Future<void> checkUpdates() async {
     eventBus.fire(const AppUpdatesEvent());
+  }
+
+  /// check updates
+  static Future<void> openDebugPage() async {
+    final context = navigatorKey.currentContext!;
+    final themeData = Theme.of(context);
+    final t = Translations.of(context);
+    await NavigatorUtil.push(
+      TalkerScreen(
+        appBarTitle: t.appName(flavor: AppConfig.shared.flavor),
+        talker: talker,
+        theme: TalkerScreenTheme.fromTheme(themeData),
+      ),
+    );
   }
 }

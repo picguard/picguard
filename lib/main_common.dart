@@ -16,6 +16,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:tray_manager/tray_manager.dart';
 
 import 'package:picguard/app/config.dart';
@@ -53,13 +54,6 @@ Future<void> runMainApp({
   await initialize();
 
   AppConfig.create(flavor: flavor);
-
-  Logger.root.level = kReleaseMode
-      ? Level.OFF
-      : Level.ALL; // defaults to Level.INFO
-  Logger.root.onRecord.listen((record) {
-    debugPrint('${record.level.name}: ${record.time}: ${record.message}');
-  });
 
   if (PgEnv.sentryEnabled) {
     await SentryFlutter.init(
@@ -169,6 +163,7 @@ class _MainAppState extends State<MainApp> with TrayListener {
       navigatorObservers: [
         BotToastNavigatorObserver(),
         if (PgEnv.sentryEnabled) SentryNavigatorObserver(),
+        TalkerRouteObserver(talker),
       ],
       themeMode: themeMode,
       theme: AppTheme.light,
@@ -201,12 +196,9 @@ class _MainAppState extends State<MainApp> with TrayListener {
 
     final t = Translations.of(context);
     final appName = t.appName(flavor: AppConfig.shared.flavor);
-    final isPro = AppConfig.shared.isPro;
     final trayIcon = isWindows
-        ? (isPro ? Assets.logo.pro.trayIcon : Assets.logo.trayIcon)
-        : (isPro
-              ? Assets.logo.pro.trayLogo.keyName
-              : Assets.logo.trayLogo.keyName);
+        ? AppConfig.shared.trayIcon
+        : AppConfig.shared.trayLogo;
     await trayManager.setIcon(trayIcon);
 
     final menu = Menu(
@@ -237,15 +229,18 @@ class _MainAppState extends State<MainApp> with TrayListener {
                 key: Menus.support.name,
                 label: t.menus.support,
               ),
-              MenuItem.separator(),
               MenuItem(
                 key: Menus.userAgreement.name,
                 label: t.menus.userAgreement,
               ),
-              MenuItem.separator(),
               MenuItem(
                 key: Menus.privacy.name,
                 label: t.menus.privacy,
+              ),
+              MenuItem.separator(),
+              MenuItem(
+                key: Menus.debug.name,
+                label: t.menus.debug,
               ),
             ],
           ),
@@ -271,7 +266,7 @@ class _MainAppState extends State<MainApp> with TrayListener {
       await DialogUtil.showAboutModal();
     } else if (menuItem.key == Menus.updates.name) {
       await DialogUtil.checkUpdates();
-    }  else if (menuItem.key == Menus.settings.name) {
+    } else if (menuItem.key == Menus.settings.name) {
       await DialogUtil.showSettingsModal();
     } else if (menuItem.key == Menus.support.name) {
       await gotoSupportPage();
@@ -279,6 +274,8 @@ class _MainAppState extends State<MainApp> with TrayListener {
       await gotoTermsOfUsePage();
     } else if (menuItem.key == Menus.privacy.name) {
       await gotoPrivacyPage();
+    } else if (menuItem.key == Menus.debug.name) {
+      await DialogUtil.openDebugPage();
     } else if (menuItem.key == Menus.exit.name) {
       exit(0);
     }

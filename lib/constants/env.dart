@@ -17,5 +17,6 @@ class PgEnv {
   static bool sentryEnabled = StringUtil.isNotBlank(sentryDsn);
   static bool gitCommitShown = StringUtil.isNotBlank(gitCommitSha);
   static bool appPreviewEnabled = StringUtil.isNotBlank(appPreview);
-  static bool updatesEnabled = (isMobile || isDesktop) && checkUpdates == 'true';
+  static bool updatesEnabled =
+      (isMobile || isDesktop) && checkUpdates == 'true';
 }

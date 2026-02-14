@@ -10,5 +10,6 @@ enum Menus {
   support,
   userAgreement,
   privacy,
+  debug,
   exit,
 }

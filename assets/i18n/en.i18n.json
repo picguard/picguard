@@ -63,7 +63,8 @@
     "support": "Support",
     "userAgreement": "User Agreement",
     "privacy": "Privacy Policy",
-    "updates": "Updates"
+    "updates": "Updates",
+    "debug": "Debug"
   },
   "buttons": {
     "agree": "Agree",
