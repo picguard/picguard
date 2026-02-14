@@ -9,13 +9,13 @@ class PgEnv {
   static String sentryDsn = const String.fromEnvironment('SENTRY_DSN');
   static String gitCommitSha = const String.fromEnvironment('GIT_COMMIT_SHA');
   static String appPreview = const String.fromEnvironment('APP_PREVIEW');
-  static String hasUpdates = const String.fromEnvironment(
-    'UPDATES_ENABLED',
+  static String checkUpdates = const String.fromEnvironment(
+    'CHECK_UPDATES',
     defaultValue: 'false',
   );
 
   static bool sentryEnabled = StringUtil.isNotBlank(sentryDsn);
   static bool gitCommitShown = StringUtil.isNotBlank(gitCommitSha);
   static bool appPreviewEnabled = StringUtil.isNotBlank(appPreview);
-  static bool updatesEnabled = (isMobile || isDesktop) && hasUpdates == 'true';
+  static bool updatesEnabled = (isMobile || isDesktop) && checkUpdates == 'true';
 }
