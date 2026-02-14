@@ -28,7 +28,7 @@ class PreviewBtn extends StatelessWidget {
                 Colors.white,
               ),
               foregroundColor: .resolveWith((
-                Set<WidgetState> states,
+                states,
               ) {
                 if (states.contains(WidgetState.disabled)) {
                   return PGColors.secondaryBorderColor;
@@ -36,7 +36,7 @@ class PreviewBtn extends StatelessWidget {
                 return PGColors.primaryColor;
               }),
               shape: .resolveWith((
-                Set<WidgetState> states,
+                states,
               ) {
                 if (states.contains(WidgetState.disabled)) {
                   return RoundedRectangleBorder(

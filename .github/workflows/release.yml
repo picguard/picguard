@@ -379,7 +379,7 @@ jobs:
       - name: Build appbundle
         run: |
           FLAVOR="$([[ "$ENV" == "staging" ]] && echo "freeStaging" || echo "freeProduction")"
-          flutter build appbundle --dart-define-from-file=.env --no-tree-shake-icons --target lib/main_free.dart --flavor $FLAVOR
+          flutter build appbundle --dart-define-from-file=.env --dart-define=UPDATES_ENABLED=true --no-tree-shake-icons --target lib/main_free.dart --flavor $FLAVOR
         env:
           ENV: ${{ inputs.env }}
 
@@ -471,7 +471,7 @@ jobs:
       - name: Build appbundle
         run: |
           FLAVOR="$([[ "$ENV" == "staging" ]] && echo "proStaging" || echo "proProduction")"
-          flutter build appbundle --dart-define-from-file=.env --no-tree-shake-icons --target lib/main_pro.dart --flavor $FLAVOR
+          flutter build appbundle --dart-define-from-file=.env --dart-define=UPDATES_ENABLED=true --no-tree-shake-icons --target lib/main_pro.dart --flavor $FLAVOR
         env:
           ENV: ${{ inputs.env }}
 
@@ -603,13 +603,13 @@ jobs:
         if: inputs.env == 'staging'
         run: |
           echo "╠ Releasing to adhoc..."
-          flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/debug.plist
+          flutter build ipa --dart-define-from-file=.env --dart-define=UPDATES_ENABLED=true --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/debug.plist
 
       - name: Build ipa
         if: inputs.env == 'production'
         run: |
           echo "╠ Releasing to app store..."
-          flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/release.plist
+          flutter build ipa --dart-define-from-file=.env --dart-define=UPDATES_ENABLED=true --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/release.plist
 
       # Package the build.
       - name: Copy build for iOS
@@ -732,13 +732,13 @@ jobs:
         if: inputs.env == 'staging'
         run: |
           echo "╠ Releasing to adhoc..."
-          flutter build ipa --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/debug.plist
+          flutter build ipa --dart-define-from-file=.env --dart-define=UPDATES_ENABLED=true --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/debug.plist
 
       - name: Build ipa
         if: inputs.env == 'production'
         run: |
           echo "╠ Releasing to app store..."
-          flutter build ipa --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/release.plist
+          flutter build ipa --dart-define-from-file=.env --dart-define=UPDATES_ENABLED=true --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/release.plist
 
       # Package the build.
       - name: Copy build for iOS
@@ -1349,7 +1349,7 @@ jobs:
       - name: Build macOS
         run: |
           echo "╠ Releasing to mac app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
+          flutter build macos --dart-define-from-file=.env --dart-define=UPDATES_ENABLED=true --target lib/main_free.dart --flavor free
 
       - name: Install certificates
         run: |
@@ -1488,7 +1488,7 @@ jobs:
       - name: Build macOS
         run: |
           echo "╠ Releasing to mac app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro
+          flutter build macos --dart-define-from-file=.env --dart-define=UPDATES_ENABLED=true --target lib/main_pro.dart --flavor pro
 
       - name: Install certificates
         run: |
@@ -3734,7 +3734,7 @@ jobs:
       - name: Build windows
         run: |
           $env:SENTRY_NATIVE_BACKEND = "breakpad"
-          flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
+          flutter build windows --dart-define-from-file=.env --dart-define=UPDATES_ENABLED=true --target lib/main_free.dart
 
       - name: Create msix
         run: dart run msix:create --store --build-windows false --output-name "picguard-$env:RELEASE-windows-store-$env:Platform"
@@ -3856,7 +3856,7 @@ jobs:
       - name: Build windows
         run: |
           $env:SENTRY_NATIVE_BACKEND = "breakpad"
-          flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
+          flutter build windows --dart-define-from-file=.env --dart-define=UPDATES_ENABLED=true --target lib/main_pro.dart
 
       - name: Create msix
         run: dart run msix:create --store --build-windows false --output-name "picguard-pro-$env:RELEASE-windows-store-$env:Platform"

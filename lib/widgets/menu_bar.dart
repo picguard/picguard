@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:menu_bar/menu_bar.dart';
+import 'package:picguard/constants/constants.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:picguard/app/config.dart';
-import 'package:picguard/constants/values.dart';
 import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
@@ -51,6 +51,15 @@ class MacOSMenuBar extends StatelessWidget {
                 ),
               ],
             ),
+            if (PgEnv.updatesEnabled)
+              PlatformMenuItemGroup(
+                members: <PlatformMenuItem>[
+                  PlatformMenuItem(
+                    onSelected: DialogUtil.checkUpdates,
+                    label: t.menus.updates,
+                  ),
+                ],
+              ),
             PlatformMenuItemGroup(
               members: <PlatformMenuItem>[
                 PlatformMenuItem(
@@ -182,6 +191,14 @@ class DesktopMenuBar extends StatelessWidget {
                 shortcut: const CharacterActivator('A', control: true),
                 shortcutText: 'Ctrl+A',
               ),
+              if (PgEnv.updatesEnabled) ...[
+                const MenuDivider(height: 1),
+                MenuButton(
+                  text: Text(t.menus.updates),
+                  onTap: DialogUtil.checkUpdates,
+                  icon: const Icon(Icons.update),
+                ),
+              ],
               const MenuDivider(height: 1),
               MenuButton(
                 text: Text(t.dialogs.settingsDialog.settings),

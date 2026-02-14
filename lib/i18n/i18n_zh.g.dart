@@ -143,6 +143,7 @@ class _TranslationsMenusZh extends TranslationsMenusEn {
 	@override String get support => '支持';
 	@override String get userAgreement => '用户协议';
 	@override String get privacy => '隐私政策';
+	@override String get updates => '更新';
 }
 
 // Path: buttons
@@ -329,6 +330,7 @@ extension on TranslationsZh {
 			'menus.support' => '支持',
 			'menus.userAgreement' => '用户协议',
 			'menus.privacy' => '隐私政策',
+			'menus.updates' => '更新',
 			'buttons.agree' => '同意',
 			'buttons.cancel' => '再想想',
 			'buttons.ignore' => '忽略',

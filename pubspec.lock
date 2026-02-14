@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  app_updater:
+    dependency: "direct main"
+    description:
+      name: app_updater
+      sha256: "4102a6febbeea0973b20374627f8feba00aa4af6599ef8cc16cbb78859421e0f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   archive:
     dependency: transitive
     description:
@@ -329,6 +337,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  event_bus:
+    dependency: "direct main"
+    description:
+      name: event_bus
+      sha256: "1a55e97923769c286d295240048fc180e7b0768902c3c2e869fe059aafa15304"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   fake_async:
     dependency: transitive
     description:

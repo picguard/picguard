@@ -25,7 +25,7 @@ class SaveBtn extends StatelessWidget {
             onPressed: onPressed,
             style: ButtonStyle(
               backgroundColor: .resolveWith((
-                Set<WidgetState> states,
+                states,
               ) {
                 if (states.contains(WidgetState.disabled)) {
                   return PGColors.secondaryGrayColor;
@@ -33,7 +33,7 @@ class SaveBtn extends StatelessWidget {
                 return PGColors.primaryColor;
               }),
               foregroundColor: .resolveWith((
-                Set<WidgetState> states,
+                states,
               ) {
                 if (states.contains(WidgetState.disabled)) {
                   return PGColors.placeholderTextColor;

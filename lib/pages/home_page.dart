@@ -8,11 +8,11 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
+import 'package:app_updater/app_updater.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart' hide TextInput;
 import 'package:mime/mime.dart';
 
@@ -35,6 +35,7 @@ import 'package:path/path.dart' hide context;
 import 'package:picguard/app/config.dart';
 import 'package:picguard/constants/constants.dart';
 import 'package:picguard/constants/uuid.dart';
+import 'package:picguard/events/events.dart';
 import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
@@ -53,13 +54,77 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late MultiImagePickerController controller;
+
   final _key = GlobalKey<ExpandableFabState>();
   final _formKey = GlobalKey<FormBuilderState>();
+
   final inputFocusNode = FocusNode();
+
+  // Create AppUpdater instance with all new features configured
+  late final AppUpdater appUpdater;
+
+  // Stream subscription for background updates
+  StreamSubscription<UpdateInfo>? _updateSubscription;
+
+  // Track if background checking is active
+  bool _isBackgroundCheckingActive = false;
+
+  late final AppLifecycleListener _listener;
+
+  late final StreamSubscription<AppUpdatesEvent> _appUpdatesStreamSubscription;
 
   @override
   void initState() {
     super.initState();
+    appUpdater = AppUpdater.configure(
+      // Mobile
+      iosAppId: AppConfig.shared.iosAppId,
+      // androidPackageName is auto-detected!
+
+      // Desktop
+      macAppId: AppConfig.shared.macAppId,
+      microsoftProductId: AppConfig.shared.microsoftProductId,
+      snapName: AppConfig.shared.snapName,
+      flathubAppId: AppConfig.shared.flathubAppId,
+
+      // GitHub Releases support
+      githubOwner: 'picguard',
+      githubRepo: 'picguard',
+
+      // Update frequency control - only check once per day
+      checkFrequency: const Duration(days: 1),
+
+      // Force update if below this version
+      minimumVersion: '1.0.0',
+
+      // Analytics callback
+      onAnalyticsEvent: (event) {
+        debugPrint('Analytics Event: ${event.eventName}');
+        debugPrint('  Platform: ${event.platform}');
+        debugPrint('  Current Version: ${event.currentVersion}');
+        if (event.latestVersion != null) {
+          debugPrint('  Latest Version: ${event.latestVersion}');
+        }
+        if (event.urgency != null) {
+          debugPrint('  Urgency: ${event.urgency}');
+        }
+      },
+    );
+
+    _appUpdatesStreamSubscription = eventBus.on<AppUpdatesEvent>().listen((
+      event,
+    ) async {
+      if (isMobile || isDesktop) {
+        await _checkForUpdates();
+        // await _showDialogWithOptions();
+      }
+    });
+
+    _listener = AppLifecycleListener(
+      onShow: _toggleBackgroundChecking,
+      onHide: _toggleBackgroundChecking,
+    );
+
     controller =
         MultiImagePickerController(
           maxImages: 9,
@@ -75,15 +140,23 @@ class _HomePageState extends State<HomePage> {
       printDebugLog('locale changed: $event');
     });
 
-    SchedulerBinding.instance.addPostFrameCallback((timestamp) async {
-      if (isMobile) {
-        await DialogUtil.showLicenseDialog();
+    WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
+      if (isMobile || isDesktop) {
+        if (isMobile) {
+          await DialogUtil.showLicenseDialog();
+        }
+        await _checkForUpdates();
+        // await _showDialogWithOptions();
       }
     });
   }
 
   @override
   void dispose() {
+    _appUpdatesStreamSubscription.cancel();
+    _listener.dispose();
+    _updateSubscription?.cancel();
+    appUpdater.dispose();
     controller.dispose();
     super.dispose();
   }
@@ -276,9 +349,9 @@ class _HomePageState extends State<HomePage> {
                 size: 44,
                 builder:
                     (
-                      BuildContext context,
+                      context,
                       void Function()? onPressed,
-                      Animation<double> progress,
+                      progress,
                     ) {
                       return IconButton(
                         onPressed: onPressed,
@@ -333,6 +406,107 @@ class _HomePageState extends State<HomePage> {
 
     return KeyboardDismisser(
       child: child,
+    );
+  }
+
+  Future<void> _checkForUpdates() async {
+    final updateInfo = await appUpdater.checkAndShowUpdateDialog(
+      context,
+      showSkipVersion: true,
+      showDoNotAskAgain: true,
+      onNoUpdate: () {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('App is up to date!')),
+          );
+        }
+      },
+      onUpdate: () => debugPrint('User chose to update'),
+      onCancel: () => debugPrint('User cancelled update'),
+    );
+
+    debugPrint('Current version: ${updateInfo.currentVersion}');
+    debugPrint('Latest version: ${updateInfo.latestVersion}');
+    debugPrint('Update available: ${updateInfo.updateAvailable}');
+    debugPrint('Release notes: ${updateInfo.releaseNotes}');
+    debugPrint('Urgency: ${updateInfo.urgency}');
+
+    if (updateInfo.updateAvailable) {
+      await appUpdater.openStore();
+    }
+  }
+
+  void _showSnackBar(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
+
+  void _toggleBackgroundChecking() {
+    setState(() {
+      if (_isBackgroundCheckingActive) {
+        // Stop background checking
+        appUpdater.stopBackgroundChecking();
+        _updateSubscription?.cancel();
+        _updateSubscription = null;
+        _isBackgroundCheckingActive = false;
+        _showSnackBar('Background checking stopped');
+      } else {
+        // Start background checking every 30 seconds (for demo purposes)
+        appUpdater.startBackgroundChecking(const Duration(seconds: 30));
+
+        // Listen for updates
+        _updateSubscription = appUpdater.updateStream.listen((updateInfo) {
+          if (updateInfo.updateAvailable && mounted) {
+            _showSnackBar(
+              'Background check: Update ${updateInfo.latestVersion} available!',
+            );
+          }
+        });
+
+        _isBackgroundCheckingActive = true;
+        _showSnackBar('Background checking started (every 30s)');
+      }
+    });
+  }
+
+  Future<void> _showDialogWithOptions() async {
+    await appUpdater.showUpdateDialog(
+      context,
+      updateInfo: _createMockUpdateInfo(),
+      showSkipVersion: true,
+      showDoNotAskAgain: true,
+      onUpdate: () {
+        _showSnackBar('Update button pressed!');
+      },
+      onCancel: () {
+        _showSnackBar('Cancel button pressed');
+      },
+    );
+  }
+
+  // Mock UpdateInfo for demonstrations with release notes
+  UpdateInfo _createMockUpdateInfo({
+    UpdateUrgency urgency = UpdateUrgency.medium,
+    bool isMandatory = false,
+    String? releaseNotes,
+  }) {
+    return UpdateInfo(
+      currentVersion: '1.0.0',
+      latestVersion: '2.0.0',
+      updateUrl: 'https://example.com',
+      updateAvailable: true,
+      urgency: urgency,
+      isMandatory: isMandatory,
+      releaseNotes:
+          releaseNotes ??
+          '• New dark mode support\n'
+              '• Performance improvements\n'
+              '• Bug fixes and stability improvements\n'
+              '• Updated UI components',
+      releaseDate: DateTime.now().subtract(const Duration(days: 2)),
+      updateSizeBytes: 15728640, // 15 MB
     );
   }
 

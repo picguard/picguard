@@ -33,7 +33,7 @@ class TextInput extends StatelessWidget {
         child: FormBuilderField<String>(
           name: 'text',
           focusNode: focusNode,
-          builder: (FormFieldState<String> field) {
+          builder: (field) {
             final hasError = StringUtil.isNotBlank(field.errorText);
             return Column(
               crossAxisAlignment: .start,

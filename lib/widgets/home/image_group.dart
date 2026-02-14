@@ -44,7 +44,7 @@ class _ImageGroupState extends State<ImageGroup> {
           width: maxWidth,
           child: MultiImagePickerView(
             controller: widget.controller,
-            builder: (context, ImageFile imageFile) {
+            builder: (context, imageFile) {
               return DefaultDraggableItemWidget(
                 imageFile: imageFile,
                 boxDecoration: BoxDecoration(

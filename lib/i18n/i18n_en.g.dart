@@ -245,6 +245,9 @@ class TranslationsMenusEn {
 
 	/// en: 'Privacy Policy'
 	String get privacy => 'Privacy Policy';
+
+	/// en: 'Updates'
+	String get updates => 'Updates';
 }
 
 // Path: buttons
@@ -492,6 +495,7 @@ extension on Translations {
 			'menus.support' => 'Support',
 			'menus.userAgreement' => 'User Agreement',
 			'menus.privacy' => 'Privacy Policy',
+			'menus.updates' => 'Updates',
 			'buttons.agree' => 'Agree',
 			'buttons.cancel' => 'Cancel',
 			'buttons.ignore' => 'Ignore',

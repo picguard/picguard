@@ -422,7 +422,7 @@ class SettingsModal extends StatelessWidget {
                             MineSectionGroup<ThemeMode>(
                               title: t.dialogs.settingsDialog.themes.manual,
                               groupValue: themeMode,
-                              onChanged: (ThemeMode? value) async {
+                              onChanged: (value) async {
                                 if (value != null) {
                                   await model.switchThemeMode(value);
                                 }
@@ -461,13 +461,13 @@ class SettingsModal extends StatelessWidget {
                       MineSectionGroup<String>(
                         title: t.dialogs.settingsDialog.languages,
                         groupValue: languageCode,
-                        onChanged: (String? value) async {
+                        onChanged: (value) async {
                           if (value != null && value.isNotEmpty) {
                             await LocaleSettings.setLocaleRaw(value);
                           }
                         },
                         items: t.locales.entries.map(
-                          (MapEntry<String, String> entry) {
+                          (entry) {
                             final appLocale = AppLocaleUtils.parse(entry.key);
                             return MineSectionModel(
                               title: entry.value,

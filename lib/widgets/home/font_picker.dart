@@ -11,7 +11,6 @@ import 'package:picguard/constants/constants.dart';
 import 'package:picguard/generated/colors.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 import 'package:picguard/logger/logger.dart';
-import 'package:picguard/models/models.dart';
 import 'package:picguard/utils/utils.dart';
 import 'package:picguard/widgets/widgets.dart';
 
@@ -39,7 +38,7 @@ class FontPicker extends StatelessWidget {
         child: FormBuilderField<String>(
           name: 'font',
           initialValue: fontFamilies.elementAt(0).fontFamily,
-          builder: (FormFieldState<String> field) {
+          builder: (field) {
             final hasError = StringUtil.isNotBlank(field.errorText);
             return Column(
               crossAxisAlignment: .start,
@@ -150,7 +149,7 @@ class FontPicker extends StatelessWidget {
     await DialogUtil.showFontModal(
       items: fontFamilies,
       font: field.value,
-      callback: (PGFont font) {
+      callback: (font) {
         if (kDebugMode) {
           printDebugLog('fontFamily: ${font.fontFamily}, name: ${font.name}');
         }
