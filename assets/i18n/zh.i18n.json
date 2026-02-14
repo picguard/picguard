@@ -30,7 +30,11 @@
     "save": "保存",
     "savedSuccess": "保存成功",
     "savedFailure": "保存失败",
-    "saveInfo": "已保存$succeedNum张, 保存失败$failedNum张"
+    "saveInfo": "已保存$succeedNum张, 保存失败$failedNum张",
+    "appNoUpdates": "应用是最新的!",
+    "backgroundCheckingStopped": "后台检查停止了",
+    "backgroundCheckingAvailable": "后台检查: $latestVersion更新可用!",
+    "backgroundCheckingStarted": "后台检查开启了 (每${seconds}秒)"
   },
   "aboutPage": {
     "version": "版本号 $version($buildNumber)",

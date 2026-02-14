@@ -99,14 +99,14 @@ class _HomePageState extends State<HomePage> {
 
       // Analytics callback
       onAnalyticsEvent: (event) {
-        debugPrint('Analytics Event: ${event.eventName}');
-        debugPrint('  Platform: ${event.platform}');
-        debugPrint('  Current Version: ${event.currentVersion}');
+        printDebugLog('Analytics Event: ${event.eventName}');
+        printDebugLog('  Platform: ${event.platform}');
+        printDebugLog('  Current Version: ${event.currentVersion}');
         if (event.latestVersion != null) {
-          debugPrint('  Latest Version: ${event.latestVersion}');
+          printDebugLog('  Latest Version: ${event.latestVersion}');
         }
         if (event.urgency != null) {
-          debugPrint('  Urgency: ${event.urgency}');
+          printDebugLog('  Urgency: ${event.urgency}');
         }
       },
     );
@@ -410,6 +410,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _checkForUpdates() async {
+    final t = Translations.of(context);
     final updateInfo = await appUpdater.checkAndShowUpdateDialog(
       context,
       showSkipVersion: true,
@@ -417,19 +418,19 @@ class _HomePageState extends State<HomePage> {
       onNoUpdate: () {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('App is up to date!')),
+            SnackBar(content: Text(t.homePage.appNoUpdates)),
           );
         }
       },
-      onUpdate: () => debugPrint('User chose to update'),
-      onCancel: () => debugPrint('User cancelled update'),
+      onUpdate: () => printDebugLog('User chose to update'),
+      onCancel: () => printDebugLog('User cancelled update'),
     );
 
-    debugPrint('Current version: ${updateInfo.currentVersion}');
-    debugPrint('Latest version: ${updateInfo.latestVersion}');
-    debugPrint('Update available: ${updateInfo.updateAvailable}');
-    debugPrint('Release notes: ${updateInfo.releaseNotes}');
-    debugPrint('Urgency: ${updateInfo.urgency}');
+    printDebugLog('Current version: ${updateInfo.currentVersion}');
+    printDebugLog('Latest version: ${updateInfo.latestVersion}');
+    printDebugLog('Update available: ${updateInfo.updateAvailable}');
+    printDebugLog('Release notes: ${updateInfo.releaseNotes}');
+    printDebugLog('Urgency: ${updateInfo.urgency}');
 
     if (updateInfo.updateAvailable) {
       await appUpdater.openStore();
@@ -444,6 +445,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _toggleBackgroundChecking() {
+    final t = Translations.of(context);
     setState(() {
       if (_isBackgroundCheckingActive) {
         // Stop background checking
@@ -451,7 +453,7 @@ class _HomePageState extends State<HomePage> {
         _updateSubscription?.cancel();
         _updateSubscription = null;
         _isBackgroundCheckingActive = false;
-        _showSnackBar('Background checking stopped');
+        _showSnackBar(t.homePage.backgroundCheckingStopped);
       } else {
         // Start background checking every 30 seconds (for demo purposes)
         appUpdater.startBackgroundChecking(const Duration(seconds: 30));
@@ -460,13 +462,15 @@ class _HomePageState extends State<HomePage> {
         _updateSubscription = appUpdater.updateStream.listen((updateInfo) {
           if (updateInfo.updateAvailable && mounted) {
             _showSnackBar(
-              'Background check: Update ${updateInfo.latestVersion} available!',
+              t.homePage.backgroundCheckingAvailable(
+                latestVersion: updateInfo.latestVersion!,
+              ),
             );
           }
         });
 
         _isBackgroundCheckingActive = true;
-        _showSnackBar('Background checking started (every 30s)');
+        _showSnackBar(t.homePage.backgroundCheckingStarted(seconds: 30));
       }
     });
   }

@@ -94,6 +94,10 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 	@override String get savedSuccess => '保存成功';
 	@override String get savedFailure => '保存失败';
 	@override String saveInfo({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张';
+	@override String get appNoUpdates => '应用是最新的!';
+	@override String get backgroundCheckingStopped => '后台检查停止了';
+	@override String backgroundCheckingAvailable({required Object latestVersion}) => '后台检查: ${latestVersion}更新可用!';
+	@override String backgroundCheckingStarted({required Object seconds}) => '后台检查开启了 (每${seconds}秒)';
 }
 
 // Path: aboutPage
@@ -308,6 +312,10 @@ extension on TranslationsZh {
 			'homePage.savedSuccess' => '保存成功',
 			'homePage.savedFailure' => '保存失败',
 			'homePage.saveInfo' => ({required Object succeedNum, required Object failedNum}) => '已保存${succeedNum}张, 保存失败${failedNum}张',
+			'homePage.appNoUpdates' => '应用是最新的!',
+			'homePage.backgroundCheckingStopped' => '后台检查停止了',
+			'homePage.backgroundCheckingAvailable' => ({required Object latestVersion}) => '后台检查: ${latestVersion}更新可用!',
+			'homePage.backgroundCheckingStarted' => ({required Object seconds}) => '后台检查开启了 (每${seconds}秒)',
 			'aboutPage.version' => ({required Object version, required Object buildNumber}) => '版本号 ${version}(${buildNumber})',
 			'aboutPage.copyright' => ({required Object year, required Object appName}) => '版权 © ${year} ${appName}. 版权所有。',
 			'aboutPage.slogan' => '给图片添加水印, 防止被恶意使用.',
