@@ -422,7 +422,7 @@ class _HomePageState extends State<HomePage> {
           );
         }
       },
-      onUpdate: () => printDebugLog('User chose to update'),
+      onUpdate: () => appUpdater.openStore(),
       onCancel: () => printDebugLog('User cancelled update'),
     );
 
@@ -431,10 +431,6 @@ class _HomePageState extends State<HomePage> {
     printDebugLog('Update available: ${updateInfo.updateAvailable}');
     printDebugLog('Release notes: ${updateInfo.releaseNotes}');
     printDebugLog('Urgency: ${updateInfo.urgency}');
-
-    if (updateInfo.updateAvailable) {
-      await appUpdater.openStore();
-    }
   }
 
   void _showSnackBar(String message) {
