@@ -120,6 +120,20 @@
         "light": "浅色模式"
       },
       "themesDescription": "开启后, 将跟随系统打开或关闭深色模式"
+    },
+    "updatesDialog": {
+      "updateAvailableTitle": "更新可用",
+      "updateAvailableMessage": "新版本（{latestVersion}）可用。你目前使用的版本是{currentVersion}。",
+      "updateButton": "现在更新",
+      "laterButton": "稍后",
+      "skipVersionButton": "忽略此版本",
+      "doNotAskAgainButton": "不要再提醒我",
+      "criticalUpdateTitle": "关键更新需求",
+      "criticalUpdateMessage": "本次更新包含重要的修复。请更新以继续。",
+      "releaseNotesTitle": "新变化",
+      "loadingText": "检查更新中...",
+      "errorText": "无法查看更新",
+      "upToDateText": "你的应用是最新的！"
     }
   },
   "locales(map)": {

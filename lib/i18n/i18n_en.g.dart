@@ -304,6 +304,7 @@ class TranslationsDialogsEn {
 	late final TranslationsDialogsPermissionsEn permissions = TranslationsDialogsPermissionsEn.internal(_root);
 	late final TranslationsDialogsLicenseDialogEn licenseDialog = TranslationsDialogsLicenseDialogEn.internal(_root);
 	late final TranslationsDialogsSettingsDialogEn settingsDialog = TranslationsDialogsSettingsDialogEn.internal(_root);
+	late final TranslationsDialogsUpdatesDialogEn updatesDialog = TranslationsDialogsUpdatesDialogEn.internal(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -399,6 +400,51 @@ class TranslationsDialogsSettingsDialogEn {
 
 	/// en: 'After turning it on, the dark mode will be turned on or off according to the system'
 	String get themesDescription => 'After turning it on, the dark mode will be turned on or off according to the system';
+}
+
+// Path: dialogs.updatesDialog
+class TranslationsDialogsUpdatesDialogEn {
+	TranslationsDialogsUpdatesDialogEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Update Available'
+	String get updateAvailableTitle => 'Update Available';
+
+	/// en: 'A new version ({latestVersion}) is available. You are currently on version {currentVersion}.'
+	String get updateAvailableMessage => 'A new version ({latestVersion}) is available. You are currently on version {currentVersion}.';
+
+	/// en: 'Update Now'
+	String get updateButton => 'Update Now';
+
+	/// en: 'Later'
+	String get laterButton => 'Later';
+
+	/// en: 'Skip this version'
+	String get skipVersionButton => 'Skip this version';
+
+	/// en: 'Don't remind me again'
+	String get doNotAskAgainButton => 'Don\'t remind me again';
+
+	/// en: 'Critical Update Required'
+	String get criticalUpdateTitle => 'Critical Update Required';
+
+	/// en: 'This update contains important fixes. Please update to continue.'
+	String get criticalUpdateMessage => 'This update contains important fixes. Please update to continue.';
+
+	/// en: 'What's New'
+	String get releaseNotesTitle => 'What\'s New';
+
+	/// en: 'Checking for updates...'
+	String get loadingText => 'Checking for updates...';
+
+	/// en: 'Unable to check for updates'
+	String get errorText => 'Unable to check for updates';
+
+	/// en: 'Your app is up to date!'
+	String get upToDateText => 'Your app is up to date!';
 }
 
 // Path: dialogs.permissions.photos
@@ -550,6 +596,18 @@ extension on Translations {
 			'dialogs.settingsDialog.themes.dark' => 'Dark Mode',
 			'dialogs.settingsDialog.themes.light' => 'Light Mode',
 			'dialogs.settingsDialog.themesDescription' => 'After turning it on, the dark mode will be turned on or off according to the system',
+			'dialogs.updatesDialog.updateAvailableTitle' => 'Update Available',
+			'dialogs.updatesDialog.updateAvailableMessage' => 'A new version ({latestVersion}) is available. You are currently on version {currentVersion}.',
+			'dialogs.updatesDialog.updateButton' => 'Update Now',
+			'dialogs.updatesDialog.laterButton' => 'Later',
+			'dialogs.updatesDialog.skipVersionButton' => 'Skip this version',
+			'dialogs.updatesDialog.doNotAskAgainButton' => 'Don\'t remind me again',
+			'dialogs.updatesDialog.criticalUpdateTitle' => 'Critical Update Required',
+			'dialogs.updatesDialog.criticalUpdateMessage' => 'This update contains important fixes. Please update to continue.',
+			'dialogs.updatesDialog.releaseNotesTitle' => 'What\'s New',
+			'dialogs.updatesDialog.loadingText' => 'Checking for updates...',
+			'dialogs.updatesDialog.errorText' => 'Unable to check for updates',
+			'dialogs.updatesDialog.upToDateText' => 'Your app is up to date!',
 			'locales.en' => 'English',
 			'locales.it' => 'Italian',
 			'locales.zh' => '中文',

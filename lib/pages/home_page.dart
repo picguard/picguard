@@ -76,41 +76,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    appUpdater = AppUpdater.configure(
-      // Mobile
-      iosAppId: AppConfig.shared.iosAppId,
-      // androidPackageName is auto-detected!
-
-      // Desktop
-      macAppId: AppConfig.shared.macAppId,
-      microsoftProductId: AppConfig.shared.microsoftProductId,
-      snapName: AppConfig.shared.snapName,
-      flathubAppId: AppConfig.shared.flathubAppId,
-
-      // GitHub Releases support
-      githubOwner: 'picguard',
-      githubRepo: 'picguard',
-
-      // Update frequency control - only check once per day
-      checkFrequency: const Duration(days: 1),
-
-      // Force update if below this version
-      minimumVersion: '1.0.0',
-
-      // Analytics callback
-      onAnalyticsEvent: (event) {
-        printDebugLog('Analytics Event: ${event.eventName}');
-        printDebugLog('  Platform: ${event.platform}');
-        printDebugLog('  Current Version: ${event.currentVersion}');
-        if (event.latestVersion != null) {
-          printDebugLog('  Latest Version: ${event.latestVersion}');
-        }
-        if (event.urgency != null) {
-          printDebugLog('  Urgency: ${event.urgency}');
-        }
-      },
-    );
-
     _appUpdatesStreamSubscription = eventBus.on<AppUpdatesEvent>().listen((
       event,
     ) async {
@@ -142,6 +107,58 @@ class _HomePageState extends State<HomePage> {
 
     WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
       if (isMobile || isDesktop) {
+        final t = Translations.of(context);
+        appUpdater = AppUpdater.configure(
+          // Mobile
+          iosAppId: AppConfig.shared.iosAppId,
+          // androidPackageName is auto-detected!
+
+          // Desktop
+          macAppId: AppConfig.shared.macAppId,
+          microsoftProductId: AppConfig.shared.microsoftProductId,
+          snapName: AppConfig.shared.snapName,
+          flathubAppId: AppConfig.shared.flathubAppId,
+
+          // GitHub Releases support
+          githubOwner: 'picguard',
+          githubRepo: 'picguard',
+
+          // Update frequency control - only check once per day
+          checkFrequency: const Duration(days: 1),
+
+          // Force update if below this version
+          minimumVersion: '1.0.0',
+
+          strings: UpdateStrings(
+            updateAvailableTitle: t.dialogs.updatesDialog.updateAvailableTitle,
+            updateAvailableMessage:
+            t.dialogs.updatesDialog.updateAvailableMessage,
+            updateButton: t.dialogs.updatesDialog.updateButton,
+            laterButton: t.dialogs.updatesDialog.laterButton,
+            skipVersionButton: t.dialogs.updatesDialog.skipVersionButton,
+            doNotAskAgainButton: t.dialogs.updatesDialog.doNotAskAgainButton,
+            criticalUpdateTitle: t.dialogs.updatesDialog.criticalUpdateTitle,
+            criticalUpdateMessage: t.dialogs.updatesDialog.criticalUpdateMessage,
+            releaseNotesTitle: t.dialogs.updatesDialog.releaseNotesTitle,
+            loadingText: t.dialogs.updatesDialog.loadingText,
+            errorText: t.dialogs.updatesDialog.errorText,
+            upToDateText: t.dialogs.updatesDialog.upToDateText,
+          ),
+
+          // Analytics callback
+          onAnalyticsEvent: (event) {
+            printDebugLog('Analytics Event: ${event.eventName}');
+            printDebugLog('  Platform: ${event.platform}');
+            printDebugLog('  Current Version: ${event.currentVersion}');
+            if (event.latestVersion != null) {
+              printDebugLog('  Latest Version: ${event.latestVersion}');
+            }
+            if (event.urgency != null) {
+              printDebugLog('  Urgency: ${event.urgency}');
+            }
+          },
+        );
+
         if (isMobile) {
           await DialogUtil.showLicenseDialog();
         }
@@ -471,44 +488,44 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<void> _showDialogWithOptions() async {
-    await appUpdater.showUpdateDialog(
-      context,
-      updateInfo: _createMockUpdateInfo(),
-      showSkipVersion: true,
-      showDoNotAskAgain: true,
-      onUpdate: () {
-        _showSnackBar('Update button pressed!');
-      },
-      onCancel: () {
-        _showSnackBar('Cancel button pressed');
-      },
-    );
-  }
+  // Future<void> _showDialogWithOptions() async {
+  //   await appUpdater.showUpdateDialog(
+  //     context,
+  //     updateInfo: _createMockUpdateInfo(),
+  //     showSkipVersion: true,
+  //     showDoNotAskAgain: true,
+  //     onUpdate: () {
+  //       _showSnackBar('Update button pressed!');
+  //     },
+  //     onCancel: () {
+  //       _showSnackBar('Cancel button pressed');
+  //     },
+  //   );
+  // }
 
   // Mock UpdateInfo for demonstrations with release notes
-  UpdateInfo _createMockUpdateInfo({
-    UpdateUrgency urgency = UpdateUrgency.medium,
-    bool isMandatory = false,
-    String? releaseNotes,
-  }) {
-    return UpdateInfo(
-      currentVersion: '1.0.0',
-      latestVersion: '2.0.0',
-      updateUrl: 'https://example.com',
-      updateAvailable: true,
-      urgency: urgency,
-      isMandatory: isMandatory,
-      releaseNotes:
-          releaseNotes ??
-          '• New dark mode support\n'
-              '• Performance improvements\n'
-              '• Bug fixes and stability improvements\n'
-              '• Updated UI components',
-      releaseDate: DateTime.now().subtract(const Duration(days: 2)),
-      updateSizeBytes: 15728640, // 15 MB
-    );
-  }
+  // UpdateInfo _createMockUpdateInfo({
+  //   UpdateUrgency urgency = UpdateUrgency.medium,
+  //   bool isMandatory = false,
+  //   String? releaseNotes,
+  // }) {
+  //   return UpdateInfo(
+  //     currentVersion: '1.0.0',
+  //     latestVersion: '2.0.0',
+  //     updateUrl: 'https://example.com',
+  //     updateAvailable: true,
+  //     urgency: urgency,
+  //     isMandatory: isMandatory,
+  //     releaseNotes:
+  //         releaseNotes ??
+  //         '• New dark mode support\n'
+  //             '• Performance improvements\n'
+  //             '• Bug fixes and stability improvements\n'
+  //             '• Updated UI components',
+  //     releaseDate: DateTime.now().subtract(const Duration(days: 2)),
+  //     updateSizeBytes: 15728640, // 15 MB
+  //   );
+  // }
 
   void _onDragEntered(DropEventDetails details) {
     BotToast.showText(
