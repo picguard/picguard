@@ -69,7 +69,7 @@ dev_dependencies:
     sdk: flutter
   msix: ^3.16.13
   slang_build_runner: ^4.12.1
-  very_good_analysis: ^10.1.0
+  very_good_analysis: ^10.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
