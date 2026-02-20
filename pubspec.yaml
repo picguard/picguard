@@ -51,7 +51,7 @@ dependencies:
   permission_handler: ^12.0.1
   photo_view: ^0.15.0
   provider: ^6.1.5+1
-  sentry_flutter: ^9.13.0
+  sentry_flutter: ^9.14.0
   sentry_logging: ^9.13.0
   shared_preferences: ^2.5.4
   slang_flutter: ^4.12.1
