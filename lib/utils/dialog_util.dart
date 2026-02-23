@@ -61,9 +61,7 @@ class DialogUtil {
                 (index, permissionText) => Padding(
                   padding: const EdgeInsets.only(top: 4),
                   child: Text(
-                    '${index + 1}. ${(permissionText as StringCallback)(
-                      appName: appName,
-                    )}',
+                    '${index + 1}. ${(permissionText as StringCallback)(appName: appName)}',
                     style: TextStyle(
                       color: isDark ? Colors.white : PGColors.primaryTextColor,
                       fontSize: 14,
@@ -78,9 +76,7 @@ class DialogUtil {
                 (index, permissionText) => Padding(
                   padding: const EdgeInsets.only(top: 4),
                   child: Text(
-                    '${index + 1}. ${(permissionText as StringCallback)(
-                      appName: appName,
-                    )}',
+                    '${index + 1}. ${(permissionText as StringCallback)(appName: appName)}',
                     style: TextStyle(
                       color: isDark ? Colors.white : PGColors.primaryTextColor,
                       fontSize: 14,
@@ -283,9 +279,7 @@ class DialogUtil {
             actionsAlignment: .center,
             contentPadding: const .all(20),
             insetPadding: const .symmetric(horizontal: 20),
-            shape: RoundedRectangleBorder(
-              borderRadius: .circular(10),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: .circular(10)),
           );
         },
       );
@@ -349,9 +343,7 @@ class DialogUtil {
               height: _buttonHeight,
               child: DecoratedBox(
                 decoration: const BoxDecoration(
-                  border: Border(
-                    top: BorderSide(color: PGColors.borderColor),
-                  ),
+                  border: Border(top: BorderSide(color: PGColors.borderColor)),
                 ),
                 child: Row(
                   children: [
@@ -363,10 +355,7 @@ class DialogUtil {
                             onPressed: onCancel ?? NavigatorUtil.pop,
                             style: ButtonStyle(
                               textStyle: .all(
-                                const TextStyle(
-                                  fontSize: 16,
-                                  height: 1.375,
-                                ),
+                                const TextStyle(fontSize: 16, height: 1.375),
                               ),
                               overlayColor: .all(
                                 isDark
@@ -396,9 +385,7 @@ class DialogUtil {
                       const SizedBox(
                         width: 1,
                         height: _buttonHeight,
-                        child: ColoredBox(
-                          color: PGColors.borderColor,
-                        ),
+                        child: ColoredBox(color: PGColors.borderColor),
                       ),
                     ],
                     Expanded(
@@ -408,10 +395,7 @@ class DialogUtil {
                           onPressed: onOK,
                           style: ButtonStyle(
                             textStyle: .all(
-                              const TextStyle(
-                                fontSize: 16,
-                                height: 1.375,
-                              ),
+                              const TextStyle(fontSize: 16, height: 1.375),
                             ),
                             overlayColor: .all(
                               isDark
@@ -429,9 +413,7 @@ class DialogUtil {
                           child: Text(
                             okText,
                             textAlign: .center,
-                            style: TextStyle(
-                              color: okColor,
-                            ),
+                            style: TextStyle(color: okColor),
                           ),
                         ),
                       ),
@@ -448,9 +430,7 @@ class DialogUtil {
           actionsOverflowButtonSpacing: 0,
           actionsAlignment: .center,
           clipBehavior: .hardEdge,
-          shape: RoundedRectangleBorder(
-            borderRadius: .circular(10),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: .circular(10)),
         );
       },
     );
@@ -471,9 +451,7 @@ class DialogUtil {
           PhotoViewGallery.builder(
             pageController: pageController,
             scrollPhysics: const AlwaysScrollableScrollPhysics(),
-            backgroundDecoration: const BoxDecoration(
-              color: Colors.black45,
-            ),
+            backgroundDecoration: const BoxDecoration(color: Colors.black45),
             itemCount: imageProviders.length,
             builder: (context, index) {
               final imageProvider = imageProviders.elementAt(index);
@@ -493,9 +471,7 @@ class DialogUtil {
                 minimumSize: .all(Size.zero),
                 tapTargetSize: .shrinkWrap,
                 iconColor: .all(Colors.red),
-                backgroundColor: .all(
-                  PGColors.backgroundColor,
-                ),
+                backgroundColor: .all(PGColors.backgroundColor),
               ),
               onPressed: NavigatorUtil.pop,
               icon: const Icon(Icons.close),
@@ -537,16 +513,9 @@ class DialogUtil {
         return ConstrainedBox(
           constraints: BoxConstraints(maxHeight: height * 0.7),
           child: Padding(
-            padding: .only(
-              left: 16,
-              right: 16,
-              bottom: 20 + bottom,
-            ),
+            padding: .only(left: 16, right: 16, bottom: 20 + bottom),
             child: SingleChildScrollView(
-              child: SizedBox(
-                width: double.infinity,
-                child: contentWidget,
-              ),
+              child: SizedBox(width: double.infinity, child: contentWidget),
             ),
           ),
         );
@@ -569,11 +538,8 @@ class DialogUtil {
       shape: const RoundedRectangleBorder(
         borderRadius: .vertical(top: .circular(10)),
       ),
-      builder: (context) => PGColorModal(
-        items: items,
-        callback: callback,
-        color: color,
-      ),
+      builder: (context) =>
+          PGColorModal(items: items, callback: callback, color: color),
     );
   }
 
@@ -592,11 +558,8 @@ class DialogUtil {
       shape: const RoundedRectangleBorder(
         borderRadius: .vertical(top: .circular(10)),
       ),
-      builder: (context) => FontModal(
-        items: items,
-        callback: callback,
-        font: font,
-      ),
+      builder: (context) =>
+          FontModal(items: items, callback: callback, font: font),
     );
   }
 
@@ -645,24 +608,19 @@ class DialogUtil {
         year: '2023-${DateTime.now().year}',
         appName: appName,
       ),
-      scaffoldBuilder:
-          (
-            context,
-            title,
-            child,
-          ) {
-            final isDark = Theme.of(context).brightness == .dark;
-            return SelectionArea(
-              child: Scaffold(
-                appBar: PGAppBar(
-                  titleName: titleName,
-                  isDark: isDark,
-                  showBottom: false,
-                ),
-                body: child,
-              ),
-            );
-          },
+      scaffoldBuilder: (context, title, child) {
+        final isDark = Theme.of(context).brightness == .dark;
+        return SelectionArea(
+          child: Scaffold(
+            appBar: PGAppBar(
+              titleName: titleName,
+              isDark: isDark,
+              showBottom: false,
+            ),
+            body: child,
+          ),
+        );
+      },
       applicationDescription: Text(
         t.aboutPage.slogan,
         style: const TextStyle(fontSize: 18, fontWeight: .bold),

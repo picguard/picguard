@@ -35,17 +35,11 @@ class IconBtn extends StatelessWidget {
         minimumSize: .all(Size.zero),
         tapTargetSize: .shrinkWrap,
         padding: .all(padding),
-        shape: .all(
-          RoundedRectangleBorder(borderRadius: borderRadius),
-        ),
+        shape: .all(RoundedRectangleBorder(borderRadius: borderRadius)),
         overlayColor: .all(overlayColor),
       ),
       onPressed: onPressed,
-      icon: Icon(
-        icon,
-        size: iconSize,
-        color: iconColor,
-      ),
+      icon: Icon(icon, size: iconSize, color: iconColor),
     );
   }
 }

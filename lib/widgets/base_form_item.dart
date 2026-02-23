@@ -70,10 +70,7 @@ class _BaseFormItemState extends State<BaseFormItem> {
               ],
             ),
           )
-        : Padding(
-            padding: widget.padding,
-            child: widget.child,
-          );
+        : Padding(padding: widget.padding, child: widget.child);
   }
 
   Widget get content {
@@ -85,10 +82,7 @@ class _BaseFormItemState extends State<BaseFormItem> {
           if (widget.required)
             const TextSpan(
               text: '*',
-              style: TextStyle(
-                color: PGColors.errorTextColor,
-                fontSize: 14,
-              ),
+              style: TextStyle(color: PGColors.errorTextColor, fontSize: 14),
             ),
           TextSpan(
             text: widget.title,
@@ -115,11 +109,7 @@ class _BaseFormItemState extends State<BaseFormItem> {
           tapTargetSize: .shrinkWrap,
         ),
         onPressed: widget.onTipTap,
-        icon: const Icon(
-          Icons.info,
-          size: 16,
-          color: PGColors.primaryColor,
-        ),
+        icon: const Icon(Icons.info, size: 16, color: PGColors.primaryColor),
       ),
     );
   }

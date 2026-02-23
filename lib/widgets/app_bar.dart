@@ -19,11 +19,7 @@ class PGAppBar extends AppBar {
   }) : super(
          title: titleName == null
              ? titleWidget
-             : Text(
-                 titleName,
-                 maxLines: 1,
-                 overflow: .ellipsis,
-               ),
+             : Text(titleName, maxLines: 1, overflow: .ellipsis),
          centerTitle: true,
          elevation: 0,
          bottom: !showBottom

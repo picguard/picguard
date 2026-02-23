@@ -76,9 +76,7 @@ class MacOSMenuBar extends StatelessWidget {
                     try {
                       await macosMenuChannel.invokeMethod('hideApp');
                     } on PlatformException catch (e) {
-                      printErrorLog(
-                        'Cannot hide this app: ${e.message}',
-                      );
+                      printErrorLog('Cannot hide this app: ${e.message}');
                     }
                   },
                   shortcut: const CharacterActivator('H', meta: true),
@@ -89,9 +87,7 @@ class MacOSMenuBar extends StatelessWidget {
                     try {
                       await macosMenuChannel.invokeMethod('hideOtherApps');
                     } on PlatformException catch (e) {
-                      printErrorLog(
-                        'Cannot hide other apps: ${e.message}',
-                      );
+                      printErrorLog('Cannot hide other apps: ${e.message}');
                     }
                   },
                   shortcut: const CharacterActivator(
@@ -106,9 +102,7 @@ class MacOSMenuBar extends StatelessWidget {
                     try {
                       await macosMenuChannel.invokeMethod('showAllApps');
                     } on PlatformException catch (e) {
-                      printErrorLog(
-                        'Cannot unhide all apps: ${e.message}',
-                      );
+                      printErrorLog('Cannot unhide all apps: ${e.message}');
                     }
                   },
                   label: t.menus.showAll,
@@ -117,9 +111,7 @@ class MacOSMenuBar extends StatelessWidget {
             ),
             const PlatformMenuItemGroup(
               members: <PlatformMenuItem>[
-                PlatformProvidedMenuItem(
-                  type: .quit,
-                ),
+                PlatformProvidedMenuItem(type: .quit),
               ],
             ),
           ],
@@ -178,14 +170,10 @@ class DesktopMenuBar extends StatelessWidget {
         ),
       ),
       barButtonStyle: ButtonStyle(
-        overlayColor: .all(
-          PGColors.primaryHoverColor.withValues(alpha: 0.3),
-        ),
+        overlayColor: .all(PGColors.primaryHoverColor.withValues(alpha: 0.3)),
       ),
       menuButtonStyle: ButtonStyle(
-        overlayColor: .all(
-          PGColors.primaryHoverColor.withValues(alpha: 0.3),
-        ),
+        overlayColor: .all(PGColors.primaryHoverColor.withValues(alpha: 0.3)),
       ),
       barButtons: [
         BarButton(

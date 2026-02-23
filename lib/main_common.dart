@@ -34,10 +34,7 @@ void reportErrorAndLog(FlutterErrorDetails details) {
   printErrorLog(details.exception, stackTrace: details.stack);
   if (PgEnv.sentryEnabled) {
     unawaited(
-      Sentry.captureException(
-        details.exception,
-        stackTrace: details.stack,
-      ),
+      Sentry.captureException(details.exception, stackTrace: details.stack),
     );
   }
 }
@@ -46,38 +43,34 @@ FlutterErrorDetails makeErrorDetails(Object error, StackTrace stackTrace) {
   return FlutterErrorDetails(exception: error, stack: stackTrace);
 }
 
-Future<void> runMainApp({
-  Flavor flavor = Flavor.free,
-}) async {
+Future<void> runMainApp({Flavor flavor = Flavor.free}) async {
   SentryWidgetsFlutterBinding.ensureInitialized();
   await initialize();
 
   AppConfig.create(flavor: flavor);
 
   if (PgEnv.sentryEnabled) {
-    await SentryFlutter.init(
-      (options) {
-        options
-          ..dsn = PgEnv.sentryDsn
-          ..tracesSampleRate = 1.0
-          ..profilesSampleRate = 1.0
-          ..attachThreads = true
-          ..enableWindowMetricBreadcrumbs = true
-          ..enableAppHangTracking =
-              false // https://github.com/getsentry/sentry-cocoa/issues/3472
-          ..addIntegration(LoggingIntegration(minEventLevel: Level.INFO))
-          ..sendDefaultPii = true
-          ..reportSilentFlutterErrors = true
-          ..attachScreenshot = true
-          ..screenshotQuality = SentryScreenshotQuality.low
-          ..attachViewHierarchy = true
-          ..debug = kDebugMode
-          ..spotlight = Spotlight(enabled: true)
-          ..enableTimeToFullDisplayTracing = true
-          ..maxRequestBodySize = MaxRequestBodySize.always
-          ..navigatorKey = navigatorKey;
-      },
-    );
+    await SentryFlutter.init((options) {
+      options
+        ..dsn = PgEnv.sentryDsn
+        ..tracesSampleRate = 1.0
+        ..profilesSampleRate = 1.0
+        ..attachThreads = true
+        ..enableWindowMetricBreadcrumbs = true
+        ..enableAppHangTracking =
+            false // https://github.com/getsentry/sentry-cocoa/issues/3472
+        ..addIntegration(LoggingIntegration(minEventLevel: Level.INFO))
+        ..sendDefaultPii = true
+        ..reportSilentFlutterErrors = true
+        ..attachScreenshot = true
+        ..screenshotQuality = SentryScreenshotQuality.low
+        ..attachViewHierarchy = true
+        ..debug = kDebugMode
+        ..spotlight = Spotlight(enabled: true)
+        ..enableTimeToFullDisplayTracing = true
+        ..maxRequestBodySize = MaxRequestBodySize.always
+        ..navigatorKey = navigatorKey;
+    });
   } else {
     printWarningLog('sentry is not enabled, please check the .env file');
   }
@@ -101,17 +94,12 @@ Future<void> runMainApp({
   await LocaleSettings.useDeviceLocale();
 
   Widget child = MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => GlobalProvider()),
-    ],
+    providers: [ChangeNotifierProvider(create: (_) => GlobalProvider())],
     child: const MainApp(),
   );
   if (PgEnv.sentryEnabled) {
     child = SentryWidget(
-      child: DefaultAssetBundle(
-        bundle: SentryAssetBundle(),
-        child: child,
-      ),
+      child: DefaultAssetBundle(bundle: SentryAssetBundle(), child: child),
     );
   }
 
@@ -179,9 +167,7 @@ class _MainAppState extends State<MainApp> with TrayListener {
         child = easyLoadingBuilder(context, child);
         child = botToastBuilder(context, child);
         return MediaQuery(
-          data: MediaQuery.of(context).copyWith(
-            textScaler: .noScaling,
-          ),
+          data: MediaQuery.of(context).copyWith(textScaler: .noScaling),
           child: child,
         );
       },
@@ -208,10 +194,7 @@ class _MainAppState extends State<MainApp> with TrayListener {
         ),
         if (PgEnv.updatesEnabled) ...[
           MenuItem.separator(),
-          MenuItem(
-            key: Menus.updates.name,
-            label: t.menus.updates,
-          ),
+          MenuItem(key: Menus.updates.name, label: t.menus.updates),
         ],
         MenuItem.separator(),
         MenuItem(
@@ -224,23 +207,14 @@ class _MainAppState extends State<MainApp> with TrayListener {
           label: t.menus.help,
           submenu: Menu(
             items: [
-              MenuItem(
-                key: Menus.support.name,
-                label: t.menus.support,
-              ),
+              MenuItem(key: Menus.support.name, label: t.menus.support),
               MenuItem(
                 key: Menus.userAgreement.name,
                 label: t.menus.userAgreement,
               ),
-              MenuItem(
-                key: Menus.privacy.name,
-                label: t.menus.privacy,
-              ),
+              MenuItem(key: Menus.privacy.name, label: t.menus.privacy),
               MenuItem.separator(),
-              MenuItem(
-                key: Menus.debug.name,
-                label: t.menus.debug,
-              ),
+              MenuItem(key: Menus.debug.name, label: t.menus.debug),
             ],
           ),
         ),

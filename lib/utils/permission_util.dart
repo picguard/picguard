@@ -6,11 +6,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-enum Permissions {
-  photos,
-  storage,
-  none,
-}
+enum Permissions { photos, storage, none }
 
 class PermissionUtil {
   static Future<Permissions> checkPermission() async {

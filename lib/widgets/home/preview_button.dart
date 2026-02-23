@@ -24,20 +24,14 @@ class PreviewBtn extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ButtonStyle(
-              backgroundColor: .all(
-                Colors.white,
-              ),
-              foregroundColor: .resolveWith((
-                states,
-              ) {
+              backgroundColor: .all(Colors.white),
+              foregroundColor: .resolveWith((states) {
                 if (states.contains(WidgetState.disabled)) {
                   return PGColors.secondaryBorderColor;
                 }
                 return PGColors.primaryColor;
               }),
-              shape: .resolveWith((
-                states,
-              ) {
+              shape: .resolveWith((states) {
                 if (states.contains(WidgetState.disabled)) {
                   return RoundedRectangleBorder(
                     side: const BorderSide(
@@ -55,9 +49,7 @@ class PreviewBtn extends StatelessWidget {
             ),
             child: Text(
               t.homePage.preview,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+              style: const TextStyle(fontSize: 16),
             ),
           ),
         );

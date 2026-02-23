@@ -72,9 +72,7 @@ class ColorPicker extends StatelessWidget {
                           ),
                     disabledBorder: OutlineInputBorder(
                       borderRadius: .circular(4),
-                      borderSide: const BorderSide(
-                        color: PGColors.borderColor,
-                      ),
+                      borderSide: const BorderSide(color: PGColors.borderColor),
                       gapPadding: 0,
                     ),
                     focusedBorder: hasError
@@ -94,18 +92,16 @@ class ColorPicker extends StatelessWidget {
                             gapPadding: 0,
                           ),
                   ),
-                  items: colors.map(
-                    (item) {
-                      return DropdownMenuItem<int>(
-                        enabled: item.color != field.value,
-                        value: item.color,
-                        child: Align(
-                          alignment: .centerLeft,
-                          child: Text(item.label),
-                        ),
-                      );
-                    },
-                  ).toList(),
+                  items: colors.map((item) {
+                    return DropdownMenuItem<int>(
+                      enabled: item.color != field.value,
+                      value: item.color,
+                      child: Align(
+                        alignment: .centerLeft,
+                        child: Text(item.label),
+                      ),
+                    );
+                  }).toList(),
                   onChanged: (value) {},
                 ),
                 if (hasError)

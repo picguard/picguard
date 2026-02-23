@@ -45,10 +45,7 @@ class PGColorModal extends StatelessWidget {
             DecoratedBox(
               decoration: const BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(
-                    color: PGColors.borderColor,
-                    width: 0.5,
-                  ),
+                  bottom: BorderSide(color: PGColors.borderColor, width: 0.5),
                 ),
               ),
               child: Padding(
@@ -111,9 +108,7 @@ class PGColorModal extends StatelessWidget {
                       : Colors.transparent;
                   return TextButton(
                     style: ButtonStyle(
-                      padding: .all(
-                        const .symmetric(horizontal: 16),
-                      ),
+                      padding: .all(const .symmetric(horizontal: 16)),
                       tapTargetSize: .shrinkWrap,
                       backgroundColor: .all(backgroundColor),
                       overlayColor: .all(
@@ -121,9 +116,7 @@ class PGColorModal extends StatelessWidget {
                             ? PGColors.primaryTextColor
                             : PGColors.primaryBackgroundColor,
                       ),
-                      shape: .all(
-                        const RoundedRectangleBorder(),
-                      ),
+                      shape: .all(const RoundedRectangleBorder()),
                     ),
                     onPressed: () => callback(item),
                     child: SizedBox(
@@ -186,10 +179,7 @@ class FontModal extends StatelessWidget {
             DecoratedBox(
               decoration: const BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(
-                    color: PGColors.borderColor,
-                    width: 0.5,
-                  ),
+                  bottom: BorderSide(color: PGColors.borderColor, width: 0.5),
                 ),
               ),
               child: Padding(
@@ -320,10 +310,7 @@ class SettingsModal extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               border: Border(
-                bottom: BorderSide(
-                  color: PGColors.borderColor,
-                  width: 0.5,
-                ),
+                bottom: BorderSide(color: PGColors.borderColor, width: 0.5),
               ),
             ),
             padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
@@ -341,9 +328,7 @@ class SettingsModal extends StatelessWidget {
                 ),
                 IconButton(
                   style: ButtonStyle(
-                    padding: WidgetStateProperty.all(
-                      const EdgeInsets.all(8),
-                    ),
+                    padding: WidgetStateProperty.all(const EdgeInsets.all(8)),
                     minimumSize: WidgetStateProperty.all(Size.zero),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     elevation: WidgetStateProperty.all(0),
@@ -466,24 +451,22 @@ class SettingsModal extends StatelessWidget {
                             await LocaleSettings.setLocaleRaw(value);
                           }
                         },
-                        items: t.locales.entries.map(
-                          (entry) {
-                            final appLocale = AppLocaleUtils.parse(entry.key);
-                            return MineSectionModel(
-                              title: entry.value,
-                              showIcon: false,
-                              trailing: Radio<String>(
-                                value: appLocale.languageCode,
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                                visualDensity: const VisualDensity(
-                                  horizontal: VisualDensity.minimumDensity,
-                                  vertical: VisualDensity.minimumDensity,
-                                ),
+                        items: t.locales.entries.map((entry) {
+                          final appLocale = AppLocaleUtils.parse(entry.key);
+                          return MineSectionModel(
+                            title: entry.value,
+                            showIcon: false,
+                            trailing: Radio<String>(
+                              value: appLocale.languageCode,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              visualDensity: const VisualDensity(
+                                horizontal: VisualDensity.minimumDensity,
+                                vertical: VisualDensity.minimumDensity,
                               ),
-                            );
-                          },
-                        ).toList(),
+                            ),
+                          );
+                        }).toList(),
                       ),
                     ],
                   ),

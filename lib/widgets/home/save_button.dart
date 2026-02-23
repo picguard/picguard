@@ -24,17 +24,13 @@ class SaveBtn extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ButtonStyle(
-              backgroundColor: .resolveWith((
-                states,
-              ) {
+              backgroundColor: .resolveWith((states) {
                 if (states.contains(WidgetState.disabled)) {
                   return PGColors.secondaryGrayColor;
                 }
                 return PGColors.primaryColor;
               }),
-              foregroundColor: .resolveWith((
-                states,
-              ) {
+              foregroundColor: .resolveWith((states) {
                 if (states.contains(WidgetState.disabled)) {
                   return PGColors.placeholderTextColor;
                 }
@@ -42,12 +38,7 @@ class SaveBtn extends StatelessWidget {
               }),
               elevation: .all(0),
             ),
-            child: Text(
-              t.homePage.save,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-            ),
+            child: Text(t.homePage.save, style: const TextStyle(fontSize: 16)),
           ),
         );
       },

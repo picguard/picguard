@@ -31,10 +31,7 @@ class InitialWidget extends StatelessWidget {
         backgroundColor ?? PGColors.primaryColor.withValues(alpha: 0.05);
     return Container(
       margin: margin ?? pickerView.padding,
-      decoration: BoxDecoration(
-        borderRadius: .circular(20),
-        color: bgColor,
-      ),
+      decoration: BoxDecoration(borderRadius: .circular(20), color: bgColor),
       width: double.infinity,
       height: height ?? 160,
       clipBehavior: .hardEdge,
