@@ -6,9 +6,7 @@ import 'package:picguard/generated/assets.gen.dart';
 import 'package:picguard/i18n/i18n.g.dart';
 
 class AppConfig {
-  factory AppConfig.create({
-    Flavor flavor = Flavor.free,
-  }) {
+  factory AppConfig.create({Flavor flavor = Flavor.free}) {
     return shared = AppConfig._(flavor);
   }
 

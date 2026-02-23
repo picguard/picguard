@@ -77,9 +77,7 @@ class FontPicker extends StatelessWidget {
                           ),
                     disabledBorder: OutlineInputBorder(
                       borderRadius: .circular(4),
-                      borderSide: const BorderSide(
-                        color: PGColors.borderColor,
-                      ),
+                      borderSide: const BorderSide(color: PGColors.borderColor),
                       gapPadding: 0,
                     ),
                     focusedBorder: hasError
@@ -99,23 +97,21 @@ class FontPicker extends StatelessWidget {
                             gapPadding: 0,
                           ),
                   ),
-                  items: fontFamilies.map(
-                    (fontFamily) {
-                      return DropdownMenuItem<String>(
-                        value: fontFamily.fontFamily,
-                        child: Align(
-                          alignment: .centerLeft,
-                          child: Text(
-                            fontFamily.name,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: fontFamily.fontFamily,
-                            ),
+                  items: fontFamilies.map((fontFamily) {
+                    return DropdownMenuItem<String>(
+                      value: fontFamily.fontFamily,
+                      child: Align(
+                        alignment: .centerLeft,
+                        child: Text(
+                          fontFamily.name,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: fontFamily.fontFamily,
                           ),
                         ),
-                      );
-                    },
-                  ).toList(),
+                      ),
+                    );
+                  }).toList(),
                   onChanged: (value) {},
                 ),
                 if (hasError)

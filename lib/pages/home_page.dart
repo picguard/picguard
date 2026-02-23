@@ -132,13 +132,14 @@ class _HomePageState extends State<HomePage> {
           strings: UpdateStrings(
             updateAvailableTitle: t.dialogs.updatesDialog.updateAvailableTitle,
             updateAvailableMessage:
-            t.dialogs.updatesDialog.updateAvailableMessage,
+                t.dialogs.updatesDialog.updateAvailableMessage,
             updateButton: t.dialogs.updatesDialog.updateButton,
             laterButton: t.dialogs.updatesDialog.laterButton,
             skipVersionButton: t.dialogs.updatesDialog.skipVersionButton,
             doNotAskAgainButton: t.dialogs.updatesDialog.doNotAskAgainButton,
             criticalUpdateTitle: t.dialogs.updatesDialog.criticalUpdateTitle,
-            criticalUpdateMessage: t.dialogs.updatesDialog.criticalUpdateMessage,
+            criticalUpdateMessage:
+                t.dialogs.updatesDialog.criticalUpdateMessage,
             releaseNotesTitle: t.dialogs.updatesDialog.releaseNotesTitle,
             loadingText: t.dialogs.updatesDialog.loadingText,
             errorText: t.dialogs.updatesDialog.errorText,
@@ -183,10 +184,7 @@ class _HomePageState extends State<HomePage> {
     final t = Translations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final appName = t.appName(flavor: AppConfig.shared.flavor);
-    const padding = EdgeInsets.symmetric(
-      horizontal: paddingSize,
-      vertical: 20,
-    );
+    const padding = EdgeInsets.symmetric(horizontal: paddingSize, vertical: 20);
 
     Widget child = Scaffold(
       appBar: isMobile
@@ -337,10 +335,7 @@ class _HomePageState extends State<HomePage> {
             //   return child;
             // }
 
-            return Stack(
-              fit: .expand,
-              children: [child],
-            );
+            return Stack(fit: .expand, children: [child]);
           },
         ),
       ),
@@ -364,28 +359,20 @@ class _HomePageState extends State<HomePage> {
               ),
               closeButtonBuilder: FloatingActionButtonBuilder(
                 size: 44,
-                builder:
-                    (
-                      context,
-                      void Function()? onPressed,
-                      progress,
-                    ) {
-                      return IconButton(
-                        onPressed: onPressed,
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all(
-                            PGColors.backgroundColor,
-                          ),
-                          foregroundColor: WidgetStateProperty.all(
-                            PGColors.warnTextColor,
-                          ),
-                        ),
-                        icon: const Icon(
-                          Icons.close,
-                          size: 24,
-                        ),
-                      );
-                    },
+                builder: (context, void Function()? onPressed, progress) {
+                  return IconButton(
+                    onPressed: onPressed,
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(
+                        PGColors.backgroundColor,
+                      ),
+                      foregroundColor: WidgetStateProperty.all(
+                        PGColors.warnTextColor,
+                      ),
+                    ),
+                    icon: const Icon(Icons.close, size: 24),
+                  );
+                },
               ),
               overlayStyle: ExpandableFabOverlayStyle(
                 color: Colors.black.withValues(alpha: 0.5),
@@ -421,9 +408,7 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    return KeyboardDismisser(
-      child: child,
-    );
+    return KeyboardDismisser(child: child);
   }
 
   Future<void> _checkForUpdates() async {
@@ -434,9 +419,9 @@ class _HomePageState extends State<HomePage> {
       showDoNotAskAgain: true,
       onNoUpdate: () {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(t.homePage.appNoUpdates)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(t.homePage.appNoUpdates)));
         }
       },
       onUpdate: () => appUpdater.openStore(),
@@ -452,9 +437,9 @@ class _HomePageState extends State<HomePage> {
 
   void _showSnackBar(String message) {
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   void _toggleBackgroundChecking() {
@@ -553,12 +538,10 @@ class _HomePageState extends State<HomePage> {
       return;
     }
 
-    final supportedFormats = items.where(
-      (item) {
-        final mimeType = lookupMimeType(item.name);
-        return ['image/jpeg', 'image/png'].contains(mimeType);
-      },
-    );
+    final supportedFormats = items.where((item) {
+      final mimeType = lookupMimeType(item.name);
+      return ['image/jpeg', 'image/png'].contains(mimeType);
+    });
 
     if (supportedFormats.length != items.length) {
       BotToast.showText(text: t.homePage.formatValidator);
@@ -839,12 +822,7 @@ class _HomePageState extends State<HomePage> {
       for (var i = 0; i < watermarks.length; i++) {
         if (i == 0) {
           children.add(
-            WidgetSpan(
-              child: SizedBox(
-                width: textGap / 2,
-                height: 1,
-              ),
-            ),
+            WidgetSpan(child: SizedBox(width: textGap / 2, height: 1)),
           );
           dimensions.add(
             PlaceholderDimensions(
@@ -855,29 +833,14 @@ class _HomePageState extends State<HomePage> {
         }
         children.add(watermarks[i]);
         if (i < watermarks.length - 1) {
-          children.add(
-            WidgetSpan(
-              child: SizedBox(
-                width: textGap,
-                height: 1,
-              ),
-            ),
-          );
+          children.add(WidgetSpan(child: SizedBox(width: textGap, height: 1)));
           dimensions.add(
-            PlaceholderDimensions(
-              size: Size(textGap, 1),
-              alignment: .bottom,
-            ),
+            PlaceholderDimensions(size: Size(textGap, 1), alignment: .bottom),
           );
         }
         if (i == watermarks.length - 1) {
           children.add(
-            WidgetSpan(
-              child: SizedBox(
-                width: textGap / 2,
-                height: 1,
-              ),
-            ),
+            WidgetSpan(child: SizedBox(width: textGap / 2, height: 1)),
           );
           dimensions.add(
             PlaceholderDimensions(
@@ -890,10 +853,7 @@ class _HomePageState extends State<HomePage> {
 
       textPainter =
           TextPainter(
-              text: TextSpan(
-                children: children,
-                style: textStyle,
-              ),
+              text: TextSpan(children: children, style: textStyle),
               textAlign: .center,
               textDirection: .ltr,
               maxLines: 1,
@@ -986,17 +946,15 @@ class _HomePageState extends State<HomePage> {
   Future<List<ImageFile>> _gotoPickImages(int limit) async {
     final picker = ImagePicker();
     final images = await picker.pickMultiImage(limit: limit);
-    final imageFutures = images.mapIndexed(
-      (index, image) async {
-        return ImageFile(
-          'index_${uuid.v4()}',
-          name: image.name,
-          extension: extension(image.name),
-          path: image.path,
-          bytes: await image.readAsBytes(),
-        );
-      },
-    ).toList();
+    final imageFutures = images.mapIndexed((index, image) async {
+      return ImageFile(
+        'index_${uuid.v4()}',
+        name: image.name,
+        extension: extension(image.name),
+        path: image.path,
+        bytes: await image.readAsBytes(),
+      );
+    }).toList();
 
     return Future.wait(imageFutures);
   }

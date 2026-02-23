@@ -80,18 +80,13 @@ class _OpacityPickerState extends State<OpacityPicker> {
                     ),
                     ValueListenableBuilder(
                       valueListenable: opacityNotifier,
-                      builder:
-                          (
-                            context,
-                            value,
-                            child,
-                          ) => SizedBox(
-                            width: 28,
-                            child: Text(
-                              value.toStringAsFixed(1),
-                              textAlign: .center,
-                            ),
-                          ),
+                      builder: (context, value, child) => SizedBox(
+                        width: 28,
+                        child: Text(
+                          value.toStringAsFixed(1),
+                          textAlign: .center,
+                        ),
+                      ),
                     ),
                   ],
                 ),

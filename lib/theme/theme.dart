@@ -20,29 +20,21 @@ class AppTheme {
       ),
       bottomSheetTheme: BottomSheetThemeData(
         surfaceTintColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: .circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: .circular(10)),
         clipBehavior: .antiAliasWithSaveLayer,
       ),
       checkboxTheme: CheckboxThemeData(
         fillColor: .all(Colors.white),
         checkColor: .all(PGColors.primaryColor),
       ),
-      radioTheme: RadioThemeData(
-        fillColor: .all(PGColors.primaryColor),
-      ),
-      dividerTheme: const DividerThemeData(
-        color: Colors.transparent,
-      ),
+      radioTheme: RadioThemeData(fillColor: .all(PGColors.primaryColor)),
+      dividerTheme: const DividerThemeData(color: Colors.transparent),
       cardTheme: CardThemeData(
         clipBehavior: .hardEdge,
         color: Colors.white,
         shadowColor: Colors.transparent,
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: .circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: .circular(10)),
         margin: const .symmetric(horizontal: 10),
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -53,37 +45,27 @@ class AppTheme {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: .circular(8),
-          borderSide: const BorderSide(
-            color: PGColors.borderColor,
-          ),
+          borderSide: const BorderSide(color: PGColors.borderColor),
           gapPadding: 0,
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: .circular(8),
-          borderSide: const BorderSide(
-            color: PGColors.borderColor,
-          ),
+          borderSide: const BorderSide(color: PGColors.borderColor),
           gapPadding: 0,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: .circular(8),
-          borderSide: const BorderSide(
-            color: PGColors.primaryColor,
-          ),
+          borderSide: const BorderSide(color: PGColors.primaryColor),
           gapPadding: 0,
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: .circular(8),
-          borderSide: const BorderSide(
-            color: PGColors.errorTextColor,
-          ),
+          borderSide: const BorderSide(color: PGColors.errorTextColor),
           gapPadding: 0,
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: .circular(8),
-          borderSide: const BorderSide(
-            color: PGColors.errorTextColor,
-          ),
+          borderSide: const BorderSide(color: PGColors.errorTextColor),
           gapPadding: 0,
         ),
         errorStyle: const TextStyle(
@@ -92,30 +74,20 @@ class AppTheme {
           color: PGColors.errorTextColor,
         ),
       ),
-      colorScheme: ColorScheme.fromSwatch(
-        accentColor: PGColors.primaryColor,
-      ),
-      tabBarTheme: const TabBarThemeData(
-        tabAlignment: .start,
-      ),
+      colorScheme: ColorScheme.fromSwatch(accentColor: PGColors.primaryColor),
+      tabBarTheme: const TabBarThemeData(tabAlignment: .start),
       dialogTheme: DialogThemeData(
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: .circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: .circular(20)),
       ),
       buttonTheme: ButtonThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: .circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: .circular(8)),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: .circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: .circular(8)),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
@@ -123,23 +95,17 @@ class AppTheme {
           backgroundColor: Colors.white,
           foregroundColor: PGColors.primaryBackgroundColor,
           padding: .zero,
-          shape: RoundedRectangleBorder(
-            borderRadius: .circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: .circular(8)),
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: .circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: .circular(8)),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: .circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: .circular(8)),
         ),
       ),
     );
@@ -159,21 +125,15 @@ class AppTheme {
       bottomSheetTheme: BottomSheetThemeData(
         surfaceTintColor: PGColors.dialogBackgroundColor,
         backgroundColor: PGColors.dialogBackgroundColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: .circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: .circular(10)),
         clipBehavior: .antiAliasWithSaveLayer,
       ),
       checkboxTheme: CheckboxThemeData(
         fillColor: .all(Colors.white),
         checkColor: .all(PGColors.primaryColor),
       ),
-      radioTheme: RadioThemeData(
-        fillColor: .all(PGColors.primaryColor),
-      ),
-      dividerTheme: const DividerThemeData(
-        color: Colors.transparent,
-      ),
+      radioTheme: RadioThemeData(fillColor: .all(PGColors.primaryColor)),
+      dividerTheme: const DividerThemeData(color: Colors.transparent),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: const TextStyle(
           fontSize: 14,
@@ -182,37 +142,27 @@ class AppTheme {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: PGColors.borderColor,
-          ),
+          borderSide: const BorderSide(color: PGColors.borderColor),
           gapPadding: 0,
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: PGColors.borderColor,
-          ),
+          borderSide: const BorderSide(color: PGColors.borderColor),
           gapPadding: 0,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: PGColors.primaryColor,
-          ),
+          borderSide: const BorderSide(color: PGColors.primaryColor),
           gapPadding: 0,
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: PGColors.errorTextColor,
-          ),
+          borderSide: const BorderSide(color: PGColors.errorTextColor),
           gapPadding: 0,
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: PGColors.errorTextColor,
-          ),
+          borderSide: const BorderSide(color: PGColors.errorTextColor),
           gapPadding: 0,
         ),
         errorStyle: const TextStyle(
@@ -225,9 +175,7 @@ class AppTheme {
         brightness: .dark,
         accentColor: PGColors.primaryColor,
       ),
-      tabBarTheme: const TabBarThemeData(
-        tabAlignment: .start,
-      ),
+      tabBarTheme: const TabBarThemeData(tabAlignment: .start),
       dialogTheme: DialogThemeData(
         backgroundColor: PGColors.dialogBackgroundColor,
         surfaceTintColor: Colors.transparent,
@@ -238,15 +186,11 @@ class AppTheme {
         ),
       ),
       buttonTheme: ButtonThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: .circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: .circular(8)),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: .circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: .circular(8)),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
@@ -254,23 +198,17 @@ class AppTheme {
           backgroundColor: PGColors.dialogBackgroundColor,
           foregroundColor: PGColors.primaryBackgroundColor,
           padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-            borderRadius: .circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: .circular(8)),
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: .circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: .circular(8)),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: .circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: .circular(8)),
         ),
       ),
     );

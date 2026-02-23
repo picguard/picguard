@@ -186,24 +186,21 @@ class MineSectionGroup<T> extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          items.length,
-          (index) {
-            final item = items.elementAt(index);
-            return MineSectionItem(
-              name: item.title,
-              showBorder: !(index == items.length - 1),
-              labelColor: item.color,
-              overlayColor: item.overlayColor,
-              callback: item.callback,
-              showIcon: item.showIcon,
-              direction: item.direction,
-              tips: item.tips,
-              leading: item.leading,
-              trailing: item.trailing,
-            );
-          },
-        ),
+        children: List.generate(items.length, (index) {
+          final item = items.elementAt(index);
+          return MineSectionItem(
+            name: item.title,
+            showBorder: !(index == items.length - 1),
+            labelColor: item.color,
+            overlayColor: item.overlayColor,
+            callback: item.callback,
+            showIcon: item.showIcon,
+            direction: item.direction,
+            tips: item.tips,
+            leading: item.leading,
+            trailing: item.trailing,
+          );
+        }),
       ),
     );
 
@@ -254,10 +251,7 @@ class MineSectionGroup<T> extends StatelessWidget {
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: itemWidgets,
-    );
+    return Padding(padding: const EdgeInsets.only(top: 20), child: itemWidgets);
   }
 }
 

@@ -11,10 +11,7 @@ import 'package:picguard/widgets/widgets.dart';
 
 /// 图片组
 class ImageGroup extends StatefulWidget {
-  const ImageGroup({
-    required this.controller,
-    super.key,
-  });
+  const ImageGroup({required this.controller, super.key});
 
   final MultiImagePickerController controller;
 
@@ -47,9 +44,7 @@ class _ImageGroupState extends State<ImageGroup> {
             builder: (context, imageFile) {
               return DefaultDraggableItemWidget(
                 imageFile: imageFile,
-                boxDecoration: BoxDecoration(
-                  borderRadius: .circular(10),
-                ),
+                boxDecoration: BoxDecoration(borderRadius: .circular(10)),
                 closeButtonIcon: const Icon(
                   Icons.delete_rounded,
                   color: Colors.red,
@@ -66,11 +61,7 @@ class _ImageGroupState extends State<ImageGroup> {
             ),
             addMoreButton: AddMoreWidget(
               statesController: addMoreWidgetStateController,
-              icon: const Icon(
-                Icons.add,
-                color: PGColors.white,
-                size: 30,
-              ),
+              icon: const Icon(Icons.add, color: PGColors.white, size: 30),
             ),
             // Use any Widget or DefaultAddMoreWidget. Use null to hide add more button.
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

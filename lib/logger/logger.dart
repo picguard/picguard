@@ -24,11 +24,7 @@ void printWarningLog(Object? object) {
   talker.warning(object);
 }
 
-void printErrorLog(
-  dynamic error, {
-  DateTime? time,
-  StackTrace? stackTrace,
-}) {
+void printErrorLog(dynamic error, {DateTime? time, StackTrace? stackTrace}) {
   talker.error(error, null, stackTrace);
 }
 

@@ -57,12 +57,7 @@ class TextInput extends StatelessWidget {
                   },
                   decoration: InputDecoration(
                     isDense: true,
-                    contentPadding: const .fromLTRB(
-                      10,
-                      11.5,
-                      5,
-                      11.5,
-                    ),
+                    contentPadding: const .fromLTRB(10, 11.5, 5, 11.5),
                     enabledBorder: hasError
                         ? OutlineInputBorder(
                             borderRadius: .circular(4),
@@ -81,9 +76,7 @@ class TextInput extends StatelessWidget {
                           ),
                     disabledBorder: OutlineInputBorder(
                       borderRadius: .circular(4),
-                      borderSide: const BorderSide(
-                        color: PGColors.borderColor,
-                      ),
+                      borderSide: const BorderSide(color: PGColors.borderColor),
                       gapPadding: 0,
                     ),
                     hintText: t.homePage.textInput,

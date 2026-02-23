@@ -85,18 +85,13 @@ class _TextRowGapState extends State<TextRowGap> {
                     ),
                     ValueListenableBuilder(
                       valueListenable: rowGapNotifier,
-                      builder:
-                          (
-                            context,
-                            value,
-                            child,
-                          ) => SizedBox(
-                            width: 28,
-                            child: Text(
-                              value.toStringAsFixed(0),
-                              textAlign: .center,
-                            ),
-                          ),
+                      builder: (context, value, child) => SizedBox(
+                        width: 28,
+                        child: Text(
+                          value.toStringAsFixed(0),
+                          textAlign: .center,
+                        ),
+                      ),
                     ),
                   ],
                 ),
