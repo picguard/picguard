@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.1
+
+1. fix: update translations (#599)
+2. chore(deps): update deps (#603)
+3. fix: update app_updater (#604)
+
 ## 5.3.0
 
 1. chore(deps): update deps
