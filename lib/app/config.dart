@@ -22,6 +22,8 @@ class AppConfig {
 
   String get iosAppId => isPro ? '6737562597' : '6737562561';
 
+  String get androidPackageName => isPro ? 'com.kjxbyz.picguard.pro' : 'com.kjxbyz.picguard';
+
   String get macAppId => iosAppId;
 
   String get microsoftProductId => isPro ? '9N0ZV9Q5SVCX' : '9NCC0LJBG7TB';
