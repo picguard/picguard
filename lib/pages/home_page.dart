@@ -111,17 +111,13 @@ class _HomePageState extends State<HomePage> {
         appUpdater = AppUpdater.configure(
           // Mobile
           iosAppId: AppConfig.shared.iosAppId,
-          // androidPackageName is auto-detected!
+          androidPackageName: AppConfig.shared.androidPackageName,
 
           // Desktop
           macAppId: AppConfig.shared.macAppId,
           microsoftProductId: AppConfig.shared.microsoftProductId,
           snapName: AppConfig.shared.snapName,
           flathubAppId: AppConfig.shared.flathubAppId,
-
-          // GitHub Releases support
-          githubOwner: 'picguard',
-          githubRepo: 'picguard',
 
           // Update frequency control - only check once per day
           checkFrequency: const Duration(days: 1),
@@ -415,6 +411,7 @@ class _HomePageState extends State<HomePage> {
     final t = Translations.of(context);
     final updateInfo = await appUpdater.checkAndShowUpdateDialog(
       context,
+      isDismissible: false,
       showSkipVersion: true,
       showDoNotAskAgain: true,
       onNoUpdate: () {
