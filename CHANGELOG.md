@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.2
+
+1. fix: check whether a browser is available. (#606)
+
 ## 5.3.1
 
 1. fix: update translations (#599)
