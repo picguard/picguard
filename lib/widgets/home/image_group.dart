@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/widgets/widgets.dart';
+import '../../generated/colors.gen.dart';
+import 'add_more_widget.dart';
+import 'initial_widget.dart';
 
 /// 图片组
 class ImageGroup extends StatefulWidget {

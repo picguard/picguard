@@ -8,7 +8,6 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
-import 'package:app_updater/app_updater.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/foundation.dart';
@@ -32,16 +31,15 @@ import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:path/path.dart' hide context;
 
-import 'package:picguard/app/config.dart';
-import 'package:picguard/constants/constants.dart';
-import 'package:picguard/constants/uuid.dart';
-import 'package:picguard/events/events.dart';
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
-import 'package:picguard/logger/logger.dart';
-import 'package:picguard/models/models.dart';
-import 'package:picguard/utils/utils.dart';
-import 'package:picguard/widgets/widgets.dart';
+import '../app/config.dart';
+import '../constants/constants.dart';
+import '../generated/colors.gen.dart';
+import '../i18n/i18n.g.dart';
+import '../logger/logger.dart';
+import '../mixins/mixins.dart';
+import '../models/file_wrapper.dart';
+import '../utils/utils.dart';
+import '../widgets/widgets.dart';
 
 ///
 class HomePage extends StatefulWidget {
@@ -52,43 +50,17 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  late MultiImagePickerController controller;
-
+class _HomePageState extends State<HomePage> with AutomaticCheckUpdatesMixin {
   final _key = GlobalKey<ExpandableFabState>();
   final _formKey = GlobalKey<FormBuilderState>();
 
   final inputFocusNode = FocusNode();
 
-  // Create AppUpdater instance with all new features configured
-  late final AppUpdater appUpdater;
-
-  // Stream subscription for background updates
-  StreamSubscription<UpdateInfo>? _updateSubscription;
-
-  // Track if background checking is active
-  bool _isBackgroundCheckingActive = false;
-
-  late final AppLifecycleListener _listener;
-
-  late final StreamSubscription<AppUpdatesEvent> _appUpdatesStreamSubscription;
+  late MultiImagePickerController controller;
 
   @override
   void initState() {
     super.initState();
-    _appUpdatesStreamSubscription = eventBus.on<AppUpdatesEvent>().listen((
-      event,
-    ) async {
-      if (isMobile || isDesktop) {
-        await _checkForUpdates();
-        // await _showDialogWithOptions();
-      }
-    });
-
-    _listener = AppLifecycleListener(
-      onShow: _toggleBackgroundChecking,
-      onHide: _toggleBackgroundChecking,
-    );
 
     controller =
         MultiImagePickerController(
@@ -106,71 +78,14 @@ class _HomePageState extends State<HomePage> {
     });
 
     WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
-      if (isMobile || isDesktop) {
-        final t = Translations.of(context);
-        appUpdater = AppUpdater.configure(
-          // Mobile
-          iosAppId: AppConfig.shared.iosAppId,
-          androidPackageName: AppConfig.shared.androidPackageName,
-
-          // Desktop
-          macAppId: AppConfig.shared.macAppId,
-          microsoftProductId: AppConfig.shared.microsoftProductId,
-          snapName: AppConfig.shared.snapName,
-          flathubAppId: AppConfig.shared.flathubAppId,
-
-          // Update frequency control - only check once per day
-          checkFrequency: const Duration(days: 1),
-
-          // Force update if below this version
-          minimumVersion: '1.0.0',
-
-          strings: UpdateStrings(
-            updateAvailableTitle: t.dialogs.updatesDialog.updateAvailableTitle,
-            updateAvailableMessage:
-                t.dialogs.updatesDialog.updateAvailableMessage,
-            updateButton: t.dialogs.updatesDialog.updateButton,
-            laterButton: t.dialogs.updatesDialog.laterButton,
-            skipVersionButton: t.dialogs.updatesDialog.skipVersionButton,
-            doNotAskAgainButton: t.dialogs.updatesDialog.doNotAskAgainButton,
-            criticalUpdateTitle: t.dialogs.updatesDialog.criticalUpdateTitle,
-            criticalUpdateMessage:
-                t.dialogs.updatesDialog.criticalUpdateMessage,
-            releaseNotesTitle: t.dialogs.updatesDialog.releaseNotesTitle,
-            loadingText: t.dialogs.updatesDialog.loadingText,
-            errorText: t.dialogs.updatesDialog.errorText,
-            upToDateText: t.dialogs.updatesDialog.upToDateText,
-          ),
-
-          // Analytics callback
-          onAnalyticsEvent: (event) {
-            printDebugLog('Analytics Event: ${event.eventName}');
-            printDebugLog('  Platform: ${event.platform}');
-            printDebugLog('  Current Version: ${event.currentVersion}');
-            if (event.latestVersion != null) {
-              printDebugLog('  Latest Version: ${event.latestVersion}');
-            }
-            if (event.urgency != null) {
-              printDebugLog('  Urgency: ${event.urgency}');
-            }
-          },
-        );
-
-        if (isMobile) {
-          await DialogUtil.showLicenseDialog();
-        }
-        await _checkForUpdates();
-        // await _showDialogWithOptions();
+      if (isMobile) {
+        await DialogUtil.showLicenseDialog();
       }
     });
   }
 
   @override
   void dispose() {
-    _appUpdatesStreamSubscription.cancel();
-    _listener.dispose();
-    _updateSubscription?.cancel();
-    appUpdater.dispose();
     controller.dispose();
     super.dispose();
   }
@@ -405,69 +320,6 @@ class _HomePageState extends State<HomePage> {
     }
 
     return KeyboardDismisser(child: child);
-  }
-
-  Future<void> _checkForUpdates() async {
-    final t = Translations.of(context);
-    final updateInfo = await appUpdater.checkAndShowUpdateDialog(
-      context,
-      isDismissible: false,
-      showSkipVersion: true,
-      showDoNotAskAgain: true,
-      onNoUpdate: () {
-        if (mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(t.homePage.appNoUpdates)));
-        }
-      },
-      onUpdate: () => appUpdater.openStore(),
-      onCancel: () => printDebugLog('User cancelled update'),
-    );
-
-    printDebugLog('Current version: ${updateInfo.currentVersion}');
-    printDebugLog('Latest version: ${updateInfo.latestVersion}');
-    printDebugLog('Update available: ${updateInfo.updateAvailable}');
-    printDebugLog('Release notes: ${updateInfo.releaseNotes}');
-    printDebugLog('Urgency: ${updateInfo.urgency}');
-  }
-
-  void _showSnackBar(String message) {
-    if (!mounted) return;
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
-  }
-
-  void _toggleBackgroundChecking() {
-    final t = Translations.of(context);
-    setState(() {
-      if (_isBackgroundCheckingActive) {
-        // Stop background checking
-        appUpdater.stopBackgroundChecking();
-        _updateSubscription?.cancel();
-        _updateSubscription = null;
-        _isBackgroundCheckingActive = false;
-        _showSnackBar(t.homePage.backgroundCheckingStopped);
-      } else {
-        // Start background checking every 30 seconds (for demo purposes)
-        appUpdater.startBackgroundChecking(const Duration(seconds: 30));
-
-        // Listen for updates
-        _updateSubscription = appUpdater.updateStream.listen((updateInfo) {
-          if (updateInfo.updateAvailable && mounted) {
-            _showSnackBar(
-              t.homePage.backgroundCheckingAvailable(
-                latestVersion: updateInfo.latestVersion!,
-              ),
-            );
-          }
-        });
-
-        _isBackgroundCheckingActive = true;
-        _showSnackBar(t.homePage.backgroundCheckingStarted(seconds: 30));
-      }
-    });
   }
 
   // Future<void> _showDialogWithOptions() async {

@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'package:picguard/constants/constants.dart';
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
-import 'package:picguard/logger/logger.dart';
-import 'package:picguard/utils/utils.dart';
-import 'package:picguard/widgets/widgets.dart';
+import '../../constants/constants.dart';
+import '../../generated/colors.gen.dart';
+import '../../i18n/i18n.g.dart';
+import '../../logger/logger.dart';
+import '../../utils/utils.dart';
+import '../base_form_item.dart';
 
 /// 字体选择
 class FontPicker extends StatelessWidget {

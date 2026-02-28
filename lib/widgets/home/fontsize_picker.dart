@@ -9,10 +9,10 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
-import 'package:picguard/utils/utils.dart';
-import 'package:picguard/widgets/widgets.dart';
+import '../../generated/colors.gen.dart';
+import '../../i18n/i18n.g.dart';
+import '../../utils/utils.dart';
+import '../base_form_item.dart';
 
 final minFontSize = isMobile ? 36.0 : 18.0;
 double initialFontSize = isMobile ? 72 : 36;

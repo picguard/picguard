@@ -3,7 +3,8 @@
 // See the LICENSE file in the project root for full license information.
 
 import 'package:nb_utils/nb_utils.dart';
-import 'package:picguard/utils/utils.dart';
+
+import '../utils/string_util.dart';
 
 class PgEnv {
   static String sentryDsn = const String.fromEnvironment('SENTRY_DSN');

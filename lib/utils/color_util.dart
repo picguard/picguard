@@ -4,7 +4,7 @@
 
 import 'dart:ui';
 
-import 'package:picguard/utils/string_util.dart';
+import 'string_util.dart';
 
 ///
 class ColorUtil {

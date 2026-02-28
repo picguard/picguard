@@ -4,4 +4,5 @@
 
 export 'env.dart';
 export 'keys.dart';
+export 'uuid.dart';
 export 'values.dart';

@@ -4,8 +4,8 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
+import '../../generated/colors.gen.dart';
+import '../../i18n/i18n.g.dart';
 
 /// 声明文本
 class AppDescription extends StatelessWidget {
