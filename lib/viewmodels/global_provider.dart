@@ -4,9 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:picguard/app/config.dart';
-import 'package:picguard/logger/logger.dart';
-import 'package:picguard/utils/utils.dart';
+
+import '../app/config.dart';
+import '../logger/logger.dart';
+import '../utils/utils.dart';
 
 class GlobalProvider extends ChangeNotifier {
   GlobalProvider() {

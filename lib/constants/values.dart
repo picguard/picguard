@@ -3,7 +3,8 @@
 // See the LICENSE file in the project root for full license information.
 
 import 'package:nb_utils/nb_utils.dart';
-import 'package:picguard/models/models.dart';
+
+import '../models/pg_font.dart';
 
 const spacing = 8.0;
 const runSpacing = 4.0;

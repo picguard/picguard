@@ -2,8 +2,8 @@
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
-import 'package:picguard/generated/assets.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
+import '../generated/assets.gen.dart';
+import '../i18n/i18n.g.dart';
 
 class AppConfig {
   factory AppConfig.create({Flavor flavor = Flavor.free}) {
@@ -22,7 +22,8 @@ class AppConfig {
 
   String get iosAppId => isPro ? '6737562597' : '6737562561';
 
-  String get androidPackageName => isPro ? 'com.kjxbyz.picguard.pro' : 'com.kjxbyz.picguard';
+  String get androidPackageName =>
+      isPro ? 'com.kjxbyz.picguard.pro' : 'com.kjxbyz.picguard';
 
   String get macAppId => iosAppId;
 

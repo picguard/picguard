@@ -8,11 +8,11 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
-import 'package:picguard/constants/constants.dart';
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
-import 'package:picguard/utils/utils.dart';
-import 'package:picguard/widgets/widgets.dart';
+import '../../constants/constants.dart';
+import '../../generated/colors.gen.dart';
+import '../../i18n/i18n.g.dart';
+import '../../utils/utils.dart';
+import '../base_form_item.dart';
 
 /// 文本行间距
 class TextRowGap extends StatefulWidget {

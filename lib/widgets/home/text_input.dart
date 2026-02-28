@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
-import 'package:picguard/utils/utils.dart';
-import 'package:picguard/widgets/widgets.dart';
+import '../../generated/colors.gen.dart';
+import '../../i18n/i18n.g.dart';
+import '../../utils/utils.dart';
+import '../base_form_item.dart';
 
 /// 输入框
 class TextInput extends StatelessWidget {

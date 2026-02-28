@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
-import 'package:picguard/generated/colors.gen.dart';
+import '../../generated/colors.gen.dart';
 
 class AddMoreWidget extends StatelessWidget {
   const AddMoreWidget({

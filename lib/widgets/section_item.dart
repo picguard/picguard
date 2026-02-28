@@ -4,8 +4,8 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/utils/utils.dart';
+import '../generated/colors.gen.dart';
+import '../utils/utils.dart';
 
 class MineSectionItem extends StatelessWidget {
   const MineSectionItem({

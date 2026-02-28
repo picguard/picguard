@@ -19,16 +19,16 @@ import 'package:sentry_logging/sentry_logging.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:tray_manager/tray_manager.dart';
 
-import 'package:picguard/app/config.dart';
-import 'package:picguard/constants/constants.dart';
-import 'package:picguard/enums/enums.dart';
-import 'package:picguard/i18n/i18n.g.dart';
-import 'package:picguard/logger/logger.dart';
-import 'package:picguard/pages/pages.dart';
-import 'package:picguard/theme/theme.dart';
-import 'package:picguard/utils/utils.dart';
-import 'package:picguard/viewmodels/viewmodels.dart';
-import 'package:picguard/widgets/widgets.dart';
+import '../app/config.dart';
+import '../constants/constants.dart';
+import '../enums/enums.dart';
+import '../i18n/i18n.g.dart';
+import '../logger/logger.dart';
+import '../pages/pages.dart';
+import '../theme/theme.dart';
+import '../utils/utils.dart';
+import '../viewmodels/viewmodels.dart';
+import '../widgets/widgets.dart';
 
 void reportErrorAndLog(FlutterErrorDetails details) {
   printErrorLog(details.exception, stackTrace: details.stack);

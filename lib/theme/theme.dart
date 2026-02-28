@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:picguard/generated/colors.gen.dart';
+import '../generated/colors.gen.dart';
 
 ///
 class AppTheme {

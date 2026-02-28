@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:menu_bar/menu_bar.dart';
-import 'package:picguard/constants/constants.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import 'package:picguard/app/config.dart';
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
-import 'package:picguard/logger/logger.dart';
-import 'package:picguard/utils/utils.dart';
+import '../app/config.dart';
+import '../constants/constants.dart';
+import '../generated/colors.gen.dart';
+import '../i18n/i18n.g.dart';
+import '../logger/logger.dart';
+import '../utils/utils.dart';
 
 const macosMenuChannel = MethodChannel('macos_menu_channel');
 

@@ -13,20 +13,21 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:picguard/events/events.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import 'package:picguard/app/config.dart';
-import 'package:picguard/constants/constants.dart';
-import 'package:picguard/generated/assets.gen.dart';
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
-import 'package:picguard/logger/logger.dart';
-import 'package:picguard/models/models.dart';
-import 'package:picguard/types/types.dart';
-import 'package:picguard/utils/utils.dart';
-import 'package:picguard/widgets/widgets.dart';
+import '../app/config.dart';
+import '../constants/constants.dart';
+import '../generated/assets.gen.dart';
+import '../generated/colors.gen.dart';
+import '../events/events.dart';
+import '../i18n/i18n.g.dart';
+import '../logger/logger.dart';
+import '../models/models.dart';
+import '../types/types.dart';
+import '../widgets/widgets.dart';
+import 'navigator_util.dart';
+import 'string_util.dart';
 
 const double _buttonHeight = 54;
 

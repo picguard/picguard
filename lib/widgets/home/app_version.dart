@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 
 import 'package:package_info_plus/package_info_plus.dart';
 
-import 'package:picguard/app/config.dart';
-import 'package:picguard/constants/env.dart';
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
+import '../../app/config.dart';
+import '../../constants/env.dart';
+import '../../generated/colors.gen.dart';
+import '../../i18n/i18n.g.dart';
 
 /// 版本号
 class AppVersion extends StatelessWidget {
