@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.3.3
+
+1. refactor: add mixins (#608)
+2. fix: the limit option does not work when using Android Photo Picker. (#609)
+
 ## 5.3.2
 
 1. fix: check whether a browser is available. (#606)
