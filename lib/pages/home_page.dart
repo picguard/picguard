@@ -25,6 +25,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:gap/gap.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_android/image_picker_android.dart';
+import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
@@ -793,8 +795,22 @@ class _HomePageState extends State<HomePage> with AutomaticCheckUpdatesMixin {
   }
 
   Future<List<ImageFile>> _gotoPickImages(int limit) async {
+    final ImagePickerPlatform imagePickerImplementation =
+        ImagePickerPlatform.instance;
+    if (imagePickerImplementation is ImagePickerAndroid) {
+      imagePickerImplementation.useAndroidPhotoPicker = true;
+    }
+
     final picker = ImagePicker();
-    final images = await picker.pickMultiImage(limit: limit);
+
+    List<XFile> images;
+    if (limit == 1) {
+      final picked = await picker.pickImage(source: ImageSource.gallery);
+      images = [?picked];
+    } else {
+      images = await picker.pickMultiImage(limit: limit);
+    }
+
     final imageFutures = images.mapIndexed((index, image) async {
       return ImageFile(
         'index_${uuid.v4()}',
