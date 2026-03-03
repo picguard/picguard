@@ -62,7 +62,7 @@ class _ImageGroupState extends State<ImageGroup> {
             ),
             addMoreButton: AddMoreWidget(
               statesController: addMoreWidgetStateController,
-              icon: const Icon(Icons.add, color: PGColors.white, size: 30),
+              icon: const Icon(Icons.add, color: PGColors.white, size: 26),
             ),
             // Use any Widget or DefaultAddMoreWidget. Use null to hide add more button.
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

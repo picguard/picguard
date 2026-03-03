@@ -50,11 +50,8 @@ class AddMoreWidget extends StatelessWidget {
           statesController: statesController,
           child: Center(
             child: CircleAvatar(
-              radius: 25,
-              child: Padding(
-                padding: const .all(10),
-                child: icon ?? const Icon(Icons.add, color: PGColors.white),
-              ),
+              radius: 20,
+              child: icon ?? const Icon(Icons.add, color: PGColors.white),
             ),
           ),
         ),
