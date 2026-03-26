@@ -53,7 +53,7 @@ dependencies:
   provider: ^6.1.5+1
   sentry_flutter: ^9.15.0
   sentry_logging: ^9.15.0
-  shared_preferences: ^2.5.4
+  shared_preferences: ^2.5.5
   slang_flutter: ^4.14.0
   syncfusion_flutter_sliders: ^33.1.45
   synchronized: ^3.4.0
