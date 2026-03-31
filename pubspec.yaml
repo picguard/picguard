@@ -55,7 +55,7 @@ dependencies:
   sentry_logging: ^9.16.0
   shared_preferences: ^2.5.5
   slang_flutter: ^4.14.0
-  syncfusion_flutter_sliders: ^33.1.45
+  syncfusion_flutter_sliders: ^33.1.46
   synchronized: ^3.4.0
   talker_flutter: ^5.1.16
   tray_manager: ^0.5.2
