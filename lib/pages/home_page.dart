@@ -532,7 +532,7 @@ class _HomePageState extends State<HomePage> with AutomaticCheckUpdatesMixin {
 
         String? selectedDirectory;
         if (isDesktop) {
-          selectedDirectory = await FilePicker.platform.getDirectoryPath();
+          selectedDirectory = await FilePicker.getDirectoryPath();
         }
 
         final results = <bool>[];

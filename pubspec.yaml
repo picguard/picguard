@@ -28,7 +28,7 @@ dependencies:
   desktop_drop: ^0.7.0
   device_info_plus: ^12.3.0
   event_bus: ^2.0.1
-  file_picker: ^10.3.10
+  file_picker: ^11.0.2
   file_saver: ^0.3.1
   flutter:
     sdk: flutter
@@ -51,11 +51,11 @@ dependencies:
   permission_handler: ^12.0.1
   photo_view: ^0.15.0
   provider: ^6.1.5+1
-  sentry_flutter: ^9.16.0
-  sentry_logging: ^9.16.0
+  sentry_flutter: ^9.16.1
+  sentry_logging: ^9.16.1
   shared_preferences: ^2.5.5
   slang_flutter: ^4.14.0
-  syncfusion_flutter_sliders: ^33.1.45
+  syncfusion_flutter_sliders: ^33.1.47
   synchronized: ^3.4.0
   talker_flutter: ^5.1.16
   tray_manager: ^0.5.2
