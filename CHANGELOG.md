@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.4.0
+
+1. chore(deps): update deps (#617)
+2. Update flutter to 3.41.6 (#623)
+3. chore(deps): bump microsoft/setup-msbuild from 2 to 3 (#618)
+4. build(deps): bump GitHub runner from macos-15 to macos-26 (#632)
+
 ## 5.3.3
 
 1. refactor: add mixins (#608)
