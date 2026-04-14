@@ -37174,31 +37174,31 @@ return A.t($async$CF,r)},
 aiF(){var s=0,r=A.u(t.H)
 var $async$aiF=A.p(function(a,b){if(a===1)return A.q(b,r)
 for(;;)switch(s){case 0:s=4
-return A.o(A.Ro("https://picguard.app/support"),$async$aiF)
+return A.o(A.Ro("https://picguard.org/support"),$async$aiF)
 case 4:s=b?2:3
 break
 case 2:s=5
-return A.o(A.Ru("https://picguard.app/support"),$async$aiF)
+return A.o(A.Ru("https://picguard.org/support"),$async$aiF)
 case 5:case 3:return A.r(null,r)}})
 return A.t($async$aiF,r)},
 aiG(){var s=0,r=A.u(t.H)
 var $async$aiG=A.p(function(a,b){if(a===1)return A.q(b,r)
 for(;;)switch(s){case 0:s=4
-return A.o(A.Ro("https://picguard.app/legal/terms-of-use"),$async$aiG)
+return A.o(A.Ro("https://picguard.org/legal/terms-of-use"),$async$aiG)
 case 4:s=b?2:3
 break
 case 2:s=5
-return A.o(A.Ru("https://picguard.app/legal/terms-of-use"),$async$aiG)
+return A.o(A.Ru("https://picguard.org/legal/terms-of-use"),$async$aiG)
 case 5:case 3:return A.r(null,r)}})
 return A.t($async$aiG,r)},
 aiE(){var s=0,r=A.u(t.H)
 var $async$aiE=A.p(function(a,b){if(a===1)return A.q(b,r)
 for(;;)switch(s){case 0:s=4
-return A.o(A.Ro("https://picguard.app/legal/privacy"),$async$aiE)
+return A.o(A.Ro("https://picguard.org/legal/privacy"),$async$aiE)
 case 4:s=b?2:3
 break
 case 2:s=5
-return A.o(A.Ru("https://picguard.app/legal/privacy"),$async$aiE)
+return A.o(A.Ru("https://picguard.org/legal/privacy"),$async$aiE)
 case 5:case 3:return A.r(null,r)}})
 return A.t($async$aiE,r)},
 Rx(a,b,c,d){return A.bD0(a,b,c,d)},
@@ -113442,7 +113442,7 @@ $2(a,b){var s,r,q,p,o=null
 if(b.a===B.hz&&b.b!=null){s=A.fv(a,t.v,t.u).f.rw($.pl().a)
 r=b.b
 q=r==null?o:r.c
-p=$.biL()?"\n"+B.c.a0("fbb1409e7c650134b27fe3453209c42c2ab0b97f",0,8):""
+p=$.biL()?"\n"+B.c.a0("55e816c7b02a6d057c5b8d4f9e03d5d483f439d9",0,8):""
 return A.b1(s+" "+A.k(q)+p,o,o,o,o,B.pr,B.b1,o)}return B.aT},
 $S:685}
 A.Tk.prototype={
@@ -131470,7 +131470,7 @@ s($,"bH5","bjA",()=>new A.aMp().$0())
 s($,"bFK","biJ",()=>new A.F())
 r($,"b8D","pl",()=>A.bmk(B.ec))
 r($,"bFN","aj_",()=>A.b5v(u.F))
-r($,"bFM","biL",()=>A.b5v("fbb1409e7c650134b27fe3453209c42c2ab0b97f"))
+r($,"bFM","biL",()=>A.b5v("55e816c7b02a6d057c5b8d4f9e03d5d483f439d9"))
 r($,"bFL","biK",()=>A.b5v(""))
 s($,"bK6","blI",()=>new A.aqw(A.mW(!1,t.z)))
 s($,"bEA","h1",()=>A.bqm())
