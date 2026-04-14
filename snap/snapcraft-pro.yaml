@@ -11,12 +11,12 @@ description: |
   Download **PicGuard Pro** today and take control of your photo security and personalization like never before!
 icon: snap/gui/picguard-pro.png
 title: PicGuard Pro
-contact: support@picguard.app
+contact: support@picguard.org
 license: GPL-3.0-only
 source-code: https://github.com/picguard/picguard
 issues: https://github.com/picguard/picguard/issues
-website: https://picguard.app
-donation: https://picguard.app/sponsors
+website: https://picguard.org
+donation: https://picguard.org/sponsors
 confinement: strict
 base: core22
 grade: stable

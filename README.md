@@ -24,7 +24,7 @@
 
 ## 📥 Download
 
-[https://picguard.app/download](https://picguard.app/download)
+[https://picguard.org/download](https://picguard.org/download)
 
 ## License
 

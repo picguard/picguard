@@ -20,7 +20,7 @@
         <name>Qiazo</name>
     </developer>
     <url type="bugtracker">https://github.com/picguard/picguard/issues</url>
-    <url type="homepage">https://picguard.app</url>
+    <url type="homepage">https://picguard.org</url>
     <url type="donation">https://buymeacoffee.com/wangying</url>
     <url type="faq">https://github.com/picguard/picguard/discussions</url>
     <url type="translate">https://crowdin.com/project/picguard</url>
@@ -73,5 +73,5 @@
         <content_attribute id="social-audio">intense</content_attribute>
         <content_attribute id="social-contacts">intense</content_attribute>
     </content_rating>
-    <update_contact>support@picguard.app</update_contact>
+    <update_contact>support@picguard.org</update_contact>
 </component>
