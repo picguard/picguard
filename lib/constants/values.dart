@@ -28,6 +28,6 @@ const fontFamilies = <PGFont>[
   PGFont(fontFamily: 'SourceSans3', name: 'Source Sans 3'),
 ];
 
-const websiteBaseUrl = 'https://picguard.app';
+const websiteBaseUrl = 'https://picguard.org';
 
 const githubBaseUrl = 'https://github.com/picguard/picguard';
