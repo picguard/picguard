@@ -1,0 +1,29 @@
+// Copyright 2023 Qiazo. All rights reserved.
+// This source code is licensed under the GNU General Public License v3.0.
+// See the LICENSE file in the project root for full license information.
+
+import 'package:flutter/material.dart';
+
+import '../../generated/colors.gen.dart';
+import '../../i18n/i18n.g.dart';
+
+/// 声明文本
+class Tips extends StatelessWidget {
+  const Tips({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Translations.of(context);
+    return Text(
+      t.homePage.tips,
+      style: const TextStyle(
+        color: PGColors.errorTextColor,
+        fontSize: 12,
+        height: 1.5,
+      ),
+      maxLines: 2,
+      overflow: .ellipsis,
+      textAlign: .center,
+    );
+  }
+}

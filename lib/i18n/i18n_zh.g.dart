@@ -89,6 +89,7 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 	@override String get cancelDrag => '拖拽已取消';
 	@override String limitValidator({required Object maxImages, required Object lastImages}) => '最多支持${maxImages}张图片，您还可以上传${lastImages}张图片.';
 	@override String get formatValidator => '仅支持PNG和JPEG格式.';
+	@override String get tips => '预览和保存操作需要点击两次，生成图片中的水印才不会乱码';
 	@override String get preview => '预览';
 	@override String get save => '保存';
 	@override String get savedSuccess => '保存成功';
@@ -330,6 +331,7 @@ extension on TranslationsZh {
 			'homePage.cancelDrag' => '拖拽已取消',
 			'homePage.limitValidator' => ({required Object maxImages, required Object lastImages}) => '最多支持${maxImages}张图片，您还可以上传${lastImages}张图片.',
 			'homePage.formatValidator' => '仅支持PNG和JPEG格式.',
+			'homePage.tips' => '预览和保存操作需要点击两次，生成图片中的水印才不会乱码',
 			'homePage.preview' => '预览',
 			'homePage.save' => '保存',
 			'homePage.savedSuccess' => '保存成功',
