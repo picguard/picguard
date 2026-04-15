@@ -59,8 +59,8 @@ mixin AutomaticCheckUpdatesMixin<T extends StatefulWidget> on State<T> {
           snapName: AppConfig.shared.snapName,
           flathubAppId: AppConfig.shared.flathubAppId,
 
-          // Update frequency control - only check once per day
-          checkFrequency: const Duration(days: 1),
+          // Update frequency control - only check once per hour
+          // checkFrequency: const Duration(hours: 1),
 
           // Force update if below this version
           minimumVersion: '1.0.0',
