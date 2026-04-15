@@ -21,8 +21,6 @@ class Tips extends StatelessWidget {
         fontSize: 12,
         height: 1.5,
       ),
-      maxLines: 2,
-      overflow: .ellipsis,
       textAlign: .center,
     );
   }
