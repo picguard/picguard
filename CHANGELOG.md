@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.4.1
+
+1. fix: update domains
+2. chore(deps): update deps
+3. fix: update automatic check updates
+4. fix: LateInitializationError: Field 'appUpdater' has not been initialized.
+5. fix(web): Add tips
+
 ## 5.4.0
 
 1. chore(deps): update deps (#617)
