@@ -31,6 +31,52 @@ mixin AutomaticCheckUpdatesMixin<T extends StatefulWidget> on State<T> {
   @override
   void initState() {
     super.initState();
+    appUpdater = AppUpdater.configure(
+      // Mobile
+      iosAppId: AppConfig.shared.iosAppId,
+      androidPackageName: AppConfig.shared.androidPackageName,
+
+      // Desktop
+      macAppId: AppConfig.shared.macAppId,
+      microsoftProductId: AppConfig.shared.microsoftProductId,
+      snapName: AppConfig.shared.snapName,
+      flathubAppId: AppConfig.shared.flathubAppId,
+
+      // Update frequency control - only check once per hour
+      // checkFrequency: const Duration(hours: 1),
+
+      // Force update if below this version
+      minimumVersion: '1.0.0',
+
+      strings: UpdateStrings(
+        updateAvailableTitle: t.dialogs.updatesDialog.updateAvailableTitle,
+        updateAvailableMessage: t.dialogs.updatesDialog.updateAvailableMessage,
+        updateButton: t.dialogs.updatesDialog.updateButton,
+        laterButton: t.dialogs.updatesDialog.laterButton,
+        skipVersionButton: t.dialogs.updatesDialog.skipVersionButton,
+        doNotAskAgainButton: t.dialogs.updatesDialog.doNotAskAgainButton,
+        criticalUpdateTitle: t.dialogs.updatesDialog.criticalUpdateTitle,
+        criticalUpdateMessage: t.dialogs.updatesDialog.criticalUpdateMessage,
+        releaseNotesTitle: t.dialogs.updatesDialog.releaseNotesTitle,
+        loadingText: t.dialogs.updatesDialog.loadingText,
+        errorText: t.dialogs.updatesDialog.errorText,
+        upToDateText: t.dialogs.updatesDialog.upToDateText,
+      ),
+
+      // Analytics callback
+      onAnalyticsEvent: (event) {
+        printDebugLog('Analytics Event: ${event.eventName}');
+        printDebugLog('  Platform: ${event.platform}');
+        printDebugLog('  Current Version: ${event.currentVersion}');
+        if (event.latestVersion != null) {
+          printDebugLog('  Latest Version: ${event.latestVersion}');
+        }
+        if (event.urgency != null) {
+          printDebugLog('  Urgency: ${event.urgency}');
+        }
+      },
+    );
+
     _appUpdatesStreamSubscription = eventBus.on<AppUpdatesEvent>().listen((
       event,
     ) async {
@@ -47,55 +93,6 @@ mixin AutomaticCheckUpdatesMixin<T extends StatefulWidget> on State<T> {
 
     WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
       if (isMobile || isDesktop) {
-        final t = Translations.of(context);
-        appUpdater = AppUpdater.configure(
-          // Mobile
-          iosAppId: AppConfig.shared.iosAppId,
-          androidPackageName: AppConfig.shared.androidPackageName,
-
-          // Desktop
-          macAppId: AppConfig.shared.macAppId,
-          microsoftProductId: AppConfig.shared.microsoftProductId,
-          snapName: AppConfig.shared.snapName,
-          flathubAppId: AppConfig.shared.flathubAppId,
-
-          // Update frequency control - only check once per hour
-          // checkFrequency: const Duration(hours: 1),
-
-          // Force update if below this version
-          minimumVersion: '1.0.0',
-
-          strings: UpdateStrings(
-            updateAvailableTitle: t.dialogs.updatesDialog.updateAvailableTitle,
-            updateAvailableMessage:
-                t.dialogs.updatesDialog.updateAvailableMessage,
-            updateButton: t.dialogs.updatesDialog.updateButton,
-            laterButton: t.dialogs.updatesDialog.laterButton,
-            skipVersionButton: t.dialogs.updatesDialog.skipVersionButton,
-            doNotAskAgainButton: t.dialogs.updatesDialog.doNotAskAgainButton,
-            criticalUpdateTitle: t.dialogs.updatesDialog.criticalUpdateTitle,
-            criticalUpdateMessage:
-                t.dialogs.updatesDialog.criticalUpdateMessage,
-            releaseNotesTitle: t.dialogs.updatesDialog.releaseNotesTitle,
-            loadingText: t.dialogs.updatesDialog.loadingText,
-            errorText: t.dialogs.updatesDialog.errorText,
-            upToDateText: t.dialogs.updatesDialog.upToDateText,
-          ),
-
-          // Analytics callback
-          onAnalyticsEvent: (event) {
-            printDebugLog('Analytics Event: ${event.eventName}');
-            printDebugLog('  Platform: ${event.platform}');
-            printDebugLog('  Current Version: ${event.currentVersion}');
-            if (event.latestVersion != null) {
-              printDebugLog('  Latest Version: ${event.latestVersion}');
-            }
-            if (event.urgency != null) {
-              printDebugLog('  Urgency: ${event.urgency}');
-            }
-          },
-        );
-
         await _checkForUpdates();
         // await _showDialogWithOptions();
       }
