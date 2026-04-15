@@ -26,6 +26,7 @@
     "cancelDrag": "Drag canceled",
     "limitValidator": "Supports up to $maxImages pictures, you can also upload $lastImages picture(s).",
     "formatValidator": "Only PNG and JPEG formats are supported.",
+    "tips": "The preview and save operations require two clicks to generate watermarks in the image without garbled characters",
     "preview": "Preview",
     "save": "Save",
     "savedSuccess": "Saved successfully",

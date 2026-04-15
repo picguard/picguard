@@ -26,6 +26,7 @@
     "cancelDrag": "拖拽已取消",
     "limitValidator": "最多支持$maxImages张图片，您还可以上传$lastImages张图片.",
     "formatValidator": "仅支持PNG和JPEG格式.",
+    "tips": "预览和保存操作需要点击两次，生成图片中的水印才不会乱码",
     "preview": "预览",
     "save": "保存",
     "savedSuccess": "保存成功",

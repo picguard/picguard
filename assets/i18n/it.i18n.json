@@ -26,6 +26,7 @@
     "cancelDrag": "Trascinamento annullato",
     "limitValidator": "Supporta fino a $maxImages immagini, puoi anche caricare $lastImages immagini.",
     "formatValidator": "Supportare solo i formati PNG e JPEG",
+    "tips": "Le operazioni di anteprima e salvataggio richiedono due clic per generare filigrane nell'immagine senza caratteri distorti",
     "preview": "Anteprima",
     "save": "Salva",
     "savedSuccess": "Salvataggio riuscito",

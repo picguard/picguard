@@ -138,6 +138,9 @@ class TranslationsHomePageEn {
 	/// en: 'Only PNG and JPEG formats are supported.'
 	String get formatValidator => 'Only PNG and JPEG formats are supported.';
 
+	/// en: 'The preview and save operations require two clicks to generate watermarks in the image without garbled characters'
+	String get tips => 'The preview and save operations require two clicks to generate watermarks in the image without garbled characters';
+
 	/// en: 'Preview'
 	String get preview => 'Preview';
 
@@ -529,6 +532,7 @@ extension on Translations {
 			'homePage.cancelDrag' => 'Drag canceled',
 			'homePage.limitValidator' => ({required Object maxImages, required Object lastImages}) => 'Supports up to ${maxImages} pictures, you can also upload ${lastImages} picture(s).',
 			'homePage.formatValidator' => 'Only PNG and JPEG formats are supported.',
+			'homePage.tips' => 'The preview and save operations require two clicks to generate watermarks in the image without garbled characters',
 			'homePage.preview' => 'Preview',
 			'homePage.save' => 'Save',
 			'homePage.savedSuccess' => 'Saved successfully',

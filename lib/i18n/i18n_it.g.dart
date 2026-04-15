@@ -89,6 +89,7 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String get cancelDrag => 'Trascinamento annullato';
 	@override String limitValidator({required Object maxImages, required Object lastImages}) => 'Supporta fino a ${maxImages} immagini, puoi anche caricare ${lastImages} immagini.';
 	@override String get formatValidator => 'Supportare solo i formati PNG e JPEG';
+	@override String get tips => 'Le operazioni di anteprima e salvataggio richiedono due clic per generare filigrane nell\'immagine senza caratteri distorti';
 	@override String get preview => 'Anteprima';
 	@override String get save => 'Salva';
 	@override String get savedSuccess => 'Salvataggio riuscito';
@@ -330,6 +331,7 @@ extension on TranslationsIt {
 			'homePage.cancelDrag' => 'Trascinamento annullato',
 			'homePage.limitValidator' => ({required Object maxImages, required Object lastImages}) => 'Supporta fino a ${maxImages} immagini, puoi anche caricare ${lastImages} immagini.',
 			'homePage.formatValidator' => 'Supportare solo i formati PNG e JPEG',
+			'homePage.tips' => 'Le operazioni di anteprima e salvataggio richiedono due clic per generare filigrane nell\'immagine senza caratteri distorti',
 			'homePage.preview' => 'Anteprima',
 			'homePage.save' => 'Salva',
 			'homePage.savedSuccess' => 'Salvataggio riuscito',

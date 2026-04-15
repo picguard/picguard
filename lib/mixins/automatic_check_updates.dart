@@ -141,33 +141,35 @@ mixin AutomaticCheckUpdatesMixin<T extends StatefulWidget> on State<T> {
   }
 
   void _toggleBackgroundChecking() {
-    final t = Translations.of(context);
-    setState(() {
-      if (_isBackgroundCheckingActive) {
-        // Stop background checking
-        appUpdater.stopBackgroundChecking();
-        _updateSubscription?.cancel();
-        _updateSubscription = null;
-        _isBackgroundCheckingActive = false;
-        _showSnackBar(t.homePage.backgroundCheckingStopped);
-      } else {
-        // Start background checking every 30 seconds (for demo purposes)
-        appUpdater.startBackgroundChecking(const Duration(seconds: 30));
+    if (isMobile || isDesktop) {
+      final t = Translations.of(context);
+      setState(() {
+        if (_isBackgroundCheckingActive) {
+          // Stop background checking
+          appUpdater.stopBackgroundChecking();
+          _updateSubscription?.cancel();
+          _updateSubscription = null;
+          _isBackgroundCheckingActive = false;
+          _showSnackBar(t.homePage.backgroundCheckingStopped);
+        } else {
+          // Start background checking every 30 seconds (for demo purposes)
+          appUpdater.startBackgroundChecking(const Duration(seconds: 30));
 
-        // Listen for updates
-        _updateSubscription = appUpdater.updateStream.listen((updateInfo) {
-          if (updateInfo.updateAvailable && mounted) {
-            _showSnackBar(
-              t.homePage.backgroundCheckingAvailable(
-                latestVersion: updateInfo.latestVersion!,
-              ),
-            );
-          }
-        });
+          // Listen for updates
+          _updateSubscription = appUpdater.updateStream.listen((updateInfo) {
+            if (updateInfo.updateAvailable && mounted) {
+              _showSnackBar(
+                t.homePage.backgroundCheckingAvailable(
+                  latestVersion: updateInfo.latestVersion!,
+                ),
+              );
+            }
+          });
 
-        _isBackgroundCheckingActive = true;
-        _showSnackBar(t.homePage.backgroundCheckingStarted(seconds: 30));
-      }
-    });
+          _isBackgroundCheckingActive = true;
+          _showSnackBar(t.homePage.backgroundCheckingStarted(seconds: 30));
+        }
+      });
+    }
   }
 }
