@@ -1,5 +1,71 @@
 # Changelog
 
+## 5.4.1
+
+1. fix: update domains
+2. chore(deps): update deps
+3. fix: update automatic check updates
+4. fix: LateInitializationError: Field 'appUpdater' has not been initialized.
+5. fix(web): Add tips
+
+## 5.4.0
+
+1. chore(deps): update deps (#617)
+2. Update flutter to 3.41.6 (#623)
+3. chore(deps): bump microsoft/setup-msbuild from 2 to 3 (#618)
+4. build(deps): bump GitHub runner from macos-15 to macos-26 (#632)
+
+## 5.3.3
+
+1. refactor: add mixins (#608)
+2. fix: the limit option does not work when using Android Photo Picker. (#609)
+
+## 5.3.2
+
+1. fix: check whether a browser is available. (#606)
+
+## 5.3.1
+
+1. fix: update translations (#599)
+2. chore(deps): update deps (#603)
+3. fix: update app_updater (#604)
+
+## 5.3.0
+
+1. chore(deps): update deps
+2. feat: in-app update (#594)
+3. refactor: change `logging` to `talker` (#597)
+
+## 5.2.1
+
+1. chore(deps): update deps
+2. Update flutter to 3.38.10
+3. Failed to find any of [ld.lld, ld] in LocalDirectory: '/usr/lib/llvm-14/bin' (#577)
+
+## 5.2.0
+
+1. chore(deps): update deps
+2. Update flutter to 3.38.9
+3. fix: set Xcode version to 26.2 (#569)
+4. fix: replace `nuget restore` with `msbuild -restore` (#552)
+
+## 5.1.0
+
+1. fix: Moved to Qiazo
+2. chore(deps): update deps
+3. Update flutter to 3.38.4
+
+## 5.0.5
+
+1. Update flutter to 3.38.1
+2. chore(deps): update deps
+
+## 5.0.4
+
+1. Update flutter to 3.35.6
+2. chore(deps): update deps
+3. ci: update windows runner to windows-2025 (#474)
+
 ## 5.0.3
 
 1. Update flutter to 3.35.4

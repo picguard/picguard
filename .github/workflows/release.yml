@@ -18,11 +18,11 @@ on:
         required: false
 
 # Declare default permissions as readonly.
-permissions: read-all
+permissions: write-all
 
 env:
   flutter-channel: 'stable'
-  flutter-version: '3.35.5'
+  flutter-version: '3.41.6'
 
 jobs:
   create-release:
@@ -36,7 +36,7 @@ jobs:
       release: ${{ steps.version_step.outputs.release }}
       tag_name: ${{ steps.version_step.outputs.tag_name }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Set sha
         id: sha_step
@@ -87,7 +87,7 @@ jobs:
         env:
           SHA: ${{ steps.sha_step.outputs.sha }}
           TAG_NAME: ${{ steps.version_step.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
   publish:
     name: Publish
@@ -133,7 +133,7 @@ jobs:
       - windows-zip-free
       - windows-zip-pro
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Publish a release
         run: |
@@ -147,7 +147,7 @@ jobs:
           IS_LATEST: ${{ inputs.latest }}
           SHA: ${{ needs.create-release.outputs.sha }}
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
   apk-free:
     name: Create apk (free)
@@ -155,7 +155,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-java@v5
         with:
@@ -227,7 +227,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.apk
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -242,7 +242,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-java@v5
         with:
@@ -314,7 +314,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.apk
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -329,7 +329,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-java@v5
         with:
@@ -379,7 +379,7 @@ jobs:
       - name: Build appbundle
         run: |
           FLAVOR="$([[ "$ENV" == "staging" ]] && echo "freeStaging" || echo "freeProduction")"
-          flutter build appbundle --dart-define-from-file=.env --no-tree-shake-icons --target lib/main_free.dart --flavor $FLAVOR
+          flutter build appbundle --dart-define-from-file=.env --dart-define=CHECK_UPDATES=true --no-tree-shake-icons --target lib/main_free.dart --flavor $FLAVOR
         env:
           ENV: ${{ inputs.env }}
 
@@ -406,7 +406,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.aab
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -421,7 +421,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-java@v5
         with:
@@ -471,7 +471,7 @@ jobs:
       - name: Build appbundle
         run: |
           FLAVOR="$([[ "$ENV" == "staging" ]] && echo "proStaging" || echo "proProduction")"
-          flutter build appbundle --dart-define-from-file=.env --no-tree-shake-icons --target lib/main_pro.dart --flavor $FLAVOR
+          flutter build appbundle --dart-define-from-file=.env --dart-define=CHECK_UPDATES=true --no-tree-shake-icons --target lib/main_pro.dart --flavor $FLAVOR
         env:
           ENV: ${{ inputs.env }}
 
@@ -498,7 +498,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.aab
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -509,17 +509,11 @@ jobs:
 
   ios-free:
     name: Create ios (free)
-    runs-on: macos-15
+    runs-on: macos-26
     needs:
       - create-release
     steps:
-      - name: Select Xcode version
-        run: sudo xcode-select --switch /Applications/Xcode_16.4.app
-
-      - name: print Xcode version
-        run: xcodebuild -version
-
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -601,13 +595,13 @@ jobs:
         if: inputs.env == 'staging'
         run: |
           echo "╠ Releasing to adhoc..."
-          flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/debug.plist
+          flutter build ipa --dart-define-from-file=.env --dart-define=CHECK_UPDATES=true --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/debug.plist
 
       - name: Build ipa
         if: inputs.env == 'production'
         run: |
           echo "╠ Releasing to app store..."
-          flutter build ipa --dart-define-from-file=.env --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/release.plist
+          flutter build ipa --dart-define-from-file=.env --dart-define=CHECK_UPDATES=true --target lib/main_free.dart --flavor free --export-options-plist=ios/ExportOptions/free/release.plist
 
       # Package the build.
       - name: Copy build for iOS
@@ -622,7 +616,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.ipa
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -636,17 +630,11 @@ jobs:
 
   ios-pro:
     name: Create ios (pro)
-    runs-on: macos-15
+    runs-on: macos-26
     needs:
       - create-release
     steps:
-      - name: Select Xcode version
-        run: sudo xcode-select --switch /Applications/Xcode_16.4.app
-
-      - name: print Xcode version
-        run: xcodebuild -version
-
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -728,13 +716,13 @@ jobs:
         if: inputs.env == 'staging'
         run: |
           echo "╠ Releasing to adhoc..."
-          flutter build ipa --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/debug.plist
+          flutter build ipa --dart-define-from-file=.env --dart-define=CHECK_UPDATES=true --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/debug.plist
 
       - name: Build ipa
         if: inputs.env == 'production'
         run: |
           echo "╠ Releasing to app store..."
-          flutter build ipa --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/release.plist
+          flutter build ipa --dart-define-from-file=.env --dart-define=CHECK_UPDATES=true --target lib/main_pro.dart --flavor pro --export-options-plist=ios/ExportOptions/pro/release.plist
 
       # Package the build.
       - name: Copy build for iOS
@@ -749,7 +737,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.ipa
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -763,11 +751,11 @@ jobs:
 
   macos-dmg-free:
     name: Create macos dmg (free)
-    runs-on: macos-15
+    runs-on: macos-26
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -876,7 +864,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.dmg
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -889,11 +877,11 @@ jobs:
 
   macos-dmg-pro:
     name: Create macos dmg (pro)
-    runs-on: macos-15
+    runs-on: macos-26
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1002,7 +990,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.dmg
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1015,11 +1003,11 @@ jobs:
 
   macos-pkg-free:
     name: Create macos pkg (free)
-    runs-on: macos-15
+    runs-on: macos-26
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1147,7 +1135,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.pkg
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1160,11 +1148,11 @@ jobs:
 
   macos-pkg-pro:
     name: Create macos pkg (pro)
-    runs-on: macos-15
+    runs-on: macos-26
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1292,7 +1280,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.pkg
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1305,11 +1293,11 @@ jobs:
 
   macos-appstore-free:
     name: Create macos appstore (free)
-    runs-on: macos-15
+    runs-on: macos-26
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1345,7 +1333,7 @@ jobs:
       - name: Build macOS
         run: |
           echo "╠ Releasing to mac app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_free.dart --flavor free
+          flutter build macos --dart-define-from-file=.env --dart-define=CHECK_UPDATES=true --target lib/main_free.dart --flavor free
 
       - name: Install certificates
         run: |
@@ -1431,7 +1419,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.pkg
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1444,11 +1432,11 @@ jobs:
 
   macos-appstore-pro:
     name: Create macos appstore (pro)
-    runs-on: macos-15
+    runs-on: macos-26
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1484,7 +1472,7 @@ jobs:
       - name: Build macOS
         run: |
           echo "╠ Releasing to mac app store..."
-          flutter build macos --dart-define-from-file=.env --target lib/main_pro.dart --flavor pro
+          flutter build macos --dart-define-from-file=.env --dart-define=CHECK_UPDATES=true --target lib/main_pro.dart --flavor pro
 
       - name: Install certificates
         run: |
@@ -1570,7 +1558,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.pkg
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1583,11 +1571,11 @@ jobs:
 
   macos-zip-free:
     name: Create macos zip (free)
-    runs-on: macos-15
+    runs-on: macos-26
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1705,7 +1693,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.zip
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1718,11 +1706,11 @@ jobs:
 
   macos-zip-pro:
     name: Create macos zip (pro)
-    runs-on: macos-15
+    runs-on: macos-26
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -1840,7 +1828,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.zip
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1857,7 +1845,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install dependencies for Linux
         run: |
@@ -1894,7 +1882,7 @@ jobs:
 
       - name: Install fastforge
         run: dart pub global activate fastforge
-        
+
       - name: Remove unused files
         run: rm -f "$(pwd)/linux/packaging/deb/make_config-pro.yaml"
 
@@ -1921,7 +1909,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.deb
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -1933,7 +1921,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install dependencies for Linux
         run: |
@@ -1969,7 +1957,7 @@ jobs:
 
       - name: Install fastforge
         run: dart pub global activate fastforge
-        
+
       - name: Remove unused files
         run: rm -f "$(pwd)/linux/packaging/deb/make_config-pro.yaml"
 
@@ -1996,7 +1984,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.deb
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2008,7 +1996,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install dependencies for Linux
         run: |
@@ -2079,7 +2067,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.deb
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2091,7 +2079,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install dependencies for Linux
         run: |
@@ -2161,7 +2149,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.deb
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2175,7 +2163,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Java
         uses: actions/setup-java@v5
@@ -2225,7 +2213,7 @@ jobs:
       - name: Install fastforge
         run: |
           dart pub global activate --source git https://github.com/kjxbyz/fastforge --git-ref rpm --git-path packages/fastforge
-        
+
       - name: Remove unused files
         run: rm -f "$(pwd)/linux/packaging/rpm/make_config-pro.yaml"
 
@@ -2266,7 +2254,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-java@v5
         with:
@@ -2364,7 +2352,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Java
         uses: actions/setup-java@v5
@@ -2462,7 +2450,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-java@v5
         with:
@@ -2566,7 +2554,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -2622,7 +2610,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.snap
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2641,7 +2629,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -2705,7 +2693,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.snap
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2724,7 +2712,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -2784,7 +2772,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.snap
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2803,7 +2791,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup LXD
         uses: canonical/setup-lxd@v0.1.3
@@ -2871,7 +2859,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.snap
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2888,7 +2876,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install dependencies for Linux
         run: |
@@ -2945,7 +2933,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -2957,7 +2945,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install dependencies for Linux
         run: |
@@ -3023,7 +3011,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3035,7 +3023,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install dependencies for Linux
         run: |
@@ -3097,7 +3085,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3109,7 +3097,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install dependencies for Linux
         run: |
@@ -3180,7 +3168,7 @@ jobs:
         run: gh release upload "$TAG_NAME" ./*.tar.gz
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3194,7 +3182,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -3293,7 +3281,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.exe)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3320,7 +3308,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -3425,7 +3413,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.exe)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3453,7 +3441,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -3500,7 +3488,7 @@ jobs:
           flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
 
       - name: Add MSBuild to PATH
-        uses: microsoft/setup-msbuild@v2
+        uses: microsoft/setup-msbuild@v3
 
       - name: Create msi
         shell: pwsh
@@ -3518,8 +3506,7 @@ jobs:
           pushd ./msi
 
           python preprocess.py --arp -d ../build/windows/$env:Platform/runner/Release -i ../windows/runner/resources/app_icon.ico -v "$env:VERSION_SHORT.$env:BUILD_NUMBER"
-          nuget restore picguard.sln
-          msbuild picguard.sln -p:Configuration="$env:Configuration" -p:Platform="$env:Platform" /p:TargetVersion=Windows10
+          msbuild picguard.sln -restore -p:Configuration="$env:Configuration" -p:Platform="$env:Platform" /p:TargetVersion=Windows10
 
           $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
           & $signtool sign /v /f "$certificatePath" /fd SHA256 /t http://timestamp.comodoca.com/authenticode /p "$env:WINDOWS_CERTIFICATE_PASSWORD" /n "$env:WINDOWS_PUBLISHER_NAME" (get-item ".\picguard\bin\$env:Platform\$env:Configuration\*\*.msi")
@@ -3547,7 +3534,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.msi)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3574,7 +3561,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -3626,7 +3613,7 @@ jobs:
           flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Add MSBuild to PATH
-        uses: microsoft/setup-msbuild@v2
+        uses: microsoft/setup-msbuild@v3
 
       - name: Create msi
         shell: pwsh
@@ -3644,8 +3631,7 @@ jobs:
           pushd ./msi
 
           python preprocess-pro.py --arp -d ../build/windows/$env:Platform/runner/Release -i ../windows/runner/resources/app_icon.ico -v "$env:VERSION_SHORT.$env:BUILD_NUMBER"
-          nuget restore picguard-pro.sln
-          msbuild picguard-pro.sln -p:Configuration="$env:Configuration" -p:Platform="$env:Platform" /p:TargetVersion=Windows10
+          msbuild picguard-pro.sln -restore -p:Configuration="$env:Configuration" -p:Platform="$env:Platform" /p:TargetVersion=Windows10
 
           $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
           & $signtool sign /v /f "$certificatePath" /fd SHA256 /t http://timestamp.comodoca.com/authenticode /p "$env:WINDOWS_CERTIFICATE_PASSWORD_PRO" /n "$env:WINDOWS_PUBLISHER_NAME_PRO" (get-item ".\picguard-pro\bin\$env:Platform\$env:Configuration\*\*.msi")
@@ -3673,7 +3659,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.msi)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3699,7 +3685,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -3732,9 +3718,11 @@ jobs:
         run: |
           # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
           # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
-          # $certificatePath = "$env:RUNNER_TEMP\picguard.pfx"
+          # $env:certificatePath = "$env:RUNNER_TEMP\picguard.pfx"
           # $bytes = echo $env:WINDOWS_CERTIFICATE | %{[Convert]::FromBase64String($_)}
-          # [IO.File]::WriteAllBytes("$certificatePath", $bytes)
+          # [IO.File]::WriteAllBytes("$env:certificatePath", $bytes)
+          
+          # $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD).Value
 
           $yamlFile = ".\pubspec.yaml"
           $yamlContent = Get-Content -Raw -Path $yamlFile
@@ -3743,7 +3731,6 @@ jobs:
           $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME).Value
           $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER).Value
           $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME).Value
-          # $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD).Value
 
           # 使用 yq 更新多个字段
           $updatedYamlContent = echo $yamlContent | yq e ".msix_config.identity_name = `"$identityName`" | .msix_config.publisher = `"$publisher`" | .msix_config.publisher_display_name = `"$publisherName`" | del(.msix_config.certificate_path) | del(.msix_config.certificate_password)" -
@@ -3763,7 +3750,7 @@ jobs:
       - name: Build windows
         run: |
           $env:SENTRY_NATIVE_BACKEND = "breakpad"
-          flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
+          flutter build windows --dart-define-from-file=.env --dart-define=CHECK_UPDATES=true --target lib/main_free.dart
 
       - name: Create msix
         run: dart run msix:create --store --build-windows false --output-name "picguard-$env:RELEASE-windows-store-$env:Platform"
@@ -3781,7 +3768,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.msix)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3815,7 +3802,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -3853,9 +3840,11 @@ jobs:
 
           # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
           # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
-          # $certificatePath = "$env:RUNNER_TEMP\picguard-pro.pfx"
+          # $env:certificatePath = "$env:RUNNER_TEMP\picguard-pro.pfx"
           # $bytes = echo $env:WINDOWS_CERTIFICATE_PRO | %{[Convert]::FromBase64String($_)}
-          # [IO.File]::WriteAllBytes("$certificatePath", $bytes)
+          # [IO.File]::WriteAllBytes("$env:certificatePath", $bytes)
+          
+          # $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD_PRO).Value
 
           $yamlFile = ".\pubspec.yaml"
           $yamlContent = Get-Content -Raw -Path $yamlFile
@@ -3864,7 +3853,6 @@ jobs:
           $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME_PRO).Value
           $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER_PRO).Value
           $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME_PRO).Value
-          # $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD_PRO).Value
 
           # 使用 yq 更新多个字段
           $updatedYamlContent = echo $yamlContent | yq e ".msix_config.display_name = `"PicGuard Pro`" | .msix_config.identity_name = `"$identityName`" | .msix_config.publisher = `"$publisher`" | .msix_config.publisher_display_name = `"$publisherName`" | del(.msix_config.certificate_path) | del(.msix_config.certificate_password)" -
@@ -3884,7 +3872,7 @@ jobs:
       - name: Build windows
         run: |
           $env:SENTRY_NATIVE_BACKEND = "breakpad"
-          flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
+          flutter build windows --dart-define-from-file=.env --dart-define=CHECK_UPDATES=true --target lib/main_pro.dart
 
       - name: Create msix
         run: dart run msix:create --store --build-windows false --output-name "picguard-pro-$env:RELEASE-windows-store-$env:Platform"
@@ -3902,7 +3890,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.msix)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -3936,7 +3924,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -3990,7 +3978,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.zip)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}
@@ -4010,7 +3998,7 @@ jobs:
     needs:
       - create-release
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -4073,7 +4061,7 @@ jobs:
           gh release upload "$env:TAG_NAME" (get-item .\*.zip)
         env:
           TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
-          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Clean up
         if: ${{ always() }}

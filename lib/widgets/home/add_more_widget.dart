@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
-import 'package:picguard/generated/colors.gen.dart';
+import '../../generated/colors.gen.dart';
 
 class AddMoreWidget extends StatelessWidget {
   const AddMoreWidget({
@@ -29,17 +29,14 @@ class AddMoreWidget extends StatelessWidget {
         backgroundColor ?? PGColors.primaryColor.withValues(alpha: 0.05);
     return Container(
       margin: margin ?? pickerView.padding,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: bgColor,
-      ),
+      decoration: BoxDecoration(borderRadius: .circular(20), color: bgColor),
       width: double.infinity,
       height: double.infinity,
       clipBehavior: Clip.hardEdge,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          overlayColor: WidgetStateProperty.resolveWith((states) {
+          overlayColor: .resolveWith((states) {
             if (states.contains(WidgetState.pressed)) {
               return PGColors.primaryColor.withValues(alpha: 0.15);
             }
@@ -53,11 +50,8 @@ class AddMoreWidget extends StatelessWidget {
           statesController: statesController,
           child: Center(
             child: CircleAvatar(
-              radius: 25,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: icon ?? const Icon(Icons.add, color: PGColors.white),
-              ),
+              radius: 20,
+              child: icon ?? const Icon(Icons.add, color: PGColors.white),
             ),
           ),
         ),

@@ -1,11 +1,11 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
 import 'package:flutter/material.dart';
 
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/utils/utils.dart';
+import '../generated/colors.gen.dart';
+import '../utils/utils.dart';
 
 class MineSectionItem extends StatelessWidget {
   const MineSectionItem({
@@ -41,7 +41,7 @@ class MineSectionItem extends StatelessWidget {
       child = Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (leading != null) leading!,
+          ?leading,
           Expanded(
             child: Text(
               name,
@@ -72,7 +72,7 @@ class MineSectionItem extends StatelessWidget {
               color: PGColors.borderColor,
               size: 14,
             ),
-          if (trailing != null) trailing!,
+          ?trailing,
         ],
       );
     } else {
@@ -85,7 +85,7 @@ class MineSectionItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (leading != null) leading!,
+                  ?leading,
                   Text(
                     name,
                     maxLines: 1,
@@ -118,7 +118,7 @@ class MineSectionItem extends StatelessWidget {
               color: PGColors.borderColor,
               size: 14,
             ),
-          if (trailing != null) trailing!,
+          ?trailing,
         ],
       );
     }
@@ -126,7 +126,7 @@ class MineSectionItem extends StatelessWidget {
     if (callback != null) {
       child = TextButton(
         style: ButtonStyle(
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          tapTargetSize: .shrinkWrap,
           minimumSize: WidgetStateProperty.all(Size.zero),
           padding: WidgetStateProperty.all(
             const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
@@ -186,24 +186,21 @@ class MineSectionGroup<T> extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          items.length,
-          (index) {
-            final item = items.elementAt(index);
-            return MineSectionItem(
-              name: item.title,
-              showBorder: !(index == items.length - 1),
-              labelColor: item.color,
-              overlayColor: item.overlayColor,
-              callback: item.callback,
-              showIcon: item.showIcon,
-              direction: item.direction,
-              tips: item.tips,
-              leading: item.leading,
-              trailing: item.trailing,
-            );
-          },
-        ),
+        children: List.generate(items.length, (index) {
+          final item = items.elementAt(index);
+          return MineSectionItem(
+            name: item.title,
+            showBorder: !(index == items.length - 1),
+            labelColor: item.color,
+            overlayColor: item.overlayColor,
+            callback: item.callback,
+            showIcon: item.showIcon,
+            direction: item.direction,
+            tips: item.tips,
+            leading: item.leading,
+            trailing: item.trailing,
+          );
+        }),
       ),
     );
 
@@ -254,10 +251,7 @@ class MineSectionGroup<T> extends StatelessWidget {
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: itemWidgets,
-    );
+    return Padding(padding: const EdgeInsets.only(top: 20), child: itemWidgets);
   }
 }
 

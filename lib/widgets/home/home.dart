@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -18,3 +18,4 @@ export 'preview_button.dart';
 export 'save_button.dart';
 export 'text_column_gap.dart';
 export 'text_row_gap.dart';
+export 'tips.dart';

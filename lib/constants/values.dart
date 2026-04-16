@@ -1,9 +1,10 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
 import 'package:nb_utils/nb_utils.dart';
-import 'package:picguard/models/models.dart';
+
+import '../models/pg_font.dart';
 
 const spacing = 8.0;
 const runSpacing = 4.0;
@@ -27,6 +28,6 @@ const fontFamilies = <PGFont>[
   PGFont(fontFamily: 'SourceSans3', name: 'Source Sans 3'),
 ];
 
-const websiteBaseUrl = 'https://www.picguard.app';
+const websiteBaseUrl = 'https://picguard.org';
 
 const githubBaseUrl = 'https://github.com/picguard/picguard';

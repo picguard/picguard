@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -6,15 +6,13 @@ import 'package:flutter/material.dart';
 
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/widgets/widgets.dart';
+import '../../generated/colors.gen.dart';
+import 'add_more_widget.dart';
+import 'initial_widget.dart';
 
 /// 图片组
 class ImageGroup extends StatefulWidget {
-  const ImageGroup({
-    required this.controller,
-    super.key,
-  });
+  const ImageGroup({required this.controller, super.key});
 
   final MultiImagePickerController controller;
 
@@ -44,33 +42,27 @@ class _ImageGroupState extends State<ImageGroup> {
           width: maxWidth,
           child: MultiImagePickerView(
             controller: widget.controller,
-            builder: (context, ImageFile imageFile) {
+            builder: (context, imageFile) {
               return DefaultDraggableItemWidget(
                 imageFile: imageFile,
-                boxDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                boxDecoration: BoxDecoration(borderRadius: .circular(10)),
                 closeButtonIcon: const Icon(
                   Icons.delete_rounded,
                   color: Colors.red,
                   size: 16,
                 ),
-                closeButtonMargin: const EdgeInsets.all(3),
+                closeButtonMargin: const .all(3),
               );
             },
             initialWidget: InitialWidget(
-              margin: EdgeInsets.zero,
+              margin: .zero,
               statesController: initWidgetStateController,
               height: initialWeightHeight,
               child: const Icon(Icons.add_a_photo),
             ),
             addMoreButton: AddMoreWidget(
               statesController: addMoreWidgetStateController,
-              icon: const Icon(
-                Icons.add,
-                color: PGColors.white,
-                size: 30,
-              ),
+              icon: const Icon(Icons.add, color: PGColors.white, size: 26),
             ),
             // Use any Widget or DefaultAddMoreWidget. Use null to hide add more button.
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

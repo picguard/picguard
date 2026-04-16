@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -12,7 +12,6 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart' hide TextInput;
 import 'package:mime/mime.dart';
 
@@ -26,21 +25,23 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:gap/gap.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_android/image_picker_android.dart';
+import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:path/path.dart' hide context;
 
-import 'package:picguard/app/config.dart';
-import 'package:picguard/constants/constants.dart';
-import 'package:picguard/constants/uuid.dart';
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
-import 'package:picguard/logger/logger.dart';
-import 'package:picguard/models/models.dart';
-import 'package:picguard/utils/utils.dart';
-import 'package:picguard/widgets/widgets.dart';
+import '../app/config.dart';
+import '../constants/constants.dart';
+import '../generated/colors.gen.dart';
+import '../i18n/i18n.g.dart';
+import '../logger/logger.dart';
+import '../mixins/mixins.dart';
+import '../models/file_wrapper.dart';
+import '../utils/utils.dart';
+import '../widgets/widgets.dart';
 
 ///
 class HomePage extends StatefulWidget {
@@ -51,15 +52,18 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  late MultiImagePickerController controller;
+class _HomePageState extends State<HomePage> with AutomaticCheckUpdatesMixin {
   final _key = GlobalKey<ExpandableFabState>();
   final _formKey = GlobalKey<FormBuilderState>();
+
   final inputFocusNode = FocusNode();
+
+  late MultiImagePickerController controller;
 
   @override
   void initState() {
     super.initState();
+
     controller =
         MultiImagePickerController(
           maxImages: 9,
@@ -75,9 +79,9 @@ class _HomePageState extends State<HomePage> {
       printDebugLog('locale changed: $event');
     });
 
-    SchedulerBinding.instance.addPostFrameCallback((timestamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
       if (isMobile) {
-        DialogUtil.showLicenseDialog();
+        await DialogUtil.showLicenseDialog();
       }
     });
   }
@@ -93,10 +97,7 @@ class _HomePageState extends State<HomePage> {
     final t = Translations.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final appName = t.appName(flavor: AppConfig.shared.flavor);
-    const padding = EdgeInsets.symmetric(
-      horizontal: paddingSize,
-      vertical: 20,
-    );
+    const padding = EdgeInsets.symmetric(horizontal: paddingSize, vertical: 20);
 
     Widget child = Scaffold(
       appBar: isMobile
@@ -123,10 +124,10 @@ class _HomePageState extends State<HomePage> {
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: .bold,
                 ),
                 maxLines: 2,
-                textAlign: TextAlign.center,
+                textAlign: .center,
               ),
               isDark: isDark,
               showBottom: false,
@@ -144,8 +145,8 @@ class _HomePageState extends State<HomePage> {
               child = SingleChildScrollView(
                 padding: padding,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: .spaceBetween,
+                  crossAxisAlignment: .start,
                   spacing: 10,
                   children: [
                     Flexible(
@@ -153,20 +154,18 @@ class _HomePageState extends State<HomePage> {
                       fit: FlexFit.tight,
                       child: Column(
                         spacing: 10,
-                        mainAxisSize: MainAxisSize.min,
+                        mainAxisSize: .min,
                         children: [
-                          ImageGroup(
-                            controller: controller,
-                          ),
+                          ImageGroup(controller: controller),
                           const AppDescription(),
                         ],
                       ),
                     ),
                     Flexible(
                       flex: 4,
-                      fit: FlexFit.tight,
+                      fit: .tight,
                       child: Column(
-                        mainAxisSize: MainAxisSize.min,
+                        mainAxisSize: .min,
                         children: [
                           FormBuilder(
                             key: _formKey,
@@ -186,6 +185,10 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           const Gap(20),
+                          if (isWeb) ...[
+                            Tips(),
+                            const Gap(10),
+                          ],
                           PreviewBtn(
                             onPressed: controller.images.isNotEmpty
                                 ? _preview
@@ -210,9 +213,7 @@ class _HomePageState extends State<HomePage> {
                 padding: padding,
                 shrinkWrap: true,
                 children: [
-                  ImageGroup(
-                    controller: controller,
-                  ),
+                  ImageGroup(controller: controller),
                   const Gap(10),
                   const AppDescription(),
                   const Gap(10),
@@ -234,6 +235,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   const Gap(20),
+                  if (isWeb) ...[
+                    Tips(),
+                    const Gap(10),
+                  ],
                   PreviewBtn(
                     onPressed: controller.images.isNotEmpty ? _preview : null,
                   ),
@@ -251,12 +256,7 @@ class _HomePageState extends State<HomePage> {
             //   return child;
             // }
 
-            return Stack(
-              fit: StackFit.expand,
-              children: [
-                child,
-              ],
-            );
+            return Stack(fit: .expand, children: [child]);
           },
         ),
       ),
@@ -266,42 +266,34 @@ class _HomePageState extends State<HomePage> {
               key: _key,
               duration: const Duration(milliseconds: 500),
               distance: 60,
-              type: ExpandableFabType.up,
+              type: .up,
               // pos: ExpandableFabPos.left,
               // childrenOffset: const Offset(0, 20),
-              childrenAnimation: ExpandableFabAnimation.none,
+              childrenAnimation: .none,
               fanAngle: 40,
               openButtonBuilder: RotateFloatingActionButtonBuilder(
                 child: const Icon(Icons.menu),
-                fabSize: ExpandableFabSize.small,
+                fabSize: .small,
                 foregroundColor: PGColors.primaryColor,
                 backgroundColor: PGColors.primaryBackgroundColor,
                 shape: const CircleBorder(),
               ),
               closeButtonBuilder: FloatingActionButtonBuilder(
                 size: 44,
-                builder:
-                    (
-                      BuildContext context,
-                      void Function()? onPressed,
-                      Animation<double> progress,
-                    ) {
-                      return IconButton(
-                        onPressed: onPressed,
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all(
-                            PGColors.backgroundColor,
-                          ),
-                          foregroundColor: WidgetStateProperty.all(
-                            PGColors.warnTextColor,
-                          ),
-                        ),
-                        icon: const Icon(
-                          Icons.close,
-                          size: 24,
-                        ),
-                      );
-                    },
+                builder: (context, void Function()? onPressed, progress) {
+                  return IconButton(
+                    onPressed: onPressed,
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(
+                        PGColors.backgroundColor,
+                      ),
+                      foregroundColor: WidgetStateProperty.all(
+                        PGColors.warnTextColor,
+                      ),
+                    ),
+                    icon: const Icon(Icons.close, size: 24),
+                  );
+                },
               ),
               overlayStyle: ExpandableFabOverlayStyle(
                 color: Colors.black.withValues(alpha: 0.5),
@@ -310,18 +302,18 @@ class _HomePageState extends State<HomePage> {
               children: [
                 IconBtn(
                   icon: Icons.settings,
-                  onPressed: () {
+                  onPressed: () async {
                     _key.currentState?.toggle();
-                    DialogUtil.showSettingsModal();
+                    await DialogUtil.showSettingsModal();
                   },
                 ),
                 IconBtn(
                   icon: Icons.info,
                   iconColor: PGColors.warnTextColor,
                   overlayColor: PGColors.backgroundColor,
-                  onPressed: () {
+                  onPressed: () async {
                     _key.currentState?.toggle();
-                    DialogUtil.showAboutModal();
+                    await DialogUtil.showAboutModal();
                   },
                 ),
               ],
@@ -337,13 +329,53 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    return KeyboardDismisser(
-      child: child,
-    );
+    return KeyboardDismisser(child: child);
   }
 
+  // Future<void> _showDialogWithOptions() async {
+  //   await appUpdater.showUpdateDialog(
+  //     context,
+  //     updateInfo: _createMockUpdateInfo(),
+  //     showSkipVersion: true,
+  //     showDoNotAskAgain: true,
+  //     onUpdate: () {
+  //       _showSnackBar('Update button pressed!');
+  //     },
+  //     onCancel: () {
+  //       _showSnackBar('Cancel button pressed');
+  //     },
+  //   );
+  // }
+
+  // Mock UpdateInfo for demonstrations with release notes
+  // UpdateInfo _createMockUpdateInfo({
+  //   UpdateUrgency urgency = UpdateUrgency.medium,
+  //   bool isMandatory = false,
+  //   String? releaseNotes,
+  // }) {
+  //   return UpdateInfo(
+  //     currentVersion: '1.0.0',
+  //     latestVersion: '2.0.0',
+  //     updateUrl: 'https://example.com',
+  //     updateAvailable: true,
+  //     urgency: urgency,
+  //     isMandatory: isMandatory,
+  //     releaseNotes:
+  //         releaseNotes ??
+  //         '• New dark mode support\n'
+  //             '• Performance improvements\n'
+  //             '• Bug fixes and stability improvements\n'
+  //             '• Updated UI components',
+  //     releaseDate: DateTime.now().subtract(const Duration(days: 2)),
+  //     updateSizeBytes: 15728640, // 15 MB
+  //   );
+  // }
+
   void _onDragEntered(DropEventDetails details) {
-    BotToast.showText(text: t.homePage.dragging, duration: const Duration(seconds: 1));
+    BotToast.showText(
+      text: t.homePage.dragging,
+      duration: const Duration(seconds: 1),
+    );
   }
 
   void _onDragExited(DropEventDetails details) {
@@ -365,12 +397,10 @@ class _HomePageState extends State<HomePage> {
       return;
     }
 
-    final supportedFormats = items.where(
-      (item) {
-        final mimeType = lookupMimeType(item.name);
-        return ['image/jpeg', 'image/png'].contains(mimeType);
-      },
-    );
+    final supportedFormats = items.where((item) {
+      final mimeType = lookupMimeType(item.name);
+      return ['image/jpeg', 'image/png'].contains(mimeType);
+    });
 
     if (supportedFormats.length != items.length) {
       BotToast.showText(text: t.homePage.formatValidator);
@@ -438,7 +468,7 @@ class _HomePageState extends State<HomePage> {
         final imageProviders = images.nonNulls
             .map((item) => MemoryImage(item.bytes))
             .toList();
-        DialogUtil.showImagePreviewDialog(imageProviders);
+        await DialogUtil.showImagePreviewDialog(imageProviders);
       } on Exception catch (error, stackTrace) {
         await EasyLoading.dismiss();
         printErrorLog(error, stackTrace: stackTrace);
@@ -465,16 +495,16 @@ class _HomePageState extends State<HomePage> {
       );
 
       final permission = await PermissionUtil.checkPermission();
-      if (permission != Permissions.none) {
+      if (permission != .none) {
         final t = Translations.of(navigatorKey.currentContext!);
         final appName = t.appName(flavor: AppConfig.shared.flavor);
-        final title = permission == Permissions.photos
+        final title = permission == .photos
             ? t.dialogs.permissions.photos.title
             : t.dialogs.permissions.storage.title;
-        final description = permission == Permissions.photos
+        final description = permission == .photos
             ? t.dialogs.permissions.photos.description
             : t.dialogs.permissions.storage.description;
-        DialogUtil.showCustomDialog(
+        await DialogUtil.showCustomDialog(
           title: title,
           content: description(appName: appName),
           cancelText: t.buttons.ignore,
@@ -510,7 +540,7 @@ class _HomePageState extends State<HomePage> {
 
         String? selectedDirectory;
         if (isDesktop) {
-          selectedDirectory = await FilePicker.platform.getDirectoryPath();
+          selectedDirectory = await FilePicker.getDirectoryPath();
         }
 
         final results = <bool>[];
@@ -624,15 +654,15 @@ class _HomePageState extends State<HomePage> {
     final textStyle = TextStyle(
       color: Color(colorValue).withAlpha((255.0 * opacity).round()),
       fontSize: fontSize ?? initialFontSize,
-      fontWeight: FontWeight.normal,
+      fontWeight: .normal,
       fontFamily: fontFamily,
     );
 
     // 创建文本画笔
     var textPainter = TextPainter(
       text: TextSpan(text: watermark, style: textStyle),
-      // textAlign: TextAlign.center,
-      textDirection: TextDirection.ltr,
+      // textAlign: .center,
+      textDirection: .ltr,
       maxLines: 1,
     )..layout(maxWidth: hypotenuseLength);
 
@@ -651,50 +681,30 @@ class _HomePageState extends State<HomePage> {
       for (var i = 0; i < watermarks.length; i++) {
         if (i == 0) {
           children.add(
-            WidgetSpan(
-              child: SizedBox(
-                width: textGap / 2,
-                height: 1,
-              ),
-            ),
+            WidgetSpan(child: SizedBox(width: textGap / 2, height: 1)),
           );
           dimensions.add(
             PlaceholderDimensions(
               size: Size(textGap / 2, 1),
-              alignment: ui.PlaceholderAlignment.bottom,
+              alignment: .bottom,
             ),
           );
         }
         children.add(watermarks[i]);
         if (i < watermarks.length - 1) {
-          children.add(
-            WidgetSpan(
-              child: SizedBox(
-                width: textGap,
-                height: 1,
-              ),
-            ),
-          );
+          children.add(WidgetSpan(child: SizedBox(width: textGap, height: 1)));
           dimensions.add(
-            PlaceholderDimensions(
-              size: Size(textGap, 1),
-              alignment: ui.PlaceholderAlignment.bottom,
-            ),
+            PlaceholderDimensions(size: Size(textGap, 1), alignment: .bottom),
           );
         }
         if (i == watermarks.length - 1) {
           children.add(
-            WidgetSpan(
-              child: SizedBox(
-                width: textGap / 2,
-                height: 1,
-              ),
-            ),
+            WidgetSpan(child: SizedBox(width: textGap / 2, height: 1)),
           );
           dimensions.add(
             PlaceholderDimensions(
               size: Size(textGap / 2, 1),
-              alignment: ui.PlaceholderAlignment.bottom,
+              alignment: .bottom,
             ),
           );
         }
@@ -702,12 +712,9 @@ class _HomePageState extends State<HomePage> {
 
       textPainter =
           TextPainter(
-              text: TextSpan(
-                children: children,
-                style: textStyle,
-              ),
-              textAlign: TextAlign.center,
-              textDirection: TextDirection.ltr,
+              text: TextSpan(children: children, style: textStyle),
+              textAlign: .center,
+              textDirection: .ltr,
               maxLines: 1,
             )
             ..setPlaceholderDimensions(dimensions)
@@ -771,16 +778,16 @@ class _HomePageState extends State<HomePage> {
 
   Future<List<ImageFile>> _pickImages(int limit) async {
     final permission = await PermissionUtil.checkPermission();
-    if (permission != Permissions.none) {
+    if (permission != .none) {
       final t = Translations.of(navigatorKey.currentContext!);
       final appName = t.appName(flavor: AppConfig.shared.flavor);
-      final title = permission == Permissions.photos
+      final title = permission == .photos
           ? t.dialogs.permissions.photos.title
           : t.dialogs.permissions.storage.title;
-      final description = permission == Permissions.photos
+      final description = permission == .photos
           ? t.dialogs.permissions.photos.description
           : t.dialogs.permissions.storage.description;
-      DialogUtil.showCustomDialog(
+      await DialogUtil.showCustomDialog(
         title: title,
         content: description(appName: appName),
         cancelText: t.buttons.ignore,
@@ -796,19 +803,31 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<List<ImageFile>> _gotoPickImages(int limit) async {
+    final ImagePickerPlatform imagePickerImplementation =
+        ImagePickerPlatform.instance;
+    if (imagePickerImplementation is ImagePickerAndroid) {
+      imagePickerImplementation.useAndroidPhotoPicker = true;
+    }
+
     final picker = ImagePicker();
-    final images = await picker.pickMultiImage(limit: limit);
-    final imageFutures = images.mapIndexed(
-      (index, image) async {
-        return ImageFile(
-          'index_${uuid.v4()}',
-          name: image.name,
-          extension: extension(image.name),
-          path: image.path,
-          bytes: await image.readAsBytes(),
-        );
-      },
-    ).toList();
+
+    List<XFile> images;
+    if (limit == 1) {
+      final picked = await picker.pickImage(source: ImageSource.gallery);
+      images = [?picked];
+    } else {
+      images = await picker.pickMultiImage(limit: limit);
+    }
+
+    final imageFutures = images.mapIndexed((index, image) async {
+      return ImageFile(
+        'index_${uuid.v4()}',
+        name: image.name,
+        extension: extension(image.name),
+        path: image.path,
+        bytes: await image.readAsBytes(),
+      );
+    }).toList();
 
     return Future.wait(imageFutures);
   }

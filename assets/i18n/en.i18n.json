@@ -26,11 +26,16 @@
     "cancelDrag": "Drag canceled",
     "limitValidator": "Supports up to $maxImages pictures, you can also upload $lastImages picture(s).",
     "formatValidator": "Only PNG and JPEG formats are supported.",
+    "tips": "The preview and save operations require two clicks to generate watermarks in the image without garbled characters",
     "preview": "Preview",
     "save": "Save",
     "savedSuccess": "Saved successfully",
     "savedFailure": "Failed to save image(s)",
-    "saveInfo": "$succeedNum image(s) saved, $failedNum image(s) failed to save"
+    "saveInfo": "$succeedNum image(s) saved, $failedNum image(s) failed to save",
+    "appNoUpdates": "App is up to date!",
+    "backgroundCheckingStopped": "Background checking stopped",
+    "backgroundCheckingAvailable": "Background check: Update $latestVersion available!",
+    "backgroundCheckingStarted": "Background checking started (every ${seconds}s)"
   },
   "aboutPage": {
     "version": "Version $version($buildNumber)",
@@ -58,7 +63,9 @@
     "help": "Help",
     "support": "Support",
     "userAgreement": "User Agreement",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "updates": "Updates",
+    "debug": "Debug"
   },
   "buttons": {
     "agree": "Agree",
@@ -114,6 +121,20 @@
         "light": "Light Mode"
       },
       "themesDescription": "After turning it on, the dark mode will be turned on or off according to the system"
+    },
+    "updatesDialog": {
+      "updateAvailableTitle": "Update Available",
+      "updateAvailableMessage": "A new version ({latestVersion}) is available. You are currently on version {currentVersion}.",
+      "updateButton": "Update Now",
+      "laterButton": "Later",
+      "skipVersionButton": "Skip this version",
+      "doNotAskAgainButton": "Don't remind me again",
+      "criticalUpdateTitle": "Critical Update Required",
+      "criticalUpdateMessage": "This update contains important fixes. Please update to continue.",
+      "releaseNotesTitle": "What's New",
+      "loadingText": "Checking for updates...",
+      "errorText": "Unable to check for updates",
+      "upToDateText": "Your app is up to date!"
     }
   },
   "locales(map)": {

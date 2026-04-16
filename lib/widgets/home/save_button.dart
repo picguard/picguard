@@ -1,11 +1,11 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
 import 'package:flutter/material.dart';
 
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
+import '../../generated/colors.gen.dart';
+import '../../i18n/i18n.g.dart';
 
 /// 保存按钮
 class SaveBtn extends StatelessWidget {
@@ -24,30 +24,21 @@ class SaveBtn extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.resolveWith((
-                Set<WidgetState> states,
-              ) {
+              backgroundColor: .resolveWith((states) {
                 if (states.contains(WidgetState.disabled)) {
                   return PGColors.secondaryGrayColor;
                 }
                 return PGColors.primaryColor;
               }),
-              foregroundColor: WidgetStateProperty.resolveWith((
-                Set<WidgetState> states,
-              ) {
+              foregroundColor: .resolveWith((states) {
                 if (states.contains(WidgetState.disabled)) {
                   return PGColors.placeholderTextColor;
                 }
                 return Colors.white;
               }),
-              elevation: WidgetStateProperty.all(0),
+              elevation: .all(0),
             ),
-            child: Text(
-              t.homePage.save,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-            ),
+            child: Text(t.homePage.save, style: const TextStyle(fontSize: 16)),
           ),
         );
       },

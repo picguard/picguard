@@ -13,7 +13,7 @@ AppPublisherURL={{PUBLISHER_URL}}
 AppSupportURL={{PUBLISHER_URL}}
 AppUpdatesURL={{PUBLISHER_URL}}
 ;DefaultDirName={{INSTALL_DIR_NAME}}
-DefaultDirName={autopf64}\Insco\{{DISPLAY_NAME}}
+DefaultDirName={autopf64}\Qiazo\{{DISPLAY_NAME}}
 DisableProgramGroupPage=yes
 OutputDir=.
 OutputBaseFilename={{OUTPUT_BASE_FILENAME}}
@@ -26,7 +26,7 @@ PrivilegesRequired={{PRIVILEGES_REQUIRED}}
 PrivilegesRequiredOverridesAllowed=dialog
 ArchitecturesAllowed=arm64
 ArchitecturesInstallIn64BitMode=arm64
-AppCopyright=Copyright (C) 2023 Insco. All Rights Reserved.
+AppCopyright=Copyright (C) 2023 Qiazo. All Rights Reserved.
 AppReadmeFile=https://raw.githubusercontent.com/picguard/picguard/main/README.md
 LicenseFile={{SOURCE_DIR}}\LICENSE.rtf
 

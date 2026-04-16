@@ -29,6 +29,18 @@ precache: ## Installing ios dependencies
 	echo "╠ Populate the Flutter tool's cache of binary artifacts..."
 	fvm flutter precache -a
 
+icon: ## Generate icons
+	echo "╠ Generate icons..."
+	fvm dart run flutter_native_splash:create
+
+format: ## Watches the files for changes
+	echo "╠ Formatting the project..."
+	fvm dart format .
+
+fix: ## Watches the files for changes
+	echo "╠ Formatting the project..."
+	fvm dart fix --apply
+
 splash: ## Generate splash logo
 	echo "╠ Generate splash logo..."
 	fvm dart run flutter_native_splash:create

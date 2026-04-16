@@ -1,11 +1,11 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
 import 'package:flutter/material.dart';
 
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
+import '../../generated/colors.gen.dart';
+import '../../i18n/i18n.g.dart';
 
 /// 预览按钮
 class PreviewBtn extends StatelessWidget {
@@ -24,40 +24,32 @@ class PreviewBtn extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(
-                Colors.white,
-              ),
-              foregroundColor: WidgetStateProperty.resolveWith((
-                Set<WidgetState> states,
-              ) {
+              backgroundColor: .all(Colors.white),
+              foregroundColor: .resolveWith((states) {
                 if (states.contains(WidgetState.disabled)) {
                   return PGColors.secondaryBorderColor;
                 }
                 return PGColors.primaryColor;
               }),
-              shape: WidgetStateProperty.resolveWith((
-                Set<WidgetState> states,
-              ) {
+              shape: .resolveWith((states) {
                 if (states.contains(WidgetState.disabled)) {
                   return RoundedRectangleBorder(
                     side: const BorderSide(
                       color: PGColors.secondaryBorderColor,
                     ),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: .circular(10),
                   );
                 }
                 return RoundedRectangleBorder(
                   side: const BorderSide(color: PGColors.primaryColor),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: .circular(10),
                 );
               }),
-              elevation: WidgetStateProperty.all(0),
+              elevation: .all(0),
             ),
             child: Text(
               t.homePage.preview,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+              style: const TextStyle(fontSize: 16),
             ),
           ),
         );

@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -10,12 +10,12 @@ import 'package:flutter/services.dart';
 import 'package:menu_bar/menu_bar.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import 'package:picguard/app/config.dart';
-import 'package:picguard/constants/values.dart';
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
-import 'package:picguard/logger/logger.dart';
-import 'package:picguard/utils/utils.dart';
+import '../app/config.dart';
+import '../constants/constants.dart';
+import '../generated/colors.gen.dart';
+import '../i18n/i18n.g.dart';
+import '../logger/logger.dart';
+import '../utils/utils.dart';
 
 const macosMenuChannel = MethodChannel('macos_menu_channel');
 
@@ -51,6 +51,15 @@ class MacOSMenuBar extends StatelessWidget {
                 ),
               ],
             ),
+            if (PgEnv.updatesEnabled)
+              PlatformMenuItemGroup(
+                members: <PlatformMenuItem>[
+                  PlatformMenuItem(
+                    onSelected: DialogUtil.checkUpdates,
+                    label: t.menus.updates,
+                  ),
+                ],
+              ),
             PlatformMenuItemGroup(
               members: <PlatformMenuItem>[
                 PlatformMenuItem(
@@ -67,9 +76,7 @@ class MacOSMenuBar extends StatelessWidget {
                     try {
                       await macosMenuChannel.invokeMethod('hideApp');
                     } on PlatformException catch (e) {
-                      printErrorLog(
-                        'Cannot hide this app: ${e.message}',
-                      );
+                      printErrorLog('Cannot hide this app: ${e.message}');
                     }
                   },
                   shortcut: const CharacterActivator('H', meta: true),
@@ -80,9 +87,7 @@ class MacOSMenuBar extends StatelessWidget {
                     try {
                       await macosMenuChannel.invokeMethod('hideOtherApps');
                     } on PlatformException catch (e) {
-                      printErrorLog(
-                        'Cannot hide other apps: ${e.message}',
-                      );
+                      printErrorLog('Cannot hide other apps: ${e.message}');
                     }
                   },
                   shortcut: const CharacterActivator(
@@ -97,9 +102,7 @@ class MacOSMenuBar extends StatelessWidget {
                     try {
                       await macosMenuChannel.invokeMethod('showAllApps');
                     } on PlatformException catch (e) {
-                      printErrorLog(
-                        'Cannot unhide all apps: ${e.message}',
-                      );
+                      printErrorLog('Cannot unhide all apps: ${e.message}');
                     }
                   },
                   label: t.menus.showAll,
@@ -108,9 +111,7 @@ class MacOSMenuBar extends StatelessWidget {
             ),
             const PlatformMenuItemGroup(
               members: <PlatformMenuItem>[
-                PlatformProvidedMenuItem(
-                  type: PlatformProvidedMenuItemType.quit,
-                ),
+                PlatformProvidedMenuItem(type: .quit),
               ],
             ),
           ],
@@ -134,6 +135,14 @@ class MacOSMenuBar extends StatelessWidget {
                 ),
               ],
             ),
+            PlatformMenuItemGroup(
+              members: <PlatformMenuItem>[
+                PlatformMenuItem(
+                  onSelected: DialogUtil.openDebugPage,
+                  label: t.menus.debug,
+                ),
+              ],
+            ),
           ],
         ),
       ],
@@ -151,24 +160,20 @@ class DesktopMenuBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final brightness = Theme.of(context).brightness;
-    final isDark = brightness == Brightness.dark;
+    final isDark = brightness == .dark;
     final t = Translations.of(context);
     final appName = t.appName(flavor: AppConfig.shared.flavor);
     return MenuBarWidget(
       barStyle: MenuStyle(
-        backgroundColor: WidgetStateProperty.all(
+        backgroundColor: .all(
           isDark ? PGColors.primaryTextColor : PGColors.primaryBackgroundColor,
         ),
       ),
       barButtonStyle: ButtonStyle(
-        overlayColor: WidgetStateProperty.all(
-          PGColors.primaryHoverColor.withValues(alpha: 0.3),
-        ),
+        overlayColor: .all(PGColors.primaryHoverColor.withValues(alpha: 0.3)),
       ),
       menuButtonStyle: ButtonStyle(
-        overlayColor: WidgetStateProperty.all(
-          PGColors.primaryHoverColor.withValues(alpha: 0.3),
-        ),
+        overlayColor: .all(PGColors.primaryHoverColor.withValues(alpha: 0.3)),
       ),
       barButtons: [
         BarButton(
@@ -182,6 +187,14 @@ class DesktopMenuBar extends StatelessWidget {
                 shortcut: const CharacterActivator('A', control: true),
                 shortcutText: 'Ctrl+A',
               ),
+              if (PgEnv.updatesEnabled) ...[
+                const MenuDivider(height: 1),
+                MenuButton(
+                  text: Text(t.menus.updates),
+                  onTap: DialogUtil.checkUpdates,
+                  icon: const Icon(Icons.update),
+                ),
+              ],
               const MenuDivider(height: 1),
               MenuButton(
                 text: Text(t.dialogs.settingsDialog.settings),
@@ -204,7 +217,7 @@ class DesktopMenuBar extends StatelessWidget {
           ),
         ),
         BarButton(
-          text: Text(t.menus.help, textAlign: TextAlign.center),
+          text: Text(t.menus.help, textAlign: .center),
           submenu: SubMenu(
             menuItems: [
               MenuButton(
@@ -221,6 +234,12 @@ class DesktopMenuBar extends StatelessWidget {
                 text: Text(t.menus.privacy),
                 onTap: gotoPrivacyPage,
                 icon: const Icon(Icons.privacy_tip),
+              ),
+              const MenuDivider(height: 1),
+              MenuButton(
+                text: Text(t.menus.debug),
+                onTap: DialogUtil.openDebugPage,
+                icon: const Icon(Icons.exit_to_app),
               ),
             ],
           ),

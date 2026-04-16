@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
-import 'package:picguard/generated/colors.gen.dart';
+import '../../generated/colors.gen.dart';
 
 class InitialWidget extends StatelessWidget {
   const InitialWidget({
@@ -31,17 +31,14 @@ class InitialWidget extends StatelessWidget {
         backgroundColor ?? PGColors.primaryColor.withValues(alpha: 0.05);
     return Container(
       margin: margin ?? pickerView.padding,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: bgColor,
-      ),
+      decoration: BoxDecoration(borderRadius: .circular(20), color: bgColor),
       width: double.infinity,
       height: height ?? 160,
-      clipBehavior: Clip.hardEdge,
+      clipBehavior: .hardEdge,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          overlayColor: WidgetStateProperty.resolveWith((states) {
+          overlayColor: .resolveWith((states) {
             if (states.contains(WidgetState.pressed)) {
               return PGColors.primaryColor.withValues(alpha: 0.15);
             }
@@ -50,13 +47,14 @@ class InitialWidget extends StatelessWidget {
             }
             return PGColors.primaryColor.withValues(alpha: 0.07);
           }),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: .circular(4),
           onTap: pickerView.controller.pickImages,
           statesController: statesController,
           child: Center(
-            child: child ??
+            child:
+                child ??
                 Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: .min,
                   children: [
                     Icon(
                       Icons.add_photo_alternate_outlined,
@@ -68,7 +66,7 @@ class InitialWidget extends StatelessWidget {
                       'ADD IMAGES',
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: .w400,
                         fontSize: 14,
                       ),
                     ),

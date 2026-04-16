@@ -1,23 +1,24 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:picguard/app/config.dart';
-import 'package:picguard/logger/logger.dart';
-import 'package:picguard/utils/utils.dart';
+
+import '../app/config.dart';
+import '../logger/logger.dart';
+import '../utils/utils.dart';
 
 class GlobalProvider extends ChangeNotifier {
   GlobalProvider() {
     getThemeMode();
   }
 
-  ThemeMode themeMode = ThemeMode.system;
+  ThemeMode themeMode = .system;
 
-  void switchThemeMode(ThemeMode themeMode) {
+  Future<void> switchThemeMode(ThemeMode themeMode) async {
     this.themeMode = themeMode;
-    setValue('${AppConfig.shared.container}_theme_mode', themeMode.name);
+    await setValue('${AppConfig.shared.container}_theme_mode', themeMode.name);
     notifyListeners();
   }
 

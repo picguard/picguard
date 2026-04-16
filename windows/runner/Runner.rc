@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "Insco" "\0"
+            VALUE "CompanyName", "Qiazo" "\0"
             VALUE "FileDescription", "Your pictures, your signature." "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "PicGuard" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 Insco. All Rights Reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 Qiazo. All Rights Reserved." "\0"
             VALUE "OriginalFilename", "PicGuard.exe" "\0"
             VALUE "ProductName", "PicGuard" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

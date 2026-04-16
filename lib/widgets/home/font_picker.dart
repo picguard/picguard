@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -7,13 +7,12 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'package:picguard/constants/constants.dart';
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
-import 'package:picguard/logger/logger.dart';
-import 'package:picguard/models/models.dart';
-import 'package:picguard/utils/utils.dart';
-import 'package:picguard/widgets/widgets.dart';
+import '../../constants/constants.dart';
+import '../../generated/colors.gen.dart';
+import '../../i18n/i18n.g.dart';
+import '../../logger/logger.dart';
+import '../../utils/utils.dart';
+import '../base_form_item.dart';
 
 /// 字体选择
 class FontPicker extends StatelessWidget {
@@ -22,15 +21,15 @@ class FontPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == .dark;
     final languageCode = LocaleSettings.currentLocale.languageCode;
     printDebugLog('languageCode: $languageCode');
 
     return BaseFormItem(
       title: t.homePage.fontLabel,
       required: false,
-      onTipTap: () {
-        DialogUtil.showBottomSheetDialog(
+      onTipTap: () async {
+        await DialogUtil.showBottomSheetDialog(
           content: t.homePage.fontLabelDescription,
         );
       },
@@ -39,10 +38,10 @@ class FontPicker extends StatelessWidget {
         child: FormBuilderField<String>(
           name: 'font',
           initialValue: fontFamilies.elementAt(0).fontFamily,
-          builder: (FormFieldState<String> field) {
+          builder: (field) {
             final hasError = StringUtil.isNotBlank(field.errorText);
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               spacing: 8,
               children: [
                 DropdownButtonFormField<String>(
@@ -62,7 +61,7 @@ class FontPicker extends StatelessWidget {
                     contentPadding: const EdgeInsets.fromLTRB(10, 10, 5, 10),
                     enabledBorder: hasError
                         ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.errorTextColor,
                             ),
@@ -70,22 +69,20 @@ class FontPicker extends StatelessWidget {
                             gapPadding: 0,
                           )
                         : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.borderColor,
                             ),
                             gapPadding: 0,
                           ),
                     disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                        color: PGColors.borderColor,
-                      ),
+                      borderRadius: .circular(4),
+                      borderSide: const BorderSide(color: PGColors.borderColor),
                       gapPadding: 0,
                     ),
                     focusedBorder: hasError
                         ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.errorTextColor,
                             ),
@@ -93,35 +90,33 @@ class FontPicker extends StatelessWidget {
                             gapPadding: 0,
                           )
                         : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: .circular(4),
                             borderSide: const BorderSide(
                               color: PGColors.primaryColor,
                             ),
                             gapPadding: 0,
                           ),
                   ),
-                  items: fontFamilies.map(
-                    (fontFamily) {
-                      return DropdownMenuItem<String>(
-                        value: fontFamily.fontFamily,
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            fontFamily.name,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: fontFamily.fontFamily,
-                            ),
+                  items: fontFamilies.map((fontFamily) {
+                    return DropdownMenuItem<String>(
+                      value: fontFamily.fontFamily,
+                      child: Align(
+                        alignment: .centerLeft,
+                        child: Text(
+                          fontFamily.name,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: fontFamily.fontFamily,
                           ),
                         ),
-                      );
-                    },
-                  ).toList(),
+                      ),
+                    );
+                  }).toList(),
                   onChanged: (value) {},
                 ),
                 if (hasError)
                   Padding(
-                    padding: const EdgeInsets.only(left: 8),
+                    padding: const .only(left: 8),
                     child: Text(
                       field.errorText!,
                       style: const TextStyle(
@@ -144,13 +139,13 @@ class FontPicker extends StatelessWidget {
     );
   }
 
-  void onFontTap(FormFieldState<String> field) {
+  Future<void> onFontTap(FormFieldState<String> field) async {
     // DO NOT REMOVE THIS LINE: 消除下拉选择默认弹窗
     NavigatorUtil.pop();
-    DialogUtil.showFontModal(
+    await DialogUtil.showFontModal(
       items: fontFamilies,
       font: field.value,
-      callback: (PGFont font) {
+      callback: (font) {
         if (kDebugMode) {
           printDebugLog('fontFamily: ${font.fontFamily}, name: ${font.name}');
         }

@@ -22,8 +22,7 @@ if (proKeystorePropertiesFile.exists()) {
 android {
     namespace = "com.kjxbyz.picguard"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "27.2.12479018"
-//    ndkVersion = flutter.ndkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -42,7 +41,7 @@ android {
         applicationId = "com.kjxbyz.picguard"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = 24
+        minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

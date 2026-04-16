@@ -1,4 +1,4 @@
-// Copyright 2023 Insco. All rights reserved.
+// Copyright 2023 Qiazo. All rights reserved.
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
@@ -8,11 +8,11 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
-import 'package:picguard/constants/constants.dart';
-import 'package:picguard/generated/colors.gen.dart';
-import 'package:picguard/i18n/i18n.g.dart';
-import 'package:picguard/utils/utils.dart';
-import 'package:picguard/widgets/widgets.dart';
+import '../../constants/constants.dart';
+import '../../generated/colors.gen.dart';
+import '../../i18n/i18n.g.dart';
+import '../../utils/utils.dart';
+import '../base_form_item.dart';
 
 /// 文本之间间距
 class TextColumnGap extends StatefulWidget {
@@ -31,8 +31,8 @@ class _TextColumnGapState extends State<TextColumnGap> {
     return BaseFormItem(
       title: t.homePage.textGapLabel,
       required: false,
-      onTipTap: () {
-        DialogUtil.showBottomSheetDialog(
+      onTipTap: () async {
+        await DialogUtil.showBottomSheetDialog(
           content: t.homePage.textGapDescription,
         );
       },
@@ -41,10 +41,10 @@ class _TextColumnGapState extends State<TextColumnGap> {
         child: FormBuilderField<double>(
           name: 'textGap',
           initialValue: textGapNotifier.value,
-          builder: (FormFieldState<double> field) {
+          builder: (field) {
             final hasError = StringUtil.isNotBlank(field.errorText);
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               spacing: 8,
               children: [
                 Row(
@@ -85,18 +85,13 @@ class _TextColumnGapState extends State<TextColumnGap> {
                     ),
                     ValueListenableBuilder(
                       valueListenable: textGapNotifier,
-                      builder:
-                          (
-                            BuildContext context,
-                            double value,
-                            Widget? child,
-                          ) => SizedBox(
-                            width: 28,
-                            child: Text(
-                              value.toStringAsFixed(0),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
+                      builder: (context, value, child) => SizedBox(
+                        width: 28,
+                        child: Text(
+                          value.toStringAsFixed(0),
+                          textAlign: .center,
+                        ),
+                      ),
                     ),
                   ],
                 ),
