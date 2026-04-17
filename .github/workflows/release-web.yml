@@ -51,8 +51,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.PG_PAGES_TOKEN }}
+          publish_branch: free-web
           publish_dir: ./build/web
-          cname: web.picguard.org
 
       - name: Clean up
         if: ${{ always() }}
@@ -102,10 +102,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.PG_PAGES_TOKEN }}
-          external_repository: picguard/pro-web
-          publish_branch: main  # default: gh-pages
+          publish_branch: pro-web  # default: gh-pages
           publish_dir: ./build/web
-          cname: pro.picguard.org
 
       - name: Clean up
         if: ${{ always() }}
