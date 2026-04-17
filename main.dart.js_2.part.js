@@ -428,12 +428,12 @@ v(A.aZx,B.Li)
 v(A.aZq,B.Lj)
 v(A.aZu,B.Lk)
 v(A.aZw,B.Lm)
-v(A.agw,B.AG)
-v(A.agy,B.AH)
+v(A.agw,B.AH)
+v(A.agy,B.AI)
 v(A.aZt,B.Ll)
 u(B.m4,[A.b0o,A.b_M,A.b_N,A.b_O,A.b_Z,A.b09,A.b0f,A.b0g,A.b0h,A.b0i,A.b0j,A.b0k,A.b_P,A.b_Q,A.b_R,A.b_S,A.b_T,A.b_U,A.b_V])
 w(A.agA,B.hR)})()
 B.b69(b.typeUniverse,JSON.parse('{"a4w":{"fI":[],"hR":["fd","fI"]}}'))
 var y={c:"\u65b0\u7248\u672c\uff08{latestVersion}\uff09\u53ef\u7528\u3002\u4f60\u76ee\u524d\u4f7f\u7528\u7684\u7248\u672c\u662f{currentVersion}\u3002"}
 var x={g:B.aa("j"),c:B.aa("kt<fd,fI>")}};
-(a=>{a["QbuaG4HmcpDcBncloYSQiPJAPVY="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["WvSTQbCIzGO4O2AE+hT/q3C2vy0="]=a.current})($__dart_deferred_initializers__);

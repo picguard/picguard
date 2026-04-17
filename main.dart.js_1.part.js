@@ -429,12 +429,12 @@ v(A.aZo,B.Li)
 v(A.aZp,B.Lj)
 v(A.aZr,B.Lk)
 v(A.aZv,B.Lm)
-v(A.agv,B.AG)
-v(A.agx,B.AH)
+v(A.agv,B.AH)
+v(A.agx,B.AI)
 v(A.aZs,B.Ll)
 u(B.m4,[A.b0p,A.b_W,A.b_X,A.b_Y,A.b0_,A.b00,A.b01,A.b02,A.b03,A.b04,A.b05,A.b06,A.b07,A.b08,A.b0a,A.b0b,A.b0c,A.b0d,A.b0e])
 w(A.agz,B.hR)})()
 B.b69(b.typeUniverse,JSON.parse('{"a4v":{"fI":[],"hR":["fd","fI"]}}'))
 var y={S:" l'autorizzazione a visitare il tuo album.",j:" l'autorizzazione ad accedere al tuo archivio.",I:" l'immagine(i) e non \xe8 stato possibile salvare ",p:"ATTENZIONE: Versione di sviluppo, basata automaticamente su ogni commit",g:"Accedi alle Impostazioni del tuo telefono per concedere a ",a:"Alcune lingue non supportano i font personalizzati",c:"Dopo averlo attivato, la modalit\xe0 scura verr\xe0 attivata o disattivata in base al sistema",_:"Il testo verr\xe0 aggiunto all'immagine come filigrana",N:"Impossibile controllare gli aggiornamenti",Q:"La spaziatura tra il testo in ogni riga di testo",B:"Le operazioni di anteprima e salvataggio richiedono due clic per generare filigrane nell'immagine senza caratteri distorti",C:"Per aggiungere una filigrana alle tue immagini, ",M:"Questa app non caricher\xe0 alcuna immagine sul server, tutte le operazioni vengono completate localmente",U:"Questo aggiornamento contiene correzioni importanti. Per favore, aggiorna per continuare.",R:"Questo certificato \xe8 utilizzato solo per la gestione di xx attivit\xe0 e non \xe8 valido per altri scopi.",e:"Vai alle Impostazioni del tuo telefono per concedere a ",T:"\xc8 disponibile una nuova versione ({latestVersion}). Attualmente sei sulla versione {currentVersion}."}
 var x={g:B.aa("j"),c:B.aa("kt<fd,fI>")}};
-(a=>{a["KcDMzj67+1RJ9v6Nbc/5mrMvyMg="]=a.current})($__dart_deferred_initializers__);
+(a=>{a["h2NT4S0Ep95M/BPbPPYVh/ll1pE="]=a.current})($__dart_deferred_initializers__);
