@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.4.2
+
+1. Update flutter to 3.41.7
+2. chore(deps): update deps
+
 ## 5.4.1
 
 1. fix: update domains
