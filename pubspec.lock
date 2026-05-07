@@ -117,10 +117,10 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "521daf8d189deb79ba474e43a696b41c49fb3987818dbacf3308f1e03673a75e"
+      sha256: "1523ce62448ebac2c15a8ba5fbad8acac169788658a7dd2a1c2d9c2a9318b9a6"
       url: "https://pub.dev"
     source: hosted
-    version: "2.13.1"
+    version: "2.15.0"
   built_collection:
     dependency: transitive
     description:
@@ -177,14 +177,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  code_builder:
-    dependency: transitive
-    description:
-      name: code_builder
-      sha256: "6a6cab2ba4680d6423f34a9b972a4c9a94ebe1b62ecec4e1a1f2cba91fd1319d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.11.1"
   collection:
     dependency: transitive
     description:
@@ -257,6 +249,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  csv:
+    dependency: transitive
+    description:
+      name: csv
+      sha256: c6aa2679b2a18cb57652920f674488d89712efaf4d3fdf2e537215b35fc19d6c
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.0"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -450,18 +450,18 @@ packages:
     dependency: transitive
     description:
       name: flutter_gen_core
-      sha256: "454ec926fd0758667615942032e1e5308d240e309627bdf3f2bf55b17d54b23e"
+      sha256: "1413fbd0b67f76ac17800989013438caec3b64564c9ffd1eea6cd7e170d9b0e5"
       url: "https://pub.dev"
     source: hosted
-    version: "5.14.0"
+    version: "5.14.1"
   flutter_gen_runner:
     dependency: "direct dev"
     description:
       name: flutter_gen_runner
-      sha256: "2c926ab58103ea483963df9a000031e11958c7f4d1065ab021adc6829d9f6ddc"
+      sha256: db00922dd5f4c1aa33aeab7f74117f1cd224e7a1e8bea1e312b8d09b8101a909
       url: "https://pub.dev"
     source: hosted
-    version: "5.14.0"
+    version: "5.14.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -657,10 +657,10 @@ packages:
     dependency: "direct main"
     description:
       name: image_picker
-      sha256: "784210112be18ea55f69d7076e2c656a4e24949fa9e76429fe53af0c0f4fa320"
+      sha256: "91c025426c2881c551100bce834e201c835a170151545f58d17da5180ca7d9ac"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "1.2.2"
   image_picker_android:
     dependency: transitive
     description:
@@ -1149,14 +1149,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.19.0"
-  serial_csv:
-    dependency: transitive
-    description:
-      name: serial_csv
-      sha256: "2d62bb70cb3ce7251383fc86ea9aae1298ab1e57af6ef4e93b6a9751c5c268dd"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.2"
   share_plus:
     dependency: transitive
     description:
@@ -1270,26 +1262,26 @@ packages:
     dependency: transitive
     description:
       name: slang
-      sha256: ea6702ed6b1c82065fb2de906fe34ac9298117342e3c2ea2567132efdc81bd17
+      sha256: "81e277dc5e2305f53412b92afeb803620453259afe147d5cd6417700f998a7a6"
       url: "https://pub.dev"
     source: hosted
-    version: "4.14.0"
+    version: "4.12.1"
   slang_build_runner:
     dependency: "direct dev"
     description:
       name: slang_build_runner
-      sha256: "1db59254041026aec97df5aca30a602e09e9d1546c3d16b55c3c7cf4c16cdb6c"
+      sha256: "453d74b5430153a3c4150d5ba8f6380e0785f3939f7511f10ac5b6cf9bb7d2a7"
       url: "https://pub.dev"
     source: hosted
-    version: "4.14.0"
+    version: "4.12.0"
   slang_flutter:
     dependency: "direct main"
     description:
       name: slang_flutter
-      sha256: dcc4e77527c91b12348fc8bdd43d3eb92d8cea37c12a23a1f9719cdc12c804c6
+      sha256: "0a4545cca5404d6b7487cf61cf1fe56c52daeb08de56a7574ee8381fbad035a0"
       url: "https://pub.dev"
     source: hosted
-    version: "4.14.0"
+    version: "4.12.0"
   source_span:
     dependency: transitive
     description:
@@ -1334,26 +1326,26 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "799dd6683b0902491b4b194cfaa5b5a100f87205db083923dbb5f77ff6f509e4"
+      sha256: "25f2e349bc14a1a4f9da95f24484ea1751de2ab13dc11a2d4d96f54c4c7a030a"
       url: "https://pub.dev"
     source: hosted
-    version: "33.2.3"
+    version: "33.2.5"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "32c5e88c330a5852afc2a6866f529aa1c959cb7f0a3c1527132da01a59c52a1c"
+      sha256: "672bf73566595520602335f7c6ffe1f4282a8dc7b3b458a43f3f39db51648ca9"
       url: "https://pub.dev"
     source: hosted
-    version: "33.2.3"
+    version: "33.2.5"
   synchronized:
     dependency: "direct main"
     description:
       name: synchronized
-      sha256: c254ade258ec8282947a0acbbc90b9575b4f19673533ee46f2f6e9b3aeefd7c0
+      sha256: "63896c27e81b28f8cb4e69ead0d3e8f03f1d1e5fc531a3e579cabed6a2c7c9e5"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.0"
+    version: "3.4.0+1"
   talker:
     dependency: transitive
     description:
