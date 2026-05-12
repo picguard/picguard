@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.0
+
+1. Update flutter to 3.41.9
+2. fix: update minimum system version to 14.0
+3. chore(deps): update deps
+
 ## 5.4.2
 
 1. Update flutter to 3.41.7
