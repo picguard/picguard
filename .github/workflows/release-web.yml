@@ -48,12 +48,12 @@ jobs:
       - name: Copy files to flutter web
         run: cp LICENSE README.md ./build/web
 
-      - name: Publish
-        uses: cloudflare/wrangler-action@v3
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy build/web --project-name=picguard-web
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: free-web
+          publish_dir: ./build/web
 
       - name: Clean up
         if: ${{ always() }}
@@ -99,12 +99,12 @@ jobs:
       - name: Copy files to flutter web
         run: cp LICENSE README.md ./build/web
 
-      - name: Publish
-        uses: cloudflare/wrangler-action@v3
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy build/web --project-name=picguard-pro-web
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: pro-web  # default: gh-pages
+          publish_dir: ./build/web
 
       - name: Clean up
         if: ${{ always() }}
