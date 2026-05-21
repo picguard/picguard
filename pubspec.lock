@@ -537,10 +537,10 @@ packages:
     dependency: transitive
     description:
       name: fluttertoast
-      sha256: "144ddd74d49c865eba47abe31cbc746c7b311c82d6c32e571fd73c4264b740e2"
+      sha256: "7903c9d5339173497bfecbc23bc4212f5a87e0edfac2e1693fb74465ea67da7e"
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.0"
+    version: "9.1.0"
   form_builder_validators:
     dependency: "direct main"
     description:
@@ -849,10 +849,10 @@ packages:
     dependency: transitive
     description:
       name: meta
-      sha256: "23f08335362185a5ea2ad3a4e597f1375e78bce8a040df5c600c8d3552ef2394"
+      sha256: "1741988757a65eb6b36abe716829688cf01910bbf91c34354ff7ec1c3de2b349"
       url: "https://pub.dev"
     source: hosted
-    version: "1.17.0"
+    version: "1.18.0"
   mime:
     dependency: transitive
     description:
@@ -889,10 +889,10 @@ packages:
     dependency: "direct main"
     description:
       name: nb_utils
-      sha256: "2cfecbe67bc09ab31069cfe68e4eb232bc71f0670c98a91d0e73e7741a4798ed"
+      sha256: bb92e09695af2cb426e12d057c641bbbf5528391e3a0e9f370f4b6253d9f9552
       url: "https://pub.dev"
     source: hosted
-    version: "7.2.0"
+    version: "7.3.0"
   nested:
     dependency: transitive
     description:
@@ -1382,10 +1382,10 @@ packages:
     dependency: transitive
     description:
       name: test_api
-      sha256: "8161c84903fd860b26bfdefb7963b3f0b68fee7adea0f59ef805ecca346f0c7a"
+      sha256: "949a932224383300f01be9221c39180316445ecb8e7547f70a41a35bf421fb9e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.10"
+    version: "0.7.11"
   time:
     dependency: transitive
     description:
