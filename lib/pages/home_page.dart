@@ -185,10 +185,7 @@ class _HomePageState extends State<HomePage> with AutomaticCheckUpdatesMixin {
                             ),
                           ),
                           const Gap(20),
-                          if (isWeb) ...[
-                            Tips(),
-                            const Gap(10),
-                          ],
+                          if (isWeb) ...[Tips(), const Gap(10)],
                           PreviewBtn(
                             onPressed: controller.images.isNotEmpty
                                 ? _preview
@@ -235,10 +232,7 @@ class _HomePageState extends State<HomePage> with AutomaticCheckUpdatesMixin {
                     ),
                   ),
                   const Gap(20),
-                  if (isWeb) ...[
-                    Tips(),
-                    const Gap(10),
-                  ],
+                  if (isWeb) ...[Tips(), const Gap(10)],
                   PreviewBtn(
                     onPressed: controller.images.isNotEmpty ? _preview : null,
                   ),

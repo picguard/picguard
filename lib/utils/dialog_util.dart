@@ -87,40 +87,36 @@ class DialogUtil {
               )
               .toList();
 
-          return AlertDialog(
-            title: Text(
-              t.dialogs.licenseDialog.licenseDialogTitle,
-              style: TextStyle(
-                color: isDark ? Colors.white : PGColors.primaryTextColor,
-                fontSize: 18,
-                fontWeight: .w500,
+          return PopScope(
+            canPop: false,
+            onPopInvokedWithResult: (bool didPop, Object? result) {
+              if (didPop) return;
+              // 这里可以处理拦截后的逻辑，比如弹出一个 Toast 提示用户“请先完成操作”
+              printDebugLog("用户尝试侧滑或点击返回键，已被成功拦截");
+            },
+            child: AlertDialog(
+              title: Text(
+                t.dialogs.licenseDialog.licenseDialogTitle,
+                style: TextStyle(
+                  color: isDark ? Colors.white : PGColors.primaryTextColor,
+                  fontSize: 18,
+                  fontWeight: .w500,
+                ),
+                textAlign: .center,
               ),
-              textAlign: .center,
-            ),
-            content: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: min(width, 600),
-                maxHeight: height * 0.4,
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: .start,
-                  children: [
-                    Text(
-                      t.dialogs.licenseDialog.licenseDialogContentContent(
-                        appName: appName,
-                      ),
-                      style: TextStyle(
-                        color: isDark
-                            ? Colors.white
-                            : PGColors.primaryTextColor,
-                        fontSize: 14,
-                      ),
-                    ),
-                    Padding(
-                      padding: const .only(top: 8),
-                      child: Text(
-                        t.dialogs.licenseDialog.licenseDialogContentTip,
+              content: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: min(width, 600),
+                  maxHeight: height * 0.4,
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: .start,
+                    children: [
+                      Text(
+                        t.dialogs.licenseDialog.licenseDialogContentContent(
+                          appName: appName,
+                        ),
                         style: TextStyle(
                           color: isDark
                               ? Colors.white
@@ -128,159 +124,173 @@ class DialogUtil {
                           fontSize: 14,
                         ),
                       ),
-                    ),
-                    if (isAndroid) ...androidPermissionTexts,
-                    if (isIOS) ...iosPermissionTexts,
-                    Padding(
-                      padding: const .only(top: 8),
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: t
-                                  .dialogs
-                                  .licenseDialog
-                                  .licenseDialogContentPrefix,
-                              style: TextStyle(
-                                color: isDark
-                                    ? Colors.white
-                                    : PGColors.primaryTextColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                            TextSpan(
-                              text: t
-                                  .dialogs
-                                  .licenseDialog
-                                  .licenseDialogContentUserAgreement,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () async {
-                                  final uri =
-                                      '$websiteBaseUrl/$languageCode/legal/terms-of-use/';
-                                  if (await canLaunchUrlString(uri)) {
-                                    await launchUrlString(uri);
-                                  }
-                                },
-                              style: const TextStyle(
-                                color: PGColors.primaryColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                            TextSpan(
-                              text: t
-                                  .dialogs
-                                  .licenseDialog
-                                  .licenseDialogContentAnd,
-                              style: TextStyle(
-                                color: isDark
-                                    ? Colors.white
-                                    : PGColors.primaryTextColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                            TextSpan(
-                              text: t
-                                  .dialogs
-                                  .licenseDialog
-                                  .licenseDialogContentPrivacyPolicy,
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () async {
-                                  final uri =
-                                      '$websiteBaseUrl/$languageCode/legal/privacy/';
-                                  if (await canLaunchUrlString(uri)) {
-                                    await launchUrlString(uri);
-                                  }
-                                },
-                              style: const TextStyle(
-                                color: PGColors.primaryColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                            TextSpan(
-                              text: t
-                                  .dialogs
-                                  .licenseDialog
-                                  .licenseDialogContentSuffix,
-                              style: TextStyle(
-                                color: isDark
-                                    ? Colors.white
-                                    : PGColors.primaryTextColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
+                      Padding(
+                        padding: const .only(top: 8),
+                        child: Text(
+                          t.dialogs.licenseDialog.licenseDialogContentTip,
+                          style: TextStyle(
+                            color: isDark
+                                ? Colors.white
+                                : PGColors.primaryTextColor,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      if (isAndroid) ...androidPermissionTexts,
+                      if (isIOS) ...iosPermissionTexts,
+                      Padding(
+                        padding: const .only(top: 8),
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: t
+                                    .dialogs
+                                    .licenseDialog
+                                    .licenseDialogContentPrefix,
+                                style: TextStyle(
+                                  color: isDark
+                                      ? Colors.white
+                                      : PGColors.primaryTextColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              TextSpan(
+                                text: t
+                                    .dialogs
+                                    .licenseDialog
+                                    .licenseDialogContentUserAgreement,
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () async {
+                                    final uri =
+                                        '$websiteBaseUrl/$languageCode/legal/terms-of-use/';
+                                    if (await canLaunchUrlString(uri)) {
+                                      await launchUrlString(uri);
+                                    }
+                                  },
+                                style: const TextStyle(
+                                  color: PGColors.primaryColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              TextSpan(
+                                text: t
+                                    .dialogs
+                                    .licenseDialog
+                                    .licenseDialogContentAnd,
+                                style: TextStyle(
+                                  color: isDark
+                                      ? Colors.white
+                                      : PGColors.primaryTextColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              TextSpan(
+                                text: t
+                                    .dialogs
+                                    .licenseDialog
+                                    .licenseDialogContentPrivacyPolicy,
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () async {
+                                    final uri =
+                                        '$websiteBaseUrl/$languageCode/legal/privacy/';
+                                    if (await canLaunchUrlString(uri)) {
+                                      await launchUrlString(uri);
+                                    }
+                                  },
+                                style: const TextStyle(
+                                  color: PGColors.primaryColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              TextSpan(
+                                text: t
+                                    .dialogs
+                                    .licenseDialog
+                                    .licenseDialogContentSuffix,
+                                style: TextStyle(
+                                  color: isDark
+                                      ? Colors.white
+                                      : PGColors.primaryTextColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
+              actions: [
+                DecoratedBox(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      top: BorderSide(color: PGColors.borderColor),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () async {
+                            await setValue(Keys.licenseKey, false);
+                            NavigatorUtil.pop();
+                            // exit(0);
+                          },
+                          child: Padding(
+                            padding: const .symmetric(vertical: 16),
+                            child: Text(
+                              t.buttons.cancel,
+                              textAlign: .center,
+                              style: TextStyle(
+                                color: isDark
+                                    ? Colors.white70
+                                    : PGColors.secondaryTextColor,
+                                fontSize: 16,
+                                height: 1.375,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () async {
+                            await setValue(Keys.licenseKey, true);
+                            NavigatorUtil.pop();
+                          },
+                          child: DecoratedBox(
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                left: BorderSide(color: PGColors.borderColor),
+                              ),
+                            ),
+                            child: Text(
+                              t.buttons.agree,
+                              textAlign: .center,
+                              style: const TextStyle(
+                                color: PGColors.primaryColor,
+                                fontSize: 16,
+                                height: 1.375,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+              actionsPadding: .zero,
+              buttonPadding: .zero,
+              actionsOverflowButtonSpacing: 0,
+              actionsAlignment: .center,
+              contentPadding: const .all(20),
+              insetPadding: const .symmetric(horizontal: 20),
+              shape: RoundedRectangleBorder(borderRadius: .circular(10)),
             ),
-            actions: [
-              DecoratedBox(
-                decoration: const BoxDecoration(
-                  border: Border(top: BorderSide(color: PGColors.borderColor)),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () async {
-                          await setValue(Keys.licenseKey, false);
-                          NavigatorUtil.pop();
-                          // exit(0);
-                        },
-                        child: Padding(
-                          padding: const .symmetric(vertical: 16),
-                          child: Text(
-                            t.buttons.cancel,
-                            textAlign: .center,
-                            style: TextStyle(
-                              color: isDark
-                                  ? Colors.white70
-                                  : PGColors.secondaryTextColor,
-                              fontSize: 16,
-                              height: 1.375,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () async {
-                          await setValue(Keys.licenseKey, true);
-                          NavigatorUtil.pop();
-                        },
-                        child: DecoratedBox(
-                          decoration: const BoxDecoration(
-                            border: Border(
-                              left: BorderSide(color: PGColors.borderColor),
-                            ),
-                          ),
-                          child: Text(
-                            t.buttons.agree,
-                            textAlign: .center,
-                            style: const TextStyle(
-                              color: PGColors.primaryColor,
-                              fontSize: 16,
-                              height: 1.375,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-            actionsPadding: .zero,
-            buttonPadding: .zero,
-            actionsOverflowButtonSpacing: 0,
-            actionsAlignment: .center,
-            contentPadding: const .all(20),
-            insetPadding: const .symmetric(horizontal: 20),
-            shape: RoundedRectangleBorder(borderRadius: .circular(10)),
           );
         },
       );
