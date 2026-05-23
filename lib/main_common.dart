@@ -192,10 +192,6 @@ class _MainAppState extends State<MainApp> with TrayListener {
           key: Menus.about.name,
           label: t.menus.about(appName: appName),
         ),
-        if (PgEnv.updatesEnabled) ...[
-          MenuItem.separator(),
-          MenuItem(key: Menus.updates.name, label: t.menus.updates),
-        ],
         MenuItem.separator(),
         MenuItem(
           key: Menus.settings.name,
@@ -237,8 +233,6 @@ class _MainAppState extends State<MainApp> with TrayListener {
   Future<void> onTrayMenuItemClick(MenuItem menuItem) async {
     if (menuItem.key == Menus.about.name) {
       await DialogUtil.showAboutModal();
-    } else if (menuItem.key == Menus.updates.name) {
-      await DialogUtil.checkUpdates();
     } else if (menuItem.key == Menus.settings.name) {
       await DialogUtil.showSettingsModal();
     } else if (menuItem.key == Menus.support.name) {

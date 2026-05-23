@@ -38,7 +38,6 @@ import '../constants/constants.dart';
 import '../generated/colors.gen.dart';
 import '../i18n/i18n.g.dart';
 import '../logger/logger.dart';
-import '../mixins/mixins.dart';
 import '../models/file_wrapper.dart';
 import '../utils/utils.dart';
 import '../widgets/widgets.dart';
@@ -52,7 +51,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with AutomaticCheckUpdatesMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   final _key = GlobalKey<ExpandableFabState>();
   final _formKey = GlobalKey<FormBuilderState>();
 

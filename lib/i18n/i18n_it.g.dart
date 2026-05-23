@@ -148,7 +148,6 @@ class _TranslationsMenusIt extends TranslationsMenusEn {
 	@override String get support => 'Supporto';
 	@override String get userAgreement => 'Accordo utente';
 	@override String get privacy => 'Politica sulla riservatezza';
-	@override String get updates => 'Aggiornamenti';
 	@override String get debug => 'Debug';
 }
 
@@ -178,7 +177,6 @@ class _TranslationsDialogsIt extends TranslationsDialogsEn {
 	@override late final _TranslationsDialogsPermissionsIt permissions = _TranslationsDialogsPermissionsIt._(_root);
 	@override late final _TranslationsDialogsLicenseDialogIt licenseDialog = _TranslationsDialogsLicenseDialogIt._(_root);
 	@override late final _TranslationsDialogsSettingsDialogIt settingsDialog = _TranslationsDialogsSettingsDialogIt._(_root);
-	@override late final _TranslationsDialogsUpdatesDialogIt updatesDialog = _TranslationsDialogsUpdatesDialogIt._(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -242,27 +240,6 @@ class _TranslationsDialogsSettingsDialogIt extends TranslationsDialogsSettingsDi
 	@override String get languages => 'Lingue';
 	@override late final _TranslationsDialogsSettingsDialogThemesIt themes = _TranslationsDialogsSettingsDialogThemesIt._(_root);
 	@override String get themesDescription => 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
-}
-
-// Path: dialogs.updatesDialog
-class _TranslationsDialogsUpdatesDialogIt extends TranslationsDialogsUpdatesDialogEn {
-	_TranslationsDialogsUpdatesDialogIt._(TranslationsIt root) : this._root = root, super.internal(root);
-
-	final TranslationsIt _root; // ignore: unused_field
-
-	// Translations
-	@override String get updateAvailableTitle => 'Aggiornamento disponibile';
-	@override String get updateAvailableMessage => 'È disponibile una nuova versione ({latestVersion}). Attualmente sei sulla versione {currentVersion}.';
-	@override String get updateButton => 'Aggiornamento ora';
-	@override String get laterButton => 'Successivamente';
-	@override String get skipVersionButton => 'Salta questa versione';
-	@override String get doNotAskAgainButton => 'Non ricordarmelo di nuovo';
-	@override String get criticalUpdateTitle => 'Aggiornamento critico richiesto';
-	@override String get criticalUpdateMessage => 'Questo aggiornamento contiene correzioni importanti. Per favore, aggiorna per continuare.';
-	@override String get releaseNotesTitle => 'Cosa c\'è di nuovo';
-	@override String get loadingText => 'Controllo aggiornamenti...';
-	@override String get errorText => 'Impossibile controllare gli aggiornamenti';
-	@override String get upToDateText => 'La tua app è aggiornata!';
 }
 
 // Path: dialogs.permissions.photos
@@ -363,7 +340,6 @@ extension on TranslationsIt {
 			'menus.support' => 'Supporto',
 			'menus.userAgreement' => 'Accordo utente',
 			'menus.privacy' => 'Politica sulla riservatezza',
-			'menus.updates' => 'Aggiornamenti',
 			'menus.debug' => 'Debug',
 			'buttons.agree' => 'Accetto',
 			'buttons.cancel' => 'Annulla',
@@ -399,18 +375,6 @@ extension on TranslationsIt {
 			'dialogs.settingsDialog.themes.dark' => 'Modalità scura',
 			'dialogs.settingsDialog.themes.light' => 'Modalità chiara',
 			'dialogs.settingsDialog.themesDescription' => 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema',
-			'dialogs.updatesDialog.updateAvailableTitle' => 'Aggiornamento disponibile',
-			'dialogs.updatesDialog.updateAvailableMessage' => 'È disponibile una nuova versione ({latestVersion}). Attualmente sei sulla versione {currentVersion}.',
-			'dialogs.updatesDialog.updateButton' => 'Aggiornamento ora',
-			'dialogs.updatesDialog.laterButton' => 'Successivamente',
-			'dialogs.updatesDialog.skipVersionButton' => 'Salta questa versione',
-			'dialogs.updatesDialog.doNotAskAgainButton' => 'Non ricordarmelo di nuovo',
-			'dialogs.updatesDialog.criticalUpdateTitle' => 'Aggiornamento critico richiesto',
-			'dialogs.updatesDialog.criticalUpdateMessage' => 'Questo aggiornamento contiene correzioni importanti. Per favore, aggiorna per continuare.',
-			'dialogs.updatesDialog.releaseNotesTitle' => 'Cosa c\'è di nuovo',
-			'dialogs.updatesDialog.loadingText' => 'Controllo aggiornamenti...',
-			'dialogs.updatesDialog.errorText' => 'Impossibile controllare gli aggiornamenti',
-			'dialogs.updatesDialog.upToDateText' => 'La tua app è aggiornata!',
 			'locales.en' => 'English',
 			'locales.it' => 'Italian',
 			'locales.zh' => '中文',

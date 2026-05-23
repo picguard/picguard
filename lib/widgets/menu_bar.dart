@@ -51,15 +51,6 @@ class MacOSMenuBar extends StatelessWidget {
                 ),
               ],
             ),
-            if (PgEnv.updatesEnabled)
-              PlatformMenuItemGroup(
-                members: <PlatformMenuItem>[
-                  PlatformMenuItem(
-                    onSelected: DialogUtil.checkUpdates,
-                    label: t.menus.updates,
-                  ),
-                ],
-              ),
             PlatformMenuItemGroup(
               members: <PlatformMenuItem>[
                 PlatformMenuItem(
@@ -187,14 +178,6 @@ class DesktopMenuBar extends StatelessWidget {
                 shortcut: const CharacterActivator('A', control: true),
                 shortcutText: 'Ctrl+A',
               ),
-              if (PgEnv.updatesEnabled) ...[
-                const MenuDivider(height: 1),
-                MenuButton(
-                  text: Text(t.menus.updates),
-                  onTap: DialogUtil.checkUpdates,
-                  icon: const Icon(Icons.update),
-                ),
-              ],
               const MenuDivider(height: 1),
               MenuButton(
                 text: Text(t.dialogs.settingsDialog.settings),

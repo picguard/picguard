@@ -20,7 +20,6 @@ import '../app/config.dart';
 import '../constants/constants.dart';
 import '../generated/assets.gen.dart';
 import '../generated/colors.gen.dart';
-import '../events/events.dart';
 import '../i18n/i18n.g.dart';
 import '../logger/logger.dart';
 import '../models/models.dart';
@@ -704,11 +703,6 @@ class DialogUtil {
         ),
       ],
     );
-  }
-
-  /// check updates
-  static Future<void> checkUpdates() async {
-    eventBus.fire(const AppUpdatesEvent());
   }
 
   /// check updates

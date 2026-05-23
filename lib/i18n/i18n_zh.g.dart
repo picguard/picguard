@@ -148,7 +148,6 @@ class _TranslationsMenusZh extends TranslationsMenusEn {
 	@override String get support => '支持';
 	@override String get userAgreement => '用户协议';
 	@override String get privacy => '隐私政策';
-	@override String get updates => '更新';
 	@override String get debug => '调试';
 }
 
@@ -178,7 +177,6 @@ class _TranslationsDialogsZh extends TranslationsDialogsEn {
 	@override late final _TranslationsDialogsPermissionsZh permissions = _TranslationsDialogsPermissionsZh._(_root);
 	@override late final _TranslationsDialogsLicenseDialogZh licenseDialog = _TranslationsDialogsLicenseDialogZh._(_root);
 	@override late final _TranslationsDialogsSettingsDialogZh settingsDialog = _TranslationsDialogsSettingsDialogZh._(_root);
-	@override late final _TranslationsDialogsUpdatesDialogZh updatesDialog = _TranslationsDialogsUpdatesDialogZh._(_root);
 }
 
 // Path: dialogs.exitConfirm
@@ -242,27 +240,6 @@ class _TranslationsDialogsSettingsDialogZh extends TranslationsDialogsSettingsDi
 	@override String get languages => '语言';
 	@override late final _TranslationsDialogsSettingsDialogThemesZh themes = _TranslationsDialogsSettingsDialogThemesZh._(_root);
 	@override String get themesDescription => '开启后, 将跟随系统打开或关闭深色模式';
-}
-
-// Path: dialogs.updatesDialog
-class _TranslationsDialogsUpdatesDialogZh extends TranslationsDialogsUpdatesDialogEn {
-	_TranslationsDialogsUpdatesDialogZh._(TranslationsZh root) : this._root = root, super.internal(root);
-
-	final TranslationsZh _root; // ignore: unused_field
-
-	// Translations
-	@override String get updateAvailableTitle => '更新可用';
-	@override String get updateAvailableMessage => '新版本（{latestVersion}）可用。你目前使用的版本是{currentVersion}。';
-	@override String get updateButton => '现在更新';
-	@override String get laterButton => '稍后';
-	@override String get skipVersionButton => '忽略此版本';
-	@override String get doNotAskAgainButton => '不要再提醒我';
-	@override String get criticalUpdateTitle => '关键更新需求';
-	@override String get criticalUpdateMessage => '本次更新包含重要的修复。请更新以继续。';
-	@override String get releaseNotesTitle => '新变化';
-	@override String get loadingText => '检查更新中...';
-	@override String get errorText => '无法查看更新';
-	@override String get upToDateText => '你的应用是最新的！';
 }
 
 // Path: dialogs.permissions.photos
@@ -363,7 +340,6 @@ extension on TranslationsZh {
 			'menus.support' => '支持',
 			'menus.userAgreement' => '用户协议',
 			'menus.privacy' => '隐私政策',
-			'menus.updates' => '更新',
 			'menus.debug' => '调试',
 			'buttons.agree' => '同意',
 			'buttons.cancel' => '再想想',
@@ -399,18 +375,6 @@ extension on TranslationsZh {
 			'dialogs.settingsDialog.themes.dark' => '深色模式',
 			'dialogs.settingsDialog.themes.light' => '浅色模式',
 			'dialogs.settingsDialog.themesDescription' => '开启后, 将跟随系统打开或关闭深色模式',
-			'dialogs.updatesDialog.updateAvailableTitle' => '更新可用',
-			'dialogs.updatesDialog.updateAvailableMessage' => '新版本（{latestVersion}）可用。你目前使用的版本是{currentVersion}。',
-			'dialogs.updatesDialog.updateButton' => '现在更新',
-			'dialogs.updatesDialog.laterButton' => '稍后',
-			'dialogs.updatesDialog.skipVersionButton' => '忽略此版本',
-			'dialogs.updatesDialog.doNotAskAgainButton' => '不要再提醒我',
-			'dialogs.updatesDialog.criticalUpdateTitle' => '关键更新需求',
-			'dialogs.updatesDialog.criticalUpdateMessage' => '本次更新包含重要的修复。请更新以继续。',
-			'dialogs.updatesDialog.releaseNotesTitle' => '新变化',
-			'dialogs.updatesDialog.loadingText' => '检查更新中...',
-			'dialogs.updatesDialog.errorText' => '无法查看更新',
-			'dialogs.updatesDialog.upToDateText' => '你的应用是最新的！',
 			'locales.en' => 'English',
 			'locales.it' => 'Italian',
 			'locales.zh' => '中文',

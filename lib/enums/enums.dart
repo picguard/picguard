@@ -4,7 +4,6 @@
 
 enum Menus {
   about,
-  updates,
   settings,
   help,
   support,

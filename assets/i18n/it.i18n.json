@@ -64,7 +64,6 @@
     "support": "Supporto",
     "userAgreement": "Accordo utente",
     "privacy": "Politica sulla riservatezza",
-    "updates": "Aggiornamenti",
     "debug": "Debug"
   },
   "buttons": {
@@ -121,20 +120,6 @@
         "light": "Modalità chiara"
       },
       "themesDescription": "Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema"
-    },
-    "updatesDialog": {
-      "updateAvailableTitle": "Aggiornamento disponibile",
-      "updateAvailableMessage": "È disponibile una nuova versione ({latestVersion}). Attualmente sei sulla versione {currentVersion}.",
-      "updateButton": "Aggiornamento ora",
-      "laterButton": "Successivamente",
-      "skipVersionButton": "Salta questa versione",
-      "doNotAskAgainButton": "Non ricordarmelo di nuovo",
-      "criticalUpdateTitle": "Aggiornamento critico richiesto",
-      "criticalUpdateMessage": "Questo aggiornamento contiene correzioni importanti. Per favore, aggiorna per continuare.",
-      "releaseNotesTitle": "Cosa c'è di nuovo",
-      "loadingText": "Controllo aggiornamenti...",
-      "errorText": "Impossibile controllare gli aggiornamenti",
-      "upToDateText": "La tua app è aggiornata!"
     }
   },
   "locales(map)": {
