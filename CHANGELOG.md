@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.1
+
+1. Revert "Update release web"
+2. fix: do not swipe back when the privacy pop-up is displayed
+3. fix: disable automatic update checks
+
 ## 5.5.0
 
 1. Update flutter to 3.41.9
