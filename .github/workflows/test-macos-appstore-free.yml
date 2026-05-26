@@ -34,12 +34,6 @@ jobs:
         run: pod install --repo-update
         working-directory: macos
 
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: macos
-
       - name: Build macOS
         run: |
           echo "╠ Releasing to mac app store..."

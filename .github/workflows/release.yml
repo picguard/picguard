@@ -585,12 +585,6 @@ jobs:
           mv $PP_PRO_DEV_PATH ~/Library/MobileDevice/Provisioning\ Profiles
           mv $PP_PRO_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: ios
-
       - name: Build ipa
         if: inputs.env == 'staging'
         run: |
@@ -706,12 +700,6 @@ jobs:
           mv $PP_PRO_DEV_PATH ~/Library/MobileDevice/Provisioning\ Profiles
           mv $PP_PRO_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: ios
-
       - name: Build ipa
         if: inputs.env == 'staging'
         run: |
@@ -781,12 +769,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: macos
 
       - name: Build macOS
         run: |
@@ -908,12 +890,6 @@ jobs:
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: macos
-
       - name: Build macOS
         run: |
           echo "╠ Releasing to app store..."
@@ -1033,12 +1009,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: macos
 
       - name: Build macOS
         run: |
@@ -1179,12 +1149,6 @@ jobs:
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: macos
-
       - name: Build macOS
         run: |
           echo "╠ Releasing to app store..."
@@ -1324,12 +1288,6 @@ jobs:
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: macos
-
       - name: Build macOS
         run: |
           echo "╠ Releasing to mac app store..."
@@ -1462,12 +1420,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: macos
 
       - name: Build macOS
         run: |
@@ -1602,12 +1554,6 @@ jobs:
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
 
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: macos
-
       - name: Build macOS
         run: |
           echo "╠ Releasing to app store..."
@@ -1736,12 +1682,6 @@ jobs:
           ENV: ${{ inputs.env }}
           ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
           ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
-
-      - name: Remove build cache
-        run: |
-          echo "╠ Removing build products and intermediate files from the build root..."
-          xcodebuild clean
-        working-directory: macos
 
       - name: Build macOS
         run: |
