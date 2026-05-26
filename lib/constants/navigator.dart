@@ -2,9 +2,6 @@
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
-export 'env.dart';
-export 'get.dart';
-export 'keys.dart';
-export 'navigator.dart';
-export 'uuid.dart';
-export 'values.dart';
+import 'package:flutter/widgets.dart';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

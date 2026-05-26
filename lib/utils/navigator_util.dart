@@ -3,7 +3,8 @@
 // See the LICENSE file in the project root for full license information.
 
 import 'package:flutter/material.dart';
-import 'package:nb_utils/nb_utils.dart';
+
+import '../constants/navigator.dart';
 
 ///
 class NavigatorUtil {

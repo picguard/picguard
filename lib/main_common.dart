@@ -12,10 +12,10 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:logging/logging.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
+import 'package:sp_util/sp_util.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:tray_manager/tray_manager.dart';
 
@@ -45,7 +45,8 @@ FlutterErrorDetails makeErrorDetails(Object error, StackTrace stackTrace) {
 
 Future<void> runMainApp({Flavor flavor = Flavor.free}) async {
   SentryWidgetsFlutterBinding.ensureInitialized();
-  await initialize();
+
+  await SpUtil.getInstance();
 
   AppConfig.create(flavor: flavor);
 

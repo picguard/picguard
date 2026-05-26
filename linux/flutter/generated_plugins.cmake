@@ -6,7 +6,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   desktop_drop
   file_saver
   file_selector_linux
-  nb_utils
   sentry_flutter
   tray_manager
   url_launcher_linux

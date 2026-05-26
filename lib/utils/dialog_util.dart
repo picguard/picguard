@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 
 import 'package:about/about.dart';
 import 'package:collection/collection.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:sp_util/sp_util.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -34,7 +34,7 @@ const double _buttonHeight = 54;
 class DialogUtil {
   static Future<void> showLicenseDialog() async {
     final context = navigatorKey.currentContext!;
-    final isContainsKey = getBoolAsync(Keys.licenseKey);
+    final isContainsKey = _getBoolAsync(Keys.licenseKey);
 
     printDebugLog('isContainsKey: $isContainsKey');
 
@@ -234,7 +234,7 @@ class DialogUtil {
                       Expanded(
                         child: GestureDetector(
                           onTap: () async {
-                            await setValue(Keys.licenseKey, false);
+                            await SpUtil.putBool(Keys.licenseKey, false);
                             NavigatorUtil.pop();
                             // exit(0);
                           },
@@ -257,7 +257,7 @@ class DialogUtil {
                       Expanded(
                         child: GestureDetector(
                           onTap: () async {
-                            await setValue(Keys.licenseKey, true);
+                            await SpUtil.putBool(Keys.licenseKey, true);
                             NavigatorUtil.pop();
                           },
                           child: DecoratedBox(
@@ -717,5 +717,10 @@ class DialogUtil {
         theme: TalkerScreenTheme.fromTheme(themeData),
       ),
     );
+  }
+
+  /// Returns a Bool if exists in SharedPref
+  static bool _getBoolAsync(String key, {bool defaultValue = false}) {
+    return SpUtil.getSp()?.getBool(key) ?? defaultValue;
   }
 }

@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for full license information.
 
 import 'package:flutter/material.dart';
-import 'package:nb_utils/nb_utils.dart';
+import 'package:sp_util/sp_util.dart';
 
 import '../app/config.dart';
 import '../logger/logger.dart';
@@ -18,12 +18,12 @@ class GlobalProvider extends ChangeNotifier {
 
   Future<void> switchThemeMode(ThemeMode themeMode) async {
     this.themeMode = themeMode;
-    await setValue('${AppConfig.shared.container}_theme_mode', themeMode.name);
+    await SpUtil.putString('${AppConfig.shared.container}_theme_mode', themeMode.name);
     notifyListeners();
   }
 
   void getThemeMode() {
-    final name = getStringAsync('${AppConfig.shared.container}_theme_mode');
+    final name = _getStringAsync('${AppConfig.shared.container}_theme_mode');
     printDebugLog('theme mode from storage: $name');
     var themeMode = ThemeMode.system;
     if (StringUtil.isNotBlank(name)) {
@@ -33,5 +33,9 @@ class GlobalProvider extends ChangeNotifier {
     }
     this.themeMode = themeMode;
     notifyListeners();
+  }
+
+  String _getStringAsync(String key, {String defaultValue = ''}) {
+    return SpUtil.getSp()?.getString(key) ?? defaultValue;
   }
 }

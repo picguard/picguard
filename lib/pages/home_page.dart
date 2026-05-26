@@ -30,7 +30,6 @@ import 'package:image_picker_platform_interface/image_picker_platform_interface.
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
-import 'package:nb_utils/nb_utils.dart';
 import 'package:path/path.dart' hide context;
 
 import '../app/config.dart';

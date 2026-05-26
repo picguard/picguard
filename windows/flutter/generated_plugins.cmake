@@ -3,11 +3,9 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  connectivity_plus
   desktop_drop
   file_saver
   file_selector_windows
-  nb_utils
   permission_handler_windows
   sentry_flutter
   share_plus
