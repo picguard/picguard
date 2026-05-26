@@ -159,7 +159,7 @@ class _TranslationsButtonsZh extends TranslationsButtonsEn {
 
 	// Translations
 	@override String get agree => '同意';
-	@override String get cancel => '再想想';
+	@override String get cancel => '拒绝';
 	@override String get ignore => '忽略';
 	@override String get turnOn => '打开';
 }
@@ -342,7 +342,7 @@ extension on TranslationsZh {
 			'menus.privacy' => '隐私政策',
 			'menus.debug' => '调试',
 			'buttons.agree' => '同意',
-			'buttons.cancel' => '再想想',
+			'buttons.cancel' => '拒绝',
 			'buttons.ignore' => '忽略',
 			'buttons.turnOn' => '打开',
 			'dialogs.selectColor' => '选择颜色',

@@ -159,7 +159,7 @@ class _TranslationsButtonsIt extends TranslationsButtonsEn {
 
 	// Translations
 	@override String get agree => 'Accetto';
-	@override String get cancel => 'Annulla';
+	@override String get cancel => 'Rifiuto';
 	@override String get ignore => 'Ignora';
 	@override String get turnOn => 'Accendi';
 }
@@ -342,7 +342,7 @@ extension on TranslationsIt {
 			'menus.privacy' => 'Politica sulla riservatezza',
 			'menus.debug' => 'Debug',
 			'buttons.agree' => 'Accetto',
-			'buttons.cancel' => 'Annulla',
+			'buttons.cancel' => 'Rifiuto',
 			'buttons.ignore' => 'Ignora',
 			'buttons.turnOn' => 'Accendi',
 			'dialogs.selectColor' => 'Seleziona un colore',

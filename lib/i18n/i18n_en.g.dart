@@ -276,8 +276,8 @@ class TranslationsButtonsEn {
 	/// en: 'Agree'
 	String get agree => 'Agree';
 
-	/// en: 'Cancel'
-	String get cancel => 'Cancel';
+	/// en: 'Rejection'
+	String get cancel => 'Rejection';
 
 	/// en: 'Ignore'
 	String get ignore => 'Ignore';
@@ -517,7 +517,7 @@ extension on Translations {
 			'menus.privacy' => 'Privacy Policy',
 			'menus.debug' => 'Debug',
 			'buttons.agree' => 'Agree',
-			'buttons.cancel' => 'Cancel',
+			'buttons.cancel' => 'Rejection',
 			'buttons.ignore' => 'Ignore',
 			'buttons.turnOn' => 'Turn On',
 			'dialogs.selectColor' => 'Select a color',
