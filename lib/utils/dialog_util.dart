@@ -12,7 +12,6 @@ import 'package:collection/collection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:sp_util/sp_util.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -26,6 +25,7 @@ import '../models/models.dart';
 import '../types/types.dart';
 import '../widgets/widgets.dart';
 import 'navigator_util.dart';
+import 'sp_util.dart';
 import 'string_util.dart';
 
 const double _buttonHeight = 54;

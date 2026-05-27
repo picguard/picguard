@@ -1118,7 +1118,7 @@ packages:
     source: hosted
     version: "7.1.0"
   shared_preferences:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: shared_preferences
       sha256: c3025c5534b01739267eb7d76959bbc25a6d10f6988e1c2a3036940133dd10bf
@@ -1242,14 +1242,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.2"
-  sp_util:
-    dependency: "direct main"
-    description:
-      name: sp_util
-      sha256: "9da43dce5de79c17a787d0626bf01538d63090ca32521200d22a232171c495dc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.3"
   stack_trace:
     dependency: transitive
     description:
@@ -1299,7 +1291,7 @@ packages:
     source: hosted
     version: "33.2.7"
   synchronized:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: synchronized
       sha256: "63896c27e81b28f8cb4e69ead0d3e8f03f1d1e5fc531a3e579cabed6a2c7c9e5"
