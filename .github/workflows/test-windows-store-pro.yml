@@ -86,7 +86,7 @@ jobs:
           
           $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD_PRO).Value
 
-          $yamlFile = ".\pubspec.yaml"
+          $yamlFile = ".\windows\packaging\msix\make_config.yaml"
           $yamlContent = Get-Content -Raw -Path $yamlFile
 
           # 获取环境变量的值
@@ -95,7 +95,7 @@ jobs:
           # $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME_PRO).Value
 
           # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".msix_config.display_name = `"PicGuard Pro`" | .msix_config.certificate_path = env(certificatePath) | .msix_config.certificate_password = `"$certificatePassword`" | .msix_config.architecture = `"$env:Platform`" | del(.msix_config.identity_name) | del(.msix_config.publisher) | del(.msix_config.publisher_display_name)" -
+          $updatedYamlContent = echo $yamlContent | yq e ".display_name = `"PicGuard Pro`" | .certificate_path = env(certificatePath) | .certificate_password = `"$certificatePassword`" | .architecture = `"$env:Platform`" | del(.identity_name) | del(.publisher) | del(.publisher_display_name)" -
 
           # 将更新后的内容写回文件
           Set-Content -Path $yamlFile -Value $updatedYamlContent
@@ -106,25 +106,26 @@ jobs:
           WINDOWS_PUBLISHER_PRO: ${{ secrets.WINDOWS_PUBLISHER_PRO }}
           WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
 
+      - name: Install fastforge
+        run: dart pub global activate fastforge
+
       - name: Install Flutter dependencies
         run: flutter pub get
 
-      - name: Build windows
+      - name: Build msix
         run: |
           $env:SENTRY_NATIVE_BACKEND = "breakpad"
-          flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
-
-      - name: Crate msix
-        run: |
-          dart run msix:create --build-windows false --output-name "picguard-pro-$env:VERSION_SHORT.$env:BUILD_NUMBER-windows-$env:Platform"
-        env:
-          VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
-          BUILD_NUMBER: ${{ needs.get-version.outputs.build_number }}
+          fastforge package `
+            --skip-clean `
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
+            --platform windows `
+            --targets msix `
+            --artifact-name "{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-$env:Platform.{{ext}}"
 
       - uses: actions/upload-artifact@v5
         with:
           name: windows-msix-pro-artifact
-          path: .\build\windows\${{ env.Platform }}\runner\Release\*.msix
+          path: .\dist\**\*.msix
 
       - name: Clean up
         if: ${{ always() }}
