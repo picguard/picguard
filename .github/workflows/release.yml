@@ -108,6 +108,10 @@ jobs:
       - macos-appstore-pro
       - macos-zip-free
       - macos-zip-pro
+#      - linux-appimage-free
+#      - linux-appimage-free-arm64
+#      - linux-appimage-pro
+#      - linux-appimage-pro-arm64
       - linux-deb-free
       - linux-deb-free-arm64
       - linux-deb-pro
@@ -1779,6 +1783,356 @@ jobs:
           fi
           rm -f .env
 
+#  linux-appimage-free:
+#    name: Create linux AppImage (free)
+#    runs-on: ubuntu-22.04
+#    needs:
+#      - create-release
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Install dependencies for Linux
+#        run: |
+#          sudo apt-get update -y && sudo apt-get upgrade -y
+#          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+#          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+#          sudo apt-get install -y locate libfuse2
+#
+#      - name: Install ayatana-appindicator3-0.1
+#        run: |
+#          # used by tray_manager
+#          sudo apt-get install -y libayatana-appindicator3-dev
+#
+#      - name: Install appimagetool
+#        run: |
+#          wget -O appimagetool "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
+#          chmod +x appimagetool && mv appimagetool /usr/local/bin/
+#
+#      - name: Setup Flutter
+#        uses: subosito/flutter-action@v2
+#        with:
+#          channel: 'stable'
+#          flutter-version: '3.41.9'
+#
+#      - name: Flutter doctor -v
+#        run: flutter doctor -v
+#
+#      - name: Install Flutter dependencies
+#        run: flutter pub get
+#
+#      - name: Configure .env
+#        run: |
+#          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+#          echo "$ENV_BASE64" | base64 --decode > .env
+#        env:
+#          ENV: ${{ inputs.env }}
+#          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+#          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+#
+#      - name: Install fastforge
+#        run: dart pub global activate fastforge
+#
+#      - name: Remove unused files
+#        run: rm -f "$(pwd)/linux/packaging/appimage/make_config-pro.yaml"
+#
+#      - name: Build AppImage
+#        run: |
+#          export SENTRY_NATIVE_BACKEND=breakpad
+#          fastforge package \
+#            --skip-clean \
+#            --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
+#            --platform linux \
+#            --targets appimage \
+#            --artifact-name {{name}}-"$RELEASE"-{{platform}}-amd64.{{ext}}
+#        env:
+#          RELEASE: ${{ needs.create-release.outputs.release }}
+#
+#      # Package the build.
+#      - name: Copy build for AppImage
+#        run: |
+#          ls -laR
+#          cp ./**/*.AppImage $GITHUB_WORKSPACE/
+#        working-directory: dist
+#
+#      - name: Upload assets
+#        run: gh release upload "$TAG_NAME" ./*.AppImage
+#        env:
+#          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+#          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+#
+#      - name: Clean up
+#        if: ${{ always() }}
+#        run: rm -f .env
+#
+#  linux-appimage-free-arm64:
+#    name: Create linux AppImage (free arm64)
+#    runs-on: ubuntu-22.04-arm
+#    needs:
+#      - create-release
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Install dependencies for Linux
+#        run: |
+#          sudo apt-get update -y && sudo apt-get upgrade -y
+#          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+#          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+#          sudo apt-get install -y locate libfuse2
+#
+#      - name: Install ayatana-appindicator3-0.1
+#        run: |
+#          # used by tray_manager
+#          sudo apt-get install -y libayatana-appindicator3-dev
+#
+#      - name: Install appimagetool
+#        run: |
+#          wget -O appimagetool "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-aarch64.AppImage"
+#          # https://github.com/AppImage/AppImageKit/issues/1056#issuecomment-643382397
+#          # sed -i 's|AI\x02|\x00\x00\x00|' appimagetool
+#          chmod +x appimagetool && mv appimagetool /usr/local/bin/
+#
+#      - name: Setup Flutter
+#        shell: bash
+#        run: |
+#          chmod +x ./scripts/install-flutter-github-actions.sh
+#          ./scripts/install-flutter-github-actions.sh
+#
+#      - name: Flutter doctor -v
+#        run: flutter doctor -v
+#
+#      - name: Install Flutter dependencies
+#        run: flutter pub get
+#
+#      - name: Configure .env
+#        run: |
+#          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+#          echo "$ENV_BASE64" | base64 --decode > .env
+#        env:
+#          ENV: ${{ inputs.env }}
+#          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+#          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+#
+#      - name: Install fastforge
+#        run: |
+#          dart pub global activate \
+#            --source git https://github.com/kjxbyz/fastforge \
+#            --git-ref appimage-arm64 \
+#            --git-path packages/fastforge
+#
+#      - name: Remove unused files
+#        run: rm -f "$(pwd)/linux/packaging/appimage/make_config-pro.yaml"
+#
+#      - name: Build AppImage
+#        run: |
+#          export SENTRY_NATIVE_BACKEND=breakpad
+#          fastforge package \
+#            --skip-clean \
+#            --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" \
+#            --platform linux \
+#            --targets appimage \
+#            --artifact-name {{name}}-"$RELEASE"-{{platform}}-aarch64.{{ext}}
+#        env:
+#          RELEASE: ${{ needs.create-release.outputs.release }}
+#
+#      # Package the build.
+#      - name: Copy build for AppImage
+#        run: |
+#          ls -laR
+#          cp ./**/*.AppImage $GITHUB_WORKSPACE/
+#        working-directory: dist
+#
+#      - name: Upload assets
+#        run: gh release upload "$TAG_NAME" ./*.AppImage
+#        env:
+#          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+#          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+#
+#      - name: Clean up
+#        if: ${{ always() }}
+#        run: rm -f .env
+#
+#  linux-appimage-pro:
+#    name: Create linux AppImage (pro)
+#    runs-on: ubuntu-22.04
+#    needs:
+#      - create-release
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Install dependencies for Linux
+#        run: |
+#          sudo apt-get update -y && sudo apt-get upgrade -y
+#          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+#          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+#          sudo apt-get install -y locate libfuse2
+#
+#      - name: Install ayatana-appindicator3-0.1
+#        run: |
+#          # used by tray_manager
+#          sudo apt-get install -y libayatana-appindicator3-dev
+#
+#      - name: Install appimagetool
+#        run: |
+#          wget -O appimagetool "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
+#          chmod +x appimagetool && mv appimagetool /usr/local/bin/
+#
+#      - name: Setup Flutter
+#        uses: subosito/flutter-action@v2
+#        with:
+#          channel: 'stable'
+#          flutter-version: '3.41.9'
+#
+#      - name: Flutter doctor -v
+#        run: flutter doctor -v
+#
+#      - name: Install Flutter dependencies
+#        run: flutter pub get
+#
+#      - name: Configure .env
+#        run: |
+#          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+#          echo "$ENV_BASE64" | base64 --decode > .env
+#        env:
+#          ENV: ${{ inputs.env }}
+#          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+#          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+#
+#      - name: Copy files to the linux folder
+#        run: |
+#          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+#          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+#
+#      - name: Install fastforge
+#        run: dart pub global activate fastforge
+#
+#      - name: Update make_config.yaml
+#        run: |
+#          rm -f "$(pwd)/linux/packaging/appimage/make_config.yaml"
+#          mv "$(pwd)/linux/packaging/appimage/make_config-pro.yaml" "$(pwd)/linux/packaging/appimage/make_config.yaml"
+#
+#      - name: Build AppImage
+#        run: |
+#          export SENTRY_NATIVE_BACKEND=breakpad
+#          fastforge package \
+#            --skip-clean \
+#            --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
+#            --platform linux \
+#            --targets appimage \
+#            --artifact-name {{name}}-pro-"$RELEASE"-{{platform}}-amd64.{{ext}}
+#        env:
+#          RELEASE: ${{ needs.create-release.outputs.release }}
+#
+#      # Package the build.
+#      - name: Copy build for AppImage
+#        run: |
+#          ls -laR
+#          cp ./**/*.AppImage $GITHUB_WORKSPACE/
+#        working-directory: dist
+#
+#      - name: Upload assets
+#        run: gh release upload "$TAG_NAME" ./*.AppImage
+#        env:
+#          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+#          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+#
+#      - name: Clean up
+#        if: ${{ always() }}
+#        run: rm -f .env
+#
+#  linux-appimage-pro-arm64:
+#    name: Create linux AppImage (pro arm64)
+#    runs-on: ubuntu-22.04-arm
+#    needs:
+#      - create-release
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Install dependencies for Linux
+#        run: |
+#          sudo apt-get update -y && sudo apt-get upgrade -y
+#          sudo apt-get install -y curl libcurl4-openssl-dev git unzip xz-utils zip libglu1-mesa
+#          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+#          sudo apt-get install -y locate libfuse2
+#
+#      - name: Install ayatana-appindicator3-0.1
+#        run: |
+#          # used by tray_manager
+#          sudo apt-get install -y libayatana-appindicator3-dev
+#
+#      - name: Install appimagetool
+#        run: |
+#          wget -O appimagetool "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-aarch64.AppImage"
+#          # https://github.com/AppImage/AppImageKit/issues/1056#issuecomment-643382397
+#          # sed -i 's|AI\x02|\x00\x00\x00|' appimagetool
+#          chmod +x appimagetool && mv appimagetool /usr/local/bin/
+#
+#      - name: Setup Flutter
+#        shell: bash
+#        run: |
+#          chmod +x ./scripts/install-flutter-github-actions.sh
+#          ./scripts/install-flutter-github-actions.sh
+#
+#      - name: Flutter doctor -v
+#        run: flutter doctor -v
+#
+#      - name: Install Flutter dependencies
+#        run: flutter pub get
+#
+#      - name: Configure .env
+#        run: |
+#          ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
+#          echo "$ENV_BASE64" | base64 --decode > .env
+#        env:
+#          ENV: ${{ inputs.env }}
+#          ENV_STG_BASE64: ${{ secrets.ENV_STG_BASE64 }}
+#          ENV_PROD_BASE64: ${{ secrets.ENV_PROD_BASE64 }}
+#
+#      - name: Copy files to the linux folder
+#        run: |
+#          cp "$(pwd)/linux/pro/CMakeLists.txt" "$(pwd)/linux/CMakeLists.txt"
+#          cp "$(pwd)/linux/pro/my_application.cc" "$(pwd)/linux/runner/my_application.cc"
+#
+#      - name: Install fastforge
+#        run: |
+#          dart pub global activate \
+#            --source git https://github.com/kjxbyz/fastforge \
+#            --git-ref appimage-arm64 \
+#            --git-path packages/fastforge
+#
+#      - name: Update make_config.yaml
+#        run: |
+#          rm -f "$(pwd)/linux/packaging/appimage/make_config.yaml"
+#          mv "$(pwd)/linux/packaging/appimage/make_config-pro.yaml" "$(pwd)/linux/packaging/appimage/make_config.yaml"
+#
+#      - name: Build AppImage
+#        run: |
+#          export SENTRY_NATIVE_BACKEND=breakpad
+#          fastforge package \
+#            --skip-clean \
+#            --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" \
+#            --platform linux \
+#            --targets appimage \
+#            --artifact-name {{name}}-pro-"$RELEASE"-{{platform}}-aarch64.{{ext}}
+#        env:
+#          RELEASE: ${{ needs.create-release.outputs.release }}
+#
+#      # Package the build.
+#      - name: Copy build for AppImage
+#        run: |
+#          ls -laR
+#          cp ./**/*.AppImage $GITHUB_WORKSPACE/
+#        working-directory: dist
+#
+#      - name: Upload assets
+#        run: gh release upload "$TAG_NAME" ./*.AppImage
+#        env:
+#          TAG_NAME: ${{ needs.create-release.outputs.tag_name }}
+#          GH_TOKEN: ${{ secrets.PG_RELEASE_TOKEN }}
+#
+#      - name: Clean up
+#        if: ${{ always() }}
+#        run: rm -f .env
+
   linux-deb-free:
     name: Create linux deb (free)
     runs-on: ubuntu-22.04
@@ -2123,8 +2477,8 @@ jobs:
 #      - name: Setup Flutter
 #        uses: subosito/flutter-action@v2
 #        with:
-#          channel: ${{ env.flutter-channel }}
-#          flutter-version: ${{ env.flutter-version }}
+#          channel: 'stable'
+#          flutter-version: '3.41.9'
 #
 #      - name: Flutter doctor -v
 #        run: flutter doctor -v
@@ -2296,8 +2650,8 @@ jobs:
 #      - name: Setup Flutter
 #        uses: subosito/flutter-action@v2
 #        with:
-#          channel: ${{ env.flutter-channel }}
-#          flutter-version: ${{ env.flutter-version }}
+#          channel: 'stable'
+#          flutter-version: '3.41.9'
 #
 #      - name: Flutter doctor -v
 #        run: flutter doctor -v
@@ -3632,16 +3986,17 @@ jobs:
           
           # $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD).Value
 
-          $yamlFile = ".\pubspec.yaml"
+          $yamlFile = ".\windows\packaging\msix\make_config.yaml"
           $yamlContent = Get-Content -Raw -Path $yamlFile
 
           # 获取环境变量的值
           $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME).Value
+          $isStore = (Get-Item -Path Env:WINDOWS_STORE).Value
           $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER).Value
           $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME).Value
 
           # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".msix_config.identity_name = `"$identityName`" | .msix_config.publisher = `"$publisher`" | .msix_config.publisher_display_name = `"$publisherName`" | del(.msix_config.certificate_path) | del(.msix_config.certificate_password)" -
+          $updatedYamlContent = echo $yamlContent | yq e ".store = `"$isStore`" | .identity_name = `"$identityName`" | .publisher = `"$publisher`" | .publisher_display_name = `"$publisherName`" | del(.certificate_path) | del(.certificate_password)" -
 
           # 将更新后的内容写回文件
           Set-Content -Path $yamlFile -Value $updatedYamlContent
@@ -3649,26 +4004,29 @@ jobs:
           WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
           WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
           WINDOWS_IDENTITY_NAME: ${{ secrets.WINDOWS_IDENTITY_NAME }}
+          WINDOWS_STORE: true
           WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER }}
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
+
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Install Flutter dependencies
         run: flutter pub get
 
-      - name: Build windows
+      - name: Build msix
         run: |
           $env:SENTRY_NATIVE_BACKEND = "breakpad"
-          flutter build windows --dart-define-from-file=.env --target lib/main_free.dart
-
-      - name: Create msix
-        run: dart run msix:create --store --build-windows false --output-name "picguard-$env:RELEASE-windows-store-$env:Platform"
-        env:
-          RELEASE: ${{ needs.create-release.outputs.release }}
+          fastforge package `
+            --skip-clean `
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
+            --platform windows `
+            --targets msix `
+            --artifact-name "{{name}}-{{build_name}}.{{build_number}}-{{platform}}-$env:Platform.{{ext}}"
 
       # Package the build.
       - name: Copy build for msix
-        run: cp .\*.msix "$env:GITHUB_WORKSPACE\"
-        working-directory: build\windows\${{ env.Platform }}\runner\Release
+        run: cp .\dist\**\*.msix "$env:GITHUB_WORKSPACE\"
 
       - name: Upload assets
         run: |
@@ -3754,16 +4112,17 @@ jobs:
           
           # $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD_PRO).Value
 
-          $yamlFile = ".\pubspec.yaml"
+          $yamlFile = ".\windows\packaging\msix\make_config.yaml"
           $yamlContent = Get-Content -Raw -Path $yamlFile
 
           # 获取环境变量的值
           $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME_PRO).Value
+          $isStore = (Get-Item -Path Env:WINDOWS_STORE_PRO).Value
           $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER_PRO).Value
           $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME_PRO).Value
 
           # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".msix_config.display_name = `"PicGuard Pro`" | .msix_config.identity_name = `"$identityName`" | .msix_config.publisher = `"$publisher`" | .msix_config.publisher_display_name = `"$publisherName`" | del(.msix_config.certificate_path) | del(.msix_config.certificate_password)" -
+          $updatedYamlContent = echo $yamlContent | yq e ".display_name = `"PicGuard Pro`" | .store = `"$isStore`" | .identity_name = `"$identityName`" | .publisher = `"$publisher`" | .publisher_display_name = `"$publisherName`" | del(.certificate_path) | del(.certificate_password)" -
 
           # 将更新后的内容写回文件
           Set-Content -Path $yamlFile -Value $updatedYamlContent
@@ -3771,26 +4130,29 @@ jobs:
           WINDOWS_CERTIFICATE_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PRO }}
           WINDOWS_CERTIFICATE_PASSWORD_PRO: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD_PRO }}
           WINDOWS_IDENTITY_NAME_PRO: ${{ secrets.WINDOWS_IDENTITY_NAME_PRO }}
+          WINDOWS_STORE_PRO: true
           WINDOWS_PUBLISHER_PRO: ${{ secrets.WINDOWS_PUBLISHER_PRO }}
           WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
+
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Install Flutter dependencies
         run: flutter pub get
 
-      - name: Build windows
+      - name: Build msix
         run: |
           $env:SENTRY_NATIVE_BACKEND = "breakpad"
-          flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
-
-      - name: Create msix
-        run: dart run msix:create --store --build-windows false --output-name "picguard-pro-$env:RELEASE-windows-store-$env:Platform"
-        env:
-          RELEASE: ${{ needs.create-release.outputs.release }}
+          fastforge package `
+            --skip-clean `
+            --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
+            --platform windows `
+            --targets msix `
+            --artifact-name "{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-$env:Platform.{{ext}}"
 
       # Package the build.
       - name: Copy build for msix
-        run: cp .\*.msix "$env:GITHUB_WORKSPACE\"
-        working-directory: build\windows\${{ env.Platform }}\runner\Release
+        run: cp .\dist\**\*.msix "$env:GITHUB_WORKSPACE\"
 
       - name: Upload assets
         run: |

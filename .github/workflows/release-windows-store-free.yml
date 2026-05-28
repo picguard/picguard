@@ -1,4 +1,4 @@
-name: Test Windows store (free arm64)
+name: Release Windows store (free)
 
 on:
   workflow_dispatch:
@@ -9,15 +9,17 @@ permissions: read-all
 jobs:
   store-free:
     name: Create store
-    runs-on: windows-11-arm
+    runs-on: windows-2025
     env:
-      Platform: arm64
+      Platform: x64
     steps:
       - uses: actions/checkout@v6
 
       - name: Setup Flutter
-        shell: pwsh
-        run: .\scripts\install-flutter-github-actions.ps1
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.41.9'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -41,22 +43,23 @@ jobs:
         run: |
           # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
           # https://stackoverflow.com/questions/66239147/pfx-encoded-and-back-to-pfx-in-powershell
-          $env:certificatePath = "$env:RUNNER_TEMP\picguard.pfx"
-          $bytes = echo $env:WINDOWS_CERTIFICATE | %{[Convert]::FromBase64String($_)}
-          [IO.File]::WriteAllBytes("$env:certificatePath", $bytes)
-          
-          $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD).Value
+          # $env:certificatePath = "$env:RUNNER_TEMP\picguard.pfx"
+          # $bytes = echo $env:WINDOWS_CERTIFICATE | %{[Convert]::FromBase64String($_)}
+          # [IO.File]::WriteAllBytes("$env:certificatePath", $bytes)
+
+          # $certificatePassword = (Get-Item -Path Env:WINDOWS_CERTIFICATE_PASSWORD).Value
 
           $yamlFile = ".\windows\packaging\msix\make_config.yaml"
           $yamlContent = Get-Content -Raw -Path $yamlFile
 
           # 获取环境变量的值
           $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME).Value
+          $isStore = (Get-Item -Path Env:WINDOWS_STORE).Value
           $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER).Value
           $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME).Value
 
           # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".certificate_path = env(certificatePath) | .certificate_password = `"$certificatePassword`" | .architecture = `"$env:Platform`" | .identity_name = `"$identityName`" | .publisher = `"$publisher`" | .publisher_display_name = `"$publisherName`"" -
+          $updatedYamlContent = echo $yamlContent | yq e ".store = `"$isStore`" | .identity_name = `"$identityName`" | .publisher = `"$publisher`" | .publisher_display_name = `"$publisherName`" | del(.certificate_path) | del(.certificate_password)" -
 
           # 将更新后的内容写回文件
           Set-Content -Path $yamlFile -Value $updatedYamlContent
@@ -64,6 +67,7 @@ jobs:
           WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
           WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
           WINDOWS_IDENTITY_NAME: ${{ secrets.WINDOWS_IDENTITY_NAME }}
+          WINDOWS_STORE: true
           WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER }}
           WINDOWS_PUBLISHER_NAME: ${{ secrets.WINDOWS_PUBLISHER_NAME }}
 
@@ -76,7 +80,6 @@ jobs:
       - name: Build msix
         run: |
           $env:SENTRY_NATIVE_BACKEND = "breakpad"
-          $env:FLUTTER_WINDOWS_PLATFORM = "$env:Platform"
           fastforge package `
             --skip-clean `
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
