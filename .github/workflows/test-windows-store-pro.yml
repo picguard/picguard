@@ -90,9 +90,9 @@ jobs:
           $yamlContent = Get-Content -Raw -Path $yamlFile
 
           # 获取环境变量的值
-          # $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME_PRO).Value
-          # $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER_PRO).Value
-          # $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME_PRO).Value
+          $identityName = (Get-Item -Path Env:WINDOWS_IDENTITY_NAME_PRO).Value
+          $publisher = (Get-Item -Path Env:WINDOWS_PUBLISHER_PRO).Value
+          $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME_PRO).Value
 
           # 使用 yq 更新多个字段
           $updatedYamlContent = echo $yamlContent | yq e ".display_name = `"PicGuard Pro`" | .certificate_path = env(certificatePath) | .certificate_password = `"$certificatePassword`" | .architecture = `"$env:Platform`" | .identity_name = `"$identityName`" | .publisher = `"$publisher`" | .publisher_display_name = `"$publisherName`"" -
