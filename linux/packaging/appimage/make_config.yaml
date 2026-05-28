@@ -8,7 +8,7 @@ keywords:
   - Assistant
   - Watermark Assistant
 
-generic_name: PicGuard
+generic_name: Image Watermark Tool
 
 #actions:
 #  - name: Say Hi
@@ -35,7 +35,5 @@ startup_notify: true
 # depends on, but you can also specify them manually here.
 #
 # The following example shows how to bundle the libcurl library with your app.
-#
-# include:
-#   - libcurl.so.4
-include: []
+include:
+ - libayatana-appindicator3-1
