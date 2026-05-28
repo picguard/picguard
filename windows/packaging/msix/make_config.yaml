@@ -5,8 +5,8 @@ logo_path: logo\logo-512.png
 languages: en-us, zh-cn
 architecture: x64
 capabilities: "internetClient,picturesLibrary"
-install_certificate: false
-store: false
+install_certificate: "false"
+store: "false"
 
 # msix_version: 1.0.0.0 # If not set, the value of `version` is used
 # With Your Own Certificate
