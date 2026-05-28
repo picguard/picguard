@@ -89,7 +89,7 @@ jobs:
           # $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME).Value
 
           # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".certificate_path = env(certificatePath) | .certificate_password = `"$certificatePassword`" | .architecture = `"$env:Platform`" | del(.identity_name) | del(.publisher) | del(.publisher_display_name)" -
+          $updatedYamlContent = echo $yamlContent | yq e ".certificate_path = env(certificatePath) | .certificate_password = `"$certificatePassword`" | .architecture = `"$env:Platform`" |  | .identity_name = `"$identityName`" | .publisher = `"$publisher`" | .publisher_display_name = `"$publisherName`"" -
 
           # 将更新后的内容写回文件
           Set-Content -Path $yamlFile -Value $updatedYamlContent
