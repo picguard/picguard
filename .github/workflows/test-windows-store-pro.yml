@@ -7,42 +7,11 @@ on:
 permissions: read-all
 
 jobs:
-  get-version:
-    name: Create release
-    runs-on: ubuntu-22.04
-    outputs:
-      version: ${{ steps.version_step.outputs.version }}
-      version_short: ${{ steps.version_step.outputs.version_short }}
-      build_number: ${{ steps.version_step.outputs.build_number }}
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Set version
-        id: version_step
-        run: |
-          VERSION=$(yq '.version' pubspec.yaml)
-          echo "$VERSION"
-          
-          VERSION_SHORT=$(echo "$VERSION" | sed -e "s/+.*//")
-          echo "VERSION_SHORT: $VERSION_SHORT."
-
-          BUILD_NUMBER=$(echo "$VERSION" | sed -e "s/.*+//")
-          echo "BUILD_NUMBER: $BUILD_NUMBER."
-
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "version_short=$VERSION_SHORT" >> $GITHUB_OUTPUT
-          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
-
-      - name: Check version
-        run: echo ${{ steps.version_step.outputs.version }}
-
   store-pro:
     name: Create store
     runs-on: windows-2025
     env:
       Platform: x64
-    needs:
-      - get-version
     steps:
       - uses: actions/checkout@v6
 
