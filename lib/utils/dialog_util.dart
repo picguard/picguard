@@ -34,7 +34,7 @@ const double _buttonHeight = 54;
 class DialogUtil {
   static Future<void> showLicenseDialog() async {
     final context = navigatorKey.currentContext!;
-    final isContainsKey = _getBoolAsync(Keys.licenseKey);
+    final isContainsKey = SpUtil.getBoolAsync(Keys.licenseKey);
 
     printDebugLog('isContainsKey: $isContainsKey');
 
@@ -297,7 +297,7 @@ class DialogUtil {
   }
 
   ///
-  static Future<void> showCustomDialog({
+  static Future<bool?> showCustomDialog({
     String? title,
     String? content,
     Widget? titleWidget,
@@ -307,12 +307,10 @@ class DialogUtil {
     Color okColor = PGColors.primaryColor,
     bool hideCancel = false,
     bool barrierDismissible = false,
-    VoidCallback? onCancel,
-    VoidCallback? onOK,
     EdgeInsetsGeometry? titlePadding,
     EdgeInsetsGeometry? contentPadding,
   }) async {
-    await showDialog<void>(
+    return await showDialog<bool>(
       context: navigatorKey.currentContext!,
       barrierDismissible: barrierDismissible,
       builder: (context) {
@@ -362,7 +360,7 @@ class DialogUtil {
                         child: SizedBox(
                           height: _buttonHeight - 1,
                           child: TextButton(
-                            onPressed: onCancel ?? NavigatorUtil.pop,
+                            onPressed: () => NavigatorUtil.pop(false),
                             style: ButtonStyle(
                               textStyle: .all(
                                 const TextStyle(fontSize: 16, height: 1.375),
@@ -402,7 +400,7 @@ class DialogUtil {
                       child: SizedBox(
                         height: _buttonHeight - 1,
                         child: TextButton(
-                          onPressed: onOK,
+                          onPressed: () => NavigatorUtil.pop(true),
                           style: ButtonStyle(
                             textStyle: .all(
                               const TextStyle(fontSize: 16, height: 1.375),
@@ -717,10 +715,5 @@ class DialogUtil {
         theme: TalkerScreenTheme.fromTheme(themeData),
       ),
     );
-  }
-
-  /// Returns a Bool if exists in SharedPref
-  static bool _getBoolAsync(String key, {bool defaultValue = false}) {
-    return SpUtil.getSp()?.getBool(key) ?? defaultValue;
   }
 }

@@ -35,7 +35,8 @@
     "appNoUpdates": "App is up to date!",
     "backgroundCheckingStopped": "Background checking stopped",
     "backgroundCheckingAvailable": "Background check: Update $latestVersion available!",
-    "backgroundCheckingStarted": "Background checking started (every ${seconds}s)"
+    "backgroundCheckingStarted": "Background checking started (every ${seconds}s)",
+    "continueToAddPhotos": "Are you sure you want to add an image(s)?"
   },
   "aboutPage": {
     "version": "Version $version($buildNumber)",

@@ -35,7 +35,8 @@
     "appNoUpdates": "应用是最新的!",
     "backgroundCheckingStopped": "后台检查停止了",
     "backgroundCheckingAvailable": "后台检查: $latestVersion更新可用!",
-    "backgroundCheckingStarted": "后台检查开启了 (每${seconds}秒)"
+    "backgroundCheckingStarted": "后台检查开启了 (每${seconds}秒)",
+    "continueToAddPhotos": "确定要添加图片吗？"
   },
   "aboutPage": {
     "version": "版本号 $version($buildNumber)",

@@ -38,41 +38,48 @@ class _ImageGroupState extends State<ImageGroup> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final maxWidth = constraints.maxWidth;
-        return SizedBox(
-          width: maxWidth,
-          child: MultiImagePickerView(
-            controller: widget.controller,
-            builder: (context, imageFile) {
-              return DefaultDraggableItemWidget(
-                imageFile: imageFile,
-                boxDecoration: BoxDecoration(borderRadius: .circular(10)),
-                closeButtonIcon: const Icon(
-                  Icons.delete_rounded,
-                  color: Colors.red,
-                  size: 16,
+
+        return maxWidth > 0
+            ? SizedBox(
+                width: maxWidth,
+                child: MultiImagePickerView(
+                  controller: widget.controller,
+                  builder: (context, imageFile) {
+                    return DefaultDraggableItemWidget(
+                      imageFile: imageFile,
+                      boxDecoration: BoxDecoration(borderRadius: .circular(10)),
+                      closeButtonIcon: const Icon(
+                        Icons.delete_rounded,
+                        color: Colors.red,
+                        size: 16,
+                      ),
+                      closeButtonMargin: const .all(3),
+                    );
+                  },
+                  initialWidget: InitialWidget(
+                    margin: .zero,
+                    statesController: initWidgetStateController,
+                    height: initialWeightHeight,
+                    child: const Icon(Icons.add_a_photo),
+                  ),
+                  addMoreButton: AddMoreWidget(
+                    statesController: addMoreWidgetStateController,
+                    icon: const Icon(
+                      Icons.add,
+                      color: PGColors.white,
+                      size: 26,
+                    ),
+                  ),
+                  // Use any Widget or DefaultAddMoreWidget. Use null to hide add more button.
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: maxWidth / 3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  shrinkWrap: true,
                 ),
-                closeButtonMargin: const .all(3),
-              );
-            },
-            initialWidget: InitialWidget(
-              margin: .zero,
-              statesController: initWidgetStateController,
-              height: initialWeightHeight,
-              child: const Icon(Icons.add_a_photo),
-            ),
-            addMoreButton: AddMoreWidget(
-              statesController: addMoreWidgetStateController,
-              icon: const Icon(Icons.add, color: PGColors.white, size: 26),
-            ),
-            // Use any Widget or DefaultAddMoreWidget. Use null to hide add more button.
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: maxWidth / 3,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-            shrinkWrap: true,
-          ),
-        );
+              )
+            : SizedBox.shrink();
       },
     );
   }

@@ -99,6 +99,7 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 	@override String get backgroundCheckingStopped => '后台检查停止了';
 	@override String backgroundCheckingAvailable({required Object latestVersion}) => '后台检查: ${latestVersion}更新可用!';
 	@override String backgroundCheckingStarted({required Object seconds}) => '后台检查开启了 (每${seconds}秒)';
+	@override String get continueToAddPhotos => '确定要添加图片吗？';
 }
 
 // Path: aboutPage
@@ -318,6 +319,7 @@ extension on TranslationsZh {
 			'homePage.backgroundCheckingStopped' => '后台检查停止了',
 			'homePage.backgroundCheckingAvailable' => ({required Object latestVersion}) => '后台检查: ${latestVersion}更新可用!',
 			'homePage.backgroundCheckingStarted' => ({required Object seconds}) => '后台检查开启了 (每${seconds}秒)',
+			'homePage.continueToAddPhotos' => '确定要添加图片吗？',
 			'aboutPage.version' => ({required Object version, required Object buildNumber}) => '版本号 ${version}(${buildNumber})',
 			'aboutPage.copyright' => ({required Object year, required Object appName}) => '版权 © ${year} ${appName}. 版权所有。',
 			'aboutPage.slogan' => '给图片添加水印, 防止被恶意使用.',

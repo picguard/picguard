@@ -99,6 +99,7 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String get backgroundCheckingStopped => 'Il controllo dei precedenti è stato interrotto';
 	@override String backgroundCheckingAvailable({required Object latestVersion}) => 'Controllo dei precedenti: aggiornamento ${latestVersion} disponibile!';
 	@override String backgroundCheckingStarted({required Object seconds}) => 'Controllo dei precedenti avviato (ogni ${seconds}s)';
+	@override String get continueToAddPhotos => 'Sei sicuro di voler aggiungere una o più immagini?';
 }
 
 // Path: aboutPage
@@ -318,6 +319,7 @@ extension on TranslationsIt {
 			'homePage.backgroundCheckingStopped' => 'Il controllo dei precedenti è stato interrotto',
 			'homePage.backgroundCheckingAvailable' => ({required Object latestVersion}) => 'Controllo dei precedenti: aggiornamento ${latestVersion} disponibile!',
 			'homePage.backgroundCheckingStarted' => ({required Object seconds}) => 'Controllo dei precedenti avviato (ogni ${seconds}s)',
+			'homePage.continueToAddPhotos' => 'Sei sicuro di voler aggiungere una o più immagini?',
 			'aboutPage.version' => ({required Object version, required Object buildNumber}) => 'Versione ${version}(${buildNumber})',
 			'aboutPage.copyright' => ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. Tutti i diritti riservati.',
 			'aboutPage.slogan' => 'Le tue foto, la tua firma.',

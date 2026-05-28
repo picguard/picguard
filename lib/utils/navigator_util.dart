@@ -64,7 +64,7 @@ class NavigatorUtil {
     );
   }
 
-  static void pop() {
-    Navigator.pop(navigatorKey.currentContext!);
+  static void pop<T extends Object?>([T? result]) {
+    Navigator.pop(navigatorKey.currentContext!, result);
   }
 }

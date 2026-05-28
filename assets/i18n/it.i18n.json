@@ -35,7 +35,8 @@
     "appNoUpdates": "L'app è aggiornata.",
     "backgroundCheckingStopped": "Il controllo dei precedenti è stato interrotto",
     "backgroundCheckingAvailable": "Controllo dei precedenti: aggiornamento $latestVersion disponibile!",
-    "backgroundCheckingStarted": "Controllo dei precedenti avviato (ogni ${seconds}s)"
+    "backgroundCheckingStarted": "Controllo dei precedenti avviato (ogni ${seconds}s)",
+    "continueToAddPhotos": "Sei sicuro di voler aggiungere una o più immagini?"
   },
   "aboutPage": {
     "version": "Versione $version($buildNumber)",

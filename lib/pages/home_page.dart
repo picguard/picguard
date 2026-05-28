@@ -497,15 +497,16 @@ class _HomePageState extends State<HomePage>
         final description = permission == .photos
             ? t.dialogs.permissions.photos.description
             : t.dialogs.permissions.storage.description;
-        await DialogUtil.showCustomDialog(
+        final result = await DialogUtil.showCustomDialog(
           title: title,
           content: description(appName: appName),
           cancelText: t.buttons.ignore,
           okText: t.buttons.turnOn,
-          onOK: () async {
-            await AppSettings.openAppSettings().whenComplete(NavigatorUtil.pop);
-          },
         );
+
+        if (result == true) {
+          await AppSettings.openAppSettings().whenComplete(NavigatorUtil.pop);
+        }
         return;
       }
 
@@ -780,15 +781,17 @@ class _HomePageState extends State<HomePage>
       final description = permission == .photos
           ? t.dialogs.permissions.photos.description
           : t.dialogs.permissions.storage.description;
-      await DialogUtil.showCustomDialog(
+      final result = await DialogUtil.showCustomDialog(
         title: title,
         content: description(appName: appName),
         cancelText: t.buttons.ignore,
         okText: t.buttons.turnOn,
-        onOK: () async {
-          await AppSettings.openAppSettings().whenComplete(NavigatorUtil.pop);
-        },
       );
+
+      if (result == true) {
+        await AppSettings.openAppSettings().whenComplete(NavigatorUtil.pop);
+      }
+
       return [];
     }
 

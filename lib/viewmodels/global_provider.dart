@@ -17,12 +17,17 @@ class GlobalProvider extends ChangeNotifier {
 
   Future<void> switchThemeMode(ThemeMode themeMode) async {
     this.themeMode = themeMode;
-    await SpUtil.putString('${AppConfig.shared.container}_theme_mode', themeMode.name);
+    await SpUtil.putString(
+      '${AppConfig.shared.container}_theme_mode',
+      themeMode.name,
+    );
     notifyListeners();
   }
 
   void getThemeMode() {
-    final name = SpUtil.getStringAsync('${AppConfig.shared.container}_theme_mode');
+    final name = SpUtil.getStringAsync(
+      '${AppConfig.shared.container}_theme_mode',
+    );
     printDebugLog('theme mode from storage: $name');
     var themeMode = ThemeMode.system;
     if (StringUtil.isNotBlank(name)) {
@@ -33,5 +38,4 @@ class GlobalProvider extends ChangeNotifier {
     this.themeMode = themeMode;
     notifyListeners();
   }
-
 }
