@@ -37,4 +37,4 @@ startup_notify: true
 #
 # The following example shows how to bundle the libcurl library with your app.
 include:
- - libayatana-appindicator3-1
+ - libayatana-appindicator3.so.1
