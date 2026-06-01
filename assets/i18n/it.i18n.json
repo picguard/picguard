@@ -35,8 +35,7 @@
     "appNoUpdates": "L'app è aggiornata.",
     "backgroundCheckingStopped": "Il controllo dei precedenti è stato interrotto",
     "backgroundCheckingAvailable": "Controllo dei precedenti: aggiornamento $latestVersion disponibile!",
-    "backgroundCheckingStarted": "Controllo dei precedenti avviato (ogni ${seconds}s)",
-    "continueToAddPhotos": "Sei sicuro di voler aggiungere una o più immagini?"
+    "backgroundCheckingStarted": "Controllo dei precedenti avviato (ogni ${seconds}s)"
   },
   "aboutPage": {
     "version": "Versione $version($buildNumber)",
@@ -69,7 +68,8 @@
   },
   "buttons": {
     "agree": "Accetto",
-    "cancel": "Rifiuto",
+    "cancel": "Cancella",
+    "rejection": "Rifiuto",
     "ignore": "Ignora",
     "turnOn": "Accendi"
   },
@@ -106,7 +106,6 @@
       ],
       "androidPermissions": [
         "Per poter utilizzare il servizio Sentry, $appName deve avere accesso a Internet. (android.permission.INTERNET)",
-        "Per filigranare le tue immagini, $appName deve accedere al tuo spazio di archiviazione. (android.permission.READ_EXTERNAL_STORAGE)",
         "Per poter salvare le immagini, $appName deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)",
         "Per aggiungere una filigrana alle tue immagini, $appName deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)"
       ]

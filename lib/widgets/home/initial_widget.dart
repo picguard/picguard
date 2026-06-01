@@ -6,10 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 
-import '../../constants/get.dart';
 import '../../generated/colors.gen.dart';
-import '../../i18n/i18n.g.dart';
-import '../../utils/dialog_util.dart';
 
 class InitialWidget extends StatelessWidget {
   const InitialWidget({
@@ -29,7 +26,6 @@ class InitialWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Translations.of(context);
     final pickerView = MultiImagePickerView.of(context);
     final bgColor =
         backgroundColor ?? PGColors.primaryColor.withValues(alpha: 0.05);
@@ -52,26 +48,7 @@ class InitialWidget extends StatelessWidget {
             return PGColors.primaryColor.withValues(alpha: 0.07);
           }),
           borderRadius: .circular(4),
-          onTap: () async {
-            if (isAndroid) {
-              final result = await DialogUtil.showCustomDialog(
-                content: t.homePage.continueToAddPhotos,
-                cancelText: t.buttons.ignore,
-                okText: t.buttons.agree,
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 24,
-                  horizontal: 16,
-                ),
-              );
-
-              if (result == true) {
-                await pickerView.controller.pickImages();
-              }
-              return;
-            }
-
-            await pickerView.controller.pickImages();
-          },
+          onTap: pickerView.controller.pickImages,
           statesController: statesController,
           child: Center(
             child:

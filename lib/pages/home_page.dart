@@ -771,7 +771,9 @@ class _HomePageState extends State<HomePage>
   }
 
   Future<List<ImageFile>> _pickImages(int limit) async {
-    final permission = await PermissionUtil.checkPermission();
+    final permission = await PermissionUtil.checkPermission(
+      useAndroidPhotoPicker: true,
+    );
     if (permission != .none) {
       final t = Translations.of(navigatorKey.currentContext!);
       final appName = t.appName(flavor: AppConfig.shared.flavor);
