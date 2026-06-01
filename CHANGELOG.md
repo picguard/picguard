@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.5.3.476
+
+1. fix(android): remove unused permissions
+
 ## 5.5.2.475
 
 1. chore(deps): update deps
