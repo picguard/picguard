@@ -4026,7 +4026,9 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_free.dart" `
             --platform windows `
             --targets msix `
-            --artifact-name "{{name}}-{{build_name}}.{{build_number}}-{{platform}}-$env:Platform.{{ext}}"
+            --artifact-name "{{name}}-$env:RELEASE-{{platform}}-$env:Platform.{{ext}}"
+        env:
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for msix
@@ -4152,7 +4154,9 @@ jobs:
             --flutter-build-args "dart-define-from-file=.env,target=lib/main_pro.dart" `
             --platform windows `
             --targets msix `
-            --artifact-name "{{name}}-pro-{{build_name}}.{{build_number}}-{{platform}}-$env:Platform.{{ext}}"
+            --artifact-name "{{name}}-pro-$env:RELEASE-{{platform}}-$env:Platform.{{ext}}"
+        env:
+          RELEASE: ${{ needs.create-release.outputs.release }}
 
       # Package the build.
       - name: Copy build for msix
