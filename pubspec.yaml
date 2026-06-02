@@ -35,7 +35,7 @@ dependencies:
   flutter_form_builder: ^10.3.0+2
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: ^2.4.7
+  flutter_native_splash: ^2.4.8
   flutter_switch: ^0.3.2
   form_builder_validators: ^11.3.0
   gap: ^3.0.1
