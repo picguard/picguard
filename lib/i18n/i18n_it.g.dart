@@ -225,7 +225,6 @@ class _TranslationsDialogsLicenseDialogIt extends TranslationsDialogsLicenseDial
 	@override List<dynamic> get androidPermissions => [
 		({required Object appName}) => 'Per poter utilizzare il servizio Sentry, ${appName} deve avere accesso a Internet. (android.permission.INTERNET)',
 		({required Object appName}) => 'Per poter salvare le immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)',
-		({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)',
 	];
 }
 
@@ -367,7 +366,6 @@ extension on TranslationsIt {
 			'dialogs.licenseDialog.iosPermissions.0' => ({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (NSPhotoLibraryUsageDescription)',
 			'dialogs.licenseDialog.androidPermissions.0' => ({required Object appName}) => 'Per poter utilizzare il servizio Sentry, ${appName} deve avere accesso a Internet. (android.permission.INTERNET)',
 			'dialogs.licenseDialog.androidPermissions.1' => ({required Object appName}) => 'Per poter salvare le immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)',
-			'dialogs.licenseDialog.androidPermissions.2' => ({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)',
 			'dialogs.settingsDialog.settings' => 'Impostazioni',
 			'dialogs.settingsDialog.languages' => 'Lingue',
 			'dialogs.settingsDialog.themes.manual' => 'Modalità manuale',

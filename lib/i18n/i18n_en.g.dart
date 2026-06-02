@@ -379,7 +379,6 @@ class TranslationsDialogsLicenseDialogEn {
 	List<dynamic> get androidPermissions => [
 		({required Object appName}) => 'In order to use the Sentry Service, ${appName} needs access to your Internet. (android.permission.INTERNET)',
 		({required Object appName}) => 'In order to save images, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
-		({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)',
 	];
 }
 
@@ -544,7 +543,6 @@ extension on Translations {
 			'dialogs.licenseDialog.iosPermissions.0' => ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (NSPhotoLibraryUsageDescription)',
 			'dialogs.licenseDialog.androidPermissions.0' => ({required Object appName}) => 'In order to use the Sentry Service, ${appName} needs access to your Internet. (android.permission.INTERNET)',
 			'dialogs.licenseDialog.androidPermissions.1' => ({required Object appName}) => 'In order to save images, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
-			'dialogs.licenseDialog.androidPermissions.2' => ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)',
 			'dialogs.settingsDialog.settings' => 'Settings',
 			'dialogs.settingsDialog.languages' => 'Languages',
 			'dialogs.settingsDialog.themes.manual' => 'Manual Mode',

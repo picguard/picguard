@@ -106,8 +106,7 @@
       ],
       "androidPermissions": [
         "Per poter utilizzare il servizio Sentry, $appName deve avere accesso a Internet. (android.permission.INTERNET)",
-        "Per poter salvare le immagini, $appName deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)",
-        "Per aggiungere una filigrana alle tue immagini, $appName deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)"
+        "Per poter salvare le immagini, $appName deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)"
       ]
     },
     "settingsDialog": {

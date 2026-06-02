@@ -225,7 +225,6 @@ class _TranslationsDialogsLicenseDialogZh extends TranslationsDialogsLicenseDial
 	@override List<dynamic> get androidPermissions => [
 		({required Object appName}) => '为了使用 Sentry 服务, ${appName}需要访问您的互联网. (android.permission.INTERNET)',
 		({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
-		({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
 	];
 }
 
@@ -367,7 +366,6 @@ extension on TranslationsZh {
 			'dialogs.licenseDialog.iosPermissions.0' => ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (NSPhotoLibraryUsageDescription)',
 			'dialogs.licenseDialog.androidPermissions.0' => ({required Object appName}) => '为了使用 Sentry 服务, ${appName}需要访问您的互联网. (android.permission.INTERNET)',
 			'dialogs.licenseDialog.androidPermissions.1' => ({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
-			'dialogs.licenseDialog.androidPermissions.2' => ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
 			'dialogs.settingsDialog.settings' => '设置',
 			'dialogs.settingsDialog.languages' => '语言',
 			'dialogs.settingsDialog.themes.manual' => '手动模式',
