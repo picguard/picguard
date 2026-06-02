@@ -39,7 +39,7 @@ dependencies:
   flutter_switch: ^0.3.2
   form_builder_validators: ^11.3.0
   gap: ^3.0.1
-  image_gallery_saver_plus: ^4.0.1
+  image_gallery_saver_plus: ^5.0.0
   image_picker: ^1.2.2
   keyboard_dismisser: ^3.0.0
   menu_bar: ^0.5.3
