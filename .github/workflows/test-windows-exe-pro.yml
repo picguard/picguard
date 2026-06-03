@@ -41,9 +41,6 @@ jobs:
         run: |
           copy-item -Path windows\Languages\Unofficial\*.isl -Destination 'C:\Program Files (x86)\Inno Setup 6\Languages\'
 
-      - name: Install fastforge
-        run: dart pub global activate fastforge
-
       - name: Install yq
         shell: pwsh
         run: choco install yq --no-progress
@@ -72,6 +69,9 @@ jobs:
         env:
           WINDOWS_EXE_APP_ID_PRO: ${{ secrets.WINDOWS_EXE_APP_ID_PRO }}
           WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
+
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Install Flutter dependencies
         run: flutter pub get

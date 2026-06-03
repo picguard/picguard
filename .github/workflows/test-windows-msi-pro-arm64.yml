@@ -48,6 +48,13 @@ jobs:
         shell: pwsh
         run: .\scripts\install-flutter-github-actions.ps1
 
+      - name: Download a fresh binary instead of using the stamped x64 version
+        shell: pwsh
+        run: |
+          Remove-Item -Path "$env:FLUTTER_ROOT\flutter\bin\cache\engine-dart-sdk.stamp" -Force -ErrorAction SilentlyContinue
+          dart --version
+          flutter precache --windows
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -86,7 +93,7 @@ jobs:
       - name: Build windows
         run: |
           $env:SENTRY_NATIVE_BACKEND = "breakpad"
-          $env:FLUTTER_WINDOWS_PLATFORM = "arm64"
+          $env:FLUTTER_WINDOWS_PLATFORM = "$env:Platform"
           flutter build windows --dart-define-from-file=.env --target lib/main_pro.dart
 
       - name: Add MSBuild to PATH
@@ -107,7 +114,7 @@ jobs:
           
           pushd ./msi
 
-          python preprocess.py --arp -d ../build/windows/$env:Platform/runner/Release -i ../windows/runner/resources/app_icon.ico -v "$env:VERSION_SHORT.$env:BUILD_NUMBER"
+          python preprocess-pro.py --arp -d ../build/windows/$env:Platform/runner/Release -i ../windows/runner/resources/app_icon.ico -v "$env:VERSION_SHORT.$env:BUILD_NUMBER"
           msbuild picguard-pro.sln -restore -p:Configuration="$env:Configuration" -p:Platform="$env:Platform" /p:TargetVersion=Windows10
 
           $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
