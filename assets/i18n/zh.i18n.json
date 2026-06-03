@@ -35,8 +35,7 @@
     "appNoUpdates": "应用是最新的!",
     "backgroundCheckingStopped": "后台检查停止了",
     "backgroundCheckingAvailable": "后台检查: $latestVersion更新可用!",
-    "backgroundCheckingStarted": "后台检查开启了 (每${seconds}秒)",
-    "continueToAddPhotos": "确定要添加图片吗？"
+    "backgroundCheckingStarted": "后台检查开启了 (每${seconds}秒)"
   },
   "aboutPage": {
     "version": "版本号 $version($buildNumber)",
@@ -69,7 +68,8 @@
   },
   "buttons": {
     "agree": "同意",
-    "cancel": "拒绝",
+    "cancel": "取消",
+    "rejection": "拒绝",
     "ignore": "忽略",
     "turnOn": "打开"
   },
@@ -106,9 +106,7 @@
       ],
       "androidPermissions": [
         "为了使用 Sentry 服务, $appName需要访问您的互联网. (android.permission.INTERNET)",
-        "为了给您的图像添加水印, $appName需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)",
-        "为了让您保存图片, $appName需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)",
-        "为了给您的图像添加水印, $appName需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)"
+        "为了让您保存图片, $appName需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)"
       ]
     },
     "settingsDialog": {

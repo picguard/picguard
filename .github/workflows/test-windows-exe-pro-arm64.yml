@@ -116,7 +116,7 @@ jobs:
           WINDOWS_PUBLISHER_NAME_PRO: ${{ secrets.WINDOWS_PUBLISHER_NAME_PRO }}
         working-directory: dist
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: windows-exe-pro-artifact
           path: .\dist\**\*.exe

@@ -167,9 +167,6 @@ class TranslationsHomePageEn {
 
 	/// en: 'Background checking started (every ${seconds}s)'
 	String backgroundCheckingStarted({required Object seconds}) => 'Background checking started (every ${seconds}s)';
-
-	/// en: 'Are you sure you want to add an image(s)?'
-	String get continueToAddPhotos => 'Are you sure you want to add an image(s)?';
 }
 
 // Path: aboutPage
@@ -279,8 +276,11 @@ class TranslationsButtonsEn {
 	/// en: 'Agree'
 	String get agree => 'Agree';
 
+	/// en: 'Cancel'
+	String get cancel => 'Cancel';
+
 	/// en: 'Rejection'
-	String get cancel => 'Rejection';
+	String get rejection => 'Rejection';
 
 	/// en: 'Ignore'
 	String get ignore => 'Ignore';
@@ -378,9 +378,7 @@ class TranslationsDialogsLicenseDialogEn {
 	];
 	List<dynamic> get androidPermissions => [
 		({required Object appName}) => 'In order to use the Sentry Service, ${appName} needs access to your Internet. (android.permission.INTERNET)',
-		({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)',
 		({required Object appName}) => 'In order to save images, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
-		({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)',
 	];
 }
 
@@ -496,7 +494,6 @@ extension on Translations {
 			'homePage.backgroundCheckingStopped' => 'Background checking stopped',
 			'homePage.backgroundCheckingAvailable' => ({required Object latestVersion}) => 'Background check: Update ${latestVersion} available!',
 			'homePage.backgroundCheckingStarted' => ({required Object seconds}) => 'Background checking started (every ${seconds}s)',
-			'homePage.continueToAddPhotos' => 'Are you sure you want to add an image(s)?',
 			'aboutPage.version' => ({required Object version, required Object buildNumber}) => 'Version ${version}(${buildNumber})',
 			'aboutPage.copyright' => ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. All rights reserved.',
 			'aboutPage.slogan' => 'Your pictures, your signature.',
@@ -521,7 +518,8 @@ extension on Translations {
 			'menus.privacy' => 'Privacy Policy',
 			'menus.debug' => 'Debug',
 			'buttons.agree' => 'Agree',
-			'buttons.cancel' => 'Rejection',
+			'buttons.cancel' => 'Cancel',
+			'buttons.rejection' => 'Rejection',
 			'buttons.ignore' => 'Ignore',
 			'buttons.turnOn' => 'Turn On',
 			'dialogs.selectColor' => 'Select a color',
@@ -544,9 +542,7 @@ extension on Translations {
 			'dialogs.licenseDialog.licenseDialogContentSuffix' => ', start using our services after you agree and accept all terms.',
 			'dialogs.licenseDialog.iosPermissions.0' => ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (NSPhotoLibraryUsageDescription)',
 			'dialogs.licenseDialog.androidPermissions.0' => ({required Object appName}) => 'In order to use the Sentry Service, ${appName} needs access to your Internet. (android.permission.INTERNET)',
-			'dialogs.licenseDialog.androidPermissions.1' => ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Storage. (android.permission.READ_EXTERNAL_STORAGE)',
-			'dialogs.licenseDialog.androidPermissions.2' => ({required Object appName}) => 'In order to save images, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
-			'dialogs.licenseDialog.androidPermissions.3' => ({required Object appName}) => 'In order to add watermarks to your images, ${appName} needs access to your Photos. (android.permission.READ_MEDIA_IMAGES)',
+			'dialogs.licenseDialog.androidPermissions.1' => ({required Object appName}) => 'In order to save images, ${appName} needs access to your Storage. (android.permission.WRITE_EXTERNAL_STORAGE)',
 			'dialogs.settingsDialog.settings' => 'Settings',
 			'dialogs.settingsDialog.languages' => 'Languages',
 			'dialogs.settingsDialog.themes.manual' => 'Manual Mode',

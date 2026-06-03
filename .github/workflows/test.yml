@@ -21,7 +21,7 @@ on:
 permissions: read-all
 
 env:
-  flutter-version: '3.41.9'
+  flutter-version: '3.44.0'
 
 jobs:
   apk:
@@ -107,10 +107,6 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
-
-      - name: Resolving ios dependencies
-        run: pod install --repo-update
-        working-directory: ios
 
       - name: Install the Apple certificate and provisioning profile
         env:
@@ -199,10 +195,6 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Build macOS
         run: |

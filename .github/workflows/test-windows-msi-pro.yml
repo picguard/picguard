@@ -48,7 +48,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '3.41.9'
+          flutter-version: '3.44.0'
 
       - name: Flutter doctor -v
         run: flutter doctor -v
@@ -130,7 +130,7 @@ jobs:
           VERSION_SHORT: ${{ needs.get-version.outputs.version_short }}
           BUILD_NUMBER: ${{ needs.get-version.outputs.build_number }}
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: windows-msi-pro-artifact
           path: .\msi\picguard-pro\bin\${{ env.Platform }}\${{ env.Configuration }}\*\*.msi

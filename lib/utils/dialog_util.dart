@@ -241,7 +241,7 @@ class DialogUtil {
                           child: Padding(
                             padding: const .symmetric(vertical: 16),
                             child: Text(
-                              t.buttons.cancel,
+                              t.buttons.rejection,
                               textAlign: .center,
                               style: TextStyle(
                                 color: isDark

@@ -21,14 +21,13 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		17C0D482A4FAD6606F4F018F /* Pods_PicGuard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D01AB7BC868AE3A22199569C /* Pods_PicGuard.framework */; };
 		331C80D8294CF71000263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C80D7294CF71000263BE5 /* RunnerTests.swift */; };
 		335BBD1B22A9A15E00E9071D /* GeneratedPluginRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */; };
 		33CC10F12044A3C60003C045 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC10F02044A3C60003C045 /* AppDelegate.swift */; };
 		33CC10F32044A3C60003C045 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33CC10F22044A3C60003C045 /* Assets.xcassets */; };
 		33CC10F62044A3C60003C045 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33CC10F42044A3C60003C045 /* MainMenu.xib */; };
 		33CC11132044BFA00003C045 /* MainFlutterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CC11122044BFA00003C045 /* MainFlutterWindow.swift */; };
-		49D8E44A255447C251331DA2 /* Pods_PicGuardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAC9FA8CF3914E0F328B885D /* Pods_PicGuardTests.framework */; };
+		78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 78A3181F2AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +61,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0F1E82D07B438294FB31940D /* Pods-PicGuard.release-pro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuard.release-pro.xcconfig"; path = "Target Support Files/Pods-PicGuard/Pods-PicGuard.release-pro.xcconfig"; sourceTree = "<group>"; };
 		2E22E73F2BEA5ABF0084157E /* AppStore-Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "AppStore-Release.entitlements"; sourceTree = "<group>"; };
 		2E4AE6612C5F7D010014EC6E /* AppStorePro-Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "AppStorePro-Release.entitlements"; sourceTree = "<group>"; };
 		2E4AE66E2C5F7E4A0014EC6E /* Info-pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Info-pro.plist"; path = "Runner/Info-pro.plist"; sourceTree = "<group>"; };
@@ -90,21 +88,9 @@
 		33E51913231747F40026EE4D /* DebugProfile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DebugProfile.entitlements; sourceTree = "<group>"; };
 		33E51914231749380026EE4D /* Release.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Release.entitlements; sourceTree = "<group>"; };
 		33E5194F232828860026EE4D /* AppInfo.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppInfo.xcconfig; sourceTree = "<group>"; };
-		49A9600188C2B2C13223BE90 /* Pods-PicGuardTests.release-free.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardTests.release-free.xcconfig"; path = "Target Support Files/Pods-PicGuardTests/Pods-PicGuardTests.release-free.xcconfig"; sourceTree = "<group>"; };
-		5CAF494909199FB04A4C0461 /* Pods-PicGuardTests.debug-free.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardTests.debug-free.xcconfig"; path = "Target Support Files/Pods-PicGuardTests/Pods-PicGuardTests.debug-free.xcconfig"; sourceTree = "<group>"; };
+		78E0A7A72DC9AD7400C4905E /* FlutterGeneratedPluginSwiftPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FlutterGeneratedPluginSwiftPackage; path = ephemeral/Packages/FlutterGeneratedPluginSwiftPackage; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		9FE1613874FC696955B5D813 /* Pods-PicGuardTests.debug-pro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardTests.debug-pro.xcconfig"; path = "Target Support Files/Pods-PicGuardTests/Pods-PicGuardTests.debug-pro.xcconfig"; sourceTree = "<group>"; };
-		AAC9FA8CF3914E0F328B885D /* Pods_PicGuardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicGuardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AAE37FF9C6AF631C63189721 /* Pods-PicGuard.debug-free.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuard.debug-free.xcconfig"; path = "Target Support Files/Pods-PicGuard/Pods-PicGuard.debug-free.xcconfig"; sourceTree = "<group>"; };
-		AC58DB332E4125856F4D3FDE /* Pods-PicGuard.debug-pro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuard.debug-pro.xcconfig"; path = "Target Support Files/Pods-PicGuard/Pods-PicGuard.debug-pro.xcconfig"; sourceTree = "<group>"; };
-		AD9B4615D6922B75970F70AA /* Pods-PicGuardTests.profile-pro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardTests.profile-pro.xcconfig"; path = "Target Support Files/Pods-PicGuardTests/Pods-PicGuardTests.profile-pro.xcconfig"; sourceTree = "<group>"; };
-		C8E802B55B7E783A2BEA9C0A /* Pods-PicGuard.profile-pro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuard.profile-pro.xcconfig"; path = "Target Support Files/Pods-PicGuard/Pods-PicGuard.profile-pro.xcconfig"; sourceTree = "<group>"; };
-		D01AB7BC868AE3A22199569C /* Pods_PicGuard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicGuard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D720BA6D746266DD57F96556 /* Pods-PicGuardTests.release-pro.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardTests.release-pro.xcconfig"; path = "Target Support Files/Pods-PicGuardTests/Pods-PicGuardTests.release-pro.xcconfig"; sourceTree = "<group>"; };
-		DB9F8DCDAEBE95606F6F82E2 /* Pods-PicGuard.profile-free.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuard.profile-free.xcconfig"; path = "Target Support Files/Pods-PicGuard/Pods-PicGuard.profile-free.xcconfig"; sourceTree = "<group>"; };
-		E88693916E5C2C1E817255BF /* Pods-PicGuardTests.profile-free.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuardTests.profile-free.xcconfig"; path = "Target Support Files/Pods-PicGuardTests/Pods-PicGuardTests.profile-free.xcconfig"; sourceTree = "<group>"; };
-		F495CB151BF843B19431E582 /* Pods-PicGuard.release-free.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicGuard.release-free.xcconfig"; path = "Target Support Files/Pods-PicGuard/Pods-PicGuard.release-free.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +98,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49D8E44A255447C251331DA2 /* Pods_PicGuardTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17C0D482A4FAD6606F4F018F /* Pods_PicGuard.framework in Frameworks */,
+				78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,8 +141,6 @@
 				33CEB47122A05771004F2AC0 /* Flutter */,
 				331C80D6294CF71000263BE5 /* RunnerTests */,
 				33CC10EE2044A3C60003C045 /* Products */,
-				D73912EC22F37F3D000D13A0 /* Frameworks */,
-				EB44C484205607873B5727B1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -185,6 +168,7 @@
 		33CEB47122A05771004F2AC0 /* Flutter */ = {
 			isa = PBXGroup;
 			children = (
+				78E0A7A72DC9AD7400C4905E /* FlutterGeneratedPluginSwiftPackage */,
 				2E82EE722D69F5A000199BE7 /* Flutter-Debug-pro.xcconfig */,
 				2E82EE732D69F5A000199BE7 /* Flutter-Release-pro.xcconfig */,
 				335BBD1A22A9A15E00E9071D /* GeneratedPluginRegistrant.swift */,
@@ -210,34 +194,6 @@
 			path = Runner;
 			sourceTree = "<group>";
 		};
-		D73912EC22F37F3D000D13A0 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D01AB7BC868AE3A22199569C /* Pods_PicGuard.framework */,
-				AAC9FA8CF3914E0F328B885D /* Pods_PicGuardTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		EB44C484205607873B5727B1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				AAE37FF9C6AF631C63189721 /* Pods-PicGuard.debug-free.xcconfig */,
-				AC58DB332E4125856F4D3FDE /* Pods-PicGuard.debug-pro.xcconfig */,
-				F495CB151BF843B19431E582 /* Pods-PicGuard.release-free.xcconfig */,
-				0F1E82D07B438294FB31940D /* Pods-PicGuard.release-pro.xcconfig */,
-				DB9F8DCDAEBE95606F6F82E2 /* Pods-PicGuard.profile-free.xcconfig */,
-				C8E802B55B7E783A2BEA9C0A /* Pods-PicGuard.profile-pro.xcconfig */,
-				5CAF494909199FB04A4C0461 /* Pods-PicGuardTests.debug-free.xcconfig */,
-				9FE1613874FC696955B5D813 /* Pods-PicGuardTests.debug-pro.xcconfig */,
-				49A9600188C2B2C13223BE90 /* Pods-PicGuardTests.release-free.xcconfig */,
-				D720BA6D746266DD57F96556 /* Pods-PicGuardTests.release-pro.xcconfig */,
-				E88693916E5C2C1E817255BF /* Pods-PicGuardTests.profile-free.xcconfig */,
-				AD9B4615D6922B75970F70AA /* Pods-PicGuardTests.profile-pro.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -245,7 +201,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 331C80DE294CF71000263BE5 /* Build configuration list for PBXNativeTarget "PicGuardTests" */;
 			buildPhases = (
-				68930BC413BE04C3300348BE /* [CP] Check Pods Manifest.lock */,
 				331C80D1294CF70F00263BE5 /* Sources */,
 				331C80D2294CF70F00263BE5 /* Frameworks */,
 				331C80D3294CF70F00263BE5 /* Resources */,
@@ -264,13 +219,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 33CC10FB2044A3C60003C045 /* Build configuration list for PBXNativeTarget "PicGuard" */;
 			buildPhases = (
-				01958A13782EE1192B7E5D9F /* [CP] Check Pods Manifest.lock */,
 				33CC10E92044A3C60003C045 /* Sources */,
 				33CC10EA2044A3C60003C045 /* Frameworks */,
 				33CC10EB2044A3C60003C045 /* Resources */,
 				33CC110E2044A8840003C045 /* Bundle Framework */,
 				3399D490228B24CF009A79C7 /* ShellScript */,
-				B0DD28461872CF63B602B541 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -278,6 +231,9 @@
 				33CC11202044C79F0003C045 /* PBXTargetDependency */,
 			);
 			name = PicGuard;
+			packageProductDependencies = (
+				78A3181F2AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage */,
+			);
 			productName = Runner;
 			productReference = 33CC10ED2044A3C60003C045 /* PicGuard.app */;
 			productType = "com.apple.product-type.application";
@@ -322,6 +278,9 @@
 				it,
 			);
 			mainGroup = 33CC10E42044A3C60003C045;
+			packageReferences = (
+				781AD8BC2B33823900A9FFBB /* XCLocalSwiftPackageReference "Flutter/ephemeral/Packages/FlutterGeneratedPluginSwiftPackage" */,
+			);
 			productRefGroup = 33CC10EE2044A3C60003C045 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -353,28 +312,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		01958A13782EE1192B7E5D9F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PicGuard-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3399D490228B24CF009A79C7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -412,45 +349,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$FLUTTER_ROOT\"/packages/flutter_tools/bin/macos_assemble.sh && touch Flutter/ephemeral/tripwire\n";
-		};
-		68930BC413BE04C3300348BE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PicGuardTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B0DD28461872CF63B602B541 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PicGuard/Pods-PicGuard-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PicGuard/Pods-PicGuard-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PicGuard/Pods-PicGuard-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -593,7 +491,6 @@
 		};
 		2E4AE6642C5F7D710014EC6E /* Debug-pro */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FE1613874FC696955B5D813 /* Pods-PicGuardTests.debug-pro.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -697,7 +594,6 @@
 		};
 		2E4AE6682C5F7D840014EC6E /* Release-pro */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D720BA6D746266DD57F96556 /* Pods-PicGuardTests.release-pro.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -800,7 +696,6 @@
 		};
 		2E4AE66C2C5F7D8C0014EC6E /* Profile-pro */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD9B4615D6922B75970F70AA /* Pods-PicGuardTests.profile-pro.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -824,7 +719,6 @@
 		};
 		331C80DB294CF71000263BE5 /* Debug-free */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5CAF494909199FB04A4C0461 /* Pods-PicGuardTests.debug-free.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -840,7 +734,6 @@
 		};
 		331C80DC294CF71000263BE5 /* Release-free */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 49A9600188C2B2C13223BE90 /* Pods-PicGuardTests.release-free.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -856,7 +749,6 @@
 		};
 		331C80DD294CF71000263BE5 /* Profile-free */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E88693916E5C2C1E817255BF /* Pods-PicGuardTests.profile-free.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CURRENT_PROJECT_VERSION = 1;
@@ -1196,6 +1088,20 @@
 			defaultConfigurationName = "Release-free";
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		781AD8BC2B33823900A9FFBB /* XCLocalSwiftPackageReference "Flutter/ephemeral/Packages/FlutterGeneratedPluginSwiftPackage" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Flutter/ephemeral/Packages/FlutterGeneratedPluginSwiftPackage;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		78A3181F2AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FlutterGeneratedPluginSwiftPackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 33CC10E52044A3C60003C045 /* Project object */;
 }

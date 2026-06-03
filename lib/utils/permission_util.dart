@@ -10,19 +10,14 @@ import '../constants/get.dart';
 enum Permissions { photos, storage, none }
 
 class PermissionUtil {
-  static Future<Permissions> checkPermission() async {
+  static Future<Permissions> checkPermission({
+    bool useAndroidPhotoPicker = false,
+  }) async {
     if (isWeb) return .none;
-    if (isAndroid) {
+    if (isAndroid && !useAndroidPhotoPicker) {
       final deviceInfo = DeviceInfoPlugin();
       final androidInfo = await deviceInfo.androidInfo;
-      if (androidInfo.version.sdkInt >= 33) {
-        final status = await Permission.photos.request();
-        final denied = <PermissionStatus>[
-          .permanentlyDenied,
-          .denied,
-        ].contains(status);
-        return denied ? .photos : .none;
-      } else {
+      if (androidInfo.version.sdkInt <= 28) {
         final status = await Permission.storage.request();
         final denied = <PermissionStatus>[
           .permanentlyDenied,

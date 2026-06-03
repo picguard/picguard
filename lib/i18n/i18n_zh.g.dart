@@ -99,7 +99,6 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 	@override String get backgroundCheckingStopped => '后台检查停止了';
 	@override String backgroundCheckingAvailable({required Object latestVersion}) => '后台检查: ${latestVersion}更新可用!';
 	@override String backgroundCheckingStarted({required Object seconds}) => '后台检查开启了 (每${seconds}秒)';
-	@override String get continueToAddPhotos => '确定要添加图片吗？';
 }
 
 // Path: aboutPage
@@ -160,7 +159,8 @@ class _TranslationsButtonsZh extends TranslationsButtonsEn {
 
 	// Translations
 	@override String get agree => '同意';
-	@override String get cancel => '拒绝';
+	@override String get cancel => '取消';
+	@override String get rejection => '拒绝';
 	@override String get ignore => '忽略';
 	@override String get turnOn => '打开';
 }
@@ -224,9 +224,7 @@ class _TranslationsDialogsLicenseDialogZh extends TranslationsDialogsLicenseDial
 	];
 	@override List<dynamic> get androidPermissions => [
 		({required Object appName}) => '为了使用 Sentry 服务, ${appName}需要访问您的互联网. (android.permission.INTERNET)',
-		({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)',
 		({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
-		({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
 	];
 }
 
@@ -319,7 +317,6 @@ extension on TranslationsZh {
 			'homePage.backgroundCheckingStopped' => '后台检查停止了',
 			'homePage.backgroundCheckingAvailable' => ({required Object latestVersion}) => '后台检查: ${latestVersion}更新可用!',
 			'homePage.backgroundCheckingStarted' => ({required Object seconds}) => '后台检查开启了 (每${seconds}秒)',
-			'homePage.continueToAddPhotos' => '确定要添加图片吗？',
 			'aboutPage.version' => ({required Object version, required Object buildNumber}) => '版本号 ${version}(${buildNumber})',
 			'aboutPage.copyright' => ({required Object year, required Object appName}) => '版权 © ${year} ${appName}. 版权所有。',
 			'aboutPage.slogan' => '给图片添加水印, 防止被恶意使用.',
@@ -344,7 +341,8 @@ extension on TranslationsZh {
 			'menus.privacy' => '隐私政策',
 			'menus.debug' => '调试',
 			'buttons.agree' => '同意',
-			'buttons.cancel' => '拒绝',
+			'buttons.cancel' => '取消',
+			'buttons.rejection' => '拒绝',
 			'buttons.ignore' => '忽略',
 			'buttons.turnOn' => '打开',
 			'dialogs.selectColor' => '选择颜色',
@@ -367,9 +365,7 @@ extension on TranslationsZh {
 			'dialogs.licenseDialog.licenseDialogContentSuffix' => ', 你同意并接受全部条款后开始使用我们的服务.',
 			'dialogs.licenseDialog.iosPermissions.0' => ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (NSPhotoLibraryUsageDescription)',
 			'dialogs.licenseDialog.androidPermissions.0' => ({required Object appName}) => '为了使用 Sentry 服务, ${appName}需要访问您的互联网. (android.permission.INTERNET)',
-			'dialogs.licenseDialog.androidPermissions.1' => ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的存储. (android.permission.READ_EXTERNAL_STORAGE)',
-			'dialogs.licenseDialog.androidPermissions.2' => ({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
-			'dialogs.licenseDialog.androidPermissions.3' => ({required Object appName}) => '为了给您的图像添加水印, ${appName}需要访问您的照片. (android.permission.READ_MEDIA_IMAGES)',
+			'dialogs.licenseDialog.androidPermissions.1' => ({required Object appName}) => '为了让您保存图片, ${appName}需要访问您的存储. (android.permission.WRITE_EXTERNAL_STORAGE)',
 			'dialogs.settingsDialog.settings' => '设置',
 			'dialogs.settingsDialog.languages' => '语言',
 			'dialogs.settingsDialog.themes.manual' => '手动模式',

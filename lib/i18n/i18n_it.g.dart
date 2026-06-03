@@ -99,7 +99,6 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 	@override String get backgroundCheckingStopped => 'Il controllo dei precedenti è stato interrotto';
 	@override String backgroundCheckingAvailable({required Object latestVersion}) => 'Controllo dei precedenti: aggiornamento ${latestVersion} disponibile!';
 	@override String backgroundCheckingStarted({required Object seconds}) => 'Controllo dei precedenti avviato (ogni ${seconds}s)';
-	@override String get continueToAddPhotos => 'Sei sicuro di voler aggiungere una o più immagini?';
 }
 
 // Path: aboutPage
@@ -160,7 +159,8 @@ class _TranslationsButtonsIt extends TranslationsButtonsEn {
 
 	// Translations
 	@override String get agree => 'Accetto';
-	@override String get cancel => 'Rifiuto';
+	@override String get cancel => 'Cancella';
+	@override String get rejection => 'Rifiuto';
 	@override String get ignore => 'Ignora';
 	@override String get turnOn => 'Accendi';
 }
@@ -224,9 +224,7 @@ class _TranslationsDialogsLicenseDialogIt extends TranslationsDialogsLicenseDial
 	];
 	@override List<dynamic> get androidPermissions => [
 		({required Object appName}) => 'Per poter utilizzare il servizio Sentry, ${appName} deve avere accesso a Internet. (android.permission.INTERNET)',
-		({required Object appName}) => 'Per filigranare le tue immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.READ_EXTERNAL_STORAGE)',
 		({required Object appName}) => 'Per poter salvare le immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)',
-		({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)',
 	];
 }
 
@@ -319,7 +317,6 @@ extension on TranslationsIt {
 			'homePage.backgroundCheckingStopped' => 'Il controllo dei precedenti è stato interrotto',
 			'homePage.backgroundCheckingAvailable' => ({required Object latestVersion}) => 'Controllo dei precedenti: aggiornamento ${latestVersion} disponibile!',
 			'homePage.backgroundCheckingStarted' => ({required Object seconds}) => 'Controllo dei precedenti avviato (ogni ${seconds}s)',
-			'homePage.continueToAddPhotos' => 'Sei sicuro di voler aggiungere una o più immagini?',
 			'aboutPage.version' => ({required Object version, required Object buildNumber}) => 'Versione ${version}(${buildNumber})',
 			'aboutPage.copyright' => ({required Object year, required Object appName}) => 'Copyright © ${year} ${appName}. Tutti i diritti riservati.',
 			'aboutPage.slogan' => 'Le tue foto, la tua firma.',
@@ -344,7 +341,8 @@ extension on TranslationsIt {
 			'menus.privacy' => 'Politica sulla riservatezza',
 			'menus.debug' => 'Debug',
 			'buttons.agree' => 'Accetto',
-			'buttons.cancel' => 'Rifiuto',
+			'buttons.cancel' => 'Cancella',
+			'buttons.rejection' => 'Rifiuto',
 			'buttons.ignore' => 'Ignora',
 			'buttons.turnOn' => 'Accendi',
 			'dialogs.selectColor' => 'Seleziona un colore',
@@ -367,9 +365,7 @@ extension on TranslationsIt {
 			'dialogs.licenseDialog.licenseDialogContentSuffix' => ', inizia a utilizzare i nostri servizi dopo aver accettato tutti i termini.',
 			'dialogs.licenseDialog.iosPermissions.0' => ({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (NSPhotoLibraryUsageDescription)',
 			'dialogs.licenseDialog.androidPermissions.0' => ({required Object appName}) => 'Per poter utilizzare il servizio Sentry, ${appName} deve avere accesso a Internet. (android.permission.INTERNET)',
-			'dialogs.licenseDialog.androidPermissions.1' => ({required Object appName}) => 'Per filigranare le tue immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.READ_EXTERNAL_STORAGE)',
-			'dialogs.licenseDialog.androidPermissions.2' => ({required Object appName}) => 'Per poter salvare le immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)',
-			'dialogs.licenseDialog.androidPermissions.3' => ({required Object appName}) => 'Per aggiungere una filigrana alle tue immagini, ${appName} deve accedere alle tue foto. (android.permission.READ_MEDIA_IMAGES)',
+			'dialogs.licenseDialog.androidPermissions.1' => ({required Object appName}) => 'Per poter salvare le immagini, ${appName} deve accedere al tuo spazio di archiviazione. (android.permission.WRITE_EXTERNAL_STORAGE)',
 			'dialogs.settingsDialog.settings' => 'Impostazioni',
 			'dialogs.settingsDialog.languages' => 'Lingue',
 			'dialogs.settingsDialog.themes.manual' => 'Modalità manuale',
