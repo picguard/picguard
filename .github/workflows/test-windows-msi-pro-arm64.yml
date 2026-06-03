@@ -114,7 +114,7 @@ jobs:
           
           pushd ./msi
 
-          python preprocess.py --arp -d ../build/windows/$env:Platform/runner/Release -i ../windows/runner/resources/app_icon.ico -v "$env:VERSION_SHORT.$env:BUILD_NUMBER"
+          python preprocess-pro.py --arp -d ../build/windows/$env:Platform/runner/Release -i ../windows/runner/resources/app_icon.ico -v "$env:VERSION_SHORT.$env:BUILD_NUMBER"
           msbuild picguard-pro.sln -restore -p:Configuration="$env:Configuration" -p:Platform="$env:Platform" /p:TargetVersion=Windows10
 
           $signtool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
