@@ -22,7 +22,7 @@ permissions: write-all
 
 env:
   flutter-channel: 'stable'
-  flutter-version: '3.41.9'
+  flutter-version: '3.44.0'
 
 jobs:
   create-release:
@@ -531,10 +531,6 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
-      - name: Resolving ios dependencies
-        run: pod install --repo-update
-        working-directory: ios
-
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -646,10 +642,6 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
-      - name: Resolving ios dependencies
-        run: pod install --repo-update
-        working-directory: ios
-
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -760,10 +752,6 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Configure .env
         run: |
@@ -881,10 +869,6 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
-
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -1000,10 +984,6 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Configure .env
         run: |
@@ -1140,10 +1120,6 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
-
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -1279,10 +1255,6 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
-
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -1411,10 +1383,6 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Configure .env
         run: |
@@ -1545,10 +1513,6 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
-
       - name: Configure .env
         run: |
           ENV_BASE64="$([[ "$ENV" == "staging" ]] && echo "$ENV_STG_BASE64" || echo "$ENV_PROD_BASE64")"
@@ -1673,10 +1637,6 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
-
-      - name: Resolving macos dependencies
-        run: pod install --repo-update
-        working-directory: macos
 
       - name: Configure .env
         run: |
@@ -1812,7 +1772,7 @@ jobs:
 #        uses: subosito/flutter-action@v2
 #        with:
 #          channel: 'stable'
-#          flutter-version: '3.41.9'
+#          flutter-version: '3.44.0'
 #
 #      - name: Flutter doctor -v
 #        run: flutter doctor -v
@@ -1980,7 +1940,7 @@ jobs:
 #        uses: subosito/flutter-action@v2
 #        with:
 #          channel: 'stable'
-#          flutter-version: '3.41.9'
+#          flutter-version: '3.44.0'
 #
 #      - name: Flutter doctor -v
 #        run: flutter doctor -v
@@ -2478,7 +2438,7 @@ jobs:
 #        uses: subosito/flutter-action@v2
 #        with:
 #          channel: 'stable'
-#          flutter-version: '3.41.9'
+#          flutter-version: '3.44.0'
 #
 #      - name: Flutter doctor -v
 #        run: flutter doctor -v
@@ -2651,7 +2611,7 @@ jobs:
 #        uses: subosito/flutter-action@v2
 #        with:
 #          channel: 'stable'
-#          flutter-version: '3.41.9'
+#          flutter-version: '3.44.0'
 #
 #      - name: Flutter doctor -v
 #        run: flutter doctor -v
