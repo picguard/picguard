@@ -19,6 +19,13 @@ jobs:
         shell: pwsh
         run: .\scripts\install-flutter-github-actions.ps1
 
+      - name: Download a fresh binary instead of using the stamped x64 version
+        shell: pwsh
+        run: |
+          Remove-Item -Path "$env:FLUTTER_ROOT\flutter\bin\cache\engine-dart-sdk.stamp" -Force -ErrorAction SilentlyContinue
+          dart --version
+          flutter precache --windows
+
       - name: Flutter doctor -v
         run: flutter doctor -v
 
@@ -56,7 +63,7 @@ jobs:
           $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME).Value
 
           # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".certificate_path = env(certificatePath) | .certificate_password = `"$certificatePassword`" | .architecture = `"$env:Platform`" | .identity_name = `"$identityName`" | .publisher = `"$publisher`" | .publisher_display_name = `"$publisherName`"" -
+          $updatedYamlContent = echo $yamlContent | yq e ".architecture = `"$env:Platform`" | .certificate_path = env(certificatePath) | .certificate_password = `"$certificatePassword`" | .architecture = `"$env:Platform`" | .identity_name = `"$identityName`" | .publisher = `"$publisher`" | .publisher_display_name = `"$publisherName`"" -
 
           # 将更新后的内容写回文件
           Set-Content -Path $yamlFile -Value $updatedYamlContent

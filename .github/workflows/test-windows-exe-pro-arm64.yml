@@ -43,9 +43,6 @@ jobs:
         run: |
           copy-item -Path windows\Languages\Unofficial\*.isl -Destination 'C:\Program Files (x86)\Inno Setup 6\Languages\'
 
-      - name: Install fastforge
-        run: dart pub global activate fastforge
-
       - name: Install yq
         shell: pwsh
         run: choco install yq --no-progress
@@ -85,6 +82,9 @@ jobs:
           $sourcePath = "$pwd\windows\packaging\exe\inno_setup_arm64.iss"
           $destinationPath = "$pwd\windows\packaging\exe\inno_setup.iss"
           Rename-Item -Path $sourcePath -NewName $destinationPath
+
+      - name: Install fastforge
+        run: dart pub global activate fastforge
 
       - name: Install Flutter dependencies
         run: flutter pub get
