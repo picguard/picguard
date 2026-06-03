@@ -75,7 +75,7 @@ jobs:
         run: ls -laR
         working-directory: dist
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         with:
           name: linux-appimage-pro-artifact
           path: ./dist/**/*.AppImage
