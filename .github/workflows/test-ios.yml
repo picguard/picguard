@@ -30,10 +30,6 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
-      - name: Resolving ios dependencies
-        run: pod install --repo-update
-        working-directory: ios
-
       - name: Install the Apple certificate and provisioning profile
         env:
           P12_DEV_BASE64: ${{ secrets.P12_DEV_BASE64 }}
