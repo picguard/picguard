@@ -1,9 +1,12 @@
 # Changelog
 
-## 5.5.4.477
+## 5.6.0.478
 
-1. fix(android): remove unused permissions again
-2. chore(deps): update deps
+1. Update flutter to 3.44.0
+2. build(windows): add arm64 support
+3. Migration to UIScene lifecycle
+4. fix(android): remove unused permissions again
+5. chore(deps): update deps
 
 ## 5.5.3.476
 
