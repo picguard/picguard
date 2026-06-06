@@ -22,7 +22,7 @@ permissions: write-all
 
 env:
   flutter-channel: 'stable'
-  flutter-version: '3.44.0'
+  flutter-version: '3.44.1'
 
 jobs:
   create-release:
@@ -1780,7 +1780,7 @@ jobs:
 #        uses: subosito/flutter-action@v2
 #        with:
 #          channel: 'stable'
-#          flutter-version: '3.44.0'
+#          flutter-version: '3.44.1'
 #
 #      - name: Flutter doctor -v
 #        run: flutter doctor -v
@@ -1948,7 +1948,7 @@ jobs:
 #        uses: subosito/flutter-action@v2
 #        with:
 #          channel: 'stable'
-#          flutter-version: '3.44.0'
+#          flutter-version: '3.44.1'
 #
 #      - name: Flutter doctor -v
 #        run: flutter doctor -v
@@ -2446,7 +2446,7 @@ jobs:
 #        uses: subosito/flutter-action@v2
 #        with:
 #          channel: 'stable'
-#          flutter-version: '3.44.0'
+#          flutter-version: '3.44.1'
 #
 #      - name: Flutter doctor -v
 #        run: flutter doctor -v
@@ -2619,7 +2619,7 @@ jobs:
 #        uses: subosito/flutter-action@v2
 #        with:
 #          channel: 'stable'
-#          flutter-version: '3.44.0'
+#          flutter-version: '3.44.1'
 #
 #      - name: Flutter doctor -v
 #        run: flutter doctor -v
