@@ -1254,10 +1254,10 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "1d746d15fc16e34b153d9db226f164c64fb2542d6cb252d04ddfefb8e10bb21b"
+      sha256: "768a68f06c0b7b86851b0c95918bd31c7cbaf97fdb163cccce7b124328ac5a91"
       url: "https://pub.dev"
     source: hosted
-    version: "33.2.12"
+    version: "33.2.13"
   synchronized:
     dependency: "direct main"
     description:
