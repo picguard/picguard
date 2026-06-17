@@ -3476,6 +3476,11 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
+
       - name: Build exe
         shell: pwsh
         run: |
@@ -3618,6 +3623,11 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
+
       - name: Build exe
         shell: pwsh
         run: |
@@ -3750,6 +3760,11 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
+
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
 
       - name: Build exe
         shell: pwsh
@@ -3899,6 +3914,11 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
+
       - name: Build exe
         shell: pwsh
         run: |
@@ -4007,6 +4027,11 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
+
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
 
       - name: Build windows
         run: |
@@ -4133,6 +4158,11 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
+
       - name: Build windows
         run: |
           $env:SENTRY_NATIVE_BACKEND = "breakpad"
@@ -4258,6 +4288,11 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
+
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
 
       - name: Build windows
         run: |
@@ -4388,6 +4423,11 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
+
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
 
       - name: Build windows
         run: |
@@ -4535,6 +4575,11 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
+
       - name: Build msix
         run: |
           $env:SENTRY_NATIVE_BACKEND = "breakpad"
@@ -4662,6 +4707,11 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
+
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
 
       - name: Build msix
         run: |
@@ -4791,6 +4841,11 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
+
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
 
       - name: Build msix
         run: |
@@ -4925,6 +4980,11 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
+
       - name: Build msix
         run: |
           $env:SENTRY_NATIVE_BACKEND = "breakpad"
@@ -5012,6 +5072,11 @@ jobs:
       - name: Install Flutter dependencies
         run: flutter pub get
 
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
+
       - name: Build zip
         shell: pwsh
         run: |
@@ -5090,6 +5155,11 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
+
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
 
       - name: Build zip
         shell: pwsh
@@ -5174,6 +5244,11 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
+
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
 
       - name: Build zip
         shell: pwsh
@@ -5262,6 +5337,11 @@ jobs:
 
       - name: Install Flutter dependencies
         run: flutter pub get
+
+      - name: Remove compiler options deprecated in VS 2026.
+        run: |
+          $file = "$pwd\windows\flutter\ephemeral\.plugin_symlinks\permission_handler_windows\windows\CMakeLists.txt"
+          (Get-Content $file) | Where-Object { $_ -notmatch 'target_compile_options\(\$\{PLUGIN_NAME\} PRIVATE /await\)' } | Set-Content $file
 
       - name: Build zip
         shell: pwsh
