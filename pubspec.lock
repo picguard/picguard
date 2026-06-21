@@ -1246,18 +1246,18 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "7d11df3bf18cb83c8d4b6fdf836b3c893f803b153ff76351b9c3bffc09dec9f8"
+      sha256: ce5b3236fac7be6594e834cb2b128d7c9a3acbbcb8624f6304b3d42b04ce17c7
       url: "https://pub.dev"
     source: hosted
-    version: "33.2.13"
+    version: "33.2.13+1"
   syncfusion_flutter_sliders:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_sliders
-      sha256: "768a68f06c0b7b86851b0c95918bd31c7cbaf97fdb163cccce7b124328ac5a91"
+      sha256: ba4d1aa5bfa6b9fd7ccdb3a448ce56d134833b8d793e9e700f6ff41c711be59b
       url: "https://pub.dev"
     source: hosted
-    version: "33.2.13"
+    version: "33.2.13+1"
   synchronized:
     dependency: "direct main"
     description:
@@ -1430,10 +1430,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: "7ee12e6dffe0fc8e755179d6d91b3b34f5924223fc104d85572ef9180d73d172"
+      sha256: "142a9146f447d15b10bdc00e21d5f4d83e5b32bb5f8f8f5a04c75311344923a3"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.5"
+    version: "1.2.6"
   vector_math:
     dependency: transitive
     description:
