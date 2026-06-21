@@ -47,12 +47,12 @@ class TranslationsZh extends Translations with BaseTranslations<AppLocale, Trans
 				return 'PicGuard Pro';
 		}
 	}
-	@override late final _TranslationsHomePageZh homePage = _TranslationsHomePageZh._(_root);
-	@override late final _TranslationsAboutPageZh aboutPage = _TranslationsAboutPageZh._(_root);
-	@override late final _TranslationsColorsZh colors = _TranslationsColorsZh._(_root);
-	@override late final _TranslationsMenusZh menus = _TranslationsMenusZh._(_root);
-	@override late final _TranslationsButtonsZh buttons = _TranslationsButtonsZh._(_root);
-	@override late final _TranslationsDialogsZh dialogs = _TranslationsDialogsZh._(_root);
+	@override late final _Translations$homePage$zh homePage = _Translations$homePage$zh._(_root);
+	@override late final _Translations$aboutPage$zh aboutPage = _Translations$aboutPage$zh._(_root);
+	@override late final _Translations$colors$zh colors = _Translations$colors$zh._(_root);
+	@override late final _Translations$menus$zh menus = _Translations$menus$zh._(_root);
+	@override late final _Translations$buttons$zh buttons = _Translations$buttons$zh._(_root);
+	@override late final _Translations$dialogs$zh dialogs = _Translations$dialogs$zh._(_root);
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'it': 'Italian',
@@ -61,8 +61,8 @@ class TranslationsZh extends Translations with BaseTranslations<AppLocale, Trans
 }
 
 // Path: homePage
-class _TranslationsHomePageZh extends TranslationsHomePageEn {
-	_TranslationsHomePageZh._(TranslationsZh root) : this._root = root, super.internal(root);
+class _Translations$homePage$zh extends Translations$homePage$en {
+	_Translations$homePage$zh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -102,8 +102,8 @@ class _TranslationsHomePageZh extends TranslationsHomePageEn {
 }
 
 // Path: aboutPage
-class _TranslationsAboutPageZh extends TranslationsAboutPageEn {
-	_TranslationsAboutPageZh._(TranslationsZh root) : this._root = root, super.internal(root);
+class _Translations$aboutPage$zh extends Translations$aboutPage$en {
+	_Translations$aboutPage$zh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -118,8 +118,8 @@ class _TranslationsAboutPageZh extends TranslationsAboutPageEn {
 }
 
 // Path: colors
-class _TranslationsColorsZh extends TranslationsColorsEn {
-	_TranslationsColorsZh._(TranslationsZh root) : this._root = root, super.internal(root);
+class _Translations$colors$zh extends Translations$colors$en {
+	_Translations$colors$zh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -133,8 +133,8 @@ class _TranslationsColorsZh extends TranslationsColorsEn {
 }
 
 // Path: menus
-class _TranslationsMenusZh extends TranslationsMenusEn {
-	_TranslationsMenusZh._(TranslationsZh root) : this._root = root, super.internal(root);
+class _Translations$menus$zh extends Translations$menus$en {
+	_Translations$menus$zh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -152,8 +152,8 @@ class _TranslationsMenusZh extends TranslationsMenusEn {
 }
 
 // Path: buttons
-class _TranslationsButtonsZh extends TranslationsButtonsEn {
-	_TranslationsButtonsZh._(TranslationsZh root) : this._root = root, super.internal(root);
+class _Translations$buttons$zh extends Translations$buttons$en {
+	_Translations$buttons$zh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -166,23 +166,23 @@ class _TranslationsButtonsZh extends TranslationsButtonsEn {
 }
 
 // Path: dialogs
-class _TranslationsDialogsZh extends TranslationsDialogsEn {
-	_TranslationsDialogsZh._(TranslationsZh root) : this._root = root, super.internal(root);
+class _Translations$dialogs$zh extends Translations$dialogs$en {
+	_Translations$dialogs$zh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
 	@override String get selectColor => '选择颜色';
 	@override String get selectFont => '选择字体';
-	@override late final _TranslationsDialogsExitConfirmZh exitConfirm = _TranslationsDialogsExitConfirmZh._(_root);
-	@override late final _TranslationsDialogsPermissionsZh permissions = _TranslationsDialogsPermissionsZh._(_root);
-	@override late final _TranslationsDialogsLicenseDialogZh licenseDialog = _TranslationsDialogsLicenseDialogZh._(_root);
-	@override late final _TranslationsDialogsSettingsDialogZh settingsDialog = _TranslationsDialogsSettingsDialogZh._(_root);
+	@override late final _Translations$dialogs$exitConfirm$zh exitConfirm = _Translations$dialogs$exitConfirm$zh._(_root);
+	@override late final _Translations$dialogs$permissions$zh permissions = _Translations$dialogs$permissions$zh._(_root);
+	@override late final _Translations$dialogs$licenseDialog$zh licenseDialog = _Translations$dialogs$licenseDialog$zh._(_root);
+	@override late final _Translations$dialogs$settingsDialog$zh settingsDialog = _Translations$dialogs$settingsDialog$zh._(_root);
 }
 
 // Path: dialogs.exitConfirm
-class _TranslationsDialogsExitConfirmZh extends TranslationsDialogsExitConfirmEn {
-	_TranslationsDialogsExitConfirmZh._(TranslationsZh root) : this._root = root, super.internal(root);
+class _Translations$dialogs$exitConfirm$zh extends Translations$dialogs$exitConfirm$en {
+	_Translations$dialogs$exitConfirm$zh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -194,19 +194,19 @@ class _TranslationsDialogsExitConfirmZh extends TranslationsDialogsExitConfirmEn
 }
 
 // Path: dialogs.permissions
-class _TranslationsDialogsPermissionsZh extends TranslationsDialogsPermissionsEn {
-	_TranslationsDialogsPermissionsZh._(TranslationsZh root) : this._root = root, super.internal(root);
+class _Translations$dialogs$permissions$zh extends Translations$dialogs$permissions$en {
+	_Translations$dialogs$permissions$zh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsDialogsPermissionsPhotosZh photos = _TranslationsDialogsPermissionsPhotosZh._(_root);
-	@override late final _TranslationsDialogsPermissionsStorageZh storage = _TranslationsDialogsPermissionsStorageZh._(_root);
+	@override late final _Translations$dialogs$permissions$photos$zh photos = _Translations$dialogs$permissions$photos$zh._(_root);
+	@override late final _Translations$dialogs$permissions$storage$zh storage = _Translations$dialogs$permissions$storage$zh._(_root);
 }
 
 // Path: dialogs.licenseDialog
-class _TranslationsDialogsLicenseDialogZh extends TranslationsDialogsLicenseDialogEn {
-	_TranslationsDialogsLicenseDialogZh._(TranslationsZh root) : this._root = root, super.internal(root);
+class _Translations$dialogs$licenseDialog$zh extends Translations$dialogs$licenseDialog$en {
+	_Translations$dialogs$licenseDialog$zh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -229,21 +229,21 @@ class _TranslationsDialogsLicenseDialogZh extends TranslationsDialogsLicenseDial
 }
 
 // Path: dialogs.settingsDialog
-class _TranslationsDialogsSettingsDialogZh extends TranslationsDialogsSettingsDialogEn {
-	_TranslationsDialogsSettingsDialogZh._(TranslationsZh root) : this._root = root, super.internal(root);
+class _Translations$dialogs$settingsDialog$zh extends Translations$dialogs$settingsDialog$en {
+	_Translations$dialogs$settingsDialog$zh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
 	@override String get settings => '设置';
 	@override String get languages => '语言';
-	@override late final _TranslationsDialogsSettingsDialogThemesZh themes = _TranslationsDialogsSettingsDialogThemesZh._(_root);
+	@override late final _Translations$dialogs$settingsDialog$themes$zh themes = _Translations$dialogs$settingsDialog$themes$zh._(_root);
 	@override String get themesDescription => '开启后, 将跟随系统打开或关闭深色模式';
 }
 
 // Path: dialogs.permissions.photos
-class _TranslationsDialogsPermissionsPhotosZh extends TranslationsDialogsPermissionsPhotosEn {
-	_TranslationsDialogsPermissionsPhotosZh._(TranslationsZh root) : this._root = root, super.internal(root);
+class _Translations$dialogs$permissions$photos$zh extends Translations$dialogs$permissions$photos$en {
+	_Translations$dialogs$permissions$photos$zh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -253,8 +253,8 @@ class _TranslationsDialogsPermissionsPhotosZh extends TranslationsDialogsPermiss
 }
 
 // Path: dialogs.permissions.storage
-class _TranslationsDialogsPermissionsStorageZh extends TranslationsDialogsPermissionsStorageEn {
-	_TranslationsDialogsPermissionsStorageZh._(TranslationsZh root) : this._root = root, super.internal(root);
+class _Translations$dialogs$permissions$storage$zh extends Translations$dialogs$permissions$storage$en {
+	_Translations$dialogs$permissions$storage$zh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
@@ -264,8 +264,8 @@ class _TranslationsDialogsPermissionsStorageZh extends TranslationsDialogsPermis
 }
 
 // Path: dialogs.settingsDialog.themes
-class _TranslationsDialogsSettingsDialogThemesZh extends TranslationsDialogsSettingsDialogThemesEn {
-	_TranslationsDialogsSettingsDialogThemesZh._(TranslationsZh root) : this._root = root, super.internal(root);
+class _Translations$dialogs$settingsDialog$themes$zh extends Translations$dialogs$settingsDialog$themes$en {
+	_Translations$dialogs$settingsDialog$themes$zh._(TranslationsZh root) : this._root = root, super.internal(root);
 
 	final TranslationsZh _root; // ignore: unused_field
 

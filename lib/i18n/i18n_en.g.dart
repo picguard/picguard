@@ -51,12 +51,12 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 		}
 	}
 
-	late final TranslationsHomePageEn homePage = TranslationsHomePageEn.internal(_root);
-	late final TranslationsAboutPageEn aboutPage = TranslationsAboutPageEn.internal(_root);
-	late final TranslationsColorsEn colors = TranslationsColorsEn.internal(_root);
-	late final TranslationsMenusEn menus = TranslationsMenusEn.internal(_root);
-	late final TranslationsButtonsEn buttons = TranslationsButtonsEn.internal(_root);
-	late final TranslationsDialogsEn dialogs = TranslationsDialogsEn.internal(_root);
+	late final Translations$homePage$en homePage = Translations$homePage$en.internal(_root);
+	late final Translations$aboutPage$en aboutPage = Translations$aboutPage$en.internal(_root);
+	late final Translations$colors$en colors = Translations$colors$en.internal(_root);
+	late final Translations$menus$en menus = Translations$menus$en.internal(_root);
+	late final Translations$buttons$en buttons = Translations$buttons$en.internal(_root);
+	late final Translations$dialogs$en dialogs = Translations$dialogs$en.internal(_root);
 	Map<String, String> get locales => {
 		'en': 'English',
 		'it': 'Italian',
@@ -65,8 +65,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 }
 
 // Path: homePage
-class TranslationsHomePageEn {
-	TranslationsHomePageEn.internal(this._root);
+class Translations$homePage$en {
+	Translations$homePage$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -170,8 +170,8 @@ class TranslationsHomePageEn {
 }
 
 // Path: aboutPage
-class TranslationsAboutPageEn {
-	TranslationsAboutPageEn.internal(this._root);
+class Translations$aboutPage$en {
+	Translations$aboutPage$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -200,8 +200,8 @@ class TranslationsAboutPageEn {
 }
 
 // Path: colors
-class TranslationsColorsEn {
-	TranslationsColorsEn.internal(this._root);
+class Translations$colors$en {
+	Translations$colors$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -227,8 +227,8 @@ class TranslationsColorsEn {
 }
 
 // Path: menus
-class TranslationsMenusEn {
-	TranslationsMenusEn.internal(this._root);
+class Translations$menus$en {
+	Translations$menus$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -266,8 +266,8 @@ class TranslationsMenusEn {
 }
 
 // Path: buttons
-class TranslationsButtonsEn {
-	TranslationsButtonsEn.internal(this._root);
+class Translations$buttons$en {
+	Translations$buttons$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -290,8 +290,8 @@ class TranslationsButtonsEn {
 }
 
 // Path: dialogs
-class TranslationsDialogsEn {
-	TranslationsDialogsEn.internal(this._root);
+class Translations$dialogs$en {
+	Translations$dialogs$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -303,15 +303,15 @@ class TranslationsDialogsEn {
 	/// en: 'Select a font'
 	String get selectFont => 'Select a font';
 
-	late final TranslationsDialogsExitConfirmEn exitConfirm = TranslationsDialogsExitConfirmEn.internal(_root);
-	late final TranslationsDialogsPermissionsEn permissions = TranslationsDialogsPermissionsEn.internal(_root);
-	late final TranslationsDialogsLicenseDialogEn licenseDialog = TranslationsDialogsLicenseDialogEn.internal(_root);
-	late final TranslationsDialogsSettingsDialogEn settingsDialog = TranslationsDialogsSettingsDialogEn.internal(_root);
+	late final Translations$dialogs$exitConfirm$en exitConfirm = Translations$dialogs$exitConfirm$en.internal(_root);
+	late final Translations$dialogs$permissions$en permissions = Translations$dialogs$permissions$en.internal(_root);
+	late final Translations$dialogs$licenseDialog$en licenseDialog = Translations$dialogs$licenseDialog$en.internal(_root);
+	late final Translations$dialogs$settingsDialog$en settingsDialog = Translations$dialogs$settingsDialog$en.internal(_root);
 }
 
 // Path: dialogs.exitConfirm
-class TranslationsDialogsExitConfirmEn {
-	TranslationsDialogsExitConfirmEn.internal(this._root);
+class Translations$dialogs$exitConfirm$en {
+	Translations$dialogs$exitConfirm$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -331,19 +331,19 @@ class TranslationsDialogsExitConfirmEn {
 }
 
 // Path: dialogs.permissions
-class TranslationsDialogsPermissionsEn {
-	TranslationsDialogsPermissionsEn.internal(this._root);
+class Translations$dialogs$permissions$en {
+	Translations$dialogs$permissions$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsDialogsPermissionsPhotosEn photos = TranslationsDialogsPermissionsPhotosEn.internal(_root);
-	late final TranslationsDialogsPermissionsStorageEn storage = TranslationsDialogsPermissionsStorageEn.internal(_root);
+	late final Translations$dialogs$permissions$photos$en photos = Translations$dialogs$permissions$photos$en.internal(_root);
+	late final Translations$dialogs$permissions$storage$en storage = Translations$dialogs$permissions$storage$en.internal(_root);
 }
 
 // Path: dialogs.licenseDialog
-class TranslationsDialogsLicenseDialogEn {
-	TranslationsDialogsLicenseDialogEn.internal(this._root);
+class Translations$dialogs$licenseDialog$en {
+	Translations$dialogs$licenseDialog$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -383,8 +383,8 @@ class TranslationsDialogsLicenseDialogEn {
 }
 
 // Path: dialogs.settingsDialog
-class TranslationsDialogsSettingsDialogEn {
-	TranslationsDialogsSettingsDialogEn.internal(this._root);
+class Translations$dialogs$settingsDialog$en {
+	Translations$dialogs$settingsDialog$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -396,15 +396,15 @@ class TranslationsDialogsSettingsDialogEn {
 	/// en: 'Languages'
 	String get languages => 'Languages';
 
-	late final TranslationsDialogsSettingsDialogThemesEn themes = TranslationsDialogsSettingsDialogThemesEn.internal(_root);
+	late final Translations$dialogs$settingsDialog$themes$en themes = Translations$dialogs$settingsDialog$themes$en.internal(_root);
 
 	/// en: 'After turning it on, the dark mode will be turned on or off according to the system'
 	String get themesDescription => 'After turning it on, the dark mode will be turned on or off according to the system';
 }
 
 // Path: dialogs.permissions.photos
-class TranslationsDialogsPermissionsPhotosEn {
-	TranslationsDialogsPermissionsPhotosEn.internal(this._root);
+class Translations$dialogs$permissions$photos$en {
+	Translations$dialogs$permissions$photos$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -418,8 +418,8 @@ class TranslationsDialogsPermissionsPhotosEn {
 }
 
 // Path: dialogs.permissions.storage
-class TranslationsDialogsPermissionsStorageEn {
-	TranslationsDialogsPermissionsStorageEn.internal(this._root);
+class Translations$dialogs$permissions$storage$en {
+	Translations$dialogs$permissions$storage$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -433,8 +433,8 @@ class TranslationsDialogsPermissionsStorageEn {
 }
 
 // Path: dialogs.settingsDialog.themes
-class TranslationsDialogsSettingsDialogThemesEn {
-	TranslationsDialogsSettingsDialogThemesEn.internal(this._root);
+class Translations$dialogs$settingsDialog$themes$en {
+	Translations$dialogs$settingsDialog$themes$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 

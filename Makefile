@@ -35,11 +35,11 @@ splash: ## Generate splash logo
 
 build_watch: ## Watches the files for changes
 	echo "╠ Watching the project..."
-	fvm dart run build_runner watch --delete-conflicting-outputs
+	fvm dart run build_runner watch
 
 build_runner: ## Build the files for changes
 	echo "╠ Building the project..."
-	fvm dart run build_runner build --delete-conflicting-outputs
+	fvm dart run build_runner build
 
 clean_runner: ## Deleting cache and generated source files
 	echo "╠ Deleting cache and generated source files..."

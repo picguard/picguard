@@ -47,12 +47,12 @@ class TranslationsIt extends Translations with BaseTranslations<AppLocale, Trans
 				return 'PicGuard Pro';
 		}
 	}
-	@override late final _TranslationsHomePageIt homePage = _TranslationsHomePageIt._(_root);
-	@override late final _TranslationsAboutPageIt aboutPage = _TranslationsAboutPageIt._(_root);
-	@override late final _TranslationsColorsIt colors = _TranslationsColorsIt._(_root);
-	@override late final _TranslationsMenusIt menus = _TranslationsMenusIt._(_root);
-	@override late final _TranslationsButtonsIt buttons = _TranslationsButtonsIt._(_root);
-	@override late final _TranslationsDialogsIt dialogs = _TranslationsDialogsIt._(_root);
+	@override late final _Translations$homePage$it homePage = _Translations$homePage$it._(_root);
+	@override late final _Translations$aboutPage$it aboutPage = _Translations$aboutPage$it._(_root);
+	@override late final _Translations$colors$it colors = _Translations$colors$it._(_root);
+	@override late final _Translations$menus$it menus = _Translations$menus$it._(_root);
+	@override late final _Translations$buttons$it buttons = _Translations$buttons$it._(_root);
+	@override late final _Translations$dialogs$it dialogs = _Translations$dialogs$it._(_root);
 	@override Map<String, String> get locales => {
 		'en': 'English',
 		'it': 'Italian',
@@ -61,8 +61,8 @@ class TranslationsIt extends Translations with BaseTranslations<AppLocale, Trans
 }
 
 // Path: homePage
-class _TranslationsHomePageIt extends TranslationsHomePageEn {
-	_TranslationsHomePageIt._(TranslationsIt root) : this._root = root, super.internal(root);
+class _Translations$homePage$it extends Translations$homePage$en {
+	_Translations$homePage$it._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -102,8 +102,8 @@ class _TranslationsHomePageIt extends TranslationsHomePageEn {
 }
 
 // Path: aboutPage
-class _TranslationsAboutPageIt extends TranslationsAboutPageEn {
-	_TranslationsAboutPageIt._(TranslationsIt root) : this._root = root, super.internal(root);
+class _Translations$aboutPage$it extends Translations$aboutPage$en {
+	_Translations$aboutPage$it._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -118,8 +118,8 @@ class _TranslationsAboutPageIt extends TranslationsAboutPageEn {
 }
 
 // Path: colors
-class _TranslationsColorsIt extends TranslationsColorsEn {
-	_TranslationsColorsIt._(TranslationsIt root) : this._root = root, super.internal(root);
+class _Translations$colors$it extends Translations$colors$en {
+	_Translations$colors$it._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -133,8 +133,8 @@ class _TranslationsColorsIt extends TranslationsColorsEn {
 }
 
 // Path: menus
-class _TranslationsMenusIt extends TranslationsMenusEn {
-	_TranslationsMenusIt._(TranslationsIt root) : this._root = root, super.internal(root);
+class _Translations$menus$it extends Translations$menus$en {
+	_Translations$menus$it._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -152,8 +152,8 @@ class _TranslationsMenusIt extends TranslationsMenusEn {
 }
 
 // Path: buttons
-class _TranslationsButtonsIt extends TranslationsButtonsEn {
-	_TranslationsButtonsIt._(TranslationsIt root) : this._root = root, super.internal(root);
+class _Translations$buttons$it extends Translations$buttons$en {
+	_Translations$buttons$it._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -166,23 +166,23 @@ class _TranslationsButtonsIt extends TranslationsButtonsEn {
 }
 
 // Path: dialogs
-class _TranslationsDialogsIt extends TranslationsDialogsEn {
-	_TranslationsDialogsIt._(TranslationsIt root) : this._root = root, super.internal(root);
+class _Translations$dialogs$it extends Translations$dialogs$en {
+	_Translations$dialogs$it._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
 	@override String get selectColor => 'Seleziona un colore';
 	@override String get selectFont => 'Seleziona un carattere';
-	@override late final _TranslationsDialogsExitConfirmIt exitConfirm = _TranslationsDialogsExitConfirmIt._(_root);
-	@override late final _TranslationsDialogsPermissionsIt permissions = _TranslationsDialogsPermissionsIt._(_root);
-	@override late final _TranslationsDialogsLicenseDialogIt licenseDialog = _TranslationsDialogsLicenseDialogIt._(_root);
-	@override late final _TranslationsDialogsSettingsDialogIt settingsDialog = _TranslationsDialogsSettingsDialogIt._(_root);
+	@override late final _Translations$dialogs$exitConfirm$it exitConfirm = _Translations$dialogs$exitConfirm$it._(_root);
+	@override late final _Translations$dialogs$permissions$it permissions = _Translations$dialogs$permissions$it._(_root);
+	@override late final _Translations$dialogs$licenseDialog$it licenseDialog = _Translations$dialogs$licenseDialog$it._(_root);
+	@override late final _Translations$dialogs$settingsDialog$it settingsDialog = _Translations$dialogs$settingsDialog$it._(_root);
 }
 
 // Path: dialogs.exitConfirm
-class _TranslationsDialogsExitConfirmIt extends TranslationsDialogsExitConfirmEn {
-	_TranslationsDialogsExitConfirmIt._(TranslationsIt root) : this._root = root, super.internal(root);
+class _Translations$dialogs$exitConfirm$it extends Translations$dialogs$exitConfirm$en {
+	_Translations$dialogs$exitConfirm$it._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -194,19 +194,19 @@ class _TranslationsDialogsExitConfirmIt extends TranslationsDialogsExitConfirmEn
 }
 
 // Path: dialogs.permissions
-class _TranslationsDialogsPermissionsIt extends TranslationsDialogsPermissionsEn {
-	_TranslationsDialogsPermissionsIt._(TranslationsIt root) : this._root = root, super.internal(root);
+class _Translations$dialogs$permissions$it extends Translations$dialogs$permissions$en {
+	_Translations$dialogs$permissions$it._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsDialogsPermissionsPhotosIt photos = _TranslationsDialogsPermissionsPhotosIt._(_root);
-	@override late final _TranslationsDialogsPermissionsStorageIt storage = _TranslationsDialogsPermissionsStorageIt._(_root);
+	@override late final _Translations$dialogs$permissions$photos$it photos = _Translations$dialogs$permissions$photos$it._(_root);
+	@override late final _Translations$dialogs$permissions$storage$it storage = _Translations$dialogs$permissions$storage$it._(_root);
 }
 
 // Path: dialogs.licenseDialog
-class _TranslationsDialogsLicenseDialogIt extends TranslationsDialogsLicenseDialogEn {
-	_TranslationsDialogsLicenseDialogIt._(TranslationsIt root) : this._root = root, super.internal(root);
+class _Translations$dialogs$licenseDialog$it extends Translations$dialogs$licenseDialog$en {
+	_Translations$dialogs$licenseDialog$it._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -229,21 +229,21 @@ class _TranslationsDialogsLicenseDialogIt extends TranslationsDialogsLicenseDial
 }
 
 // Path: dialogs.settingsDialog
-class _TranslationsDialogsSettingsDialogIt extends TranslationsDialogsSettingsDialogEn {
-	_TranslationsDialogsSettingsDialogIt._(TranslationsIt root) : this._root = root, super.internal(root);
+class _Translations$dialogs$settingsDialog$it extends Translations$dialogs$settingsDialog$en {
+	_Translations$dialogs$settingsDialog$it._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
 	@override String get settings => 'Impostazioni';
 	@override String get languages => 'Lingue';
-	@override late final _TranslationsDialogsSettingsDialogThemesIt themes = _TranslationsDialogsSettingsDialogThemesIt._(_root);
+	@override late final _Translations$dialogs$settingsDialog$themes$it themes = _Translations$dialogs$settingsDialog$themes$it._(_root);
 	@override String get themesDescription => 'Dopo averlo attivato, la modalità scura verrà attivata o disattivata in base al sistema';
 }
 
 // Path: dialogs.permissions.photos
-class _TranslationsDialogsPermissionsPhotosIt extends TranslationsDialogsPermissionsPhotosEn {
-	_TranslationsDialogsPermissionsPhotosIt._(TranslationsIt root) : this._root = root, super.internal(root);
+class _Translations$dialogs$permissions$photos$it extends Translations$dialogs$permissions$photos$en {
+	_Translations$dialogs$permissions$photos$it._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -253,8 +253,8 @@ class _TranslationsDialogsPermissionsPhotosIt extends TranslationsDialogsPermiss
 }
 
 // Path: dialogs.permissions.storage
-class _TranslationsDialogsPermissionsStorageIt extends TranslationsDialogsPermissionsStorageEn {
-	_TranslationsDialogsPermissionsStorageIt._(TranslationsIt root) : this._root = root, super.internal(root);
+class _Translations$dialogs$permissions$storage$it extends Translations$dialogs$permissions$storage$en {
+	_Translations$dialogs$permissions$storage$it._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
@@ -264,8 +264,8 @@ class _TranslationsDialogsPermissionsStorageIt extends TranslationsDialogsPermis
 }
 
 // Path: dialogs.settingsDialog.themes
-class _TranslationsDialogsSettingsDialogThemesIt extends TranslationsDialogsSettingsDialogThemesEn {
-	_TranslationsDialogsSettingsDialogThemesIt._(TranslationsIt root) : this._root = root, super.internal(root);
+class _Translations$dialogs$settingsDialog$themes$it extends Translations$dialogs$settingsDialog$themes$en {
+	_Translations$dialogs$settingsDialog$themes$it._(TranslationsIt root) : this._root = root, super.internal(root);
 
 	final TranslationsIt _root; // ignore: unused_field
 
