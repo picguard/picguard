@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.7.0.479
+
+1. chore(deps): update deps
+2. Improve compatibility in VS 2026.
+3. fix(ios): update minimum system version to 15.0
+4. fix(macos): update minimum system version to 12.0
+5. Update flutter to 3.44.4
+
 ## 5.6.0.478
 
 1. Update flutter to 3.44.0
