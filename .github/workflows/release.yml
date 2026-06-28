@@ -4751,9 +4751,10 @@ jobs:
       - name: Update config
         shell: pwsh
         run: |
-          Copy-Item -Path "windows\pro\CMakeLists.txt" -Destination "windows\CMakeLists.txt" -Force
-          Copy-Item -Path "windows\pro\main.cpp" -Destination "windows\runner\main.cpp" -Force
-          Copy-Item -Path "windows\pro\Runner.rc" -Destination "windows\runner\Runner.rc" -Force
+          Copy-Item -Path "$pwd\windows\pro\CMakeLists.txt" -Destination "$pwd\windows\CMakeLists.txt" -Force
+          Copy-Item -Path "$pwd\windows\pro\main.cpp" -Destination "$pwd\windows\runner\main.cpp" -Force
+          Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
+          Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
           Copy-Item -Path "$pwd\windows\pro\LICENSE.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
 
           # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
@@ -4774,7 +4775,7 @@ jobs:
           $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME_PRO).Value
 
           # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".display_name = `"PicGuard Pro`" | .store = `"$isStore`" | .identity_name = `"$identityName`" | .publisher = `"$publisher`" | .publisher_display_name = `"$publisherName`" | del(.certificate_path) | del(.certificate_password)" -
+          $updatedYamlContent = echo $yamlContent | yq e ".display_name = `"PicGuard Pro`" | .logo_path = `"logo\pro\logo-512.png`" | .store = `"$isStore`" | .identity_name = `"$identityName`" | .publisher = `"$publisher`" | .publisher_display_name = `"$publisherName`" | del(.certificate_path) | del(.certificate_password)" -
 
           # 将更新后的内容写回文件
           Set-Content -Path $yamlFile -Value $updatedYamlContent
@@ -4884,9 +4885,10 @@ jobs:
       - name: Update config
         shell: pwsh
         run: |
-          Copy-Item -Path "windows\pro\CMakeLists.txt" -Destination "windows\CMakeLists.txt" -Force
-          Copy-Item -Path "windows\pro\main.cpp" -Destination "windows\runner\main.cpp" -Force
-          Copy-Item -Path "windows\pro\Runner.rc" -Destination "windows\runner\Runner.rc" -Force
+          Copy-Item -Path "$pwd\windows\pro\CMakeLists.txt" -Destination "$pwd\windows\CMakeLists.txt" -Force
+          Copy-Item -Path "$pwd\windows\pro\main.cpp" -Destination "$pwd\windows\runner\main.cpp" -Force
+          Copy-Item -Path "$pwd\windows\pro\Runner.rc" -Destination "$pwd\windows\runner\Runner.rc" -Force
+          Copy-Item -Path "$pwd\windows\pro\app_icon.ico" -Destination "$pwd\windows\runner\resources\app_icon.ico" -Force
           Copy-Item -Path "$pwd\windows\pro\LICENSE.rtf" -Destination "$pwd\windows\LICENSE.rtf" -Force
 
           # https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
@@ -4907,7 +4909,7 @@ jobs:
           $publisherName = (Get-Item -Path Env:WINDOWS_PUBLISHER_NAME_PRO).Value
 
           # 使用 yq 更新多个字段
-          $updatedYamlContent = echo $yamlContent | yq e ".display_name = `"PicGuard Pro`" | .architecture = `"$env:Platform`" | .store = `"$isStore`" | .identity_name = `"$identityName`" | .publisher = `"$publisher`" | .publisher_display_name = `"$publisherName`" | del(.certificate_path) | del(.certificate_password)" -
+          $updatedYamlContent = echo $yamlContent | yq e ".display_name = `"PicGuard Pro`" | .logo_path = `"logo\pro\logo-512.png`" | .architecture = `"$env:Platform`" | .store = `"$isStore`" | .identity_name = `"$identityName`" | .publisher = `"$publisher`" | .publisher_display_name = `"$publisherName`" | del(.certificate_path) | del(.certificate_password)" -
 
           # 将更新后的内容写回文件
           Set-Content -Path $yamlFile -Value $updatedYamlContent
