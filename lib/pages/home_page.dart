@@ -534,7 +534,7 @@ class _HomePageState extends State<HomePage>
 
         String? selectedDirectory;
         if (isDesktop) {
-          selectedDirectory = await FilePicker.getDirectoryPath();
+          selectedDirectory = await FilePicker.platform.getDirectoryPath();
         }
 
         final results = <bool>[];
