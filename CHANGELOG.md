@@ -4,7 +4,7 @@
 
 1. chore(deps): update deps
 2. ci(linux): add rpm support
-3. Update flutter to 3.44.5
+3. Update flutter to 3.44.6
 
 ## 5.7.0.479
 
