@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for full license information.
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -244,7 +243,7 @@ class _MainAppState extends State<MainApp> with TrayListener {
     } else if (menuItem.key == Menus.debug.name) {
       await DialogUtil.openDebugPage();
     } else if (menuItem.key == Menus.exit.name) {
-      exit(0);
+      exitApp();
     }
   }
 }

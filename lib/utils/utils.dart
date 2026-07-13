@@ -4,6 +4,7 @@
 
 export 'color_util.dart';
 export 'dialog_util.dart';
+export 'exit_app.dart';
 export 'navigator_util.dart';
 export 'permission_util.dart';
 export 'run_once.dart';

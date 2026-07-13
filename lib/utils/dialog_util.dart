@@ -236,7 +236,7 @@ class DialogUtil {
                           onTap: () async {
                             await SpUtil.putBool(Keys.licenseKey, false);
                             NavigatorUtil.pop();
-                            // exit(0);
+                            // exitApp();
                           },
                           child: Padding(
                             padding: const .symmetric(vertical: 16),
