@@ -11,9 +11,7 @@
 import 'package:flutter/painting.dart';
 import 'package:flutter/material.dart';
 
-class PGColors {
-  PGColors._();
-
+abstract final class PGColors {
   /// Color: #FFECE8
   static const Color backgroundColor = Color(0xFFFFECE8);
 
