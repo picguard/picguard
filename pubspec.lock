@@ -585,10 +585,10 @@ packages:
     dependency: "direct main"
     description:
       name: image_gallery_saver_plus
-      sha256: "83135406297c8fc50d76dcfee25011c97c741406a471c15671f2ecd33800f745"
+      sha256: "598beaaade0ead242416a6ef85883bb8f7f1c18f523c531c06c586a4688bd34a"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.0"
+    version: "5.1.1"
   image_picker:
     dependency: "direct main"
     description:
