@@ -133,6 +133,8 @@ class _MainAppState extends State<MainApp> with TrayListener {
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
+    final appName = t.appName(flavor: AppConfig.shared.flavor);
     final themeMode = context.select<GlobalProvider, ThemeMode>(
       (provider) => provider.themeMode,
     );
@@ -144,6 +146,7 @@ class _MainAppState extends State<MainApp> with TrayListener {
       child: const SelectionArea(child: HomePage()),
     );
     return MaterialApp(
+      title: appName,
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
       navigatorObservers: [
