@@ -808,14 +808,8 @@ class _HomePageState extends State<HomePage>
     }
 
     final picker = ImagePicker();
-
-    List<XFile> images;
-    if (limit == 1) {
-      final picked = await picker.pickImage(source: ImageSource.gallery);
-      images = [?picked];
-    } else {
-      images = await picker.pickMultiImage(limit: limit);
-    }
+    List<XFile> images = await picker.pickMultiImage(limit: limit);
+    if (images.isEmpty) return [];
 
     final imageFutures = images.mapIndexed((index, image) async {
       return ImageFile(
