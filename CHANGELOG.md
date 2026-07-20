@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.7.2.481
+
+1. fix: use ServicesBinding.instance.exitApplication instead of exit(0)
+2. fix: iOS/macOS project migrations
+3. Fixed an issue where the app name was not displayed in the background task snapshot on HarmonyOS 3.0
+4. chore(deps): update deps
+5. Update flutter to 3.44.7
+
 ## 5.7.1.480
 
 1. chore(deps): update deps
