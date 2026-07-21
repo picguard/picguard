@@ -21,7 +21,7 @@ environment:
 
 dependencies:
   about: ^2.2.0
-  app_settings: ^8.0.1
+  app_settings: ^8.0.3
   bot_toast: ^4.1.3
   cupertino_icons: ^1.0.9
   desktop_drop: ^0.7.1
