@@ -22,7 +22,7 @@ permissions:
   contents: read
 
 env:
-  flutter-version: '3.44.6'
+  flutter-version: '3.44.7'
 
 jobs:
   apk:
