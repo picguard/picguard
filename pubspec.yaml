@@ -30,7 +30,7 @@ dependencies:
   file_saver: ^0.4.0
   flutter:
     sdk: flutter
-  flutter_easyloading: ^3.0.5
+  flutter_easyloading: ^4.0.0
   flutter_expandable_fab: ^2.5.2
   flutter_form_builder: ^10.3.0+2
   flutter_localizations:
