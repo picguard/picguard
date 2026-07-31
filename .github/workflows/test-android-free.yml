@@ -1,4 +1,4 @@
-name: Test Android
+name: Test Android (free)
 
 on:
   workflow_dispatch:

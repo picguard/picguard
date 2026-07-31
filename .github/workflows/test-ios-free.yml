@@ -1,4 +1,4 @@
-name: Test iOS
+name: Test iOS (free)
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: Test Web
+name: Test Web (free)
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   web:
-    name: Create web
+    name: Create web (free)
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v7
