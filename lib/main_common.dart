@@ -53,7 +53,7 @@ Future<void> runMainApp({Flavor flavor = Flavor.free}) async {
       options
         ..dsn = PgEnv.sentryDsn
         ..tracesSampleRate = 1.0
-        ..profilesSampleRate = 1.0
+        // ..profilesSampleRate = 1.0
         ..attachThreads = true
         ..enableWindowMetricBreadcrumbs = true
         ..enableAppHangTracking =
@@ -63,7 +63,7 @@ Future<void> runMainApp({Flavor flavor = Flavor.free}) async {
         ..reportSilentFlutterErrors = true
         ..attachScreenshot = true
         ..screenshotQuality = SentryScreenshotQuality.low
-        ..attachViewHierarchy = true
+        // ..attachViewHierarchy = true
         ..debug = kDebugMode
         ..spotlight = Spotlight(enabled: true)
         ..enableTimeToFullDisplayTracing = true
