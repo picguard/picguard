@@ -2816,6 +2816,7 @@ image_picker_platform_interface
 path_provider
 path_provider_android
 path_provider_foundation
+path_provider_linux
 path_provider_platform_interface
 shared_preferences
 shared_preferences_android
@@ -7395,7 +7396,7 @@ flutter_easyloading
 
 MIT License
 
-Copyright (c) 2020 nslogx
+Copyright (c) 2020-2026 nslogx
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -7414,6 +7415,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
 --------------------------------------------------------------------------------
 flutter_expandable_fab
 
@@ -7494,7 +7496,6 @@ flutter_lints
 flutter_markdown
 image_picker_linux
 image_picker_windows
-path_provider_linux
 path_provider_windows
 plugin_platform_interface
 shared_preferences_linux
@@ -34842,7 +34843,7 @@ xml
 
 The MIT License
 
-Copyright (c) 2006-2025 Lukas Renggli.
+Copyright (c) 2006-2026 Lukas Renggli.
 All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
