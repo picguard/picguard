@@ -4,12 +4,12 @@
 
 import 'dart:async';
 
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -168,6 +168,8 @@ class _MainAppState extends State<MainApp> with TrayListener {
       builder: (context, child) {
         child = easyLoadingBuilder(context, child);
         child = botToastBuilder(context, child);
+        child = MaterialUiCompatibilityBridge(child: child);
+        child = CupertinoUiCompatibilityBridge(child: child);
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaler: .noScaling),
           child: child,

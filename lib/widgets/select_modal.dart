@@ -2,7 +2,7 @@
 // This source code is licensed under the GNU General Public License v3.0.
 // See the LICENSE file in the project root for full license information.
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
