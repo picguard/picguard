@@ -712,7 +712,7 @@ class DialogUtil {
       TalkerScreen(
         appBarTitle: t.appName(flavor: AppConfig.shared.flavor),
         talker: talker,
-        theme: TalkerScreenTheme.fromTheme(themeData),
+        // theme: TalkerScreenTheme.fromTheme(themeData),
       ),
     );
   }

@@ -8,10 +8,15 @@ import 'package:flutter/widgets.dart';
 import 'package:tray_manager/legacy.dart';
 
 import '../../constants/get.dart';
+import '../../enums/enums.dart';
+import '../../i18n/i18n.g.dart';
+import '../../utils/dialog_util.dart';
+import '../../utils/exit_app.dart';
+import '../../widgets/menu_bar.dart';
 
-const kGlyphIcon = 'logo/tray_logo.png';
-const kColourIcon = 'logo/tray_logo.png';
-const kDefaultTooltip = 'VoiceMeet';
+const kGlyphIcon = 'logo/tray-logo.png';
+const kColourIcon = 'logo/tray-logo.png';
+const kDefaultTooltip = 'PicGuard';
 
 /// Every `trayManager` call the example makes, in one place.
 ///
@@ -50,6 +55,7 @@ class TrayController extends ChangeNotifier with TrayListener {
   /// A Linux tray icon is drawn by the shell: it has no bounds to ask for and
   /// only the shell can open its menu.
   static bool get boundsSupported => !Platform.isLinux;
+
   static bool get popUpSupported => !Platform.isLinux;
 
   // ---------------------------------------------------------------------
@@ -153,35 +159,37 @@ class TrayController extends ChangeNotifier with TrayListener {
   Menu _buildMenu() {
     return Menu(
       items: [
-        // MenuItem(key: 'show_window', label: 'Show window'),
-        // MenuItem.separator(),
-        // MenuItem.submenu(
-        //   key: 'icon',
-        //   label: 'Icon',
-        //   submenu: Menu(
-        //     items: [
-        //       MenuItem(key: 'icon_glyph', label: 'Glyph'),
-        //       MenuItem(key: 'icon_colour', label: 'Colour'),
-        //     ],
-        //   ),
-        // ),
-        // MenuItem.checkbox(
-        //   key: 'notifications',
-        //   label: 'Notifications',
-        //   checked: notifications,
-        //   // Assigning `checked` updates the menu; no second setContextMenu.
-        //   onClick: (menuItem) {
-        //     notifications = !notifications;
-        //     menuItem.checked = notifications;
-        //   },
-        // ),
-        // MenuItem(
-        //   key: 'check_for_updates',
-        //   label: 'Check for updates',
-        //   disabled: true,
-        // ),
-        // MenuItem.separator(),
-        MenuItem(key: 'exit_app', label: 'Exit app'),
+        MenuItem(
+          key: Menus.about.name,
+          label: t.menus.about(appName: title),
+        ),
+        MenuItem.separator(),
+        MenuItem(
+          key: Menus.settings.name,
+          label: t.dialogs.settingsDialog.settings,
+        ),
+        MenuItem.separator(),
+        MenuItem.submenu(
+          key: Menus.help.name,
+          label: t.menus.help,
+          submenu: Menu(
+            items: [
+              MenuItem(key: Menus.support.name, label: t.menus.support),
+              MenuItem(
+                key: Menus.userAgreement.name,
+                label: t.menus.userAgreement,
+              ),
+              MenuItem(key: Menus.privacy.name, label: t.menus.privacy),
+              MenuItem.separator(),
+              MenuItem(key: Menus.debug.name, label: t.menus.debug),
+            ],
+          ),
+        ),
+        MenuItem.separator(),
+        MenuItem(
+          key: Menus.exit.name,
+          label: t.menus.exit(appName: title),
+        ),
       ],
     );
   }
@@ -205,14 +213,23 @@ class TrayController extends ChangeNotifier with TrayListener {
   @override
   void onTrayMenuItemClick(MenuItem menuItem) {
     _event('onTrayMenuItemClick  ${menuItem.key}');
-    switch (menuItem.key) {
-      case 'icon_glyph':
-        setIcon(kGlyphIcon);
-      case 'icon_colour':
-        setIcon(kColourIcon);
-      case 'exit_app':
-        // Not from inside the click: let the menu finish closing first.
-        Timer.run(() => trayManager.destroy().whenComplete(() => exit(0)));
+
+    if (menuItem.key == Menus.about.name) {
+      DialogUtil.showAboutModal();
+    } else if (menuItem.key == Menus.settings.name) {
+      DialogUtil.showSettingsModal();
+    } else if (menuItem.key == Menus.support.name) {
+      gotoSupportPage();
+    } else if (menuItem.key == Menus.userAgreement.name) {
+      gotoTermsOfUsePage();
+    } else if (menuItem.key == Menus.privacy.name) {
+      gotoPrivacyPage();
+    } else if (menuItem.key == Menus.debug.name) {
+      DialogUtil.openDebugPage();
+    } else if (menuItem.key == Menus.exit.name) {
+      // Not from inside the click: let the menu finish closing first.
+      Timer.run(() => trayManager.destroy().whenComplete(() => exit(0)));
+      exitApp();
     }
   }
 

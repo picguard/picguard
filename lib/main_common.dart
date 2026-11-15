@@ -11,15 +11,15 @@ import 'package:material_ui/material_ui.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:logging/logging.dart';
+import 'platforms/tray/io.dart'
+if (dart.library.js_interop) 'platforms/tray/web.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:tray_manager/tray_manager.dart';
 
 import '../app/config.dart';
 import '../constants/constants.dart';
-import '../enums/enums.dart';
 import '../i18n/i18n.g.dart';
 import '../logger/logger.dart';
 import '../pages/pages.dart';
@@ -112,22 +112,14 @@ class MainApp extends StatefulWidget {
   State<MainApp> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> with TrayListener {
+class _MainAppState extends State<MainApp> {
   final TransitionBuilder easyLoadingBuilder = EasyLoading.init();
   final TransitionBuilder botToastBuilder = BotToastInit();
-
-  @override
-  void initState() {
-    trayManager.addListener(this);
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timestamp) async {
-      await initTrayMenu();
-    });
-  }
+  final TrayController _controller = TrayController();
 
   @override
   void dispose() {
-    trayManager.removeListener(this);
+    _controller.dispose();
     super.dispose();
   }
 
@@ -176,79 +168,5 @@ class _MainAppState extends State<MainApp> with TrayListener {
         );
       },
     );
-  }
-
-  Future<void> initTrayMenu() async {
-    if (!isDesktop) {
-      return;
-    }
-
-    final t = Translations.of(context);
-    final appName = t.appName(flavor: AppConfig.shared.flavor);
-    final trayIcon = isWindows
-        ? AppConfig.shared.trayIcon
-        : AppConfig.shared.trayLogo;
-    await trayManager.setIcon(trayIcon);
-
-    final menu = Menu(
-      items: [
-        MenuItem(
-          key: Menus.about.name,
-          label: t.menus.about(appName: appName),
-        ),
-        MenuItem.separator(),
-        MenuItem(
-          key: Menus.settings.name,
-          label: t.dialogs.settingsDialog.settings,
-        ),
-        MenuItem.separator(),
-        MenuItem.submenu(
-          key: Menus.help.name,
-          label: t.menus.help,
-          submenu: Menu(
-            items: [
-              MenuItem(key: Menus.support.name, label: t.menus.support),
-              MenuItem(
-                key: Menus.userAgreement.name,
-                label: t.menus.userAgreement,
-              ),
-              MenuItem(key: Menus.privacy.name, label: t.menus.privacy),
-              MenuItem.separator(),
-              MenuItem(key: Menus.debug.name, label: t.menus.debug),
-            ],
-          ),
-        ),
-        MenuItem.separator(),
-        MenuItem(
-          key: Menus.exit.name,
-          label: t.menus.exit(appName: appName),
-        ),
-      ],
-    );
-    await trayManager.setContextMenu(menu);
-  }
-
-  @override
-  Future<void> onTrayIconMouseDown() async {
-    await trayManager.popUpContextMenu();
-  }
-
-  @override
-  Future<void> onTrayMenuItemClick(MenuItem menuItem) async {
-    if (menuItem.key == Menus.about.name) {
-      await DialogUtil.showAboutModal();
-    } else if (menuItem.key == Menus.settings.name) {
-      await DialogUtil.showSettingsModal();
-    } else if (menuItem.key == Menus.support.name) {
-      await gotoSupportPage();
-    } else if (menuItem.key == Menus.userAgreement.name) {
-      await gotoTermsOfUsePage();
-    } else if (menuItem.key == Menus.privacy.name) {
-      await gotoPrivacyPage();
-    } else if (menuItem.key == Menus.debug.name) {
-      await DialogUtil.openDebugPage();
-    } else if (menuItem.key == Menus.exit.name) {
-      exitApp();
-    }
   }
 }
