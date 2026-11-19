@@ -42,7 +42,7 @@ dependencies:
   image_gallery_saver_plus: ^5.1.1
   image_picker: ^1.2.3
   keyboard_dismisser: ^3.0.0
-  menu_bar: ^0.5.3
+  menu_bar: ^1.0.0
   multi_image_picker_view: ^3.0.0
   package_info_plus: ^10.2.1
   permission_handler: ^12.0.3
